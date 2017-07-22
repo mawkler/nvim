@@ -105,7 +105,7 @@ nmap <C-j> o<Esc>
 nmap <C-k> O<Esc>
 map <C-s> :w<CR>
 map! <A-BS> <C-w>
-imap <A-S-BS> <C-o>de
+imap <A-S-BS> <C-o>dw
 nmap <A-BS> db
 nmap <A-S-BS> dw
 map <M-d> dw
