@@ -92,6 +92,7 @@ map <leader>Y "+Y
 map <leader>p "+p
 map <leader>P "+P
 map <leader><C-w> :NERDTreeClose<CR>:bdelete<CR>
+map <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
 map <C-Q> :qa<CR>
 nmap <Tab> ==
 vmap <Tab> =gv
