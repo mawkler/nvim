@@ -258,8 +258,9 @@ set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
 
 "Ericsson
 set swapfile
-set directory^=~/.vim/tmp//
+"set directory^=~/.vim/tmp//
 
+"Don't forget to run the following: mkdir ~/.vim/backup ~/.vim/swap ~/.vim/undo
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
