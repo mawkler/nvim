@@ -10,7 +10,7 @@ Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
-Plugin 'joshdick/onedark.vim'
+Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
 Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -26,26 +26,26 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'vim-scripts/AutoComplPop'
+Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestsions
 "Plugin 'Shutnik/jshint2.vim'
 Plugin 'vim-syntastic/syntastic'
 "Plugin 'scrooloose/syntastic'
-Plugin 'ervandew/supertab'
-Plugin 'ap/vim-buftabline'
+Plugin 'ervandew/supertab' "
+Plugin 'ap/vim-buftabline'             "Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'drmingdrmer/vim-tabbar'
 Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
-Plugin 'ihacklog/HiCursorWords'
+Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
 
-"For SnipMate
+"For SnipMate "----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-"SnipMate ends here
+"------------------------------------
 
 Plugin 'ryanoasis/nerd-fonts'
 
@@ -68,8 +68,8 @@ set completeopt=longest,menuone
 
 "Tab characters
 filetype plugin indent on "show existing tab with 4 spaces width
-set tabstop=4 "when indenting with '>', use 4 spaces width
-set shiftwidth=2 "On pressing tab, insert 2 spaces
+"set tabstop=4 "when indenting with '>', use 4 spaces width
+"set shiftwidth=2 "On pressing tab, insert 2 spaces
 "set expandtab
 
 "Search insensetive
@@ -143,6 +143,7 @@ imap <M-k> <Up>
 imap <M-l> <Right>
 imap <M-o> <C-o>o
 imap <M-O> <C-o>O
+"map <C-n> <C-n>
 
 "Enable numbering
 set number
@@ -266,8 +267,8 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 ":set list lcs=tab:\|\
-set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces 
-"set autoindent expandtab tabstop=4 shiftwidth=2  "use spaces instead of tabs
+"set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces
+set autoindent expandtab tabstop=4 shiftwidth=2  "use spaces instead of tabs
 set autoread
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
 "set autochdir
@@ -297,3 +298,7 @@ set incsearch "Search while typing
 let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy may cause lag
 
 imap <C-c> <Plug>CapsLockToggle
+
+"Attempt to fix conflict between multiple_cursors and AutoComplPop
+"nnoremap <C-m> :call multiple_cursors#new()<CR>
+"xnoremap <C-m> :call multiple_cursors#new()<CR>
