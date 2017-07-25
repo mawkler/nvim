@@ -106,7 +106,6 @@ nmap <C-k> O<Esc>
 map <C-s> :w<CR>
 map! <A-BS> <C-w>
 imap <A-S-BS> <C-o>dw
-nmap <A-BS> db
 nmap <A-S-BS> dw
 map <M-d> dw
 map <C-Space> <Esc>
@@ -176,6 +175,7 @@ let g:Powerline_symbols='unicode'
 
 "NERDTree
 "autocmd vimenter * NERDTree
+let NERDTreeIgnore = ['\.pyc$']
 
 "vim-devicons, doesn't seem to work
 let g:webdevicons_enable = 1
