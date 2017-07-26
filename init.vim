@@ -1,8 +1,9 @@
 "Vundle plugins
-"
+
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=/home/emelost/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -14,7 +15,11 @@ Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
 Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ryanoasis/vim-devicons'
+if $HOSTNAME != "esekilxv7127"
+    Plugin 'ryanoasis/vim-devicons'
+    Plugin 'Valloric/MatchTagAlways'
+    Plugin 'ryanoasis/nerd-fonts'
+endif
 "Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
@@ -24,7 +29,6 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'Valloric/MatchTagAlways'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestsions
 "Plugin 'Shutnik/jshint2.vim'
@@ -47,7 +51,6 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 "------------------------------------
 
-Plugin 'ryanoasis/nerd-fonts'
 
 "Ericsson
 Plugin 'Yggdroot/indentLine'
@@ -82,8 +85,6 @@ let mapleader = "\<Space>"
 map <C-Tab> :bnext<CR>
 map <C-S-Tab> :bprevious<CR>
 nmap <silent> § :NERDTreeToggle<CR>
-nmap <C-'> <leader>c<space>
-vmap <C-'> <leader>c<space>
 nmap <C-CR> <leader>c<space>
 vmap <C-CR> <leader>c<space>
 imap <C-CR> <Up><End><CR>
@@ -165,11 +166,9 @@ set shortmess+=A "Ignores swapfiles
 
 "Airline
 set laststatus=2
-"set guifont=Liberation\ Mono\ for\ Powerline\ 12
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
-"set guifont=12
-let g:airline_powerline_fonts = 1
+set guifont=Monospace\ 12
+"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+"let g:airline_powerline_fonts = 1
 let g:Powerline_symbols='unicode'
 
 
@@ -190,9 +189,9 @@ set guioptions-=m
 set guioptions-=L
 
 "Start in maximized window
-if has("gui_running")
-    set lines=999 columns=999
-endif
+"if has("gui_running")
+    "set lines=999 columns=999
+"endif
 
 "YouCompleteMe
 "let g:ycm_path_to_python_interpreter = '/usr/bin/python'
@@ -235,7 +234,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 "Supertab
-"let g:SuperTabCrMapping = 1
+let g:SuperTabCrMapping = 1
 let g:SuperTabMappingForward = '<C-S-space>'
 let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
@@ -260,9 +259,8 @@ set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
 
 "Ericsson
 set swapfile
-"set directory^=~/.vim/tmp//
+set directory^=~/.vim/tmp//
 
-"Don't forget to run the following: mkdir ~/.vim/backup ~/.vim/swap ~/.vim/undo
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
@@ -302,3 +300,7 @@ imap <C-c> <Plug>CapsLockToggle
 "Attempt to fix conflict between multiple_cursors and AutoComplPop
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
+
+if !empty(glob("~/.vimrc.ericsson")) "If ~/.vimrc.ericsson exists
+	source ~/.vimrc.ericsson
+endif
