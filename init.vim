@@ -56,6 +56,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/capslock.vim'
+Plugin 'junegunn/vim-easy-align'
 
 call vundle#end()
 filetype plugin indent on
@@ -81,74 +82,74 @@ set smartcase
 
 "Key mapping
 set hidden
-let mapleader = "\<Space>"
-map <C-Tab> :bnext<CR>
-map <C-S-Tab> :bprevious<CR>
-nmap <silent> § :NERDTreeToggle<CR>
-nmap <C-CR> <leader>c<space>
-vmap <C-CR> <leader>c<space>
-imap <C-CR> <Up><End><CR>
-map <leader>y "+y
-map <leader>Y "+Y
-map <leader>p "+p
-map <leader>P "+P
-map <leader><C-w> :NERDTreeClose<CR>:bdelete<CR>
+let mapleader       = "\<Space>"
+map <C-Tab>         :bnext<CR>
+map <C-S-Tab>       :bprevious<CR>
+nmap <silent>       § :NERDTreeToggle<CR>
+nmap <C-CR>         <leader>c<space>
+vmap <C-CR>         <leader>c<space>
+imap <C-CR>         <Up><End><CR>
+map <leader>y       "+y
+map <leader>Y       "+Y
+map <leader>p       "+p
+map <leader>P       "+P
+map <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
 map <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
-map <C-Q> :qa<CR>
-nmap <Tab> ==
-vmap <Tab> =gv
-nmap <S-Tab> <<
-vmap <S-Tab> <gv
-imap <S-Tab> <C-o><<
-map <CR> <C-w><C-w>
-map <S-CR> <C-w>W
-nmap <C-j> o<Esc>
-nmap <C-k> O<Esc>
-map <C-s> :w<CR>
-map! <A-BS> <C-w>
-imap <A-S-BS> <C-o>dw
-nmap <A-S-BS> dw
-map <M-d> dw
-map <C-Space> <Esc>
-imap <C-Space> <Esc>
-imap <C-f> <Right>
-imap <M-f> <C-Right>
-imap <C-b> <Left>
-imap <M-b> <C-Left>
-map <M-j> :move +1<CR>
-map <M-k> :move -2<CR>
-imap <C-j> <CR>
-autocmd FileType Python nmap <Tab> >>
-autocmd FileType Python vmap <Tab> >gv
-nmap ö ciw
-nmap Ö ciW
-nmap ä viw
-nmap Ä viW
-nmap å ci(
-nmap Å ci"
-nmap <C-c> <Nop>
+map <C-Q>           :qa<CR>
+nmap <Tab>          ==
+vmap <Tab>          =gv
+nmap <S-Tab>        <<
+vmap <S-Tab>        <gv
+imap <S-Tab>        <C-o><<
+map <CR>            <C-w><C-w>
+map <S-CR>          <C-w>W
+nmap <C-j>          o<Esc>
+nmap <C-k>          O<Esc>
+map <C-s>           :w<CR>
+map! <A-BS>         <C-w>
+imap <A-S-BS>       <C-o>dw
+nmap <A-S-BS>       dw
+map <M-d>           dw
+map <C-Space>       <Esc>
+imap <C-Space>      <Esc>
+imap <C-f>          <Right>
+imap <M-f>          <C-Right>
+imap <C-b>          <Left>
+imap <M-b>          <C-Left>
+map <M-j>           :move +1<CR>
+map <M-k>           :move -2<CR>
+imap <C-j>          <CR>
+autocmd FileType    Python nmap <Tab> >>
+autocmd FileType    Python vmap <Tab> >gv
+nmap ö              ciw
+nmap Ö              ciW
+nmap ä              viw
+nmap Ä              viW
+nmap å              ci(
+nmap Å              ci"
+nmap <C-c>          <Nop>
 "vim-surround
-vmap s <Plug>VSurround
-vmap S <Plug>VgSurround
-nmap s ys
-nmap S yS
+vmap s              <Plug>VSurround
+vmap S              <Plug>VgSurround
+nmap s              ys
+nmap S              yS
 "------------
-vmap < <gv
-vmap > >gv
-map <Leader>v :source ~/.vimrc<CR>
-map <Leader>V :edit ~/.vimrc<CR>
-imap <M-h> <Left>
-imap <M-j> <Down>
-imap <M-k> <Up>
-imap <M-l> <Right>
-imap <M-o> <C-o>o
-imap <M-O> <C-o>O
+vmap <              <gv
+vmap >              >gv
+map <Leader>v       :source ~/.vimrc<CR>
+map <Leader>V       :edit ~/.vimrc<CR>
+imap <M-h>          <Left>
+imap <M-j>          <Down>
+imap <M-k>          <Up>
+imap <M-l>          <Right>
+imap <M-o>          <C-o>o
+imap <M-O>          <C-o>O
 "map <C-n> <C-n>
 
 "Enable numbering
 set number
 set relativenumber
-hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
+hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
 "Cursor highlighting
 set cursorline
@@ -297,10 +298,16 @@ let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy 
 
 imap <C-c> <Plug>CapsLockToggle
 
+"Vim-easy-align
+"Start in visual mode (e.g. vipga):
+xmap ga <Plug>(EasyAlign)
+"Start for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 "Attempt to fix conflict between multiple_cursors and AutoComplPop
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
 if !empty(glob("~/.vimrc.ericsson")) "If ~/.vimrc.ericsson exists
-	source ~/.vimrc.ericsson
+  source ~/.vimrc.ericsson
 endif
