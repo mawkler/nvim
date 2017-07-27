@@ -298,18 +298,18 @@ let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy 
 
 imap <C-c> <Plug>CapsLockToggle
 
-"Vim-easy-align --------------------------
+"Vim-easy-align
 "Start in visual mode (e.g. vipga):
 xmap ga <Plug>(EasyAlign)
 "Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-"Vim-easymoion ---------------------------
+"Vim-easymoion
 "<Leader>f{char} to move to {char}:
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 "s{char}{char} to move to {char}{char}:
-nmap s <Plug>(easymotion-overwin-f2)
+nmap <Leader>s <Plug>(easymotion-overwin-f2)
 "Move to line:
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
