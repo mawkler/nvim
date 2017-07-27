@@ -106,9 +106,10 @@ map <S-CR>          <C-w>W
 nmap <C-j>          o<Esc>
 nmap <C-k>          O<Esc>
 map <C-s>           :w<CR>
+nmap <A-BS>         db
 map! <A-BS>         <C-w>
-imap <A-S-BS>       <C-o>dw
 nmap <A-S-BS>       dw
+imap <A-S-BS>       <C-o>dw
 map <M-d>           dw
 map <C-Space>       <Esc>
 imap <C-Space>      <Esc>
@@ -243,12 +244,10 @@ imap <Tab> <Plug>snipMateNextOrTrigger
 
 "CtrlP
 let g:ctrlp_show_hidden = 1
-"let g:ctrlp_custom_ignore = 'node_modules\|git\|sass-cache'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|svn)$',
-  \ 'file': '\v\.(exe|svn|swp|swo|dll)$',
+  \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
+  \ 'file': '\v\.(exe|swp|swo|dll)$',
   \ }
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:ctrlp_max_depth = 100
 let g:ctrlp_working_path_mode = ""
 
