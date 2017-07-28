@@ -145,6 +145,7 @@ imap <M-k>          <Up>
 imap <M-l>          <Right>
 imap <M-o>          <C-o>o
 imap <M-O>          <C-o>O
+nmap gF             :e <C-r>+<CR>
 "map <C-n> <C-n>
 
 "Enable numbering
