@@ -57,6 +57,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
+Plugin 'ivalkeen/vim-ctrlp-tjump'
 
 call vundle#end()
 filetype plugin indent on
@@ -252,6 +253,12 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_max_depth = 100
 let g:ctrlp_working_path_mode = ""
+
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor                  " Use ag over grep
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_use_caching = 0                           " ag is fast enough that CtrlP doesn't need to cache
+endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
 "set guicursor=i:blinkwait700-blinkon700-blinkoff450
