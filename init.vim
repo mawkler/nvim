@@ -129,12 +129,12 @@ nmap Ä              viW
 nmap å              ci(
 nmap Å              ci"
 nmap <C-c>          <Nop>
-"vim-surround
+"vim-surround-----------------------------
 vmap s              <Plug>VSurround
 vmap S              <Plug>VgSurround
 nmap s              ys
 nmap S              yS
-"------------
+"------------------------------------------
 vmap <              <gv
 vmap >              >gv
 map <Leader>v       :source ~/.vimrc<CR>
@@ -146,6 +146,7 @@ imap <M-l>          <Right>
 imap <M-o>          <C-o>o
 imap <M-O>          <C-o>O
 nmap gF             :e <C-r>+<CR>
+nmap <leader>F      :let @+ = expand("%")<CR>
 "map <C-n> <C-n>
 
 "Enable numbering
@@ -294,7 +295,7 @@ set incsearch "Search while typing
 
 "Underlines AutoHighligted word:
 "highlight Search guibg=NONE guifg=NONE gui=underline
-let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy may cause lag
+let g:HiCursorWords_delay = 10000000 "Delay after highlighting current word, low dealy may cause lag
 
 imap <C-c> <Plug>CapsLockToggle
 
