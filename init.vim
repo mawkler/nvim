@@ -15,7 +15,7 @@ Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
 Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-if $HOSTNAME != "esekilxv7127"
+if hostname() != "esekilxv7127"
     Plugin 'ryanoasis/vim-devicons'
     Plugin 'Valloric/MatchTagAlways'
     Plugin 'ryanoasis/nerd-fonts'
@@ -170,11 +170,13 @@ set encoding=utf8
 set shortmess+=A "Ignores swapfiles
 
 "Airline
-set laststatus=2
-set guifont=Monospace\ 12
-"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-"let g:airline_powerline_fonts = 1
-let g:Powerline_symbols='unicode'
+set laststatus=2 "Always display status line
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+if hostname() == "esekilxv7127"
+  set guifont=Monospace\ 12
+endif
+let g:airline_powerline_fonts = 1
+let g:Powerline_symbols = 'unicode'
 
 
 "NERDTree
@@ -247,17 +249,16 @@ imap <Tab> <Plug>snipMateNextOrTrigger
 
 "CtrlP
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
-  \ 'file': '\v\.(exe|swp|swo|dll)$',
-  \ }
 let g:ctrlp_max_depth = 100
 let g:ctrlp_working_path_mode = ""
-
 if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor                  " Use ag over grep
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_use_caching = 0                           " ag is fast enough that CtrlP doesn't need to cache
+  set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+else
+  let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
+    \ 'file': '\v\.(exe|swp|swo|dll)$',
+    \ }
 endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
