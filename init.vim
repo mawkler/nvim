@@ -163,8 +163,8 @@ set scrolloff=8
 
 "Themes
 colorscheme onedark
-let g:onedark_termcolors=256
-let g:airline_theme='onedark'
+let g:onedark_termcolors = 256
+let g:airline_theme      = 'onedark'
 
 set encoding=utf8
 set shortmess+=A "Ignores swapfiles
@@ -172,11 +172,11 @@ set shortmess+=A "Ignores swapfiles
 "Airline
 set laststatus=2 "Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-if hostname() == "esekilxv7127"
+if hostname() == 'esekilxv7127'
   set guifont=Monospace\ 12
 endif
 let g:airline_powerline_fonts = 1
-let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols       = 'unicode'
 
 
 "NERDTree
@@ -184,9 +184,9 @@ let g:Powerline_symbols = 'unicode'
 let NERDTreeIgnore = ['\.pyc$']
 
 "vim-devicons, doesn't seem to work
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable                    = 1
+let g:webdevicons_enable_nerdtree           = 1
+let g:webdevicons_enable_airline_tabline    = 1
 let g:webdevicons_enable_airline_statusline = 1
 
 "Disable toolbar, scrollbar and menubar
@@ -207,7 +207,7 @@ set guioptions-=L
 
 "Emmet
 let g:user_emmet_install_global = 1
-let g:user_emmet_mode = 'a'    "enable all function in all mode.
+let g:user_emmet_mode           = 'a' "enable all function in all mode.
 
 "Gitgutter
 set updatetime=100
@@ -219,13 +219,11 @@ let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 call yankstack#setup()
 
 "AutoPairs disable <M-p>
-let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 
 "Vim-tabbar colorscheme
 hi default link BufTabLineCurrent Pmenu
-"hi default link BufTabLineCurrent PmenuSel
-"hi default link BufTabLineCurrent StatusLine
 hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
@@ -241,16 +239,17 @@ let g:syntastic_check_on_open            = 1
 let g:syntastic_check_on_wq              = 0
 let g:syntastic_enable_highlighting      = 1
 
-"Supertab
-let g:SuperTabCrMapping = 1
-let g:SuperTabMappingForward = ''
+"Supertab and Snipmate
+let g:SuperTabCrMapping             = 1
+let g:SuperTabMappingForward        = '<C-n>'
+let g:SuperTabMappingBackward       = '<C-b>'
 let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
 
 "CtrlP
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_max_depth = 100
+let g:ctrlp_show_hidden       = 1
+let g:ctrlp_max_depth         = 100
 let g:ctrlp_working_path_mode = ""
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
@@ -264,15 +263,12 @@ else
 endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
-"set guicursor=i:blinkwait700-blinkon700-blinkoff450
-"set guicursor=i:ver25-iCursor "Doesn't work for some reason
 
 
 
 "Ericsson
 set swapfile
 set directory^=~/.vim/tmp//
-
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
@@ -286,21 +282,21 @@ set backspace=indent,eol,start
 autocmd FileType python set expandtab
 
 "indentLine
-autocmd FileType json let g:indentLine_enabled = 0
+autocmd FileType json let g:indentLine_enabled   = 0
 autocmd FileType python let g:indentLine_enabled = 1
 "let g:indentLine_setColors = 0
 let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#4b5263'
-let g:indentLine_char = '|'
+let g:indentLine_color_gui  = '#4b5263'
+let g:indentLine_char       = '|'
 "let g:syntastic_python_checkers=["flake8"]
 """g:vim_json_syntax_conceal = 0
 set incsearch "Search while typing
 
 "Underlines AutoHighligted word:
 "highlight Search guibg=NONE guifg=NONE gui=underline
-let g:HiCursorWords_delay = 10000000 "Delay after highlighting current word, low dealy may cause lag
+let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy may cause lag
 
-imap <C-c> <Plug>CapsLockToggle
+imap <C-C> <Plug>CapsLockToggle
 
 "Vim-easy-align
 "Start in visual mode (e.g. vipga):
@@ -315,7 +311,7 @@ nmap <Leader>f <Plug>(easymotion-overwin-f)
 "s{char}{char} to move to {char}{char}:
 nmap <Leader>s <Plug>(easymotion-overwin-f2)
 "Move to line:
-map <Leader>L <Plug>(easymotion-bd-jk)
+map  <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 "Move to word:
 map  <Leader>w <Plug>(easymotion-bd-w)
