@@ -3,7 +3,6 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
-set rtp+=/home/emelost/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -65,8 +64,8 @@ syntax on
 
 "------------------------------------------------------------------------------
 
-"Disable backing of cursor when exiting insert mode
-":inoremap <silent> <Esc> <Esc>`^
+"File imports
+source .vim/visual-at.vim
 
 "Autocompletion
 set completeopt=longest,menuone
@@ -148,6 +147,7 @@ imap <M-o>          <C-o>o
 imap <M-O>          <C-o>O
 nmap gF             :e <C-r>+<CR>
 nmap <leader>F      :let @+ = expand("%")<CR>
+vnoremap .          :normal .<CR>
 "map <C-n> <C-n>
 
 "Enable numbering
@@ -236,9 +236,10 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_loc_list            = 1
+let g:syntastic_check_on_open            = 1
+let g:syntastic_check_on_wq              = 0
+let g:syntastic_enable_highlighting      = 1
 
 "Supertab
 let g:SuperTabCrMapping = 1
@@ -294,13 +295,6 @@ let g:indentLine_char = '|'
 "let g:syntastic_python_checkers=["flake8"]
 """g:vim_json_syntax_conceal = 0
 set incsearch "Search while typing
-
-"" Visual-at.vim
-"noremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-"function! ExecuteMacroOverVisualRange()
-  "echo "@".getcmdline()
-  "execute ":'<,'>normal @".nr2char(getchar())
-"endfunction
 
 "Underlines AutoHighligted word:
 "highlight Search guibg=NONE guifg=NONE gui=underline
