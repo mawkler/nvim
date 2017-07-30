@@ -81,73 +81,73 @@ set ignorecase
 set smartcase
 
 "Key mapping
-set hidden
-let mapleader       = "\<Space>"
-map <C-Tab>         :bnext<CR>
-map <C-S-Tab>       :bprevious<CR>
-nmap <silent>       § :NERDTreeToggle<CR>
-nmap <C-CR>         <leader>c<space>
-vmap <C-CR>         <leader>c<space>
-imap <C-CR>         <Up><End><CR>
-map <leader>y       "+y
-map <leader>Y       "+Y
-map <leader>p       "+p
-map <leader>P       "+P
-map <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
-map <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
-map <C-Q>           :qa<CR>
-nmap <Tab>          ==
-vmap <Tab>          =gv
-nmap <S-Tab>        <<
-vmap <S-Tab>        <gv
-imap <S-Tab>        <C-o><<
-map <CR>            <C-w><C-w>
-map <S-CR>          <C-w>W
-nmap <C-j>          o<Esc>
-nmap <C-k>          O<Esc>
-map <C-s>           :w<CR>
-nmap <A-BS>         db
-map! <A-BS>         <C-w>
-nmap <A-S-BS>       dw
-imap <A-S-BS>       <C-o>dw
-map <M-d>           dw
-map <C-Space>       <Esc>
-imap <C-Space>      <Esc>
-imap <C-f>          <Right>
-imap <M-f>          <C-Right>
-imap <C-b>          <Left>
-imap <M-b>          <C-Left>
-map <M-j>           :move +1<CR>
-map <M-k>           :move -2<CR>
-imap <C-j>          <CR>
-autocmd FileType    Python nmap <Tab> >>
-autocmd FileType    Python vmap <Tab> >gv
-nmap ö              ciw
-nmap Ö              ciW
-nmap ä              viw
-nmap Ä              viW
-nmap å              ci(
-nmap Å              ci"
-nmap <C-c>          <Nop>
-"vim-surround-----------------------------
-vmap s              <Plug>VSurround
-vmap S              <Plug>VgSurround
-nmap s              ys
-nmap S              yS
-"------------------------------------------
-vmap <              <gv
-vmap >              >gv
-map <Leader>v       :source ~/.vimrc<CR>
-map <Leader>V       :edit ~/.vimrc<CR>
-imap <M-h>          <Left>
-imap <M-j>          <Down>
-imap <M-k>          <Up>
-imap <M-l>          <Right>
-imap <M-o>          <C-o>o
-imap <M-O>          <C-o>O
-nmap gF             :e <C-r>+<CR>
-nmap <leader>F      :let @+ = expand("%")<CR>
-vnoremap .          :normal .<CR>
+set      hidden
+let      mapleader       = "\<Space>"
+map      <C-Tab>         :bnext<CR>
+map      <C-S-Tab>       :bprevious<CR>
+nmap     <silent>        § :NERDTreeToggle<CR>
+nmap     <C-CR>          <leader>c<space>
+vmap     <C-CR>          <leader>c<space>
+imap     <C-CR>          <Up><End><CR>
+map      <leader>y       "+y
+map      <leader>Y       "+Y
+map      <leader>p       "+p
+map      <leader>P       "+P
+map      <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
+map      <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
+map      <C-Q>           :qa<CR>
+nmap     <Tab>           ==
+vmap     <Tab>           =gv
+nmap     <S-Tab>         <<
+vmap     <S-Tab>         <gv
+imap     <S-Tab>         <C-o><<
+map      <CR>            <C-w><C-w>
+map      <S-CR>          <C-w>W
+nmap     <C-j>           o<Esc>
+nmap     <C-k>           O<Esc>
+map      <C-s>           :w<CR>
+nmap     <A-BS>          db
+map!     <A-BS>          <C-w>
+nmap     <A-S-BS>        dw
+imap     <A-S-BS>        <C-o>dw
+map      <M-d>           dw
+map      <C-Space>       <Esc>
+imap     <C-Space>       <Esc>
+imap     <C-f>           <Right>
+imap     <M-f>           <C-Right>
+imap     <C-b>           <Left>
+imap     <M-b>           <C-Left>
+map      <M-j>           :move +1<CR>
+map      <M-k>           :move -2<CR>
+imap     <C-j>           <CR>
+autocmd  FileType        Python nmap <Tab> >>
+autocmd  FileType        Python vmap <Tab> >gv
+nmap     ö               ciw
+nmap     Ö               ciW
+nmap     ä               viw
+nmap     Ä               viW
+nmap     å               ci(
+nmap     Å               ci"
+nmap     <C-c>           <Nop>
+"vim-surround----------------------------------
+vmap     s               <Plug>VSurround
+vmap     S               <Plug>VgSurround
+nmap     s               ys
+nmap     S               yS
+"----------------------------------------------
+vmap     <               <gv
+vmap     >               >gv
+map      <Leader>v       :source ~/.vimrc<CR>
+map      <Leader>V       :edit ~/.vimrc<CR>
+imap     <M-h>           <Left>
+imap     <M-j>           <Down>
+imap     <M-k>           <Up>
+imap     <M-l>           <Right>
+imap     <M-o>           <C-o>o
+imap     <M-O>           <C-o>O
+nmap     gF              :e <C-r>+<CR>
+nmap     <leader>F       :let @+ = expand("%")<CR>
+vnoremap .               :normal .<CR>
 "map <C-n> <C-n>
 
 "Enable numbering
@@ -243,7 +243,7 @@ let g:syntastic_enable_highlighting      = 1
 
 "Supertab
 let g:SuperTabCrMapping = 1
-let g:SuperTabMappingForward = '<C-S-space>'
+let g:SuperTabMappingForward = ''
 let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
