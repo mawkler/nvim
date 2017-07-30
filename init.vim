@@ -32,8 +32,7 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestsions
 "Plugin 'Shutnik/jshint2.vim'
 Plugin 'vim-syntastic/syntastic'
-"Plugin 'scrooloose/syntastic'
-Plugin 'ervandew/supertab' "
+Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             "Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'fholgado/minibufexpl.vim'
@@ -68,7 +67,7 @@ syntax on
 source .vim/visual-at.vim
 
 "Autocompletion
-set completeopt=longest,menuone
+"set completeopt=longest,menuone "Seems to be causing bug error with multiple-cursors
 
 "Tab characters
 filetype plugin indent on "show existing tab with 4 spaces width
