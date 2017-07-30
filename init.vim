@@ -254,6 +254,7 @@ let g:ctrlp_working_path_mode = ""
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_use_caching = 0                                    " ag is fast enough that CtrlP doesn't need to cache
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
