@@ -64,7 +64,7 @@ syntax on
 "------------------------------------------------------------------------------
 
 "File imports
-source .vim/visual-at.vim
+source ~/.vim/visual-at.vim
 
 "Autocompletion
 "set completeopt=longest,menuone "Seems to be causing bug error with multiple-cursors
@@ -147,18 +147,14 @@ imap     <M-O>           <C-o>O
 nmap     gF              :e <C-r>+<CR>
 nmap     <leader>F       :let @+ = expand("%")<CR>
 vnoremap .               :normal .<CR>
-"map <C-n> <C-n>
 
 "Enable numbering
 set number
 set relativenumber
 hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
-"Cursor highlighting
-set cursorline
-
-"Scrolloff (cursor margin)
-set scrolloff=8
+set cursorline  "Cursor highlighting
+set scrolloff=8 "Cursor margin
 
 "Themes
 colorscheme onedark
@@ -166,16 +162,16 @@ let g:onedark_termcolors = 256
 let g:airline_theme      = 'onedark'
 
 set encoding=utf8
-set shortmess+=A "Ignores swapfiles
 
 "Airline
 set laststatus=2 "Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 if hostname() == 'esekilxv7127'
   set guifont=Monospace\ 12
+else
+  let g:airline_powerline_fonts = 1
 endif
-let g:airline_powerline_fonts = 1
-let g:Powerline_symbols       = 'unicode'
+let g:Powerline_symbols = 'unicode'
 
 
 "NERDTree
@@ -249,7 +245,8 @@ imap <Tab> <Plug>snipMateNextOrTrigger
 "CtrlP
 let g:ctrlp_show_hidden       = 1
 let g:ctrlp_max_depth         = 100
-let g:ctrlp_working_path_mode = ""
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_max_height = 12
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
@@ -257,8 +254,9 @@ if executable('ag')
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
-    \ 'file': '\v\.(exe|swp|swo|dll)$',
+    \ 'file': '\v\.(exe|sw.|dll|pyc)$',
     \ }
+  nmap <C-M-p> :CtrlP ~/servit/radiosw/external/xRU/database/<CR>
 endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
@@ -271,12 +269,14 @@ set directory^=~/.vim/tmp//
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+set shortmess+=A "Ignores swapfiles when opening file
+
 ":set list lcs=tab:\|\
 "set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces
 set autoindent expandtab tabstop=4 shiftwidth=2  "use spaces instead of tabs
 set autoread
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
-"set autochdir
+"set autochdir "Change the directory to the current file's
 set backspace=indent,eol,start
 autocmd FileType python set expandtab
 
@@ -320,6 +320,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
-if !empty(glob("~/.vimrc.ericsson")) "If ~/.vimrc.ericsson exists
+if !empty(glob('~/.vimrc.ericsson')) "If ~/.vimrc.ericsson exists
   source ~/.vimrc.ericsson
 endif
