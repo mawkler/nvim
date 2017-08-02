@@ -155,6 +155,7 @@ hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
 set cursorline  "Cursor highlighting
 set scrolloff=8 "Cursor margin
+set textwidth=0 "Disable auto line breaking
 
 "Themes
 colorscheme onedark
