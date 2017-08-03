@@ -177,7 +177,7 @@ let g:Powerline_symbols = 'unicode'
 
 "NERDTree
 "autocmd vimenter * NERDTree
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', 'radiosw$']
 
 "vim-devicons, doesn't seem to work
 let g:webdevicons_enable                    = 1
