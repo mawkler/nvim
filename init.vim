@@ -138,6 +138,7 @@ vmap     <               <gv
 vmap     >               >gv
 map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
+map      <Leader>Z       :edit ~/.zshrc<CR>
 imap     <M-h>           <Left>
 imap     <M-j>           <Down>
 imap     <M-k>           <Up>
@@ -167,11 +168,6 @@ set encoding=utf8
 "Airline
 set laststatus=2 "Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-if hostname() == 'esekilxv7127'
-  set guifont=Monospace\ 12
-else
-  let g:airline_powerline_fonts = 1
-endif
 let g:Powerline_symbols = 'unicode'
 
 
@@ -272,9 +268,11 @@ set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 set shortmess+=A "Ignores swapfiles when opening file
 
-":set list lcs=tab:\|\
+
+
+set list lcs=tab:\|\ "Show line for each tab indentation
 "set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces
-set autoindent expandtab tabstop=4 shiftwidth=2  "use spaces instead of tabs
+set autoindent expandtab tabstop=4 shiftwidth=2    "use spaces instead of tabs
 set autoread
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
 "set autochdir "Change the directory to the current file's
@@ -321,6 +319,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
-if !empty(glob('~/.vimrc.ericsson')) "If ~/.vimrc.ericsson exists
+if !empty(glob('~/.vimrc.ericsson'))
   source ~/.vimrc.ericsson
 endif
