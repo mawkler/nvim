@@ -104,7 +104,9 @@ map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 nmap     <C-j>           o<Esc>
 nmap     <C-k>           O<Esc>
-map      <C-s>           :w<CR>
+nmap     <C-s>           :w<CR>
+imap     <C-s>           <C-o>:w<CR>
+vmap     <C-s>           <Esc>:w<CR>gv
 nmap     <A-BS>          db
 map!     <A-BS>          <C-w>
 nmap     <A-S-BS>        dw
