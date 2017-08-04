@@ -174,6 +174,8 @@ let g:Powerline_symbols = 'unicode'
 "NERDTree
 "autocmd vimenter * NERDTree
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$']
+"If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
+"autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
 
 "vim-devicons, doesn't seem to work
 let g:webdevicons_enable                    = 1
