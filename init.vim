@@ -67,7 +67,7 @@ syntax on
 source ~/.vim/visual-at.vim
 
 "Autocompletion
-"set completeopt=longest,menuone "Seems to be causing bug error with multiple-cursors
+set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
 
 "Tab characters
 filetype plugin indent on "show existing tab with 4 spaces width
@@ -75,9 +75,10 @@ filetype plugin indent on "show existing tab with 4 spaces width
 "set shiftwidth=2 "On pressing tab, insert 2 spaces
 "set expandtab
 
-"Search insensitive
-set ignorecase
-set smartcase
+"Searching
+set ignorecase "Case insensitive searching
+set smartcase  "Except for when searching in CAPS
+set incsearch  "Search while typing
 
 "Key mapping
 set hidden
@@ -126,6 +127,7 @@ map!     <M-h>           <Left>
 map!     <M-j>           <Down>
 map!     <M-k>           <Up>
 map!     <M-l>           <Right>
+map!     <M-w>           <C-Right>
 cmap     <C-a>           <Home>
 imap     <M-o>           <C-o>o
 imap     <M-O>           <C-o>O
@@ -176,7 +178,6 @@ set encoding=utf8
 set laststatus=2 "Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 let g:Powerline_symbols = 'unicode'
-
 
 "NERDTree
 "autocmd vimenter * NERDTree
@@ -265,8 +266,7 @@ else
   nmap <C-M-p> :CtrlP ~/servit/radiosw/external/xRU/database/<CR>
 endif
 
-set guicursor=n:blinkwait0 "Disables cursor blinking in visual mode
-
+set guicursor=n:blinkwait0 "Disables cursor blinking
 
 
 "Ericsson
@@ -276,8 +276,6 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 set shortmess+=A "Ignores swapfiles when opening file
-
-
 
 set list lcs=tab:\|\ "Show line for each tab indentation
 "set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces
@@ -297,7 +295,6 @@ let g:indentLine_color_gui  = '#4b5263'
 let g:indentLine_char       = '|'
 "let g:syntastic_python_checkers=["flake8"]
 """g:vim_json_syntax_conceal = 0
-set incsearch "Search while typing
 
 "Underlines AutoHighligted word:
 "highlight Search guibg=NONE guifg=NONE gui=underline
