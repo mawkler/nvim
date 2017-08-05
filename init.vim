@@ -75,16 +75,18 @@ filetype plugin indent on "show existing tab with 4 spaces width
 "set shiftwidth=2 "On pressing tab, insert 2 spaces
 "set expandtab
 
-"Search insensetive
+"Search insensitive
 set ignorecase
 set smartcase
 
 "Key mapping
-set      hidden
-let      mapleader       = "\<Space>"
+set hidden
+let mapleader = "\<Space>"
+
+nmap <silent> § :NERDTreeToggle<CR>
+
 map      <C-Tab>         :bnext<CR>
 map      <C-S-Tab>       :bprevious<CR>
-nmap     <silent>        § :NERDTreeToggle<CR>
 nmap     <C-CR>          <leader>c<space>
 vmap     <C-CR>          <leader>c<space>
 imap     <C-CR>          <Up><End><CR>
@@ -100,6 +102,8 @@ vmap     <Tab>           =gv
 nmap     <S-Tab>         <<
 vmap     <S-Tab>         <gv
 imap     <S-Tab>         <C-o><<
+autocmd  FileType        Python nmap <Tab> >>
+autocmd  FileType        Python vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 nmap     <C-j>           o<Esc>
@@ -112,17 +116,24 @@ map!     <A-BS>          <C-w>
 nmap     <A-S-BS>        dw
 imap     <A-S-BS>        <C-o>dw
 map      <M-d>           dw
-map      <C-Space>       <Esc>
-imap     <C-Space>       <Esc>
-imap     <C-f>           <Right>
-imap     <M-f>           <C-Right>
-imap     <C-b>           <Left>
-imap     <M-b>           <C-Left>
+imap     <C-j>           <CR>
+"Cursor movement in cmd and insert mode--------
+map!     <C-f>           <Right>
+map!     <M-f>           <C-Right>
+map!     <C-b>           <Left>
+map!     <M-b>           <C-Left>
+map!     <M-h>           <Left>
+map!     <M-j>           <Down>
+map!     <M-k>           <Up>
+map!     <M-l>           <Right>
+cmap     <C-a>           <Home>
+imap     <M-o>           <C-o>o
+imap     <M-O>           <C-o>O
+"----------------------------------------------
 map      <M-j>           :move +1<CR>
 map      <M-k>           :move -2<CR>
-imap     <C-j>           <CR>
-autocmd  FileType        Python nmap <Tab> >>
-autocmd  FileType        Python vmap <Tab> >gv
+map      <C-Space>       <Esc>
+imap     <C-Space>       <Esc>
 nmap     ö               ciw
 nmap     Ö               ciW
 nmap     ä               viw
@@ -141,12 +152,6 @@ vmap     >               >gv
 map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
 map      <Leader>Z       :edit ~/.zshrc<CR>
-imap     <M-h>           <Left>
-imap     <M-j>           <Down>
-imap     <M-k>           <Up>
-imap     <M-l>           <Right>
-imap     <M-o>           <C-o>o
-imap     <M-O>           <C-o>O
 nmap     gF              :e <C-r>+<CR>
 nmap     <leader>F       :let @+ = expand("%")<CR>
 vnoremap .               :normal .<CR>
