@@ -84,7 +84,11 @@ set incsearch  "Search while typing
 set hidden
 let mapleader = "\<Space>"
 
-nmap <silent> § :NERDTreeToggle<CR>
+nmap <silent> §     :NERDTreeToggle<CR>
+nmap <silent> <M-J> :move +1<CR>
+nmap <silent> <M-K> :move -2<CR>
+nmap <silent> <M-j> }
+nmap <silent> <M-k> {
 
 map      <C-Tab>         :bnext<CR>
 map      <C-S-Tab>       :bprevious<CR>
@@ -132,8 +136,6 @@ cmap     <C-a>           <Home>
 imap     <M-o>           <C-o>o
 imap     <M-O>           <C-o>O
 "----------------------------------------------
-map      <M-j>           :move +1<CR>
-map      <M-k>           :move -2<CR>
 map      <C-Space>       <Esc>
 imap     <C-Space>       <Esc>
 nmap     ö               ciw
@@ -155,10 +157,12 @@ map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
 map      <Leader>Z       :edit ~/.zshrc<CR>
 nmap     gF              :e <C-r>+<CR>
-nmap     <leader>F       :let @+ = expand("%")<CR>
+nmap     <leader>F       :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .               :normal .<CR>
+vnoremap //              y/<C-R>"<CR>
 
-"Enable numbering
+
+"Line numbering
 set number
 set relativenumber
 hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
@@ -260,14 +264,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0                                    " ag is fast enough that CtrlP doesn't need to cache
 else
   let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|google-chrome|mozilla|snapshot|kde|eclipse|m2)|node_modules|radiosw|chromium|trash|workspace)$',
+    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
     \ 'file': '\v\.(exe|sw.|dll|pyc)$',
     \ }
-  nmap <C-M-p> :CtrlP ~/servit/radiosw/external/xRU/database/<CR>
 endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking
-
+set virtualedit=onemore    "Allow for cursor beyond last character
 
 "Ericsson
 set swapfile
@@ -283,7 +286,7 @@ set autoindent expandtab tabstop=4 shiftwidth=2    "use spaces instead of tabs
 set autoread
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
 "set autochdir "Change the directory to the current file's
-set backspace=indent,eol,start
+set backspace=indent,eol,start "Better backspace
 autocmd FileType python set expandtab
 
 "indentLine
