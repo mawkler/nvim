@@ -56,6 +56,7 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ivalkeen/vim-ctrlp-tjump'
+Plugin 'ntpeters/vim-better-whitespace'
 
 call vundle#end()
 filetype plugin indent on
@@ -87,8 +88,6 @@ let mapleader = "\<Space>"
 nmap <silent> §     :NERDTreeToggle<CR>
 nmap <silent> <M-J> :move +1<CR>
 nmap <silent> <M-K> :move -2<CR>
-nmap <silent> <M-j> }
-nmap <silent> <M-k> {
 
 map      <C-Tab>         :bnext<CR>
 map      <C-S-Tab>       :bprevious<CR>
@@ -99,9 +98,10 @@ map      <leader>y       "+y
 map      <leader>Y       "+Y
 map      <leader>p       "+p
 map      <leader>P       "+P
+map!     <C-v>           <C-r>+
 map      <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
 map      <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
-map      <C-Q>           :qa<CR>
+map      <C-q>           :qa<CR>
 nmap     <Tab>           ==
 vmap     <Tab>           =gv
 nmap     <S-Tab>         <<
@@ -136,8 +136,9 @@ cmap     <C-a>           <Home>
 imap     <M-o>           <C-o>o
 imap     <M-O>           <C-o>O
 "----------------------------------------------
-map      <C-Space>       <Esc>
-imap     <C-Space>       <Esc>
+nmap     <M-j>           }
+nmap     <M-k>           {
+map      <C-Space>       zz
 nmap     ö               ciw
 nmap     Ö               ciW
 nmap     ä               viw
@@ -185,7 +186,7 @@ let g:Powerline_symbols = 'unicode'
 
 "NERDTree
 "autocmd vimenter * NERDTree
-let NERDTreeIgnore = ['\.pyc$', 'radiosw$']
+let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 "If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
 "autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
 
@@ -265,7 +266,7 @@ if executable('ag')
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
-    \ 'file': '\v\.(exe|sw.|dll|pyc)$',
+    \ 'file': '\v(\.(exe|sw.|dll|pyc|__init__.py)|__init__.py)$',
     \ }
 endif
 
@@ -279,11 +280,13 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 set shortmess+=A "Ignores swapfiles when opening file
+set autoread     "Automatically read in the file when changed externally
 
 set list lcs=tab:\|\ "Show line for each tab indentation
-"set autoindent noexpandtab tabstop=4 shiftwidth=4 "use tabs instead of spaces
-set autoindent expandtab tabstop=4 shiftwidth=2    "use spaces instead of tabs
-set autoread
+set shiftwidth=2     "Use indent of 2 spaces
+set tabstop=4        "An indentation every fourth column
+set autoindent       "Follow previous line's indenting
+set expandtab        "Tabs are spaces
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
 "set autochdir "Change the directory to the current file's
 set backspace=indent,eol,start "Better backspace
