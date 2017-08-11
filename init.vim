@@ -167,9 +167,9 @@ vnoremap .               :normal .<CR>
 vnoremap //              y?<C-R>"<CR>
 map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 
-nmap     +     +
-nmap     -     -
-nnoremap <C-i> <C-i>
+"unmap +
+"unmap -
+unmap <C-i>
 
 "Line numbering
 set number
@@ -263,6 +263,7 @@ smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
 
 "CtrlP
+map <C-M-p> :CtrlPMRUFiles<CR>
 let g:ctrlp_show_hidden       = 1
 let g:ctrlp_max_depth         = 100
 let g:ctrlp_working_path_mode = ''
