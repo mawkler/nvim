@@ -94,6 +94,7 @@ map      <C-S-Tab>       :bprevious<CR>
 nmap     <C-CR>          <leader>c<space>
 vmap     <C-CR>          <leader>c<space>
 imap     <C-CR>          <Up><End><CR>
+map      Y               y$
 map      <leader>y       "+y
 map      <leader>Y       "+Y
 map      <leader>p       "+p
@@ -107,8 +108,10 @@ vmap     <Tab>           =gv
 nmap     <S-Tab>         <<
 vmap     <S-Tab>         <gv
 imap     <S-Tab>         <C-o><<
-autocmd  FileType        Python nmap <Tab> >>
-autocmd  FileType        Python vmap <Tab> >gv
+autocmd  BufEnter        nmap <Tab> ==
+autocmd  BufEnter        vmap <Tab> =gv
+autocmd  FileType        python nmap <Tab> >>
+autocmd  FileType        python vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 nmap     <C-j>           o<Esc>
@@ -116,6 +119,7 @@ nmap     <C-k>           O<Esc>
 nmap     <C-s>           :w<CR>
 imap     <C-s>           <C-o>:w<CR>
 vmap     <C-s>           <Esc>:w<CR>gv
+nmap     d_              d^
 nmap     <A-BS>          db
 map!     <A-BS>          <C-w>
 nmap     <A-S-BS>        dw
@@ -160,8 +164,12 @@ map      <Leader>Z       :edit ~/.zshrc<CR>
 nmap     gF              :e <C-r>+<CR>
 nmap     <leader>F       :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .               :normal .<CR>
-vnoremap //              y/<C-R>"<CR>
+vnoremap //              y?<C-R>"<CR>
+map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 
+nmap     +     +
+nmap     -     -
+nnoremap <C-i> <C-i>
 
 "Line numbering
 set number
@@ -266,7 +274,7 @@ if executable('ag')
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
-    \ 'file': '\v(\.(exe|sw.|dll|pyc|__init__.py)|__init__.py)$',
+    \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
 
