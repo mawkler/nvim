@@ -57,6 +57,7 @@ Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ivalkeen/vim-ctrlp-tjump'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 call vundle#end()
 filetype plugin indent on
