@@ -167,6 +167,7 @@ nmap     <leader>F       :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>
 vnoremap .               :normal .<CR>
 vnoremap //              y?<C-R>"<CR>
 map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
+map      <leader>S       :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
 
 "unmap +
 "unmap -
@@ -281,7 +282,7 @@ else
 endif
 
 set guicursor=n:blinkwait0 "Disables cursor blinking
-set virtualedit=onemore    "Allow for cursor beyond last character
+"set virtualedit=onemore    "Allow for cursor beyond last character
 
 "Ericsson
 set swapfile
