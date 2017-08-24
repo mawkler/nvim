@@ -121,6 +121,8 @@ nmap     <C-s>           :w<CR>
 imap     <C-s>           <C-o>:w<CR>
 vmap     <C-s>           <Esc>:w<CR>gv
 nmap     d_              d^
+nmap     <BS>            X
+nmap     <S-BS>          x
 nmap     <A-BS>          db
 map!     <A-BS>          <C-w>
 nmap     <A-S-BS>        dw
