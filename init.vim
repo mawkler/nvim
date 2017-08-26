@@ -187,14 +187,14 @@ set textwidth=0 "Disable auto line breaking
 "Themes
 colorscheme onedark
 let g:onedark_termcolors = 256
-let g:airline_theme      = 'onedark'
-
 set encoding=utf8
 
 "Airline
 set laststatus=2 "Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-let g:Powerline_symbols = 'unicode'
+let g:airline_powerline_fonts = 1
+let g:airline_theme           = 'onedark'
+let g:Powerline_symbols       = 'unicode'
 
 "NERDTree
 "autocmd vimenter * NERDTree
