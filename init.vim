@@ -129,6 +129,8 @@ nmap     <A-S-BS>        dw
 imap     <A-S-BS>        <C-o>dw
 map      <M-d>           dw
 imap     <C-j>           <CR>
+map      <M-a>           v<C-a>
+map      <M-x>           v<C-x>
 "Cursor movement in cmd and insert mode--------
 map!     <C-f>           <Right>
 map!     <M-f>           <C-Right>
@@ -297,6 +299,7 @@ set autoread     "Automatically read in the file when changed externally
 
 set list lcs=tab:\|\ "Show line for each tab indentation
 set shiftwidth=2     "Use indent of 2 spaces
+autocmd Filetype javascript setlocal sw=4 "But 4 for JavaScript
 set tabstop=4        "An indentation every fourth column
 set autoindent       "Follow previous line's indenting
 set expandtab        "Tabs are spaces
