@@ -29,6 +29,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestsions
 "Plugin 'Shutnik/jshint2.vim'
 Plugin 'vim-syntastic/syntastic'
@@ -95,7 +96,7 @@ map      <C-S-Tab>       :bprevious<CR>
 nmap     <C-CR>          <leader>c<space>
 vmap     <C-CR>          <leader>c<space>
 imap     <C-CR>          <Up><End><CR>
-map      Y               y$
+nmap     Y               y$
 map      <leader>y       "+y
 map      <leader>Y       "+Y
 map      <leader>p       "+p
