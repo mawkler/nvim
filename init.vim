@@ -42,6 +42,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
 Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
+Plugin 'MarcWeber/vim-addon-commandline-completion'
 
 "For SnipMate "----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -118,7 +119,9 @@ map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 nmap     <C-j>           o<Esc>
 nmap     <C-k>           O<Esc>
+"nmap     <C-s>           :set buftype=<CR>:w<CR>
 nmap     <C-s>           :w<CR>
+"the `:set buftype=` fixes a bug with tcp
 imap     <C-s>           <C-o>:w<CR>
 vmap     <C-s>           <Esc>:w<CR>gv
 nmap     d_              d^
@@ -323,6 +326,7 @@ let g:indentLine_char       = '|'
 "highlight Search guibg=NONE guifg=NONE gui=underline
 let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy may cause lag
 
+"For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
 
 "Vim-easy-align
