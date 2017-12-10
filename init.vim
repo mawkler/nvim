@@ -30,7 +30,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestsions
+Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestions
 "Plugin 'Shutnik/jshint2.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
@@ -72,6 +72,7 @@ source ~/.vim/visual-at.vim
 
 "Autocompletion
 set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
+set wildmenu                    "List and cycle through autocomplete suggestions on Tab
 
 "Tab characters
 filetype plugin indent on "show existing tab with 4 spaces width
