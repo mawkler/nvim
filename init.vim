@@ -38,7 +38,7 @@ Plugin 'ap/vim-buftabline'             "Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'drmingdrmer/vim-tabbar'
-Plugin 'mhinz/vim-startify'
+"Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
 Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
@@ -146,11 +146,13 @@ map!     <M-k>           <Up>
 map!     <M-l>           <Right>
 map!     <M-w>           <C-Right>
 cmap     <C-a>           <Home>
+cmap     <C-p>           <Up>
+cmap     <C-n>           <Down>
 imap     <M-o>           <C-o>o
 imap     <M-O>           <C-o>O
 "----------------------------------------------
-nmap     <M-j>           }
-nmap     <M-k>           {
+map     <M-j>           }
+map     <M-k>           {
 map      <C-Space>       zz
 nmap     ö               ciw
 nmap     Ö               ciW
@@ -351,6 +353,10 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "Attempt to fix conflict between multiple_cursors and AutoComplPop
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
+
+autocmd BufRead scp://* :set bt=acwrite
+"autocmd BufRead scp://* :set bt=
+"autocmd BufEnter scp://* :set bt=acwrite
 
 if !empty(glob('~/.vimrc.ericsson'))
   source ~/.vimrc.ericsson
