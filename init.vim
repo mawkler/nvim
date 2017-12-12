@@ -355,9 +355,8 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
-autocmd BufRead scp://* :set bt=acwrite
-"autocmd BufRead scp://* :set bt=
-"autocmd BufEnter scp://* :set bt=acwrite
+autocmd BufRead scp://* :set bt=
+autocmd BufWritePost scp://* :set bt=
 
 if !empty(glob('~/.vimrc.ericsson'))
   source ~/.vimrc.ericsson
