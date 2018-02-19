@@ -212,10 +212,10 @@ let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 "autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
 
 "vim-devicons, doesn't seem to work
-let g:webdevicons_enable                    = 1
-let g:webdevicons_enable_nerdtree           = 1
-let g:webdevicons_enable_airline_tabline    = 1
-let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable                   = 1
+let g:webdevicons_enable_ctrlp             = 1
+let g:webdevicons_enable_nerdtree          = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 
 "Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -355,6 +355,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
+"Attempt to fix problem with saving from scp
 autocmd BufRead scp://* :set bt=
 autocmd BufWritePost scp://* :set bt=
 
