@@ -2,7 +2,7 @@
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -73,6 +73,7 @@ source ~/.vim/visual-at.vim
 "Autocompletion
 set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
 set wildmenu                    "List and cycle through autocomplete suggestions on Tab
+set wildcharm=<Tab> "Allows remapping of <Down> in wildmenu
 
 "Tab characters
 filetype plugin indent on "show existing tab with 4 spaces width
@@ -211,12 +212,6 @@ let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 "If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
 "autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
 
-"vim-devicons, doesn't seem to work
-let g:webdevicons_enable                   = 1
-let g:webdevicons_enable_ctrlp             = 1
-let g:webdevicons_enable_nerdtree          = 1
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-
 "Disable toolbar, scrollbar and menubar
 set guioptions-=T
 set guioptions-=r
@@ -291,6 +286,14 @@ else
     \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
+
+"vim-devicons
+let g:webdevicons_enable                      = 1
+let g:webdevicons_enable_ctrlp                = 1
+let g:webdevicons_enable_nerdtree             = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding    = ''
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes   = 1
 
 set guicursor=n:blinkwait0 "Disables cursor blinking
 "set virtualedit=onemore    "Allow for cursor beyond last character
