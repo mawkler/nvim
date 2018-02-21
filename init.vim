@@ -358,10 +358,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
 
-"Attempt to fix problem with saving from scp
-autocmd BufRead scp://* :set bt=
-autocmd BufWritePost scp://* :set bt=
-
 if !empty(glob('~/.vimrc.ericsson'))
   source ~/.vimrc.ericsson
 endif
