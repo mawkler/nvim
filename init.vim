@@ -51,7 +51,6 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 "------------------------------------
 
-
 "Ericsson
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -86,6 +85,10 @@ set ignorecase "Case insensitive searching
 set smartcase  "Except for when searching in CAPS
 set incsearch  "Search while typing
 
+"Yankstack
+let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
+call yankstack#setup() "Has to be called before remap of any yankstack_yank_keys
+
 "Key mapping
 set hidden
 let mapleader = "\<Space>"
@@ -106,8 +109,6 @@ map!     <C-v>           <C-r>+
 map      <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
 map      <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
 map      <C-q>           :qa<CR>
-"nnoremap <Tab>           ==
-"vnoremap <Tab>           =gv
 nnoremap <S-Tab>         <<
 vnoremap <S-Tab>         <gv
 inoremap <S-Tab>         <C-o><<
@@ -232,10 +233,6 @@ set updatetime=100
 
 set runtimepath+=~/.vim/bundle/jshint2.vim/
 
-"Yankstack
-let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-call yankstack#setup()
-
 "AutoPairs disable <M-p>
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -277,7 +274,7 @@ map <C-M-p> :CtrlPMRUFiles<CR>
 let g:ctrlp_show_hidden       = 1
 let g:ctrlp_max_depth         = 100
 let g:ctrlp_working_path_mode = ''
-let g:ctrlp_max_height = 12
+let g:ctrlp_max_height        = 12
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
