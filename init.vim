@@ -91,15 +91,13 @@ set hidden
 let mapleader = "\<Space>"
 
 nmap <silent> §     :NERDTreeToggle<CR>
-nmap <silent> <M-J> :move +1<CR>
-nmap <silent> <M-K> :move -2<CR>
 
 map      <C-Tab>         :bnext<CR>
 map      <C-S-Tab>       :bprevious<CR>
 nmap     <C-CR>          <leader>c<space>
 vmap     <C-CR>          <leader>c<space>
 imap     <C-CR>          <Up><End><CR>
-nmap     Y               y$
+nnoremap Y               y$
 map      <leader>y       "+y
 map      <leader>Y       "+Y
 map      <leader>p       "+p
@@ -108,15 +106,15 @@ map!     <C-v>           <C-r>+
 map      <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
 map      <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
 map      <C-q>           :qa<CR>
-nmap     <Tab>           ==
-vmap     <Tab>           =gv
-nmap     <S-Tab>         <<
-vmap     <S-Tab>         <gv
-imap     <S-Tab>         <C-o><<
-autocmd  BufEnter        nmap <Tab> ==
-autocmd  BufEnter        vmap <Tab> =gv
-autocmd  FileType        python nmap <Tab> >>
-autocmd  FileType        python vmap <Tab> >gv
+"nnoremap <Tab>           ==
+"vnoremap <Tab>           =gv
+nnoremap <S-Tab>         <<
+vnoremap <S-Tab>         <gv
+inoremap <S-Tab>         <C-o><<
+autocmd  BufEnter *      nnoremap <Tab> ==
+autocmd  BufEnter *      vnoremap <Tab> =gv
+autocmd  BufEnter *.py      nmap <Tab> >>
+autocmd  BufEnter *.py      vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 nmap     <C-j>           o<Esc>
@@ -153,8 +151,8 @@ cmap     <C-n>           <Down>
 imap     <M-o>           <C-o>o
 imap     <M-O>           <C-o>O
 "----------------------------------------------
-map     <M-j>           }
-map     <M-k>           {
+map      <M-j>           }
+map      <M-k>           {
 map      <C-Space>       zz
 nmap     ö               ciw
 nmap     Ö               ciW
@@ -181,10 +179,6 @@ vnoremap .               :normal .<CR>
 vnoremap //              y?<C-R>"<CR>
 map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      <leader>S       :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
-
-"unmap +
-"unmap -
-unmap <C-i>
 
 "Line numbering
 set number
