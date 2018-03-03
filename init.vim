@@ -174,6 +174,7 @@ vmap     >               >gv
 map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
 map      <Leader>Z       :edit ~/.zshrc<CR>
+map      <leader>U       :cd ~/Dropbox/Uppsala/<CR>
 nmap     gF              :e <C-r>+<CR>
 nmap     <leader>F       :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .               :normal .<CR>
