@@ -118,6 +118,8 @@ autocmd  BufEnter *.py      nmap <Tab> >>
 autocmd  BufEnter *.py      vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
+map      -               <C-W><
+map      +               <C-W>>
 nmap     <C-j>           o<Esc>
 nmap     <C-k>           O<Esc>
 "nmap     <C-s>           :set buftype=<CR>:w<CR>
