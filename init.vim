@@ -257,6 +257,13 @@ let g:syntastic_check_on_open            = 1
 let g:syntastic_check_on_wq              = 0
 let g:syntastic_enable_highlighting      = 1
 
+"Automatically adjust Syntastic window size
+function! SyntasticCheckHook(errors)
+    if !empty(a:errors)
+        let g:syntastic_loc_list_height = min([len(a:errors), 10])
+    endif
+endfunction
+
 "Supertab and Snipmate
 let g:SuperTabCrMapping             = 1
 let g:SuperTabMappingForward        = '<C-n>'
