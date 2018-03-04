@@ -93,7 +93,7 @@ call yankstack#setup() "Has to be called before remap of any yankstack_yank_keys
 set hidden
 let mapleader = "\<Space>"
 
-nmap <silent> §     :NERDTreeToggle<CR>
+nmap <silent> § :NERDTreeToggle<CR>
 
 map      <C-Tab>         :bnext<CR>
 map      <C-S-Tab>       :bprevious<CR>
@@ -106,16 +106,16 @@ map      <leader>Y       "+Y
 map      <leader>p       "+p
 map      <leader>P       "+P
 map!     <C-v>           <C-r>+
-map      <leader><C-w>   :NERDTreeClose<CR>:bdelete<CR>
-map      <leader><C-M-w> :NERDTreeClose<CR>:bdelete!<CR>
+map      <leader><C-w>   :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
+map      <leader><C-M-w> :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 map      <C-q>           :qa<CR>
 nnoremap <S-Tab>         <<
 vnoremap <S-Tab>         <gv
 inoremap <S-Tab>         <C-o><<
 autocmd  BufEnter *      nnoremap <Tab> ==
 autocmd  BufEnter *      vnoremap <Tab> =gv
-autocmd  BufEnter *.py      nmap <Tab> >>
-autocmd  BufEnter *.py      vmap <Tab> >gv
+autocmd  BufEnter *.py   nmap <Tab> >>
+autocmd  BufEnter *.py   vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 map      -               <C-W><
@@ -217,9 +217,9 @@ set guioptions-=m
 set guioptions-=L
 
 "Start in maximized window
-"if has("gui_running")
-    "set lines=999 columns=999
-"endif
+if has("gui_running")
+    set lines=999 columns=999
+endif
 
 "YouCompleteMe
 "let g:ycm_path_to_python_interpreter = '/usr/bin/python'
