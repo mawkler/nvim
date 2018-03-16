@@ -14,11 +14,9 @@ Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
 Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-if hostname() != "esekilxv7127"
-    Plugin 'ryanoasis/vim-devicons'
-    Plugin 'Valloric/MatchTagAlways'
-    Plugin 'ryanoasis/nerd-fonts'
-endif
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'ryanoasis/nerd-fonts'
 "Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
@@ -68,6 +66,10 @@ syntax on
 
 "File imports
 source ~/.vim/visual-at.vim
+
+if !empty(glob('~/.vimrc-private'))
+  source ~/.vimrc-private
+endif
 
 "Autocompletion
 set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
@@ -182,6 +184,8 @@ vnoremap .               :normal .<CR>
 vnoremap //              y?<C-R>"<CR>
 map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      <leader>S       :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
+map      <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
+map      <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
 
 "Line numbering
 set number
@@ -358,7 +362,3 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 "Attempt to fix conflict between multiple_cursors and AutoComplPop
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
 "xnoremap <C-m> :call multiple_cursors#new()<CR>
-
-if !empty(glob('~/.vimrc.ericsson'))
-  source ~/.vimrc.ericsson
-endif
