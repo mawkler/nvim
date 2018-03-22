@@ -8,10 +8,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-speeddating'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
-Plugin 'vim-scripts/zoom.vim'
+"Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
@@ -30,7 +31,8 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestions
 "Plugin 'Shutnik/jshint2.vim'
-Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'                      "Use either ale or syntastic
 Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             "Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
@@ -39,7 +41,7 @@ Plugin 'scrooloose/nerdcommenter'
 "Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
-Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
+"Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 
 "For SnipMate "----------------------
@@ -86,6 +88,7 @@ filetype plugin indent on "show existing tab with 4 spaces width
 set ignorecase "Case insensitive searching
 set smartcase  "Except for when searching in CAPS
 set incsearch  "Search while typing
+set nohlsearch "Don't highligt search results"
 
 "Yankstack
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
@@ -120,8 +123,8 @@ autocmd  BufEnter *.py   nmap <Tab> >>
 autocmd  BufEnter *.py   vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
-map      -               <C-W><
-map      +               <C-W>>
+map      -               3<C-W><
+map      +               3<C-W>>
 nmap     <C-j>           o<Esc>
 nmap     <C-k>           O<Esc>
 "nmap     <C-s>           :set buftype=<CR>:w<CR>
@@ -174,8 +177,10 @@ nmap     S               yS
 "----------------------------------------------
 vmap     <               <gv
 vmap     >               >gv
+map      <Leader>,       m0A;<Esc>`0
 map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
+map      <Leader>N       :edit ~/.config/nvim/init.vim<CR>
 map      <Leader>Z       :edit ~/.zshrc<CR>
 map      <leader>U       :cd ~/Dropbox/Uppsala/<CR>
 nmap     gF              :e <C-r>+<CR>
@@ -243,29 +248,30 @@ set runtimepath+=~/.vim/bundle/jshint2.vim/
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 
-"Vim-tabbar colorscheme
+"Vim tab bar colorscheme
 hi default link BufTabLineCurrent Pmenu
 hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
+let g:buftabline_show=1
 
-"Syntastic
+""Syntastic
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 0
-let g:syntastic_enable_highlighting      = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list            = 1
+"let g:syntastic_check_on_open            = 1
+"let g:syntastic_check_on_wq              = 0
+"let g:syntastic_enable_highlighting      = 1
 
-"Automatically adjust Syntastic window size
-function! SyntasticCheckHook(errors)
-    if !empty(a:errors)
-        let g:syntastic_loc_list_height = min([len(a:errors), 10])
-    endif
-endfunction
+""Automatically adjust Syntastic window size
+"function! SyntasticCheckHook(errors)
+    "if !empty(a:errors)
+        "let g:syntastic_loc_list_height = min([len(a:errors), 10])
+    "endif
+"endfunction
 
 "Supertab and Snipmate
 let g:SuperTabCrMapping             = 1
@@ -358,6 +364,20 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 "Move to word:
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+let g:strip_whitespace_on_save = 1
+let g:NERDCustomDelimiters = {
+\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
+\ }
+
+"ALE
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
 
 "Attempt to fix conflict between multiple_cursors and AutoComplPop
 "nnoremap <C-m> :call multiple_cursors#new()<CR>
