@@ -43,6 +43,9 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
 "Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
 Plugin 'MarcWeber/vim-addon-commandline-completion'
+Plugin 'milkypostman/vim-togglelist'
+"Plugin 'autozimu/LanguageClient-neovim' "LSP
+Plugin 'natebosch/vim-lsc'
 
 "For SnipMate "----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -177,7 +180,8 @@ nmap     S               yS
 "----------------------------------------------
 vmap     <               <gv
 vmap     >               >gv
-map      <Leader>,       m0A;<Esc>`0
+map      <Leader>;       m0A;<Esc>`0
+map      <Leader>,       m0A,<Esc>`0
 map      <Leader>v       :source ~/.vimrc<CR>
 map      <Leader>V       :edit ~/.vimrc<CR>
 map      <Leader>N       :edit ~/.config/nvim/init.vim<CR>
@@ -200,6 +204,8 @@ hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 set cursorline  "Cursor highlighting
 set scrolloff=8 "Cursor margin
 set textwidth=0 "Disable auto line breaking
+ "Allow Ctrl-A/X for hex, binary and letters
+set nrformats+=hex,bin,alpha
 
 "Themes
 colorscheme onedark
@@ -212,6 +218,7 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 let g:airline_powerline_fonts = 1
 let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
+let g:airline_section_x       = '%{&filetype}' "Don't shorten file type on small window
 
 "NERDTree
 "autocmd vimenter * NERDTree
@@ -320,7 +327,8 @@ set autoread     "Automatically read in the file when changed externally
 
 set list lcs=tab:\|\ "Show line for each tab indentation
 set shiftwidth=2     "Use indent of 2 spaces
-autocmd Filetype javascript setlocal sw=4 "But 4 for JavaScript
+autocmd BufEnter *.js  setlocal sw=4 "But 4 for JavaScript
+autocmd BufEnter *.css setlocal sw=4 "And for CSS
 set tabstop=4        "An indentation every fourth column
 set autoindent       "Follow previous line's indenting
 set expandtab        "Tabs are spaces
@@ -371,14 +379,12 @@ let g:NERDCustomDelimiters = {
 \ }
 
 "ALE
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
+let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint']
 \}
 
-"Attempt to fix conflict between multiple_cursors and AutoComplPop
-"nnoremap <C-m> :call multiple_cursors#new()<CR>
-"xnoremap <C-m> :call multiple_cursors#new()<CR>
+"vim-lsc
+let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
+let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>d' }
