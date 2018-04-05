@@ -103,98 +103,99 @@ let mapleader = "\<Space>"
 
 nmap <silent> § :NERDTreeToggle<CR>
 
-map      <C-Tab>         :bnext<CR>
-map      <C-S-Tab>       :bprevious<CR>
-nmap     <C-CR>          <leader>c<space>
-vmap     <C-CR>          <leader>c<space>
-imap     <C-CR>          <Up><End><CR>
-nnoremap Y               y$
-map      <leader>y       "+y
-map      <leader>Y       "+Y
-map      <leader>p       "+p
-map      <leader>P       "+P
-map!     <C-v>           <C-r>+
-map      <leader><C-w>   :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
-map      <leader><C-M-w> :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
-map      <C-q>           :qa<CR>
-nnoremap <S-Tab>         <<
-vnoremap <S-Tab>         <gv
-inoremap <S-Tab>         <C-o><<
+map      <C-Tab>          :bnext<CR>
+map      <C-S-Tab>        :bprevious<CR>
+nmap     <C-CR>           <leader>c<space>
+vmap     <C-CR>           <leader>c<space>
+imap     <C-CR>           <Up><End><CR>
+nnoremap Y                y$
+map      <leader>y        "+y
+map      <leader>Y        "+Y
+map      <leader>p        "+p
+map      <leader>P        "+P
+map!     <C-v>            <C-r>+
+map      <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
+map      <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
+map      <C-q>            :qa<CR>
+nnoremap <S-Tab>          <<
+vnoremap <S-Tab>          <gv
+inoremap <S-Tab>          <C-o><<
 autocmd  BufEnter,BufRead *      nnoremap <Tab> ==
 autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
 autocmd  BufEnter,BufRead *.py   nmap <Tab> >>
 autocmd  BufEnter,BufRead *.py   vmap <Tab> >gv
-map      <CR>            <C-w><C-w>
-map      <S-CR>          <C-w>W
-map      -               3<C-W><
-map      +               3<C-W>>
-nmap     <C-j>           o<Esc>
-nmap     <C-k>           O<Esc>
+nnoremap <M-o>            <C-i>
+map      <CR>             <C-w><C-w>
+map      <S-CR>           <C-w>W
+map      -                3<C-W><
+map      +                3<C-W>>
+nmap     <C-j>            o<Esc>
+nmap     <C-k>            O<Esc>
 "nmap     <C-s>           :set buftype=<CR>:w<CR>
-nmap     <C-s>           :w<CR>
+nmap     <C-s>            :w<CR>
 "the `:set buftype=` fixes a bug with tcp
-imap     <C-s>           <C-o>:w<CR>
-vmap     <C-s>           <Esc>:w<CR>gv
-nmap     d_              d^
-nmap     <BS>            X
-nmap     <S-BS>          x
-nmap     <A-BS>          db
-map!     <A-BS>          <C-w>
-nmap     <A-S-BS>        dw
-imap     <A-S-BS>        <C-o>dw
-map      <M-d>           dw
-imap     <C-j>           <CR>
-map      <M-a>           v<C-a>
-map      <M-x>           v<C-x>
+imap     <C-s>            <C-o>:w<CR>
+vmap     <C-s>            <Esc>:w<CR>gv
+nmap     d_               d^
+nmap     <BS>             X
+nmap     <S-BS>           x
+nmap     <A-BS>           db
+map!     <A-BS>           <C-w>
+nmap     <A-S-BS>         dw
+imap     <A-S-BS>         <C-o>dw
+map      <M-d>            dw
+imap     <C-j>            <CR>
+map      <M-a>            v<C-a>
+map      <M-x>            v<C-x>
 "Cursor movement in cmd and insert mode--------
-map!     <C-f>           <Right>
-map!     <M-f>           <C-Right>
-map!     <C-b>           <Left>
-map!     <M-b>           <C-Left>
-map!     <M-h>           <Left>
-map!     <M-j>           <Down>
-map!     <M-k>           <Up>
-map!     <M-l>           <Right>
-map!     <M-w>           <C-Right>
-cmap     <C-a>           <Home>
-cmap     <C-p>           <Up>
-cmap     <C-n>           <Down>
-imap     <M-o>           <C-o>o
-imap     <M-O>           <C-o>O
+map!     <C-f>            <Right>
+map!     <M-f>            <C-Right>
+map!     <C-b>            <Left>
+map!     <M-b>            <C-Left>
+map!     <M-h>            <Left>
+map!     <M-j>            <Down>
+map!     <M-k>            <Up>
+map!     <M-l>            <Right>
+map!     <M-w>            <C-Right>
+cmap     <C-a>            <Home>
+cmap     <C-p>            <Up>
+cmap     <C-n>            <Down>
+imap     <M-o>            <C-o>o
+imap     <M-O>            <C-o>O
 "----------------------------------------------
-map      <M-j>           }
-map      <M-k>           {
-map      <C-Space>       zz
-nmap     ö               ciw
-nmap     Ö               ciW
-nmap     ä               viw
-nmap     Ä               viW
-nmap     å               ci(
-nmap     Å               ci"
-nmap     <C-c>           <Nop>
+map      <M-j>            }
+map      <M-k>            {
+map      <C-Space>        zz
+nmap     ö                ciw
+nmap     Ö                ciW
+nmap     ä                viw
+nmap     Ä                viW
+nmap     å                ci(
+nmap     Å                ci"
+nmap     <C-c>            <Nop>
 "vim-surround----------------------------------
-vmap     s               <Plug>VSurround
-vmap     S               <Plug>VgSurround
-nmap     s               ys
-nmap     S               yS
+vmap     s                <Plug>VSurround
+vmap     S                <Plug>VgSurround
+nmap     s                ys
+nmap     S                yS
 "----------------------------------------------
-vmap     <               <gv
-vmap     >               >gv
-map      <Leader>;       m0A;<Esc>`0
-map      <Leader>,       m0A,<Esc>`0
-map      <Leader>v       :source ~/.vimrc<CR>
-map      <Leader>V       :edit ~/.vimrc<CR>
-map      <Leader>N       :edit ~/.config/nvim/init.vim<CR>
-map      <Leader>Z       :edit ~/.zshrc<CR>
-map      <leader>U       :cd ~/Dropbox/Uppsala/<CR>
-nmap     gF              :e <C-r>+<CR>
-nmap     <leader>F       :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
-vnoremap .               :normal .<CR>
-vnoremap //              y?<C-R>"<CR>
-map      <leader>/       :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
-map      <leader>S       :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
-map      <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-map      <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
+vmap     <                <gv
+vmap     >                >gv
+map      <Leader>;        m0A;<Esc>`0
+map      <Leader>,        m0A,<Esc>`0
+map      <Leader>v        :source ~/.vimrc<CR>
+map      <Leader>V        :edit ~/.vimrc<CR>
+map      <Leader>N        :edit ~/.config/nvim/init.vim<CR>
+map      <Leader>Z        :edit ~/.zshrc<CR>
+map      <leader>U        :cd ~/Dropbox/Uppsala/<CR>
+nmap     gF               :e <C-r>+<CR>
+nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
+vnoremap .                :normal .<CR>
+vnoremap //               y?<C-R>"<CR>
+map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
+map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
+map      <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
+map      <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 
 "Line numbering
 set number
@@ -236,11 +237,6 @@ set guioptions-=L
 if has("gui_running")
     set lines=999 columns=999
 endif
-
-"YouCompleteMe
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-"let g:ycm_min_num_of_chars_for_completion = 1
-"let g:ycm_auto_trigger = 1
 
 "Emmet
 let g:user_emmet_install_global = 1
@@ -314,9 +310,7 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes   = 1
 
 set guicursor=n:blinkwait0 "Disables cursor blinking
-"set virtualedit=onemore    "Allow for cursor beyond last character
 
-"Ericsson
 set swapfile
 set directory^=~/.vim/tmp//
 set backupdir=~/.vim/backup//
@@ -326,24 +320,19 @@ set shortmess+=A "Ignores swapfiles when opening file
 set autoread     "Automatically read in the file when changed externally
 
 set list lcs=tab:\|\ "Show line for each tab indentation
-set shiftwidth=2     "Use indent of 2 spaces
+autocmd BufEnter,BufRead * set sw=2 "Use indent of 2 spaces
 autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 "But 4 for JavaScript
 set tabstop=4        "An indentation every fourth column
 set autoindent       "Follow previous line's indenting
 set expandtab        "Tabs are spaces
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
-"set autochdir "Change the directory to the current file's
 set backspace=indent,eol,start "Better backspace
-autocmd FileType python set expandtab
 
 "indentLine
-autocmd BufEnter,BufRead * let g:indentLine_enabled   = 1
+autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
 autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
-let g:indentLine_color_gui                       = '#4b5263'
-let g:indentLine_char                            = '|'
-"
-"let g:syntastic_python_checkers=["flake8"]
-"""g:vim_json_syntax_conceal = 0
+let g:indentLine_color_gui                               = '#4b5263'
+let g:indentLine_char                                    = '|'
 
 "Underlines AutoHighligted word:
 "highlight Search guibg=NONE guifg=NONE gui=underline
