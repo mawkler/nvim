@@ -120,10 +120,10 @@ map      <C-q>           :qa<CR>
 nnoremap <S-Tab>         <<
 vnoremap <S-Tab>         <gv
 inoremap <S-Tab>         <C-o><<
-autocmd  BufEnter *      nnoremap <Tab> ==
-autocmd  BufEnter *      vnoremap <Tab> =gv
-autocmd  BufEnter *.py   nmap <Tab> >>
-autocmd  BufEnter *.py   vmap <Tab> >gv
+autocmd  BufEnter,BufRead *      nnoremap <Tab> ==
+autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
+autocmd  BufEnter,BufRead *.py   nmap <Tab> >>
+autocmd  BufEnter,BufRead *.py   vmap <Tab> >gv
 map      <CR>            <C-w><C-w>
 map      <S-CR>          <C-w>W
 map      -               3<C-W><
@@ -327,8 +327,7 @@ set autoread     "Automatically read in the file when changed externally
 
 set list lcs=tab:\|\ "Show line for each tab indentation
 set shiftwidth=2     "Use indent of 2 spaces
-autocmd BufEnter *.js  setlocal sw=4 "But 4 for JavaScript
-autocmd BufEnter *.css setlocal sw=4 "And for CSS
+autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 "But 4 for JavaScript
 set tabstop=4        "An indentation every fourth column
 set autoindent       "Follow previous line's indenting
 set expandtab        "Tabs are spaces
