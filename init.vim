@@ -64,8 +64,6 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 call vundle#end()
-filetype plugin indent on
-syntax on
 
 "------------------------------------------------------------------------------
 
@@ -75,6 +73,8 @@ source ~/.vim/visual-at.vim
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
 endif
+
+syntax on
 
 "Autocompletion
 set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
@@ -337,12 +337,11 @@ set backspace=indent,eol,start "Better backspace
 autocmd FileType python set expandtab
 
 "indentLine
-autocmd FileType json let g:indentLine_enabled   = 0
-autocmd FileType python let g:indentLine_enabled = 1
-"let g:indentLine_setColors = 0
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui  = '#4b5263'
-let g:indentLine_char       = '|'
+autocmd BufEnter,BufRead * let g:indentLine_enabled   = 1
+autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
+let g:indentLine_color_gui                       = '#4b5263'
+let g:indentLine_char                            = '|'
+"
 "let g:syntastic_python_checkers=["flake8"]
 """g:vim_json_syntax_conceal = 0
 
