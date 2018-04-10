@@ -28,6 +28,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestions
 "Plugin 'Shutnik/jshint2.vim'
@@ -46,6 +47,9 @@ Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'
 "Plugin 'autozimu/LanguageClient-neovim' "LSP
 Plugin 'natebosch/vim-lsc'
+Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-function'
 
 "For SnipMate "----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -75,6 +79,7 @@ if !empty(glob('~/.vimrc-private'))
 endif
 
 syntax on
+set vb t_vb= "Disable error bells
 
 "Autocompletion
 set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
@@ -119,6 +124,8 @@ map      <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
+nnoremap vip              vipj
+nnoremap dip              vipjdk
 inoremap <S-Tab>          <C-o><<
 autocmd  BufEnter,BufRead *      nnoremap <Tab> ==
 autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
@@ -129,6 +136,8 @@ map      <CR>             <C-w><C-w>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
 map      +                3<C-W>>
+nmap      <C-->            <C-W>+
+nmap      <C-ö>            <C-W>-
 nmap     <C-j>            o<Esc>
 nmap     <C-k>            O<Esc>
 "nmap     <C-s>           :set buftype=<CR>:w<CR>
@@ -193,9 +202,11 @@ nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r
 vnoremap .                :normal .<CR>
 vnoremap //               y?<C-R>"<CR>
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
+map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
 map      <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
+map      Q                @@
 
 "Line numbering
 set number
@@ -250,6 +261,8 @@ set runtimepath+=~/.vim/bundle/jshint2.vim/
 "AutoPairs disable <M-p>
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsShortcutFastWrap   = ''
+let g:AutoPairsFlyMode            = 1
 
 "Vim tab bar colorscheme
 hi default link BufTabLineCurrent Pmenu
@@ -292,8 +305,8 @@ let g:ctrlp_working_path_mode = ''
 let g:ctrlp_max_height        = 12
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_use_caching = 0                                    " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files
+  let g:ctrlp_use_caching = 0                                    " ag doesn't need to cache
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
@@ -307,7 +320,8 @@ let g:webdevicons_enable_ctrlp                = 1
 let g:webdevicons_enable_nerdtree             = 1
 let g:WebDevIconsNerdTreeAfterGlyphPadding    = ''
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes   = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
+let g:DevIconsEnableNERDTreeRedraw            = 1
 
 set guicursor=n:blinkwait0 "Disables cursor blinking
 
@@ -361,13 +375,21 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 let g:strip_whitespace_on_save = 1
+
+"NERDCommenter
+let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
+let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
+let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
 let g:NERDCustomDelimiters = {
 \ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
 \ }
+map <leader>C <plug>NERDCommenterToEOL
+
 
 "ALE
-let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_fixers = {
 \   'javascript': ['eslint']
 \}
@@ -375,3 +397,7 @@ let g:ale_fixers = {
 "vim-lsc
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
 let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>d' }
+
+"vim-javascript
+hi clear jsStorageClass "Change color of 'var'
+hi link jsStorageClass Keyword
