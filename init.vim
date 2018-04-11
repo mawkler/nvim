@@ -116,6 +116,8 @@ imap     <C-CR>           <Up><End><CR>
 nnoremap Y                y$
 map      <leader>y        "+y
 map      <leader>Y        "+Y
+map      <leader>d        "+d
+map      <leader>D        "+D
 map      <leader>p        "+p
 map      <leader>P        "+P
 map!     <C-v>            <C-r>+
@@ -252,6 +254,7 @@ endif
 "Emmet
 let g:user_emmet_install_global = 1
 let g:user_emmet_mode           = 'a' "enable all function in all mode.
+let g:user_emmet_leader_key = '<leader><C-y>'
 
 "Gitgutter
 set updatetime=100
@@ -396,7 +399,7 @@ let g:ale_fixers = {
 
 "vim-lsc
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
-let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>d' }
+let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
 
 "vim-javascript
 hi clear jsStorageClass "Change color of 'var'
