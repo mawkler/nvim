@@ -50,6 +50,8 @@ Plugin 'natebosch/vim-lsc'
 Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
+Plugin 'vim-scripts/visualrepeat'
+Plugin 'wellle/targets.vim'
 
 "For SnipMate "----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -126,8 +128,6 @@ map      <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
-nnoremap vip              vipj
-nnoremap dip              vipjdk
 inoremap <S-Tab>          <C-o><<
 autocmd  BufEnter,BufRead *      nnoremap <Tab> ==
 autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
@@ -138,8 +138,8 @@ map      <CR>             <C-w><C-w>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
 map      +                3<C-W>>
-nmap      <C-->            <C-W>+
-nmap      <C-ö>            <C-W>-
+nmap     <M-+>            <C-W>+
+nmap     <M-->            <C-W>-
 nmap     <C-j>            o<Esc>
 nmap     <C-k>            O<Esc>
 "nmap     <C-s>           :set buftype=<CR>:w<CR>
@@ -209,6 +209,7 @@ map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
 map      <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 map      Q                @@
+map      <S-space>        qq
 
 "Line numbering
 set number
@@ -254,7 +255,7 @@ endif
 "Emmet
 let g:user_emmet_install_global = 1
 let g:user_emmet_mode           = 'a' "enable all function in all mode.
-let g:user_emmet_leader_key = '<leader><C-y>'
+let g:user_emmet_leader_key = '<c-ö>'
 
 "Gitgutter
 set updatetime=100
@@ -394,7 +395,7 @@ map <leader>C <plug>NERDCommenterToEOL
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_fixers = {
-\   'javascript': ['eslint']
+\   'javascript': ['prettier', 'eslint']
 \}
 
 "vim-lsc
