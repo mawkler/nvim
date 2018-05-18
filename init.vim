@@ -1,4 +1,4 @@
-"Vundle plugins
+" Vundle plugins
 
 set nocompatible
 filetype off
@@ -11,14 +11,14 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-speeddating'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
-Plugin 'joshdick/onedark.vim'          "Atom dark theme for vim
-"Plugin 'vim-scripts/zoom.vim'
+Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
+" Plugin 'vim-scripts/zoom.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'ryanoasis/nerd-fonts'
-"Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'terryma/vim-multiple-cursors'
@@ -30,22 +30,22 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'vim-scripts/AutoComplPop'      "Automatically pop up word suggestions
-"Plugin 'Shutnik/jshint2.vim'
-"Plugin 'vim-syntastic/syntastic'
-Plugin 'w0rp/ale'                      "Use either ale or syntastic
+Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
+" Plugin 'Shutnik/jshint2.vim'
+" Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'                      " Use either ale or syntastic
 Plugin 'ervandew/supertab'
-Plugin 'ap/vim-buftabline'             "Better vim tabs
+Plugin 'ap/vim-buftabline'             " Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
-"Plugin 'fholgado/minibufexpl.vim'
-"Plugin 'drmingdrmer/vim-tabbar'
-"Plugin 'mhinz/vim-startify'
+" Plugin 'fholgado/minibufexpl.vim'
+" Plugin 'drmingdrmer/vim-tabbar'
+" Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
-"Plugin 'ihacklog/HiCursorWords'         "Highligt all occurences of current word
+" Plugin 'ihacklog/HiCursorWords'         " Highligt all occurences of current word
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'
-"Plugin 'autozimu/LanguageClient-neovim' "LSP
+" Plugin 'autozimu/LanguageClient-neovim' " LSP
 Plugin 'natebosch/vim-lsc'
 Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'kana/vim-textobj-user'
@@ -53,14 +53,14 @@ Plugin 'kana/vim-textobj-function'
 Plugin 'vim-scripts/visualrepeat'
 Plugin 'wellle/targets.vim'
 
-"For SnipMate "----------------------
+" For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-"------------------------------------
+" ------------------------------------
 
-"Ericsson
+" Ericsson
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/capslock.vim'
@@ -73,7 +73,7 @@ call vundle#end()
 
 "------------------------------------------------------------------------------
 
-"File imports
+" File imports
 source ~/.vim/visual-at.vim
 
 if !empty(glob('~/.vimrc-private'))
@@ -81,30 +81,30 @@ if !empty(glob('~/.vimrc-private'))
 endif
 
 syntax on
-set vb t_vb= "Disable error bells
+set vb t_vb= " Disable error bells
 
-"Autocompletion
-set completeopt=longest,preview "menuone seems to be causing bug error with multiple-cursors
-set wildmenu                    "List and cycle through autocomplete suggestions on Tab
-set wildcharm=<Tab> "Allows remapping of <Down> in wildmenu
+" Autocompletion
+set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
+set wildmenu                    " List and cycle through autocomplete suggestions on Tab
+set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
 
-"Tab characters
-filetype plugin indent on "show existing tab with 4 spaces width
-"set tabstop=4 "when indenting with '>', use 4 spaces width
-"set shiftwidth=2 "On pressing tab, insert 2 spaces
-"set expandtab
+" Tab characters
+filetype plugin indent on " show existing tab with 4 spaces width
+" set tabstop=4 " when indenting with '>', use 4 spaces width
+" set shiftwidth=2 " On pressing tab, insert 2 spaces
+" set expandtab
 
-"Searching
-set ignorecase "Case insensitive searching
-set smartcase  "Except for when searching in CAPS
-set incsearch  "Search while typing
-set nohlsearch "Don't highligt search results"
+" Searching
+set ignorecase " Case insensitive searching
+set smartcase  " Except for when searching in CAPS
+set incsearch  " Search while typing
+set nohlsearch " Don't highligt search results
 
-"Yankstack
+" Yankstack
 " let g:yankstack_yank_keys = []
-" call yankstack#setup() "Has to be called before remap of any yankstack_yank_keys
+" call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
 
-"Key mapping
+" Key mapping
 set hidden
 let mapleader = "\<Space>"
 
@@ -142,9 +142,9 @@ nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
 nmap     <C-j>            o<Esc>
 nmap     <C-k>            O<Esc>
-"nmap     <C-s>           :set buftype=<CR>:w<CR>
+" nmap     <C-s>           :set buftype=<CR>:w<CR>
 nmap     <C-s>            :w<CR>
-"the `:set buftype=` fixes a bug with tcp
+" The `:set buftype=` fixes a bug with tcp
 imap     <C-s>            <C-o>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
 nmap     d_               d^
@@ -158,7 +158,7 @@ map      <M-d>            dw
 imap     <C-j>            <CR>
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
-"Cursor movement in cmd and insert mode--------
+" Cursor movement in cmd and insert mode--------
 map!     <C-f>            <Right>
 map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
@@ -184,12 +184,12 @@ nmap     Ä                viW
 nmap     å                ci(
 nmap     Å                ci"
 nmap     <C-c>            <Nop>
-"vim-surround----------------------------------
+" vim-surround----------------------------------
 vmap     s                <Plug>VSurround
 vmap     S                <Plug>VgSurround
 nmap     s                ys
 nmap     S                yS
-"----------------------------------------------
+" ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
 map      <Leader>;        m0A;<Esc>`0
@@ -213,89 +213,89 @@ vmap      <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      Q                @@
 map      <S-space>        qq
 
-"Line numbering
+" Line numbering
 set number
 set relativenumber
 hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
-set cursorline  "Cursor highlighting
-set scrolloff=8 "Cursor margin
-set textwidth=0 "Disable auto line breaking
- "Allow Ctrl-A/X for hex, binary and letters
+set cursorline  " Cursor highlighting
+set scrolloff=8 " Cursor margin
+set textwidth=0 " Disable auto line breaking
+" Allow Ctrl-A/X for hex, binary and letters
 set nrformats+=hex,bin,alpha
 
-"Themes
+" Themes
 colorscheme onedark
 let g:onedark_termcolors = 256
 set encoding=utf8
 
-"Airline
-set laststatus=2 "Always display status line
+" Airline
+set laststatus=2 " Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 let g:airline_powerline_fonts = 1
 let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
-let g:airline_section_x       = '%{&filetype}' "Don't shorten file type on small window
+let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
-"NERDTree
-"autocmd vimenter * NERDTree
+" NERDTree
+" autocmd vimenter * NERDTree
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
-"If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
-"autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
+" If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
+" autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
 
-"Disable toolbar, scrollbar and menubar
+" Disable toolbar, scrollbar and menubar
 set guioptions-=T
 set guioptions-=r
 set guioptions-=m
 set guioptions-=L
 
-"Start in maximized window
+" Start in maximized window
 if has("gui_running")
-    set lines=999 columns=999
+  set lines=999 columns=999
 endif
 
-"Emmet
+" Emmet
 let g:user_emmet_install_global = 1
-let g:user_emmet_mode           = 'a' "enable all function in all mode.
+let g:user_emmet_mode           = 'a' " enable all function in all mode.
 let g:user_emmet_leader_key = '<c-ö>'
 
-"Gitgutter
+" Gitgutter
 set updatetime=100
 
 set runtimepath+=~/.vim/bundle/jshint2.vim/
 
-"AutoPairs disable <M-p>
+" AutoPairs disable <M-p>
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsFlyMode            = 1
 
-"Vim tab bar colorscheme
+" Vim tab bar colorscheme
 hi default link BufTabLineCurrent Pmenu
 hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
 let g:buftabline_show=1
 
-""Syntastic
+" Syntastic
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list            = 1
-"let g:syntastic_check_on_open            = 1
-"let g:syntastic_check_on_wq              = 0
-"let g:syntastic_enable_highlighting      = 1
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list            = 1
+" let g:syntastic_check_on_open            = 1
+" let g:syntastic_check_on_wq              = 0
+" let g:syntastic_enable_highlighting      = 1
 
-""Automatically adjust Syntastic window size
-"function! SyntasticCheckHook(errors)
-    "if !empty(a:errors)
-        "let g:syntastic_loc_list_height = min([len(a:errors), 10])
-    "endif
-"endfunction
+" Automatically adjust Syntastic window size
+" function! SyntasticCheckHook(errors)
+    " if !empty(a:errors)
+        " let g:syntastic_loc_list_height = min([len(a:errors), 10])
+    " endif
+" endfunction
 
-"Supertab and Snipmate
+" Supertab and Snipmate
 let g:SuperTabCrMapping             = 1
 let g:SuperTabMappingForward        = '<C-n>'
 let g:SuperTabMappingBackward       = '<C-b>'
@@ -303,16 +303,16 @@ let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
 
-"CtrlP
+" CtrlP
 map <C-M-p> :CtrlPMRUFiles<CR>
 let g:ctrlp_show_hidden       = 1
 let g:ctrlp_max_depth         = 100
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_max_height        = 12
 if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor                           " Use ag over grep
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use ag in CtrlP for listing files
-  let g:ctrlp_use_caching = 0                                    " ag doesn't need to cache
+  set grepprg=ag\ --nogroup\ --nocolor                           "  Use ag over grep
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' "  Use ag in CtrlP for listing files
+  let g:ctrlp_use_caching = 0                                    "  ag doesn't need to cache
 else
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
@@ -320,7 +320,7 @@ else
     \ }
 endif
 
-"vim-devicons
+" vim-devicons
 let g:webdevicons_enable                      = 1
 let g:webdevicons_enable_ctrlp                = 1
 let g:webdevicons_enable_nerdtree             = 1
@@ -329,60 +329,60 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
 let g:DevIconsEnableNERDTreeRedraw            = 1
 
-set guicursor=n:blinkwait0 "Disables cursor blinking
+set guicursor=n:blinkwait0 " Disables cursor blinking
 
 set swapfile
 set directory^=~/.vim/tmp//
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
-set shortmess+=A "Ignores swapfiles when opening file
-set autoread     "Automatically read in the file when changed externally
+set shortmess+=A " Ignores swapfiles when opening file
+set autoread     " Automatically read in the file when changed externally
 
-set list lcs=tab:\|\ "Show line for each tab indentation
-autocmd BufEnter,BufRead * set sw=2 "Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 "But 4 for JavaScript
-set tabstop=4        "An indentation every fourth column
-set autoindent       "Follow previous line's indenting
-set expandtab        "Tabs are spaces
+set list lcs=tab:\|\ " Show line for each tab indentation
+autocmd BufEnter,BufRead * set sw=2 " Use indent of 2 spaces
+autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 " But 4 for JavaScript
+set tabstop=4        " An indentation every fourth column
+set autoindent       " Follow previous line's indenting
+set expandtab        " Tabs are spaces
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
-set backspace=indent,eol,start "Better backspace
+set backspace=indent,eol,start " Better backspace
 
-"indentLine
+" indentLine
 autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
 autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
 let g:indentLine_color_gui                               = '#4b5263'
 let g:indentLine_char                                    = '|'
 
-"Underlines AutoHighligted word:
-"highlight Search guibg=NONE guifg=NONE gui=underline
-let g:HiCursorWords_delay = 1 "Delay after highlighting current word, low dealy may cause lag
+" Underlines AutoHighligted word:
+" highlight Search guibg=NONE guifg=NONE gui=underline
+let g:HiCursorWords_delay = 1 " Delay after highlighting current word, low dealy may cause lag
 
-"For toggling caps lock in insert mode
+" For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
 
-"Vim-easy-align
-"Start in visual mode (e.g. vipga):
+" Vim-easy-align
+" Start in visual mode (e.g. vipga):
 xmap ga <Plug>(EasyAlign)
-"Start for a motion/text object (e.g. gaip)
+" Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-"Vim-easymoion
-"<Leader>f{char} to move to {char}:
+" Vim-easymoion
+" <Leader>f{char} to move to {char}:
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
-"s{char}{char} to move to {char}{char}:
+" s{char}{char} to move to {char}{char}:
 nmap <Leader>s <Plug>(easymotion-overwin-f2)
-"Move to line:
+" Move to line:
 map  <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
-"Move to word:
+" Move to word:
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 let g:strip_whitespace_on_save = 1
 
-"NERDCommenter
+" NERDCommenter
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
@@ -393,17 +393,17 @@ let g:NERDCustomDelimiters = {
 map <leader>C <plug>NERDCommenterToEOL
 
 
-"ALE
+" ALE
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint']
 \}
 
-"vim-lsc
+" vim-lsc
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
 let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
 
-"vim-javascript
-hi clear jsStorageClass "Change color of 'var'
+" vim-javascript
+hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
