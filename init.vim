@@ -101,8 +101,8 @@ set incsearch  "Search while typing
 set nohlsearch "Don't highligt search results"
 
 "Yankstack
-let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-call yankstack#setup() "Has to be called before remap of any yankstack_yank_keys
+" let g:yankstack_yank_keys = []
+" call yankstack#setup() "Has to be called before remap of any yankstack_yank_keys
 
 "Key mapping
 set hidden
@@ -176,7 +176,7 @@ imap     <M-O>            <C-o>O
 "----------------------------------------------
 map      <M-j>            }
 map      <M-k>            {
-map      <C-Space>        zz
+map      <C-Space>        zt
 nmap     ö                ciw
 nmap     Ö                ciW
 nmap     ä                viw
@@ -206,8 +206,10 @@ vnoremap //               y?<C-R>"<CR>
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
-map      <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-map      <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
+nmap      <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
+nmap      <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
+vmap      <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
+vmap      <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      Q                @@
 map      <S-space>        qq
 
