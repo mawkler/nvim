@@ -216,11 +216,12 @@ map      <S-space>        qq
 set number
 set relativenumber
 hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
-set cursorline               " Cursor highlighting
-set scrolloff=8              " Cursor margin
-set textwidth=0              " Disable auto line breaking
-set nrformats+=hex,bin,alpha " Allow Ctrl-A/X for hex, binary and letters
-set guicursor=n-i:blinkwait0 " Disables cursor blinking
+set cursorline                   " Cursor highlighting
+set scrolloff=8                  " Cursor margin
+set textwidth=0                  " Disable auto line breaking
+set nrformats+=hex,bin,alpha     " Allow Ctrl-A/X for hex, binary and letters
+set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
+set guicursor=i:ver25-blinkwait0 " And in insert mode
 
 " -- Themes --
 colorscheme onedark
@@ -361,7 +362,6 @@ let g:NERDCustomDelimiters = {
 \ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
-
 
 " -- ALE --
 let g:ale_fix_on_save = 1
