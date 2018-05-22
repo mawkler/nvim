@@ -271,24 +271,6 @@ hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
 let g:buftabline_show=1
 
-" -- Syntastic --
-set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list            = 1
-" let g:syntastic_check_on_open            = 1
-" let g:syntastic_check_on_wq              = 0
-" let g:syntastic_enable_highlighting      = 1
-
-" Automatically adjust Syntastic window size
-" function! SyntasticCheckHook(errors)
-    " if !empty(a:errors)
-        " let g:syntastic_loc_list_height = min([len(a:errors), 10])
-    " endif
-" endfunction
-
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
 let g:SuperTabMappingForward        = '<C-n>'
@@ -341,7 +323,6 @@ autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 " But 4 for JavaScript
 set tabstop=4                                      " An indentation every fourth column
 set autoindent                                     " Follow previous line's indenting
 set expandtab                                      " Tabs are spaces
-let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
 set backspace=indent,eol,start                     " Better backspace
 
 " -- IndentLine --
