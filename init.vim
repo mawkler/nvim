@@ -1,7 +1,7 @@
-" Vundle plugins
-
 set nocompatible
 filetype off
+
+" -- Vundle plugins --
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -73,7 +73,7 @@ call vundle#end()
 
 "------------------------------------------------------------------------------
 
-" File imports
+" -- File imports --
 source ~/.vim/visual-at.vim
 
 if !empty(glob('~/.vimrc-private'))
@@ -82,29 +82,24 @@ endif
 
 syntax on
 set vb t_vb= " Disable error bells
+set ttyfast " Spped up drawing
 
-" Autocompletion
+" -- Autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
 
-" Tab characters
-filetype plugin indent on " show existing tab with 4 spaces width
-" set tabstop=4 " when indenting with '>', use 4 spaces width
-" set shiftwidth=2 " On pressing tab, insert 2 spaces
-" set expandtab
-
-" Searching
+" -- Searching --
 set ignorecase " Case insensitive searching
 set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
 set nohlsearch " Don't highligt search results
 
-" Yankstack
+" -- Yankstack --
 " let g:yankstack_yank_keys = []
 " call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
 
-" Key mapping
+" -- Key mappings --
 set hidden
 let mapleader = "\<Space>"
 
@@ -142,7 +137,6 @@ nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
 nmap     <C-j>            o<Esc>
 nmap     <C-k>            O<Esc>
-" nmap     <C-s>           :set buftype=<CR>:w<CR>
 nmap     <C-s>            :w<CR>
 " The `:set buftype=` fixes a bug with tcp
 imap     <C-s>            <C-o>:w<CR>
@@ -213,7 +207,7 @@ vmap      <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      Q                @@
 map      <S-space>        qq
 
-" Line numbering
+" -- Line numbering --
 set number
 set relativenumber
 hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
@@ -224,12 +218,12 @@ set textwidth=0 " Disable auto line breaking
 " Allow Ctrl-A/X for hex, binary and letters
 set nrformats+=hex,bin,alpha
 
-" Themes
+" -- Themes --
 colorscheme onedark
 let g:onedark_termcolors = 256
 set encoding=utf8
 
-" Airline
+" -- Airline --
 set laststatus=2 " Always display status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 let g:airline_powerline_fonts = 1
@@ -237,7 +231,7 @@ let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
-" NERDTree
+" -- NERDTree --
 " autocmd vimenter * NERDTree
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 " If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
@@ -254,30 +248,30 @@ if has("gui_running")
   set lines=999 columns=999
 endif
 
-" Emmet
+" -- Emmet --
 let g:user_emmet_install_global = 1
 let g:user_emmet_mode           = 'a' " enable all function in all mode.
 let g:user_emmet_leader_key = '<c-ö>'
 
-" Gitgutter
+" -- Gitgutter --
 set updatetime=100
 
 set runtimepath+=~/.vim/bundle/jshint2.vim/
 
-" AutoPairs disable <M-p>
+" -- AutoPairs disable <M-p> --
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsFlyMode            = 1
 
-" Vim tab bar colorscheme
+" -- Vim tab bar colorscheme --
 hi default link BufTabLineCurrent Pmenu
 hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
 let g:buftabline_show=1
 
-" Syntastic
+" -- Syntastic --
 set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -295,7 +289,7 @@ set statusline+=%*
     " endif
 " endfunction
 
-" Supertab and Snipmate
+" -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
 let g:SuperTabMappingForward        = '<C-n>'
 let g:SuperTabMappingBackward       = '<C-b>'
@@ -303,7 +297,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
 
-" CtrlP
+" -- CtrlP --
 map <C-M-p> :CtrlPMRUFiles<CR>
 let g:ctrlp_show_hidden       = 1
 let g:ctrlp_max_depth         = 100
@@ -320,7 +314,7 @@ else
     \ }
 endif
 
-" vim-devicons
+" -- vim-devicons --
 let g:webdevicons_enable                      = 1
 let g:webdevicons_enable_ctrlp                = 1
 let g:webdevicons_enable_nerdtree             = 1
@@ -339,16 +333,18 @@ set undodir=~/.vim/undo//
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
 
-set list lcs=tab:\|\ " Show line for each tab indentation
-autocmd BufEnter,BufRead * set sw=2 " Use indent of 2 spaces
+" -- Tab characters --
+filetype plugin indent on                          " show existing tab with 4 spaces width
+set list lcs=tab:\|\                               " Show line for each tab indentation
+autocmd BufEnter,BufRead * set sw=2                " Use indent of 2 spaces
 autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 " But 4 for JavaScript
-set tabstop=4        " An indentation every fourth column
-set autoindent       " Follow previous line's indenting
-set expandtab        " Tabs are spaces
+set tabstop=4                                      " An indentation every fourth column
+set autoindent                                     " Follow previous line's indenting
+set expandtab                                      " Tabs are spaces
 let g:syntastic_python_pylint_args = '--rcfile=./.pylintrc'
-set backspace=indent,eol,start " Better backspace
+set backspace=indent,eol,start                     " Better backspace
 
-" indentLine
+" -- IndentLine --
 autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
 autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
 let g:indentLine_color_gui                               = '#4b5263'
@@ -361,13 +357,13 @@ let g:HiCursorWords_delay = 1 " Delay after highlighting current word, low dealy
 " For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
 
-" Vim-easy-align
+" -- Vim-easy-align --
 " Start in visual mode (e.g. vipga):
 xmap ga <Plug>(EasyAlign)
 " Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Vim-easymoion
+" -- Vim-easymoion --
 " <Leader>f{char} to move to {char}:
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
@@ -382,7 +378,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 let g:strip_whitespace_on_save = 1
 
-" NERDCommenter
+" -- NERDCommenter --
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
@@ -393,17 +389,17 @@ let g:NERDCustomDelimiters = {
 map <leader>C <plug>NERDCommenterToEOL
 
 
-" ALE
+" -- ALE --
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint']
 \}
 
-" vim-lsc
+" -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
 let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
 
-" vim-javascript
+" -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
