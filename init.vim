@@ -108,8 +108,6 @@ set nohlsearch " Don't highligt search results
 " -- Key mappings --
 let mapleader = "\<Space>"
 
-nmap <silent> § :NERDTreeToggle<CR>
-
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
 nmap     <C-CR>           <leader>c<space>
@@ -123,8 +121,6 @@ map      <leader>D        "+D
 map      <leader>p        "+p
 map      <leader>P        "+P
 map!     <C-v>            <C-r>+
-map      <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
-map      <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
@@ -237,10 +233,11 @@ let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
 " -- NERDTree --
-" autocmd vimenter * NERDTree
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
-" If not in NERDTree go to it, if in NERDTree close it (doens't work yet)
-" autocmd FileType nerdtree noremap <buffer> § :NERDTreeClose<CR>
+nmap <silent> §                :NERDTreeFocus<CR>
+map           <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
+map           <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
+nnoremap      <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
