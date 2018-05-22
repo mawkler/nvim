@@ -16,6 +16,7 @@ Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'ryanoasis/nerd-fonts'
 " Plugin 'valloric/youcompleteme'
@@ -80,9 +81,18 @@ if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
 endif
 
+" -- General --
 syntax on
 set vb t_vb= " Disable error bells
-set ttyfast " Spped up drawing
+set ttyfast  " Spped up drawing
+set swapfile
+set directory^=~/.vim/tmp//
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+set shortmess+=A " Ignores swapfiles when opening file
+set autoread     " Automatically read in the file when changed externally
+set hidden
 
 " -- Autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
@@ -95,12 +105,7 @@ set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
 set nohlsearch " Don't highligt search results
 
-" -- Yankstack --
-" let g:yankstack_yank_keys = []
-" call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
-
 " -- Key mappings --
-set hidden
 let mapleader = "\<Space>"
 
 nmap <silent> § :NERDTreeToggle<CR>
@@ -200,23 +205,22 @@ vnoremap //               y?<C-R>"<CR>
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
-nmap      <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-nmap      <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
-vmap      <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
-vmap      <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
+nmap     <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
+nmap     <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
+vmap     <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
+vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      Q                @@
 map      <S-space>        qq
 
-" -- Line numbering --
+" -- Lines and cursor --
 set number
 set relativenumber
-hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
-
-set cursorline  " Cursor highlighting
-set scrolloff=8 " Cursor margin
-set textwidth=0 " Disable auto line breaking
-" Allow Ctrl-A/X for hex, binary and letters
-set nrformats+=hex,bin,alpha
+hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
+set cursorline               " Cursor highlighting
+set scrolloff=8              " Cursor margin
+set textwidth=0              " Disable auto line breaking
+set nrformats+=hex,bin,alpha " Allow Ctrl-A/X for hex, binary and letters
+set guicursor=n-i:blinkwait0 " Disables cursor blinking
 
 " -- Themes --
 colorscheme onedark
@@ -255,8 +259,6 @@ let g:user_emmet_leader_key = '<c-ö>'
 
 " -- Gitgutter --
 set updatetime=100
-
-set runtimepath+=~/.vim/bundle/jshint2.vim/
 
 " -- AutoPairs disable <M-p> --
 let g:AutoPairsShortcutToggle     = ''
@@ -301,19 +303,10 @@ let g:webdevicons_enable                      = 1
 let g:webdevicons_enable_ctrlp                = 1
 let g:webdevicons_enable_nerdtree             = 1
 let g:WebDevIconsNerdTreeAfterGlyphPadding    = ''
+let g:WebDevIconsNerdTreeBeforeGlyphPadding   = ''
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
 let g:DevIconsEnableNERDTreeRedraw            = 1
-
-set guicursor=n:blinkwait0 " Disables cursor blinking
-
-set swapfile
-set directory^=~/.vim/tmp//
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
-set shortmess+=A " Ignores swapfiles when opening file
-set autoread     " Automatically read in the file when changed externally
 
 " -- Tab characters --
 filetype plugin indent on                          " show existing tab with 4 spaces width
