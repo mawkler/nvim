@@ -234,6 +234,7 @@ let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on smal
 
 " -- NERDTree --
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
+" The `§` mapping works great together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
 nmap <silent> §                :NERDTreeFocus<CR>
 map           <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
 map           <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
