@@ -105,6 +105,9 @@ set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
 set nohlsearch " Don't highligt search results
 
+" -- Yankstack --
+call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
+
 " -- Key mappings --
 let mapleader = "\<Space>"
 
