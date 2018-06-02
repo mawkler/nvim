@@ -93,6 +93,7 @@ set undodir=~/.vim/undo//
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
 set hidden
+set lazyredraw
 
 " -- Autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
@@ -115,7 +116,7 @@ map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
 nmap     <C-CR>           <leader>c<space>
 vmap     <C-CR>           <leader>c<space>
-imap     <C-CR>           <Up><End><CR>
+imap     <C-k>            <Up><End><CR>
 nnoremap Y                y$
 map      <leader>y        "+y
 map      <leader>Y        "+Y
