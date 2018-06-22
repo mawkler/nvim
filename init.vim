@@ -16,7 +16,7 @@ Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'ryanoasis/nerd-fonts'
 " Plugin 'valloric/youcompleteme'
@@ -34,7 +34,7 @@ Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
 " Plugin 'Shutnik/jshint2.vim'
 " Plugin 'vim-syntastic/syntastic'
-Plugin 'w0rp/ale'                      " Use either ale or syntastic
+Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             " Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
@@ -116,7 +116,7 @@ map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
 nmap     <C-CR>           <leader>c<space>
 vmap     <C-CR>           <leader>c<space>
-imap     <C-k>            <Up><End><CR>
+imap     <C-k>            <c-o>O
 nnoremap Y                y$
 map      <leader>y        "+y
 map      <leader>Y        "+Y
@@ -379,3 +379,6 @@ let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
+
+" -- For editing multiple files with `*` --
+com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
