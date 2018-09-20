@@ -193,6 +193,7 @@ vmap     <                <gv
 vmap     >                >gv
 map      <Leader>;        m0A;<Esc>`0
 map      <Leader>,        m0A,<Esc>`0
+map      <Leader>.        m0A.<Esc>`0
 map      <Leader>v        :source ~/.vimrc<CR>
 map      <Leader>V        :edit ~/.vimrc<CR>
 map      <Leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -209,6 +210,7 @@ nmap     <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap     <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
+map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <S-space>        qq
 
@@ -267,7 +269,6 @@ set updatetime=100
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
-let g:AutoPairsFlyMode            = 1
 
 " -- Vim tab bar colorscheme --
 hi default link BufTabLineCurrent Pmenu
@@ -312,14 +313,14 @@ let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with
 let g:DevIconsEnableNERDTreeRedraw            = 1
 
 " -- Tab characters --
-filetype plugin indent on                          " show existing tab with 4 spaces width
-set list lcs=tab:\|\                               " Show line for each tab indentation
-autocmd BufEnter,BufRead * set sw=2                " Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css  setlocal sw=4 " But 4 for JavaScript
-set tabstop=4                                      " An indentation every fourth column
-set autoindent                                     " Follow previous line's indenting
-set expandtab                                      " Tabs are spaces
-set backspace=indent,eol,start                     " Better backspace
+filetype plugin indent on                              " show existing tab with 4 spaces width
+set list lcs=tab:\|\                                   " Show line for each tab indentation
+autocmd BufEnter,BufRead * set sw=2                    " Use indent of 2 spaces
+autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 " But 4 spaces in certain files
+set tabstop=4                                          " An indentation every fourth column
+set autoindent                                         " Follow previous line's indenting
+set expandtab                                          " Tabs are spaces
+set backspace=indent,eol,start                         " Better backspace
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
@@ -369,7 +370,11 @@ map <leader>C <plug>NERDCommenterToEOL
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint']
+\   'javascript': ['prettier', 'eslint'],
+\   'python': ['autopep8']
+\}
+let g:ale_linters = {
+\   'python': ['flake8']
 \}
 
 " -- Vim-lsc --
@@ -382,3 +387,6 @@ hi link jsStorageClass Keyword
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+
+" -- Targets.vim --
+let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
