@@ -134,7 +134,6 @@ autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
 autocmd  BufEnter,BufRead *.py   nmap <Tab> >>
 autocmd  BufEnter,BufRead *.py   vmap <Tab> >gv
 nnoremap <M-o>            <C-i>
-map      <CR>             <C-w><C-w>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
 map      +                3<C-W>>
@@ -213,6 +212,14 @@ vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <S-space>        qq
+
+" -- Quickfix window remap --
+map <CR> <C-w><C-w>
+" autocmd BufEnter,BufRead * noremap  <CR> <C-w><C-w>
+" autocmd BufEnter,BufRead quickfix map o <CR>
+" autocmd BufLeave quickfix :echo "*"
+" autocmd BufWinEnter * :echo "*"
+autocmd WinEnter quickfix :echo "quickfix"
 
 " -- Lines and cursor --
 set number
@@ -376,6 +383,7 @@ let g:ale_fixers = {
 let g:ale_linters = {
 \   'python': ['flake8']
 \}
+let g:ale_python_autopep8_options = '--aggressive'
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
