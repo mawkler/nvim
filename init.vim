@@ -233,7 +233,7 @@ set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor=i:ver25-blinkwait0 " And in insert mode
 
 " -- Themes --
-colorscheme onedark
+colorscheme onedark " Atom color scheme
 let g:onedark_termcolors = 256
 set encoding=utf8
 
@@ -398,3 +398,6 @@ com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:serverna
 
 " -- Targets.vim --
 let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
+
+" -- Vim Fugitive --
+cnoreabbrev Gdiff Gvdiff
