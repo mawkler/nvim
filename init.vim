@@ -186,7 +186,7 @@ nmap     <C-c>            <Nop>
 vmap     s                <Plug>VSurround
 vmap     S                <Plug>VgSurround
 nmap     s                ys
-nmap     S                yS
+nmap     S                ys$
 " ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
