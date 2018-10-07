@@ -327,6 +327,7 @@ set tabstop=4                                          " An indentation every fo
 set autoindent                                         " Follow previous line's indenting
 set expandtab                                          " Tabs are spaces
 set backspace=indent,eol,start                         " Better backspace
+set cinkeys-=0#                                        " Indent lines starting with `#`
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
