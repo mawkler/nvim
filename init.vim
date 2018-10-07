@@ -86,9 +86,8 @@ syntax on
 set vb t_vb= " Disable error bells
 set ttyfast  " Spped up drawing
 set swapfile
-set directory^=~/.vim/tmp//
 set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
+set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
