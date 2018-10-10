@@ -53,6 +53,7 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'vim-scripts/visualrepeat'
 Plugin 'wellle/targets.vim'
+Plugin 'michaeljsmith/vim-indent-object'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -211,6 +212,8 @@ vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <S-space>        qq
+map      <leader>T       :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
+map      <leader>t       :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
 
 " -- Quickfix window remap --
 map <CR> <C-w><C-w>
