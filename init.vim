@@ -89,9 +89,8 @@ syntax on
 set vb t_vb= " Disable error bells
 set ttyfast  " Spped up drawing
 set swapfile
-set directory^=~/.vim/tmp//
 set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
+set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
@@ -213,6 +212,8 @@ nmap     <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
+map      <leader>T       :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
+map      <leader>t       :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
 map      Q               @@
 map      <S-space>       qq
 nnoremap §               <C-^>
