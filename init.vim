@@ -53,6 +53,9 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'vim-scripts/visualrepeat'
 Plugin 'wellle/targets.vim'
+Plugin 'google/vim-searchindex'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'tpope/vim-sleuth'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -210,8 +213,9 @@ nmap     <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
-map      Q                @@
-map      <S-space>        qq
+map      Q               @@
+map      <S-space>       qq
+nnoremap §               <C-^>
 
 " -- Quickfix window remap --
 map <CR> <C-w><C-w>
@@ -247,11 +251,11 @@ let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on smal
 
 " -- NERDTree --
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
-" The `§` mapping works great together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
-nmap <silent> §                :NERDTreeFocus<CR>
-map           <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
-map           <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
-nnoremap      <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
+" The `½` mapping works together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
+nnoremap <silent> ½                :NERDTreeFocus<CR>
+map               <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
+map               <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
+nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -283,6 +287,16 @@ hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
 let g:buftabline_show=1
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
 
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
@@ -320,14 +334,16 @@ let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with
 let g:DevIconsEnableNERDTreeRedraw            = 1
 
 " -- Tab characters --
-filetype plugin indent on                              " show existing tab with 4 spaces width
-set list lcs=tab:\|\                                   " Show line for each tab indentation
-autocmd BufEnter,BufRead * set sw=2                    " Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 " But 4 spaces in certain files
-set tabstop=4                                          " An indentation every fourth column
-set autoindent                                         " Follow previous line's indenting
-set expandtab                                          " Tabs are spaces
-set backspace=indent,eol,start                         " Better backspace
+filetype plugin indent on                                   " show existing tab with 4 spaces width
+set list lcs=tab:\|\                                        " Show line for each tab indentation
+set shiftwidth=2
+" autocmd BufEnter * set sw=2                               " Use indent of 2 spaces
+autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 ts=4 " But 4 spaces in certain files
+set tabstop=4                                               " An indentation every fourth column
+set autoindent                                              " Follow previous line's indenting
+set expandtab                                               " Tabs are spaces
+set backspace=indent,eol,start                              " Better backspace
+set cinkeys-=0#                                             " Indent lines starting with `#`
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
@@ -381,7 +397,8 @@ let g:ale_fixers = {
 \   'python': ['autopep8']
 \}
 let g:ale_linters = {
-\   'python': ['flake8']
+\   'python': ['flake8'],
+\   'cpp': ['gcc -fopenmp']
 \}
 let g:ale_python_autopep8_options = '--aggressive'
 
@@ -401,3 +418,6 @@ let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
 
 " -- Vim Fugitive --
 cnoreabbrev Gdiff Gvdiff
+
+" -- Vim Sleuth --
+let g:sleuth_automatic = 1
