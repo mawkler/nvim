@@ -8,7 +8,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-speeddating'
+" Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
@@ -16,7 +16,6 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
-" Plugin 'vim-scripts/zoom.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -24,39 +23,39 @@ Plugin 'Valloric/MatchTagAlways'
 Plugin 'ryanoasis/nerd-fonts'
 " Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'mattn/emmet-vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'        " Shows git status for each line
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
-" Plugin 'Shutnik/jshint2.vim'
-" Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             " Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
-" Plugin 'fholgado/minibufexpl.vim'
 " Plugin 'drmingdrmer/vim-tabbar'
-" Plugin 'mhinz/vim-startify'
 Plugin 'tmhedberg/matchit'
-" Plugin 'ihacklog/HiCursorWords'         " Highligt all occurences of current word
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
 Plugin 'natebosch/vim-lsc'
+Plugin 'vim-scripts/visualrepeat'
 Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
-Plugin 'vim-scripts/visualrepeat'
+Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'wellle/targets.vim'
 Plugin 'google/vim-searchindex'
-Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'Yggdroot/indentLine'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'vim-scripts/capslock.vim'
+Plugin 'junegunn/vim-easy-align'
+" Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -64,15 +63,6 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 " ------------------------------------
-
-" Ericsson
-Plugin 'Yggdroot/indentLine'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'vim-scripts/capslock.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'ivalkeen/vim-ctrlp-tjump'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 call vundle#end()
 
