@@ -9,11 +9,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-eunuch'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 " Plugin 'vim-scripts/zoom.vim'
-Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -41,7 +44,6 @@ Plugin 'scrooloose/nerdcommenter'
 " Plugin 'fholgado/minibufexpl.vim'
 " Plugin 'drmingdrmer/vim-tabbar'
 " Plugin 'mhinz/vim-startify'
-Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
 " Plugin 'ihacklog/HiCursorWords'         " Highligt all occurences of current word
 Plugin 'MarcWeber/vim-addon-commandline-completion'
@@ -55,7 +57,6 @@ Plugin 'vim-scripts/visualrepeat'
 Plugin 'wellle/targets.vim'
 Plugin 'google/vim-searchindex'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'tpope/vim-sleuth'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -126,7 +127,7 @@ map      <leader>d        "+d
 map      <leader>D        "+D
 map      <leader>p        "+p
 map      <leader>P        "+P
-map!     <C-v>            <C-r>+
+map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
@@ -220,11 +221,6 @@ nnoremap §               <C-^>
 
 " -- Quickfix window remap --
 map <CR> <C-w><C-w>
-" autocmd BufEnter,BufRead * noremap  <CR> <C-w><C-w>
-" autocmd BufEnter,BufRead quickfix map o <CR>
-" autocmd BufLeave quickfix :echo "*"
-" autocmd BufWinEnter * :echo "*"
-autocmd WinEnter quickfix :echo "quickfix"
 
 " -- Lines and cursor --
 set number
