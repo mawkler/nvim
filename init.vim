@@ -209,8 +209,13 @@ map      Q               @@
 map      <S-space>       qq
 nnoremap §               <C-^>
 
+if has('nvim')
+  map <leader><Tab>   :bnext<CR>
+  map <leader><S-Tab> :bprevious<CR>
+endif
+
 " -- Quickfix window remap --
-map <CR> <C-w><C-w>
+" map <CR> <C-w><C-w>
 
 " -- Lines and cursor --
 set number
@@ -268,7 +273,7 @@ let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 
-" -- Vim tab bar colorscheme --
+" -- Vim tab bar --
 hi default link BufTabLineCurrent Pmenu
 hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
@@ -282,8 +287,7 @@ nmap <leader>5 <Plug>BufTabLine.Go(5)
 nmap <leader>6 <Plug>BufTabLine.Go(6)
 nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 <Plug>BufTabLine.Go(9)
-nmap <leader>0 <Plug>BufTabLine.Go(10)
+nmap <leader>9 :blast<CR>
 
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
