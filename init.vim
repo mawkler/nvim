@@ -205,11 +205,12 @@ vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
 map      <leader>T       :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
 map      <leader>t       :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
+nmap     <leader>9       :blast<CR>
 map      Q               @@
 map      <S-space>       qq
 nnoremap §               <C-^>
 
-if has('nvim')
+if has('nvim') && !exists("g:gui_oni")
   map <leader><Tab>   :bnext<CR>
   map <leader><S-Tab> :bprevious<CR>
 endif
@@ -228,10 +229,94 @@ set nrformats+=hex,bin,alpha     " Allow Ctrl-A/X for hex, binary and letters
 set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor=i:ver25-blinkwait0 " And in insert mode
 
+" -- Tab characters --
+filetype plugin indent on                                   " show existing tab with 4 spaces width
+set list lcs=tab:\|\                                        " Show line for each tab indentation
+set shiftwidth=2
+" autocmd BufEnter * set sw=2                               " Use indent of 2 spaces
+autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 ts=4 " But 4 spaces in certain files
+set tabstop=4                                               " An indentation every fourth column
+set autoindent                                              " Follow previous line's indenting
+set expandtab                                               " Tabs are spaces
+set backspace=indent,eol,start                              " Better backspace
+set cinkeys-=0#                                             " Indent lines starting with `#`
+
+" Disable toolbar, scrollbar and menubar
+set guioptions-=T
+set guioptions-=r
+set guioptions-=m
+set guioptions-=L
+
+" Start in maximized window
+if has("gui_running")
+  set lines=999 columns=999
+endif
+
 " -- Themes --
 colorscheme onedark " Atom color scheme
 let g:onedark_termcolors = 256
 set encoding=utf8
+
+" -- IndentLine --
+autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
+autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
+let g:indentLine_color_gui                               = '#4b5263'
+let g:indentLine_char                                    = '|'
+
+" For toggling caps lock in insert mode
+imap <C-C> <Plug>CapsLockToggle
+
+" -- Vim-easy-align --
+" Start in visual mode (e.g. vipga):
+xmap ga <Plug>(EasyAlign)
+" Start for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" -- Vim-easymoion --
+" <Leader>f{char} to move to {char}:
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+" s{char}{char} to move to {char}{char}:
+nmap <Leader>s <Plug>(easymotion-overwin-f2)
+" Move to word:
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+let g:strip_whitespace_on_save = 1
+
+" -- NERDCommenter --
+let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
+let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
+let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
+let g:NERDCustomDelimiters = {
+\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
+\ }
+map <leader>C <plug>NERDCommenterToEOL
+
+" -- Gitgutter --
+set updatetime=100
+
+" -- AutoPairs disable <M-p> --
+let g:AutoPairsShortcutToggle     = ''
+let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsShortcutFastWrap   = ''
+
+" -- For editing multiple files with `*` --
+com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+
+" -- Targets.vim --
+let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
+
+" -- Vim Fugitive --
+cnoreabbrev Gdiff Gvdiff
+
+" -- Vim Sleuth --
+let g:sleuth_automatic = 1
+
+
+if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
+
 
 " -- Airline --
 set laststatus=2 " Always display status line
@@ -249,30 +334,6 @@ map               <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
 map               <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 
-" Disable toolbar, scrollbar and menubar
-set guioptions-=T
-set guioptions-=r
-set guioptions-=m
-set guioptions-=L
-
-" Start in maximized window
-if has("gui_running")
-  set lines=999 columns=999
-endif
-
-" -- Emmet --
-let g:user_emmet_install_global = 1
-let g:user_emmet_mode           = 'a' " enable all function in all mode.
-let g:user_emmet_leader_key = '<c-ö>'
-
-" -- Gitgutter --
-set updatetime=100
-
-" -- AutoPairs disable <M-p> --
-let g:AutoPairsShortcutToggle     = ''
-let g:AutoPairsShortcutBackInsert = ''
-let g:AutoPairsShortcutFastWrap   = ''
-
 " -- Vim tab bar --
 hi default link BufTabLineCurrent Pmenu
 hi default link BufTabLineActive  TabLineSel
@@ -287,7 +348,6 @@ nmap <leader>5 <Plug>BufTabLine.Go(5)
 nmap <leader>6 <Plug>BufTabLine.Go(6)
 nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 :blast<CR>
 
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
@@ -324,62 +384,6 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
 let g:DevIconsEnableNERDTreeRedraw            = 1
 
-" -- Tab characters --
-filetype plugin indent on                                   " show existing tab with 4 spaces width
-set list lcs=tab:\|\                                        " Show line for each tab indentation
-set shiftwidth=2
-" autocmd BufEnter * set sw=2                               " Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 ts=4 " But 4 spaces in certain files
-set tabstop=4                                               " An indentation every fourth column
-set autoindent                                              " Follow previous line's indenting
-set expandtab                                               " Tabs are spaces
-set backspace=indent,eol,start                              " Better backspace
-set cinkeys-=0#                                             " Indent lines starting with `#`
-
-" -- IndentLine --
-autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
-autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
-let g:indentLine_color_gui                               = '#4b5263'
-let g:indentLine_char                                    = '|'
-
-" Underlines AutoHighligted word:
-" highlight Search guibg=NONE guifg=NONE gui=underline
-let g:HiCursorWords_delay = 1 " Delay after highlighting current word, low dealy may cause lag
-
-" For toggling caps lock in insert mode
-imap <C-C> <Plug>CapsLockToggle
-
-" -- Vim-easy-align --
-" Start in visual mode (e.g. vipga):
-xmap ga <Plug>(EasyAlign)
-" Start for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" -- Vim-easymoion --
-" <Leader>f{char} to move to {char}:
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-" s{char}{char} to move to {char}{char}:
-nmap <Leader>s <Plug>(easymotion-overwin-f2)
-" Move to line:
-map  <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-" Move to word:
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-let g:strip_whitespace_on_save = 1
-
-" -- NERDCommenter --
-let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
-let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
-let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
-let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
-let g:NERDCustomDelimiters = {
-\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
-\ }
-map <leader>C <plug>NERDCommenterToEOL
-
 " -- ALE --
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
@@ -401,14 +405,4 @@ let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
 
-" -- For editing multiple files with `*` --
-com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
-
-" -- Targets.vim --
-let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
-
-" -- Vim Fugitive --
-cnoreabbrev Gdiff Gvdiff
-
-" -- Vim Sleuth --
-let g:sleuth_automatic = 1
+endif
