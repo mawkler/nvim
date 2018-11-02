@@ -210,6 +210,10 @@ map      Q               @@
 map      <S-space>       qq
 nnoremap §               <C-^>
 
+if has('nvim')
+  map <Leader>v :source ~/.config/nvim/init.vim<CR>
+endif
+
 if has('nvim') && !exists("g:gui_oni")
   map <leader><Tab>   :bnext<CR>
   map <leader><S-Tab> :bprevious<CR>
@@ -393,7 +397,8 @@ let g:ale_fixers = {
 \}
 let g:ale_linters = {
 \   'python': ['flake8'],
-\   'cpp': ['gcc -fopenmp']
+\   'c': ['gcc -fopenmp'],
+\   'cpp': ['g++ -fopenmp']
 \}
 let g:ale_python_autopep8_options = '--aggressive'
 
