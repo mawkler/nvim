@@ -56,6 +56,7 @@ Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
 " Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
+Plugin 'unblevable/quick-scope'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -252,6 +253,14 @@ if has("gui_running")
   set lines=999 columns=999
 endif
 
+" -- Quickscope (highlight settings have to come before setting `colorscheme`) --
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
+  autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
+augroup END
+
 " -- Themes --
 colorscheme onedark " Atom color scheme
 let g:onedark_termcolors = 256
@@ -313,7 +322,6 @@ cnoreabbrev Gdiff Gvdiff
 
 " -- Vim Sleuth --
 let g:sleuth_automatic = 1
-
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
