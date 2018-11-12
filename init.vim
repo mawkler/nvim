@@ -169,8 +169,8 @@ imap     <M-O>            <C-o>O
 map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
-nmap     ö                ciw
-nmap     Ö                ciW
+nmap     ö                ;
+nmap     Ö                :
 nmap     ä                viw
 nmap     Ä                viW
 nmap     å                ci(
