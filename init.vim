@@ -184,14 +184,15 @@ nmap     S                ys$
 " ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
-map      <Leader>;        m0A;<Esc>`0
-map      <Leader>,        m0A,<Esc>`0
-map      <Leader>.        m0A.<Esc>`0
-map      <Leader>v        :source ~/.vimrc<CR>
-map      <Leader>V        :edit ~/.vimrc<CR>
-map      <Leader>N        :edit ~/.config/nvim/init.vim<CR>
-map      <Leader>Z        :edit ~/.zshrc<CR>
-map      <leader>U        :cd ~/Dropbox/Uppsala/<CR>
+map      <leader>;        m0A;<Esc>`0
+map      <leader>,        m0A,<Esc>`0
+map      <leader>.        m0A.<Esc>`0
+map      <leader>v        :source ~/.vimrc<CR>
+map      <leader>V        :edit ~/.vimrc<CR>
+map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
+map      <leader>Z        :edit ~/.zshrc<CR>
+map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
+map      <leader>~        :cd ~<CR>
 nmap     gF               :e <C-r>+<CR>
 nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
@@ -199,23 +200,20 @@ vnoremap //               y?<C-R>"<CR>
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
-nmap     <leader>r       :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-nmap     <leader>R       :%substitute/<C-R><C-W>//I<Left><Left>
-vmap     <leader>r       y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
-vmap     <leader>R       y:<C-U>%substitute/<C-R>0//I<Left><Left>
-map      <leader>gd      <C-w>v<C-w>lgdzt<C-w><C-p>
-map      <leader>T       :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
-map      <leader>t       :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
-nmap     <leader>9       :blast<CR>
-map      Q               @@
-map      <S-space>       qq
-nnoremap §               <C-^>
+nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
+nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
+vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
+vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
+map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
+map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
+map      <leader>t        :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
+nmap     <leader>9        :blast<CR>
+map      Q                @@
+map      <S-space>        qq
+nnoremap §                <C-^>
 
 if has('nvim')
-  map <Leader>v :source ~/.config/nvim/init.vim<CR>
-endif
-
-if has('nvim') && !exists("g:gui_oni")
+  map <leader>v :source ~/.config/nvim/init.vim<CR>
   map <leader><Tab>   :bnext<CR>
   map <leader><S-Tab> :bprevious<CR>
 endif
@@ -286,14 +284,14 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " -- Vim-easymoion --
-" <Leader>f{char} to move to {char}:
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" <leader>f{char} to move to {char}:
+map  <leader>f <Plug>(easymotion-bd-f)
+nmap <leader>f <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}:
-nmap <Leader>s <Plug>(easymotion-overwin-f2)
+nmap <leader>s <Plug>(easymotion-overwin-f2)
 " Move to word:
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
 
 let g:strip_whitespace_on_save = 1
 
@@ -412,7 +410,7 @@ let g:ale_python_autopep8_options = '--aggressive'
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
-let g:lsc_auto_map        = { 'GoToDefinition': '<Leader>g' }
+let g:lsc_auto_map        = { 'GoToDefinition': '<leader>g' }
 
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
