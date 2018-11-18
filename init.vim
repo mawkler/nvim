@@ -71,6 +71,7 @@ call vundle#end()
 
 " -- File imports --
 source ~/.vim/visual-at.vim
+autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
 
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
