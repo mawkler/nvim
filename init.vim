@@ -17,10 +17,8 @@ Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'scrooloose/nerdtree'
-Plugin 'ryanoasis/vim-devicons'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'
-Plugin 'ryanoasis/nerd-fonts'
 " Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
@@ -64,6 +62,9 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 " ------------------------------------
+
+" vim-devicons should be loaded last
+Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 
@@ -389,11 +390,13 @@ endif
 let g:webdevicons_enable                      = 1
 let g:webdevicons_enable_ctrlp                = 1
 let g:webdevicons_enable_nerdtree             = 1
-let g:WebDevIconsNerdTreeAfterGlyphPadding    = ''
-let g:WebDevIconsNerdTreeBeforeGlyphPadding   = ''
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
 let g:DevIconsEnableNERDTreeRedraw            = 1
+let g:WebDevIconsNerdTreeBeforeGlyphPadding   = ''
+if has("gui_running")
+  let g:WebDevIconsNerdTreeAfterGlyphPadding  = ''
+endif
 
 " -- ALE --
 let g:ale_fix_on_save = 1
