@@ -52,9 +52,9 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
-" Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
 Plugin 'unblevable/quick-scope'
+Plugin 'ludovicchabant/vim-gutentags'
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -94,7 +94,8 @@ set lazyredraw
 " -- Autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
-set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
+set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
+set wildignorecase              " Case insensitive file- and directory name completion
 
 " -- Searching --
 set ignorecase " Case insensitive searching
