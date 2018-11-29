@@ -264,6 +264,8 @@ augroup qs_colors
   autocmd!
   autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
   autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
+  autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
+  autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
 augroup END
 
 " -- Themes --
@@ -402,6 +404,8 @@ endif
 " -- ALE --
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
+let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
+let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
 \   'python': ['autopep8']
@@ -411,7 +415,6 @@ let g:ale_linters = {
 \   'c': ['gcc -fopenmp'],
 \   'cpp': ['g++ -fopenmp']
 \}
-let g:ale_python_autopep8_options = '--aggressive'
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
