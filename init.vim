@@ -417,6 +417,9 @@ let g:ale_linters = {
 \   'cpp': ['g++ -fopenmp']
 \}
 
+" -- Gutentags --
+let g:gutentags_cache_dir = "~/.vim/tags"
+
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
 let g:lsc_auto_map        = { 'GoToDefinition': '<leader>g' }
