@@ -419,6 +419,7 @@ let g:ale_linters = {
 
 " -- Gutentags --
 let g:gutentags_cache_dir = "~/.vim/tags"
+set statusline+=%{gutentags#statusline()}
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
