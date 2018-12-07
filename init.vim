@@ -1,5 +1,4 @@
 set nocompatible
-filetype off
 
 " -- Vundle plugins --
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -63,8 +62,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 " ------------------------------------
 
-" vim-devicons should be loaded last
-Plugin 'ryanoasis/vim-devicons'
+Plugin 'ryanoasis/vim-devicons' " vim-devicons should be loaded last
 
 call vundle#end()
 
@@ -80,18 +78,18 @@ endif
 
 " -- General --
 syntax on
-set vb t_vb= " Disable error bells
-set ttyfast  " Spped up drawing
-set swapfile
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swp//
-set undodir=~/.vim/undo//
+set vb t_vb=     " Disable error bells
+set ttyfast      " Spped up drawing
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
 set hidden
 set lazyredraw
+set swapfile
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swp//
+set undodir=~/.vim/undo//
 
-" -- Autocompletion --
+" -- Menu autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
@@ -237,16 +235,16 @@ set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor=i:ver25-blinkwait0 " And in insert mode
 
 " -- Tab characters --
-filetype plugin indent on                                   " show existing tab with 4 spaces width
-set list lcs=tab:\|\                                        " Show line for each tab indentation
+filetype plugin indent on                                    " show existing tab with 4 spaces width
+set list listchars=tab:\⎸\                                   " Show line for each tab indentation
 set shiftwidth=2
-" autocmd BufEnter * set sw=2                               " Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css,*py  setlocal sw=4 ts=4 " But 4 spaces in certain files
-set tabstop=4                                               " An indentation every fourth column
-set autoindent                                              " Follow previous line's indenting
-set expandtab                                               " Tabs are spaces
-set backspace=indent,eol,start                              " Better backspace
-set cinkeys-=0#                                             " Indent lines starting with `#`
+" autocmd BufEnter * set sw=2                                " Use indent of 2 spaces
+autocmd BufEnter,BufRead *.js,*.css,*.py  setlocal sw=4 ts=4 " But 4 spaces in certain files
+set tabstop=4                                                " An indentation every fourth column
+set autoindent                                               " Follow previous line's indenting
+set expandtab                                                " Tabs are spaces
+set backspace=indent,eol,start                               " Better backspace
+set cinkeys-=0#                                              " Indent lines starting with `#`
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -275,8 +273,8 @@ let g:onedark_termcolors = 256
 set encoding=utf8
 
 " -- IndentLine --
-autocmd BufEnter,BufRead * let g:indentLine_enabled      = 1
-autocmd BufEnter,BufRead *.json let g:indentLine_enabled = 0
+autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
+autocmd BufEnter,BufRead *.json let b:indentLine_enabled = 0
 let g:indentLine_color_gui                               = '#4b5263'
 let g:indentLine_char                                    = '⎸'
 
