@@ -18,7 +18,7 @@ Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'scrooloose/nerdtree'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'
-" Plugin 'valloric/youcompleteme'
+Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
@@ -31,7 +31,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             " Better vim tabs
 Plugin 'scrooloose/nerdcommenter'
 " Plugin 'drmingdrmer/vim-tabbar'
@@ -39,7 +39,7 @@ Plugin 'tmhedberg/matchit'
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
-Plugin 'natebosch/vim-lsc'
+" Plugin 'natebosch/vim-lsc'
 Plugin 'vim-scripts/visualrepeat'
 Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'kana/vim-textobj-user'
@@ -79,7 +79,7 @@ endif
 " -- General --
 syntax on
 set vb t_vb=     " Disable error bells
-set ttyfast      " Spped up drawing
+set ttyfast      " Speed up drawing
 set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
 set hidden
@@ -364,12 +364,16 @@ nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
 
 " -- Supertab and Snipmate --
-let g:SuperTabCrMapping             = 1
-let g:SuperTabMappingForward        = '<C-n>'
-let g:SuperTabMappingBackward       = '<C-b>'
-let g:SuperTabDefaultCompletionType = 'context'
+" let g:SuperTabCrMapping             = 1
+" let g:SuperTabMappingForward        = '<C-n>'
+" let g:SuperTabMappingBackward       = '<C-b>'
+" let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
+
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " -- CtrlP --
 map <C-M-p> :CtrlPMRUFiles<CR>
