@@ -236,7 +236,7 @@ set guicursor=i:ver25-blinkwait0 " And in insert mode
 
 " -- Tab characters --
 filetype plugin indent on                                    " show existing tab with 4 spaces width
-set list listchars=tab:\⎸\                                   " Show line for each tab indentation
+set list listchars=tab:\▏\                                   " Show line for each tab indentation
 set shiftwidth=2
 " autocmd BufEnter * set sw=2                                " Use indent of 2 spaces
 autocmd BufEnter,BufRead *.js,*.css,*.py  setlocal sw=4 ts=4 " But 4 spaces in certain files
@@ -276,7 +276,7 @@ set encoding=utf8
 autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
 autocmd BufEnter,BufRead *.json let b:indentLine_enabled = 0
 let g:indentLine_color_gui                               = '#4b5263'
-let g:indentLine_char                                    = '⎸'
+let g:indentLine_char                                    = '▏'
 
 " For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
