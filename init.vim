@@ -7,7 +7,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
-" Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
@@ -16,12 +15,17 @@ Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'valloric/youcompleteme'
+Plugin 'Valloric/MatchTagAlways'       " Highlight matching HTML tags
+Plugin 'tmhedberg/matchit'             " Ads `%` command for HTML tags
+" Plugin 'Shougo/deoplete.nvim'
+" Plugin 'valloric/youcompleteme'
+Plugin 'ervandew/supertab'             " Tab completion
+Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'jiangmiao/auto-pairs'          " Add matching brackets, quotes, etc
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'        " Shows git status for each line
@@ -29,19 +33,16 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
+Plugin 'vim-scripts/visualrepeat'
+Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'vim-scripts/capslock.vim'
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
-" Plugin 'ervandew/supertab'
 Plugin 'ap/vim-buftabline'             " Better vim tabs
-Plugin 'scrooloose/nerdcommenter'
 " Plugin 'drmingdrmer/vim-tabbar'
-Plugin 'tmhedberg/matchit'
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
-" Plugin 'natebosch/vim-lsc'
-Plugin 'vim-scripts/visualrepeat'
-Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'michaeljsmith/vim-indent-object'
@@ -49,7 +50,6 @@ Plugin 'wellle/targets.vim'
 Plugin 'google/vim-searchindex'
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'vim-scripts/capslock.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
 Plugin 'unblevable/quick-scope'
