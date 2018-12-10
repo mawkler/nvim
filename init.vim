@@ -62,6 +62,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 " ------------------------------------
 
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons' " vim-devicons should be loaded last
 
 call vundle#end()
