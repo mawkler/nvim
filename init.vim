@@ -321,7 +321,9 @@ let g:AutoPairsShortcutFastWrap   = ''
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
 " -- Targets.vim --
-let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
+let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
+let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
+
 
 " -- Vim Fugitive --
 cnoreabbrev Gdiff Gvdiff
