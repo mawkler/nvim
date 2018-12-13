@@ -19,6 +19,7 @@ Plugin 'scrooloose/nerdcommenter'
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'       " Highlight matching HTML tags
 Plugin 'tmhedberg/matchit'             " Ads `%` command for HTML tags
+Plugin 'andymass/vim-matchup'          " Ads additional `%` commands
 " Plugin 'Shougo/deoplete.nvim'
 " Plugin 'valloric/youcompleteme'
 Plugin 'ervandew/supertab'             " Tab completion
@@ -234,6 +235,7 @@ set textwidth=0                  " Disable auto line breaking
 set nrformats+=hex,bin,alpha     " Allow Ctrl-A/X for hex, binary and letters
 set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor=i:ver25-blinkwait0 " And in insert mode
+set mouse=a                      " Enable mouse
 
 " -- Tab characters --
 filetype plugin indent on                                    " show existing tab with 4 spaces width
@@ -271,7 +273,7 @@ augroup END
 " -- Themes --
 colorscheme onedark " Atom color scheme
 let g:onedark_termcolors = 256
-set encoding=utf8
+set encoding=utf-8
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
