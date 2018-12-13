@@ -5,7 +5,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'gmarik/vundle'
+" Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -35,7 +35,6 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/visualrepeat'
-Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'vim-scripts/capslock.vim'
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 Plugin 'ap/vim-buftabline'             " Better vim tabs
@@ -324,7 +323,9 @@ let g:AutoPairsShortcutFastWrap   = ''
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
 " -- Targets.vim --
-let g:targets_nl = 'nN' " Uses `N` instead of `l` for moving targeting backwards
+let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
+let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
+
 
 " -- Vim Fugitive --
 cnoreabbrev Gdiff Gvdiff
