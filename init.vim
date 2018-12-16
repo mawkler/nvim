@@ -5,7 +5,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -16,7 +15,6 @@ Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-" Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/MatchTagAlways'       " Highlight matching HTML tags
 Plugin 'tmhedberg/matchit'             " Ads `%` command for HTML tags
 " Plugin 'Shougo/deoplete.nvim'
@@ -109,8 +107,7 @@ let mapleader = "\<Space>"
 
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
-nmap     <C-CR>           <leader>c<space>
-vmap     <C-CR>           <leader>c<space>
+map      <CR>             <leader>c<space>
 imap     <C-k>            <c-o>O
 nnoremap Y                y$
 map      <leader>y        "+y
@@ -209,10 +206,10 @@ vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
 map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
 map      <leader>t        :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
-nmap     <leader>9        :blast<CR>
 map      Q                @@
 map      <S-space>        qq
 nnoremap §                <C-^>
+tnoremap <Esc>            <C-\><C-n>
 
 if has('nvim')
   map <leader>v :source ~/.config/nvim/init.vim<CR>
@@ -220,11 +217,10 @@ if has('nvim')
   map <leader><S-Tab> :bprevious<CR>
 endif
 
-" -- Quickfix window remap --
-" map <CR> <C-w><C-w>
+" -- Quickfix window map --
+au filetype qf noremap o <CR>
 
 " -- Lines and cursor --
-set number
 set relativenumber
 hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 set cursorline                   " Cursor highlighting
@@ -235,16 +231,15 @@ set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor=i:ver25-blinkwait0 " And in insert mode
 
 " -- Tab characters --
-filetype plugin indent on                                    " show existing tab with 4 spaces width
-set list listchars=tab:\▏\                                   " Show line for each tab indentation
-set shiftwidth=2
-" autocmd BufEnter * set sw=2                                " Use indent of 2 spaces
-autocmd BufEnter,BufRead *.js,*.css,*.py  setlocal sw=4 ts=4 " But 4 spaces in certain files
-set tabstop=4                                                " An indentation every fourth column
-set autoindent                                               " Follow previous line's indenting
-set expandtab                                                " Tabs are spaces
-set backspace=indent,eol,start                               " Better backspace
-set cinkeys-=0#                                              " Indent lines starting with `#`
+filetype plugin indent on
+set expandtab                                         " Use spaces for indentation
+set shiftwidth=2                                      " Width of indentation
+set tabstop=2                                         " Width of <Tab> characters
+set list listchars=tab:\▏\                            " Show line for each tab indentation
+set autoindent                                        " Follow previous line's indenting
+set backspace=indent,eol,start                        " Better backspace behaviour
+set cinkeys-=0#                                       " Indent lines starting with `#`
+au  filetype javascript,css,python setlocal sw=4 ts=4 " Custom filetype indent settings
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -364,6 +359,7 @@ nmap <leader>5 <Plug>BufTabLine.Go(5)
 nmap <leader>6 <Plug>BufTabLine.Go(6)
 nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 :blast<CR>
 
 " -- Supertab and Snipmate --
 " let g:SuperTabCrMapping             = 1
