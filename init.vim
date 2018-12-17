@@ -409,14 +409,15 @@ let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
 let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
-let g:ale_fixers = {
+let g:ale_fixers  = {
+\   '*':          ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'eslint'],
-\   'python': ['autopep8']
+\   'python':     ['autopep8']
 \}
 let g:ale_linters = {
 \   'python': ['flake8'],
-\   'c': ['gcc -fopenmp'],
-\   'cpp': ['g++ -fopenmp']
+\   'c':      ['gcc -fopenmp'],
+\   'cpp':    ['g++ -fopenmp']
 \}
 
 " -- Gutentags --
