@@ -14,7 +14,9 @@ Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
 Plugin 'scrooloose/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'unblevable/quick-scope'
 Plugin 'Valloric/MatchTagAlways'       " Highlight matching HTML tags
 Plugin 'tmhedberg/matchit'             " Ads `%` command for HTML tags
 Plugin 'andymass/vim-matchup'          " Ads additional `%` commands
@@ -32,26 +34,25 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'vim-scripts/visualrepeat'
-Plugin 'vim-scripts/ingo-library'
-Plugin 'vim-scripts/capslock.vim'
+Plugin 'vim-scripts/visualrepeat'      " Allows repeating using `.` over visual selection
+Plugin 'vim-scripts/ingo-library'      " Required by vim-scripts/visualrepeat
+Plugin 'vim-scripts/capslock.vim'      " Adds caps lock mapping to insert mode
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 Plugin 'ap/vim-buftabline'             " Better vim tabs
 " Plugin 'drmingdrmer/vim-tabbar'
 Plugin 'MarcWeber/vim-addon-commandline-completion'
-Plugin 'milkypostman/vim-togglelist'
+Plugin 'milkypostman/vim-togglelist'   " Adds mapping to toggle QuickFix window
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
 Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'wellle/targets.vim'
-Plugin 'google/vim-searchindex'
+Plugin 'wellle/targets.vim'            " Adds arguments, etc. as text objects
+Plugin 'google/vim-searchindex'        " Display index and number of search matches
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
-Plugin 'unblevable/quick-scope'
 Plugin 'ludovicchabant/vim-gutentags'
 
 " For SnipMate -----------------------
@@ -61,7 +62,6 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 " ------------------------------------
 
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons' " vim-devicons should be loaded last
 
 call vundle#end()
