@@ -33,6 +33,7 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/visualrepeat'
+Plugin 'vim-scripts/ingo-library'
 Plugin 'vim-scripts/capslock.vim'
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 Plugin 'ap/vim-buftabline'             " Better vim tabs
@@ -122,10 +123,6 @@ map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
 inoremap <S-Tab>          <C-o><<
-autocmd  BufEnter,BufRead *      nnoremap <Tab> ==
-autocmd  BufEnter,BufRead *      vnoremap <Tab> =gv
-autocmd  BufEnter,BufRead *.py   nmap <Tab> >>
-autocmd  BufEnter,BufRead *.py   vmap <Tab> >gv
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
@@ -135,7 +132,6 @@ nmap     <M-->            <C-W>-
 nmap     <C-j>            o<Esc>
 nmap     <C-k>            O<Esc>
 nmap     <C-s>            :w<CR>
-" The `:set buftype=` fixes a bug with tcp
 imap     <C-s>            <C-o>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
 nmap     d_               d^
@@ -212,11 +208,11 @@ map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 
-if has('nvim')
-  map <leader>v :source ~/.config/nvim/init.vim<CR>
-  map <leader><Tab>   :bnext<CR>
-  map <leader><S-Tab> :bprevious<CR>
-endif
+" -- Language specific mappings --
+autocmd  filetype *      nnoremap <buffer> <Tab> ==
+autocmd  filetype *      vnoremap <buffer> <Tab> =gv
+autocmd  filetype python nmap <buffer> <Tab> >>
+autocmd  filetype python vmap <buffer> <Tab> >gv
 
 " -- Quickfix window map --
 au filetype qf noremap o <CR>
