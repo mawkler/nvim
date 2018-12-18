@@ -222,7 +222,7 @@ endif
 au filetype qf noremap o <CR>
 
 " -- Lines and cursor --
-set relativenumber
+set number relativenumber
 hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
 set cursorline                   " Cursor highlighting
 set scrolloff=8                  " Cursor margin
