@@ -164,7 +164,8 @@ imap     <M-O>            <C-o>O
 map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
-map      ¨                <c-]>
+map      ¨                <C-]>
+map      <C-W>¨           <C-W>v<C-w>w<C-]><C-w>w
 nmap     ö                ;
 nmap     Ö                :
 nmap     ä                viw
@@ -181,6 +182,8 @@ nmap     S                ys$
 vmap     <                <gv
 vmap     >                >gv
 map      <leader>;        m0A;<Esc>`0
+" vmap     <leader>;        <Esc>m0A;<Esc>ugv.<Esc>`0
+" vmap     <leader>;        <Esc>A;<Esc>ugv.<Esc>
 map      <leader>,        m0A,<Esc>`0
 map      <leader>.        m0A.<Esc>`0
 map      <leader>v        :source ~/.vimrc<CR>
@@ -208,6 +211,7 @@ map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 
+
 " -- Language specific mappings --
 autocmd  filetype *      nnoremap <buffer> <Tab> ==
 autocmd  filetype *      vnoremap <buffer> <Tab> =gv
@@ -215,24 +219,24 @@ autocmd  filetype python nmap <buffer> <Tab> >>
 autocmd  filetype python vmap <buffer> <Tab> >gv
 
 " -- Quickfix window map --
-au filetype qf noremap o <CR>
+au filetype qf noremap <buffer> o <CR>
 
 " -- Lines and cursor --
 set number relativenumber
 hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
-set cursorline                   " Cursor highlighting
-set scrolloff=8                  " Cursor margin
-set textwidth=0                  " Disable auto line breaking
-set nrformats+=hex,bin,alpha     " Allow Ctrl-A/X for hex, binary and letters
-set guicursor=n:blinkwait0       " Disables cursor blinking in normal mode
-set guicursor=i:ver25-blinkwait0 " And in insert mode
-set mouse=a                      " Enable mouse
+set cursorline                    " Cursor highlighting
+set scrolloff=8                   " Cursor margin
+set textwidth=0                   " Disable auto line breaking
+set nrformats+=hex,bin,alpha      " Allow Ctrl-A/X for hex, binary and letters
+set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
+set guicursor+=i:ver25-blinkwait0 " And in insert mode
+set mouse=a                       " Enable mouse
 
 " -- Tab characters --
 filetype plugin indent on
 set expandtab                                         " Use spaces for indentation
-set shiftwidth=2                                      " Width of indentation
-set tabstop=2                                         " Width of <Tab> characters
+set shiftwidth=4                                      " Width of indentation
+set tabstop=4                                         " Width of <Tab> characters
 set list listchars=tab:\▏\                            " Show line for each tab indentation
 set autoindent                                        " Follow previous line's indenting
 set backspace=indent,eol,start                        " Better backspace behaviour
@@ -305,10 +309,11 @@ map <leader>C <plug>NERDCommenterToEOL
 " -- Gitgutter --
 set updatetime=100
 
-" -- AutoPairs disable <M-p> --
-let g:AutoPairsShortcutToggle     = ''
+" -- AutoPairs --
+let g:AutoPairsShortcutToggle     = '' " Disalbes some mappings
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
+let g:AutoPairsShortcutJump       = ''
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
@@ -360,10 +365,10 @@ nmap <leader>8 <Plug>BufTabLine.Go(8)
 nmap <leader>9 :blast<CR>
 
 " -- Supertab and Snipmate --
-" let g:SuperTabCrMapping             = 1
-" let g:SuperTabMappingForward        = '<C-n>'
-" let g:SuperTabMappingBackward       = '<C-b>'
-" let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabCrMapping             = 1
+let g:SuperTabMappingForward        = '<C-n>'
+let g:SuperTabMappingBackward       = '<C-b>'
+let g:SuperTabDefaultCompletionType = 'context'
 smap <Tab> <Plug>snipMateNextOrTrigger
 imap <Tab> <Plug>snipMateNextOrTrigger
 
@@ -398,6 +403,9 @@ let g:DevIconsEnableNERDTreeRedraw            = 1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding   = ''
 if has("gui_running")
   let g:WebDevIconsNerdTreeAfterGlyphPadding  = ''
+endif
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
 
 " -- ALE --
