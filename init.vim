@@ -204,8 +204,8 @@ nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
-map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>:retab!<CR>m0gg=G`0m
-map      <leader>t        :set tabstop=2 shiftwidth=2 expandtab<CR>:retab!<CR>m0gg=G`0m
+map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>
+map      <leader>t        :set tabstop=4 shiftwidth=2 expandtab<CR>
 map      Q                @@
 map      <S-space>        qq
 nnoremap §                <C-^>
@@ -223,7 +223,7 @@ au filetype qf noremap <buffer> o <CR>
 
 " -- Lines and cursor --
 set number relativenumber
-hi  CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow
+hi  CursorLineNr term=bold gui=bold
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set textwidth=0                   " Disable auto line breaking
@@ -235,13 +235,14 @@ set mouse=a                       " Enable mouse
 " -- Tab characters --
 filetype plugin indent on
 set expandtab                                         " Use spaces for indentation
-set shiftwidth=4                                      " Width of indentation
+set shiftwidth=2                                      " Width of indentation
 set tabstop=4                                         " Width of <Tab> characters
 set list listchars=tab:\▏\                            " Show line for each tab indentation
 set autoindent                                        " Follow previous line's indenting
 set backspace=indent,eol,start                        " Better backspace behaviour
 set cinkeys-=0#                                       " Indent lines starting with `#`
 au  filetype javascript,css,python setlocal sw=4 ts=4 " Custom filetype indent settings
+
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -405,7 +406,7 @@ if has("gui_running")
   let g:WebDevIconsNerdTreeAfterGlyphPadding  = ''
 endif
 if exists('g:loaded_webdevicons')
-    call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
+  call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
 
 " -- ALE --
