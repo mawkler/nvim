@@ -54,6 +54,8 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'romainl/vim-cool'              " Highlights all search matches until moving cursor
+Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 
 " For SnipMate -----------------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -99,7 +101,7 @@ set wildignorecase              " Case insensitive file- and directory name comp
 set ignorecase " Case insensitive searching
 set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
-set nohlsearch " Don't highligt search results
+set hlsearch   " Highligt all search matches
 
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
@@ -211,6 +213,8 @@ map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 
+" -- Silent mappings --
+nmap <silent> <Esc> :nohlsearch<CR>
 
 " -- Language specific mappings --
 autocmd  filetype *      nnoremap <buffer> <Tab> ==
@@ -438,6 +442,7 @@ hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
 
 " ColorScheme corrections
+hi! link Search Visual
 hi! link SpecialKey Directory
 
 endif
