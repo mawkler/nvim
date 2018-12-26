@@ -436,4 +436,7 @@ let g:lsc_auto_map        = { 'GoToDefinition': '<leader>g' }
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
 
+" ColorScheme corrections
+hi! link SpecialKey Directory
+
 endif
