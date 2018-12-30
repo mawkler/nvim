@@ -38,8 +38,10 @@ Plugin 'vim-scripts/visualrepeat'      " Allows repeating using `.` over visual 
 Plugin 'vim-scripts/ingo-library'      " Required by vim-scripts/visualrepeat
 Plugin 'vim-scripts/capslock.vim'      " Adds caps lock mapping to insert mode
 Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
-Plugin 'ap/vim-buftabline'             " Better vim tabs
+
+" Plugin 'ap/vim-buftabline'             " Better vim 'tabs'
 " Plugin 'drmingdrmer/vim-tabbar'
+
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'   " Adds mapping to toggle QuickFix window
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
@@ -197,7 +199,7 @@ map      <leader>~        :cd ~<CR>
 nmap     gF               :e <C-r>+<CR>
 nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
-vnoremap //               y?<C-R>"<CR>
+vnoremap //               y/<C-R>"<CR>
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
@@ -345,6 +347,23 @@ let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
+" -- Airline Tabline --
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#close_symbol = '✕'
+let g:airline#extensions#tabline#left_alt_sep = ''
+" let g:airline#extensions#tabline#left_sep = ' '
+map <leader>1 <Plug>AirlineSelectTab1
+map <leader>2 <Plug>AirlineSelectTab2
+map <leader>3 <Plug>AirlineSelectTab3
+map <leader>4 <Plug>AirlineSelectTab4
+map <leader>5 <Plug>AirlineSelectTab5
+map <leader>6 <Plug>AirlineSelectTab6
+map <leader>7 <Plug>AirlineSelectTab7
+map <leader>8 <Plug>AirlineSelectTab8
+map <leader>9 :blast<CR>
+
 " -- NERDTree --
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 " The `½` mapping works together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
@@ -359,15 +378,15 @@ hi default link BufTabLineActive  TabLineSel
 hi default link BufTabLineHidden  TabLine
 hi default link BufTabLineFill    TabLineFill
 let g:buftabline_show=1
-nmap <leader>1 <Plug>BufTabLine.Go(1)
-nmap <leader>2 <Plug>BufTabLine.Go(2)
-nmap <leader>3 <Plug>BufTabLine.Go(3)
-nmap <leader>4 <Plug>BufTabLine.Go(4)
-nmap <leader>5 <Plug>BufTabLine.Go(5)
-nmap <leader>6 <Plug>BufTabLine.Go(6)
-nmap <leader>7 <Plug>BufTabLine.Go(7)
-nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 :blast<CR>
+" nmap <leader>1 <Plug>BufTabLine.Go(1)
+" nmap <leader>2 <Plug>BufTabLine.Go(2)
+" nmap <leader>3 <Plug>BufTabLine.Go(3)
+" nmap <leader>4 <Plug>BufTabLine.Go(4)
+" nmap <leader>5 <Plug>BufTabLine.Go(5)
+" nmap <leader>6 <Plug>BufTabLine.Go(6)
+" nmap <leader>7 <Plug>BufTabLine.Go(7)
+" nmap <leader>8 <Plug>BufTabLine.Go(8)
+" nmap <leader>9 :blast<CR>
 
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
