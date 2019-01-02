@@ -88,6 +88,7 @@ set shortmess+=A " Ignores swapfiles when opening file
 set autoread     " Automatically read in the file when changed externally
 set hidden
 set lazyredraw
+set termguicolors " Use GUI colors in terminal as well
 set swapfile
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
