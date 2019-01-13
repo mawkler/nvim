@@ -93,6 +93,7 @@ set swapfile
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
+set noshowmode " Don't write out `--INSERT--`, etc.
 
 " -- Menu autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
