@@ -216,6 +216,7 @@ nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 
 " -- Silent mappings --
+" Causes Vim to launch in replace mode for some reason
 nmap <silent> <Esc> :nohlsearch<CR>
 
 " -- Language specific mappings --
