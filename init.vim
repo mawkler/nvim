@@ -169,14 +169,13 @@ imap     <M-O>            <C-o>O
 map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
-map      ¨                <C-]>
+map      <leader>¨        <C-]>
+map      <C-W><C-]>       <C-W>v<C-w>w<C-]><C-w>w
 map      <C-W>¨           <C-W>v<C-w>w<C-]><C-w>w
+map      ¨                ]
+map      å                [
 nmap     ö                ;
 nmap     Ö                :
-nmap     ä                viw
-nmap     Ä                viW
-nmap     å                ci(
-nmap     Å                ci"
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
 vmap     s                <Plug>VSurround
@@ -322,6 +321,7 @@ let g:AutoPairsShortcutToggle     = '' " Disalbes some mappings
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
+let g:AutoPairsMoveCharacter      = ''
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
@@ -417,6 +417,8 @@ else
     \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
+
+set grepprg=ag\ --nogroup\ --nocolor
 
 " -- vim-devicons --
 let g:webdevicons_enable                      = 1
