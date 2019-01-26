@@ -258,7 +258,6 @@ set backspace=indent,eol,start                        " Better backspace behavio
 set cinkeys-=0#                                       " Indent lines starting with `#`
 au  filetype javascript,css,python setlocal sw=4 ts=4 " Custom filetype indent settings
 
-
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
 set guioptions-=r
@@ -339,7 +338,6 @@ com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:serverna
 let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
 let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
 
-
 " -- Vim Fugitive --
 cnoreabbrev Gdiff Gvdiff
 
@@ -347,7 +345,6 @@ cnoreabbrev Gdiff Gvdiff
 let g:sleuth_automatic = 1
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
-
 
 " -- Airline --
 set laststatus=2 " Always display status line
