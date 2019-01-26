@@ -186,11 +186,17 @@ nmap     S                ys$
 " ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
-map      <leader>;        m0A;<Esc>`0
-" vmap     <leader>;        <Esc>m0A;<Esc>ugv.<Esc>`0
-" vmap     <leader>;        <Esc>A;<Esc>ugv.<Esc>
-map      <leader>,        m0A,<Esc>`0
-map      <leader>.        m0A.<Esc>`0
+nmap     <leader>;        m0A;<Esc>`0
+nmap     <leader>,        m0A,<Esc>`0
+nmap     <leader>.        m0A.<Esc>`0
+vmap     <leader>;        m0:call VisualAppend(";")<CR>`0
+vmap     <leader>,        m0:call VisualAppend(",")<CR>`0
+vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
+
+function VisualAppend(char) " Appends `char` to visual selection
+  exe "normal! A" . a:char
+endfunction
+
 map      <leader>v        :source ~/.vimrc<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -216,9 +222,10 @@ map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 
-" -- Silent mappings --
-" Causes Vim to launch in replace mode for some reason
-nmap <silent> <Esc> :nohlsearch<CR>
+if has('nvim') || has('gui_running')
+  " Causes regular Vim to launch in replace mode for some reason
+  nmap <silent> <Esc> :nohlsearch<CR>
+endif
 
 " -- Language specific mappings --
 autocmd  filetype *      nnoremap <buffer> <Tab> ==
