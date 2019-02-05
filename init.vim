@@ -400,6 +400,9 @@ let g:buftabline_show=1
 " nmap <leader>8 <Plug>BufTabLine.Go(8)
 " nmap <leader>9 :blast<CR>
 
+" -- AutoComplPop --
+let g:acp_completeOption = '.,w,b,k,u,t'
+
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
 let g:SuperTabMappingForward        = '<C-n>'
