@@ -193,7 +193,7 @@ vmap     <leader>;        m0:call VisualAppend(";")<CR>`0
 vmap     <leader>,        m0:call VisualAppend(",")<CR>`0
 vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
 
-function VisualAppend(char) " Appends `char` to visual selection
+function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
 endfunction
 
@@ -258,7 +258,6 @@ set backspace=indent,eol,start                        " Better backspace behavio
 set cinkeys-=0#                                       " Indent lines starting with `#`
 au  filetype javascript,css,python setlocal sw=4 ts=4 " Custom filetype indent settings
 
-
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
 set guioptions-=r
@@ -269,6 +268,9 @@ set guioptions-=L
 if has("gui_running")
   set lines=999 columns=999
 endif
+
+" Command to change directory to the current file's
+command! CDHere cd %:p:h
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
