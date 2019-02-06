@@ -193,7 +193,7 @@ vmap     <leader>;        m0:call VisualAppend(";")<CR>`0
 vmap     <leader>,        m0:call VisualAppend(",")<CR>`0
 vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
 
-function VisualAppend(char) " Appends `char` to visual selection
+function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
 endfunction
 
@@ -268,6 +268,9 @@ set guioptions-=L
 if has("gui_running")
   set lines=999 columns=999
 endif
+
+" Command to change directory to the current file's
+command! CDHere cd %:p:h
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -394,6 +397,9 @@ let g:buftabline_show=1
 " nmap <leader>7 <Plug>BufTabLine.Go(7)
 " nmap <leader>8 <Plug>BufTabLine.Go(8)
 " nmap <leader>9 :blast<CR>
+
+" -- AutoComplPop --
+let g:acp_completeOption = '.,w,b,k,u,t'
 
 " -- Supertab and Snipmate --
 let g:SuperTabCrMapping             = 1
