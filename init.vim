@@ -82,18 +82,18 @@ endif
 
 " -- General --
 syntax on
-set vb t_vb=     " Disable error bells
-set ttyfast      " Speed up drawing
-set shortmess+=A " Ignores swapfiles when opening file
-set autoread     " Automatically read in the file when changed externally
+set vb t_vb=      " Disable error bells
+set ttyfast       " Speed up drawing
+set shortmess+=A  " Ignores swapfiles when opening file
+set autoread      " Automatically read in the file when changed externally
+set termguicolors " Use GUI colors in terminal as well
+set noshowmode    " Don't write out `--INSERT--`, etc.
 set hidden
 set lazyredraw
-set termguicolors " Use GUI colors in terminal as well
 set swapfile
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
-set noshowmode " Don't write out `--INSERT--`, etc.
 
 " -- Menu autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
@@ -192,11 +192,6 @@ nmap     <leader>.        m0A.<Esc>`0
 vmap     <leader>;        m0:call VisualAppend(";")<CR>`0
 vmap     <leader>,        m0:call VisualAppend(",")<CR>`0
 vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
-
-function! VisualAppend(char) " Appends `char` to visual selection
-  exe "normal! A" . a:char
-endfunction
-
 map      <leader>v        :source ~/.vimrc<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -221,6 +216,10 @@ map      Q                @@
 map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
+
+function! VisualAppend(char) " Appends `char` to visual selection
+  exe "normal! A" . a:char
+endfunction
 
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
@@ -328,7 +327,7 @@ map <leader>C <plug>NERDCommenterToEOL
 set updatetime=100
 
 " -- AutoPairs --
-let g:AutoPairsShortcutToggle     = '' " Disalbes some mappings
+let g:AutoPairsShortcutToggle     = '' " Disables some mappings
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
@@ -381,22 +380,6 @@ nnoremap <silent> ½                :NERDTreeFocus<CR>
 map               <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
 map               <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
-
-" -- Vim tab bar --
-hi default link BufTabLineCurrent Pmenu
-hi default link BufTabLineActive  TabLineSel
-hi default link BufTabLineHidden  TabLine
-hi default link BufTabLineFill    TabLineFill
-let g:buftabline_show=1
-" nmap <leader>1 <Plug>BufTabLine.Go(1)
-" nmap <leader>2 <Plug>BufTabLine.Go(2)
-" nmap <leader>3 <Plug>BufTabLine.Go(3)
-" nmap <leader>4 <Plug>BufTabLine.Go(4)
-" nmap <leader>5 <Plug>BufTabLine.Go(5)
-" nmap <leader>6 <Plug>BufTabLine.Go(6)
-" nmap <leader>7 <Plug>BufTabLine.Go(7)
-" nmap <leader>8 <Plug>BufTabLine.Go(8)
-" nmap <leader>9 :blast<CR>
 
 " -- AutoComplPop --
 let g:acp_completeOption = '.,w,b,k,u,t'
@@ -464,7 +447,9 @@ let g:ale_linters = {
 \}
 
 " -- Gutentags --
+let g:gutentags_modules = ['ctags']
 let g:gutentags_cache_dir = "~/.vim/tags"
+let g:gutentags_ctags_exclude = ['*/node_modules*']
 set statusline+=%{gutentags#statusline()}
 
 " -- Vim-lsc --
