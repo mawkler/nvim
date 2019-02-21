@@ -410,7 +410,7 @@ if executable('ag')
   let g:ctrlp_use_caching = 0                                    "  ag doesn't need to cache
 else
   let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium)|node_modules)$',
+    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|cargo)|node_modules)$',
     \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
@@ -447,6 +447,8 @@ let g:ale_linters = {
 \   'c':      ['gcc -fopenmp'],
 \   'cpp':    ['g++ -fopenmp']
 \}
+command! ALEDisableFixOnSave let g:ale_fix_on_save=0
+command! ALEEnableFixOnSave let g:ale_fix_on_save=1
 
 " -- Gutentags --
 let g:gutentags_modules = ['ctags']
