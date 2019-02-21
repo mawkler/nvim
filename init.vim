@@ -396,6 +396,8 @@ imap <Tab> <Plug>snipMateNextOrTrigger
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
+autocmd CompleteDone * pclose " Auto close `scratch` window after autocompletion
+
 " -- CtrlP --
 map <C-M-p> :CtrlPMRUFiles<CR>
 let g:ctrlp_show_hidden       = 1
