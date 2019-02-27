@@ -226,6 +226,10 @@ if has('nvim') || has('gui_running')
   nmap <silent> <Esc> :nohlsearch<CR>
 endif
 
+if exists('$TMUX')
+  set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
+endif
+
 " -- Language specific mappings --
 autocmd  filetype *      nnoremap <buffer> <Tab> ==
 autocmd  filetype *      vnoremap <buffer> <Tab> =gv
