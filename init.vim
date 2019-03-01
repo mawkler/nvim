@@ -88,6 +88,7 @@ set shortmess+=A  " Ignores swapfiles when opening file
 set autoread      " Automatically read in the file when changed externally
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
+set linebreak     " Don't break lines in the middle of a word
 set hidden
 set lazyredraw
 set swapfile
