@@ -86,6 +86,7 @@ set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
 set autoread      " Automatically read in the file when changed externally
+autocmd! FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif " Check if any file has changed
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
