@@ -20,13 +20,13 @@ Plugin 'unblevable/quick-scope'
 Plugin 'Valloric/MatchTagAlways'       " Highlight matching HTML tags
 Plugin 'tmhedberg/matchit'             " Ads `%` command for HTML tags
 Plugin 'andymass/vim-matchup'          " Ads additional `%` commands
+Plugin 'jiangmiao/auto-pairs'          " Add matching brackets, quotes, etc
 " Plugin 'Shougo/deoplete.nvim'
 " Plugin 'valloric/youcompleteme'
 Plugin 'ervandew/supertab'             " Tab completion
 Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'jiangmiao/auto-pairs'          " Add matching brackets, quotes, etc
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'        " Shows git status for each line
@@ -473,5 +473,11 @@ hi link jsStorageClass Keyword
 " ColorScheme corrections
 hi! link Search Visual
 hi! link SpecialKey Directory
+
+" -- AutoPairs --
+" The following commands should disable AutoPairs 'fly-mode' in NeoVim, but it doesn't seem to work
+" let g:AutoPairsFlyMode = 0
+" let g:AutoPairsWildClosedPair = ''
+" let g:AutoPairsMultilineClose = 0
 
 endif
