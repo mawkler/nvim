@@ -186,6 +186,8 @@ vmap     s                <Plug>VSurround
 vmap     S                <Plug>VgSurround
 nmap     s                ys
 nmap     S                ys$
+onoremap ir               i]
+onoremap ar               a]
 " ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
