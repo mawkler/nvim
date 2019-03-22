@@ -138,6 +138,7 @@ map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
 nmap     <C-j>            o<Esc>
+nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <C-o>:w<CR>
