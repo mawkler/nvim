@@ -118,7 +118,6 @@ let mapleader = "\<Space>"
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
 map      <CR>             <leader>c<space>
-imap     <C-k>            <c-o>O
 nnoremap Y                y$
 map      <leader>y        "+y
 map      <leader>Y        "+Y
@@ -137,9 +136,12 @@ map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
+imap     <C-k>            <c-o>O
 nmap     <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
+nmap     g<C-k>           DO<Esc>P_
+nmap     gK               m0k_D`0$pg;
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <C-o>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
