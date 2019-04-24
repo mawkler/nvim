@@ -23,8 +23,9 @@ Plugin 'andymass/vim-matchup'          " Ads additional `%` commands
 Plugin 'jiangmiao/auto-pairs'          " Add matching brackets, quotes, etc
 " Plugin 'Shougo/deoplete.nvim'
 " Plugin 'valloric/youcompleteme'
-Plugin 'ervandew/supertab'             " Tab completion
-Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
+" Plugin 'ervandew/supertab'             " Tab completion
+" Plugin 'vim-scripts/AutoComplPop'      " Automatically pop up word suggestions
+Plugin 'neoclide/coc.nvim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'maxbrunsfeld/vim-yankstack'
@@ -37,7 +38,7 @@ Plugin 'magicalbanana/vim-sql-syntax'
 Plugin 'vim-scripts/visualrepeat'      " Allows repeating using `.` over visual selection
 Plugin 'vim-scripts/ingo-library'      " Required by vim-scripts/visualrepeat
 Plugin 'vim-scripts/capslock.vim'      " Adds caps lock mapping to insert mode
-Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
+" Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 
 " Plugin 'ap/vim-buftabline'             " Better vim 'tabs'
 " Plugin 'drmingdrmer/vim-tabbar'
@@ -357,6 +358,13 @@ cnoreabbrev Gdiff Gvdiff
 " -- Vim Sleuth --
 let g:sleuth_automatic = 1
 
+" -- Coc.nvim --
+nmap <silent> <C-]>      <Plug>(coc-definition)
+" Use `<CR>` to confirm completion
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+set statusline+=%{coc#status()}
+
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
@@ -395,13 +403,13 @@ nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 " -- AutoComplPop --
 let g:acp_completeOption = '.,w,b,k,u,t'
 
-" -- Supertab and Snipmate --
-let g:SuperTabCrMapping             = 1
-let g:SuperTabMappingForward        = '<C-n>'
-let g:SuperTabMappingBackward       = '<C-b>'
-let g:SuperTabDefaultCompletionType = 'context'
-smap <Tab> <Plug>snipMateNextOrTrigger
-imap <Tab> <Plug>snipMateNextOrTrigger
+" " -- Supertab and Snipmate --
+" let g:SuperTabCrMapping             = 1
+" let g:SuperTabMappingForward        = '<C-n>'
+" let g:SuperTabMappingBackward       = '<C-b>'
+" let g:SuperTabDefaultCompletionType = 'context'
+" smap <Tab> <Plug>snipMateNextOrTrigger
+" imap <Tab> <Plug>snipMateNextOrTrigger
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_insertion = 1
