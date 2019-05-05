@@ -92,6 +92,7 @@ autocmd! FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkt
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
+set showcmd       " Write out commands typed in status line
 set hidden
 set lazyredraw
 set swapfile
