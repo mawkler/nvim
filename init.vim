@@ -35,9 +35,10 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'vim-scripts/visualrepeat'      " Allows repeating using `.` over visual selection
-Plugin 'vim-scripts/ingo-library'      " Required by vim-scripts/visualrepeat
-Plugin 'vim-scripts/capslock.vim'      " Adds caps lock mapping to insert mode
+Plugin 'visualrepeat'                  " Allows repeating using `.` over visual selection
+Plugin 'ingo-library'                  " Required by visualrepeat
+Plugin 'capslock.vim'                  " Adds caps lock mapping to insert mode
+Plugin 'StripWhiteSpaces'
 " Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
 
 " Plugin 'ap/vim-buftabline'             " Better vim 'tabs'
@@ -303,6 +304,7 @@ autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
 autocmd BufEnter,BufRead *.json let b:indentLine_enabled = 0
 let g:indentLine_color_gui                               = '#4b5263'
 let g:indentLine_char                                    = '▏'
+let g:indentLine_setConceal = 0 " Doesn't hide quotes in JSON files
 
 " For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
@@ -322,8 +324,6 @@ nmap <leader>s <Plug>(easymotion-overwin-f2)
 " Move to word:
 map  <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
-
-let g:strip_whitespace_on_save = 1
 
 " -- NERDCommenter --
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
