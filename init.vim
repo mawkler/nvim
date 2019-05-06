@@ -57,7 +57,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
-Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'romainl/vim-cool'              " Highlights all search matches until moving cursor
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 
@@ -365,6 +365,20 @@ nmap <silent> <C-]>      <Plug>(coc-definition)
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 set statusline+=%{coc#status()}
 
+"Map <tab> for trigger completion, completion confirm, snippet expand and jump
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
