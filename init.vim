@@ -51,8 +51,9 @@ Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'wellle/targets.vim'            " Adds arguments, etc. as text objects
-Plugin 'google/vim-searchindex'        " Display index and number of search matches
+Plugin 'wellle/targets.vim'             " Adds arguments, etc. as text objects
+Plugin 'PeterRincker/vim-argumentative' " Adds mappings for swapping arguments
+Plugin 'google/vim-searchindex'         " Display index and number of search matches
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
@@ -62,10 +63,10 @@ Plugin 'romainl/vim-cool'              " Highlights all search matches until mov
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 
 " For SnipMate -----------------------
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
+" Plugin 'honza/vim-snippets'
 " ------------------------------------
 
 Plugin 'ryanoasis/vim-devicons' " vim-devicons should be loaded last
