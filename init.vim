@@ -113,6 +113,7 @@ set hlsearch   " Highligt all search matches
 
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
+" let g:yankstack_map_keys = 0
 
 " -- Key mappings --
 let mapleader = "\<Space>"
@@ -225,6 +226,7 @@ map      Q                @@
 map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
+nmap     cg*              *Ncgn
 
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
