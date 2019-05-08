@@ -180,8 +180,8 @@ map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
-map      <C-W><C-]>       <C-W>v<C-w>w<C-]><C-w>w
-map      <C-W>¨           <C-W>v<C-w>w<C-]><C-w>w
+map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
+map      <C-W>¨           <C-w><C-]>
 map      ¨                ]
 map      å                [
 nmap     ö                ;
