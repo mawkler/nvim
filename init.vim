@@ -51,8 +51,9 @@ Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'wellle/targets.vim'            " Adds arguments, etc. as text objects
-Plugin 'google/vim-searchindex'        " Display index and number of search matches
+Plugin 'wellle/targets.vim'             " Adds arguments, etc. as text objects
+Plugin 'PeterRincker/vim-argumentative' " Adds mappings for swapping arguments
+Plugin 'google/vim-searchindex'         " Display index and number of search matches
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
@@ -62,10 +63,10 @@ Plugin 'romainl/vim-cool'              " Highlights all search matches until mov
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 
 " For SnipMate -----------------------
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
+" Plugin 'honza/vim-snippets'
 " ------------------------------------
 
 Plugin 'ryanoasis/vim-devicons' " vim-devicons should be loaded last
@@ -114,6 +115,7 @@ set hlsearch   " Highligt all search matches
 
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
+" let g:yankstack_map_keys = 0
 
 " -- Key mappings --
 let mapleader = "\<Space>"
@@ -179,8 +181,8 @@ map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
-map      <C-W><C-]>       <C-W>v<C-w>w<C-]><C-w>w
-map      <C-W>¨           <C-W>v<C-w>w<C-]><C-w>w
+map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
+map      <C-W>¨           <C-w><C-]>
 map      ¨                ]
 map      å                [
 nmap     ö                ;
@@ -226,6 +228,7 @@ map      Q                @@
 map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
+nmap     cg*              *Ncgn
 
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
@@ -365,20 +368,8 @@ nmap <silent> <C-]>      <Plug>(coc-definition)
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 set statusline+=%{coc#status()}
 
-"Map <tab> for trigger completion, completion confirm, snippet expand and jump
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
+let g:coc_snippet_prev = '<S-Tab>' " Use Shift-Tab to jump to previous place in snippet
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
