@@ -448,6 +448,7 @@ else
     \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
+" TODO: Remap <C-j> in CtrlP
 
 set grepprg=ag\ --nogroup\ --nocolor
 
@@ -484,11 +485,11 @@ let g:ale_linters = {
 command! ALEDisableFixOnSave let g:ale_fix_on_save=0
 command! ALEEnableFixOnSave let g:ale_fix_on_save=1
 
-" -- Gutentags --
-let g:gutentags_modules = ['ctags']
-let g:gutentags_cache_dir = "~/.vim/tags"
-let g:gutentags_ctags_exclude = ['*/node_modules*']
-set statusline+=%{gutentags#statusline()}
+" " -- Gutentags --
+" let g:gutentags_modules = ['ctags']
+" let g:gutentags_cache_dir = "~/.vim/tags"
+" let g:gutentags_ctags_exclude = ['*/node_modules*']
+" set statusline+=%{gutentags#statusline()}
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
