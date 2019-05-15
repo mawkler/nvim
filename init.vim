@@ -191,6 +191,8 @@ nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
 vmap     s                <Plug>VSurround
 vmap     S                <Plug>VgSurround
+sunmap   s
+sunmap   S
 nmap     s                ys
 nmap     S                ys$
 onoremap ir               i]
@@ -229,6 +231,7 @@ map      <S-space>        qq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
+vmap     af               aF
 
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
