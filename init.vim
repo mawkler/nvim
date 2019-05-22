@@ -232,6 +232,7 @@ nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
 vmap     af               aF
+omap     af               aF
 
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
