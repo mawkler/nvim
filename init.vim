@@ -146,7 +146,7 @@ nmap     <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
-nmap     gK               m0k_D`0$pg;
+nmap     gK               kjddkPJ
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <C-o>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
