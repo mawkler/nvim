@@ -375,6 +375,23 @@ set statusline+=%{coc#status()}
 let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
 let g:coc_snippet_prev = '<S-Tab>' " Use Shift-Tab to jump to previous place in snippet
 
+let g:coc_global_extensions = [
+  \ 'coc-syntax',
+  \ 'coc-tag',
+  \ 'coc-snippets',
+  \ 'coc-python',
+  \ 'coc-java',
+  \ 'coc-ccls',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-git',
+  \ 'coc-yank',
+  \ 'coc-stylelint',
+  \ 'coc-calc',
+  \]
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
