@@ -1,10 +1,7 @@
-set nocompatible
-
 " -- Vundle plugins --
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -227,7 +224,7 @@ map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
 map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>
 map      <leader>t        :set tabstop=4 shiftwidth=2 expandtab<CR>
 map      Q                @@
-map      <S-space>        qq
+map      <leader>q        qqqqq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
@@ -303,9 +300,10 @@ augroup qs_colors
 augroup END
 
 " -- Themes --
-colorscheme onedark " Atom color scheme
+colorscheme onedark   " Atom color scheme
 let g:onedark_termcolors = 256
 set encoding=utf-8
+set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
