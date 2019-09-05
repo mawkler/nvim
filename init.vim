@@ -2,6 +2,7 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -36,7 +37,7 @@ Plugin 'visualrepeat'                  " Allows repeating using `.` over visual 
 Plugin 'ingo-library'                  " Required by visualrepeat
 Plugin 'capslock.vim'                  " Adds caps lock mapping to insert mode
 Plugin 'StripWhiteSpaces'
-" Plugin 'w0rp/ale'                      " Use either ALE or Syntastic
+" Plugin 'dense-analysis/ale'            " Use either ALE or Syntastic
 
 " Plugin 'ap/vim-buftabline'             " Better vim 'tabs'
 " Plugin 'drmingdrmer/vim-tabbar'
@@ -384,7 +385,6 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-prettier',
   \ 'coc-json',
-  \ 'coc-git',
   \ 'coc-yank',
   \ 'coc-stylelint',
   \ 'coc-calc',
