@@ -458,7 +458,9 @@ else
     \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
     \ }
 endif
-" TODO: Remap <C-j> in CtrlP
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("e")': ['<C-o>', '<CR>'],
+  \ } " Open files with Ctrl-O
 
 set grepprg=ag\ --nogroup\ --nocolor
 
