@@ -59,6 +59,7 @@ Plugin 'captbaritone/better-indent-support-for-php-with-html'
 " Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'romainl/vim-cool'              " Highlights all search matches until moving cursor
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
+Plugin 'dkarter/bullets.vim'
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -140,7 +141,7 @@ map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
 imap     <C-k>            <c-o>O
-nmap     <C-j>            o<Esc>
+nnoremap <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
