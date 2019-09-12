@@ -233,6 +233,11 @@ nmap     cg*              *Ncgn
 vmap     af               aF
 omap     af               aF
 
+augroup vertical_help " Open :help in vertical instead of horizontal split
+  autocmd!
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+augroup END
+
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
 endfunction
