@@ -8,6 +8,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-commentary'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'          " Atom dark theme for vim
@@ -59,7 +60,8 @@ Plugin 'captbaritone/better-indent-support-for-php-with-html'
 " Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'romainl/vim-cool'              " Highlights all search matches until moving cursor
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
-Plugin 'dkarter/bullets.vim'
+Plugin 'dkarter/bullets.vim'           " Autocomplete markdown lists, etc.
+Plugin 'mjbrownie/swapit'              " For toggling words like `true` to `false`, etc.
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -398,6 +400,9 @@ let g:coc_global_extensions = [
   \ 'coc-stylelint',
   \ 'coc-calc',
   \]
+
+" -- Commentary --
+map cm gc
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
