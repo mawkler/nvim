@@ -215,6 +215,9 @@ nmap     gF               :e <C-r>+<CR>
 nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
 vnoremap //               y/<C-R>"<CR>
+noremap  /                ms/
+noremap  *                ms*
+map      '/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
