@@ -50,6 +50,7 @@ Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'kana/vim-textobj-entire'
 Plugin 'wellle/targets.vim'             " Adds arguments, etc. as text objects
 Plugin 'PeterRincker/vim-argumentative' " Adds mappings for swapping arguments
 Plugin 'google/vim-searchindex'         " Display index and number of search matches
