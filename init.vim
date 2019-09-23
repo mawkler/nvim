@@ -405,6 +405,9 @@ let g:coc_global_extensions = [
 " -- Commentary --
 map cm gc
 
+" -- swapit --
+autocmd VimEnter * SwapList BOOLEANS TRUE FALSE
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
