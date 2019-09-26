@@ -117,7 +117,6 @@ set hlsearch   " Highligt all search matches
 
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
-" let g:yankstack_map_keys = 0
 
 " -- Key mappings --
 let mapleader = "\<Space>"
@@ -211,6 +210,7 @@ vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
 map      <leader>v        :source ~/.vimrc<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
+map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>~        :cd ~<CR>
@@ -276,6 +276,8 @@ set nrformats+=hex,bin,alpha      " Allow Ctrl-A/X for hex, binary and letters
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
+set conceallevel=2                " Hide concealed characters completely
+set concealcursor=nic             " Conceal characters on the cursor line
 
 " -- Tab characters --
 filetype plugin indent on
@@ -319,10 +321,14 @@ set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 
 " -- IndentLine --
-autocmd BufEnter,BufRead * let b:indentLine_enabled      = 1
-autocmd BufEnter,BufRead *.json let b:indentLine_enabled = 0
-let g:indentLine_color_gui                               = '#4b5263'
-let g:indentLine_char                                    = '▏'
+autocmd BufEnter,BufRead * let b:indentLine_enabled = 1
+autocmd BufEnter,BufRead *.json
+      \ let b:indentLine_enabled = 0 |
+      \ setlocal conceallevel=1 |
+      \ setlocal concealcursor=""
+autocmd BufEnter *.txt if &buftype == 'help' | let b:indentLine_enabled = 0
+let g:indentLine_color_gui = '#4b5263'
+let g:indentLine_char = '▏'
 let g:indentLine_setConceal = 0 " Doesn't hide quotes in JSON files
 
 " For toggling caps lock in insert mode
@@ -403,7 +409,7 @@ let g:coc_global_extensions = [
   \]
 
 " -- Commentary --
-map cm gc
+nmap cm <Plug>Commentary
 
 " -- swapit --
 autocmd VimEnter * SwapList BOOLEANS TRUE FALSE
