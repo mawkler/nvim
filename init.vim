@@ -49,6 +49,8 @@ Plugin 'milkypostman/vim-togglelist'   " Adds mapping to toggle QuickFix window
 Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
+Plugin 'haya14busa/vim-textobj-function-syntax'
+Plugin 'AndrewRadev/dsf.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'wellle/targets.vim'             " Adds arguments, etc. as text objects
@@ -63,6 +65,7 @@ Plugin 'romainl/vim-cool'              " Highlights all search matches until mov
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 Plugin 'dkarter/bullets.vim'           " Autocomplete markdown lists, etc.
 Plugin 'mjbrownie/swapit'              " For toggling words like `true` to `false`, etc.
+Plugin 'tommcdo/vim-exchange'
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -236,8 +239,6 @@ map      <leader>q        qqqqq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
-vmap     af               aF
-omap     af               aF
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
@@ -414,6 +415,17 @@ nmap cm <Plug>Commentary
 " -- swapit --
 autocmd VimEnter * SwapList BOOLEANS TRUE FALSE
 
+" -- textobj-function --
+let g:textobj_function_no_default_key_mappings = 1
+vmap     aF               <Plug>(textobj-function-A)
+omap     aF               <Plug>(textobj-function-A)
+vmap     iF               <Plug>(textobj-function-i)
+omap     iF               <Plug>(textobj-function-i)
+
+" -- exchange.vim --
+vmap x <Plug>(Exchange)
+nmap cX cx$
+"
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
