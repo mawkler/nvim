@@ -215,6 +215,7 @@ map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
 map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
+map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>~        :cd ~<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -248,6 +249,18 @@ augroup END
 function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
 endfunction
+
+" Start in maximized window
+if has("gui_running")
+  set lines=999 columns=999
+endif
+
+if has('nvim')
+  " Because NeoVim's menu completions are in a vertical pum
+  cmap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<Up>"
+  cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
+  cunmap <C-n>
+endif
 
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
@@ -296,11 +309,6 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=m
 set guioptions-=L
-
-" Start in maximized window
-if has("gui_running")
-  set lines=999 columns=999
-endif
 
 " Command to change directory to the current file's
 command! CDHere cd %:p:h
@@ -426,6 +434,12 @@ omap     iF               <Plug>(textobj-function-i)
 vmap x <Plug>(Exchange)
 nmap cX cx$
 "
+
+" -- dsf.vim --
+nmap dsf <Plug>DsfNextDelete
+nmap dSf <Plug>DsfDelete
+nmap csf <Plug>DsfChange
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
