@@ -66,6 +66,7 @@ Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 Plugin 'dkarter/bullets.vim'           " Autocomplete markdown lists, etc.
 Plugin 'mjbrownie/swapit'              " For toggling words like `true` to `false`, etc.
 Plugin 'tommcdo/vim-exchange'
+Plugin 'kana/vim-textobj-line'
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -446,6 +447,10 @@ omap af <Plug>DsfTextObjectA
 xmap af <Plug>DsfTextObjectA
 omap if <Plug>DsfTextObjectI
 xmap if <Plug>DsfTextObjectI
+
+" -- Java syntax highlighting --
+let g:java_highlight_functions = 1
+let g:java_highlight_all = 1
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
