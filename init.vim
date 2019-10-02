@@ -240,6 +240,7 @@ map      <leader>q        qqqqq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
+nmap     <leader>z        1z=
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
@@ -393,9 +394,9 @@ cnoreabbrev Gdiff Gvdiff
 let g:sleuth_automatic = 1
 
 " -- Coc.nvim --
-nmap <silent> <C-]>      <Plug>(coc-definition)
+nmap <silent> <C-]> <Plug>(coc-definition)
 " Use `<CR>` to confirm completion
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
 set statusline+=%{coc#status()}
 
 let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
@@ -436,9 +437,15 @@ nmap cX cx$
 "
 
 " -- dsf.vim --
+let g:dsf_no_mappings = 1
 nmap dsf <Plug>DsfNextDelete
-nmap dSf <Plug>DsfDelete
+nmap dsF <Plug>DsfDelete
 nmap csf <Plug>DsfChange
+
+omap af <Plug>DsfTextObjectA
+xmap af <Plug>DsfTextObjectA
+omap if <Plug>DsfTextObjectI
+xmap if <Plug>DsfTextObjectI
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
