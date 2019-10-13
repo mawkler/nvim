@@ -219,6 +219,7 @@ map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>~        :cd ~<CR>
+map      <leader>O        :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
 nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
@@ -280,7 +281,15 @@ autocmd  filetype python nmap <buffer> <Tab> >>
 autocmd  filetype python vmap <buffer> <Tab> >gv
 
 " -- Quickfix window map --
-au filetype qf noremap <buffer> o <CR>
+autocmd filetype qf noremap <buffer> o <CR>
+
+" -- netrw --
+let g:netrw_silent = 1
+" let g:netrw_preview = 1
+let g:netrw_browse_split = 0
+" let g:netrw_altv = 1
+autocmd filetype netrw nmap <buffer> o <CR>
+
 
 " -- Lines and cursor --
 set number relativenumber
@@ -314,6 +323,9 @@ set guioptions-=L
 
 " Command to change directory to the current file's
 command! CDHere cd %:p:h
+
+" Format JSON file to readable form
+command! JSONFormat %!python -m json.tool
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
