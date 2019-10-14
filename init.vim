@@ -65,8 +65,16 @@ Plugin 'romainl/vim-cool'              " Highlights all search matches until mov
 Plugin 'haya14busa/incsearch.vim'      " Better incsearch
 Plugin 'dkarter/bullets.vim'           " Autocomplete markdown lists, etc.
 Plugin 'mjbrownie/swapit'              " For toggling words like `true` to `false`, etc.
-Plugin 'tommcdo/vim-exchange'
+Plugin 'tommcdo/vim-exchange'          " For swapping the place of two text objects
 Plugin 'kana/vim-textobj-line'
+Plugin 'moll/vim-bbye'
+Plugin 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
+Plugin 'kana/vim-niceblock'                  " Improves visual mode
+Plugin 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
+Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
+" Plugin 'Kazark/vim-SimpleSmoothScroll'
+" Plugin 'terryma/vim-smooth-scrolling'
+Plugin 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -127,6 +135,8 @@ let mapleader = "\<Space>"
 
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
+map      <leader><C-w>    :Bdelete<CR>
+map      <leader><C-M-w>  :Bdelete!<CR>
 map      <CR>             <leader>c<space>
 nnoremap Y                y$
 map      <leader>y        "+y
@@ -219,7 +229,7 @@ map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>~        :cd ~<CR>
-map      <leader>O        :exec 'silent !google-chrome-stable % &'<CR>
+map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
 nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
@@ -303,6 +313,9 @@ set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
+
+autocmd filetype markdown setlocal concealcursor="" " Except for in markdown files
+
 
 " -- Tab characters --
 filetype plugin indent on
@@ -464,6 +477,10 @@ xmap if <Plug>DsfTextObjectI
 let g:java_highlight_functions = 1
 let g:java_highlight_all = 1
 
+" -- Comfortable motion --
+let g:comfortable_motion_friction = 300.0
+let g:comfortable_motion_air_drag = 0.0
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
@@ -495,8 +512,6 @@ map <leader>9 :blast<CR>
 let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 " The `½` mapping works together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
 nnoremap <silent> ½                :NERDTreeFocus<CR>
-map               <leader><C-w>    :NERDTreeClose<CR>:lclose<CR>:bdelete<CR>
-map               <leader><C-M-w>  :NERDTreeClose<CR>:lclose<CR>:bdelete!<CR>
 nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 
 " -- AutoComplPop --
