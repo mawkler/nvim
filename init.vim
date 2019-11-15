@@ -29,6 +29,7 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf.vim'
 Plugin 'airblade/vim-gitgutter'        " Shows git status for each line
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
@@ -46,7 +47,6 @@ Plugin 'StripWhiteSpaces'
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'   " Adds mapping to toggle QuickFix window
 " Plugin 'autozimu/LanguageClient-neovim' " LSP
-Plugin 'natebosch/vim-lsc'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
 Plugin 'haya14busa/vim-textobj-function-syntax'
@@ -75,6 +75,7 @@ Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
 " Plugin 'Kazark/vim-SimpleSmoothScroll'
 " Plugin 'terryma/vim-smooth-scrolling'
 Plugin 'markonm/traces.vim'                  " Better highlighting when searching/replacing
+Plugin 'MaxMEllon/vim-jsx-pretty'
 
 " For SnipMate -----------------------
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -263,9 +264,9 @@ function! VisualAppend(char) " Appends `char` to visual selection
   exe "normal! A" . a:char
 endfunction
 
-" Start in maximized window
-if has("gui_running")
-  set lines=999 columns=999
+if has("gui_running") " Gvim specific configuration
+  set lines=999 columns=999 " Start in maximized window
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 endif
 
 if has('nvim')
@@ -273,11 +274,6 @@ if has('nvim')
   cmap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<Up>"
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
   cunmap <C-n>
-endif
-
-if has('nvim') || has('gui_running')
-  " Causes regular Vim to launch in replace mode for some reason
-  nmap <silent> <Esc> :nohlsearch<CR>
 endif
 
 if exists('$TMUX')
@@ -392,7 +388,8 @@ let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line com
 let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
 let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
 let g:NERDCustomDelimiters = {
-\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
+\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'},
+\ 'javascript': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
 
@@ -443,6 +440,9 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-stylelint',
   \ 'coc-calc',
+  \ 'coc-eslint',
+  \ 'coc-tslint',
+  \ 'coc-tslint-plugin'
   \]
 
 " -- Commentary --
@@ -482,11 +482,13 @@ let g:java_highlight_all = 1
 let g:comfortable_motion_friction = 300.0
 let g:comfortable_motion_air_drag = 0.0
 
+" -- Fzf --
+autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
 set laststatus=2 " Always display status line
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 let g:airline_powerline_fonts = 1
 let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
