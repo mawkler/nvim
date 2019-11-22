@@ -462,6 +462,12 @@ omap     aF               <Plug>(textobj-function-A)
 vmap     iF               <Plug>(textobj-function-i)
 omap     iF               <Plug>(textobj-function-i)
 
+" -- Cool.vim --
+if has('nvim') || has('gui_running')
+  " Causes regular Vim to launch in replace mode for some reason
+  nmap <silent> <Esc> :nohlsearch<CR>
+endif
+
 " -- exchange.vim --
 vmap x <Plug>(Exchange)
 nmap cX cx$
