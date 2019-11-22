@@ -389,7 +389,7 @@ let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
 let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
 let g:NERDCustomDelimiters = {
 \ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'},
-\ 'javascript': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'}
+\ 'javascript': { 'leftAlt': '//', 'right': '-->', 'left': '<!-- '}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
 
@@ -442,8 +442,12 @@ let g:coc_global_extensions = [
   \ 'coc-calc',
   \ 'coc-eslint',
   \ 'coc-tslint',
-  \ 'coc-tslint-plugin'
+  \ 'coc-tslint-plugin',
+  \ 'coc-explorer'
   \]
+
+" coc-explorer
+noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size'<CR>
 
 " -- Commentary --
 nmap cm <Plug>Commentary
@@ -484,6 +488,7 @@ let g:comfortable_motion_air_drag = 0.0
 
 " -- Fzf --
 autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+let $FZF_DEFAULT_OPTS='--bind ctrl-o:accept --history=' . $HOME . '/.fzf_history'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
@@ -512,10 +517,10 @@ map <leader>8 <Plug>AirlineSelectTab8
 map <leader>9 :blast<CR>
 
 " -- NERDTree --
-let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
+" let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
 " The `½` mapping works together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
-nnoremap <silent> ½                :NERDTreeFocus<CR>
-nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
+" nnoremap <silent> ½                :NERDTreeFocus<CR>
+" nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
 
 " -- AutoComplPop --
 let g:acp_completeOption = '.,w,b,k,u,t'
