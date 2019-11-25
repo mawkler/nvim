@@ -197,6 +197,7 @@ map      <M-j>            }
 map      <M-k>            {
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
+map      <C-¨>            <C-]>
 map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
 map      <C-W>¨           <C-w><C-]>
 map      ¨                ]
@@ -477,7 +478,8 @@ nmap cX cx$
 let g:dsf_no_mappings = 1
 nmap dsf <Plug>DsfNextDelete
 nmap dsF <Plug>DsfDelete
-nmap csf <Plug>DsfChange
+nmap csf <Plug>DsfNextChange
+nmap csF <Plug>DsfChange
 
 omap af <Plug>DsfTextObjectA
 xmap af <Plug>DsfTextObjectA
