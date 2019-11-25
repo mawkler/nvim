@@ -390,7 +390,7 @@ let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
 let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
 let g:NERDCustomDelimiters = {
 \ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'},
-\ 'javascript': { 'leftAlt': '//', 'right': '-->', 'left': '<!-- '}
+\ 'javascript': { 'left': '//', 'leftAlt': '<!-- ', 'rightAlt': '-->'}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
 
