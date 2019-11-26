@@ -299,7 +299,7 @@ set list listchars=tab:\▏\                            " Show line for each tab
 set autoindent                                        " Follow previous line's indenting
 set backspace=indent,eol,start                        " Better backspace behaviour
 set cinkeys-=0#                                       " Indent lines starting with `#`
-au  filetype javascript,css,python setlocal sw=4 ts=4 " Custom filetype indent settings
+au  filetype css,python setlocal sw=4 ts=4            " Custom filetype indent settings
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -373,13 +373,6 @@ map <leader>C <plug>NERDCommenterToEOL
 " -- Gitgutter --
 set updatetime=100
 
-" -- AutoPairs --
-let g:AutoPairsShortcutToggle     = '' " Disables some mappings
-let g:AutoPairsShortcutBackInsert = ''
-let g:AutoPairsShortcutFastWrap   = ''
-let g:AutoPairsShortcutJump       = ''
-let g:AutoPairsMoveCharacter      = ''
-
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
@@ -395,8 +388,10 @@ let g:sleuth_automatic = 1
 
 " -- Coc.nvim --
 nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
-inoremap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
+imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
+imap <C-j> <NL>
 set statusline+=%{coc#status()}
 
 let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
@@ -420,8 +415,19 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-tslint',
   \ 'coc-tslint-plugin',
-  \ 'coc-explorer'
+  \ 'coc-explorer',
+  \ 'coc-pairs'
   \]
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " coc-explorer
 noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size'<CR>
@@ -448,7 +454,6 @@ endif
 " -- exchange.vim --
 vmap x <Plug>(Exchange)
 nmap cX cx$
-"
 
 " -- dsf.vim --
 let g:dsf_no_mappings = 1
@@ -595,11 +600,5 @@ hi link jsStorageClass Keyword
 " ColorScheme corrections
 hi! link Search Visual
 hi! link SpecialKey Directory
-
-" -- AutoPairs --
-" The following commands should disable AutoPairs 'fly-mode' in NeoVim, but it doesn't seem to work
-" let g:AutoPairsFlyMode = 0
-" let g:AutoPairsWildClosedPair = ''
-" let g:AutoPairsMultilineClose = 0
 
 endif
