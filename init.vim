@@ -64,6 +64,7 @@ Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
 Plugin 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
+Plugin 'meain/vim-printer'
 call vundle#end()
 
 " -- File imports --
@@ -478,6 +479,10 @@ let g:comfortable_motion_air_drag = 0.0
 " -- Fzf --
 autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 let $FZF_DEFAULT_OPTS='--bind ctrl-o:accept --history=' . $HOME . '/.fzf_history'
+
+" -- vim-printer --
+let g:vim_printer_print_below_keybinding = 'gp'
+let g:vim_printer_print_above_keybinding = 'gP'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
