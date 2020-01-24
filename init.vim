@@ -35,6 +35,8 @@ Plugin 'visualrepeat'                        " Allows repeating using `.` over v
 Plugin 'ingo-library'                        " Required by visualrepeat
 Plugin 'capslock.vim'                        " Adds caps lock mapping to insert mode
 Plugin 'StripWhiteSpaces'
+Plugin 'ConflictMotions'                     " Adds motions for Git conflicts
+Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
 Plugin 'kana/vim-textobj-user'
@@ -65,6 +67,7 @@ Plugin 'markonm/traces.vim'                  " Better highlighting when searchin
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
 Plugin 'meain/vim-printer'
+Plugin 'lervag/vimtex'
 call vundle#end()
 
 " -- File imports --
@@ -110,6 +113,7 @@ call yankstack#setup() " Has to be called before remap of any yankstack_yank_key
 
 " -- Key mappings --
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
@@ -117,6 +121,7 @@ map      <leader><C-w>    :Bdelete<CR>
 map      <leader><C-M-w>  :Bdelete!<CR>
 map      <CR>             <leader>c<space>
 nnoremap Y                y$
+nnoremap yp               yyp
 map      <leader>y        "+y
 map      <leader>Y        "+Y
 map      <leader>d        "+d
@@ -207,6 +212,7 @@ map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
+map      <leader>M        :cd ~/Dropbox/Dokument/Markdowns/<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -374,6 +380,13 @@ map <leader>C <plug>NERDCommenterToEOL
 " -- Gitgutter --
 set updatetime=100
 
+" -- AutoPairs --
+let g:AutoPairsShortcutToggle     = '' " Disables some mappings
+let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsShortcutFastWrap   = ''
+let g:AutoPairsShortcutJump       = ''
+let g:AutoPairsMoveCharacter      = ''
+
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
@@ -391,8 +404,10 @@ let g:sleuth_automatic = 1
 nmap <silent> <C-]> <Plug>(coc-definition)
 nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
-imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
 imap <C-j> <NL>
+imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 set statusline+=%{coc#status()}
 
 let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
@@ -416,8 +431,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-tslint',
   \ 'coc-tslint-plugin',
-  \ 'coc-explorer',
-  \ 'coc-pairs'
+  \ 'coc-explorer'
   \]
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -431,7 +445,7 @@ function! s:show_documentation()
 endfunction
 
 " coc-explorer
-noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size'<CR>
+noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size .'<CR>
 
 " -- Commentary --
 nmap cm <Plug>Commentary
@@ -479,10 +493,24 @@ let g:comfortable_motion_air_drag = 0.0
 " -- Fzf --
 autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 let $FZF_DEFAULT_OPTS='--bind ctrl-o:accept --history=' . $HOME . '/.fzf_history'
+" Preview window
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, {
+      \ 'options': ['--layout=reverse', '--info=inline', '--preview', 'cat {}']
+      \ }, <bang>0)
 
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
+
+" -- Vimtex --
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+
+" -- togglelist.vim --
+let g:toggle_list_no_mappings=1
+nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
+nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
@@ -570,23 +598,23 @@ if exists('g:loaded_webdevicons')
   call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
 
-" -- ALE --
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
-let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
-let g:ale_fixers  = {
-\   '*':          ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier', 'eslint'],
-\   'python':     ['autopep8']
-\}
-let g:ale_linters = {
-\   'python': ['flake8'],
-\   'c':      ['gcc -fopenmp'],
-\   'cpp':    ['g++ -fopenmp']
-\}
-command! ALEDisableFixOnSave let g:ale_fix_on_save=0
-command! ALEEnableFixOnSave let g:ale_fix_on_save=1
+" " -- ALE --
+" let g:ale_fix_on_save = 1
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
+" let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
+" let g:ale_fixers  = {
+" \   '*':          ['remove_trailing_lines', 'trim_whitespace'],
+" \   'javascript': ['prettier', 'eslint'],
+" \   'python':     ['autopep8']
+" \}
+" let g:ale_linters = {
+" \   'python': ['flake8'],
+" \   'c':      ['gcc -fopenmp'],
+" \   'cpp':    ['g++ -fopenmp']
+" \}
+" command! ALEDisableFixOnSave let g:ale_fix_on_save=0
+" command! ALEEnableFixOnSave let g:ale_fix_on_save=1
 
 " " -- Gutentags --
 " let g:gutentags_modules = ['ctags']
