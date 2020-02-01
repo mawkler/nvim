@@ -495,7 +495,7 @@ let g:comfortable_motion_air_drag = 0.0
 
 " -- Fzf --
 autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
-let $FZF_DEFAULT_OPTS='--bind ctrl-o:accept --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --history=' . $HOME . '/.fzf_history'
 " Preview window
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, {
@@ -581,7 +581,9 @@ else
     \ }
 endif
 let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': ['<C-o>', '<CR>'],
+  \ 'AcceptSelection("e")': ['<C-j>', '<CR>'],
+  \ 'PrtSelectMove("j")':   ['<m-j>', '<down>'],
+  \ 'PrtSelectMove("k")':   ['<m-k>', '<up>'],
   \ } " Open files with Ctrl-O
 
 set grepprg=ag\ --nogroup\ --nocolor
