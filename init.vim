@@ -21,6 +21,7 @@ Plugin 'andymass/vim-matchup'                " Ads additional `%` commands
 Plugin 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
 Plugin 'neoclide/coc.nvim'
 " Plugin 'dense-analysis/ale'                " Use either ALE or Syntastic
+Plugin 'honza/vim-snippets'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'maxbrunsfeld/vim-yankstack'
@@ -132,7 +133,7 @@ map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
-inoremap <S-Tab>          <C-o><<
+imap     <S-Tab>          <C-o><S-Tab>
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
@@ -213,6 +214,7 @@ map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>M        :cd ~/Dropbox/Dokument/Markdowns/<CR>
+map      <leader>X        :cd ~/Dropbox/Dokument/LaTeXs/<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -294,7 +296,7 @@ set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
 
-autocmd filetype markdown setlocal concealcursor="" " Except for in markdown files
+autocmd filetype markdown,tex setlocal concealcursor="" " Except for in markdown and LaTeX files
 
 
 " -- Tab characters --
@@ -431,7 +433,8 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-tslint',
   \ 'coc-tslint-plugin',
-  \ 'coc-explorer'
+  \ 'coc-explorer',
+  \ 'coc-vimtex'
   \]
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -505,7 +508,7 @@ let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- Vimtex --
 let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
+let g:vimtex_view_method='zathura' " Zathura automatically reloads documents
 
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
