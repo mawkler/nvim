@@ -37,6 +37,7 @@ Plugin 'ingo-library'                        " Required by visualrepeat
 Plugin 'capslock.vim'                        " Adds caps lock mapping to insert mode
 Plugin 'StripWhiteSpaces'
 Plugin 'ConflictMotions'                     " Adds motions for Git conflicts
+Plugin 'restore_view.vim'
 Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
@@ -131,9 +132,10 @@ map      <leader>p        "+p
 map      <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
+inoremap <Tab>            <C-t>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
-imap     <S-Tab>          <C-o><S-Tab>
+imap     <S-Tab>          <C-d>
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
@@ -145,7 +147,7 @@ nnoremap <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
-nmap     gK               kjddkPJ
+nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <C-o>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
@@ -184,7 +186,8 @@ map      <C-¨>            <C-]>
 map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
 map      <C-W>¨           <C-w><C-]>
 map      ¨                ]
-map      å                [
+map      ¨¨               ]]
+map      åå               [[
 nmap     ö                ;
 nmap     Ö                :
 nmap     <C-c>            <Nop>
@@ -214,7 +217,7 @@ map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>M        :cd ~/Dropbox/Dokument/Markdowns/<CR>
-map      <leader>X        :cd ~/Dropbox/Dokument/LaTeXs/<CR>
+map      <leader>E        :cd ~/Dropbox/Exjobb/LaTeXs/report<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -282,7 +285,6 @@ let g:netrw_browse_split = 0
 " let g:netrw_altv = 1
 autocmd filetype netrw nmap <buffer> o <CR>
 
-
 " -- Lines and cursor --
 set number relativenumber
 hi  CursorLineNr term=bold gui=bold
@@ -297,7 +299,6 @@ set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
 
 autocmd filetype markdown,tex setlocal concealcursor="" " Except for in markdown and LaTeX files
-
 
 " -- Tab characters --
 filetype plugin indent on
@@ -458,10 +459,10 @@ autocmd VimEnter * SwapList BOOLEANS TRUE FALSE
 
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
-vmap     aF               <Plug>(textobj-function-A)
-omap     aF               <Plug>(textobj-function-A)
-vmap     iF               <Plug>(textobj-function-i)
-omap     iF               <Plug>(textobj-function-i)
+vmap aF <Plug>(textobj-function-A)
+omap aF <Plug>(textobj-function-A)
+vmap iF <Plug>(textobj-function-i)
+omap iF <Plug>(textobj-function-i)
 
 " -- Cool.vim --
 if has('nvim') || has('gui_running')
@@ -509,6 +510,18 @@ let g:vim_printer_print_above_keybinding = 'gP'
 " -- Vimtex --
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura' " Zathura automatically reloads documents
+
+" -- textobj-entire --
+let g:textobj_entire_no_default_key_mappings=1
+omap <buffer> aE <Plug>(textobj-entire-a)
+xmap <buffer> aE <Plug>(textobj-entire-a)
+omap <buffer> iE <Plug>(textobj-entire-i)
+xmap <buffer> iE <Plug>(textobj-entire-i)
+
+" Disable custom warnings based on regexp
+let g:vimtex_quickfix_ignore_filters = [
+      \ 'Underfull \\hbox',
+      \]
 
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
@@ -562,7 +575,7 @@ let g:acp_completeOption = '.,w,b,k,u,t'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-autocmd CompleteDone * pclose " Auto close `scratch` window after autocompletion
+" autocmd CompleteDone * pclose " Auto close `scratch` window after autocompletion
 
 " -- CtrlP --
 map <C-M-p> :CtrlPMRUFiles<CR>
