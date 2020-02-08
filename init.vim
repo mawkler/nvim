@@ -217,7 +217,7 @@ map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
 map      <leader>M        :cd ~/Dropbox/Dokument/Markdowns/<CR>
-map      <leader>E        :cd ~/Dropbox/Exjobb/LaTeXs/report<CR>
+map      <leader>E        :cd ~/Dropbox/Exjobb/<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -243,6 +243,7 @@ nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
 nmap     <leader>z        1z=
+xnoremap g.               .
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
@@ -510,13 +511,14 @@ let g:vim_printer_print_above_keybinding = 'gP'
 " -- Vimtex --
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura' " Zathura automatically reloads documents
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings=1
-omap <buffer> aE <Plug>(textobj-entire-a)
-xmap <buffer> aE <Plug>(textobj-entire-a)
-omap <buffer> iE <Plug>(textobj-entire-i)
-xmap <buffer> iE <Plug>(textobj-entire-i)
+omap aE <Plug>(textobj-entire-a)
+xmap aE <Plug>(textobj-entire-a)
+omap iE <Plug>(textobj-entire-i)
+xmap iE <Plug>(textobj-entire-i)
 
 " Disable custom warnings based on regexp
 let g:vimtex_quickfix_ignore_filters = [
