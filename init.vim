@@ -97,12 +97,14 @@ set swapfile
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
+set viewoptions=cursor,folds,slash,unix
 
 " -- Menu autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
+set path+=**                    " Let's `find` search recursively into subfolders
 
 " -- Searching --
 set ignorecase " Case insensitive searching
@@ -292,14 +294,15 @@ hi  CursorLineNr term=bold gui=bold
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set textwidth=0                   " Disable auto line breaking
-set nrformats+=hex,bin,alpha      " Allow Ctrl-A/X for hex, binary and letters
+set nrformats+=hex,bin            " Allow Ctrl-A/X for hex and binary
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
 
-autocmd filetype markdown,tex setlocal concealcursor="" " Except for in markdown and LaTeX files
+" Except for in markdown and LaTeX files (LaTeX files' config don't seem to be overwritten though)
+autocmd Filetype markdown,latex,tex setlocal concealcursor=""
 
 " -- Tab characters --
 filetype plugin indent on
@@ -436,7 +439,8 @@ let g:coc_global_extensions = [
   \ 'coc-tslint',
   \ 'coc-tslint-plugin',
   \ 'coc-explorer',
-  \ 'coc-vimtex'
+  \ 'coc-vimtex',
+  \ 'coc-omnisharp'
   \]
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -451,6 +455,9 @@ endfunction
 
 " coc-explorer
 noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size .'<CR>
+
+" coc-snippets
+vmap gs <Plug>(coc-snippets-select)
 
 " -- Commentary --
 nmap cm <Plug>Commentary
