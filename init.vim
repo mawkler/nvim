@@ -454,7 +454,7 @@ function! s:show_documentation()
 endfunction
 
 " coc-explorer
-noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size .'<CR>
+noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
