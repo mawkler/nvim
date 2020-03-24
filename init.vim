@@ -8,6 +8,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'bling/vim-airline'
 Plugin 'powerline/fonts'
 Plugin 'joshdick/onedark.vim'                " Atom dark theme for vim
@@ -64,12 +65,16 @@ Plugin 'moll/vim-bbye'
 Plugin 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plugin 'kana/vim-niceblock'                  " Improves visual mode
 Plugin 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
+Plugin 'wsdjeg/notifications.vim'
 Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
 Plugin 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
 Plugin 'meain/vim-printer'
 Plugin 'lervag/vimtex'
+Plugin 'rhysd/git-messenger.vim'
+" Plugin 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
+Plugin 'camspiers/lens.vim'
 call vundle#end()
 
 " -- File imports --
@@ -140,6 +145,10 @@ vnoremap <S-Tab>          <gv
 imap     <S-Tab>          <C-d>
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
+" nnoremap <M-+>            :call animate#window_delta_height(2)<CR>
+" nnoremap <M-->            :call animate#window_delta_height(-2)<CR>
+" nnoremap +                :call animate#window_delta_width(5)<CR>
+" nnoremap -                :call animate#window_delta_width(-5)<CR>
 map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
@@ -188,6 +197,7 @@ map      <C-¨>            <C-]>
 map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
 map      <C-W>¨           <C-w><C-]>
 map      ¨                ]
+map      å                [
 map      ¨¨               ]]
 map      åå               [[
 nmap     ö                ;
@@ -205,12 +215,10 @@ onoremap ar               a]
 " ----------------------------------------------
 vmap     <                <gv
 vmap     >                >gv
-nmap     <leader>;        m0A;<Esc>`0
-nmap     <leader>,        m0A,<Esc>`0
-nmap     <leader>.        m0A.<Esc>`0
-vmap     <leader>;        m0:call VisualAppend(";")<CR>`0
-vmap     <leader>,        m0:call VisualAppend(",")<CR>`0
-vmap     <leader>.        m0:call VisualAppend(".")<CR>`0
+map      <leader>;        :call VisualAppend(";")<CR>
+map      <leader>,        :call VisualAppend(",")<CR>
+map      <leader>.        :call VisualAppend(".")<CR>
+map      <leader>?        :call VisualAppend("?")<CR>
 map      <leader>v        :source ~/.vimrc<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -252,8 +260,11 @@ augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
 augroup END
 
-function! VisualAppend(char) " Appends `char` to visual selection
+ " Appends `char` to current line or visual selection
+function! VisualAppend(char)
+  exe "normal! m0"
   exe "normal! A" . a:char
+  exe "normal! `0"
 endfunction
 
 if has("gui_running") " Gvim specific configuration
@@ -440,7 +451,9 @@ let g:coc_global_extensions = [
   \ 'coc-tslint-plugin',
   \ 'coc-explorer',
   \ 'coc-vimtex',
-  \ 'coc-omnisharp'
+  \ 'coc-bibtex',
+  \ 'coc-texlab',
+  \ 'coc-omnisharp',
   \]
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -454,7 +467,8 @@ function! s:show_documentation()
 endfunction
 
 " coc-explorer
-noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
+" noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
+noremap <silent> ½ :execute 'CocCommand explorer'<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
@@ -520,17 +534,17 @@ let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura' " Zathura automatically reloads documents
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 
+" Disable custom warnings based on regexp
+let g:vimtex_quickfix_ignore_filters = [
+      \ 'Underfull \\hbox',
+      \]
+
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings=1
 omap aE <Plug>(textobj-entire-a)
 xmap aE <Plug>(textobj-entire-a)
 omap iE <Plug>(textobj-entire-i)
 xmap iE <Plug>(textobj-entire-i)
-
-" Disable custom warnings based on regexp
-let g:vimtex_quickfix_ignore_filters = [
-      \ 'Underfull \\hbox',
-      \]
 
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
@@ -545,6 +559,10 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
+" let g:airline_left_sep = "\ue0bc"
+" let g:airline_right_sep = "\ue0be"
+" let g:airline_left_alt_sep = "\ue0bd"
+" let g:airline_right_alt_sep = "\ue0bf"
 
 " -- Airline Tabline --
 let g:airline#extensions#tabline#enabled = 1
