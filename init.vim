@@ -626,8 +626,6 @@ let g:ctrlp_prompt_mappings = {
   \ 'PrtSelectMove("k")':   ['<m-k>', '<up>'],
   \ } " Open files with Ctrl-O
 
-set grepprg=ag\ --nogroup\ --nocolor
-
 " -- vim-devicons --
 let g:webdevicons_enable                      = 1
 let g:webdevicons_enable_ctrlp                = 1
