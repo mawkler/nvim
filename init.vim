@@ -625,10 +625,10 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' "  Use ag in CtrlP for listing files
   let g:ctrlp_use_caching = 0                                    "  ag doesn't need to cache
 else
-  let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(git|dotfiles|vim/bundle|npm|config|chromium|cargo)|node_modules)$',
-    \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
-    \ }
+  " let g:ctrlp_custom_ignore = {
+  "   \ 'dir': '\v[\/](\.(git||vim/bundle|npm|config|chromium|cargo)|node_modules)$',
+  "   \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
+  "   \ }
 endif
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': ['<C-j>', '<CR>'],
