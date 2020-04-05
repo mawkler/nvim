@@ -38,16 +38,18 @@ Plugin 'ingo-library'                        " Required by visualrepeat
 Plugin 'capslock.vim'                        " Adds caps lock mapping to insert mode
 Plugin 'StripWhiteSpaces'
 Plugin 'ConflictMotions'                     " Adds motions for Git conflicts
-Plugin 'restore_view.vim'
+Plugin 'restore_view.vim'                    " Automatically restores cursor position and folds
 Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-function'
+Plugin 'kana/vim-textobj-line'
+Plugin 'kana/vim-textobj-entire'
+Plugin 'kana/vim-niceblock'                  " Improves visual mode
 Plugin 'haya14busa/vim-textobj-function-syntax'
 Plugin 'AndrewRadev/dsf.vim'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'kana/vim-textobj-entire'
 Plugin 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
 Plugin 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
 Plugin 'google/vim-searchindex'              " Display index and number of search matches
@@ -60,10 +62,8 @@ Plugin 'haya14busa/incsearch.vim'            " Better incsearch
 Plugin 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
 Plugin 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plugin 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plugin 'kana/vim-textobj-line'
 Plugin 'moll/vim-bbye'
 Plugin 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
-Plugin 'kana/vim-niceblock'                  " Improves visual mode
 Plugin 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
 Plugin 'wsdjeg/notifications.vim'
 Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
@@ -75,6 +75,8 @@ Plugin 'lervag/vimtex'
 Plugin 'rhysd/git-messenger.vim'
 " Plugin 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
 Plugin 'camspiers/lens.vim'                  " An automatic window resizing plugin
+Plugin 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
+
 call vundle#end()
 
 " -- File imports --
@@ -535,9 +537,10 @@ command! -bang -nargs=? -complete=dir Files
 let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
-" -- Vimtex --
+" -- LaTeX and Vimtex --
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura' " Zathura automatically reloads documents
+let g:tex_comment_nospell=1
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 let g:vimtex_toc_config = {
       \ 'layer_status': { 'label': 0 }
@@ -554,6 +557,14 @@ omap aE <Plug>(textobj-entire-a)
 xmap aE <Plug>(textobj-entire-a)
 omap iE <Plug>(textobj-entire-i)
 xmap iE <Plug>(textobj-entire-i)
+
+" -- textobj-user --
+call textobj#user#plugin('datetime', {
+      \   'date': {
+      \     'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
+      \     'select': ['ad', 'id'],
+      \   }
+      \ })
 
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
