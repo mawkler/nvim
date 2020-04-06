@@ -320,14 +320,14 @@ autocmd Filetype markdown,latex,tex setlocal concealcursor=""
 
 " -- Tab characters --
 filetype plugin indent on
-set expandtab                                         " Use spaces for indentation
-set shiftwidth=2                                      " Width of indentation
-set tabstop=4                                         " Width of <Tab> characters
-set list listchars=tab:\▏\                            " Show line for each tab indentation
-set autoindent                                        " Follow previous line's indenting
-set backspace=indent,eol,start                        " Better backspace behaviour
-set cinkeys-=0#                                       " Indent lines starting with `#`
-au  filetype css,python setlocal sw=4 ts=4            " Custom filetype indent settings
+set expandtab                              " Use spaces for indentation
+set shiftwidth=2                           " Width of indentation
+set tabstop=4                              " Width of <Tab> characters
+set list listchars=tab:\▏\                 " Show line for each tab indentation
+set autoindent                             " Follow previous line's indenting
+set backspace=indent,eol,start             " Better backspace behaviour
+set cinkeys-=0#                            " Indent lines starting with `#`
+au  filetype css,python setlocal sw=4 ts=4 " Custom filetype indent settings
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -604,22 +604,8 @@ map <leader>7 <Plug>AirlineSelectTab7
 map <leader>8 <Plug>AirlineSelectTab8
 map <leader>9 :blast<CR>
 
-" -- NERDTree --
-" let NERDTreeIgnore = ['\.pyc$', 'radiosw$', '__init__.py']
-" The `½` mapping works together with ~/.vim/bundle/nerdtree/plugin/custom_map.vim
-" nnoremap <silent> ½                :NERDTreeFocus<CR>
-" nnoremap          <C-w><C-c>       :NERDTreeClose<CR><C-w><C-c>
-
 " -- AutoComplPop --
 let g:acp_completeOption = '.,w,b,k,u,t'
-
-" " -- Supertab and Snipmate --
-" let g:SuperTabCrMapping             = 1
-" let g:SuperTabMappingForward        = '<C-n>'
-" let g:SuperTabMappingBackward       = '<C-b>'
-" let g:SuperTabDefaultCompletionType = 'context'
-" smap <Tab> <Plug>snipMateNextOrTrigger
-" imap <Tab> <Plug>snipMateNextOrTrigger
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -638,10 +624,10 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' "  Use ag in CtrlP for listing files
   let g:ctrlp_use_caching = 0                                    "  ag doesn't need to cache
 else
-  " let g:ctrlp_custom_ignore = {
-  "   \ 'dir': '\v[\/](\.(git||vim/bundle|npm|config|chromium|cargo)|node_modules)$',
-  "   \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
-  "   \ }
+  let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.(git||vim/bundle|npm|config|chromium|cargo)|node_modules)$',
+    \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
+    \ }
 endif
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': ['<C-j>', '<CR>'],
@@ -681,12 +667,6 @@ endif
 " \}
 " command! ALEDisableFixOnSave let g:ale_fix_on_save=0
 " command! ALEEnableFixOnSave let g:ale_fix_on_save=1
-
-" " -- Gutentags --
-" let g:gutentags_modules = ['ctags']
-" let g:gutentags_cache_dir = "~/.vim/tags"
-" let g:gutentags_ctags_exclude = ['*/node_modules*']
-" set statusline+=%{gutentags#statusline()}
 
 " -- Vim-lsc --
 let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
