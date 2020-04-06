@@ -74,7 +74,7 @@ Plugin 'meain/vim-printer'
 Plugin 'lervag/vimtex'
 Plugin 'rhysd/git-messenger.vim'
 " Plugin 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
-Plugin 'camspiers/lens.vim'
+Plugin 'camspiers/lens.vim'                  " An automatic window resizing plugin
 call vundle#end()
 
 " -- File imports --
@@ -128,7 +128,6 @@ map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
 map      <leader><C-w>    :Bdelete<CR>
 map      <leader><C-M-w>  :Bdelete!<CR>
-map      <CR>             <leader>c<space>
 nnoremap Y                y$
 nnoremap yp               yyp
 map      <leader>y        "+y
@@ -257,6 +256,9 @@ xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
 nmap     cage             viw<Esc>bhcaw
 
+map <expr> o    &modifiable ? "o" : "\<CR>"
+map <expr> <CR> &modifiable ? "\<Plug>NERDCommenterToggle" : "\<CR>"
+
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
   autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
@@ -290,9 +292,6 @@ autocmd  filetype *      nnoremap <buffer> <Tab> ==
 autocmd  filetype *      vnoremap <buffer> <Tab> =gv
 autocmd  filetype python nmap <buffer> <Tab> >>
 autocmd  filetype python vmap <buffer> <Tab> >gv
-
-" -- Quickfix window map --
-autocmd filetype qf noremap <buffer> o <CR>
 
 " -- netrw --
 let g:netrw_silent = 1
@@ -560,6 +559,9 @@ xmap iE <Plug>(textobj-entire-i)
 let g:toggle_list_no_mappings=1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
+
+" -- lens.vim --
+let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
