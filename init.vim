@@ -60,6 +60,7 @@ Plugin 'captbaritone/better-indent-support-for-php-with-html'
 Plugin 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
 Plugin 'haya14busa/incsearch.vim'            " Better incsearch
 Plugin 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
+Plugin 'plasticboy/vim-markdown'             " Adds extra features to markdown
 Plugin 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plugin 'tommcdo/vim-exchange'                " For swapping the place of two text objects
 Plugin 'moll/vim-bbye'
@@ -76,7 +77,7 @@ Plugin 'rhysd/git-messenger.vim'
 " Plugin 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
 Plugin 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plugin 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
-
+Plugin 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 call vundle#end()
 
 " -- File imports --
@@ -314,7 +315,6 @@ set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
-
 " Except for in markdown and LaTeX files (LaTeX files' config don't seem to be overwritten though)
 autocmd Filetype markdown,latex,tex setlocal concealcursor=""
 
@@ -573,6 +573,9 @@ nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 
 " -- lens.vim --
 let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
+
+" -- vim-markdown --
+let g:vim_markdown_folding_disabled = 1
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
