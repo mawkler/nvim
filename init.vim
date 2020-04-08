@@ -78,6 +78,7 @@ Plugin 'rhysd/git-messenger.vim'
 Plugin 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plugin 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plugin 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
+Plugin 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
 call vundle#end()
 
 " -- File imports --
@@ -247,20 +248,18 @@ nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
 map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
-map      <leader>T        :set tabstop=4 shiftwidth=4 noexpandtab<CR>
-map      <leader>t        :set tabstop=4 shiftwidth=2 expandtab<CR>
 map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
 tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
-nmap     <leader>z        1z=
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
 nmap     cage             viw<Esc>bhcaw
 
-map <expr> o    &modifiable ? "o" : "\<CR>"
-map <expr> <CR> &modifiable ? "\<Plug>NERDCommenterToggle" : "\<CR>"
+nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
+map           <expr> o         &modifiable ? "o" : "\<CR>"
+map           <expr> <CR>      &modifiable ? "\<Plug>NERDCommenterToggle" : "\<CR>"
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
@@ -273,6 +272,14 @@ function! VisualAppend(char)
   exe "normal! A" . a:char
   exe "normal! `0"
 endfunction
+
+" Prints the syntax highlighting values under cursor
+function! SynStack()
+  if exists("*synstack")
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  endif
+endfunc
+map <leader>H :call SynStack()<CR>
 
 if has("gui_running") " Gvim specific configuration
   set lines=999 columns=999 " Start in maximized window
@@ -291,10 +298,10 @@ if exists('$TMUX')
 endif
 
 " -- Language specific mappings --
-autocmd  filetype *      nnoremap <buffer> <Tab> ==
-autocmd  filetype *      vnoremap <buffer> <Tab> =gv
-autocmd  filetype python nmap <buffer> <Tab> >>
-autocmd  filetype python vmap <buffer> <Tab> >gv
+autocmd filetype *           nnoremap <buffer> <Tab> ==
+autocmd filetype *           vnoremap <buffer> <Tab> =gv
+autocmd filetype python,markdown nmap <buffer> <Tab> >>
+autocmd filetype python,markdown vmap <buffer> <Tab> >gv
 
 " -- netrw --
 let g:netrw_silent = 1
@@ -576,6 +583,8 @@ let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 
 " -- vim-markdown --
 let g:vim_markdown_folding_disabled = 1
+" Makes sure that italic words actually look italic in Markdown
+hi htmlItalic cterm=italic gui=italic
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
