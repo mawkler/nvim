@@ -229,9 +229,8 @@ map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
 map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
-map      <leader>u        :cd ~/Dropbox/Uppsala/<CR>
-map      <leader>M        :cd ~/Dropbox/Dokument/Markdowns/<CR>
-map      <leader>E        :cd ~/Dropbox/Exjobb/<CR>
+map      <leader>M        :cd $DROPBOX/Dokument/Markdowns/<CR>:echo "cd " . $DROPBOX . "Dokument/Markdowns/"<CR>
+map      <leader>E        :cd $DROPBOX/Exjobb/<CR>:echo "cd " . $DROPBOX . "Exjobb/"<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
