@@ -79,6 +79,7 @@ Plugin 'camspiers/lens.vim'                  " An automatic window resizing plug
 Plugin 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plugin 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 Plugin 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
+Plugin 'mbbill/undotree'
 call vundle#end()
 
 " -- File imports --
@@ -281,6 +282,19 @@ function! SynStack()
 endfunc
 map <leader>H :call SynStack()<CR>
 
+" Tries to perform a regular `gf`, if that doesn't work try to call
+" vim-markdown's Markdown_EditUrlUnderCursor
+function MarkdownGf()
+  set path-=**
+  try
+    normal! gf
+  catch:
+    execute "normal \<Plug>Markdown_EditUrlUnderCursor"
+  endtry
+  set path+=**
+endfunc
+noremap gf :call MarkdownGf()<CR>
+
 if has("gui_running") " Gvim specific configuration
   set lines=999 columns=999 " Start in maximized window
   set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
@@ -363,6 +377,9 @@ colorscheme onedark   " Atom color scheme
 let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
+
+" -- Vundle --
+cnoreabbrev PlugInstall PluginInstall
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let b:indentLine_enabled = 1
