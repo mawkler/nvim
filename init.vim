@@ -303,8 +303,9 @@ endif
 if has('nvim')
   " Because NeoVim's menu completions are in a vertical pum
   cmap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<Up>"
+  cmap <expr> <C-n> pumvisible() ? "\<C-n>" : "\<Down>"
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
-  cunmap <C-n>
+  cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
 endif
 
 if exists('$TMUX')
