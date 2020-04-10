@@ -435,8 +435,8 @@ let g:AutoPairsMoveCharacter      = ''
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
-" -- Targets.vim --
-let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
+" " -- Targets.vim --
+" let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
 let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
 
 " -- Vim Fugitive --
