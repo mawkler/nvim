@@ -263,7 +263,7 @@ map           <expr> <CR>      &modifiable ? "\<Plug>NERDCommenterToggle" : "\<C
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
-  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+  autocmd FileType help wincmd L | vertical resize 78
 augroup END
 
  " Appends `char` to current line or visual selection
