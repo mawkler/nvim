@@ -600,8 +600,20 @@ let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 
 " -- vim-markdown --
 let g:vim_markdown_folding_disabled = 1
-" Makes sure that italic words actually look italic in Markdown
+" Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
+" Underline link names in Markdown in-line links
+hi mkdLink cterm=underline gui=underline
+" Underline Markdown URLs
+hi mkdInlineURL guifg=#61AFEF gui=underline
+
+" --- vim-highlighturl ---
+" Disable vim-highlighturl in Markdown files
+augroup highlighturl-filetype
+  autocmd!
+  autocmd FileType markdown call highlighturl#disable_local()
+augroup END
+let g:highlighturl_guifg = '#61AFEF'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
