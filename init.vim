@@ -96,7 +96,7 @@ set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
 set autoread      " Automatically read in the file when changed externally
-autocmd! FocusGained,BufEnter * if mode() != 'c' | checktime | endif " Check if any file has changed
+autocmd FocusGained * silent! checktime " Check if any file has changed
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
@@ -258,8 +258,9 @@ nmap     dage             viw<Esc>bhdaw
 nmap     cage             viw<Esc>bhcaw
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-map           <expr> o         &modifiable ? "o" : "\<CR>"
-map           <expr> <CR>      &modifiable ? "\<Plug>NERDCommenterToggle" : "\<CR>"
+map      <expr> o     &modifiable ? "o" : "<CR>"
+map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
+nnoremap <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
 
 augroup vertical_help " Open :help in vertical instead of horizontal split
   autocmd!
@@ -505,11 +506,13 @@ vmap gs <Plug>(coc-snippets-select)
 nmap cm <Plug>Commentary
 
 " -- swapit --
-autocmd VimEnter * SwapList BOOLEANS TRUE FALSE
-autocmd VimEnter * SwapList numbers
-\ zero one two three four five six seven eight nine ten eleven twelve
-autocmd VimEnter * SwapList nummer
-\ noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
+fun SwapLists()
+  ClearSwapList
+  SwapList BOOLEANS TRUE FALSE
+  SwapList numbers zero one two three four five six seven eight nine ten eleven twelve
+  SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
+endfun
+autocmd BufEnter * call SwapLists()
 
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
@@ -517,6 +520,13 @@ vmap aF <Plug>(textobj-function-A)
 omap aF <Plug>(textobj-function-A)
 vmap iF <Plug>(textobj-function-i)
 omap iF <Plug>(textobj-function-i)
+
+" --- vim-textobj-line ---
+let g:textobj_line_no_default_key_mappings = 1
+vmap aL <Plug>(textobj-line-a)
+omap aL <Plug>(textobj-line-a)
+vmap iL <Plug>(textobj-line-i)
+omap iL <Plug>(textobj-line-i)
 
 " -- Cool.vim --
 if has('nvim') || has('gui_running')
@@ -609,7 +619,7 @@ hi mkdInlineURL guifg=#61AFEF gui=underline
 
 " --- vim-highlighturl ---
 " Disable vim-highlighturl in Markdown files
-augroup highlighturl-filetype
+augroup highlighturl_filetype
   autocmd!
   autocmd FileType markdown call highlighturl#disable_local()
 augroup END
