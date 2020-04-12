@@ -586,7 +586,14 @@ let g:vimtex_quickfix_ignore_filters = [
       \]
 
 " -- textobj-entire --
-let g:textobj_entire_no_default_key_mappings=1
+let g:textobj_entire_no_default_key_mappings = 1
+" Allow `ie` and `ae` in all file types except `tex` files
+omap <expr> ae &filetype=='tex' ? "<Plug>(vimtex-ae)" : "<Plug>(textobj-entire-a)"
+xmap <expr> ae &filetype=='tex' ? "<Plug>(vimtex-ae)" : "<Plug>(textobj-entire-a)"
+omap <expr> ie &filetype=='tex' ? "<Plug>(vimtex-ie)" : "<Plug>(textobj-entire-i)"
+xmap <expr> ie &filetype=='tex' ? "<Plug>(vimtex-ie)" : "<Plug>(textobj-entire-i)"
+
+" `iE` and `aE` work in all file types
 omap aE <Plug>(textobj-entire-a)
 xmap aE <Plug>(textobj-entire-a)
 omap iE <Plug>(textobj-entire-i)
