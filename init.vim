@@ -258,7 +258,7 @@ nmap     dage             viw<Esc>bhdaw
 nmap     cage             viw<Esc>bhcaw
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-map      <expr> o     &modifiable ? "o" : "<CR>"
+nmap     <expr> o     &modifiable ? "o" : "<CR>"
 map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
 nnoremap <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
 
