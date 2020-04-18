@@ -115,6 +115,7 @@ set wildmenu                    " List and cycle through autocomplete suggestion
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
 set path+=**                    " Let's `find` search recursively into subfolders
+set cedit=<C-e>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
 
 " -- Searching --
 set ignorecase " Case insensitive searching
@@ -164,7 +165,7 @@ nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
 nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
-imap     <C-s>            <C-o>:w<CR>
+imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
 nmap     d_               d^
 nmap     <BS>             X
@@ -306,6 +307,7 @@ if has('nvim')
   cmap <expr> <C-n> pumvisible() ? "\<C-n>" : "\<Down>"
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
   cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
+  cmap <M-p> <Up><C-p>
 endif
 
 if exists('$TMUX')
@@ -631,6 +633,9 @@ augroup highlighturl_filetype
   autocmd FileType markdown call highlighturl#disable_local()
 augroup END
 let g:highlighturl_guifg = '#61AFEF'
+
+" -- undotree --
+map <leader>u :UndotreeToggle<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
