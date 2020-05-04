@@ -39,6 +39,7 @@ Plugin 'capslock.vim'                        " Adds caps lock mapping to insert 
 Plugin 'StripWhiteSpaces'
 Plugin 'ConflictMotions'                     " Adds motions for Git conflicts
 Plugin 'restore_view.vim'                    " Automatically restores cursor position and folds
+Plugin 'git-time-lapse'                      " Step through a file's git history
 Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
@@ -159,7 +160,6 @@ map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
 imap     <C-k>            <c-o>O
-nnoremap <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
@@ -266,11 +266,11 @@ map      g(               (ge
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 nmap     <expr> o     &modifiable ? "o" : "<CR>"
 map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
-nnoremap <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
+nmap     <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
 
-augroup vertical_help " Open :help in vertical instead of horizontal split
+augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
-  autocmd FileType help wincmd L | vertical resize 78
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 80 | endif
 augroup END
 
  " Appends `char` to current line or visual selection
@@ -542,7 +542,7 @@ omap iL <Plug>(textobj-line-i)
 " -- Cool.vim --
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
-  nmap <silent> <Esc> :nohlsearch<CR>
+  nmap <expr> <Esc> &modifiable ? ":nohlsearch<CR>" : "<C-w>c"
 endif
 
 " -- exchange.vim --
@@ -583,6 +583,7 @@ let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- LaTeX and Vimtex --
+autocmd Filetype latex,tex setlocal iskeyword-=:
 let g:tex_flavor = 'latex'
 let g:tex_comment_nospell = 1
 let g:vimtex_view_general_viewer = 'zathura'
@@ -628,6 +629,7 @@ let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 
 " -- vim-markdown --
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
