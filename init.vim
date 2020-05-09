@@ -266,7 +266,7 @@ map      g(               (ge
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 nmap     <expr> o     &modifiable ? "o" : "<CR>"
 map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
-nmap     <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
+nnoremap <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
 
 augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
