@@ -209,6 +209,7 @@ map      ^                }
 map      Å                {
 nmap     ö                ;
 nmap     gö               g;
+nmap     qÖ               q:
 nmap     Ö                :
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
