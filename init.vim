@@ -167,7 +167,7 @@ nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
-nmap     d_               d^
+nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
 nmap     <A-BS>           db
@@ -234,7 +234,7 @@ map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>M        :cd $DROPBOX/Dokument/Markdowns/<CR>:echo "cd " . $DROPBOX . "Dokument/Markdowns/"<CR>
-map      <leader>E        :cd $DROPBOX/Exjobb/<CR>:echo "cd " . $DROPBOX . "Exjobb/"<CR>
+map      <leader>E        :cd $DROPBOX/Exjobb/<CR>:echo "cd " . $DROPBOX . "/Exjobb/"<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -459,6 +459,7 @@ nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
 imap <C-j> <NL>
 imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
+autocmd CursorMoved,CursorMovedI * call coc#util#float_hide() " TODO: remove this when floating window bug is fixed for coc.nvim
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 set statusline+=%{coc#status()}
@@ -522,6 +523,12 @@ fun SwapLists()
   SwapList BOOLEANS TRUE FALSE
   SwapList numbers zero one two three four five six seven eight nine ten eleven twelve
   SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
+  SwapList a a an
+  SwapList and and or
+  SwapList is is are
+  SwapList do do does
+  SwapList isnt isn aren
+  SwapList dont don doesn
 endfun
 autocmd BufEnter * call SwapLists()
 
@@ -542,7 +549,7 @@ omap iL <Plug>(textobj-line-i)
 " -- Cool.vim --
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
-  nmap <expr> <Esc> &modifiable ? ":nohlsearch<CR>" : "<C-w>c"
+  nmap <silent> <expr> <Esc> &modifiable ? ":nohlsearch<CR>" : "<C-w>c"
 endif
 
 " -- exchange.vim --
