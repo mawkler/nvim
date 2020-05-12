@@ -116,7 +116,7 @@ set wildmenu                    " List and cycle through autocomplete suggestion
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
 set path+=**                    " Let's `find` search recursively into subfolders
-set cedit=<C-e>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
+set cedit=<C-k>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
 
 " -- Searching --
 set ignorecase " Case insensitive searching
@@ -264,9 +264,9 @@ map      g)               w)ge
 map      g(               (ge
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-nmap     <expr> o     &modifiable ? "o" : "<CR>"
+nnoremap <expr> o     &modifiable && !bufexists('[Command Line]') ? "o" : "<CR>"
 map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
-nnoremap <expr> <C-j> bufexists('[Command Line]') ? "<CR>" : "o<Esc>"
+nnoremap <expr> <C-j> bufexists('[Command Line]') \|\| !&modifiable ? "<CR>" : "o<Esc>"
 
 augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
@@ -549,7 +549,9 @@ omap iL <Plug>(textobj-line-i)
 " -- Cool.vim --
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
-  nmap <silent> <expr> <Esc> &modifiable ? ":nohlsearch<CR>" : "<C-w>c"
+  nnoremap <silent> <expr> <Esc>
+        \ &modifiable && !bufexists('[Command Line]') \|\| &buftype == 'help'
+        \ ? ":nohlsearch<CR>" : "<C-w>c"
 endif
 
 " -- exchange.vim --
