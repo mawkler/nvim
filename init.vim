@@ -48,6 +48,7 @@ Plugin 'kana/vim-textobj-function'
 Plugin 'kana/vim-textobj-line'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-niceblock'                  " Improves visual mode
+Plugin 'kana/vim-textobj-syntax'
 Plugin 'haya14busa/vim-textobj-function-syntax'
 Plugin 'AndrewRadev/dsf.vim'
 Plugin 'michaeljsmith/vim-indent-object'
