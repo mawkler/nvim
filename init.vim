@@ -33,14 +33,14 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'visualrepeat'                        " Allows repeating using `.` over visual selection
-Plugin 'ingo-library'                        " Required by visualrepeat
 Plugin 'capslock.vim'                        " Adds caps lock mapping to insert mode
 Plugin 'StripWhiteSpaces'
-Plugin 'ConflictMotions'                     " Adds motions for Git conflicts
 Plugin 'restore_view.vim'                    " Automatically restores cursor position and folds
 Plugin 'git-time-lapse'                      " Step through a file's git history
+Plugin 'inkarkat/vim-ingo-library'           " Required by visualrepeat and ConflictMotions
+Plugin 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
 Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
+Plugin 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
 Plugin 'MarcWeber/vim-addon-commandline-completion'
 Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
 Plugin 'kana/vim-textobj-user'
@@ -658,6 +658,10 @@ let g:highlighturl_guifg = '#61AFEF'
 
 " -- undotree --
 map <leader>u :UndotreeToggle<CR>
+
+" -- bullets --
+" autocmd BufEnter,BufNewFile *.md,*.txt map <buffer> <leader>X :ToggleCheckbox<CR>
+map <silent> <leader>X :ToggleCheckbox<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
