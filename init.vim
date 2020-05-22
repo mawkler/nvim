@@ -266,9 +266,29 @@ map      g)               w)ge
 map      g(               (ge
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-nnoremap <expr> o     &modifiable && !bufexists('[Command Line]') ? "o" : "<CR>"
-map      <expr> <CR>  &modifiable ? "<Plug>NERDCommenterToggle" : "<CR>"
-nnoremap <expr> <C-j> bufexists('[Command Line]') \|\| !&modifiable ? "<CR>" : "o<Esc>"
+nmap          <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+
+nmap <C-j> :call Enter()<CR>
+
+function Enter()
+  if bufexists('Table of contents (vimtex)')
+    call b:toc.activate_current(1)
+  elseif !&modifiable || bufexists('[Command Line]')
+    try
+      exe "normal! \<CR>"
+    catch
+      call PrintError(v:exception)
+    endtry
+  else
+    exe "normal o"
+  endif
+endf
+
+function PrintError(message)
+  echohl ErrorMsg
+  echom a:message
+  echohl None
+endf
 
 augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
