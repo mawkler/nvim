@@ -4,6 +4,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-eunuch'
@@ -266,7 +267,7 @@ map      g)               w)ge
 map      g(               (ge
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-nmap          <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+map           <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 nmap <C-j> :call Enter()<CR>
 
@@ -535,6 +536,7 @@ noremap <silent> ½ :execute 'CocCommand explorer'<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
+command! Snippets CocList snippets
 
 " -- Commentary --
 nmap cm <Plug>Commentary
@@ -661,6 +663,8 @@ let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 " -- vim-markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
+" Disables default `ge` mapping by overriding the default
+map <F13> <Plug>Markdown_EditUrlUnderCursor
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
