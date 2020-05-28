@@ -269,11 +269,14 @@ map      g(               (ge
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 map           <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
-nmap <C-j> :call Enter()<CR>
+nmap <silent> <C-j> :call Enter()<CR>
+
 
 function Enter()
   if bufexists('Table of contents (vimtex)')
     call b:toc.activate_current(1)
+  elseif bufexists('undotree_2')
+    exe "normal \<Plug>UndotreeEnter"
   elseif !&modifiable || bufexists('[Command Line]')
     try
       exe "normal! \<CR>"
@@ -665,6 +668,8 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 " Disables default `ge` mapping by overriding the default
 map <F13> <Plug>Markdown_EditUrlUnderCursor
+" Disables default `gx` which crashes Vim for some reasone
+map <F14> <Plug>Markdown_OpenUrlUnderCursor
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
@@ -686,6 +691,8 @@ map <leader>u :UndotreeToggle<CR>
 " -- bullets --
 " autocmd BufEnter,BufNewFile *.md,*.txt map <buffer> <leader>X :ToggleCheckbox<CR>
 map <silent> <leader>X :ToggleCheckbox<CR>
+let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
+let g:bullets_checkbox_markers  = ' x'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
