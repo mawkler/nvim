@@ -211,7 +211,6 @@ map      ^                }
 map      Å                {
 nmap     ö                ;
 nmap     gö               g;
-nmap     qÖ               q:
 nmap     Ö                :
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
@@ -465,6 +464,10 @@ let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsMoveCharacter      = ''
+let g:AutoPairsMapSpace           = 0
+autocmd Filetype markdown let b:AutoPairs = {"*": "*"}
+autocmd Filetype tex      let b:AutoPairs = {"$": "$"}
+" TODO: Perhaps use snippets instead to allow `$$` and `**`
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
