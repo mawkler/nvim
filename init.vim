@@ -240,7 +240,7 @@ map      <leader>E        :cd $DROPBOX/Exjobb/<CR>:echo "cd " . $DROPBOX . "/Exj
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
-nmap     <leader>F        :let @+ = expand("%")<CR>:echo "Yanked file path: <C-r>+"<CR>
+nmap     <leader>F        :let @+ = expand("%:p")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
 vnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
@@ -529,7 +529,7 @@ let g:coc_global_extensions = [
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
+  if (index(['vim', 'help', 'markdown'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -622,7 +622,7 @@ let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- LaTeX and Vimtex --
-autocmd Filetype latex,tex setlocal iskeyword-=:
+autocmd FileType latex,tex setlocal iskeyword-=:
 let g:tex_flavor = 'latex'
 let g:tex_comment_nospell = 1
 let g:vimtex_view_general_viewer = 'zathura'
@@ -635,6 +635,23 @@ let g:vimtex_toc_config = {
 let g:vimtex_quickfix_ignore_filters = [
       \ 'Underfull \\hbox',
       \]
+" Disables default mappings that start with `t`
+let g:vimtex_mappings_disable = {
+      \ 'x': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
+      \ 'n': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
+      \}
+let g:vimtex_toc_config = {
+      \ 'todo_sorted': 1,
+      \ 'split_width': 30,
+      \ 'name': 'Table of contents (vimtex)',
+      \ 'hotkeys_leader': '',
+      \ 'show_numbers': 1,
+      \ 'hotkeys_enabled': 1,
+      \ 'hotkeys': 'acdeilmnopuvwx',
+      \ 'show_help': 0,
+      \ 'layer_status': { 'label': 0, 'todo': 0},
+      \ }
+autocmd FileType latex,tex map <buffer> <leader>T <Plug>(vimtex-toc-toggle)
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -679,6 +696,7 @@ hi htmlItalic cterm=italic gui=italic
 hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
 hi mkdInlineURL guifg=#61AFEF gui=underline
+autocmd FileType markdown map <buffer> <leader>T :Toc<CR>
 
 " --- vim-highlighturl ---
 " Disable vim-highlighturl in Markdown files
