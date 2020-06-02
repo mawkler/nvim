@@ -55,7 +55,6 @@ Plugin 'AndrewRadev/dsf.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
 Plugin 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
-Plugin 'google/vim-searchindex'              " Display index and number of search matches
 Plugin 'Yggdroot/indentLine'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
@@ -235,12 +234,9 @@ map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
 map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
-map      <leader>M        :cd $DROPBOX/Dokument/Markdowns/<CR>:echo "cd " . $DROPBOX . "Dokument/Markdowns/"<CR>
-map      <leader>E        :cd $DROPBOX/Exjobb/<CR>:echo "cd " . $DROPBOX . "/Exjobb/"<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
-nmap     <leader>F        :let @+ = expand("%:p")<CR>:echo "Yanked file path: <C-r>+"<CR>
 vnoremap .                :normal .<CR>
 vnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
@@ -248,7 +244,6 @@ noremap  *                ms*
 map      '/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
-map      <leader>S        :setlocal spell!<CR>:echo "Toggled spell checking"<CR>
 nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
@@ -265,13 +260,38 @@ nmap     cage             viw<Esc>bhcaw
 map      g)               w)ge
 map      g(               (ge
 
+map  <silent> <leader>M :call CD('$DROPBOX/Dokument/Markdowns/')<CR>
+map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
+nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
+map  <silent> <leader>S :setlocal spell!<CR>
+
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 map           <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
-nmap <silent> <C-j> :call Enter()<CR>
+function! CD(path)
+  exe 'cd' a:path
+  call Print('cd ' . getcwd())
+endf
 
+function! Print(message)
+  try
+    exe 'Echo' a:message
+  catch " if notifications.vim is not installed
+    echo a:message
+  endtry
+endf
 
-function Enter()
+function PrintError(message)
+  try
+    exe 'Echoerr' a:message
+  catch " if notifications.vim is not installed
+    echohl ErrorMsg
+    echom a:message
+    echohl None
+  endtry
+endf
+
+function! Enter()
   if bufexists('Table of contents (vimtex)')
     call b:toc.activate_current(1)
   elseif bufexists('undotree_2')
@@ -286,12 +306,7 @@ function Enter()
     exe "normal o"
   endif
 endf
-
-function PrintError(message)
-  echohl ErrorMsg
-  echom a:message
-  echohl None
-endf
+nmap <silent> <C-j> :call Enter()<CR>
 
 augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
@@ -390,7 +405,7 @@ set guioptions-=m
 set guioptions-=L
 
 " Command to change directory to the current file's
-command! CDHere cd %:p:h
+command! CDHere call CD('%:p:h')
 
 " Format JSON file to readable form
 command! JSONFormat %!python -m json.tool
