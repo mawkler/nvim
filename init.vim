@@ -259,6 +259,8 @@ nmap     dage             viw<Esc>bhdaw
 nmap     cage             viw<Esc>bhcaw
 map      g)               w)ge
 map      g(               (ge
+nmap     <leader>K        :vertical Man <C-R><C-W><CR>
+vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
 map  <silent> <leader>M :call CD('$DROPBOX/Dokument/Markdowns/')<CR>
 map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
@@ -698,7 +700,7 @@ nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 " -- lens.vim --
 let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
 
-" -- vim-markdown --
+" -- markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 " Disables default `ge` mapping by overriding the default
@@ -712,6 +714,7 @@ hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
 hi mkdInlineURL guifg=#61AFEF gui=underline
 autocmd FileType markdown map <buffer> <leader>T :Toc<CR>
+autocmd FileType markdown setlocal keywordprg=:help
 
 " --- vim-highlighturl ---
 " Disable vim-highlighturl in Markdown files
@@ -791,6 +794,7 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': ['<C-j>', '<CR>'],
   \ 'PrtSelectMove("j")':   ['<m-j>', '<down>'],
   \ 'PrtSelectMove("k")':   ['<m-k>', '<up>'],
+  \ 'PrtDeleteWord()':      ['<c-w>', '<M-BS>'],
   \ }
 
 " -- vim-devicons --
