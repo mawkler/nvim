@@ -83,6 +83,7 @@ Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
+Plug 'semanser/vim-outdated-plugins'
 call plug#end()
 
 " -- File imports --
@@ -503,7 +504,7 @@ nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
 imap <C-j> <NL>
 imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
-autocmd CursorMoved,CursorMovedI * call coc#util#float_hide() " TODO: remove this when floating window bug is fixed for coc.nvim
+" autocmd CursorMoved * call coc#util#float_hide() " TODO: remove this when floating window bug is fixed for coc.nvim
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 set statusline+=%{coc#status()}
@@ -517,7 +518,6 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-python',
   \ 'coc-java',
-  \ 'coc-ccls',
   \ 'coc-html',
   \ 'coc-css',
   \ 'coc-prettier',
@@ -538,6 +538,7 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-terminal'
   \]
+  " \ 'coc-ccls',
   " \ 'coc-sql'
   " \ 'coc-docker',
 
