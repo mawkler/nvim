@@ -1,88 +1,89 @@
-" -- Vundle plugins --
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-commentary'
-Plugin 'bling/vim-airline'
-Plugin 'enricobacis/vim-airline-clock'
-Plugin 'powerline/fonts'
-Plugin 'joshdick/onedark.vim'                " Atom dark theme for vim
-Plugin 'scrooloose/nerdtree'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'unblevable/quick-scope'
-Plugin 'Valloric/MatchTagAlways'             " Highlight matching HTML tags
-Plugin 'tmhedberg/matchit'                   " Ads `%` command for HTML tags
-Plugin 'andymass/vim-matchup'                " Ads additional `%` commands
-Plugin 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
-Plugin 'neoclide/coc.nvim'
-" Plugin 'dense-analysis/ale'                " Use either ALE or Syntastic
-Plugin 'honza/vim-snippets'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'maxbrunsfeld/vim-yankstack'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'airblade/vim-gitgutter'              " Shows git status for each line
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'magicalbanana/vim-sql-syntax'
-Plugin 'capslock.vim'                        " Adds caps lock mapping to insert mode
-Plugin 'StripWhiteSpaces'
-Plugin 'restore_view.vim'                    " Automatically restores cursor position and folds
-Plugin 'git-time-lapse'                      " Step through a file's git history
-Plugin 'inkarkat/vim-ingo-library'           " Required by visualrepeat and ConflictMotions
-Plugin 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
-Plugin 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
-Plugin 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
-Plugin 'MarcWeber/vim-addon-commandline-completion'
-Plugin 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-function'
-Plugin 'kana/vim-textobj-line'
-Plugin 'kana/vim-textobj-entire'
-Plugin 'kana/vim-niceblock'                  " Improves visual mode
-Plugin 'kana/vim-textobj-syntax'
-Plugin 'haya14busa/vim-textobj-function-syntax'
-Plugin 'AndrewRadev/dsf.vim'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
-Plugin 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
-Plugin 'Yggdroot/indentLine'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'captbaritone/better-indent-support-for-php-with-html'
-Plugin 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
-Plugin 'haya14busa/incsearch.vim'            " Better incsearch
-Plugin 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
-Plugin 'plasticboy/vim-markdown'             " Adds extra features to markdown
-Plugin 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
-Plugin 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plugin 'moll/vim-bbye'
-Plugin 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
-Plugin 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-Plugin 'wsdjeg/notifications.vim'
-Plugin 'yuttie/comfortable-motion.vim'       " Smooth scrolling
-Plugin 'markonm/traces.vim'                  " Better highlighting when searching/replacing
-Plugin 'MaxMEllon/vim-jsx-pretty'
-Plugin 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
-Plugin 'meain/vim-printer'
-Plugin 'lervag/vimtex'
-Plugin 'rhysd/git-messenger.vim'
-" Plugin 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
-Plugin 'camspiers/lens.vim'                  " An automatic window resizing plugin
-Plugin 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
-Plugin 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
-Plugin 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
-Plugin 'mbbill/undotree'
-call vundle#end()
+" -- plugins --
+call plug#begin('~/.vim/bundle')
+if has('nvim')
+  Plug 'wsdjeg/notifications.vim'
+endif
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
+Plug 'bling/vim-airline'
+Plug 'enricobacis/vim-airline-clock'
+Plug 'powerline/fonts'
+Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
+Plug 'scrooloose/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdcommenter'
+Plug 'unblevable/quick-scope'
+Plug 'Valloric/MatchTagAlways'             " Highlight matching HTML tags
+Plug 'tmhedberg/matchit'                   " Ads `%` command for HTML tags
+Plug 'andymass/vim-matchup'                " Ads additional `%` commands
+Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
+Plug 'honza/vim-snippets'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'              " Shows git status for each line
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'magicalbanana/vim-sql-syntax'
+Plug 'vim-scripts/capslock.vim'            " Adds caps lock mapping to insert mode
+Plug 'vim-scripts/StripWhiteSpaces'
+Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
+Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
+Plug 'inkarkat/vim-ingo-library'           " Required by visualrepeat and ConflictMotions
+Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
+Plug 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
+Plug 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
+Plug 'MarcWeber/vim-addon-commandline-completion'
+Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-niceblock'                  " Improves visual mode
+Plug 'kana/vim-textobj-syntax'
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'AndrewRadev/dsf.vim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
+Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
+Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'captbaritone/better-indent-support-for-php-with-html'
+Plug 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
+Plug 'haya14busa/incsearch.vim'            " Better incsearch
+Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
+Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
+Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
+Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
+Plug 'moll/vim-bbye'
+Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
+Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
+Plug 'yuttie/comfortable-motion.vim'       " Smooth scrolling
+Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
+Plug 'meain/vim-printer'
+Plug 'lervag/vimtex'
+Plug 'rhysd/git-messenger.vim'
+" Plug 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
+Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
+Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
+Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
+Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
+Plug 'mbbill/undotree'
+call plug#end()
 
 " -- File imports --
 source ~/.vim/visual-at.vim
@@ -268,7 +269,7 @@ nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path
 map  <silent> <leader>S :setlocal spell!<CR>
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-map           <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 function! CD(path)
   exe 'cd' a:path
@@ -427,9 +428,6 @@ colorscheme onedark   " Atom color scheme
 let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
-
-" -- Vundle --
-cnoreabbrev PlugInstall PluginInstall
 
 " -- IndentLine --
 autocmd BufEnter,BufRead * let b:indentLine_enabled = 1
