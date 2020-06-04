@@ -70,7 +70,7 @@ Plug 'tommcdo/vim-exchange'                " For swapping the place of two text 
 Plug 'moll/vim-bbye'
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-Plug 'yuttie/comfortable-motion.vim'       " Smooth scrolling
+Plug 'joeytwiddle/sexy_scroller.vim'
 Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
@@ -620,10 +620,6 @@ xmap if <Plug>DsfTextObjectI
 let g:java_highlight_functions = 1
 let g:java_highlight_all = 1
 
-" -- Comfortable motion --
-let g:comfortable_motion_friction = 300.0
-let g:comfortable_motion_air_drag = 0.0
-
 " -- Fzf --
 autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --history=' . $HOME . '/.fzf_history'
@@ -731,6 +727,10 @@ map <leader>u :UndotreeToggle<CR>
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
 let g:bullets_checkbox_markers  = ' x'
+
+" -- sexy_scroller --
+let g:SexyScroller_EasingStyle = 2
+let g:SexyScroller_MaxTime = 250
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
