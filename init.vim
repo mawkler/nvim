@@ -26,6 +26,7 @@ Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
+Plug 'rbonvall/snipmate-snippets-bib'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -258,7 +259,9 @@ nnoremap §                <C-^>
 nmap     cg*              *Ncgn
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
+nmap     dagE             viw<Esc>bhdaW
 nmap     cage             viw<Esc>bhcaw
+nmap     cagE             viw<Esc>bhcaW
 map      g)               w)ge
 map      g(               (ge
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
@@ -295,10 +298,10 @@ function PrintError(message)
   endtry
 endf
 
-function! Enter()
-  if bufexists('Table of contents (vimtex)')
+function Enter()
+  if bufname() == 'Table of contents (vimtex)'
     call b:toc.activate_current(1)
-  elseif bufexists('undotree_2')
+  elseif bufname() == 'undotree_2'
     exe "normal \<Plug>UndotreeEnter"
   elseif !&modifiable || bufexists('[Command Line]')
     try
@@ -317,7 +320,7 @@ augroup vertical_help " Open :help in 80 character wide vertical instead of hori
   autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 80 | endif
 augroup END
 
- " Appends `char` to current line or visual selection
+" Appends `char` to current line or visual selection
 function! VisualAppend(char)
   exe "normal! m0"
   exe "normal! A" . a:char
@@ -482,8 +485,8 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsMapSpace           = 0
-autocmd Filetype markdown let b:AutoPairs = {"*": "*"}
-autocmd Filetype tex      let b:AutoPairs = {"$": "$"}
+autocmd Filetype markdown let b:AutoPairs = g:AutoPairs | let b:AutoPairs["*"] = "*"
+autocmd Filetype tex      let b:AutoPairs = g:AutoPairs | let b:AutoPairs["$"] = "$"
 " TODO: Perhaps use snippets instead to allow `$$` and `**`
 
 " -- For editing multiple files with `*` --
@@ -506,6 +509,7 @@ nmap <silent> <leader>rn <Plug>(coc-rename)
 imap <C-j> <NL>
 imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
 " autocmd CursorMoved * call coc#util#float_hide() " TODO: remove this when floating window bug is fixed for coc.nvim
+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 set statusline+=%{coc#status()}
@@ -548,6 +552,7 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim', 'help', 'markdown'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+    " TODO: catch and display errors
   else
     call CocAction('doHover')
   endif
