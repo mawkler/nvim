@@ -30,6 +30,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf.vim'
+Plug 'coreyja/fzf.devicon.vim'
 Plug 'airblade/vim-gitgutter'              " Shows git status for each line
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -578,6 +579,7 @@ fun SwapLists()
 endfun
 autocmd BufEnter * call SwapLists()
 
+
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
 vmap aF <Plug>(textobj-function-A)
@@ -619,15 +621,31 @@ xmap if <Plug>DsfTextObjectI
 " -- Java syntax highlighting --
 let g:java_highlight_functions = 1
 let g:java_highlight_all = 1
-
+"
 " -- Fzf --
-autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --history=' . $HOME . '/.fzf_history'
-" Preview window
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, {
-      \ 'options': ['--layout=reverse', '--info=inline', '--preview', 'cat {}']
-      \ }, <bang>0)
+" autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --history=' . $HOME . '/.fzf_history'
+
+" Disalble statusbar and numbers in FZF
+autocmd! FileType fzf          set laststatus=0 ruler! nonumber norelativenumber
+  \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
+
+let g:fzf_colors =
+\ { "fg":      ["fg", "Normal"],
+  \ "bg":      ["bg", "Normal"],
+  \ "hl":      ["fg", "IncSearch"],
+  \ "fg+":     ["fg", "SpecialKey", "CursorColumn", "Normal"],
+  \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+  \ "hl+":     ["fg", "IncSearch"],
+  \ "info":    ["fg", "IncSearch"],
+  \ "border":  ["fg", "Ignore"],
+  \ "prompt":  ["fg", "Comment"],
+  \ "pointer": ["fg", "SpecialKey"],
+  \ "marker":  ["fg", "IncSearch"],
+  \ "spinner": ["fg", "SpecialKey"],
+  \ "header":  ["fg", "WildMenu"],
+  \ "gutter":  ["bg", "normal"] }
 
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
