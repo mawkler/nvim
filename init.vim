@@ -432,6 +432,7 @@ set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 
 " -- IndentLine --
+let g:indentLine_enabled = 0
 autocmd BufEnter,BufRead * let b:indentLine_enabled = 1
 autocmd BufEnter,BufRead *.json
       \ let b:indentLine_enabled = 0 |
@@ -625,27 +626,28 @@ let g:java_highlight_all = 1
 " -- Fzf --
 " autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
 
 " Disalble statusbar and numbers in FZF
 autocmd! FileType fzf          set laststatus=0 ruler! nonumber norelativenumber
   \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
 
-let g:fzf_colors =
-\ { "fg":      ["fg", "Normal"],
-  \ "bg":      ["bg", "Normal"],
-  \ "hl":      ["fg", "IncSearch"],
-  \ "fg+":     ["fg", "SpecialKey", "CursorColumn", "Normal"],
-  \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
-  \ "hl+":     ["fg", "IncSearch"],
-  \ "info":    ["fg", "IncSearch"],
-  \ "border":  ["fg", "Ignore"],
-  \ "prompt":  ["fg", "Comment"],
-  \ "pointer": ["fg", "SpecialKey"],
-  \ "marker":  ["fg", "IncSearch"],
-  \ "spinner": ["fg", "SpecialKey"],
-  \ "header":  ["fg", "WildMenu"],
-  \ "gutter":  ["bg", "normal"] }
+let g:fzf_colors = {
+      \ "fg":      ["fg", "Normal"],
+      \ "fg+":     ["fg", "SpecialKey", "CursorColumn", "Normal"],
+      \ "bg":      ["bg", "Normal"],
+      \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+      \ "hl":      ["fg", "ErrorMsg"],
+      \ "hl+":     ["fg", "ErrorMsg"],
+      \ "gutter":  ["bg", "Normal"],
+      \ "pointer": ["fg", "SpecialKey"],
+      \ "marker":  ["fg", "Title"],
+      \ "border":  ["fg", "Normal"],
+      \ "header":  ["fg", "WildMenu"],
+      \ "info":    ["fg", "Comment"],
+      \ "spinner": ["fg", "SpecialKey"],
+      \ "prompt":  ["fg", "Question"]
+      \ }
 
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
