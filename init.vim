@@ -28,7 +28,6 @@ Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'coreyja/fzf.devicon.vim'
 Plug 'airblade/vim-gitgutter'              " Shows git status for each line
@@ -255,7 +254,6 @@ map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
-tnoremap <Esc>            <C-\><C-n>
 nmap     cg*              *Ncgn
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
@@ -622,15 +620,26 @@ xmap if <Plug>DsfTextObjectI
 " -- Java syntax highlighting --
 let g:java_highlight_functions = 1
 let g:java_highlight_all = 1
-"
+
 " -- Fzf --
-" autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+function FZF_files()
+  echohl Comment
+  echo getcwd()
+  echohl None
+  exe 'FilesWithDevicons'
+endf
+
+map <silent> <C-p> :call FZF_files()<CR>
+map <silent> <leader>m :History<CR>
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
 
-" Disalble statusbar and numbers in FZF
-autocmd! FileType fzf          set laststatus=0 ruler! nonumber norelativenumber
-  \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
+" Disable statusbar, numbers and IndentLines in FZF
+autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
+      \| exe 'IndentLinesDisable'
+      \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
+      \| exe 'IndentLinesEnable'
 
 let g:fzf_colors = {
       \ "fg":      ["fg", "Normal"],
@@ -644,7 +653,7 @@ let g:fzf_colors = {
       \ "marker":  ["fg", "Title"],
       \ "border":  ["fg", "Normal"],
       \ "header":  ["fg", "WildMenu"],
-      \ "info":    ["fg", "Comment"],
+      \ "info":    ["fg", "ErrorMsg"],
       \ "spinner": ["fg", "SpecialKey"],
       \ "prompt":  ["fg", "Question"]
       \ }
@@ -790,31 +799,6 @@ let g:acp_completeOption = '.,w,b,k,u,t'
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-
-" autocmd CompleteDone * pclose " Auto close `scratch` window after autocompletion
-
-" -- CtrlP --
-map <C-M-p> :CtrlPMRUFiles<CR>
-let g:ctrlp_show_hidden       = 1
-let g:ctrlp_max_depth         = 100
-let g:ctrlp_working_path_mode = ''
-let g:ctrlp_max_height        = 12
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor                           "  Use ag over grep
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' "  Use ag in CtrlP for listing files
-  let g:ctrlp_use_caching = 0                                    "  ag doesn't need to cache
-else
-  let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(git||vim/bundle|npm|config|chromium|cargo)|node_modules)$',
-    \ 'file': '\v(\.(exe|sw.|dll|pyc)|__init__.py)$',
-    \ }
-endif
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': ['<C-j>', '<CR>'],
-  \ 'PrtSelectMove("j")':   ['<m-j>', '<down>'],
-  \ 'PrtSelectMove("k")':   ['<m-k>', '<up>'],
-  \ 'PrtDeleteWord()':      ['<c-w>', '<M-BS>'],
-  \ }
 
 " -- vim-devicons --
 let g:webdevicons_enable                      = 1
