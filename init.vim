@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/bundle')
 if has('nvim')
   Plug 'wsdjeg/notifications.vim'
+  Plug 'coreyja/fzf.devicon.vim'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -29,7 +30,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
-Plug 'coreyja/fzf.devicon.vim'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'airblade/vim-gitgutter'              " Shows git status for each line
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -73,7 +74,7 @@ Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specif
 Plug 'joeytwiddle/sexy_scroller.vim'
 Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'ryanoasis/vim-devicons'              " vim-devicons should be loaded last
+Plug 'ryanoasis/vim-devicons'              " vim-devicond should be loaded last
 Plug 'meain/vim-printer'
 Plug 'lervag/vimtex'
 Plug 'rhysd/git-messenger.vim'
@@ -629,8 +630,14 @@ function FZF_files()
   exe 'FilesWithDevicons'
 endf
 
-map <silent> <C-p> :call FZF_files()<CR>
-map <silent> <leader>m :History<CR>
+if has('nvim')
+  " Use floating window
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'SpecialKey', 'border': 'rounded' } }
+  map <silent> <C-p> :call FZF_files()<CR>
+  map <silent> <leader>m :History<CR>
+else
+  map <silent> <C-p> :Files<CR>
+endif
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
@@ -651,12 +658,16 @@ let g:fzf_colors = {
       \ "gutter":  ["bg", "Normal"],
       \ "pointer": ["fg", "SpecialKey"],
       \ "marker":  ["fg", "Title"],
-      \ "border":  ["fg", "Normal"],
+      \ "border":  ["fg", "VisualNC"],
       \ "header":  ["fg", "WildMenu"],
       \ "info":    ["fg", "ErrorMsg"],
       \ "spinner": ["fg", "SpecialKey"],
       \ "prompt":  ["fg", "Question"]
       \ }
+
+" -- vim-clap --
+let g:clap_insert_mode_only = 1
+hi default link ClapDisplay CursorColumn
 
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
