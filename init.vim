@@ -630,7 +630,7 @@ let g:java_highlight_all = 1
 " -- Fzf --
 function FZF_files()
   echohl Comment
-  echo getcwd()
+  echo 'Directory: ' . fnamemodify(getcwd(), ':~')
   echohl None
   exe 'FilesWithDevicons'
 endf
@@ -639,10 +639,10 @@ if has('nvim')
   " Use floating window
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'SpecialKey', 'border': 'rounded' } }
   map <silent> <C-p> :call FZF_files()<CR>
-  map <silent> <leader>m :History<CR>
 else
   map <silent> <C-p> :Files<CR>
 endif
+map <silent> <leader>m :History<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
@@ -708,7 +708,7 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-autocmd FileType latex,tex map <buffer> <leader>T <Plug>(vimtex-toc-toggle)
+autocmd FileType latex,tex map <buffer> <leader>T <Plug>(vimtex-toc-open)
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
