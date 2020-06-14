@@ -212,9 +212,9 @@ map      ¨¨               ]]
 map      åå               [[
 map      ^                }
 map      Å                {
-nmap     ö                ;
-nmap     gö               g;
-nmap     Ö                :
+map      ö                ;
+map      gö               g;
+map      Ö                :
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
 vmap     s                <Plug>VSurround
