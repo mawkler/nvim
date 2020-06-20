@@ -298,6 +298,11 @@ function PrintError(message)
   endtry
 endf
 
+augroup dir_changed
+  autocmd!
+  autocmd DirChanged * if &runtimepath =~ 'notifications.vim' | exe 'Echo  ⟶' getcwd() | endif
+augroup end
+
 function Enter()
   if bufname() == 'Table of contents (vimtex)'
     call b:toc.activate_current(1)
@@ -765,10 +770,9 @@ augroup END
 let g:highlighturl_guifg = '#61AFEF'
 
 " -- undotree --
-map <leader>u :UndotreeToggle<CR>
+map <leader>u :UndotreeShow<CR>
 
 " -- bullets --
-" autocmd BufEnter,BufNewFile *.md,*.txt map <buffer> <leader>X :ToggleCheckbox<CR>
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
 let g:bullets_checkbox_markers  = ' x'
@@ -785,10 +789,6 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
-" let g:airline_left_sep = "\ue0bc"
-" let g:airline_right_sep = "\ue0be"
-" let g:airline_left_alt_sep = "\ue0bd"
-" let g:airline_right_alt_sep = "\ue0bf"
 
 " -- Airline Tabline --
 let g:airline#extensions#tabline#enabled = 1
@@ -809,12 +809,8 @@ map <leader>7 <Plug>AirlineSelectTab7
 map <leader>8 <Plug>AirlineSelectTab8
 map <leader>9 :blast<CR>
 
-" -- AutoComplPop --
-let g:acp_completeOption = '.,w,b,k,u,t'
-
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
 
 " -- vim-devicons --
 let g:webdevicons_enable                      = 1
@@ -848,10 +844,6 @@ endif
 " \}
 " command! ALEDisableFixOnSave let g:ale_fix_on_save=0
 " command! ALEEnableFixOnSave let g:ale_fix_on_save=1
-
-" -- Vim-lsc --
-let g:lsc_server_commands = { 'javascript': 'javascript-typescript-stdio' }
-let g:lsc_auto_map        = { 'GoToDefinition': '<leader>g' }
 
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
