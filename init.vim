@@ -308,6 +308,8 @@ function Enter()
     call b:toc.activate_current(1)
   elseif bufname() == 'undotree_2'
     exe "normal \<Plug>UndotreeEnter"
+  elseif bufname() == '[coc-explorer]-1'
+    exe "normal \<Plug>(coc-explorer-action-n-[cr])"
   elseif !&modifiable || bufexists('[Command Line]')
     try
       exe "normal! \<CR>"
