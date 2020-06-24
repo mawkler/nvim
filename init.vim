@@ -181,6 +181,7 @@ nmap     <A-S-BS>         dw
 imap     <A-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
+imap     <C-.>            <C-r>.
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
 " Cursor movement in cmd and insert mode--------
@@ -215,6 +216,10 @@ map      Å                {
 map      ö                ;
 map      gö               g;
 map      Ö                :
+map      ¤                $
+imap     ¤                $
+map      ´                =
+imap     ´                =
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
 vmap     s                <Plug>VSurround
