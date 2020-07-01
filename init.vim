@@ -462,17 +462,12 @@ let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 
-" -- IndentLine --
-let g:indentLine_enabled = 0
-autocmd BufEnter,BufRead * let b:indentLine_enabled = 1
-autocmd BufEnter,BufRead *.json
-      \ let b:indentLine_enabled = 0 |
-      \ setlocal conceallevel=1 |
-      \ setlocal concealcursor=""
-autocmd BufEnter *.txt if &buftype == 'help' | let b:indentLine_enabled = 0
-let g:indentLine_color_gui = '#4b5263'
+" -- IndentLine and indent_blankline --
 let g:indentLine_char = '▏'
-let g:indentLine_setConceal = 0 " Doesn't hide quotes in JSON files
+let g:indentLine_color_gui = '#4b5263'
+let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
+let g:indentLine_fileTypeExclude = ['json']
+let g:indent_blankline_buftype_exclude = ['help']
 
 " For toggling caps lock in insert mode
 imap <C-C> <Plug>CapsLockToggle
