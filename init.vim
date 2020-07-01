@@ -86,11 +86,13 @@ Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the out
 Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
 Plug 'semanser/vim-outdated-plugins'
+" Plug 'liuchengxu/vista.vim'
+" Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
+
 call plug#end()
 
 " -- File imports --
 source ~/.vim/visual-at.vim
-autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
 
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
@@ -101,8 +103,6 @@ syntax on
 set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
-set autoread      " Automatically read in the file when changed externally
-autocmd FocusGained * silent! checktime " Check if any file has changed
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
@@ -114,6 +114,11 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
+set autoread        " Automatically read in the file when changed externally
+augroup filechanged " Check if any file has changed
+  autocmd!
+  autocmd FocusGained * silent! checktime
+augroup end
 
 " -- Menu autocompletion --
 set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
@@ -333,7 +338,7 @@ nmap <silent> <C-j> :call Enter()<CR>
 
 augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
   autocmd!
-  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 80 | endif
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 82 | endif
 augroup END
 
 " Appends `char` to current line or visual selection
@@ -382,18 +387,29 @@ if exists('$TMUX')
   set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
 endif
 
-" -- Language specific mappings --
-autocmd filetype *           nnoremap <buffer> <Tab> ==
-autocmd filetype *           vnoremap <buffer> <Tab> =gv
-autocmd filetype python,markdown nmap <buffer> <Tab> >>
-autocmd filetype python,markdown vmap <buffer> <Tab> >gv
+" -- Language specific settings --
+nnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
+      \ ">>" : "=="
+vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
+      \ ">gv" : "=gv"
+
+augroup language_specific
+  autocmd!
+  " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
+  autocmd FileType markdown,latex,tex setlocal concealcursor=""
+  " Custom filetype indent settings
+  autocmd FileType css,python setlocal sw=4 ts=4
+augroup end
 
 " -- netrw --
 let g:netrw_silent = 1
 " let g:netrw_preview = 1
 let g:netrw_browse_split = 0
 " let g:netrw_altv = 1
-autocmd filetype netrw nmap <buffer> o <CR>
+augroup netrw
+  autocmd!
+  autocmd FileType netrw nmap <buffer> o <CR>
+augroup end
 
 " -- Lines and cursor --
 set number relativenumber
@@ -407,8 +423,6 @@ set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
-" Except for in markdown and LaTeX files (LaTeX files' config don't seem to be overwritten though)
-autocmd Filetype markdown,latex,tex setlocal concealcursor=""
 
 " -- Tab characters --
 filetype plugin indent on
@@ -419,7 +433,6 @@ set list listchars=tab:\▏\                 " Show line for each tab indentatio
 set autoindent                             " Follow previous line's indenting
 set backspace=indent,eol,start             " Better backspace behaviour
 set cinkeys-=0#                            " Indent lines starting with `#`
-au  filetype css,python setlocal sw=4 ts=4 " Custom filetype indent settings
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -501,8 +514,8 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsMapSpace           = 0
-autocmd Filetype markdown let b:AutoPairs = g:AutoPairs | let b:AutoPairs["*"] = "*"
-autocmd Filetype tex      let b:AutoPairs = g:AutoPairs | let b:AutoPairs["$"] = "$"
+autocmd FileType markdown let b:AutoPairs = g:AutoPairs | let b:AutoPairs["*"] = "*"
+autocmd FileType tex      let b:AutoPairs = g:AutoPairs | let b:AutoPairs["$"] = "$"
 " TODO: Perhaps use snippets instead to allow `$$` and `**`
 
 " -- For editing multiple files with `*` --
@@ -771,6 +784,7 @@ hi htmlItalic cterm=italic gui=italic
 hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
 hi mkdInlineURL guifg=#61AFEF gui=underline
+
 autocmd FileType markdown map <buffer> <leader>T :Toc<CR>
 autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
 
@@ -789,10 +803,6 @@ map <leader>u :UndotreeShow<CR>
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
 let g:bullets_checkbox_markers  = ' x'
-
-" -- sexy_scroller --
-let g:SexyScroller_EasingStyle = 2
-let g:SexyScroller_MaxTime = 250
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
@@ -839,6 +849,10 @@ endif
 if exists('g:loaded_webdevicons')
   call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
+augroup nerdtree
+  autocmd!
+  autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
+augroup end
 
 " " -- ALE --
 " let g:ale_fix_on_save = 1
