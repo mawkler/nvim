@@ -202,6 +202,8 @@ imap     <M-O>            <C-o>O
 "----------------------------------------------
 map      <M-j>            }
 map      <M-k>            {
+omap     <M-j>            V}
+omap     <M-k>            V{
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
 map      <C-¨>            <C-]>
@@ -220,6 +222,8 @@ map      ¤                $
 imap     ¤                $
 map      ´                =
 imap     ´                =
+map      Ä                @
+map      ÄÖ               @:
 nmap     <C-c>            <Nop>
 " vim-surround----------------------------------
 vmap     s                <Plug>VSurround
