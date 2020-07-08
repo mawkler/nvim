@@ -140,6 +140,7 @@ call yankstack#setup() " Has to be called before remap of any yankstack_yank_key
 " -- Key mappings --
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
+map <S-space> <space>
 
 map      <C-Tab>          :bnext<CR>
 map      <C-S-Tab>        :bprevious<CR>
@@ -281,7 +282,7 @@ map      g(               (ge
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
-map  <silent> <leader>M :call CD('$DROPBOX/Dokument/Markdowns/')<CR>
+map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
 map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
@@ -467,6 +468,7 @@ let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
 let g:indentLine_fileTypeExclude = ['json']
+let g:indentLine_bufTypeExclude = ['fzf']
 let g:indent_blankline_buftype_exclude = ['help']
 
 " For toggling caps lock in insert mode
@@ -675,9 +677,7 @@ let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt
 
 " Disable statusbar, numbers and IndentLines in FZF
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
-      \| exe 'IndentLinesDisable'
       \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
-      \| exe 'IndentLinesEnable'
 
 let g:fzf_colors = {
       \ "fg":      ["fg", "Normal"],
