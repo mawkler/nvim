@@ -394,24 +394,6 @@ nnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
 vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
       \ ">gv" : "=gv"
 
-augroup language_specific
-  autocmd!
-  " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
-  autocmd FileType markdown,latex,tex setlocal concealcursor=""
-  " Custom filetype indent settings
-  autocmd FileType css,python setlocal sw=4 ts=4
-augroup end
-
-" -- netrw --
-let g:netrw_silent = 1
-" let g:netrw_preview = 1
-let g:netrw_browse_split = 0
-" let g:netrw_altv = 1
-augroup netrw
-  autocmd!
-  autocmd FileType netrw nmap <buffer> o <CR>
-augroup end
-
 " -- Lines and cursor --
 set number relativenumber
 hi  CursorLineNr term=bold gui=bold
@@ -456,6 +438,24 @@ augroup qs_colors
   autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
   autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
 augroup END
+
+augroup language_specific
+  autocmd!
+  " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
+  autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
+  " Custom filetype indent settings
+  autocmd FileType css,python setlocal sw=4 ts=4
+augroup end
+
+" -- netrw --
+let g:netrw_silent = 1
+" let g:netrw_preview = 1
+let g:netrw_browse_split = 0
+" let g:netrw_altv = 1
+augroup netrw
+  autocmd!
+  autocmd FileType netrw nmap <buffer> o <CR>
+augroup end
 
 " -- Themes --
 colorscheme onedark   " Atom color scheme
@@ -604,13 +604,17 @@ fun SwapLists()
   SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
   SwapList Nummer Noll En Ett Två Tre Fyra Fem Sex Sju Åtta Nio Tio Elva Tolv
   SwapList a a an
-  SwapList and and or
+  SwapList andor and or
+  SwapList andorsymbols && ||
   SwapList is is are
   SwapList do do does
   SwapList isnt isn aren
   SwapList dont don doesn
 endfun
-autocmd BufEnter * call SwapLists()
+augroup SwapList
+  autocmd!
+  autocmd BufEnter * call SwapLists()
+augroup end
 
 
 " -- textobj-function --
