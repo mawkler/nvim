@@ -88,7 +88,6 @@ Plug 'mbbill/undotree'
 Plug 'semanser/vim-outdated-plugins'
 " Plug 'liuchengxu/vista.vim'
 " Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
-
 call plug#end()
 
 " -- File imports --
@@ -444,7 +443,7 @@ augroup language_specific
   " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
   " Custom filetype indent settings
-  autocmd FileType css,python setlocal sw=4 ts=4
+  autocmd FileType css,python setlocal shiftwidth=4 tabstop=4
 augroup end
 
 " -- netrw --
