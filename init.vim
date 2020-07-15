@@ -15,7 +15,7 @@ Plug 'bling/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'powerline/fonts'
 Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
@@ -27,7 +27,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
@@ -432,10 +432,8 @@ command! JSONFormat %!python -m json.tool
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 augroup qs_colors
   autocmd!
-  autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
-  autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
-  autocmd ColorScheme * highlight default link QuickScopePrimary EasyMotionTarget
-  autocmd ColorScheme * highlight default link QuickScopeSecondary markdownBold
+  autocmd ColorScheme * highlight QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
+  autocmd ColorScheme * highlight QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
 augroup END
 
 augroup language_specific
@@ -847,10 +845,14 @@ endif
 if exists('g:loaded_webdevicons')
   call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
-augroup nerdtree
-  autocmd!
-  autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
-augroup end
+
+" " -- NERDTree --
+" augroup nerdtree
+"   if !empty(glob('~/.vim/nerdtree_custom_map.vim'))
+"     autocmd!
+"     autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
+"   endif
+" augroup end
 
 " " -- ALE --
 " let g:ale_fix_on_save = 1
