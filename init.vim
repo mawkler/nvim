@@ -465,7 +465,7 @@ let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
 let g:indentLine_fileTypeExclude = ['json']
-let g:indentLine_bufTypeExclude = ['fzf']
+let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 
 " For toggling caps lock in insert mode
