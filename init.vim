@@ -88,6 +88,7 @@ Plug 'mbbill/undotree'
 Plug 'semanser/vim-outdated-plugins'
 " Plug 'liuchengxu/vista.vim'
 " Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
+Plug 'j5shi/CommandlineComplete.vim'
 call plug#end()
 
 " -- File imports --
@@ -799,6 +800,10 @@ map <leader>u :UndotreeShow<CR>
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
 let g:bullets_checkbox_markers  = ' x'
+
+" -- CommandlineComplete --
+cmap <M-k> <Plug>CmdlineCompleteBackward
+cmap <M-j> <Plug>CmdlineCompleteForward
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
