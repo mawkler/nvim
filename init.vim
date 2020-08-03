@@ -181,10 +181,10 @@ vmap     <C-s>            <Esc>:w<CR>gv
 nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
-nmap     <A-BS>           db
-map!     <A-BS>           <C-w>
-nmap     <A-S-BS>         dw
-imap     <A-S-BS>         <C-o>dw
+nmap     <M-BS>           db
+map!     <M-BS>           <C-w>
+nmap     <M-S-BS>         dw
+imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
 imap     <C-.>            <C-r>.
@@ -291,7 +291,7 @@ nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 function! CD(path)
-  exe 'cd' a:path
+  exe 'tcd' a:path
   call Print('cd ' . getcwd())
 endf
 
@@ -465,7 +465,7 @@ set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
-let g:indentLine_fileTypeExclude = ['json']
+let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown']
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 
@@ -736,7 +736,7 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-autocmd FileType latex,tex map <buffer> <leader>T <Plug>(vimtex-toc-open)
+autocmd FileType latex,tex map <buffer> <silent> <leader>T <Plug>(vimtex-toc-open)
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
