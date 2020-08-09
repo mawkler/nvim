@@ -256,8 +256,8 @@ map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
-vnoremap .                :normal .<CR>
-vnoremap //               y/<C-R>"<CR>
+xnoremap .                :normal .<CR>
+xnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
 noremap  *                ms*
 map      '/               `s
