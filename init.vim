@@ -674,7 +674,7 @@ else
 endif
 map <silent> <leader>m :History<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
 
 " Disable statusbar, numbers and IndentLines in FZF
@@ -766,7 +766,7 @@ nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 
 " -- lens.vim --
-let g:lens#disabled_filetypes = ['coc-explorer', 'fzf']
+let g:lens#disabled_filetypes = ['coc-explorer', 'fzf', 'fugitiveblame']
 
 " -- markdown --
 let g:vim_markdown_folding_disabled = 1
