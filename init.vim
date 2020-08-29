@@ -736,7 +736,7 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-autocmd FileType latex,tex map <buffer> <silent> <leader>T <Plug>(vimtex-toc-open)
+autocmd FileType latex,tex map <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -782,7 +782,7 @@ hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
 hi mkdInlineURL guifg=#61AFEF gui=underline
 
-autocmd FileType markdown map <buffer> <leader>T :Toc<CR>
+autocmd FileType markdown map <buffer> <leader>t :Toc<CR>
 autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
 
 " --- vim-highlighturl ---
@@ -804,6 +804,10 @@ let g:bullets_checkbox_markers  = ' x'
 " -- CommandlineComplete --
 cmap <M-k> <Plug>CmdlineCompleteBackward
 cmap <M-j> <Plug>CmdlineCompleteForward
+
+" -- Online Thesaurus --
+let g:use_default_key_map = 0
+nnoremap <silent> <leader>T :call Thesaurus_LookCurrentWord()<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
