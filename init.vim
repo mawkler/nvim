@@ -89,6 +89,10 @@ Plug 'semanser/vim-outdated-plugins'
 " Plug 'liuchengxu/vista.vim'
 " Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
 Plug 'j5shi/CommandlineComplete.vim'
+Plug 'lfilho/cosco.vim'                    " For appending commas and semicolons to the current line
+Plug 'xolox/vim-misc'                      " Required by vim-session
+Plug 'xolox/vim-session'                   " Extened session management
+Plug 'mhinz/vim-startify'                  " Nicer start screen
 call plug#end()
 
 " -- File imports --
@@ -241,12 +245,6 @@ nmap     S                ys$
 onoremap ir               i]
 onoremap ar               a]
 " ----------------------------------------------
-vmap     <                <gv
-vmap     >                >gv
-map      <leader>;        :call VisualAppend(";")<CR>
-map      <leader>,        :call VisualAppend(",")<CR>
-map      <leader>.        :call VisualAppend(".")<CR>
-map      <leader>?        :call VisualAppend("?")<CR>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -256,7 +254,6 @@ map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !google-chrome-stable % &'<CR>
 nmap     gF               :e <C-r>+<CR>
-xnoremap .                :normal .<CR>
 xnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
 noremap  *                ms*
@@ -282,13 +279,21 @@ map      g(               (ge
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
+map  <silent> <leader>; :call VisualAppend(";")<CR>
+map  <silent> <leader>, :call VisualAppend(",")<CR>
+map  <silent> <leader>. :call VisualAppend(".")<CR>
+map  <silent> <leader>? :call VisualAppend("?")<CR>
 map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
 map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
 
-nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
-map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
+map  <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+
+" `;`/`,` always seach forward/backward, respectively
+nnoremap <expr> ; getcharsearch().forward ? ';' : ','
+nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
 function! CD(path)
   exe 'tcd' a:path
@@ -465,7 +470,7 @@ set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
-let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown']
+let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown', 'startify']
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 
@@ -773,8 +778,6 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 " Disables default `ge` mapping by overriding the default
 map <F13> <Plug>Markdown_EditUrlUnderCursor
-" Disables default `gx` which crashes Vim for some reasone
-map <F14> <Plug>Markdown_OpenUrlUnderCursor
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
@@ -808,6 +811,33 @@ cmap <M-j> <Plug>CmdlineCompleteForward
 " -- Online Thesaurus --
 let g:use_default_key_map = 0
 nnoremap <silent> <leader>T :call Thesaurus_LookCurrentWord()<CR>
+
+" -- Cosco --
+map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
+
+" -- Startify --
+" Add devicsons in front of file names
+function! StartifyEntryFormat()
+  return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
+let g:startify_lists = [
+      \   {'type': 'files',     'header': ['   MRU']      },
+      \   {'type': 'sessions',  'header': ['   Sessions'] },
+      \   {'type': 'bookmarks', 'header': ['   Bookmarks']},
+      \   {'type': 'commands',  'header': ['   Commands'] },
+      \ ]
+let g:startify_custom_header = [
+      \ '    _____   __                                      ',
+      \ '   (\    \ |  \                         __          ',
+      \ '   | \    \|   :  ____    ____  ___  __[__]  _____  ',
+      \ '   |  \    \   | / __ \  /  _ \ \  \/ /|  | /     \ ',
+      \ '   |   \    \  |(  ___/ (  (_) ) \   / |  ||  Y Y  \',
+      \ '   :   |\    \ | \_____) \____/   \_/  |__||__|_|__/',
+      \ '    \__| \____\)----------------------------------- ',
+      \ ]
+
+" -- Session --
+let g:session_autosave = 'no'
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
