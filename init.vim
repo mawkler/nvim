@@ -741,7 +741,10 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-autocmd FileType latex,tex map <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+augroup toc_tex
+  autocmd!
+  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+augroup END
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -785,8 +788,12 @@ hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
 hi mkdInlineURL guifg=#61AFEF gui=underline
 
-autocmd FileType markdown map <buffer> <leader>t :Toc<CR>
-autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
+augroup toc_markdown
+  autocmd!
+  autocmd FileType markdown nmap <buffer> <leader>t :Toc<CR>
+  autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
+augroup END
+
 
 " --- vim-highlighturl ---
 " Disable vim-highlighturl in Markdown files
