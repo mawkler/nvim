@@ -434,6 +434,13 @@ command! CDHere call CD('%:p:h')
 " Format JSON file to readable form
 command! JSONFormat %!python -m json.tool
 
+" Puts current file in trashcan using trash-cli
+command! -bar -bang Trash
+      \ let s:file = fnamemodify(bufname(<q-args>),':p') |
+      \ execute 'bdelete<bang>' |
+      \ execute 'silent !trash ' . s:file |
+      \ unlet s:file
+
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 augroup qs_colors
