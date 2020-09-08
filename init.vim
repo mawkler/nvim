@@ -69,7 +69,7 @@ Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
 Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
 Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plug 'moll/vim-bbye'
+Plug 'moll/vim-bbye'                       " Adds `Bdelete` and `Bwipeout` that preserve window layout
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
 Plug 'joeytwiddle/sexy_scroller.vim'
@@ -85,7 +85,7 @@ Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
-Plug 'semanser/vim-outdated-plugins'
+Plug 'semanser/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
 " Plug 'liuchengxu/vista.vim'
 " Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
 Plug 'j5shi/CommandlineComplete.vim'
@@ -824,7 +824,7 @@ cmap <M-j> <Plug>CmdlineCompleteForward
 
 " -- Online Thesaurus --
 let g:use_default_key_map = 0
-nnoremap <silent> <leader>T :call Thesaurus_LookCurrentWord()<CR>
+nnoremap <silent> <leader>T :call thesaurusPy2Vim#Thesaurus_LookCurrentWord()<CR>
 
 " -- Cosco --
 map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
@@ -834,6 +834,7 @@ map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
 function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
+let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_lists = [
       \   {'type': 'files',     'header': ['   MRU']      },
       \   {'type': 'sessions',  'header': ['   Sessions'] },
@@ -850,8 +851,10 @@ let g:startify_custom_header = [
       \ '    \__| \____\)----------------------------------- ',
       \ ]
 
-" -- Session --
+" -- vim-session --
 let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+let g:session_lock_enabled = 0
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
