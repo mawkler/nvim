@@ -274,8 +274,6 @@ nmap     dage             viw<Esc>bhdaw
 nmap     dagE             viw<Esc>bhdaW
 nmap     cage             viw<Esc>bhcaw
 nmap     cagE             viw<Esc>bhcaW
-map      g)               w)ge
-map      g(               (ge
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
@@ -287,6 +285,10 @@ map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
 map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
+map           g)        w)ge
+omap <silent> g)        :silent normal vg)h<CR>
+map           g(        (ge
+omap <silent> g(        :silent normal vg(oh<CR>
 
 nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
 map  <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
@@ -454,7 +456,7 @@ augroup language_specific
   " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
   " Custom filetype indent settings
-  autocmd FileType css,python setlocal shiftwidth=4 tabstop=4
+  autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
 augroup end
 
 " -- netrw --
