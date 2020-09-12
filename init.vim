@@ -282,7 +282,7 @@ map  <silent> <leader>, :call VisualAppend(",")<CR>
 map  <silent> <leader>. :call VisualAppend(".")<CR>
 map  <silent> <leader>? :call VisualAppend("?")<CR>
 map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
-map  <silent> <leader>E :call CD('$DROPBOX/Exjobb/')<CR>
+map  <silent> <leader>E :cd $DROPBOX/Exjobb/<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
 map           g)        w)ge
@@ -297,9 +297,10 @@ map  <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommen
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
 nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
+" Does `cd path` and prints the command using notifications.vim
 function! CD(path)
   exe 'tcd' a:path
-  call Print('cd ' . getcwd())
+  call Print('cd ' . fnamemodify(getcwd(), ":~"))
 endf
 
 function! Print(message)
@@ -320,9 +321,16 @@ function PrintError(message)
   endtry
 endf
 
+" Prints the new directory after working path changes
 augroup dir_changed
+" Ignoring 'nofile' and 'terminal' deals with fzf doing cd twice on trigger
+" for some reasone
+let blacklist = ['nofile', 'terminal']
   autocmd!
-  autocmd DirChanged * if &runtimepath =~ 'notifications.vim' | exe 'Echo  ⟶' getcwd() | endif
+  autocmd DirChanged *
+        \ if &runtimepath =~ 'notifications.vim' && index(blacklist, &buftype) < 0 |
+        \   exe 'Echo  ⟶' fnamemodify(getcwd(), ":~") |
+        \ endif
 augroup end
 
 function Enter()
@@ -431,7 +439,7 @@ set guioptions-=m
 set guioptions-=L
 
 " Command to change directory to the current file's
-command! CDHere call CD('%:p:h')
+command! CDHere cd %:p:h
 
 " Format JSON file to readable form
 command! JSONFormat %!python -m json.tool
@@ -888,6 +896,7 @@ map <leader>9 :blast<CR>
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tex'] = ''
 
 " -- vim-devicons --
 let g:webdevicons_enable                      = 1
