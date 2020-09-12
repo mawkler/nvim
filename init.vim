@@ -341,6 +341,8 @@ function Enter()
     exe "normal \<Plug>UndotreeEnter"
   elseif bufname() == '[coc-explorer]-1'
     exe "normal \<Plug>(coc-explorer-action-n-[cr])"
+  elseif &filetype == 'startify'
+    call startify#open_buffers()
   elseif !&modifiable || bufexists('[Command Line]')
     try
       exe "normal! \<CR>"
@@ -846,6 +848,7 @@ function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
 let g:startify_session_dir = '~/.vim/sessions'
+let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_lists = [
       \   {'type': 'files',     'header': ['   MRU']      },
       \   {'type': 'sessions',  'header': ['   Sessions'] },
