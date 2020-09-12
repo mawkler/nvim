@@ -93,6 +93,7 @@ Plug 'lfilho/cosco.vim'                    " For appending commas and semicolons
 Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
+Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
 call plug#end()
 
 " -- File imports --
@@ -865,6 +866,14 @@ let g:startify_custom_header = [
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
+
+" -- vim-resize --
+let g:vim_resize_disable_auto_mappings = 1
+let g:resize_count = 3
+nnoremap <silent> <Left>  :CmdResizeLeft<CR>
+nnoremap <silent> <Right> :CmdResizeRight<CR>
+nnoremap <silent> <Up>    :CmdResizeUp<CR>
+nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
