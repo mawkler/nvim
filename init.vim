@@ -15,7 +15,6 @@ Plug 'bling/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'powerline/fonts'
 Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
-" Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
@@ -27,7 +26,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
-" Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
@@ -502,16 +500,6 @@ imap <C-C> <Plug>CapsLockToggle
 xmap ga <Plug>(EasyAlign)
 " Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-" -- Vim-easymoion --
-" <leader>f{char} to move to {char}:
-map  <leader>f <Plug>(easymotion-bd-f)
-nmap <leader>f <Plug>(easymotion-overwin-f)
-" s{char}{char} to move to {char}{char}:
-nmap <leader>s <Plug>(easymotion-overwin-f2)
-" Move to word:
-map  <leader>w <Plug>(easymotion-bd-w)
-nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " -- NERDCommenter --
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
