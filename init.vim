@@ -241,8 +241,10 @@ sunmap   s
 sunmap   S
 nmap     s                ys
 nmap     S                ys$
-onoremap ir               i]
-onoremap ar               a]
+omap     ir               i]
+omap     ar               a]
+vmap     ir               i]
+vmap     ar               a]
 " ----------------------------------------------
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
@@ -837,11 +839,12 @@ function! StartifyEntryFormat()
 endfunction
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
+let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'l', 'c', 'v', 'n']
 let g:startify_lists = [
-      \   {'type': 'files',     'header': ['   MRU']      },
-      \   {'type': 'sessions',  'header': ['   Sessions'] },
+      \   {'type': 'files',     'header': ['   Recent files']},
+      \   {'type': 'sessions',  'header': ['   Sessions']},
       \   {'type': 'bookmarks', 'header': ['   Bookmarks']},
-      \   {'type': 'commands',  'header': ['   Commands'] },
+      \   {'type': 'commands',  'header': ['   Commands']},
       \ ]
 let g:startify_custom_header = [
       \ '    _____   __                                      ',
