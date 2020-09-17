@@ -804,7 +804,6 @@ augroup toc_markdown
   autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
 augroup END
 
-
 " --- vim-highlighturl ---
 " Disable vim-highlighturl in Markdown files
 augroup highlighturl_filetype
@@ -814,7 +813,13 @@ augroup END
 let g:highlighturl_guifg = '#61AFEF'
 
 " -- undotree --
-map <leader>u :UndotreeShow<CR>
+nmap <silent> <leader>u :UndotreeShow \| UndotreeFocus<CR>
+augroup undotree
+  autocmd!
+  autocmd FileType undotree nmap <silent> <buffer> <Tab> <Plug>UndotreeFocusTarget
+  autocmd FileType undotree nmap <silent> <buffer> <leader>u <Plug>UndotreeClose
+  autocmd FileType undotree nmap <silent> <buffer> <Esc> <Plug>UndotreeClose
+augroup end
 
 " -- bullets --
 map <silent> <leader>X :ToggleCheckbox<CR>
