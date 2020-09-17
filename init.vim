@@ -234,18 +234,6 @@ imap     ´                =
 map      Ä                @
 map      ÄÖ               @:
 nmap     <C-c>            <Nop>
-" vim-surround----------------------------------
-vmap     s                <Plug>VSurround
-vmap     S                <Plug>VgSurround
-sunmap   s
-sunmap   S
-nmap     s                ys
-nmap     S                ys$
-omap     ir               i]
-omap     ar               a]
-vmap     ir               i]
-vmap     ar               a]
-" ----------------------------------------------
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -453,6 +441,24 @@ command! -bar -bang Trash
       \ execute 'Bdelete<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
+
+" -- Surround --
+vmap   s  <Plug>VSurround
+vmap   S  <Plug>VgSurround
+sunmap s
+sunmap S
+nmap   s  ys
+nmap   S  ys$
+omap   ir i]
+omap   ar a]
+vmap   ir i]
+vmap   ar a]
+omap   s¤ s$
+
+" surround noun `¤` means `$`
+nmap cs¤ cs$
+nmap ds¤ ds$
+let g:surround_164 = "$\r$"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -696,6 +702,7 @@ let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
       \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
 
+let g:fzf_mru_case_sensitive = 0
 let g:fzf_colors = {
       \ "fg":      ["fg", "Normal"],
       \ "fg+":     ["fg", "SpecialKey", "CursorColumn", "Normal"],
@@ -724,9 +731,12 @@ let g:vim_printer_print_above_keybinding = 'gP'
 " -- LaTeX and Vimtex --
 autocmd FileType latex,tex setlocal iskeyword-=:
 let g:tex_flavor = 'latex'
+let g:tex_indent_items=0        " Disables indent before new `\item`
+let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
 let g:tex_comment_nospell = 1
 let g:vimtex_view_general_viewer = 'zathura'
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
+let g:vimtex_complete_bib = {'simple': 1}
 let g:vimtex_toc_config = {
       \ 'layer_status': { 'label': 0 }
       \ }
