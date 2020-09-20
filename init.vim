@@ -92,6 +92,7 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+Plug 'Xuyuanp/scrollbar.nvim'
 call plug#end()
 
 " -- File imports --
@@ -883,6 +884,32 @@ nnoremap <silent> <Left>  :CmdResizeLeft<CR>
 nnoremap <silent> <Right> :CmdResizeRight<CR>
 nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
+
+" -- scrollbar --
+augroup scrollbar
+  autocmd!
+  autocmd WinEnter    * silent! lua require('scrollbar').show()
+  autocmd WinLeave    * silent! lua require('scrollbar').clear()
+
+  autocmd CursorMoved * silent! lua require('scrollbar').show()
+  autocmd VimResized  * silent! lua require('scrollbar').show()
+
+  autocmd FocusGained * silent! lua require('scrollbar').show()
+  autocmd FocusLost   * silent! lua require('scrollbar').clear()
+augroup end
+
+let g:scrollbar_right_offset = 0
+let g:scrollbar_highlight = {
+      \ 'head': 'NonText',
+      \ 'body': 'NonText',
+      \ 'tail': 'NonText',
+      \ }
+
+let g:scrollbar_shape = {
+      \ 'head': '▖',
+      \ 'body': '▌',
+      \ 'tail': '▘',
+      \ }
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
