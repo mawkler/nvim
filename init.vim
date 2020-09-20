@@ -523,6 +523,10 @@ map <leader>C <plug>NERDCommenterToEOL
 
 " -- Gitgutter --
 set updatetime=100
+" Disable <leader>h-mappings
+map <F14> <Plug>(GitGutterPreviewHunk)
+map <F15> <Plug>(GitGutterStageHunk)
+map <F16> <Plug>(GitGutterUndoHunk)
 
 " -- AutoPairs --
 let g:AutoPairsShortcutToggle     = '' " Disables some mappings
@@ -695,6 +699,7 @@ else
   map <silent> <C-p> :Files<CR>
 endif
 map <silent> <leader>m :History<CR>
+map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
