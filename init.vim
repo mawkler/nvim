@@ -901,6 +901,8 @@ augroup scrollbar
 
   autocmd FocusGained * silent! lua require('scrollbar').show()
   autocmd FocusLost   * silent! lua require('scrollbar').clear()
+
+  autocmd CursorHold  * silent! lua require('scrollbar').clear()
 augroup end
 
 let g:scrollbar_right_offset = 0
@@ -933,6 +935,7 @@ let g:airline#extensions#tabline#close_symbol = '✕'
 let g:airline#extensions#tabline#disable_refresh = 1 " Fixes glitching when swithcing buffers
 let airline#extensions#tabline#middle_click_preserves_windows = 1
 let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#clock#updatetime = 200 " Has to be greater than updatetime for scrollbar.nvim to work
 " let g:airline#extensions#tabline#left_sep = ' '
 map <leader>1 <Plug>AirlineSelectTab1
 map <leader>2 <Plug>AirlineSelectTab2
