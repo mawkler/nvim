@@ -118,6 +118,7 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
+set fileformat=unix fileformats=unix,dos " Use Unix eol format
 set autoread        " Automatically read in the file when changed externally
 augroup filechanged " Check if any file has changed
   autocmd!
@@ -444,6 +445,12 @@ command! -bar -bang Trash
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
+" -- vim-plug --
+augroup vim_plug
+  autocmd!
+  autocmd FileType vim nmap <buffer> <F5> :source ~/.vimrc \| :PlugInstall<CR>
+augroup end
+
 " -- Surround --
 vmap   s  <Plug>VSurround
 vmap   S  <Plug>VgSurround
@@ -460,6 +467,10 @@ omap   s¤ s$
 " surround noun `¤` means `$`
 nmap cs¤ cs$
 nmap ds¤ ds$
+omap i¤  i$
+omap a¤  a$
+vmap i¤  i$
+vmap a¤  a$
 let g:surround_164 = "$\r$"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
@@ -555,11 +566,11 @@ let g:sleuth_automatic = 1
 
 " -- Coc.nvim --
 nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> gd    <Plug>(coc-definition)
 nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
 imap <C-j> <NL>
 imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
-" autocmd CursorMoved * call coc#util#float_hide() " TODO: remove this when floating window bug is fixed for coc.nvim
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -586,14 +597,13 @@ let g:coc_global_extensions = [
   \ 'coc-tslint',
   \ 'coc-tslint-plugin',
   \ 'coc-explorer',
-  \ 'coc-vimtex',
-  \ 'coc-bibtex',
   \ 'coc-texlab',
   \ 'coc-omnisharp',
   \ 'coc-tabnine',
   \ 'coc-sh',
   \ 'coc-terminal'
   \]
+  " \ 'coc-vimtex', " Clashes with coc-texlab
   " \ 'coc-ccls',
   " \ 'coc-sql'
   " \ 'coc-docker',
