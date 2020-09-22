@@ -659,8 +659,9 @@ omap iL <Plug>(textobj-line-i)
 if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
   nnoremap <silent> <expr> <Esc>
-        \ &modifiable && !bufexists('[Command Line]') \|\| &buftype == 'help'
-        \ ? ":nohlsearch<CR>" : "<C-w>c"
+        \ v:hlsearch \|\| &modifiable && !bufexists('[Command Line]')
+        \ ? ":echom 'true' \| nohlsearch<CR>"
+        \ : ":echom 'false'<CR> \| <C-w>c"
 endif
 
 " -- exchange.vim --
