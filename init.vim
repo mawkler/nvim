@@ -230,6 +230,8 @@ map      gö               g;
 map      Ö                :
 map      ¤                $
 imap     ¤                $
+map!     ¤                $
+map      g¤               g$
 map      ´                =
 imap     ´                =
 map      Ä                @
@@ -403,7 +405,6 @@ vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
 
 " -- Lines and cursor --
 set number relativenumber
-hi  CursorLineNr term=bold gui=bold
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set textwidth=0                   " Disable auto line breaking
