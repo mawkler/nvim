@@ -92,7 +92,7 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'Xuyuanp/scrollbar.nvim'
+" Plug 'Xuyuanp/scrollbar.nvim'
 call plug#end()
 
 " -- File imports --
@@ -909,16 +909,10 @@ nnoremap <silent> <Down>  :CmdResizeDown<CR>
 " -- scrollbar --
 augroup scrollbar
   autocmd!
-  autocmd WinEnter    * silent! lua require('scrollbar').show()
-  autocmd WinLeave    * silent! lua require('scrollbar').clear()
-
-  autocmd CursorMoved * silent! lua require('scrollbar').show()
-  autocmd VimResized  * silent! lua require('scrollbar').show()
-
-  autocmd FocusGained * silent! lua require('scrollbar').show()
-  autocmd FocusLost   * silent! lua require('scrollbar').clear()
-
-  autocmd CursorHold  * silent! lua require('scrollbar').clear()
+  autocmd WinEnter,CursorMoved,FocusGained,VimResized *
+        \ silent! lua require('scrollbar').show()
+  autocmd WinLeave,CursorHold,FocusLost *
+        \ silent! lua require('scrollbar').clear()
 augroup end
 
 let g:scrollbar_right_offset = 0
