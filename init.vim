@@ -183,6 +183,7 @@ nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
+vmap     v                v$h
 nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
@@ -283,7 +284,9 @@ omap <silent> g)        :silent normal vg)h<CR>
 map           g(        (ge
 omap <silent> g(        :silent normal vg(oh<CR>
 
-nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell!<CR>1z="
+nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
+nmap <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
+nmap <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
 map  <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 " `;`/`,` always seach forward/backward, respectively
@@ -316,9 +319,9 @@ endf
 
 " Prints the new directory after working path changes
 augroup dir_changed
-" Ignoring 'nofile' and 'terminal' deals with fzf doing cd twice on trigger
-" for some reasone
-let blacklist = ['nofile', 'terminal']
+  " Ignoring 'nofile' and 'terminal' deals with fzf doing cd twice on trigger
+  " for some reasone
+  let blacklist = ['nofile', 'terminal']
   autocmd!
   autocmd DirChanged *
         \ if &runtimepath =~ 'notifications.vim' && index(blacklist, &buftype) < 0 |
@@ -872,7 +875,8 @@ function! StartifyEntryFormat()
 endfunction
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
-let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'l', 'c', 'v', 'n']
+let g:startify_custom_indices = 'asdfghlcvnmcyturieowpqxz' " Use letters instead of numbers
+let g:startify_files_number = 8
 let g:startify_lists = [
       \   {'type': 'files',     'header': ['   Recent files']},
       \   {'type': 'sessions',  'header': ['   Sessions']},
