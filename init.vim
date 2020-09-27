@@ -608,7 +608,8 @@ let g:coc_global_extensions = [
   \ 'coc-omnisharp',
   \ 'coc-tabnine',
   \ 'coc-sh',
-  \ 'coc-terminal'
+  \ 'coc-terminal',
+  \ 'coc-vimlsp',
   \]
   " \ 'coc-vimtex', " Clashes with coc-texlab
   " \ 'coc-ccls',
