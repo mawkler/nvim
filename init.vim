@@ -183,7 +183,7 @@ nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
-vmap     v                v$h
+vmap     v                $h
 nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
@@ -263,6 +263,7 @@ map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
 nmap     cg*              *Ncgn
+nmap     dg*              *Ndgn
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
 nmap     dagE             viw<Esc>bhdaW
@@ -674,8 +675,8 @@ if has('nvim') || has('gui_running')
   " Causes regular Vim to launch in replace mode for some reason
   nnoremap <silent> <expr> <Esc>
         \ v:hlsearch \|\| &modifiable && !bufexists('[Command Line]')
-        \ ? ":echom 'true' \| nohlsearch<CR>"
-        \ : ":echom 'false'<CR> \| <C-w>c"
+        \ ? ":nohlsearch<CR>"
+        \ : "<C-w>c"
 endif
 
 " -- exchange.vim --
