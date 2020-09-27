@@ -237,6 +237,7 @@ map      g¤               g$
 map      ´                =
 imap     ´                =
 map      Ä                @
+map      ÄÄ               @@
 map      ÄÖ               @:
 nmap     <C-c>            <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
@@ -491,6 +492,8 @@ augroup language_specific
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
   " Custom filetype indent settings
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
+  " For adding a horizontal line below and entering insert mode below it
+  autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
 augroup end
 
 " -- netrw --
