@@ -92,7 +92,7 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-" Plug 'Xuyuanp/scrollbar.nvim'
+Plug 'Xuyuanp/scrollbar.nvim'
 call plug#end()
 
 " -- File imports --
@@ -908,12 +908,24 @@ nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- scrollbar --
+function! ScrollbarShow() abort
+  " Hides scrollbar after l:timeout amount of milliseconds
+  let l:timeout = 800
+  let l:winnr = 0
+  let l:bufnr = bufnr()
+  if exists('b:scrollbar_timer_id') | call timer_stop(b:scrollbar_timer_id) | endif
+  call luaeval('require("scrollbar").show(_A[1], _A[2])', [l:winnr, l:bufnr])
+  let b:scrollbar_timer_id = timer_start(l:timeout, {-> luaeval('require("scrollbar").clear(_A[1], _A[2])', [l:winnr, l:bufnr])}, {'repeat': 1})
+endf
+
+function! ScrollbarClear() abort
+  lua require('scrollbar').clear()
+endf
+
 augroup scrollbar
   autocmd!
-  autocmd WinEnter,CursorMoved,FocusGained,VimResized *
-        \ silent! lua require('scrollbar').show()
-  autocmd WinLeave,CursorHold,FocusLost *
-        \ silent! lua require('scrollbar').clear()
+  autocmd WinEnter,CursorMoved,FocusGained,VimResized * silent! call ScrollbarShow()
+  autocmd WinLeave,FocusLost                          * silent! call ScrollbarClear()
 augroup end
 
 let g:scrollbar_right_offset = 0
