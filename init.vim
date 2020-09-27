@@ -22,7 +22,7 @@ Plug 'Valloric/MatchTagAlways'             " Highlight matching HTML tags
 Plug 'tmhedberg/matchit'                   " Ads `%` command for HTML tags
 Plug 'andymass/vim-matchup'                " Ads additional `%` commands
 Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
@@ -93,6 +93,11 @@ Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
 Plug 'Xuyuanp/scrollbar.nvim'
+" Neovim LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 call plug#end()
 
 " -- File imports --
@@ -126,7 +131,7 @@ augroup filechanged " Check if any file has changed
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
+set completeopt=longest,menuone,noinsert
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
@@ -940,6 +945,21 @@ let g:scrollbar_shape = {
       \ 'body': '▌',
       \ 'tail': '▘',
       \ }
+
+" -- LSP --
+lua require("lsp")
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_virtual_text_prefix = ' '
+let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
