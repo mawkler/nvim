@@ -763,6 +763,7 @@ let g:tex_flavor = 'latex'
 let g:tex_indent_items=0        " Disables indent before new `\item`
 let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
 let g:tex_comment_nospell = 1
+let g:vimtex_view_method = 'zathura' " Zathura automatically reloads documents
 let g:vimtex_view_general_viewer = 'zathura'
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 let g:vimtex_complete_bib = {'simple': 1}
