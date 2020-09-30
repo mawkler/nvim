@@ -3,6 +3,7 @@ call plug#begin('~/.vim/bundle')
 if has('nvim')
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
+  Plug 'Xuyuanp/scrollbar.nvim'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -92,11 +93,12 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'Xuyuanp/scrollbar.nvim'
 call plug#end()
 
 " -- File imports --
-source ~/.vim/visual-at.vim
+if !empty(glob('~/.vim/visual-at.vim'))
+  source ~/.vim/visual-at.vim
+endif
 
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
@@ -285,6 +287,7 @@ map           g)        w)ge
 omap <silent> g)        :silent normal vg)h<CR>
 map           g(        (ge
 omap <silent> g(        :silent normal vg(oh<CR>
+nmap <silent> <C-W>N    :tabe<CR>
 
 nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
 nmap <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
@@ -912,38 +915,40 @@ nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- scrollbar --
-function! ScrollbarShow() abort
-  " Hides scrollbar after l:timeout amount of milliseconds
-  let l:timeout = 800
-  let l:winnr = 0
-  let l:bufnr = bufnr()
-  if exists('b:scrollbar_timer_id') | call timer_stop(b:scrollbar_timer_id) | endif
-  call luaeval('require("scrollbar").show(_A[1], _A[2])', [l:winnr, l:bufnr])
-  let b:scrollbar_timer_id = timer_start(l:timeout, {-> luaeval('require("scrollbar").clear(_A[1], _A[2])', [l:winnr, l:bufnr])}, {'repeat': 1})
-endf
+if has('nvim')
+  function! ScrollbarShow() abort
+    " Hides scrollbar after l:timeout amount of milliseconds
+    let l:timeout = 800
+    let l:winnr = 0
+    let l:bufnr = bufnr()
+    if exists('b:scrollbar_timer_id') | call timer_stop(b:scrollbar_timer_id) | endif
+    call luaeval('require("scrollbar").show(_A[1], _A[2])', [l:winnr, l:bufnr])
+    let b:scrollbar_timer_id = timer_start(l:timeout, {-> luaeval('require("scrollbar").clear(_A[1], _A[2])', [l:winnr, l:bufnr])}, {'repeat': 1})
+  endf
 
-function! ScrollbarClear() abort
-  lua require('scrollbar').clear()
-endf
+  function! ScrollbarClear() abort
+    lua require('scrollbar').clear()
+  endf
 
-augroup scrollbar
-  autocmd!
-  autocmd WinEnter,CursorMoved,FocusGained,VimResized * silent! call ScrollbarShow()
-  autocmd WinLeave,FocusLost                          * silent! call ScrollbarClear()
-augroup end
+  augroup scrollbar
+    autocmd!
+    autocmd WinEnter,CursorMoved,FocusGained,VimResized * silent! call ScrollbarShow()
+    autocmd WinLeave,FocusLost                          * silent! call ScrollbarClear()
+  augroup end
 
-let g:scrollbar_right_offset = 0
-let g:scrollbar_highlight = {
-      \ 'head': 'NonText',
-      \ 'body': 'NonText',
-      \ 'tail': 'NonText',
-      \ }
+  let g:scrollbar_right_offset = 0
+  let g:scrollbar_highlight = {
+        \ 'head': 'NonText',
+        \ 'body': 'NonText',
+        \ 'tail': 'NonText',
+        \ }
 
-let g:scrollbar_shape = {
-      \ 'head': '▖',
-      \ 'body': '▌',
-      \ 'tail': '▘',
-      \ }
+  let g:scrollbar_shape = {
+        \ 'head': '▖',
+        \ 'body': '▌',
+        \ 'tail': '▘',
+        \ }
+endif
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
