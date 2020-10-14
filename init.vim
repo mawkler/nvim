@@ -185,6 +185,7 @@ nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
+smap     <C-s>            <Esc>:w<CR>
 vmap     v                $h
 nnoremap d_               d^
 nmap     <BS>             X
@@ -665,16 +666,16 @@ augroup end
 
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
-vmap aF <Plug>(textobj-function-A)
+xmap aF <Plug>(textobj-function-A)
 omap aF <Plug>(textobj-function-A)
-vmap iF <Plug>(textobj-function-i)
+xmap iF <Plug>(textobj-function-i)
 omap iF <Plug>(textobj-function-i)
 
 " --- vim-textobj-line ---
 let g:textobj_line_no_default_key_mappings = 1
-vmap aL <Plug>(textobj-line-a)
+xmap aL <Plug>(textobj-line-a)
 omap aL <Plug>(textobj-line-a)
-vmap iL <Plug>(textobj-line-i)
+xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
 " -- Cool.vim --
@@ -724,7 +725,7 @@ endif
 map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g "" -p $HOME/.agignore-vim'
+let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
 
 " Disable statusbar, numbers and IndentLines in FZF
