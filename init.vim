@@ -66,6 +66,7 @@ Plug 'romainl/vim-cool'                    " Highlights all search matches until
 Plug 'haya14busa/incsearch.vim'            " Better incsearch
 Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
 Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
+Plug 'coachshea/vim-textobj-markdown'
 Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
 Plug 'moll/vim-bbye'                       " Adds `Bdelete` and `Bwipeout` that preserve window layout
@@ -845,7 +846,21 @@ augroup toc_markdown
   autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
 augroup END
 
-" --- vim-highlighturl ---
+" -- vim-textobj-markdown --
+let g:__textobj_markdown_no_mappings = 1
+augroup markdown
+  autocmd!
+  autocmd FileType markdown omap <buffer> ac <plug>(textobj-markdown-chunk-a)
+  autocmd FileType markdown xmap <buffer> ac <plug>(textobj-markdown-chunk-a)
+  autocmd FileType markdown omap <buffer> ic <plug>(textobj-markdown-chunk-i)
+  autocmd FileType markdown xmap <buffer> ic <plug>(textobj-markdown-chunk-i)
+  autocmd FileType markdown omap <buffer> aC <plug>(textobj-markdown-Bchunk-a)
+  autocmd FileType markdown xmap <buffer> aC <plug>(textobj-markdown-Bchunk-a)
+  autocmd FileType markdown omap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
+  autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
+augroup END
+
+" -- vim-highlighturl --
 " Disable vim-highlighturl in Markdown files
 augroup highlighturl_filetype
   autocmd!
@@ -874,6 +889,9 @@ cmap <M-j> <Plug>CmdlineCompleteForward
 " -- Online Thesaurus --
 let g:use_default_key_map = 0
 nnoremap <silent> <leader>T :call thesaurusPy2Vim#Thesaurus_LookCurrentWord()<CR>
+
+" Looks up the provided word(s) in a thesaurus
+command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
 
 " -- Cosco --
 map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
