@@ -244,6 +244,7 @@ map      Ä                @
 map      ÄÄ               @@
 map      ÄÖ               @:
 nmap     <C-c>            <Nop>
+nmap     <Leader><Esc>    <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -936,38 +937,43 @@ nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- scrollbar --
 if has('nvim')
-  function! ScrollbarShow() abort
-    " Hides scrollbar after l:timeout amount of milliseconds
-    let l:timeout = 800
-    let l:winnr = 0
-    let l:bufnr = bufnr()
-    if exists('b:scrollbar_timer_id') | call timer_stop(b:scrollbar_timer_id) | endif
-    call luaeval('require("scrollbar").show(_A[1], _A[2])', [l:winnr, l:bufnr])
-    let b:scrollbar_timer_id = timer_start(l:timeout, {-> luaeval('require("scrollbar").clear(_A[1], _A[2])', [l:winnr, l:bufnr])}, {'repeat': 1})
-  endf
-
-  function! ScrollbarClear() abort
-    lua require('scrollbar').clear()
-  endf
-
-  augroup scrollbar
-    autocmd!
-    autocmd WinEnter,CursorMoved,FocusGained,VimResized * silent! call ScrollbarShow()
-    autocmd WinLeave,FocusLost                          * silent! call ScrollbarClear()
-  augroup end
-
   let g:scrollbar_right_offset = 0
   let g:scrollbar_highlight = {
         \ 'head': 'NonText',
         \ 'body': 'NonText',
         \ 'tail': 'NonText',
         \ }
-
   let g:scrollbar_shape = {
         \ 'head': '▖',
         \ 'body': '▌',
         \ 'tail': '▘',
         \ }
+
+  augroup configure_scrollbar
+    autocmd!
+    autocmd BufEnter                                         * call OnBufEnter()
+    autocmd CursorMoved                                      * call ScrollbarShow()
+    autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
+  augroup end
+
+  function! ScrollbarShow()
+    if !exists('b:previous_first_visible_linenum') | return | endif
+    let first_visible_linenum = line('w0')
+    if first_visible_linenum != b:previous_first_visible_linenum
+      silent! lua require('scrollbar').show()
+    end
+    let b:previous_first_visible_linenum = first_visible_linenum
+  endf
+
+  function! OnBufEnter()
+    if !exists('b:previous_first_visible_linenum')
+      let b:previous_first_visible_linenum = line('w0')
+    endif
+  endf
+
+  function! ScrollbarClear() abort
+    silent! lua require('scrollbar').clear()
+  endf
 endif
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
