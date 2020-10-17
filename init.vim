@@ -101,6 +101,10 @@ if !empty(glob('~/.vim/visual-at.vim'))
   source ~/.vim/visual-at.vim
 endif
 
+if !empty(glob('~/.vim/markdown-section-object.vim'))
+  source ~/.vim/markdown-section-object.vim
+endif
+
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
 endif
