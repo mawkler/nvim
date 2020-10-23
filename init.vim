@@ -146,6 +146,9 @@ set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
 set hlsearch   " Highligt all search matches
 
+" -- Custom filetypes --
+autocmd BufNewFile,BufRead *.dconf set syntax=sh
+
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
 
