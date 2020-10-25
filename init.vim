@@ -72,7 +72,7 @@ Plug 'tommcdo/vim-exchange'                " For swapping the place of two text 
 Plug 'moll/vim-bbye'                       " Adds `Bdelete` and `Bwipeout` that preserve window layout
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-Plug 'joeytwiddle/sexy_scroller.vim'
+Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
 Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'ryanoasis/vim-devicons'              " vim-devicond should be loaded last
