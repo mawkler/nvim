@@ -69,7 +69,6 @@ Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plug 'moll/vim-bbye'                       " Adds `Bdelete` and `Bwipeout` that preserve window layout
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
 Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
@@ -94,6 +93,8 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+Plug 'kyazdani42/nvim-web-devicons'        " Required by barbar.nvim
+Plug 'romgrk/barbar.nvim'                  " Sexiest buffer tabline
 call plug#end()
 
 " -- File imports --
@@ -157,10 +158,6 @@ let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 map <S-space> <space>
 
-map      <C-Tab>          :bnext<CR>
-map      <C-S-Tab>        :bprevious<CR>
-map      <leader><C-w>    :Bdelete<CR>
-map      <leader><C-M-w>  :Bdelete!<CR>
 nnoremap Y                y$
 nnoremap yp               yyp
 map      <leader>y        "+y
@@ -459,7 +456,7 @@ command! JSONFormat %!python -m json.tool
 " Puts current file in trashcan using trash-cli
 command! -bar -bang Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
-      \ execute 'Bdelete<bang>' |
+      \ execute 'BufferDelete<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
@@ -521,6 +518,7 @@ augroup end
 
 " -- Themes --
 colorscheme onedark   " Atom color scheme
+" colorscheme doom-one
 let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
@@ -983,6 +981,51 @@ if has('nvim')
   endf
 endif
 
+" -- vim-smoothie --
+let g:smoothie_base_speed = 18
+
+" -- barbar.nvim --
+if (!exists('g:bufferline'))
+  " Prevents overriding the config on reload of .vimrc
+  let g:bufferline = { 'closable': v:false }
+endif
+hi TabLineFill guifg=Normal guibg=#21242b
+hi BufferVisible guifg=#888888
+
+map <leader><C-w>   :BufferDelete<CR>
+map <leader><C-M-w> :BufferDelete!<CR>
+
+" Magic buffer-picking mode
+nnoremap <silent> <Leader>b :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Leader>Bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
+" Move to previous/next
+nnoremap <silent> <C-Tab>   :BufferNext<CR>
+nnoremap <silent> <C-S-Tab> :BufferPrevious<CR>
+" Re-order to previous/next
+nnoremap <silent> <Leader>> :BufferMoveNext<CR>
+nnoremap <silent> <Leader>< :BufferMovePrevious<CR>
+" Goto buffer in position...
+nnoremap <silent> <A-1> :BufferGoto 1<CR>
+nnoremap <silent> <A-2> :BufferGoto 2<CR>
+nnoremap <silent> <A-3> :BufferGoto 3<CR>
+nnoremap <silent> <A-4> :BufferGoto 4<CR>
+nnoremap <silent> <A-5> :BufferGoto 5<CR>
+nnoremap <silent> <A-6> :BufferGoto 6<CR>
+nnoremap <silent> <A-7> :BufferGoto 7<CR>
+nnoremap <silent> <A-8> :BufferGoto 8<CR>
+nnoremap <silent> <A-9> :BufferLast<CR>
+nnoremap <silent> <Leader>1 :BufferGoto 1<CR>
+nnoremap <silent> <Leader>2 :BufferGoto 2<CR>
+nnoremap <silent> <Leader>3 :BufferGoto 3<CR>
+nnoremap <silent> <Leader>4 :BufferGoto 4<CR>
+nnoremap <silent> <Leader>5 :BufferGoto 5<CR>
+nnoremap <silent> <Leader>6 :BufferGoto 6<CR>
+nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
+nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
+nnoremap <silent> <Leader>9 :BufferLast<CR>
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
@@ -992,25 +1035,7 @@ let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
-" -- Airline Tabline --
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 0
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#close_symbol = '✕'
-let g:airline#extensions#tabline#disable_refresh = 1 " Fixes glitching when swithcing buffers
-let airline#extensions#tabline#middle_click_preserves_windows = 1
-let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#clock#updatetime = 200 " Has to be greater than updatetime for scrollbar.nvim to work
-" let g:airline#extensions#tabline#left_sep = ' '
-map <leader>1 <Plug>AirlineSelectTab1
-map <leader>2 <Plug>AirlineSelectTab2
-map <leader>3 <Plug>AirlineSelectTab3
-map <leader>4 <Plug>AirlineSelectTab4
-map <leader>5 <Plug>AirlineSelectTab5
-map <leader>6 <Plug>AirlineSelectTab6
-map <leader>7 <Plug>AirlineSelectTab7
-map <leader>8 <Plug>AirlineSelectTab8
-map <leader>9 :blast<CR>
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
