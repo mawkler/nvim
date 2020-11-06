@@ -4,6 +4,8 @@ if has('nvim')
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
+  Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -82,7 +84,7 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
-Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
+Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
 Plug 'semanser/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
 " Plug 'liuchengxu/vista.vim'
@@ -93,8 +95,6 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'kyazdani42/nvim-web-devicons'        " Required by barbar.nvim
-Plug 'romgrk/barbar.nvim'                  " Sexiest buffer tabline
 call plug#end()
 
 " -- File imports --
@@ -925,9 +925,9 @@ let g:bullets_checkbox_markers  = ' x'
 cmap <M-k> <Plug>CmdlineCompleteBackward
 cmap <M-j> <Plug>CmdlineCompleteForward
 
-" -- Online Thesaurus --
-let g:use_default_key_map = 0
-nnoremap <silent> <leader>T :call thesaurusPy2Vim#Thesaurus_LookCurrentWord()<CR>
+" -- Thesaurus --
+let g:tq_map_keys = 0
+nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
@@ -1023,8 +1023,8 @@ if (!exists('g:bufferline'))
   " Prevents overriding the config on reload of .vimrc
   let g:bufferline = { 'closable': v:false }
 endif
-hi TabLineFill guifg=Normal guibg=#21242b
-hi BufferVisible guifg=#888888
+hi! TabLineFill guifg=Normal guibg=#21242b
+hi! BufferVisible guifg=#888888
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
