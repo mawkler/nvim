@@ -227,8 +227,9 @@ omap     <M-k>            V{
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
 map      <C-¨>            <C-]>
-map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
-map      <C-W>¨           <C-w><C-]>
+map      <C-w><C-]>       <C-w>v<Plug>(coc-definition)
+map      <C-w>¨           <C-w><C-]>
+nnoremap <C-w>T           :tab split<CR>
 map      ¨                ]
 map      å                [
 map      ¨¨               ]]
@@ -486,7 +487,31 @@ omap i¤  i$
 omap a¤  a$
 vmap i¤  i$
 vmap a¤  a$
-let g:surround_164 = "$\r$"
+let g:surround_{char2nr('¤')} = "$\r$"
+
+" surround noun `q` means `'`
+nmap csq cs'
+nmap dsq ds'
+" noun `q` already means any quotes i.e. `/"/'
+let g:surround_{char2nr('q')} = "'\r'"
+
+" surround noun `Q` means `"`
+nmap csQ cs"
+nmap dsQ ds"
+omap iQ  i"
+omap aQ  a"
+vmap iQ  i"
+vmap aQ  a"
+let g:surround_{char2nr('Q')} = "\"\r\""
+
+" surround noun `A` means `
+nmap csA cs`
+nmap dsA ds`
+omap iA  i`
+omap aA  a`
+vmap iA  i`
+vmap aA  a`
+let g:surround_{char2nr('a')} = "`\r`"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -766,14 +791,18 @@ let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- LaTeX and Vimtex --
-autocmd FileType latex,tex setlocal iskeyword-=:
+augroup latex
+  autocmd!
+  autocmd FileType latex,tex setlocal iskeyword-=:                               " `:` counts as a separator
+  autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
+  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+augroup END
 let g:tex_flavor = 'latex'
 let g:tex_indent_items=0        " Disables indent before new `\item`
 let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
 let g:tex_comment_nospell = 1
 let g:vimtex_view_method = 'zathura' " Zathura automatically reloads documents
 let g:vimtex_view_general_viewer = 'zathura'
-let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 let g:vimtex_complete_bib = {'simple': 1}
 let g:vimtex_toc_config = {
       \ 'layer_status': { 'label': 0 }
@@ -799,10 +828,6 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-augroup toc_tex
-  autocmd!
-  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
-augroup END
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -912,8 +937,8 @@ let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfghlcvnmcyturieowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
 let g:startify_lists = [
-      \   {'type': 'files',     'header': ['   Recent files']},
       \   {'type': 'sessions',  'header': ['   Sessions']},
+      \   {'type': 'files',     'header': ['   Recent files']},
       \   {'type': 'bookmarks', 'header': ['   Bookmarks']},
       \   {'type': 'commands',  'header': ['   Commands']},
       \ ]
