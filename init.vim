@@ -115,6 +115,7 @@ syntax on
 set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
+set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
@@ -192,6 +193,7 @@ imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
 smap     <C-s>            <Esc>:w<CR>
 vmap     v                $h
+nnoremap c_               c^
 nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
@@ -511,7 +513,7 @@ omap iA  i`
 omap aA  a`
 vmap iA  i`
 vmap aA  a`
-let g:surround_{char2nr('a')} = "`\r`"
+let g:surround_{char2nr('A')} = "`\r`"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -851,6 +853,12 @@ call textobj#user#plugin('datetime', {
       \   }
       \ })
 
+augroup markdown_surround
+  autocmd!
+  " Surround noun `c` turns target into markdown code block
+  autocmd FileType markdown let b:surround_{char2nr('c')} = "```\n\r\n```"
+augroup END
+
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
@@ -956,6 +964,7 @@ let g:startify_custom_header = [
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
+nmap <leader><C-q> :SaveSession \| qa<CR>
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
@@ -1029,8 +1038,8 @@ nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
 nnoremap <silent> <C-Tab>   :BufferNext<CR>
 nnoremap <silent> <C-S-Tab> :BufferPrevious<CR>
 " Re-order to previous/next
-nnoremap <silent> <Leader>> :BufferMoveNext<CR>
-nnoremap <silent> <Leader>< :BufferMovePrevious<CR>
+nnoremap <silent> >b :BufferMoveNext<CR>
+nnoremap <silent> <b :BufferMovePrevious<CR>
 " Goto buffer in position...
 nnoremap <silent> <A-1> :BufferGoto 1<CR>
 nnoremap <silent> <A-2> :BufferGoto 2<CR>
