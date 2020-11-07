@@ -129,6 +129,7 @@ set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix fileformats=unix,dos " Use Unix eol format
 set autoread        " Automatically read in the file when changed externally
+set spelllang=en,sv
 augroup filechanged " Check if any file has changed
   autocmd!
   autocmd FocusGained * silent! checktime
