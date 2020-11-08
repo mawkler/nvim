@@ -1061,6 +1061,23 @@ nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
 nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
 nnoremap <silent> <Leader>9 :BufferLast<CR>
 
+" -- Nvim-web-devicons --
+lua require'nvim-web-devicons'.setup {
+      \   override = {
+      \     md = {
+      \       icon = '',
+      \       color = '#519aba',
+      \       name = "Markdown"
+      \     },
+      \     tex = {
+      \       icon = '',
+      \       color = '#3D6117',
+      \       name = 'Tex'
+      \     }
+      \   };
+      \   default = true;
+      \ }
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
