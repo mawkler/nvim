@@ -95,6 +95,7 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+Plug 'vigoux/LanguageTool.nvim'
 call plug#end()
 
 " -- File imports --
@@ -1077,6 +1078,10 @@ lua require'nvim-web-devicons'.setup {
       \   };
       \   default = true;
       \ }
+
+" -- LanguageTool --
+let g:languagetool_server_command = '/usr/bin/languagetool'
+let g:languagetool_debug = 1
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
