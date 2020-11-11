@@ -1,11 +1,13 @@
 " -- plugins --
 call plug#begin('~/.vim/bundle')
 if has('nvim')
+  Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
   Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
   Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
+  Plug 'vigoux/LanguageTool.nvim'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -18,18 +20,13 @@ Plug 'bling/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'powerline/fonts'
 Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
-Plug 'Valloric/MatchTagAlways'             " Highlight matching HTML tags
-Plug 'tmhedberg/matchit'                   " Ads `%` command for HTML tags
 Plug 'andymass/vim-matchup'                " Ads additional `%` commands
 Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
@@ -46,7 +43,6 @@ Plug 'inkarkat/vim-ingo-library'           " Required by visualrepeat and Confli
 Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
 Plug 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plug 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
-Plug 'MarcWeber/vim-addon-commandline-completion'
 Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
@@ -60,10 +56,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
 Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
 Plug 'haya14busa/incsearch.vim'            " Better incsearch
 Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
@@ -80,22 +74,17 @@ Plug 'ryanoasis/vim-devicons'              " vim-devicond should be loaded last
 Plug 'meain/vim-printer'
 Plug 'lervag/vimtex'
 Plug 'rhysd/git-messenger.vim'
-" Plug 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
 Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
 Plug 'semanser/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-" Plug 'liuchengxu/vista.vim'
-" Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
 Plug 'j5shi/CommandlineComplete.vim'
-Plug 'lfilho/cosco.vim'                    " For appending commas and semicolons to the current line
 Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'vigoux/LanguageTool.nvim'
 call plug#end()
 
 " -- File imports --
@@ -137,7 +126,7 @@ augroup filechanged " Check if any file has changed
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=longest,preview " menuone seems to be causing bug error with multiple-cursors
+set completeopt=longest,preview
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
@@ -934,9 +923,6 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
 
-" -- Cosco --
-map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
-
 " -- Startify --
 " Add devicsons in front of file names
 function! StartifyEntryFormat()
@@ -1032,7 +1018,7 @@ map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
 
 " Magic buffer-picking mode
-nnoremap <silent> <Leader>b :BufferPick<CR>
+nnoremap <silent> <C-Space> :BufferPick<CR>
 " Sort automatically by...
 nnoremap <silent> <Leader>Bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
@@ -1063,21 +1049,23 @@ nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
 nnoremap <silent> <Leader>9 :BufferLast<CR>
 
 " -- Nvim-web-devicons --
-lua require'nvim-web-devicons'.setup {
-      \   override = {
-      \     md = {
-      \       icon = '',
-      \       color = '#519aba',
-      \       name = "Markdown"
-      \     },
-      \     tex = {
-      \       icon = '',
-      \       color = '#3D6117',
-      \       name = 'Tex'
-      \     }
-      \   };
-      \   default = true;
-      \ }
+if has('nvim')
+  lua require'nvim-web-devicons'.setup {
+        \   override = {
+        \     md = {
+        \       icon = '',
+        \       color = '#519aba',
+        \       name = "Markdown"
+        \     },
+        \     tex = {
+        \       icon = '',
+        \       color = '#3D6117',
+        \       name = 'Tex'
+        \     }
+        \   };
+        \   default = true;
+        \ }
+endif
 
 " -- LanguageTool --
 let g:languagetool_server_command = '/usr/bin/languagetool'
@@ -1112,32 +1100,6 @@ endif
 if exists('g:loaded_webdevicons')
   call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
-
-" " -- NERDTree --
-" augroup nerdtree
-"   if !empty(glob('~/.vim/nerdtree_custom_map.vim'))
-"     autocmd!
-"     autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
-"   endif
-" augroup end
-
-" " -- ALE --
-" let g:ale_fix_on_save = 1
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
-" let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
-" let g:ale_fixers  = {
-" \   '*':          ['remove_trailing_lines', 'trim_whitespace'],
-" \   'javascript': ['prettier', 'eslint'],
-" \   'python':     ['autopep8']
-" \}
-" let g:ale_linters = {
-" \   'python': ['flake8'],
-" \   'c':      ['gcc -fopenmp'],
-" \   'cpp':    ['g++ -fopenmp']
-" \}
-" command! ALEDisableFixOnSave let g:ale_fix_on_save=0
-" command! ALEEnableFixOnSave let g:ale_fix_on_save=1
 
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
