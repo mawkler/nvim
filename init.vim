@@ -971,8 +971,14 @@ if (!exists('g:bufferline'))
   " Prevents overriding the config on reload of .vimrc
   let g:bufferline = { 'closable': v:false }
 endif
-hi! TabLineFill guifg=Normal guibg=#21242b
+hi! TabLineFill   guifg=Normal guibg=#21242b
 hi! BufferVisible guifg=#888888
+
+" Preserves highlighting when reloading .vimrc
+" Has to be modified if colorscheme is changed
+hi BufferInactive                guifg=#888888 guibg=#21242b
+hi BufferInactiveSign            guifg=#3b4048 guibg=#21242b
+hi BufferInactiveTarget gui=bold guifg=red     guibg=#21242b
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
@@ -1011,7 +1017,7 @@ nnoremap <silent> <Leader>9 :BufferLast<CR>
 " -- Neovim specific
 if has('nvim')
   
-  " -- Scrollbar --
+  " -- scrollbar --
   let g:scrollbar_right_offset = 0
   let g:scrollbar_highlight = {
         \ 'head': 'NonText',
