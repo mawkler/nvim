@@ -8,6 +8,7 @@ if has('nvim')
   Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
   Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
   Plug 'vigoux/LanguageTool.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -962,47 +963,6 @@ nnoremap <silent> <Right> :CmdResizeRight<CR>
 nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
-" -- scrollbar --
-if has('nvim')
-  let g:scrollbar_right_offset = 0
-  let g:scrollbar_highlight = {
-        \ 'head': 'NonText',
-        \ 'body': 'NonText',
-        \ 'tail': 'NonText',
-        \ }
-  let g:scrollbar_shape = {
-        \ 'head': '▖',
-        \ 'body': '▌',
-        \ 'tail': '▘',
-        \ }
-
-  augroup configure_scrollbar
-    autocmd!
-    autocmd BufEnter                                         * call OnBufEnter()
-    autocmd CursorMoved                                      * call ScrollbarShow()
-    autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
-  augroup end
-
-  function! ScrollbarShow()
-    if !exists('b:previous_first_visible_linenum') | return | endif
-    let first_visible_linenum = line('w0')
-    if first_visible_linenum != b:previous_first_visible_linenum
-      silent! lua require('scrollbar').show()
-    end
-    let b:previous_first_visible_linenum = first_visible_linenum
-  endf
-
-  function! OnBufEnter()
-    if !exists('b:previous_first_visible_linenum')
-      let b:previous_first_visible_linenum = line('w0')
-    endif
-  endf
-
-  function! ScrollbarClear() abort
-    silent! lua require('scrollbar').clear()
-  endf
-endif
-
 " -- vim-smoothie --
 let g:smoothie_base_speed = 18
 
@@ -1048,9 +1008,50 @@ nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
 nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
 nnoremap <silent> <Leader>9 :BufferLast<CR>
 
-" -- Nvim-web-devicons --
+" -- Neovim specific
 if has('nvim')
-  lua require'nvim-web-devicons'.setup {
+  
+  " -- Scrollbar --
+  let g:scrollbar_right_offset = 0
+  let g:scrollbar_highlight = {
+        \ 'head': 'NonText',
+        \ 'body': 'NonText',
+        \ 'tail': 'NonText',
+        \ }
+  let g:scrollbar_shape = {
+        \ 'head': '▖',
+        \ 'body': '▌',
+        \ 'tail': '▘',
+        \ }
+
+  augroup configure_scrollbar
+    autocmd!
+    autocmd BufEnter                                         * call OnBufEnter()
+    autocmd CursorMoved                                      * call ScrollbarShow()
+    autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
+  augroup end
+
+  function! ScrollbarShow()
+    if !exists('b:previous_first_visible_linenum') | return | endif
+    let first_visible_linenum = line('w0')
+    if first_visible_linenum != b:previous_first_visible_linenum
+      silent! lua require('scrollbar').show()
+    end
+    let b:previous_first_visible_linenum = first_visible_linenum
+  endf
+
+  function! OnBufEnter()
+    if !exists('b:previous_first_visible_linenum')
+      let b:previous_first_visible_linenum = line('w0')
+    endif
+  endf
+
+  function! ScrollbarClear() abort
+    silent! lua require('scrollbar').clear()
+  endf
+
+  " -- Nvim-web-devicons --
+  lua require('nvim-web-devicons').setup {
         \   override = {
         \     md = {
         \       icon = '',
@@ -1064,6 +1065,14 @@ if has('nvim')
         \     }
         \   };
         \   default = true;
+        \ }
+
+  " -- Treesitter --
+  lua require('nvim-treesitter.configs').setup {
+        \ ensure_installed = "maintained",
+        \   highlight = {
+        \     enable = true,
+        \   },
         \ }
 endif
 
