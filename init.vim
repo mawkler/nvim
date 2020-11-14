@@ -523,6 +523,7 @@ augroup language_specific
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
   " For adding a horizontal line below and entering insert mode below it
   autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
+  autocmd FileType markdown set breakindent | set breakindentopt=shift:2
 augroup end
 
 " -- netrw --
@@ -640,6 +641,7 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-terminal',
   \ 'coc-vimlsp',
+  \ 'coc-lua',
   \]
   " \ 'coc-vimtex', " Clashes with coc-texlab
   " \ 'coc-ccls',
@@ -666,7 +668,8 @@ vmap gs <Plug>(coc-snippets-select)
 command! Snippets CocList snippets
 
 " -- Commentary --
-nmap cm <Plug>Commentary
+nmap cm  <Plug>Commentary
+nmap cmm <Plug>CommentaryLine
 
 " -- swapit --
 fun SwapLists()
@@ -752,7 +755,7 @@ map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --info=inline --history=' . $HOME . '/.fzf_history'
 
 " Disable statusbar, numbers and IndentLines in FZF
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
@@ -1016,7 +1019,7 @@ nnoremap <silent> <Leader>9 :BufferLast<CR>
 
 " -- Neovim specific
 if has('nvim')
-  
+
   " -- scrollbar --
   let g:scrollbar_right_offset = 0
   let g:scrollbar_highlight = {
