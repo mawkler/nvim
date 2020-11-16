@@ -119,11 +119,13 @@ set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix fileformats=unix,dos " Use Unix eol format
+set spelllang=en,sv " Use both Engligh and Swedish spell check
+set splitright      " Open new window splits to the right instead of left
+
 set autoread        " Automatically read in the file when changed externally
-set spelllang=en,sv
-augroup filechanged " Check if any file has changed
+augroup filechanged
   autocmd!
-  autocmd FocusGained * silent! checktime
+  autocmd FocusGained * silent! checktime " Check if any file has changed when Vim is focused
 augroup end
 
 " -- Menu autocompletion --
