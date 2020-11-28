@@ -120,7 +120,7 @@ set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix fileformats=unix,dos " Use Unix eol format
 set spelllang=en,sv " Use both Engligh and Swedish spell check
-set splitright      " Open new window splits to the right instead of left
+set splitright      " Open vertical window splits to the right instead of left
 
 set autoread        " Automatically read in the file when changed externally
 augroup filechanged
@@ -143,7 +143,11 @@ set incsearch  " Search while typing
 set hlsearch   " Highligt all search matches
 
 " -- Custom filetypes --
-autocmd BufNewFile,BufRead *.dconf set syntax=sh
+augroup custom_filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead *.dconf set syntax=sh
+  autocmd VimEnter COMMIT_EDITMSG exec 'norm gg' | startinsert! " Start commit buffers in insert mode
+augroup END
 
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
@@ -919,8 +923,8 @@ let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automa
 let g:bullets_checkbox_markers  = ' x'
 
 " -- CommandlineComplete --
-cmap <M-k> <Plug>CmdlineCompleteBackward
-cmap <M-j> <Plug>CmdlineCompleteForward
+cmap <M-i> <Plug>CmdlineCompleteBackward
+cmap <M-I> <Plug>CmdlineCompleteForward
 
 " -- Thesaurus --
 let g:tq_map_keys = 0
@@ -928,6 +932,9 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
+
+" -- restore_view --
+let g:skipview_files = ['COMMIT_EDITMSG']
 
 " -- Startify --
 " Add devicsons in front of file names
@@ -994,8 +1001,10 @@ nnoremap <silent> <C-Space> :BufferPick<CR>
 nnoremap <silent> <Leader>Bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
 " Move to previous/next
-nnoremap <silent> <C-Tab>   :BufferNext<CR>
-nnoremap <silent> <C-S-Tab> :BufferPrevious<CR>
+nnoremap <silent> <C-Tab>         :BufferNext<CR>
+nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
+nnoremap <silent> <Leader><Tab>   :BufferNext<CR>
+nnoremap <silent> <Leader><S-Tab> :BufferPrevious<CR>
 " Re-order to previous/next
 nnoremap <silent> >b :BufferMoveNext<CR>
 nnoremap <silent> <b :BufferMovePrevious<CR>
