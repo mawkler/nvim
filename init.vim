@@ -399,6 +399,21 @@ function MarkdownGf()
 endfunc
 noremap gf :call MarkdownGf()<CR>
 
+" Increases the font zise with `amount`
+function! Zoom(amount) abort
+  call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+endfunc
+
+" Sets the font size
+function ZoomSet(font_size) abort
+  let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+endfunc
+
+noremap <silent> <C-=> :call Zoom(v:count1)<CR>
+noremap <silent> <C-+> :call Zoom(v:count1)<CR>
+noremap <silent> <C--> :call Zoom(-v:count1)<CR>
+noremap <silent> <C-0> :call ZoomSet(11)<CR>
+
 if has("gui_running") " Gvim specific configuration
   set lines=999 columns=999 " Start in maximized window
   set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
