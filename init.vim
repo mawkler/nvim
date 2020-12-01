@@ -118,7 +118,7 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
-set fileformat=unix fileformats=unix,dos " Use Unix eol format
+set fileformat=unix " Use Unix eol format
 set spelllang=en,sv " Use both Engligh and Swedish spell check
 set splitright      " Open vertical window splits to the right instead of left
 
@@ -244,7 +244,10 @@ imap     ¤                $
 map!     ¤                $
 map      g¤               g$
 map      ´                =
-imap     ´                =
+imap     §                `
+map      §                `
+map!     ½                ~
+map      ½                ~
 map      Ä                @
 map      ÄÄ               @@
 map      ÄÖ               @:
@@ -667,7 +670,8 @@ endfunction
 
 " coc-explorer
 " noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
-noremap <silent> ½ :execute 'CocCommand explorer'<CR>
+noremap <silent> <Leader>§ :execute 'CocCommand explorer'<CR>
+noremap <silent> <Leader>` :execute 'CocCommand explorer'<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
@@ -800,7 +804,6 @@ augroup latex
   autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
   autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
 augroup END
-let g:tex_flavor = 'latex'
 let g:tex_indent_items=0        " Disables indent before new `\item`
 let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
 let g:tex_comment_nospell = 1
@@ -1006,8 +1009,8 @@ nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
 nnoremap <silent> <Leader><Tab>   :BufferNext<CR>
 nnoremap <silent> <Leader><S-Tab> :BufferPrevious<CR>
 " Re-order to previous/next
-nnoremap <silent> >b :BufferMoveNext<CR>
-nnoremap <silent> <b :BufferMovePrevious<CR>
+nnoremap <silent> <M-.> :BufferMoveNext<CR>
+nnoremap <silent> <M-,> :BufferMovePrevious<CR>
 " Goto buffer in position...
 nnoremap <silent> <A-1> :BufferGoto 1<CR>
 nnoremap <silent> <A-2> :BufferGoto 2<CR>
