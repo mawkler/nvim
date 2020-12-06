@@ -31,7 +31,7 @@ Plug 'rbonvall/snipmate-snippets-bib'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'airblade/vim-gitgutter'              " Shows git status for each line
+Plug 'mhinz/vim-signify'                   " Shows git status for each line
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
@@ -598,12 +598,13 @@ let g:NERDCustomDelimiters = {
 \ }
 map <leader>C <plug>NERDCommenterToEOL
 
-" -- Gitgutter --
+" -- Signify --
 set updatetime=100
-" Disable <leader>h-mappings
-map <F14> <Plug>(GitGutterPreviewHunk)
-map <F15> <Plug>(GitGutterStageHunk)
-map <F16> <Plug>(GitGutterUndoHunk)
+let g:signify_sign_show_count        = 0
+let g:signify_sign_add               = '┃'
+let g:signify_sign_delete            = '▁'
+let g:signify_sign_delete_first_line = '▔'
+let g:signify_sign_change            = '┃'
 
 " -- AutoPairs --
 let g:AutoPairsShortcutToggle     = '' " Disables some mappings
