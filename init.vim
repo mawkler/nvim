@@ -86,6 +86,7 @@ Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+Plug 'idbrii/vim-jumpmethod'               " Better ]m/[m for C#, C++ and Java
 call plug#end()
 
 " -- File imports --
@@ -146,7 +147,6 @@ set hlsearch   " Highligt all search matches
 augroup custom_filetypes
   autocmd!
   autocmd BufNewFile,BufRead *.dconf set syntax=sh
-  autocmd VimEnter COMMIT_EDITMSG exec 'norm gg' | startinsert! " Start commit buffers in insert mode
 augroup END
 
 " -- Yankstack --
@@ -201,7 +201,8 @@ nmap     <M-S-BS>         dw
 imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
-imap     <C-.>            <C-r>.
+imap     <M-p>            <C-r>"
+smap     <M-p>            <C-g>Vp
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
 " Cursor movement in cmd and insert mode--------
@@ -543,11 +544,13 @@ augroup language_specific
   autocmd!
   " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
-  " Custom filetype indent settings
-  autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
   " For adding a horizontal line below and entering insert mode below it
   autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
   autocmd FileType markdown set breakindent | set breakindentopt=shift:2
+  " Custom filetype indent settings
+  autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
+  " Start commit buffers in insert mode
+  autocmd FileType gitcommit exec 'norm gg' | startinsert!
 augroup end
 
 " -- netrw --
@@ -963,6 +966,8 @@ let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfghlcvnmcyturieowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
+let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
+let g:startify_session_sort = 1  " Sort sessions based on mru rather than name
 let g:startify_lists = [
       \   {'type': 'sessions',  'header': ['   Sessions']},
       \   {'type': 'files',     'header': ['   Recent files']},
@@ -980,10 +985,9 @@ let g:startify_custom_header = [
       \ ]
 
 " -- vim-session --
-let g:session_autosave = 'no'
+let g:session_autosave = 'yes'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
-nmap <leader><C-q> :SaveSession \| qa<CR>
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
