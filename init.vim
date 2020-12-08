@@ -8,7 +8,7 @@ if has('nvim')
   Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
   Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
   Plug 'vigoux/LanguageTool.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -201,7 +201,7 @@ nmap     <M-S-BS>         dw
 imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
-imap     <M-p>            <C-r>"
+map!     <M-p>            <C-r>"
 smap     <M-p>            <C-g>Vp
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
@@ -211,8 +211,6 @@ map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
 map!     <M-b>            <C-Left>
 map!     <M-h>            <Left>
-map!     <M-j>            <Down>
-map!     <M-k>            <Up>
 map!     <M-l>            <Right>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
@@ -235,7 +233,6 @@ map      ¨                ]
 map      å                [
 map      ¨¨               ]]
 map      åå               [[
-map      ^                }
 map      Å                {
 map      ö                ;
 map      gö               g;
@@ -426,7 +423,7 @@ if has('nvim')
   cmap <expr> <C-n> pumvisible() ? "\<C-n>" : "\<Down>"
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
   cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
-  cmap <M-p> <Up><C-p>
+  cmap <M-k> <Up><C-p>
 endif
 
 if exists('$TMUX')
@@ -1002,10 +999,7 @@ nnoremap <silent> <Down>  :CmdResizeDown<CR>
 let g:smoothie_base_speed = 18
 
 " -- barbar.nvim --
-if (!exists('g:bufferline'))
-  " Prevents overriding the config on reload of .vimrc
-  let g:bufferline = { 'closable': v:false }
-endif
+let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
 hi! TabLineFill   guifg=Normal guibg=#21242b
 hi! BufferVisible guifg=#888888
 
