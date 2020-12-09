@@ -276,6 +276,8 @@ map      <leader>q        qqqqq
 nnoremap §                <C-^>
 nmap     cg*              *Ncgn
 nmap     dg*              *Ndgn
+vmap     gcn              //Ncgn
+vmap     gdn              //Ndgn
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
 nmap     dagE             viw<Esc>bhdaW
@@ -781,7 +783,7 @@ map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --info=inline --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --pointer="▶" --info=inline --history=' . $HOME . '/.fzf_history'
 
 " Disable statusbar, numbers and IndentLines in FZF
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
