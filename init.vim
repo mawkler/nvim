@@ -98,6 +98,11 @@ if !empty(glob('~/.vim/markdown-section-object.vim'))
   source ~/.vim/markdown-section-object.vim
 endif
 
+if !empty(glob('~/.vim/fzf-cd.vim'))
+  source ~/.vim/fzf-cd.vim
+  let g:fzf_cd_ignore_dirs = [".git", ".local", ".cache"]
+endif
+
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
 endif
@@ -323,7 +328,7 @@ function! Print(message)
   endtry
 endf
 
-function PrintError(message)
+function s:print_error(message)
   try
     exe 'Echoerr' a:message
   catch " if notifications.vim is not installed
@@ -358,7 +363,7 @@ function Enter()
     try
       exe "normal! \<CR>"
     catch
-      call PrintError(v:exception)
+      call s:print_error(v:exception)
     endtry
   else
     exe "normal o"
