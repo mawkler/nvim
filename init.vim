@@ -1162,4 +1162,7 @@ hi link jsStorageClass Keyword
 hi! link Search Visual
 hi! link SpecialKey Directory
 
+" Matchup
+let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
+
 endif
