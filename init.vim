@@ -1005,6 +1005,7 @@ nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- vim-smoothie --
 let g:smoothie_base_speed = 18
+let g:smoothie_experimental_mappings = 1 " Enables gg and G
 
 " -- barbar.nvim --
 let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
