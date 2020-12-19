@@ -1,8 +1,19 @@
 " -- plugins --
 call plug#begin('~/.vim/bundle')
 if has('nvim')
+  Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
+  Plug 'Xuyuanp/scrollbar.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
+  Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
+  Plug 'vigoux/LanguageTool.nvim'
+  " Neovim LSP
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/diagnostic-nvim'
+  Plug 'nvim-lua/lsp-status.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -11,26 +22,21 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 Plug 'bling/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'powerline/fonts'
 Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
-Plug 'Valloric/MatchTagAlways'             " Highlight matching HTML tags
-Plug 'tmhedberg/matchit'                   " Ads `%` command for HTML tags
 Plug 'andymass/vim-matchup'                " Ads additional `%` commands
 Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'dense-analysis/ale'                " Use either ALE or Syntastic
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'airblade/vim-gitgutter'              " Shows git status for each line
+Plug 'mhinz/vim-signify'                   " Shows git status for each line
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
@@ -43,7 +49,6 @@ Plug 'inkarkat/vim-ingo-library'           " Required by visualrepeat and Confli
 Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
 Plug 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
 Plug 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
-Plug 'MarcWeber/vim-addon-commandline-completion'
 Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
@@ -57,51 +62,52 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
 Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
 Plug 'haya14busa/incsearch.vim'            " Better incsearch
 Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
 Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
+Plug 'coachshea/vim-textobj-markdown'
 Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
 Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plug 'moll/vim-bbye'                       " Adds `Bdelete` and `Bwipeout` that preserve window layout
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-Plug 'joeytwiddle/sexy_scroller.vim'
+Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
 Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'ryanoasis/vim-devicons'              " vim-devicond should be loaded last
 Plug 'meain/vim-printer'
 Plug 'lervag/vimtex'
 Plug 'rhysd/git-messenger.vim'
-" Plug 'camspiers/animate.vim'             " Causes bug with window sizes when opening :help
 Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
-Plug 'benshuailyu/online-thesaurus-vim'    " Retrieves the synonyms and antonyms of a given word
+Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
-Plug 'semanser/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-" Plug 'liuchengxu/vista.vim'
-" Plug 'puremourning/vimspector', { 'do': './install_gadget.py --all' } " Multi language graphical debugger
-Plug 'j5shi/CommandlineComplete.vim'
-Plug 'lfilho/cosco.vim'                    " For appending commas and semicolons to the current line
+Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
+Plug 'Melkster/CommandlineComplete.vim'
 Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'Xuyuanp/scrollbar.nvim'
-" Neovim LSP
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
+Plug 'idbrii/vim-jumpmethod'               " Better ]m/[m for C#, C++ and Java
 call plug#end()
 
 " -- File imports --
-source ~/.vim/visual-at.vim
+if !empty(glob('~/.vim/visual-at.vim'))
+  source ~/.vim/visual-at.vim
+endif
+
+if !empty(glob('~/.vim/markdown-section-object.vim'))
+  source ~/.vim/markdown-section-object.vim
+endif
+
+if !empty(glob('~/.vim/fzf-cd.vim'))
+  source ~/.vim/fzf-cd.vim
+  let g:fzf_cd_ignore_dirs = [".git", ".local", ".cache"]
+  nnoremap <silent> cd :Cd .<CR>
+endif
 
 if !empty(glob('~/.vimrc-private'))
   source ~/.vimrc-private
@@ -112,6 +118,7 @@ syntax on
 set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
+set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
@@ -123,15 +130,18 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 set undodir=~/.vim/undo//
 set viewoptions=cursor,folds,slash,unix
-set fileformat=unix fileformats=unix,dos " Use Unix eol format
+set fileformat=unix " Use Unix eol format
+set spelllang=en,sv " Use both Engligh and Swedish spell check
+set splitright      " Open vertical window splits to the right instead of left
+
 set autoread        " Automatically read in the file when changed externally
-augroup filechanged " Check if any file has changed
+augroup filechanged
   autocmd!
-  autocmd FocusGained * silent! checktime
+  autocmd FocusGained * silent! checktime " Check if any file has changed when Vim is focused
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=longest,menuone,noinsert
+set completeopt=longest,preview
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
@@ -144,6 +154,12 @@ set smartcase  " Except for when searching in CAPS
 set incsearch  " Search while typing
 set hlsearch   " Highligt all search matches
 
+" -- Custom filetypes --
+augroup custom_filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead *.dconf set syntax=sh
+augroup END
+
 " -- Yankstack --
 call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
 
@@ -152,10 +168,6 @@ let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 map <S-space> <space>
 
-map      <C-Tab>          :bnext<CR>
-map      <C-S-Tab>        :bprevious<CR>
-map      <leader><C-w>    :Bdelete<CR>
-map      <leader><C-M-w>  :Bdelete!<CR>
 nnoremap Y                y$
 nnoremap yp               yyp
 map      <leader>y        "+y
@@ -188,7 +200,9 @@ nmap     gK               kjddkPJ<C-y>
 nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
+smap     <C-s>            <Esc>:w<CR>
 vmap     v                $h
+nnoremap c_               c^
 nnoremap d_               d^
 nmap     <BS>             X
 nmap     <S-BS>           x
@@ -198,7 +212,8 @@ nmap     <M-S-BS>         dw
 imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
-imap     <C-.>            <C-r>.
+map!     <M-p>            <C-r>"
+smap     <M-p>            <C-g>p
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
 " Cursor movement in cmd and insert mode--------
@@ -207,8 +222,6 @@ map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
 map!     <M-b>            <C-Left>
 map!     <M-h>            <Left>
-map!     <M-j>            <Down>
-map!     <M-k>            <Up>
 map!     <M-l>            <Right>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
@@ -224,13 +237,13 @@ omap     <M-k>            V{
 map      <C-Space>        zt
 map      <leader>¨        <C-]>
 map      <C-¨>            <C-]>
-map      <C-W><C-]>       <C-w>v<Plug>(coc-definition)
-map      <C-W>¨           <C-w><C-]>
+map      <C-w><C-]>       <C-w>v<Plug>(coc-definition)
+map      <C-w>¨           <C-w><C-]>
+nnoremap <C-w>T           :tab split<CR>
 map      ¨                ]
 map      å                [
 map      ¨¨               ]]
 map      åå               [[
-map      ^                }
 map      Å                {
 map      ö                ;
 map      gö               g;
@@ -240,10 +253,15 @@ imap     ¤                $
 map!     ¤                $
 map      g¤               g$
 map      ´                =
-imap     ´                =
+imap     §                `
+map      §                `
+map!     ½                ~
+map      ½                ~
 map      Ä                @
+map      ÄÄ               @@
 map      ÄÖ               @:
 nmap     <C-c>            <Nop>
+nmap     <Leader><Esc>    <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :edit ~/.vimrc<CR>
 map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
@@ -269,6 +287,8 @@ map      <leader>q        qqqqq
 nnoremap §                <C-^>
 nmap     cg*              *Ncgn
 nmap     dg*              *Ndgn
+vmap     gcn              //Ncgn
+vmap     gdn              //Ndgn
 xnoremap g.               .
 nmap     dage             viw<Esc>bhdaw
 nmap     dagE             viw<Esc>bhdaW
@@ -289,6 +309,7 @@ map           g)        w)ge
 omap <silent> g)        :silent normal vg)h<CR>
 map           g(        (ge
 omap <silent> g(        :silent normal vg(oh<CR>
+nmap <silent> <C-W>N    :tabe<CR>
 
 nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
 nmap <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
@@ -313,7 +334,7 @@ function! Print(message)
   endtry
 endf
 
-function PrintError(message)
+function s:print_error(message)
   try
     exe 'Echoerr' a:message
   catch " if notifications.vim is not installed
@@ -348,7 +369,7 @@ function Enter()
     try
       exe "normal! \<CR>"
     catch
-      call PrintError(v:exception)
+      call s:print_error(v:exception)
     endtry
   else
     exe "normal o"
@@ -389,6 +410,21 @@ function MarkdownGf()
 endfunc
 noremap gf :call MarkdownGf()<CR>
 
+" Increases the font zise with `amount`
+function! Zoom(amount) abort
+  call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+endfunc
+
+" Sets the font size
+function ZoomSet(font_size) abort
+  let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+endfunc
+
+noremap <silent> <C-=> :call Zoom(v:count1)<CR>
+noremap <silent> <C-+> :call Zoom(v:count1)<CR>
+noremap <silent> <C--> :call Zoom(-v:count1)<CR>
+noremap <silent> <C-0> :call ZoomSet(11)<CR>
+
 if has("gui_running") " Gvim specific configuration
   set lines=999 columns=999 " Start in maximized window
   set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
@@ -400,7 +436,8 @@ if has('nvim')
   cmap <expr> <C-n> pumvisible() ? "\<C-n>" : "\<Down>"
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
   cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
-  cmap <M-p> <Up><C-p>
+  cmap <M-k> <Up><C-p>
+  set cpoptions-=_ " Makes cw/cW include the white space after the word
 endif
 
 if exists('$TMUX')
@@ -448,9 +485,9 @@ command! CDHere cd %:p:h
 command! JSONFormat %!python -m json.tool
 
 " Puts current file in trashcan using trash-cli
-command! -bar -bang Trash
+command! -bar -bang -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
-      \ execute 'Bdelete<bang>' |
+      \ execute 'BufferDelete<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
@@ -480,7 +517,31 @@ omap i¤  i$
 omap a¤  a$
 vmap i¤  i$
 vmap a¤  a$
-let g:surround_164 = "$\r$"
+let g:surround_{char2nr('¤')} = "$\r$"
+
+" surround noun `q` means `'`
+nmap csq cs'
+nmap dsq ds'
+" noun `q` already means any quotes i.e. `/"/'
+let g:surround_{char2nr('q')} = "'\r'"
+
+" surround noun `Q` means `"`
+nmap csQ cs"
+nmap dsQ ds"
+omap iQ  i"
+omap aQ  a"
+vmap iQ  i"
+vmap aQ  a"
+let g:surround_{char2nr('Q')} = "\"\r\""
+
+" surround noun `A` means `
+nmap csA cs`
+nmap dsA ds`
+omap iA  i`
+omap aA  a`
+vmap iA  i`
+vmap aA  a`
+let g:surround_{char2nr('A')} = "`\r`"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -494,8 +555,13 @@ augroup language_specific
   autocmd!
   " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
+  " For adding a horizontal line below and entering insert mode below it
+  autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
+  autocmd FileType markdown set breakindent | set breakindentopt=shift:2
   " Custom filetype indent settings
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
+  " Start commit buffers in insert mode
+  autocmd FileType gitcommit exec 'norm gg' | startinsert!
 augroup end
 
 " -- netrw --
@@ -503,6 +569,7 @@ let g:netrw_silent = 1
 " let g:netrw_preview = 1
 let g:netrw_browse_split = 0
 " let g:netrw_altv = 1
+let g:netrw_bufsettings = 'noma nomod nonu nowrap ro bl'
 augroup netrw
   autocmd!
   autocmd FileType netrw nmap <buffer> o <CR>
@@ -510,6 +577,7 @@ augroup end
 
 " -- Themes --
 colorscheme onedark   " Atom color scheme
+" colorscheme doom-one
 let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
@@ -542,12 +610,13 @@ let g:NERDCustomDelimiters = {
 \ }
 map <leader>C <plug>NERDCommenterToEOL
 
-" -- Gitgutter --
+" -- Signify --
 set updatetime=100
-" Disable <leader>h-mappings
-map <F14> <Plug>(GitGutterPreviewHunk)
-map <F15> <Plug>(GitGutterStageHunk)
-map <F16> <Plug>(GitGutterUndoHunk)
+let g:signify_sign_show_count        = 0
+let g:signify_sign_add               = '┃'
+let g:signify_sign_delete            = '▁'
+let g:signify_sign_delete_first_line = '▔'
+let g:signify_sign_change            = '┃'
 
 " -- AutoPairs --
 let g:AutoPairsShortcutToggle     = '' " Disables some mappings
@@ -610,7 +679,9 @@ let g:coc_global_extensions = [
   \ 'coc-omnisharp',
   \ 'coc-tabnine',
   \ 'coc-sh',
-  \ 'coc-terminal'
+  \ 'coc-terminal',
+  \ 'coc-vimlsp',
+  \ 'coc-lua',
   \]
   " \ 'coc-vimtex', " Clashes with coc-texlab
   " \ 'coc-ccls',
@@ -630,14 +701,16 @@ endfunction
 
 " coc-explorer
 " noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
-noremap <silent> ½ :execute 'CocCommand explorer'<CR>
+noremap <silent> <Leader>§ :execute 'CocCommand explorer'<CR>
+noremap <silent> <Leader>` :execute 'CocCommand explorer'<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
 command! Snippets CocList snippets
 
 " -- Commentary --
-nmap cm <Plug>Commentary
+nmap cm  <Plug>Commentary
+nmap cmm <Plug>CommentaryLine
 
 " -- swapit --
 fun SwapLists()
@@ -663,16 +736,16 @@ augroup end
 
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
-vmap aF <Plug>(textobj-function-A)
+xmap aF <Plug>(textobj-function-A)
 omap aF <Plug>(textobj-function-A)
-vmap iF <Plug>(textobj-function-i)
+xmap iF <Plug>(textobj-function-i)
 omap iF <Plug>(textobj-function-i)
 
 " --- vim-textobj-line ---
 let g:textobj_line_no_default_key_mappings = 1
-vmap aL <Plug>(textobj-line-a)
+xmap aL <Plug>(textobj-line-a)
 omap aL <Plug>(textobj-line-a)
-vmap iL <Plug>(textobj-line-i)
+xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
 " -- Cool.vim --
@@ -722,8 +795,8 @@ endif
 map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g "" -p $HOME/.agignore-vim'
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
+let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --pointer="▶" --info=inline --history=' . $HOME . '/.fzf_history'
 
 " Disable statusbar, numbers and IndentLines in FZF
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
@@ -756,13 +829,17 @@ let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- LaTeX and Vimtex --
-autocmd FileType latex,tex setlocal iskeyword-=:
-let g:tex_flavor = 'latex'
+augroup latex
+  autocmd!
+  autocmd FileType latex,tex setlocal iskeyword-=:                               " `:` counts as a separator
+  autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
+  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+augroup END
 let g:tex_indent_items=0        " Disables indent before new `\item`
 let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
 let g:tex_comment_nospell = 1
+let g:vimtex_view_method = 'zathura' " Zathura automatically reloads documents
 let g:vimtex_view_general_viewer = 'zathura'
-let g:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
 let g:vimtex_complete_bib = {'simple': 1}
 let g:vimtex_toc_config = {
       \ 'layer_status': { 'label': 0 }
@@ -788,10 +865,6 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
-augroup toc_tex
-  autocmd!
-  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
-augroup END
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -814,6 +887,12 @@ call textobj#user#plugin('datetime', {
       \     'select': ['ad', 'id'],
       \   }
       \ })
+
+augroup markdown_surround
+  autocmd!
+  " Surround noun `c` turns target into markdown code block
+  autocmd FileType markdown let b:surround_{char2nr('c')} = "```\n\r\n```"
+augroup END
 
 " -- togglelist.vim --
 let g:toggle_list_no_mappings=1
@@ -841,7 +920,21 @@ augroup toc_markdown
   autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
 augroup END
 
-" --- vim-highlighturl ---
+" -- vim-textobj-markdown --
+let g:__textobj_markdown_no_mappings = 1
+augroup markdown
+  autocmd!
+  autocmd FileType markdown omap <buffer> ac <plug>(textobj-markdown-chunk-a)
+  autocmd FileType markdown xmap <buffer> ac <plug>(textobj-markdown-chunk-a)
+  autocmd FileType markdown omap <buffer> ic <plug>(textobj-markdown-chunk-i)
+  autocmd FileType markdown xmap <buffer> ic <plug>(textobj-markdown-chunk-i)
+  autocmd FileType markdown omap <buffer> aC <plug>(textobj-markdown-Bchunk-a)
+  autocmd FileType markdown xmap <buffer> aC <plug>(textobj-markdown-Bchunk-a)
+  autocmd FileType markdown omap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
+  autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
+augroup END
+
+" -- vim-highlighturl --
 " Disable vim-highlighturl in Markdown files
 augroup highlighturl_filetype
   autocmd!
@@ -864,15 +957,18 @@ let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automa
 let g:bullets_checkbox_markers  = ' x'
 
 " -- CommandlineComplete --
-cmap <M-k> <Plug>CmdlineCompleteBackward
-cmap <M-j> <Plug>CmdlineCompleteForward
+cmap <M-i> <Plug>CmdlineCompleteBackward
+cmap <M-I> <Plug>CmdlineCompleteForward
 
-" -- Online Thesaurus --
-let g:use_default_key_map = 0
-nnoremap <silent> <leader>T :call thesaurusPy2Vim#Thesaurus_LookCurrentWord()<CR>
+" -- Thesaurus --
+let g:tq_map_keys = 0
+nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 
-" -- Cosco --
-map <silent> <leader>a <Plug>(cosco-commaOrSemiColon)
+" Looks up the provided word(s) in a thesaurus
+command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
+
+" -- restore_view --
+let g:skipview_files = ['COMMIT_EDITMSG']
 
 " -- Startify --
 " Add devicsons in front of file names
@@ -881,11 +977,13 @@ function! StartifyEntryFormat()
 endfunction
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
-let g:startify_custom_indices = 'asdfghlcvnmcyturieowpqxz' " Use letters instead of numbers
+let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
+let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
+let g:startify_session_sort = 1  " Sort sessions based on mru rather than name
 let g:startify_lists = [
-      \   {'type': 'files',     'header': ['   Recent files']},
       \   {'type': 'sessions',  'header': ['   Sessions']},
+      \   {'type': 'files',     'header': ['   Recent files']},
       \   {'type': 'bookmarks', 'header': ['   Bookmarks']},
       \   {'type': 'commands',  'header': ['   Commands']},
       \ ]
@@ -900,7 +998,7 @@ let g:startify_custom_header = [
       \ ]
 
 " -- vim-session --
-let g:session_autosave = 'no'
+let g:session_autosave = 'yes'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 
@@ -912,39 +1010,128 @@ nnoremap <silent> <Right> :CmdResizeRight<CR>
 nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
-" -- scrollbar --
-function! ScrollbarShow() abort
-  " Hides scrollbar after l:timeout amount of milliseconds
-  let l:timeout = 800
-  let l:winnr = 0
-  let l:bufnr = bufnr()
-  if exists('b:scrollbar_timer_id') | call timer_stop(b:scrollbar_timer_id) | endif
-  call luaeval('require("scrollbar").show(_A[1], _A[2])', [l:winnr, l:bufnr])
-  let b:scrollbar_timer_id = timer_start(l:timeout, {-> luaeval('require("scrollbar").clear(_A[1], _A[2])', [l:winnr, l:bufnr])}, {'repeat': 1})
-endf
+" -- vim-smoothie --
+let g:smoothie_base_speed = 18
+let g:smoothie_experimental_mappings = 1 " Enables gg and G
 
-function! ScrollbarClear() abort
-  lua require('scrollbar').clear()
-endf
+" -- barbar.nvim --
+let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
+hi! TabLineFill   guifg=Normal guibg=#21242b
+hi! BufferVisible guifg=#888888
 
-augroup scrollbar
-  autocmd!
-  autocmd WinEnter,CursorMoved,FocusGained,VimResized * silent! call ScrollbarShow()
-  autocmd WinLeave,FocusLost                          * silent! call ScrollbarClear()
-augroup end
+" Preserves highlighting when reloading .vimrc
+" Has to be modified if colorscheme is changed
+hi BufferInactive                guifg=#888888 guibg=#21242b
+hi BufferInactiveSign            guifg=#3b4048 guibg=#21242b
+hi BufferInactiveTarget gui=bold guifg=red     guibg=#21242b
 
-let g:scrollbar_right_offset = 0
-let g:scrollbar_highlight = {
-      \ 'head': 'NonText',
-      \ 'body': 'NonText',
-      \ 'tail': 'NonText',
-      \ }
+map <leader><C-w>   :BufferDelete<CR>
+map <leader><C-M-w> :BufferDelete!<CR>
 
-let g:scrollbar_shape = {
-      \ 'head': '▖',
-      \ 'body': '▌',
-      \ 'tail': '▘',
-      \ }
+" Magic buffer-picking mode
+nnoremap <silent> <C-Space> :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Leader>Bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
+" Move to previous/next
+nnoremap <silent> <C-Tab>         :BufferNext<CR>
+nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
+nnoremap <silent> <Leader><Tab>   :BufferNext<CR>
+nnoremap <silent> <Leader><S-Tab> :BufferPrevious<CR>
+" Re-order to previous/next
+nnoremap <silent> <M-.> :BufferMoveNext<CR>
+nnoremap <silent> <M-,> :BufferMovePrevious<CR>
+" Goto buffer in position...
+nnoremap <silent> <A-1> :BufferGoto 1<CR>
+nnoremap <silent> <A-2> :BufferGoto 2<CR>
+nnoremap <silent> <A-3> :BufferGoto 3<CR>
+nnoremap <silent> <A-4> :BufferGoto 4<CR>
+nnoremap <silent> <A-5> :BufferGoto 5<CR>
+nnoremap <silent> <A-6> :BufferGoto 6<CR>
+nnoremap <silent> <A-7> :BufferGoto 7<CR>
+nnoremap <silent> <A-8> :BufferGoto 8<CR>
+nnoremap <silent> <A-9> :BufferLast<CR>
+nnoremap <silent> <Leader>1 :BufferGoto 1<CR>
+nnoremap <silent> <Leader>2 :BufferGoto 2<CR>
+nnoremap <silent> <Leader>3 :BufferGoto 3<CR>
+nnoremap <silent> <Leader>4 :BufferGoto 4<CR>
+nnoremap <silent> <Leader>5 :BufferGoto 5<CR>
+nnoremap <silent> <Leader>6 :BufferGoto 6<CR>
+nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
+nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
+nnoremap <silent> <Leader>9 :BufferLast<CR>
+
+" -- Neovim specific
+if has('nvim')
+
+  " -- scrollbar --
+  let g:scrollbar_right_offset = 0
+  let g:scrollbar_highlight = {
+        \ 'head': 'NonText',
+        \ 'body': 'NonText',
+        \ 'tail': 'NonText',
+        \ }
+  let g:scrollbar_shape = {
+        \ 'head': '▖',
+        \ 'body': '▌',
+        \ 'tail': '▘',
+        \ }
+
+  augroup configure_scrollbar
+    autocmd!
+    autocmd BufEnter                                         * call OnBufEnter()
+    autocmd CursorMoved                                      * call ScrollbarShow()
+    autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
+  augroup end
+
+  function! ScrollbarShow()
+    if !exists('b:previous_first_visible_linenum') | return | endif
+    let first_visible_linenum = line('w0')
+    if first_visible_linenum != b:previous_first_visible_linenum
+      silent! lua require('scrollbar').show()
+    end
+    let b:previous_first_visible_linenum = first_visible_linenum
+  endf
+
+  function! OnBufEnter()
+    if !exists('b:previous_first_visible_linenum')
+      let b:previous_first_visible_linenum = line('w0')
+    endif
+  endf
+
+  function! ScrollbarClear() abort
+    silent! lua require('scrollbar').clear()
+  endf
+
+  " -- Nvim-web-devicons --
+  lua require('nvim-web-devicons').setup {
+        \   override = {
+        \     md = {
+        \       icon = '',
+        \       color = '#519aba',
+        \       name = "Markdown"
+        \     },
+        \     tex = {
+        \       icon = '',
+        \       color = '#3D6117',
+        \       name = 'Tex'
+        \     }
+        \   };
+        \   default = true;
+        \ }
+
+  " -- Treesitter --
+  lua require('nvim-treesitter.configs').setup {
+        \ ensure_installed = "maintained",
+        \   highlight = {
+        \     enable = true,
+        \   },
+        \ }
+endif
+
+" -- LanguageTool --
+let g:languagetool_server_command = '/usr/bin/languagetool'
+let g:languagetool_debug = 1
 
 " -- LSP --
 lua require("lsp")
@@ -970,25 +1157,7 @@ let g:airline_theme           = 'onedark'
 let g:Powerline_symbols       = 'unicode'
 let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
 
-" -- Airline Tabline --
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 0
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#close_symbol = '✕'
-let g:airline#extensions#tabline#disable_refresh = 1 " Fixes glitching when swithcing buffers
-let airline#extensions#tabline#middle_click_preserves_windows = 1
-let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#clock#updatetime = 200 " Has to be greater than updatetime for scrollbar.nvim to work
-" let g:airline#extensions#tabline#left_sep = ' '
-map <leader>1 <Plug>AirlineSelectTab1
-map <leader>2 <Plug>AirlineSelectTab2
-map <leader>3 <Plug>AirlineSelectTab3
-map <leader>4 <Plug>AirlineSelectTab4
-map <leader>5 <Plug>AirlineSelectTab5
-map <leader>6 <Plug>AirlineSelectTab6
-map <leader>7 <Plug>AirlineSelectTab7
-map <leader>8 <Plug>AirlineSelectTab8
-map <leader>9 :blast<CR>
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
@@ -1009,32 +1178,6 @@ if exists('g:loaded_webdevicons')
   call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
 endif
 
-" " -- NERDTree --
-" augroup nerdtree
-"   if !empty(glob('~/.vim/nerdtree_custom_map.vim'))
-"     autocmd!
-"     autocmd VimEnter * source ~/.vim/nerdtree_custom_map.vim
-"   endif
-" augroup end
-
-" " -- ALE --
-" let g:ale_fix_on_save = 1
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_python_prospector_executable = 'python' " Use Python 2. Change to 'python3' for Python 3
-" let g:ale_python_autopep8_options = '--aggressive --max-line-length 160'
-" let g:ale_fixers  = {
-" \   '*':          ['remove_trailing_lines', 'trim_whitespace'],
-" \   'javascript': ['prettier', 'eslint'],
-" \   'python':     ['autopep8']
-" \}
-" let g:ale_linters = {
-" \   'python': ['flake8'],
-" \   'c':      ['gcc -fopenmp'],
-" \   'cpp':    ['g++ -fopenmp']
-" \}
-" command! ALEDisableFixOnSave let g:ale_fix_on_save=0
-" command! ALEEnableFixOnSave let g:ale_fix_on_save=1
-
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
@@ -1042,5 +1185,8 @@ hi link jsStorageClass Keyword
 " ColorScheme corrections
 hi! link Search Visual
 hi! link SpecialKey Directory
+
+" Matchup
+let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
 
 endif
