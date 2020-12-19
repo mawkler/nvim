@@ -81,8 +81,8 @@ Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
 Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
-Plug 'semanser/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-Plug 'j5shi/CommandlineComplete.vim'
+Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
+Plug 'Melkster/CommandlineComplete.vim'
 Plug 'xolox/vim-misc'                      " Required by vim-session
 Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
@@ -102,6 +102,7 @@ endif
 if !empty(glob('~/.vim/fzf-cd.vim'))
   source ~/.vim/fzf-cd.vim
   let g:fzf_cd_ignore_dirs = [".git", ".local", ".cache"]
+  nnoremap <silent> cd :Cd .<CR>
 endif
 
 if !empty(glob('~/.vimrc-private'))
@@ -208,7 +209,7 @@ imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
 imap     <C-j>            <CR>
 map!     <M-p>            <C-r>"
-smap     <M-p>            <C-g>Vp
+smap     <M-p>            <C-g>p
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
 " Cursor movement in cmd and insert mode--------
@@ -432,6 +433,7 @@ if has('nvim')
   cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
   cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
   cmap <M-k> <Up><C-p>
+  set cpoptions-=_ " Makes cw/cW include the white space after the word
 endif
 
 if exists('$TMUX')
@@ -479,7 +481,7 @@ command! CDHere cd %:p:h
 command! JSONFormat %!python -m json.tool
 
 " Puts current file in trashcan using trash-cli
-command! -bar -bang Trash
+command! -bar -bang -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
       \ execute 'BufferDelete<bang>' |
       \ execute 'silent !trash ' . s:file |
@@ -563,6 +565,7 @@ let g:netrw_silent = 1
 " let g:netrw_preview = 1
 let g:netrw_browse_split = 0
 " let g:netrw_altv = 1
+let g:netrw_bufsettings = 'noma nomod nonu nowrap ro bl'
 augroup netrw
   autocmd!
   autocmd FileType netrw nmap <buffer> o <CR>
@@ -970,7 +973,7 @@ function! StartifyEntryFormat()
 endfunction
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
-let g:startify_custom_indices = 'asdfghlcvnmcyturieowpqxz' " Use letters instead of numbers
+let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
 let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
 let g:startify_session_sort = 1  " Sort sessions based on mru rather than name
