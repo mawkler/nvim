@@ -1,6 +1,5 @@
 local on_attach = function()
   require('completion').on_attach()
-  require('diagnostic').on_attach()
 end
 
 require('lspconfig').tsserver.setup{on_attach=on_attach}

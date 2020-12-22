@@ -11,9 +11,9 @@ if has('nvim')
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
-  Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'steelsojka/completion-buffers'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -92,6 +92,7 @@ Plug 'xolox/vim-session'                   " Extened session management
 Plug 'mhinz/vim-startify'                  " Nicer start screen
 Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
 Plug 'idbrii/vim-jumpmethod'               " Better ]m/[m for C#, C++ and Java
+Plug 'SirVer/ultisnips'
 call plug#end()
 
 " -- File imports --
@@ -141,7 +142,6 @@ augroup filechanged
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=longest,preview
 set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
@@ -178,7 +178,7 @@ map      <leader>p        "+p
 map      <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
-inoremap <Tab>            <C-t>
+" inoremap <Tab>            <C-t>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
 imap     <S-Tab>          <C-d>
@@ -235,10 +235,7 @@ map      <M-k>            {
 omap     <M-j>            V}
 omap     <M-k>            V{
 map      <C-Space>        zt
-map      <leader>¨        <C-]>
-map      <C-¨>            <C-]>
-map      <C-w><C-]>       <C-w>v<Plug>(coc-definition)
-map      <C-w>¨           <C-w><C-]>
+map      <C-w>gd          <C-w>vgd
 nnoremap <C-w>T           :tab split<CR>
 map      ¨                ]
 map      å                [
@@ -706,7 +703,7 @@ noremap <silent> <Leader>` :execute 'CocCommand explorer'<CR>
 
 " coc-snippets
 vmap gs <Plug>(coc-snippets-select)
-command! Snippets CocList snippets
+" command! Snippets CocList snippets
 
 " -- Commentary --
 nmap cm  <Plug>Commentary
@@ -1135,9 +1132,24 @@ let g:languagetool_debug = 1
 
 " -- LSP --
 lua require("lsp")
+set completeopt=menuone,noinsert
+augroup lsp
+  autocmd BufEnter * lua require'completion'.on_attach()
+augroup end
+
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_virtual_text_prefix = ' '
 let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_chain_complete_list = {
+      \ 'default' : [
+      \     {'complete_items': ['lsp', 'snippet', 'buffers']},
+      \     {'mode': '<c-p>'},
+      \     {'mode': '<c-n>'}
+      \ ]
+      \ }
+
+imap <silent> <C-space> <Plug>(completion_trigger)
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
@@ -1147,6 +1159,12 @@ nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+" -- UltiSnips --
+let g:UltiSnipsExpandTrigger = '<NL>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+let g:UltiSnipsListSnippets = ''
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
