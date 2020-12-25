@@ -180,10 +180,6 @@ vnoremap <S-Tab>          <gv
 imap     <S-Tab>          <C-d>
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
-" nnoremap <M-+>            :call animate#window_delta_height(2)<CR>
-" nnoremap <M-->            :call animate#window_delta_height(-2)<CR>
-" nnoremap +                :call animate#window_delta_width(5)<CR>
-" nnoremap -                :call animate#window_delta_width(-5)<CR>
 map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
@@ -448,6 +444,7 @@ vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
 
 " -- Lines and cursor --
 set number relativenumber
+set signcolumn=number
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set textwidth=0                   " Disable auto line breaking
@@ -657,7 +654,7 @@ let g:coc_global_extensions = [
   \ 'coc-syntax',
   \ 'coc-tag',
   \ 'coc-snippets',
-  \ 'coc-python',
+  \ 'coc-jedi',
   \ 'coc-java',
   \ 'coc-html',
   \ 'coc-css',
@@ -696,7 +693,6 @@ function! s:show_documentation()
 endfunction
 
 " coc-explorer
-" noremap <silent> ½ :execute 'CocCommand explorer --file-columns=selection,icon,clip,indent,filename,size ' . expand('%:p:h')<CR>
 noremap <silent> <Leader>§ :execute 'CocCommand explorer'<CR>
 noremap <silent> <Leader>` :execute 'CocCommand explorer'<CR>
 
