@@ -31,7 +31,6 @@ Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'mhinz/vim-signify'                   " Shows git status for each line
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -122,9 +121,7 @@ set showcmd       " Write out commands typed in status line
 set hidden
 set lazyredraw
 set swapfile
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swp//
-set undodir=~/.vim/undo//
+set undofile
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix " Use Unix eol format
 set spelllang=en,sv " Use both Engligh and Swedish spell check
@@ -416,11 +413,6 @@ noremap <silent> <C-=> :call Zoom(v:count1)<CR>
 noremap <silent> <C-+> :call Zoom(v:count1)<CR>
 noremap <silent> <C--> :call Zoom(-v:count1)<CR>
 noremap <silent> <C-0> :call ZoomSet(11)<CR>
-
-if has("gui_running") " Gvim specific configuration
-  set lines=999 columns=999 " Start in maximized window
-  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-endif
 
 if has('nvim')
   " Because NeoVim's menu completions are in a vertical pum
