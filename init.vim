@@ -889,8 +889,10 @@ let g:lens#disabled_filetypes = ['coc-explorer', 'fzf', 'fugitiveblame']
 " -- markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
-" Disables default `ge` mapping by overriding the default
+" Disables vim-markdown's default `ge` mapping
 map <F13> <Plug>Markdown_EditUrlUnderCursor
+" Disables vim-markdown's default `]c` mapping
+map <F13> <Plug>Markdown_MoveToCurHeader
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
