@@ -1002,14 +1002,12 @@ let g:smoothie_experimental_mappings = 1 " Enables gg and G
 
 " -- barbar.nvim --
 let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
-hi! TabLineFill   guifg=Normal guibg=#21242b
-hi! BufferVisible guifg=#888888
-
-" Preserves highlighting when reloading .vimrc
-" Has to be modified if colorscheme is changed
-hi BufferInactive                guifg=#888888 guibg=#21242b
-hi BufferInactiveSign            guifg=#3b4048 guibg=#21242b
-hi BufferInactiveTarget gui=bold guifg=red     guibg=#21242b
+hi! TabLineFill          guifg=#3b4048 guibg=#21242b
+hi! BufferVisible        guifg=#abb2bf guibg=#21242b
+hi! BufferVisibleSign    guifg=#3b4048 guibg=#21242b
+hi! BufferInactive       guifg=#707070 guibg=#21242b
+hi! BufferInactiveSign   guifg=#3b4048 guibg=#21242b
+hi! BufferInactiveTarget guifg=red     guibg=#21242b gui=bold
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
