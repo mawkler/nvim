@@ -341,7 +341,7 @@ augroup dir_changed
   autocmd!
   autocmd DirChanged *
         \ if &runtimepath =~ 'notifications.vim' && index(blacklist, &buftype) < 0 |
-        \   exe 'Echo  ⟶' fnamemodify(getcwd(), ":~") |
+        \   exe 'Echo  ' fnamemodify(getcwd(), ":~") |
         \ endif
 augroup end
 
@@ -401,18 +401,18 @@ noremap gf :call MarkdownGf()<CR>
 
 " Increases the font zise with `amount`
 function! Zoom(amount) abort
-  call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+  call ZoomSet(matchlist(g:GuiFont, ':h\(\d\+\)')[1] + a:amount)
 endfunc
 
 " Sets the font size
 function ZoomSet(font_size) abort
-  let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+  execute 'GuiFont! ' .  substitute(&guifont, ':h\d\+', ':h' . a:font_size, '')
 endfunc
 
 noremap <silent> <C-=> :call Zoom(v:count1)<CR>
 noremap <silent> <C-+> :call Zoom(v:count1)<CR>
 noremap <silent> <C--> :call Zoom(-v:count1)<CR>
-noremap <silent> <C-0> :call ZoomSet(11)<CR>
+noremap <silent> <C-0> :call ZoomSet(12)<CR>
 
 if has('nvim')
   " Because NeoVim's menu completions are in a vertical pum
