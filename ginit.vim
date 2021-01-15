@@ -1,4 +1,4 @@
-GuiFont! FiraCode Nerd Font:h12:l
+GuiFont! FiraCode Nerd Font:h12
 GuiTabline 0
 GuiPopupmenu 0
 call GuiWindowMaximized(1)
