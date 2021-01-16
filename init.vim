@@ -484,16 +484,14 @@ augroup vim_plug
 augroup end
 
 " -- Surround --
-vmap   s  <Plug>VSurround
-vmap   S  <Plug>VgSurround
-sunmap s
-sunmap S
+xmap   s  <Plug>VSurround
+xmap   S  <Plug>VgSurround
 nmap   s  ys
 nmap   S  ys$
 omap   ir i]
 omap   ar a]
-vmap   ir i]
-vmap   ar a]
+xmap   ir i]
+xmap   ar a]
 omap   s¤ s$
 
 " surround noun `¤` means `$`
