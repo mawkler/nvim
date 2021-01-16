@@ -454,6 +454,7 @@ set shiftwidth=2                           " Width of indentation
 set tabstop=4                              " Width of <Tab> characters
 set list listchars=tab:\▏\                 " Show line for each tab indentation
 set autoindent                             " Follow previous line's indenting
+set shiftround                             " Round indent to multiple of shiftwdith
 set backspace=indent,eol,start             " Better backspace behaviour
 set cinkeys-=0#                            " Indent lines starting with `#`
 
@@ -620,6 +621,13 @@ com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:serverna
 " " -- Targets.vim --
 " let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
 let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
+augroup targets
+  autocmd!
+  " Resets ib/ab to Vim's default behaviour
+  autocmd User targets#mappings#user call targets#mappings#extend({
+        \ 'b': {'pair': [{'o':'(', 'c':')'}]}
+        \ })
+augroup end
 
 " -- Vim Fugitive --
 cnoreabbrev Gdiff Gvdiff
