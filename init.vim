@@ -898,7 +898,7 @@ let g:vim_markdown_math = 1
 " Disables vim-markdown's default `ge` mapping
 map <F13> <Plug>Markdown_EditUrlUnderCursor
 " Disables vim-markdown's default `]c` mapping
-map <F13> <Plug>Markdown_MoveToCurHeader
+map <F14> <Plug>Markdown_MoveToCurHeader
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
 " Underline link names in Markdown in-line links
