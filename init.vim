@@ -446,6 +446,7 @@ set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
+set breakindent                   " Respect indent when line wrapping
 
 " -- Tab characters --
 filetype plugin indent on
@@ -541,7 +542,6 @@ augroup language_specific
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
   " For adding a horizontal line below and entering insert mode below it
   autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
-  autocmd FileType markdown set breakindent | set breakindentopt=shift:2
   " Custom filetype indent settings
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
   " Start commit buffers in insert mode
@@ -673,7 +673,7 @@ let g:coc_global_extensions = [
   \ 'coc-terminal',
   \ 'coc-vimlsp',
   \ 'coc-lua',
-  \]
+  \ ]
   " \ 'coc-vimtex', " Clashes with coc-texlab
   " \ 'coc-ccls',
   " \ 'coc-sql'
@@ -777,7 +777,13 @@ endf
 
 if has('nvim')
   " Use floating window
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'SpecialKey', 'border': 'rounded' } }
+  let g:fzf_layout = {
+        \ 'window': {
+        \   'width': 0.9,
+        \   'height': 0.8,
+        \   'highlight': 'SpecialKey',
+        \   'border': 'rounded'
+        \ }}
   map <silent> <C-p> :call FZF_files()<CR>
 else
   map <silent> <C-p> :Files<CR>
@@ -786,7 +792,15 @@ map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
-let $FZF_DEFAULT_OPTS='--bind ctrl-j:accept,alt-k:up,alt-j:down --multi --prompt ">>> " --pointer="▶" --info=inline --history=' . $HOME . '/.fzf_history'
+let $FZF_DEFAULT_OPTS='
+      \ --bind ctrl-j:accept,alt-k:up,alt-j:down
+      \ --multi
+      \ --prompt ">>> "
+      \ --pointer="▶"
+      \ --info=inline
+      \ --history=' . $HOME . '/.fzf_history
+      \ --history-size=10000
+      \ '
 
 " Disable statusbar, numbers and IndentLines in FZF
 autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
@@ -838,12 +852,12 @@ let g:vimtex_toc_config = {
 " Disable custom warnings based on regexp
 let g:vimtex_quickfix_ignore_filters = [
       \ 'Underfull \\hbox',
-      \]
+      \ ]
 " Disables default mappings that start with `t`
 let g:vimtex_mappings_disable = {
       \ 'x': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
       \ 'n': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
-      \}
+      \ }
 let g:vimtex_toc_config = {
       \ 'todo_sorted': 1,
       \ 'split_width': 30,
