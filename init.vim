@@ -102,6 +102,7 @@ if !empty(glob('~/.vim/fzf-cd.vim'))
   source ~/.vim/fzf-cd.vim
   let g:fzf_cd_ignore_dirs = [".git", ".local", ".cache"]
   nnoremap <silent> cd :Cd .<CR>
+  nnoremap <silent> cD :Cd ~<CR>
 endif
 
 if !empty(glob('~/.vimrc-private'))
@@ -790,6 +791,7 @@ else
 endif
 map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
+map          <leader>a :Ag<Space>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS='
