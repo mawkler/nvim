@@ -230,6 +230,7 @@ map      <C-¨>            <C-]>
 map      <C-w><C-]>       <C-w>v<Plug>(coc-definition)
 map      <C-w>¨           <C-w><C-]>
 nnoremap <C-w>T           :tab split<CR>
+nnoremap <C-w>C           :tabclose<CR>
 map      ¨                ]
 map      å                [
 map      ¨¨               ]]
