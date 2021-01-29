@@ -89,26 +89,6 @@ Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
 Plug 'idbrii/vim-jumpmethod'               " Better ]m/[m for C#, C++ and Java
 call plug#end()
 
-" -- File imports --
-if !empty(glob('~/.vim/visual-at.vim'))
-  source ~/.vim/visual-at.vim
-endif
-
-if !empty(glob('~/.vim/markdown-section-object.vim'))
-  source ~/.vim/markdown-section-object.vim
-endif
-
-if !empty(glob('~/.vim/fzf-cd.vim'))
-  source ~/.vim/fzf-cd.vim
-  let g:fzf_cd_ignore_dirs = [".git", ".local", ".cache"]
-  nnoremap <silent> cd :Cd .<CR>
-  nnoremap <silent> cD :Cd ~<CR>
-endif
-
-if !empty(glob('~/.vimrc-private'))
-  source ~/.vimrc-private
-endif
-
 " -- General --
 syntax on
 set vb t_vb=      " Disable error bells
