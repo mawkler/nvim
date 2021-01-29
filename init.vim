@@ -268,10 +268,6 @@ nmap     cagE             viw<Esc>bhcaW
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
-map  <silent> <leader>; :call VisualAppend(";")<CR>
-map  <silent> <leader>, :call VisualAppend(",")<CR>
-map  <silent> <leader>. :call VisualAppend(".")<CR>
-map  <silent> <leader>? :call VisualAppend("?")<CR>
 map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
 map  <silent> <leader>E :cd $DROPBOX/Exjobb/<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
@@ -352,13 +348,6 @@ augroup vertical_help " Open :help in 80 character wide vertical instead of hori
   autocmd!
   autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 82 | endif
 augroup END
-
-" Appends `char` to current line or visual selection
-function! VisualAppend(char)
-  exe "normal! m0"
-  exe "normal! A" . a:char
-  exe "normal! `0"
-endfunction
 
 " Prints the syntax highlighting values under cursor
 function! SynStack()
