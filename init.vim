@@ -263,10 +263,7 @@ nmap     dg*              *Ndgn
 vmap     gcn              //Ncgn
 vmap     gdn              //Ndgn
 xnoremap g.               .
-nmap     dage             viw<Esc>bhdaw
-nmap     dagE             viw<Esc>bhdaW
-nmap     cage             viw<Esc>bhcaw
-nmap     cagE             viw<Esc>bhcaW
+
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 vmap     <leader>K        y:vertical Man <C-R>"<CR>
 
