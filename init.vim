@@ -104,9 +104,11 @@ set lazyredraw
 set swapfile
 set undofile
 set viewoptions=cursor,folds,slash,unix
+set shada=!,'1000,<50,s10,h
 set fileformat=unix " Use Unix eol format
 set spelllang=en,sv " Use both Engligh and Swedish spell check
 set splitright      " Open vertical window splits to the right instead of left
+set nojoinspaces    " Only add one space after a `.`/`?`/`!` when joining lines
 
 set autoread        " Automatically read in the file when changed externally
 augroup filechanged
@@ -344,9 +346,10 @@ function Enter()
 endf
 nmap <silent> <C-j> :call Enter()<CR>
 
-augroup vertical_help " Open :help in 80 character wide vertical instead of horizontal split
+augroup vertical_help
+  " Open :help in 80 character wide vertical split instead of horizontal
   autocmd!
-  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vertical resize 82 | endif
+  autocmd FileType help wincmd L | vertical resize 82
 augroup END
 
 " Prints the syntax highlighting values under cursor
