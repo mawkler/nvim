@@ -344,9 +344,12 @@ endf
 nmap <silent> <C-j> :call Enter()<CR>
 
 augroup vertical_help
-  " Open :help in 80 character wide vertical split instead of horizontal
+  " Open :help in vertical split instead of horizontal
   autocmd!
-  autocmd FileType help wincmd L | vertical resize 82
+  autocmd FileType help
+        \ setlocal bufhidden=unload |
+        \ wincmd L |
+        \ vertical resize 79
 augroup END
 
 " Prints the syntax highlighting values under cursor
