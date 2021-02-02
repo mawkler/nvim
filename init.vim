@@ -1,92 +1,95 @@
 " -- plugins --
 call plug#begin('~/.vim/bundle')
+
+if !$NVIM_MINIMAL
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-abolish'
+  Plug 'enricobacis/vim-airline-clock'
+  Plug 'cakebaker/scss-syntax.vim'
+  Plug 'pangloss/vim-javascript'
+  Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
+  Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
+  Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
+  Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
+  Plug 'kana/vim-niceblock'                  " Improves visual mode
+  Plug 'kana/vim-textobj-syntax'
+  Plug 'haya14busa/vim-textobj-function-syntax'
+  Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
+  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
+  Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
+  Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
+  Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
+  Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
+  Plug 'meain/vim-printer'
+  Plug 'lervag/vimtex'
+  Plug 'rhysd/git-messenger.vim'
+  Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
+  Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
+  Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
+  Plug 'mbbill/undotree'
+  Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
+  Plug 'Melkster/CommandlineComplete.vim'
+  Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+endif
 if has('nvim')
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'      " Required by barbar.nvim
-  Plug 'romgrk/barbar.nvim'                " Sexiest buffer tabline
+  Plug 'kyazdani42/nvim-web-devicons' " Required by barbar.nvim
+  Plug 'romgrk/barbar.nvim'           " Sexiest buffer tabline
   Plug 'vigoux/LanguageTool.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish'
 Plug 'bling/vim-airline'
-Plug 'enricobacis/vim-airline-clock'
 Plug 'powerline/fonts'
-Plug 'joshdick/onedark.vim'                " Atom dark theme for vim
+Plug 'joshdick/onedark.vim'         " Atom dark theme for vim
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
-Plug 'andymass/vim-matchup'                " Ads additional `%` commands
-Plug 'jiangmiao/auto-pairs'                " Add matching brackets, quotes, etc
+Plug 'andymass/vim-matchup'         " Ads additional `%` commands
+Plug 'jiangmiao/auto-pairs'         " Add matching brackets, quotes, etc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-signify'                   " Shows git status for each line
-Plug 'cakebaker/scss-syntax.vim'
+Plug 'mhinz/vim-signify'            " Shows git status for each line
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'pangloss/vim-javascript'
 Plug 'magicalbanana/vim-sql-syntax'
-Plug 'vim-scripts/capslock.vim'            " Adds caps lock mapping to insert mode
+Plug 'vim-scripts/capslock.vim'     " Adds caps lock mapping to insert mode
 Plug 'vim-scripts/StripWhiteSpaces'
-Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
-Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
-Plug 'inkarkat/vim-ingo-library'           " Required by visualrepeat and ConflictMotions
-Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
-Plug 'inkarkat/vim-CountJump'              " Dependency for ConflictMotions
-Plug 'inkarkat/vim-ConflictMotions'        " Adds motions for Git conflicts
-Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
+Plug 'inkarkat/vim-ingo-library'    " Required by visualrepeat and ConflictMotions
+Plug 'inkarkat/vim-CountJump'       " Dependency for ConflictMotions
+Plug 'inkarkat/vim-ConflictMotions' " Adds motions for Git conflicts
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-niceblock'                  " Improves visual mode
-Plug 'kana/vim-textobj-syntax'
-Plug 'haya14busa/vim-textobj-function-syntax'
 Plug 'AndrewRadev/dsf.vim'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'wellle/targets.vim'                  " Adds arguments, etc. as text objects
-Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
+Plug 'wellle/targets.vim'           " Adds arguments, etc. as text objects
 Plug 'Yggdroot/indentLine'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'romainl/vim-cool'                    " Highlights all search matches until moving cursor
-Plug 'haya14busa/incsearch.vim'            " Better incsearch
-Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
-Plug 'plasticboy/vim-markdown'             " Adds extra features to markdown
+Plug 'romainl/vim-cool'             " Highlights all search matches until moving cursor
+Plug 'plasticboy/vim-markdown'      " Adds extra features to markdown
 Plug 'coachshea/vim-textobj-markdown'
-Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
-Plug 'tommcdo/vim-exchange'                " For swapping the place of two text objects
-Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
-Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
-Plug 'markonm/traces.vim'                  " Better highlighting when searching/replacing
+Plug 'tommcdo/vim-exchange'         " For swapping the place of two text objects
+Plug 'markonm/traces.vim'           " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'ryanoasis/vim-devicons'              " vim-devicond should be loaded last
-Plug 'meain/vim-printer'
-Plug 'lervag/vimtex'
-Plug 'rhysd/git-messenger.vim'
-Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
-Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
-Plug 'AndrewRadev/bufferize.vim'           " Execute a :command and show the output in a temporary buffer
-Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
-Plug 'mbbill/undotree'
-Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-Plug 'Melkster/CommandlineComplete.vim'
-Plug 'xolox/vim-misc'                      " Required by vim-session
-Plug 'xolox/vim-session'                   " Extened session management
-Plug 'mhinz/vim-startify'                  " Nicer start screen
-Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-Plug 'idbrii/vim-jumpmethod'               " Better ]m/[m for C#, C++ and Java
+Plug 'ryanoasis/vim-devicons'       " vim-devicond should be loaded last
+Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
+Plug 'xolox/vim-misc'               " Required by vim-session
+Plug 'xolox/vim-session'            " Extened session management
+Plug 'mhinz/vim-startify'           " Nicer start screen
+Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
+
 call plug#end()
 
 " -- General --
@@ -104,7 +107,6 @@ set lazyredraw
 set swapfile
 set undofile
 set viewoptions=cursor,folds,slash,unix
-set shada=!,'1000,<50,s10,h
 set fileformat=unix " Use Unix eol format
 set spelllang=en,sv " Use both Engligh and Swedish spell check
 set splitright      " Open vertical window splits to the right instead of left
@@ -396,6 +398,7 @@ if has('nvim')
   cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
   cmap <M-k> <Up><C-p>
   set cpoptions-=_ " Makes cw/cW include the white space after the word
+  set shada=!,'1000,<50,s10,h
 endif
 
 if exists('$TMUX')
@@ -676,27 +679,28 @@ command! Snippets CocList snippets
 nmap cm  <Plug>Commentary
 nmap cmm <Plug>CommentaryLine
 
-" -- swapit --
-fun SwapLists()
-  ClearSwapList
-  SwapList BOOLEANS TRUE FALSE
-  SwapList numbers zero one two three four five six seven eight nine ten eleven twelve
-  SwapList Numbers Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve
-  SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
-  SwapList Nummer Noll En Ett Två Tre Fyra Fem Sex Sju Åtta Nio Tio Elva Tolv
-  SwapList a a an
-  SwapList andor and or
-  SwapList andorsymbols && ||
-  SwapList is is are
-  SwapList do do does
-  SwapList isnt isn aren
-  SwapList dont don doesn
-endfun
-augroup SwapList
-  autocmd!
-  autocmd BufEnter * call SwapLists()
-augroup end
-
+if !$NVIM_MINIMAL
+  " -- swapit --
+  fun SwapLists()
+    ClearSwapList
+    SwapList BOOLEANS TRUE FALSE
+    SwapList numbers zero one two three four five six seven eight nine ten eleven twelve
+    SwapList Numbers Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve
+    SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
+    SwapList Nummer Noll En Ett Två Tre Fyra Fem Sex Sju Åtta Nio Tio Elva Tolv
+    SwapList a a an
+    SwapList andor and or
+    SwapList andorsymbols && ||
+    SwapList is is are
+    SwapList do do does
+    SwapList isnt isn aren
+    SwapList dont don doesn
+  endfun
+  augroup SwapList
+    autocmd!
+    autocmd BufEnter * call SwapLists()
+  augroup end
+endif
 
 " -- textobj-function --
 let g:textobj_function_no_default_key_mappings = 1
@@ -1152,5 +1156,8 @@ hi! link SpecialKey Directory
 
 " Matchup
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
+
+" Git-timelapse
+nmap <leader>gt :call TimeLapse() <cr>
 
 endif
