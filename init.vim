@@ -1000,13 +1000,33 @@ let g:smoothie_base_speed = 18
 let g:smoothie_experimental_mappings = 1 " Enables gg and G
 
 " -- barbar.nvim --
+" Gets the highlight value of highlight group `name`
+" Set `layer` to either 'fg' or 'bg'
+function GetHiVal(name, layer)
+  return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
+endfunc
+
+" Creates highlight group `name` with guifg `guifg`, and guibg g:barbar_bg
+" If a third argument is provided gui is set to that
+function BarbarHi(name, guifg, ...)
+  let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
+  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' g:barbar_bg gui
+endfunc
+
 let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
-hi! TabLineFill          guifg=#3b4048 guibg=#21242b
-hi! BufferVisible        guifg=#abb2bf guibg=#21242b
-hi! BufferVisibleSign    guifg=#3b4048 guibg=#21242b
-hi! BufferInactive       guifg=#707070 guibg=#21242b
-hi! BufferInactiveSign   guifg=#3b4048 guibg=#21242b
-hi! BufferInactiveTarget guifg=red     guibg=#21242b gui=bold
+let g:barbar_bg  = '#21242b'
+
+let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
+let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
+let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
+
+call BarbarHi('TabLineFill', fg_sign)
+call BarbarHi('BufferVisible', fg_visible)
+call BarbarHi('BufferVisibleSign', fg_sign)
+call BarbarHi('BufferVisibleMod', fg_modified)
+call BarbarHi('BufferInactive', '#707070')
+call BarbarHi('BufferInactiveSign', fg_sign)
+call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
