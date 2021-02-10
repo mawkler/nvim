@@ -526,7 +526,7 @@ augroup language_specific
   " Custom filetype indent settings
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
   " Start commit buffers in insert mode
-  autocmd FileType gitcommit exec 'norm gg' | startinsert!
+  autocmd FileType gitcommit exec 'norm gg' | setlocal spell | startinsert!
 augroup end
 
 " -- netrw --
@@ -821,6 +821,7 @@ augroup latex
   autocmd FileType latex,tex setlocal iskeyword-=:                               " `:` counts as a separator
   autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
   autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+  autocmd FileType latex,tex syntax spell toplevel " Fixes issue with spell check only in comments
 augroup END
 let g:tex_indent_items=0        " Disables indent before new `\item`
 let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
