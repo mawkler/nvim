@@ -29,7 +29,6 @@ if !$NVIM_MINIMAL
   Plug 'lervag/vimtex'
   Plug 'rhysd/git-messenger.vim'
   Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
-  Plug 'itchyny/vim-highlighturl'            " Highlights URLs everywhere
   Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
   Plug 'mbbill/undotree'
   Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
@@ -88,6 +87,7 @@ Plug 'tommcdo/vim-exchange'         " For swapping the place of two text objects
 Plug 'markonm/traces.vim'           " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'ryanoasis/vim-devicons'       " vim-devicond should be loaded last
+Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
@@ -248,12 +248,13 @@ map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
-map      gX               :exec 'silent !google-chrome-stable % &'<CR>
+map      gX               :exec 'silent !brave % &'<CR>
 nmap     gF               :e <C-r>+<CR>
 xnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
-noremap  *                ms*
-map      '/               `s
+noremap  *                ms*``
+noremap  g*               msg*``
+map      `/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
@@ -283,10 +284,10 @@ map           g(        (ge
 omap <silent> g(        :silent normal vg(oh<CR>
 nmap <silent> <C-W>N    :tabe<CR>
 
-nmap <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
-nmap <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
-nmap <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
-map  <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
+nmap <silent> <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
+nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
+map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 " `;`/`,` always seach forward/backward, respectively
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -434,7 +435,7 @@ filetype plugin indent on
 set expandtab                              " Use spaces for indentation
 set shiftwidth=2                           " Width of indentation
 set tabstop=4                              " Width of <Tab> characters
-set list listchars=tab:\▏\                 " Show line for each tab indentation
+set list listchars=tab:▏\ ,nbsp:·          " Show line for tab indentation, and a dot for non-breaking spaces
 set autoindent                             " Follow previous line's indenting
 set shiftround                             " Round indent to multiple of shiftwdith
 set backspace=indent,eol,start             " Better backspace behaviour
@@ -556,7 +557,7 @@ let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 
 " For toggling caps lock in insert mode
-imap <C-C> <Plug>CapsLockToggle
+imap <S-Esc> <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
 " Start in visual mode (e.g. vipga):
@@ -704,6 +705,9 @@ if !$NVIM_MINIMAL
     autocmd!
     autocmd BufEnter * call SwapLists()
   augroup end
+
+  " Git-timelapse
+  nmap <leader>gt :call TimeLapse() <cr>
 endif
 
 " -- textobj-function --
@@ -849,7 +853,7 @@ let g:vimtex_toc_config = {
       \ 'hotkeys_leader': '',
       \ 'show_numbers': 1,
       \ 'hotkeys_enabled': 1,
-      \ 'hotkeys': 'acdeilmnopuvwx',
+      \ 'hotkeys': 'acdeilmopuvwx',
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
@@ -1025,7 +1029,7 @@ let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
 let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
 let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
 
-call BarbarHi('TabLineFill', fg_sign)
+call BarbarHi('BufferTabpageFill', fg_sign)
 call BarbarHi('BufferVisible', fg_visible)
 call BarbarHi('BufferVisibleSign', fg_sign)
 call BarbarHi('BufferVisibleMod', fg_modified)
@@ -1039,8 +1043,8 @@ map <leader><C-M-w> :BufferDelete!<CR>
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>
 " Sort automatically by...
-nnoremap <silent> <Leader>Bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <Leader>Bl :BufferOrderByLanguage<CR>
+nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
@@ -1141,6 +1145,10 @@ endif
 let g:languagetool_server_command = '/usr/bin/languagetool'
 let g:languagetool_debug = 1
 
+
+" -- git-messenger --
+map <leader>B <Plug>(git-messenger)
+
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
 " -- Airline --
@@ -1175,14 +1183,11 @@ endif
 hi clear jsStorageClass " Change color of 'var'
 hi link jsStorageClass Keyword
 
-" ColorScheme corrections
-hi! link Search Visual
+" General highlights
+hi! link Search     Visual
 hi! link SpecialKey Directory
 
 " Matchup
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
-
-" Git-timelapse
-nmap <leader>gt :call TimeLapse() <cr>
 
 endif
