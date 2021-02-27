@@ -102,6 +102,7 @@ set vb t_vb=      " Disable error bells
 set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
 set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
+set shortmess+=s  " Disable 'Search hit BOTTOM, continuing at TOP' messages
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
