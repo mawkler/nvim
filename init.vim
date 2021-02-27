@@ -929,6 +929,8 @@ augroup markdown
   autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
 augroup END
 
+let g:vim_markdown_strikethrough = 1
+
 " -- vim-highlighturl --
 " Disable vim-highlighturl in Markdown files
 augroup highlighturl_filetype
