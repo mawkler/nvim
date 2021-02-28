@@ -249,7 +249,7 @@ map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :edit ~/.zshrc<CR>
 map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
-map      gX               :exec 'silent !brave % &'<CR>
+map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
 xnoremap //               y/<C-R>"<CR>
 noremap  /                ms/
