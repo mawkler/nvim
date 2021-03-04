@@ -214,10 +214,6 @@ map      <M-k>            {
 omap     <M-j>            V}
 omap     <M-k>            V{
 map      <C-Space>        zt
-map      <leader>¨        <C-]>
-map      <C-¨>            <C-]>
-map      <C-w><C-]>       <C-w>v<Plug>(coc-definition)
-map      <C-w>¨           <C-w><C-]>
 nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
 map      ¨                ]
@@ -419,7 +415,6 @@ vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
 
 " -- Lines and cursor --
 set number relativenumber
-set signcolumn=number
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set textwidth=0                   " Disable auto line breaking
@@ -592,8 +587,9 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsMapSpace           = 0
-autocmd FileType markdown let b:AutoPairs = g:AutoPairs | let b:AutoPairs["*"] = "*"
-autocmd FileType tex      let b:AutoPairs = g:AutoPairs | let b:AutoPairs["$"] = "$"
+
+autocmd FileType markdown let b:AutoPairs = {'*': '*'}
+autocmd FileType tex      let b:AutoPairs = {'$': '$'}
 " TODO: Perhaps use snippets instead to allow `$$` and `**`
 
 " -- For editing multiple files with `*` --
@@ -617,8 +613,10 @@ cnoreabbrev Gdiff Gvdiff
 let g:sleuth_automatic = 1
 
 " -- Coc.nvim --
-nmap <silent> <C-]> <Plug>(coc-definition)
-nmap <silent> gd    <Plug>(coc-definition)
+nmap <silent> <C-]>   <Plug>(coc-definition)
+nmap <silent> gd      <Plug>(coc-definition)
+map  <silent> <C-w>gd <C-w>v<Plug>(coc-definition)
+
 nmap <silent> <leader>rn <Plug>(coc-rename)
 " Use `<CR>` to confirm completion
 imap <C-j> <NL>
@@ -1145,9 +1143,7 @@ if has('nvim')
 endif
 
 " -- LanguageTool --
-let g:languagetool_server_command = '/usr/bin/languagetool'
-let g:languagetool_debug = 1
-
+let g:languagetool_server_command = '/usr/bin/languagetool --http'
 
 " -- git-messenger --
 map <leader>B <Plug>(git-messenger)
