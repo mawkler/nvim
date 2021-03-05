@@ -1034,10 +1034,12 @@ call BarbarHi('BufferTabpageFill', fg_sign)
 call BarbarHi('BufferVisible', fg_visible)
 call BarbarHi('BufferVisibleSign', fg_sign)
 call BarbarHi('BufferVisibleMod', fg_modified)
+call BarbarHi('BufferVisibleIndex', fg_sign)
 call BarbarHi('BufferInactive', '#707070')
 call BarbarHi('BufferInactiveSign', fg_sign)
 call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 call BarbarHi('BufferInactiveIndex', fg_sign)
+call BarbarHi('BufferModifiedIndex', fg_sign)
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
