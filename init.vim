@@ -1037,6 +1037,7 @@ call BarbarHi('BufferVisibleMod', fg_modified)
 call BarbarHi('BufferInactive', '#707070')
 call BarbarHi('BufferInactiveSign', fg_sign)
 call BarbarHi('BufferInactiveTarget', 'red', 'bold')
+call BarbarHi('BufferInactiveIndex', fg_sign)
 
 map <leader><C-w>   :BufferDelete<CR>
 map <leader><C-M-w> :BufferDelete!<CR>
