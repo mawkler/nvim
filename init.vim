@@ -254,10 +254,10 @@ map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
-nmap     cg*              *Ncgn
-nmap     dg*              *Ndgn
-vmap     gcn              //Ncgn
-vmap     gdn              //Ndgn
+nnoremap cg*              *Ncgn
+nnoremap dg*              *Ndgn
+vnoremap gcn              //Ncgn
+vnoremap gdn              //Ndgn
 xnoremap g.               .
 
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
