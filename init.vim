@@ -1016,16 +1016,19 @@ let g:barbar_bg  = '#21242b'
 let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
 let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
 let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
+let fg_tabpages = GetHiVal('Directory', 'fg')  " #61AFEF
 
 call BarbarHi('BufferTabpageFill', fg_sign)
+call BarbarHi('BufferTabpages', fg_tabpages, 'bold')
 call BarbarHi('BufferVisible', fg_visible)
 call BarbarHi('BufferVisibleSign', fg_sign)
 call BarbarHi('BufferVisibleMod', fg_modified)
 call BarbarHi('BufferVisibleIndex', fg_sign)
 call BarbarHi('BufferInactive', '#707070')
 call BarbarHi('BufferInactiveSign', fg_sign)
-call BarbarHi('BufferInactiveTarget', 'red', 'bold')
+call BarbarHi('BufferInactiveMod', fg_modified)
 call BarbarHi('BufferInactiveIndex', fg_sign)
+call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 call BarbarHi('BufferModifiedIndex', fg_sign)
 
 map <leader><C-w>   :BufferDelete<CR>
