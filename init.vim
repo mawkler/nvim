@@ -98,18 +98,14 @@ call plug#end()
 
 " -- General --
 syntax on
-set vb t_vb=      " Disable error bells
-set ttyfast       " Speed up drawing
 set shortmess+=A  " Ignores swapfiles when opening file
 set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
 set shortmess+=s  " Disable 'Search hit BOTTOM, continuing at TOP' messages
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
-set showcmd       " Write out commands typed in status line
 set hidden
 set lazyredraw
-set swapfile
 set undofile
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix " Use Unix eol format
@@ -117,7 +113,6 @@ set spelllang=en,sv " Use both Engligh and Swedish spell check
 set splitright      " Open vertical window splits to the right instead of left
 set nojoinspaces    " Only add one space after a `.`/`?`/`!` when joining lines
 
-set autoread        " Automatically read in the file when changed externally
 augroup filechanged
   autocmd!
   autocmd FocusGained * silent! checktime " Check if any file has changed when Vim is focused
@@ -125,17 +120,14 @@ augroup end
 
 " -- Menu autocompletion --
 set completeopt=longest,preview
-set wildmenu                    " List and cycle through autocomplete suggestions on Tab
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
-set path+=**                    " Let's `find` search recursively into subfolders
+set path+=**                    " Lets `find` search recursively into subfolders
 set cedit=<C-k>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
 
 " -- Searching --
 set ignorecase " Case insensitive searching
 set smartcase  " Except for when searching in CAPS
-set incsearch  " Search while typing
-set hlsearch   " Highligt all search matches
 
 " -- Custom filetypes --
 augroup custom_filetypes
@@ -417,8 +409,6 @@ vnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
 set number relativenumber
 set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
-set textwidth=0                   " Disable auto line breaking
-set nrformats+=hex,bin            " Allow Ctrl-A/X for hex and binary
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set mouse=a                       " Enable mouse
@@ -427,14 +417,11 @@ set concealcursor=nic             " Conceal characters on the cursor line
 set breakindent                   " Respect indent when line wrapping
 
 " -- Tab characters --
-filetype plugin indent on
 set expandtab                              " Use spaces for indentation
 set shiftwidth=2                           " Width of indentation
 set tabstop=4                              " Width of <Tab> characters
 set list listchars=tab:▏\ ,nbsp:·          " Show line for tab indentation, and a dot for non-breaking spaces
-set autoindent                             " Follow previous line's indenting
 set shiftround                             " Round indent to multiple of shiftwdith
-set backspace=indent,eol,start             " Better backspace behaviour
 set cinkeys-=0#                            " Indent lines starting with `#`
 
 " Disable toolbar, scrollbar and menubar
