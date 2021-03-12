@@ -38,9 +38,10 @@ if !$NVIM_MINIMAL
   Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
   Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
   Plug 'RRethy/vim-hexokinase', { 'do': 'make' } " Displays the colours (rgb, etc.) in files
+  Plug 'mhinz/vim-startify'                  " Nicer start screen
 endif
 if has('nvim')
-  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
@@ -79,7 +80,6 @@ Plug 'kana/vim-textobj-entire'
 Plug 'AndrewRadev/dsf.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'           " Adds arguments, etc. as text objects
-Plug 'Yggdroot/indentLine'
 Plug 'romainl/vim-cool'             " Highlights all search matches until moving cursor
 Plug 'plasticboy/vim-markdown'      " Adds extra features to markdown
 Plug 'coachshea/vim-textobj-markdown'
@@ -91,7 +91,6 @@ Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
-Plug 'mhinz/vim-startify'           " Nicer start screen
 Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 
 call plug#end()
@@ -503,7 +502,7 @@ augroup END
 
 augroup language_specific
   autocmd!
-  " Don't conceal current line in some file formatr (LaTeX files' configs don't seem to be overwritten though)
+  " Don't conceal current line in some file formats (LaTeX files' configs don't seem to be overwritten though)
   autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
   " For adding a horizontal line below and entering insert mode below it
   autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
@@ -538,6 +537,7 @@ let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
 let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown', 'startify']
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
+let g:indent_blankline_show_first_indent_level = v:false
 
 " For toggling caps lock in insert mode
 imap <S-Esc> <Plug>CapsLockToggle
@@ -1010,7 +1010,9 @@ function BarbarHi(name, guifg, ...)
   exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' g:barbar_bg gui
 endfunc
 
-let g:bufferline = get(g:, 'bufferline', { 'closable': v:false })
+let g:bufferline = get(g:, 'bufferline', {
+      \ 'closable': v:false, 'no_name_title': '[No Name]'
+      \ })
 let g:barbar_bg  = '#21242b'
 
 let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
@@ -1183,3 +1185,4 @@ hi! link SpecialKey Directory
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
 
 endif
+
