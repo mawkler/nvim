@@ -993,8 +993,9 @@ nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- vim-smoothie --
-let g:smoothie_base_speed = 18
-let g:smoothie_experimental_mappings = 1 " Enables gg and G
+let g:smoothie_update_interval = 10
+let g:smoothie_speed_constant_factor = 40
+let g:smoothie_speed_linear_factor = 40
 
 " -- barbar.nvim --
 " Gets the highlight value of highlight group `name`
