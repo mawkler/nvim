@@ -249,7 +249,6 @@ nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
 vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
-map      <leader>gd       <C-w>v<C-w>lgdzt<C-w><C-p>
 map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
@@ -276,6 +275,21 @@ nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal
 nmap <silent> <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
 nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
 map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
+
+nmap <silent> ]l :lbelow<CR>
+nmap <silent> [l :labove<CR>
+nmap <silent> ]q :cbelow<CR>
+nmap <silent> [q :cabove<CR>
+
+" -- Git commands --
+map <silent> <leader>gm <Plug>(git-messenger)
+map <silent> <leader>gb :Git blame<CR>
+map <silent> <leader>gd :Gvdiffsplit
+      \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
+map <silent> <leader>gs :Gstatus<CR>
+map <silent> <leader>gp :Git pull<CR>
+map          <leader>gP :Git push
+map          <leader>gc :Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -333,7 +347,7 @@ function Enter()
       call s:print_error(v:exception)
     endtry
   else
-    exe "normal o"
+    exe "normal o\<C-u>"
   endif
 endf
 nmap <silent> <C-j> :call Enter()<CR>
@@ -592,9 +606,6 @@ augroup targets
         \ 'b': {'pair': [{'o':'(', 'c':')'}]}
         \ })
 augroup end
-
-" -- Vim Fugitive --
-cnoreabbrev Gdiff Gvdiff
 
 " -- Vim Sleuth --
 let g:sleuth_automatic = 1
@@ -1140,9 +1151,10 @@ endif
 
 " -- LanguageTool --
 let g:languagetool_server_command = '/usr/bin/languagetool --http'
+nmap <silent> <leader>Gc :LanguageToolCheck<CR>
 
-" -- git-messenger --
-map <leader>B <Plug>(git-messenger)
+" -- Peekaboo --
+let g:peekaboo_delay = 300
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
 
