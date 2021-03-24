@@ -47,7 +47,6 @@ if has('nvim')
   Plug 'Xuyuanp/scrollbar.nvim'
   Plug 'kyazdani42/nvim-web-devicons' " Required by barbar.nvim
   Plug 'romgrk/barbar.nvim'           " Sexiest buffer tabline
-  Plug 'vigoux/LanguageTool.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 Plug 'tpope/vim-surround'
@@ -92,6 +91,7 @@ Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in 
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
+Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 
 call plug#end()
 
@@ -1149,9 +1149,32 @@ if has('nvim')
         \ }
 endif
 
-" -- LanguageTool --
-let g:languagetool_server_command = '/usr/bin/languagetool --http'
-nmap <silent> <leader>Gc :LanguageToolCheck<CR>
+" -- Grammarous --
+let g:grammarous#languagetool_cmd = 'languagetool'
+let g:grammarous#hooks = {}
+
+function! g:grammarous#hooks.on_check(errs) abort
+  nmap <buffer> ]s <Plug>(grammarous-move-to-next-error)
+  nmap <buffer> [s <Plug>(grammarous-move-to-previous-error)
+endfunc
+
+function! g:grammarous#hooks.on_reset(errs) abort
+  nunmap <buffer> ]s
+  nunmap <buffer> [s
+endfunc
+
+nmap <silent> <leader>gc :GrammarousCheck<CR>
+nmap <leader>gg <Plug>(grammarous-move-to-info-window)
+nmap <leader>gd <Plug>(grammarous-open-info-window)<Plug>(grammarous-move-to-info-window)
+nmap <leader>gQ <Plug>(grammarous-reset)
+nmap <leader>gf <Plug>(grammarous-fixit)
+nmap <leader>gF <Plug>(grammarous-fixall)
+nmap <leader>gq <Plug>(grammarous-close-info-window)
+nmap <leader>gr <Plug>(grammarous-remove-error)
+nmap <leader>gD <Plug>(grammarous-disable-rule)
+
+exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
+exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('Error', 'fg')
 
 " -- Peekaboo --
 let g:peekaboo_delay = 300
