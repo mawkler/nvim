@@ -122,7 +122,7 @@ set completeopt=longest,preview
 set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
 set wildignorecase              " Case insensitive file- and directory name completion
 set path+=**                    " Lets `find` search recursively into subfolders
-set cedit=<C-k>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
+set cedit=<C-;>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
 
 " -- Searching --
 set ignorecase " Case insensitive searching
@@ -162,7 +162,6 @@ map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
-imap     <C-k>            <c-o>O
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
@@ -181,7 +180,6 @@ map!     <M-BS>           <C-w>
 nmap     <M-S-BS>         dw
 imap     <M-S-BS>         <C-o>dw
 map      <M-d>            dw
-imap     <C-j>            <CR>
 map!     <M-p>            <C-r>"
 smap     <M-p>            <C-g>p
 map      <M-a>            v<C-a>
@@ -195,8 +193,6 @@ map!     <M-h>            <Left>
 map!     <M-l>            <Right>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
-cmap     <C-p>            <Up>
-cmap     <C-n>            <Down>
 imap     <M-o>            <C-o>o
 imap     <M-O>            <C-o>O
 "----------------------------------------------
@@ -274,7 +270,6 @@ nmap <silent> <C-W>N    :tabe<CR>
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
 nmap <silent> <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
 nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
-map  <silent> <expr> <CR> &modifiable && !bufexists('[Command Line]') ? "<Plug>NERDCommenterToggle" : ":call Enter()<CR>"
 
 nmap <silent> ]l :lbelow<CR>
 nmap <silent> [l :labove<CR>
@@ -331,27 +326,6 @@ augroup dir_changed
         \ endif
 augroup end
 
-function Enter()
-  if bufname() == 'Table of contents (vimtex)'
-    call b:toc.activate_current(1)
-  elseif bufname() == 'undotree_2'
-    exe "normal \<Plug>UndotreeEnter"
-  elseif bufname() == '[coc-explorer]-1'
-    exe "normal \<Plug>(coc-explorer-action-n-[cr])"
-  elseif &filetype == 'startify'
-    call startify#open_buffers()
-  elseif !&modifiable || bufexists('[Command Line]')
-    try
-      exe "normal! \<CR>"
-    catch
-      call s:print_error(v:exception)
-    endtry
-  else
-    exe "normal o\<C-u>"
-  endif
-endf
-nmap <silent> <C-j> :call Enter()<CR>
-
 augroup vertical_help
   " Open :help in vertical split instead of horizontal
   autocmd!
@@ -399,12 +373,13 @@ noremap <silent> <C-0> :call ZoomSet(12)<CR>
 
 if has('nvim')
   " Because NeoVim's menu completions are in a vertical pum
-  cmap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<Up>"
-  cmap <expr> <C-n> pumvisible() ? "\<C-n>" : "\<Down>"
-  cmap <expr> <C-j> pumvisible() ? "\<Down>" : "\<CR>"
-  cmap <expr> <C-f> pumvisible() ? "\<C-e>" : "\<Right>"
-  cmap <M-k> <Up><C-p>
-  set cpoptions-=_ " Makes cw/cW include the white space after the word
+  cnoremap <expr> <C-k> pumvisible() ? "\<C-p>"       : "\<C-k>"
+  cnoremap <expr> <C-j> pumvisible() ? "\<C-n>"       : "\<Down>"
+  cnoremap <expr> <Tab> pumvisible() ? "\<Down>"      : "\<Tab>"
+  cnoremap <expr> <C-f> pumvisible() ? "\<C-e>"       : "\<Right>"
+  cnoremap <expr> <C-p> pumvisible() ? "\<Up><C-p>"   : "\<Up>"
+  cnoremap <expr> <C-n> pumvisible() ? "\<C-e><Down>" : "\<Down>"
+  set cpoptions-=_ " Makes cw/cW include the whitespace after the word
   set shada=!,'1000,<50,s10,h
 endif
 
@@ -572,6 +547,7 @@ let g:NERDCustomDelimiters = {
 \ 'javascript': { 'left': '//', 'leftAlt': '<!-- ', 'rightAlt': '-->'}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
+map <CR>      <Plug>NERDCommenterToggle
 
 " -- Signify --
 set updatetime=100
@@ -616,9 +592,24 @@ nmap <silent> gd      <Plug>(coc-definition)
 map  <silent> <C-w>gd <C-w>v<Plug>(coc-definition)
 
 nmap <silent> <leader>rn <Plug>(coc-rename)
-" Use `<CR>` to confirm completion
-imap <C-j> <NL>
-imap <expr> <NL> pumvisible() ? "\<C-y>" : "\<CR>"
+
+" Use `<Tab>` to confirm completion, expand snippet, jump to next snippet
+" position, and trigger completion
+inoremap <silent> <expr> <Tab>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ?
+      \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <C-k>/<C-j> to move up/down in PUM selection
+imap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
+imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -1221,4 +1212,3 @@ hi! link SpecialKey Directory
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
 
 endif
-
