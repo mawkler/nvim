@@ -845,6 +845,10 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
+let g:vimtex_syntax_conceal_cites = {
+      \ 'type': 'icon',
+      \ 'icon': '龎',
+      \}
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
