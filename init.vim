@@ -768,7 +768,6 @@ map          <leader>a :Ag<Space>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS='
-      \ --bind ctrl-j:accept,alt-k:up,alt-j:down
       \ --multi
       \ --prompt ">>> "
       \ --pointer="▶"
