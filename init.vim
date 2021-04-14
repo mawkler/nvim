@@ -118,11 +118,11 @@ augroup filechanged
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=longest,preview
-set wildcharm=<Tab>             " Allows remapping of <Down> in wildmenu
-set wildignorecase              " Case insensitive file- and directory name completion
-set path+=**                    " Lets `find` search recursively into subfolders
-set cedit=<C-;>                 " Enter Command-line Mode from command-mode (typcailly menu or search)
+set completeopt=menu,preview,noinsert
+set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
+set wildignorecase  " Case insensitive file- and directory name completion
+set path+=**        " Lets `find` search recursively into subfolders
+set cedit=<C-y>     " Enter Command-line Mode from command-mode
 
 " -- Searching --
 set ignorecase " Case insensitive searching
@@ -162,6 +162,7 @@ map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
 nmap     <M-->            <C-W>-
+nmap     <C-j>            o<Esc>
 nmap     g<C-j>           i<CR><Esc>
 nmap     <C-k>            O<Esc>
 nmap     g<C-k>           DO<Esc>P_
@@ -226,11 +227,11 @@ map      ÄÖ               @:
 nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
-map      <leader>V        :edit ~/.vimrc<CR>
-map      <leader>N        :edit ~/.config/nvim/init.vim<CR>
-map      <leader>G        :edit ~/.config/nvim/ginit.vim<CR>
-map      <leader>Z        :edit ~/.zshrc<CR>
-map      <leader>I        :edit ~/.dotfiles/install-dotfiles.sh<CR>
+map      <leader>V        :drop ~/.vimrc<CR>
+map      <leader>N        :drop ~/.config/nvim/init.vim<CR>
+map      <leader>G        :drop ~/.config/nvim/ginit.vim<CR>
+map      <leader>Z        :drop ~/.zshrc<CR>
+map      <leader>I        :drop ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -375,7 +376,7 @@ if has('nvim')
   " Because NeoVim's menu completions are in a vertical pum
   cnoremap <expr> <C-k> pumvisible() ? "\<C-p>"       : "\<C-k>"
   cnoremap <expr> <C-j> pumvisible() ? "\<C-n>"       : "\<Down>"
-  cnoremap <expr> <Tab> pumvisible() ? "\<Down>"      : "\<Tab>"
+  cnoremap <expr> <Tab> pumvisible() ? "\<C-y>"       : "\<Tab>"
   cnoremap <expr> <C-f> pumvisible() ? "\<C-e>"       : "\<Right>"
   cnoremap <expr> <C-p> pumvisible() ? "\<Up><C-p>"   : "\<Up>"
   cnoremap <expr> <C-n> pumvisible() ? "\<C-e><Down>" : "\<Down>"
@@ -547,7 +548,9 @@ let g:NERDCustomDelimiters = {
 \ 'javascript': { 'left': '//', 'leftAlt': '<!-- ', 'rightAlt': '-->'}
 \ }
 map <leader>C <plug>NERDCommenterToEOL
-map <CR>      <Plug>NERDCommenterToggle
+map <silent> <expr> <CR>
+      \ &modifiable && !bufexists('[Command Line]') ?
+      \ "<Plug>NERDCommenterToggle" : "<CR>"
 
 " -- Signify --
 set updatetime=100
@@ -1039,8 +1042,8 @@ call BarbarHi('BufferInactiveIndex', fg_sign)
 call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 call BarbarHi('BufferModifiedIndex', fg_sign)
 
-map <leader><C-w>   :BufferDelete<CR>
-map <leader><C-M-w> :BufferDelete!<CR>
+map <M-w>         :BufferDelete<CR>
+map <leader><M-w> :BufferDelete!<CR>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>
