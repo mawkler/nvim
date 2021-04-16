@@ -228,10 +228,9 @@ nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
 map      <leader>V        :drop ~/.vimrc<CR>
-map      <leader>N        :drop ~/.config/nvim/init.vim<CR>
-map      <leader>G        :drop ~/.config/nvim/ginit.vim<CR>
+map      <leader>Ii       :drop ~/.config/nvim/init.vim<CR>
+map      <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
 map      <leader>Z        :drop ~/.zshrc<CR>
-map      <leader>I        :drop ~/.dotfiles/install-dotfiles.sh<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
@@ -278,14 +277,14 @@ nmap <silent> ]q :cbelow<CR>
 nmap <silent> [q :cabove<CR>
 
 " -- Git commands --
-map <silent> <leader>gm <Plug>(git-messenger)
-map <silent> <leader>gb :Git blame<CR>
-map <silent> <leader>gd :Gvdiffsplit
+map <silent> <leader>Gm <Plug>(git-messenger)
+map <silent> <leader>Gb :Git blame<CR>
+map <silent> <leader>Gd :Gvdiffsplit
       \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
-map <silent> <leader>gs :Gstatus<CR>
-map <silent> <leader>gp :Git pull<CR>
-map          <leader>gP :Git push
-map          <leader>gc :Git commit -va
+map <silent> <leader>Gs :Gstatus<CR>
+map <silent> <leader>Gp :Git pull<CR>
+map          <leader>GP :Git push
+map          <leader>Gc :Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -884,6 +883,12 @@ augroup END
 let g:toggle_list_no_mappings=1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
+augroup quickfix
+  autocmd!
+  " autocmd FileType qf nunmap <buffer> <space>
+  autocmd FileType qf nmap <buffer> <Space> <CR><C-w>p
+augroup END
+" nmap <buffer> <Space> <CR><C-w>p
 
 " -- lens.vim --
 let g:lens#disabled_filetypes = ['coc-explorer', 'fzf', 'fugitiveblame']
