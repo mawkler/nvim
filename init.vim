@@ -280,9 +280,6 @@ nmap <silent> [l :labove<CR>
 nmap <silent> ]q :cbelow<CR>
 nmap <silent> [q :cabove<CR>
 
-" Expands the system variable to the left of the cursor
-cnoremap <S-Tab> <C-y>dvF$"=<C-r>"<CR>pdd:q<CR>:<C-r>"
-
 " -- Git commands --
 map <silent> <leader>Gm <Plug>(git-messenger)
 map <silent> <leader>Gb :Git blame<CR>
