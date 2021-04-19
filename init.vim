@@ -234,10 +234,14 @@ map      <leader>Z        :drop ~/.zshrc<CR>
 map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
-xnoremap //               y/<C-R>"<CR>
+xnoremap //               omsy/<C-R>"<CR>`s
 noremap  /                ms/
-noremap  *                ms*``
-noremap  g*               msg*``
+noremap  *                ms*
+noremap  g*               msg*`s
+noremap  <leader>*        ms*`s
+noremap  <leader>g*       msg*`s
+noremap  #                ms#
+noremap  g#               msg#`s
 map      `/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
@@ -275,6 +279,9 @@ nmap <silent> ]l :lbelow<CR>
 nmap <silent> [l :labove<CR>
 nmap <silent> ]q :cbelow<CR>
 nmap <silent> [q :cabove<CR>
+
+" Expands the system variable to the left of the cursor
+cnoremap <S-Tab> <C-y>dvF$"=<C-r>"<CR>pdd:q<CR>:<C-r>"
 
 " -- Git commands --
 map <silent> <leader>Gm <Plug>(git-messenger)
@@ -606,12 +613,20 @@ inoremap <silent> <expr> <Tab>
 
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1] =~# '\s'
 endfunction
+
+augroup coc_nvim_custom
+  autocmd!
+  " Disable coc.nvim in command-line-window
+  autocmd CmdwinEnter * let b:coc_suggest_disable = 1
+  autocmd CmdwinEnter * inoremap <expr> <buffer> <Tab> pumvisible() ?
+        \ "\<C-y>" : "\<C-x><C-v>"
+augroup END
 
 " Use <C-k>/<C-j> to move up/down in PUM selection
 imap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
-imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : ""
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
