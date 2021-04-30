@@ -24,9 +24,8 @@ if !$NVIM_MINIMAL
   Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
   Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
   Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-  Plug 'psliwka/vim-smoothie'                " Smooth scrolling animations
+  Plug 'karb94/neoscroll.nvim'               " Smooth scrolling animations
   Plug 'meain/vim-printer'
-  Plug 'lervag/vimtex'
   Plug 'rhysd/git-messenger.vim'
   Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
   Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
@@ -39,6 +38,7 @@ if !$NVIM_MINIMAL
   Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
   Plug 'RRethy/vim-hexokinase', { 'do': 'make' } " Displays the colours (rgb, etc.) in files
   Plug 'mhinz/vim-startify'                  " Nicer start screen
+  Plug 'DanilaMihailov/beacon.nvim'
 endif
 if has('nvim')
   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
@@ -58,7 +58,7 @@ Plug 'joshdick/onedark.vim'         " Atom dark theme for vim
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
-Plug 'jiangmiao/auto-pairs'         " Add matching brackets, quotes, etc
+Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'rbonvall/snipmate-snippets-bib'
@@ -76,6 +76,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
+Plug 'lervag/vimtex'
 Plug 'AndrewRadev/dsf.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'           " Adds arguments, etc. as text objects
@@ -283,7 +284,7 @@ nmap <silent> [q :cabove<CR>
 " -- Git commands --
 map <silent> <leader>Gm <Plug>(git-messenger)
 map <silent> <leader>Gb :Git blame<CR>
-map <silent> <leader>Gd :Gvdiffsplit
+map <silent> <leader>Gd :tab Gvdiffsplit
       \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
 map <silent> <leader>Gs :Gstatus<CR>
 map <silent> <leader>Gp :Git pull<CR>
@@ -291,8 +292,8 @@ map          <leader>GP :Git push
 map          <leader>Gc :Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
-nnoremap <expr> ; getcharsearch().forward ? ';' : ','
-nnoremap <expr> , getcharsearch().forward ? ',' : ';'
+noremap <expr> ; getcharsearch().forward ? ';' : ','
+noremap <expr> , getcharsearch().forward ? ',' : ';'
 
 " Does `cd path` and prints the command using notifications.vim
 function! CD(path)
@@ -562,18 +563,6 @@ let g:signify_sign_add               = '┃'
 let g:signify_sign_delete            = '▁'
 let g:signify_sign_delete_first_line = '▔'
 let g:signify_sign_change            = '┃'
-
-" -- AutoPairs --
-let g:AutoPairsShortcutToggle     = '' " Disables some mappings
-let g:AutoPairsShortcutBackInsert = ''
-let g:AutoPairsShortcutFastWrap   = ''
-let g:AutoPairsShortcutJump       = ''
-let g:AutoPairsMoveCharacter      = ''
-let g:AutoPairsMapSpace           = 0
-
-autocmd FileType markdown let b:AutoPairs = {'*': '*'}
-autocmd FileType tex      let b:AutoPairs = {'$': '$'}
-" TODO: Perhaps use snippets instead to allow `$$` and `**`
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
@@ -1017,11 +1006,6 @@ nnoremap <silent> <Right> :CmdResizeRight<CR>
 nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
-" -- vim-smoothie --
-let g:smoothie_update_interval = 10
-let g:smoothie_speed_constant_factor = 40
-let g:smoothie_speed_linear_factor = 40
-
 " -- barbar.nvim --
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
@@ -1098,69 +1082,90 @@ nnoremap <silent> <Leader>9 :BufferLast<CR>
 " -- Neovim specific
 if has('nvim')
 
-  " -- scrollbar --
-  let g:scrollbar_right_offset = 0
-  let g:scrollbar_highlight = {
-        \ 'head': 'NonText',
-        \ 'body': 'NonText',
-        \ 'tail': 'NonText',
-        \ }
-  let g:scrollbar_shape = {
-        \ 'head': '▖',
-        \ 'body': '▌',
-        \ 'tail': '▘',
-        \ }
+" -- scrollbar --
+let g:scrollbar_right_offset = 0
+let g:scrollbar_highlight = {
+      \ 'head': 'NonText',
+      \ 'body': 'NonText',
+      \ 'tail': 'NonText',
+      \ }
+let g:scrollbar_shape = {
+      \ 'head': '▖',
+      \ 'body': '▌',
+      \ 'tail': '▘',
+      \ }
 
-  augroup configure_scrollbar
-    autocmd!
-    autocmd BufEnter                                         * call OnBufEnter()
-    autocmd CursorMoved                                      * call ScrollbarShow()
-    autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
-  augroup end
+augroup configure_scrollbar
+  autocmd!
+  autocmd BufEnter                                         * call OnBufEnter()
+  autocmd CursorMoved                                      * call ScrollbarShow()
+  autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
+augroup end
 
-  function! ScrollbarShow()
-    if !exists('b:previous_first_visible_linenum') | return | endif
-    let first_visible_linenum = line('w0')
-    if first_visible_linenum != b:previous_first_visible_linenum
-      silent! lua require('scrollbar').show()
-    end
-    let b:previous_first_visible_linenum = first_visible_linenum
-  endf
+function! ScrollbarShow()
+  if !exists('b:previous_first_visible_linenum') | return | endif
+  let first_visible_linenum = line('w0')
+  if first_visible_linenum != b:previous_first_visible_linenum
+    silent! lua require('scrollbar').show()
+  end
+  let b:previous_first_visible_linenum = first_visible_linenum
+endf
 
-  function! OnBufEnter()
-    if !exists('b:previous_first_visible_linenum')
-      let b:previous_first_visible_linenum = line('w0')
-    endif
-  endf
+function! OnBufEnter()
+  if !exists('b:previous_first_visible_linenum')
+    let b:previous_first_visible_linenum = line('w0')
+  endif
+endf
 
-  function! ScrollbarClear() abort
-    silent! lua require('scrollbar').clear()
-  endf
+function! ScrollbarClear() abort
+  silent! lua require('scrollbar').clear()
+endf
 
-  " -- Nvim-web-devicons --
-  lua require('nvim-web-devicons').setup {
-        \   override = {
-        \     md = {
-        \       icon = '',
-        \       color = '#519aba',
-        \       name = "Markdown"
-        \     },
-        \     tex = {
-        \       icon = '',
-        \       color = '#3D6117',
-        \       name = 'Tex'
-        \     }
-        \   };
-        \   default = true;
-        \ }
+" -- Lua stuff --
 
-  " -- Treesitter --
-  lua require('nvim-treesitter.configs').setup {
-        \ ensure_installed = "maintained",
-        \   highlight = {
-        \     enable = true,
-        \   },
-        \ }
+lua << EOF
+
+-- Nvim-web-devicons --
+require('nvim-web-devicons').setup {
+      \   override = {
+      \     md = {
+      \       icon = '',
+      \       color = '#519aba',
+      \       name = "Markdown"
+      \     },
+      \     tex = {
+      \       icon = '',
+      \       color = '#3D6117',
+      \       name = 'Tex'
+      \     }
+      \   },
+      \   default = true
+      \ }
+
+-- Treesitter --
+require('nvim-treesitter.configs').setup {
+      \   ensure_installed = "maintained",
+      \   highlight = {
+      \     enable = true,
+      \   },
+      \ }
+
+
+-- Neoscroll --
+require('neoscroll').setup()
+
+-- Autopairs --
+local rule = require('nvim-autopairs.rule')
+local n_pairs = require('nvim-autopairs')
+
+n_pairs.setup()
+
+n_pairs.add_rules({
+  rule("$","$","tex"),
+  rule("*","*","markdown"),
+})
+EOF
+
 endif
 
 " -- Grammarous --
