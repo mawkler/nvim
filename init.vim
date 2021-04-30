@@ -24,7 +24,6 @@ if !$NVIM_MINIMAL
   Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
   Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
   Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-  Plug 'karb94/neoscroll.nvim'               " Smooth scrolling animations
   Plug 'meain/vim-printer'
   Plug 'rhysd/git-messenger.vim'
   Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
@@ -93,6 +92,7 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
+Plug 'karb94/neoscroll.nvim'        " Smooth scrolling animations
 
 call plug#end()
 
@@ -1127,29 +1127,28 @@ lua << EOF
 
 -- Nvim-web-devicons --
 require('nvim-web-devicons').setup {
-      \   override = {
-      \     md = {
-      \       icon = '',
-      \       color = '#519aba',
-      \       name = "Markdown"
-      \     },
-      \     tex = {
-      \       icon = '',
-      \       color = '#3D6117',
-      \       name = 'Tex'
-      \     }
-      \   },
-      \   default = true
-      \ }
+  override = {
+    md = {
+      icon = '',
+      color = '#519aba',
+      name = "Markdown"
+    },
+    tex = {
+      icon = '',
+      color = '#3D6117',
+      name = 'Tex'
+    }
+  },
+  default = true
+}
 
 -- Treesitter --
 require('nvim-treesitter.configs').setup {
-      \   ensure_installed = "maintained",
-      \   highlight = {
-      \     enable = true,
-      \   },
-      \ }
-
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
 
 -- Neoscroll --
 require('neoscroll').setup()
