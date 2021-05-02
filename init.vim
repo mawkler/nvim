@@ -7,7 +7,6 @@ if !$NVIM_MINIMAL
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-abolish'
-  Plug 'enricobacis/vim-airline-clock'
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
@@ -51,7 +50,6 @@ endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'bling/vim-airline'
 Plug 'powerline/fonts'
 Plug 'joshdick/onedark.vim'         " Atom dark theme for vim
 Plug 'scrooloose/nerdcommenter'
@@ -93,6 +91,7 @@ Plug 'xolox/vim-session'            " Extened session management
 Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'karb94/neoscroll.nvim'        " Smooth scrolling animations
+Plug 'glepnir/galaxyline.nvim'
 
 call plug#end()
 
@@ -1125,6 +1124,9 @@ endf
 
 lua << EOF
 
+-- Statusline --
+require('statusline')
+
 -- Nvim-web-devicons --
 require('nvim-web-devicons').setup {
   override = {
@@ -1198,34 +1200,6 @@ exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('Error', 'fg')
 let g:peekaboo_delay = 300
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
-
-" -- Airline --
-set laststatus=2 " Always display status line
-let g:airline_powerline_fonts = 1
-let g:airline_theme           = 'onedark'
-let g:Powerline_symbols       = 'unicode'
-let g:airline_section_x       = '%{&filetype}' " Don't shorten file type on small window
-
-let g:airline#extensions#clock#updatetime = 200 " Has to be greater than updatetime for scrollbar.nvim to work
-
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tex'] = ''
-
-" -- vim-devicons --
-let g:webdevicons_enable                      = 1
-let g:webdevicons_enable_ctrlp                = 1
-let g:webdevicons_enable_nerdtree             = 1
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes   = 0 " Disabled because of bug with spacing after icon
-let g:DevIconsEnableNERDTreeRedraw            = 1
-let g:WebDevIconsNerdTreeBeforeGlyphPadding   = ''
-if has("gui_running")
-  let g:WebDevIconsNerdTreeAfterGlyphPadding  = ''
-endif
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh() " Fixes bug with `[]` appearing around icons after `source ~/.vimrc`
-endif
 
 " -- Vim-javascript --
 hi clear jsStorageClass " Change color of 'var'
