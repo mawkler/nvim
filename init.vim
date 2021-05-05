@@ -285,10 +285,10 @@ map <silent> <leader>Gm <Plug>(git-messenger)
 map <silent> <leader>Gb :Git blame<CR>
 map <silent> <leader>Gd :tab Gvdiffsplit
       \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
-map <silent> <leader>Gs :Gstatus<CR>
+map <silent> <leader>Gs :vertical Git<CR>
 map <silent> <leader>Gp :Git pull<CR>
 map          <leader>GP :Git push
-map          <leader>Gc :Git commit -va
+map          <leader>Gc :vertical Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
 noremap <expr> ; getcharsearch().forward ? ';' : ','
