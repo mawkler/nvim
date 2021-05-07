@@ -344,7 +344,7 @@ function! SynStack()
   if exists("*synstack")
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
   endif
-endfunc
+endf
 map <leader>H :call SynStack()<CR>
 
 " Tries to perform a regular `gf`, if that doesn't work try to call
@@ -357,18 +357,18 @@ function MarkdownGf()
     execute "normal \<Plug>Markdown_EditUrlUnderCursor"
   endtry
   set path+=**
-endfunc
+endf
 noremap gf :call MarkdownGf()<CR>
 
 " Increases the font zise with `amount`
 function! Zoom(amount) abort
   call ZoomSet(matchlist(g:GuiFont, ':h\(\d\+\)')[1] + a:amount)
-endfunc
+endf
 
 " Sets the font size
 function ZoomSet(font_size) abort
   execute 'GuiFont! ' .  substitute(&guifont, ':h\d\+', ':h' . a:font_size, '')
-endfunc
+endf
 
 noremap <silent> <C-=> :call Zoom(v:count1)<CR>
 noremap <silent> <C-+> :call Zoom(v:count1)<CR>
@@ -518,7 +518,6 @@ augroup end
 
 " -- Themes --
 colorscheme onedark   " Atom color scheme
-" colorscheme doom-one
 let g:onedark_termcolors = 256
 set encoding=utf-8
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
@@ -599,7 +598,7 @@ inoremap <silent> <expr> <Tab>
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1] =~# '\s'
-endfunction
+endf
 
 augroup coc_nvim_custom
   autocmd!
@@ -660,7 +659,7 @@ function! s:show_documentation()
   else
     call CocAction('doHover')
   endif
-endfunction
+endf
 
 " coc-explorer
 noremap <silent> <Leader>§ :execute 'CocCommand explorer'<CR>
@@ -768,8 +767,8 @@ map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
 map          <leader>a :Ag<Space>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-let $FZF_DEFAULT_COMMAND='ag --hidden -g "" -p $HOME/.agignore-vim'
-let $FZF_DEFAULT_OPTS='
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -g "" -p $HOME/.agignore-vim'
+let $FZF_DEFAULT_OPTS = '
       \ --multi
       \ --prompt ">>> "
       \ --pointer="▶"
@@ -809,15 +808,8 @@ let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
 " -- LaTeX and Vimtex --
-augroup latex
-  autocmd!
-  autocmd FileType latex,tex setlocal iskeyword-=:                               " `:` counts as a separator
-  autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}" " Add vim-surround noun `c`
-  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
-  autocmd FileType latex,tex syntax spell toplevel " Fixes issue with spell check only in comments
-augroup END
-let g:tex_indent_items=0        " Disables indent before new `\item`
-let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by vimtex
+let g:tex_indent_items = 0      " Disables indent before new `\item`
+let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by VimTex
 let g:tex_comment_nospell = 1
 let g:vimtex_view_method = 'zathura' " Zathura automatically reloads documents
 let g:vimtex_view_general_viewer = 'zathura'
@@ -850,6 +842,27 @@ let g:vimtex_syntax_conceal_cites = {
       \ 'type': 'icon',
       \ 'icon': '龎',
       \}
+let g:vimtex_syntax_custom_cmds = [
+      \ {'name': 'texttt', 'conceal': v:true},
+      \]
+
+augroup latex
+  autocmd!
+  " `:` counts as a separator
+  autocmd FileType latex,tex setlocal iskeyword-=:
+  " Add vim-surround noun `c`
+  autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}"
+  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
+  " Fixes issue with spell check only in comments
+  autocmd FileType latex,tex syntax spell toplevel
+  autocmd ColorScheme * call s:TexHighlight()
+augroup END
+
+function! s:TexHighlight() abort
+  " Special highlight for \texttt{}
+  highlight link texCTextttArg String
+endf
+call s:TexHighlight()
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
@@ -880,7 +893,7 @@ augroup markdown_surround
 augroup END
 
 " -- togglelist.vim --
-let g:toggle_list_no_mappings=1
+let g:toggle_list_no_mappings = 1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 augroup quickfix
@@ -969,7 +982,7 @@ let g:skipview_files = ['COMMIT_EDITMSG']
 " Add devicsons in front of file names
 function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-endfunction
+endf
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
@@ -1010,14 +1023,14 @@ nnoremap <silent> <Down>  :CmdResizeDown<CR>
 " Set `layer` to either 'fg' or 'bg'
 function GetHiVal(name, layer)
   return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
-endfunc
+endf
 
 " Creates highlight group `name` with guifg `guifg`, and guibg g:barbar_bg
 " If a third argument is provided gui is set to that
 function BarbarHi(name, guifg, ...)
   let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
   exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' g:barbar_bg gui
-endfunc
+endf
 
 let g:bufferline = get(g:, 'bufferline', {
       \ 'closable': v:false, 'no_name_title': '[No Name]'
@@ -1149,6 +1162,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
+    disable = {"latex"},
   },
 }
 
@@ -1176,12 +1190,12 @@ let g:grammarous#hooks = {}
 function! g:grammarous#hooks.on_check(errs) abort
   nmap <buffer> ]s <Plug>(grammarous-move-to-next-error)
   nmap <buffer> [s <Plug>(grammarous-move-to-previous-error)
-endfunc
+endf
 
 function! g:grammarous#hooks.on_reset(errs) abort
   nunmap <buffer> ]s
   nunmap <buffer> [s
-endfunc
+endf
 
 nmap <silent> <leader>gc :GrammarousCheck<CR>
 nmap <leader>gg <Plug>(grammarous-move-to-info-window)
