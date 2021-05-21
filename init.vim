@@ -410,12 +410,12 @@ set concealcursor=nic             " Conceal characters on the cursor line
 set breakindent                   " Respect indent when line wrapping
 
 " -- Tab characters --
-set expandtab                              " Use spaces for indentation
-set shiftwidth=2                           " Width of indentation
-set tabstop=4                              " Width of <Tab> characters
-set list listchars=tab:▏\ ,nbsp:·          " Show line for tab indentation, and a dot for non-breaking spaces
-set shiftround                             " Round indent to multiple of shiftwdith
-set cinkeys-=0#                            " Indent lines starting with `#`
+set expandtab                     " Use spaces for indentation
+set shiftwidth=2                  " Width of indentation
+set tabstop=4                     " Width of <Tab> characters
+set list listchars=tab:▏\ ,nbsp:· " Show line for tab indentation, and a dot for non-breaking spaces
+set shiftround                    " Round indent to multiple of shiftwdith
+set cinkeys-=0#                   " Indent lines starting with `#`
 
 " Disable toolbar, scrollbar and menubar
 set guioptions-=T
@@ -443,15 +443,15 @@ augroup vim_plug
 augroup end
 
 " -- Surround --
-xmap   s  <Plug>VSurround
-xmap   S  <Plug>VgSurround
-nmap   s  ys
-nmap   S  ys$
-omap   ir i]
-omap   ar a]
-xmap   ir i]
-xmap   ar a]
-omap   s¤ s$
+xmap s  <Plug>VSurround
+xmap S  <Plug>VgSurround
+nmap s  ys
+nmap S  ys$
+omap ir i]
+omap ar a]
+xmap ir i]
+xmap ar a]
+omap s¤ s$
 
 " surround noun `¤` means `$`
 nmap cs¤ cs$
@@ -566,8 +566,7 @@ let g:signify_sign_change            = '┃'
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
-" " -- Targets.vim --
-" let g:targets_nl   = 'nN'   " Uses `N` instead of `l` for moving targeting backwards
+" -- Targets.vim --
 let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
 augroup targets
   autocmd!
