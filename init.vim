@@ -51,7 +51,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'powerline/fonts'
-Plug 'joshdick/onedark.vim'         " Atom dark theme for vim
+Plug 'RRethy/nvim-base16'           " Collection of base16 colorschemes in Lua
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
@@ -92,7 +92,6 @@ Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'karb94/neoscroll.nvim'        " Smooth scrolling animations
 Plug 'glepnir/galaxyline.nvim'
-
 call plug#end()
 
 " -- General --
@@ -107,10 +106,12 @@ set hidden
 set lazyredraw
 set undofile
 set viewoptions=cursor,folds,slash,unix
-set fileformat=unix " Use Unix eol format
-set spelllang=en,sv " Use both Engligh and Swedish spell check
-set splitright      " Open vertical window splits to the right instead of left
-set nojoinspaces    " Only add one space after a `.`/`?`/`!` when joining lines
+set fileformat=unix   " Use Unix eol format
+set spelllang=en,sv   " Use both Engligh and Swedish spell check
+set splitright        " Open vertical window splits to the right instead of left
+set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining lines
+set fillchars+=vert:▏ " Adds nicer lines for vertical splits
+set encoding=utf-8
 
 augroup filechanged
   autocmd!
@@ -487,11 +488,8 @@ let g:surround_{char2nr('A')} = "`\r`"
 
 " -- Quickscope (highlight settings have to come before setting `colorscheme`) --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-augroup qs_colors
-  autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
-  autocmd ColorScheme * highlight QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
-augroup END
+hi QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
+hi QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
 
 augroup language_specific
   autocmd!
@@ -507,20 +505,23 @@ augroup end
 
 " -- netrw --
 let g:netrw_silent = 1
-" let g:netrw_preview = 1
+let g:netrw_preview = 1
 let g:netrw_browse_split = 0
-" let g:netrw_altv = 1
+let g:netrw_altv = 1
 let g:netrw_bufsettings = 'noma nomod nonu nowrap ro bl'
 augroup netrw
   autocmd!
   autocmd FileType netrw nmap <buffer> o <CR>
 augroup end
 
-" -- Themes --
-colorscheme onedark   " Atom color scheme
-let g:onedark_termcolors = 256
-set encoding=utf-8
-set fillchars+=vert:▏ " Adds nicer lines for vertical splits
+" -- Colorscheme modifications --
+lua require('base16-colorscheme').setup('onedark')
+hi link Search     Visual
+hi link SpecialKey Directory
+hi link DiffChange Boolean
+
+hi VertSplit  guifg=#181A1F
+hi MatchParen guifg=NONE guibg=NONE gui=underline
 
 " -- IndentLine and indent_blankline --
 let g:indentLine_char = '▏'
@@ -614,7 +615,6 @@ imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : ""
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-set statusline+=%{coc#status()}
 
 let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
 let g:coc_snippet_prev = '<S-Tab>' " Use Shift-Tab to jump to previous place in snippet
@@ -799,10 +799,6 @@ let g:fzf_colors = {
       \ "prompt":  ["fg", "Question"]
       \ }
 
-" -- vim-clap --
-let g:clap_insert_mode_only = 1
-hi default link ClapDisplay CursorColumn
-
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
@@ -906,7 +902,7 @@ augroup END
 " -- lens.vim --
 let g:lens#disabled_filetypes = ['coc-explorer', 'fzf', 'fugitiveblame']
 
-" -- markdown --
+" -- Markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 " Disables vim-markdown's default `ge` mapping
@@ -915,10 +911,10 @@ map <F13> <Plug>Markdown_EditUrlUnderCursor
 map <F14> <Plug>Markdown_MoveToCurHeader
 " Make italic words actually look italic in Markdown
 hi htmlItalic cterm=italic gui=italic
-" Underline link names in Markdown in-line links
-hi mkdLink cterm=underline gui=underline
 " Underline Markdown URLs
-hi mkdInlineURL guifg=#61AFEF gui=underline
+hi mkdInlineURL guifg=#61AFEF gui=underline cterm=underline
+" Underline link names in Markdown in-line links
+hi link mkdLink mkdInlineURL
 
 augroup toc_markdown
   autocmd!
@@ -1025,17 +1021,17 @@ function GetHiVal(name, layer)
   return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
 endf
 
-" Creates highlight group `name` with guifg `guifg`, and guibg g:barbar_bg
+" Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
 " If a third argument is provided gui is set to that
 function BarbarHi(name, guifg, ...)
   let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
-  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' g:barbar_bg gui
+  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' s:barbar_bg gui
 endf
 
 let g:bufferline = get(g:, 'bufferline', {
       \ 'closable': v:false, 'no_name_title': '[No Name]'
       \ })
-let g:barbar_bg  = '#21242b'
+let s:barbar_bg  = '#21242b'
 
 let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
 let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
@@ -1214,14 +1210,6 @@ exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('Error', 'fg')
 let g:peekaboo_delay = 300
 
 if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
-
-" -- Vim-javascript --
-hi clear jsStorageClass " Change color of 'var'
-hi link jsStorageClass Keyword
-
-" General highlights
-hi! link Search     Visual
-hi! link SpecialKey Directory
 
 " Matchup
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair

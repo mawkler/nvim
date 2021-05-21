@@ -255,7 +255,7 @@ gls.left[15] = {
     CocStatus = {
      provider = CocStatus,
      highlight = {colors.green,colors.bg},
-     icon = '  🗱'
+     icon = ' 🗱'
     }
 }
 
