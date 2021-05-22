@@ -516,12 +516,22 @@ augroup end
 
 " -- Colorscheme modifications --
 lua require('base16-colorscheme').setup('onedark')
-hi link Search     Visual
-hi link SpecialKey Directory
-hi link DiffChange Boolean
 
-hi VertSplit  guifg=#181A1F
-hi MatchParen guifg=NONE guibg=NONE gui=underline
+fun! s:colorschemeMods() abort
+  hi! link Search     Visual
+  hi! link SpecialKey Directory
+  hi! link DiffChange Boolean
+
+  hi IncSearch  guibg=#61afef
+  hi VertSplit  guifg=#181a1f
+  hi MatchParen guifg=NONE guibg=NONE gui=underline
+endf
+
+augroup colorschemeMods
+  autocmd!
+  autocmd ColorScheme * call s:colorschemeMods()
+augroup END
+call s:colorschemeMods()
 
 " -- IndentLine and indent_blankline --
 let g:indentLine_char = '▏'
@@ -850,14 +860,14 @@ augroup latex
   autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
   " Fixes issue with spell check only in comments
   autocmd FileType latex,tex syntax spell toplevel
-  autocmd ColorScheme * call s:TexHighlight()
+  autocmd ColorScheme * call s:texHighlight()
 augroup END
 
-function! s:TexHighlight() abort
+function! s:texHighlight() abort
   " Special highlight for \texttt{}
   highlight link texCTextttArg String
 endf
-call s:TexHighlight()
+call s:texHighlight()
 
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
