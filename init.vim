@@ -47,6 +47,8 @@ if has('nvim')
   Plug 'romgrk/barbar.nvim'           " Sexiest buffer tabline
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'norcalli/snippets.nvim'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -61,8 +63,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
-Plug 'honza/vim-snippets'
-Plug 'rbonvall/snipmate-snippets-bib'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'            " Shows git status for each line
@@ -440,6 +440,12 @@ command! -bar -bang -complete=file Trash
       \ execute 'BufferDelete<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
+
+" Highlight text object on yank
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
+augroup END
 
 " -- vim-plug --
 augroup vim_plug
@@ -1134,7 +1140,7 @@ function! ScrollbarShow()
 endf
 
 " -- LSP --
-lua require("lsp")
+
 set completeopt=menuone,noinsert
 augroup lsp
   autocmd BufEnter * lua require'completion'.on_attach()
@@ -1143,7 +1149,9 @@ augroup end
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_virtual_text_prefix = ' '
 let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
-let g:completion_enable_snippet = 'UltiSnips'
+
+let g:completion_confirm_key = "\<Tab>"
+let g:completion_enable_snippet = 'snippets.nvim'
 let g:completion_chain_complete_list = {
       \ 'default' : [
       \     {'complete_items': ['lsp', 'snippet', 'buffers']},
@@ -1151,6 +1159,8 @@ let g:completion_chain_complete_list = {
       \     {'mode': '<c-n>'}
       \ ]
       \ }
+
+lua require("lsp")
 
 imap <silent> <C-space> <Plug>(completion_trigger)
 
