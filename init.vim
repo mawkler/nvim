@@ -241,13 +241,13 @@ map      <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
 xnoremap //               omsy/<C-R>"<CR>`s
-noremap  /                ms/
-noremap  *                ms*
-noremap  g*               msg*`s
-noremap  <leader>*        ms*`s
-noremap  <leader>g*       msg*`s
-noremap  #                ms#
-noremap  g#               msg#`s
+nnoremap /                ms/
+nnoremap *                ms*
+nnoremap g*               msg*`s
+nnoremap <leader>*        ms*`s
+nnoremap <leader>g*       msg*`s
+nnoremap #                ms#
+nnoremap g#               msg#`s
 map      `/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
