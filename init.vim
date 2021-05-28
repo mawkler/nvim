@@ -552,6 +552,10 @@ let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown', 'startif
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 let g:indent_blankline_show_first_indent_level = v:false
+" Fixes bug where blank lines get highlighted by cursorline highlighting
+" https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+" TODO: remove this once the bug is fixed
+set colorcolumn=99999
 
 " For toggling caps lock in insert mode
 imap <S-Esc> <Plug>CapsLockToggle
