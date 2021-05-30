@@ -46,13 +46,12 @@ if has('nvim')
   Plug 'kyazdani42/nvim-web-devicons' " Required by barbar.nvim
   Plug 'romgrk/barbar.nvim'           " Sexiest buffer tabline
   " Neovim LSP
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'kabouzeid/nvim-lspinstall'
-  Plug 'norcalli/snippets.nvim'
-  Plug 'nvim-lua/completion-nvim'
+  Plug 'neovim/nvim-lspconfig'        " Enables built-in LSP
+  Plug 'kabouzeid/nvim-lspinstall'    " Adds LspInstall command
+  Plug 'L3MON4D3/LuaSnip'             " Snippets
+  Plug 'hrsh7th/nvim-compe'           " Auto completion
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-  Plug 'steelsojka/completion-buffers'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -123,7 +122,6 @@ augroup filechanged
 augroup end
 
 " -- Menu autocompletion --
-set completeopt=menu,preview,noinsert
 set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
 set wildignorecase  " Case insensitive file- and directory name completion
 set path+=**        " Lets `find` search recursively into subfolders
@@ -157,10 +155,8 @@ map      <leader>p        "+p
 map      <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
-" inoremap <Tab>            <C-t>
 nnoremap <S-Tab>          <<
 vnoremap <S-Tab>          <gv
-imap     <S-Tab>          <C-d>
 nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
@@ -529,13 +525,17 @@ augroup end
 lua require('base16-colorscheme').setup('onedark')
 
 fun! s:colorschemeMods() abort
+  hi IncSearch    guibg=#61afef
+  hi VertSplit    guifg=#181a1f
+  hi MatchParen   guifg=NONE guibg=NONE gui=underline
+  hi CursorLine   guibg=#313742
+  hi CursorLineNr guifg=#61afef guibg=#313742
+  hi NormalFloat  guibg=#3E4452
+
   hi! link Search     Visual
   hi! link SpecialKey Directory
   hi! link DiffChange Boolean
-
-  hi IncSearch  guibg=#61afef
-  hi VertSplit  guifg=#181a1f
-  hi MatchParen guifg=NONE guibg=NONE gui=underline
+  hi! link PmenuSel IncSearch
 endf
 
 augroup colorschemeMods
@@ -548,7 +548,7 @@ call s:colorschemeMods()
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
-let g:indentLine_fileTypeExclude = ['json', 'coc-explorer', 'markdown', 'startify']
+let g:indentLine_fileTypeExclude = ['json', 'markdown', 'startify']
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 let g:indent_blankline_show_first_indent_level = v:false
@@ -604,94 +604,9 @@ augroup end
 " -- Vim Sleuth --
 let g:sleuth_automatic = 1
 
-" -- Coc.nvim --
-nmap <silent> <C-]>   <Plug>(coc-definition)
-nmap <silent> gd      <Plug>(coc-definition)
-map  <silent> <C-w>gd <C-w>v<Plug>(coc-definition)
-
-nmap <silent> <leader>rn <Plug>(coc-rename)
-
-" Use `<Tab>` to confirm completion, expand snippet, jump to next snippet
-" position, and trigger completion
-inoremap <silent> <expr> <Tab>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ?
-      \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~# '\s'
-endf
-
-augroup coc_nvim_custom
-  autocmd!
-  " Disable coc.nvim in command-line-window
-  autocmd CmdwinEnter * let b:coc_suggest_disable = 1
-  autocmd CmdwinEnter * inoremap <expr> <buffer> <Tab> pumvisible() ?
-        \ "\<C-y>" : "\<C-x><C-v>"
-augroup END
-
 " Use <C-k>/<C-j> to move up/down in PUM selection
 imap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : ""
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-let g:coc_snippet_next = '<Tab>'   " Use Tab to jump to next place in snippet
-let g:coc_snippet_prev = '<S-Tab>' " Use Shift-Tab to jump to previous place in snippet
-
-let g:coc_global_extensions = [
-  \ 'coc-syntax',
-  \ 'coc-tag',
-  \ 'coc-snippets',
-  \ 'coc-jedi',
-  \ 'coc-java',
-  \ 'coc-html',
-  \ 'coc-css',
-  \ 'coc-prettier',
-  \ 'coc-tsserver',
-  \ 'coc-json',
-  \ 'coc-yank',
-  \ 'coc-stylelint',
-  \ 'coc-calc',
-  \ 'coc-eslint',
-  \ 'coc-tslint',
-  \ 'coc-tslint-plugin',
-  \ 'coc-explorer',
-  \ 'coc-texlab',
-  \ 'coc-omnisharp',
-  \ 'coc-tabnine',
-  \ 'coc-sh',
-  \ 'coc-terminal',
-  \ 'coc-vimlsp',
-  \ 'coc-lua',
-  \ ]
-  " \ 'coc-vimtex', " Clashes with coc-texlab
-  " \ 'coc-ccls',
-  " \ 'coc-sql'
-  " \ 'coc-docker',
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim', 'help', 'markdown'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-    " TODO: catch and display errors
-  else
-    call CocAction('doHover')
-  endif
-endf
-
-" coc-explorer
-noremap <silent> <Leader>§ :execute 'CocCommand explorer'<CR>
-noremap <silent> <Leader>` :execute 'CocCommand explorer'<CR>
-
-" coc-snippets
-vmap gs <Plug>(coc-snippets-select)
-" command! Snippets CocList snippets
 
 " -- Commentary --
 nmap cm  <Plug>Commentary
@@ -924,7 +839,7 @@ augroup END
 " nmap <buffer> <Space> <CR><C-w>p
 
 " -- lens.vim --
-let g:lens#disabled_filetypes = ['coc-explorer', 'fzf', 'fugitiveblame']
+let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame']
 
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
@@ -1143,46 +1058,6 @@ function! ScrollbarShow()
   let b:previous_first_visible_linenum = first_visible_linenum
 endf
 
-" -- LSP --
-
-set completeopt=menuone,noinsert
-augroup lsp
-  autocmd BufEnter * lua require'completion'.on_attach()
-augroup end
-
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
-
-let g:completion_confirm_key = "\<Tab>"
-let g:completion_enable_snippet = 'snippets.nvim'
-let g:completion_chain_complete_list = {
-      \ 'default' : [
-      \     {'complete_items': ['lsp', 'snippet', 'buffers']},
-      \     {'mode': '<c-p>'},
-      \     {'mode': '<c-n>'}
-      \ ]
-      \ }
-
-lua require("lsp")
-
-imap <silent> <C-space> <Plug>(completion_trigger)
-
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-" -- UltiSnips --
-let g:UltiSnipsExpandTrigger = '<NL>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-let g:UltiSnipsListSnippets = ''
-
 function! OnBufEnter()
   if !exists('b:previous_first_visible_linenum')
     let b:previous_first_visible_linenum = line('w0')
@@ -1192,6 +1067,25 @@ endf
 function! ScrollbarClear() abort
   silent! lua require('scrollbar').clear()
 endf
+
+" -- Compe --
+set completeopt=menuone,noselect
+
+" -- LSP --
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_virtual_text_prefix = ' '
+let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
+
+lua require("lsp")
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " -- Lua stuff --
 
