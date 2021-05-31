@@ -43,15 +43,18 @@ if has('nvim')
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
-  Plug 'kyazdani42/nvim-web-devicons' " Required by barbar.nvim
-  Plug 'romgrk/barbar.nvim'           " Sexiest buffer tabline
+  Plug 'kyazdani42/nvim-web-devicons'  " Required by barbar.nvim
+  Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
   " Neovim LSP
-  Plug 'neovim/nvim-lspconfig'        " Enables built-in LSP
-  Plug 'kabouzeid/nvim-lspinstall'    " Adds LspInstall command
-  Plug 'L3MON4D3/LuaSnip'             " Snippets
-  Plug 'hrsh7th/nvim-compe'           " Auto completion
+  Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
+  Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
+  Plug 'L3MON4D3/LuaSnip'              " Snippets
+  Plug 'hrsh7th/nvim-compe'            " Auto completion
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
+  Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
+  Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'

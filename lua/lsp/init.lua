@@ -80,3 +80,6 @@ vim.api.nvim_set_keymap('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr =
 vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()',            {expr = true})
 vim.api.nvim_set_keymap('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 vim.api.nvim_set_keymap('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+
+-- Telescope --
+require('telescope').setup()
