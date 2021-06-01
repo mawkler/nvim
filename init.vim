@@ -432,7 +432,7 @@ command! JSONFormat %!python -m json.tool
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
-      \ execute 'BufferDelete<bang>' |
+      \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
