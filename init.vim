@@ -1064,8 +1064,8 @@ call BarbarHi('BufferInactiveIndex', fg_sign)
 call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 call BarbarHi('BufferModifiedIndex', fg_sign)
 
-map <M-w>         :BufferDelete<CR>
-map <leader><M-w> :BufferDelete!<CR>
+map <M-w>         :BufferClose<CR>
+map <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>
