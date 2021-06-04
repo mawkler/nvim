@@ -436,7 +436,7 @@ command! JSONFormat %!python -m json.tool
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
-      \ execute 'BufferDelete<bang>' |
+      \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
@@ -993,8 +993,8 @@ call BarbarHi('BufferInactiveIndex', fg_sign)
 call BarbarHi('BufferInactiveTarget', 'red', 'bold')
 call BarbarHi('BufferModifiedIndex', fg_sign)
 
-map <M-w>         :BufferDelete<CR>
-map <leader><M-w> :BufferDelete!<CR>
+map <M-w>         :BufferClose<CR>
+map <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>
