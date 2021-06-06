@@ -36,7 +36,7 @@ if !$NVIM_MINIMAL
   Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
   Plug 'RRethy/vim-hexokinase', { 'do': 'make' } " Displays the colours (rgb, etc.) in files
   Plug 'mhinz/vim-startify'                  " Nicer start screen
-  Plug 'DanilaMihailov/beacon.nvim'
+  Plug 'DanilaMihailov/beacon.nvim'          " Flash the cursor location on jump
 endif
 if has('nvim')
   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
@@ -55,6 +55,7 @@ if has('nvim')
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
+  Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
