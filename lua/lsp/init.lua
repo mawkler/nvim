@@ -37,18 +37,9 @@ require('compe').setup {
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
-    luasnip = true;
+    vsnip = true;
   };
 }
-
--- LuaSnip --
-local function prequire(...)
-  local status, lib = pcall(require, ...)
-  if (status) then return lib end
-  return nil
-end
-
-local luasnip = prequire('luasnip')
 
 local function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -57,16 +48,16 @@ end
 function _G.tab_complete()
   if vim.fn.pumvisible() == 1 then
     return vim.fn['compe#confirm']()
-  elseif luasnip and luasnip.expand_or_jumpable() then
-    return t '<Plug>luasnip-expand-or-jump'
+  elseif vim.fn['vsnip#available'] then
+    return t '<Plug>(vsnip-expand-or-jump)'
   else
     return t '<C-t>'
   end
 end
 
 function _G.s_tab_complete()
-  if luasnip and luasnip.jumpable(-1) then
-    return t '<Plug>luasnip-jump-prev'
+  if vim.fn['vsnip#jumpable(-1)'] then
+    return t '<Plug>(vsnip-jump-prev)'
   else
     return t '<C-d>'
   end

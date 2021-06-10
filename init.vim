@@ -48,7 +48,8 @@ if has('nvim')
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
   Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
-  Plug 'L3MON4D3/LuaSnip'              " Snippets
+  Plug 'hrsh7th/vim-vsnip'             " Snippet engine
+  Plug 'rafamadriz/friendly-snippets'  " Set of snippets
   Plug 'hrsh7th/nvim-compe'            " Auto completion
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
