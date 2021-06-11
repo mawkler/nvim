@@ -51,8 +51,9 @@ if has('nvim')
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'rafamadriz/friendly-snippets'  " Set of snippets
   Plug 'hrsh7th/nvim-compe'            " Auto completion
-  Plug 'nvim-lua/lsp-status.nvim'
+  Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder

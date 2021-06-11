@@ -72,5 +72,8 @@ vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()',            {expr =
 vim.api.nvim_set_keymap('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 vim.api.nvim_set_keymap('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 
+-- lspkind --
+require('lspkind').init()
+
 -- Telescope --
 require('telescope').setup()
