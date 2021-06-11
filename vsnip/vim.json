@@ -1,0 +1,9 @@
+{
+  "plug": {
+    "prefix": ["plug"],
+    "body": [
+      "Plug '${1:${VIM:substitute(@+, '\\([^\/]*\/\/[^\/]*\/\\)\\([^/]*\/[^/]*\\)\\(.*\\)', '\\2', '' )}}'"
+    ],
+    "description": "vim-plug Paste Plugin"
+  }
+}

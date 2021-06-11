@@ -1,0 +1,40 @@
+{
+  "cite": {
+    "prefix": ["cite"],
+    "body": [
+      "\\cite{${1:source}}${2:. }"
+    ],
+    "description": "\\cite{}"
+  },
+  "autoref": {
+    "prefix": ["autoref"],
+    "body": [
+      "\\autoref{${2:sec:${1:reference}}}$3"
+    ],
+    "description": "\\autoref{}"
+  },
+  "sec": {
+    "prefix": ["sec"],
+    "body": [
+      "\\section{${1:section name}} \\label{sec:${2:${1/\\s/-/g}}}",
+      "${0}"
+    ],
+    "description": "\\section"
+  },
+  "sub": {
+    "prefix": ["sub"],
+    "body": [
+      "\\subsection{${1:subsection name}} \\label{sub:${2:${1/\\s/-/g}}}",
+      "${0}"
+    ],
+    "description": "\\subsection"
+  },
+  "ssub": {
+    "prefix": ["ssub"],
+    "body": [
+      "\\subsection{${1:subsubsection name}} \\label{ssub:${2:${1/\\s/-/g}}}",
+      "${0}"
+    ],
+    "description": "\\subsubsection"
+  }
+}

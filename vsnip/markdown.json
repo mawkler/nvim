@@ -1,0 +1,35 @@
+{
+  "date": {
+    "prefix": ["date", "today"],
+    "body": [
+      "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE"
+    ],
+    "description": "Current date"
+  },
+  "mvh": {
+    "prefix": "mvh",
+    "body": [
+      "${1:Mvh}${2:,}",
+      "",
+      "Melker ${3:Österberg}$0"
+    ],
+    "description": "Med vänliga hälsningar"
+  },
+  "br": {
+    "prefix": ["br"],
+    "body": [
+      "${1:BR}$2 ",
+      "",
+      "Melker ${3:Österberg}$0"
+    ],
+      "description": "Best regards"
+  },
+  "link": {
+    "prefix": ["link", "l"],
+    "body": [
+      "[${1:text}](${2:${VIM:@+}}) ${0}"
+    ],
+    "description": "Link (clipboard)"
+  }
+}
+
