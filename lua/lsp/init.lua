@@ -33,11 +33,11 @@ require('compe').setup {
   preselect = 'always',
   source = {
     path = true;
-    buffer = true;
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
-    vsnip = true;
+    buffer = {kind = "﬘", true},
+    vsnip = {kind = "﬌ Snippet"},
   };
 }
 

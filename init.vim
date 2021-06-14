@@ -44,6 +44,7 @@ if has('nvim')
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
   Plug 'kyazdani42/nvim-web-devicons'  " Required by barbar.nvim
+  Plug 'kyazdani42/nvim-tree.lua'      " File explorer
   Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
@@ -613,6 +614,25 @@ let g:sleuth_automatic = 1
 " Use <C-k>/<C-j> to move up/down in PUM selection
 imap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : ""
+
+" -- nvim-tree --
+let g:nvim_tree_show_icons = {
+      \   'git':     1,
+      \   'folders': 1,
+      \   'files':   1,
+      \ }
+noremap <silent> <Leader>§ :NvimTreeToggle<CR>
+noremap <silent> <Leader>` :NvimTreeToggle<CR>
+
+" Hides the cursor in nvim-tree
+augroup HideCursor
+  autocmd!
+  autocmd WinEnter,FileType NvimTree
+        \ set guicursor=n-c-v:block-Cursor/Cursor-blinkon0,
+  autocmd WinLeave,FileType NvimTree
+        \ set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,n:blinkwait0,i:ver25-blinkwait0
+augroup END
+autocmd FileType NvimTree hi Cursor blend=100
 
 " -- Commentary --
 nmap cm  <Plug>Commentary
