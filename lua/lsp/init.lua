@@ -1,3 +1,5 @@
+local map = vim.api.nvim_set_keymap
+
 -- LSPInstall --
 require('lspinstall').setup()
 
@@ -64,13 +66,13 @@ function _G.s_tab_complete()
 end
 
 -- Mappings --
-vim.api.nvim_set_keymap('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
-vim.api.nvim_set_keymap('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
-vim.api.nvim_set_keymap('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
-vim.api.nvim_set_keymap('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
-vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()',            {expr = true})
-vim.api.nvim_set_keymap('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
-vim.api.nvim_set_keymap('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
+map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
+map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
+map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
+map('i', '<C-Space>', 'compe#complete()',            {expr = true})
+map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
+map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 
 -- lspkind --
 require('lspkind').init()
@@ -84,3 +86,16 @@ vim.g.nvim_tree_bindings = {
   ['l'] = tree_cb('edit'),
   ['h'] = tree_cb('close_node'),
 }
+
+-- Autopairs --
+local rule = require('nvim-autopairs.rule')
+local n_pairs = require('nvim-autopairs')
+
+n_pairs.setup()
+n_pairs.add_rules({
+  rule("$","$","tex"),
+  rule("*","*","markdown"),
+})
+
+_G.autopairs_cr = n_pairs.autopairs_cr
+map('i' , '<CR>', 'v:lua.autopairs_cr()', {expr = true})

@@ -1155,17 +1155,6 @@ require('nvim-treesitter.configs').setup {
 
 -- Neoscroll --
 require('neoscroll').setup()
-
--- Autopairs --
-local rule = require('nvim-autopairs.rule')
-local n_pairs = require('nvim-autopairs')
-
-n_pairs.setup()
-
-n_pairs.add_rules({
-  rule("$","$","tex"),
-  rule("*","*","markdown"),
-})
 EOF
 
 endif
