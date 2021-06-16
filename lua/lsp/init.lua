@@ -34,13 +34,19 @@ end
 require('compe').setup {
   preselect = 'always',
   source = {
-    path = true;
-    calc = true;
+    path     = true;
+    calc     = true;
     nvim_lsp = true;
     nvim_lua = true;
-    buffer = {kind = "﬘", true},
-    vsnip = {kind = "﬌ Snippet"},
-  };
+    buffer   = {kind = '﬘'},
+    vsnip    = {
+      kind = '﬌ Snippet'
+    },
+    tabnine = {
+      filetypes = {'markdown', 'text', 'tex'},
+      priority = 20
+    }
+  }
 }
 
 local function t(str)
@@ -78,7 +84,19 @@ map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 require('lspkind').init()
 
 -- Telescope --
-require('telescope').setup()
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-j>']   = 'move_selection_next',
+        ['<C-k>']   = 'move_selection_previous',
+        ['<Esc>']   = 'close',
+        ['<S-Esc>'] = function() vim.cmd 'stopinsert' end,
+        ['<C-u>']   = false,
+      }
+    }
+  }
+}
 
 -- nvim-tree --
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
@@ -93,8 +111,8 @@ local n_pairs = require('nvim-autopairs')
 
 n_pairs.setup()
 n_pairs.add_rules({
-  rule("$","$","tex"),
-  rule("*","*","markdown"),
+  rule('$', '$', 'tex'),
+  rule('*', '*', 'markdown'),
 })
 
 _G.autopairs_cr = n_pairs.autopairs_cr

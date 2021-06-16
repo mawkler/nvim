@@ -51,6 +51,7 @@ if has('nvim')
   Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'rafamadriz/friendly-snippets'  " Set of snippets
+  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'hrsh7th/nvim-compe'            " Auto completion
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
