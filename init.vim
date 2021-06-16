@@ -945,10 +945,6 @@ command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>
 let g:skipview_files = ['COMMIT_EDITMSG']
 
 " -- Startify --
-" Add devicsons in front of file names
-function! StartifyEntryFormat()
-  return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-endf
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
@@ -970,6 +966,17 @@ let g:startify_custom_header = [
       \ '   :   |\    \ | \_____) \____/   \_/  |__||__|_|__/',
       \ '    \__| \____\)----------------------------------- ',
       \ ]
+
+" Use nvim-web-devicons
+lua function _G.webDevIcons(path)
+      \   local filename = vim.fn.fnamemodify(path, ':t')
+      \   local extension = vim.fn.fnamemodify(path, ':e')
+      \   return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
+      \ end
+
+function! StartifyEntryFormat() abort
+  return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
+endf
 
 " -- vim-session --
 let g:session_autosave = 'yes'
