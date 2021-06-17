@@ -49,11 +49,12 @@ if has('nvim')
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
   Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
+  Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
+  Plug 'hrsh7th/nvim-compe'            " Auto completion
+  Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'rafamadriz/friendly-snippets'  " Set of snippets
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
-  Plug 'hrsh7th/nvim-compe'            " Auto completion
-  Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
@@ -1119,18 +1120,20 @@ let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
 
 lua require("lsp")
 
-nnoremap <silent> gd  <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD  <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> 1gD <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gs  <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> gr  <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> gR  <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0  <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> ga  <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> [d  <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]d  <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gh        <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gs        <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+nnoremap <silent> gr        <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent> gR        <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> ga        <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+xnoremap <silent> ga        :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
+nnoremap <silent> [e        <cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<CR>
+nnoremap <silent> ]e        <cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>
+nnoremap <silent> <leader>f <cmd>lua require('lspsaga.provider').lsp_finder()<CR>
 
 " -- Lua stuff --
 
