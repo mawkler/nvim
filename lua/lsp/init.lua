@@ -81,7 +81,16 @@ map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 
 -- lspkind --
-require('lspkind').init()
+require('lspkind').init {
+    symbol_map = {
+      Class = '',
+      Interface = '',
+      Module = '',
+      Enum = '',
+      Text = '',
+      Struct = ''
+    }
+}
 
 -- Telescope --
 require('telescope').setup {
@@ -117,3 +126,21 @@ n_pairs.add_rules({
 
 _G.autopairs_cr = n_pairs.autopairs_cr
 map('i' , '<CR>', 'v:lua.autopairs_cr()', {expr = true})
+
+-- Other --
+
+local function sign_define(name, symbol)
+  vim.fn.sign_define(name, {
+    text   = symbol,
+    texthl = name,
+    linehl = name,
+    numhl  = name
+  })
+end
+
+sign_define('LspDiagnosticsSignError',       '')
+sign_define('LspDiagnosticsSignWarning',     '')
+sign_define('LspDiagnosticsSignHint',        '')
+sign_define('LspDiagnosticsSignInformation', '')
+
+vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'

@@ -46,6 +46,7 @@ if has('nvim')
   Plug 'kyazdani42/nvim-web-devicons'  " Required by barbar.nvim
   Plug 'kyazdani42/nvim-tree.lua'      " File explorer
   Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
+  Plug 'mhartington/formatter.nvim'    " Auto formatting
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
   Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
@@ -61,6 +62,7 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
+  Plug 'mattn/efm-langserver'          " General purpose language server (for autoformatting)
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -544,7 +546,8 @@ fun! s:colorschemeMods() abort
   hi! link Search     Visual
   hi! link SpecialKey Directory
   hi! link DiffChange Boolean
-  hi! link PmenuSel IncSearch
+  hi! link PmenuSel   IncSearch
+  hi! link Statement  Keyword
 endf
 
 augroup colorschemeMods
@@ -571,9 +574,9 @@ imap <S-Esc> <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
 " Start in visual mode (e.g. vipga):
-xmap ga <Plug>(EasyAlign)
+xmap gA <Plug>(EasyAlign)
 " Start for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nmap gA <Plug>(EasyAlign)
 
 " -- NERDCommenter --
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
