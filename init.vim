@@ -62,7 +62,6 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
-  Plug 'mattn/efm-langserver'          " General purpose language server (for autoformatting)
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -1117,10 +1116,6 @@ set completeopt=menuone,noselect
 let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
 
 " -- LSP --
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_insert_delay = 1 " Disable diagnostics in insert mode
-
 lua require("lsp")
 
 nnoremap <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>

@@ -144,3 +144,90 @@ sign_define('LspDiagnosticsSignHint',        '')
 sign_define('LspDiagnosticsSignInformation', '')
 
 vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'
+
+-- Formatter --
+require('formatter').setup {
+  logging = false,
+  filetype = {
+    lua = {
+      function()
+        return {
+          exe = 'lua-format',
+          args = {
+            '-i',
+            '--indent-width=2',
+            '--tab-width=1',
+            '--column-limit=80',
+            '--column-table-limit=80',
+            '--continuation-indent-width=2',
+            '--double-quote-to-single-quote',
+            '--column-table-limit=80',
+            '--align-table-field',
+            '--no-keep-simple-control-block-one-line',
+            '--no-keep-simple-function-one-line',
+            '--no-break-after-functioncall-lp',
+            '--no-break-before-functioncall-rp',
+            '--no-chop-down-parameter',
+          },
+          stdin = true
+        }
+      end
+    },
+    javascript = {
+      function()
+        return {
+          exe = 'prettier',
+          args = {'--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote'},
+          stdin = true
+        }
+      end
+    },
+    markdown = {
+      function()
+        return {
+          exe = 'prettier',
+          args = {'--stdin-filepath', vim.api.nvim_buf_get_name(0)},
+          stdin = true
+        }
+      end
+    },
+    python = {
+      function()
+        return {
+          exe = 'autopep8',
+          args = {'-i'},
+          stdin = false
+        }
+      end
+    },
+  }
+}
+
+local function format_on_write()
+  vim.api.nvim_exec([[
+      augroup FormatOnWrite
+        autocmd!
+        autocmd BufWritePost *.lua,*.js,*.md,*.py FormatWrite
+      augroup END
+    ]], true)
+end
+
+function _G.toggle_format_on_write()
+  if vim.g.format_on_write == 1 then
+    vim.g.format_on_write = 0
+    vim.api.nvim_exec([[
+      augroup FormatOnWrite
+        autocmd!
+      augroup END
+    ]], true)
+    print('Format on write disabled')
+  else
+    vim.g.format_on_write = 1
+    format_on_write()
+    print('Format on write enabled')
+  end
+end
+
+vim.g.format_on_write = 1
+format_on_write()
+map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
