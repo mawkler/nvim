@@ -404,8 +404,6 @@ if exists('$TMUX')
 endif
 
 " -- Language specific settings --
-nnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
-      \ ">>" : "=="
 xnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
       \ ">gv" : "=gv"
 
