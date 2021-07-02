@@ -8,7 +8,7 @@ local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   return {
-    capabilities = capabilities, -- enable snippet support
+    capabilities = capabilities -- enable snippet support
   }
 end
 
@@ -16,7 +16,7 @@ end
 local lua_settings = {
   Lua = {
     diagnostics = {
-      globals = {'vim'}, -- Make the LSP recognize the `vim` global
+      globals = {'vim'} -- Make the LSP recognize the `vim` global
     }
   }
 }
@@ -34,17 +34,15 @@ end
 require('compe').setup {
   preselect = 'always',
   source = {
-    path     = true;
-    calc     = true;
-    nvim_lsp = true;
-    nvim_lua = true;
+    path     = true,
+    calc     = true,
+    nvim_lsp = true,
+    nvim_lua = true,
     buffer   = {kind = '﬘'},
-    vsnip    = {
-      kind = '﬌ Snippet'
-    },
-    tabnine = {
+    vsnip    = {kind = '﬌ Snippet'},
+    tabnine  = {
       filetypes = {'markdown', 'text', 'tex'},
-      priority = 20
+      priority = 20,
     }
   }
 }
@@ -82,14 +80,14 @@ map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 
 -- lspkind --
 require('lspkind').init {
-    symbol_map = {
-      Class = '',
-      Interface = '',
-      Module = '',
-      Enum = '',
-      Text = '',
-      Struct = ''
-    }
+  symbol_map = {
+    Class = '',
+    Interface = '',
+    Module = '',
+    Enum = '',
+    Text = '',
+    Struct = ''
+  }
 }
 
 -- Telescope --
@@ -101,7 +99,7 @@ require('telescope').setup {
         ['<C-k>']   = 'move_selection_previous',
         ['<Esc>']   = 'close',
         ['<S-Esc>'] = function() vim.cmd 'stopinsert' end,
-        ['<C-u>']   = false,
+        ['<C-u>']   = false
       }
     }
   }
@@ -111,7 +109,7 @@ require('telescope').setup {
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 vim.g.nvim_tree_bindings = {
   ['l'] = tree_cb('edit'),
-  ['h'] = tree_cb('close_node'),
+  ['h'] = tree_cb('close_node')
 }
 
 -- Autopairs --
@@ -125,7 +123,7 @@ n_pairs.add_rules({
 })
 
 _G.autopairs_cr = n_pairs.autopairs_cr
-map('i' , '<CR>', 'v:lua.autopairs_cr()', {expr = true})
+map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
 
 -- Other --
 
