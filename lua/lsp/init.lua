@@ -117,10 +117,10 @@ local rule = require('nvim-autopairs.rule')
 local n_pairs = require('nvim-autopairs')
 
 n_pairs.setup()
-n_pairs.add_rules({
+n_pairs.add_rules {
   rule('$', '$', 'tex'),
   rule('*', '*', 'markdown'),
-})
+}
 
 _G.autopairs_cr = n_pairs.autopairs_cr
 map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
@@ -147,30 +147,6 @@ vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'
 require('formatter').setup {
   logging = false,
   filetype = {
-    lua = {
-      function()
-        return {
-          exe = 'lua-format',
-          args = {
-            '-i',
-            '--indent-width=2',
-            '--tab-width=1',
-            '--column-limit=80',
-            '--column-table-limit=80',
-            '--continuation-indent-width=2',
-            '--double-quote-to-single-quote',
-            '--column-table-limit=80',
-            '--align-table-field',
-            '--no-keep-simple-control-block-one-line',
-            '--no-keep-simple-function-one-line',
-            '--no-break-after-functioncall-lp',
-            '--no-break-before-functioncall-rp',
-            '--no-chop-down-parameter'
-          },
-          stdin = true
-        }
-      end
-    },
     javascript = {
       function()
         return {
@@ -216,11 +192,11 @@ end
 function _G.toggle_format_on_write()
   if vim.b.format_on_write == 1 then
     vim.b.format_on_write = 0
-    print('Format on write disabled')
+    print 'Format on write disabled'
   else
     vim.b.format_on_write = 1
     format_on_write()
-    print('Format on write enabled')
+    print 'Format on write enabled'
   end
 end
 
