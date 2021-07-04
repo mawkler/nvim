@@ -125,24 +125,6 @@ n_pairs.add_rules {
 _G.autopairs_cr = n_pairs.autopairs_cr
 map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
 
--- Other --
-
-local function sign_define(name, symbol)
-  vim.fn.sign_define(name, {
-    text   = symbol,
-    texthl = name,
-    linehl = name,
-    numhl  = name
-  })
-end
-
-sign_define('LspDiagnosticsSignError',       '')
-sign_define('LspDiagnosticsSignWarning',     '')
-sign_define('LspDiagnosticsSignHint',        '')
-sign_define('LspDiagnosticsSignInformation', '')
-
-vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'
-
 -- Formatter --
 require('formatter').setup {
   logging = false,
@@ -204,3 +186,21 @@ vim.b.format_on_write = 1
 
 format_on_write()
 map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
+
+-- Other --
+
+local function sign_define(name, symbol)
+  vim.fn.sign_define(name, {
+    text   = symbol,
+    texthl = name,
+    linehl = name,
+    numhl  = name
+  })
+end
+
+sign_define('LspDiagnosticsSignError',       '')
+sign_define('LspDiagnosticsSignWarning',     '')
+sign_define('LspDiagnosticsSignHint',        '')
+sign_define('LspDiagnosticsSignInformation', '')
+
+vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'
