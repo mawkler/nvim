@@ -39,7 +39,7 @@ if !$NVIM_MINIMAL
   Plug 'DanilaMihailov/beacon.nvim'          " Flash the cursor location on jump
 endif
 if has('nvim')
-  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+  Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'wsdjeg/notifications.vim'
   Plug 'coreyja/fzf.devicon.vim'
   Plug 'Xuyuanp/scrollbar.nvim'
@@ -1107,66 +1107,11 @@ function! ScrollbarClear() abort
   silent! lua require('scrollbar').clear()
 endf
 
-" -- Compe --
-set completeopt=menuone,noselect
-
 " VSnip
 let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
 
-" -- LSP --
-lua require("lsp")
-
-nnoremap <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh        <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gs        <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent> gr        <cmd>lua require('lspsaga.rename').rename()<CR>
-nnoremap <silent> gR        <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> ga        <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-xnoremap <silent> ga        :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
-nnoremap <silent> [e        <cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<CR>
-nnoremap <silent> ]e        <cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> <leader>f <cmd>lua require('lspsaga.provider').lsp_finder()<CR>
-
-" -- Lua stuff --
-
-lua << EOF
-
--- Statusline --
-require('statusline')
-
--- Nvim-web-devicons --
-require('nvim-web-devicons').setup {
-  override = {
-    md = {
-      icon = '',
-      color = '#519aba',
-      name = "Markdown"
-    },
-    tex = {
-      icon = '',
-      color = '#3D6117',
-      name = 'Tex'
-    }
-  },
-  default = true
-}
-
--- Treesitter --
-require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-    disable = {"latex"},
-  },
-}
-
--- Neoscroll --
-require('neoscroll').setup()
-EOF
+" -- Import lua config --
+lua require('config')
 
 endif
 

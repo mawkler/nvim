@@ -1,5 +1,3 @@
-local map = vim.api.nvim_set_keymap
-
 -- LSPInstall --
 require('lspinstall').setup()
 
@@ -31,6 +29,8 @@ for _, server in pairs(servers) do
 end
 
 -- Compe --
+-- TODO: snippets suddenly stopped working
+vim.o.completeopt = 'menuone,noselect'
 require('compe').setup {
   preselect = 'always',
   source = {
@@ -70,6 +70,13 @@ function _G.s_tab_complete()
 end
 
 -- Mappings --
+local function map(mode, lhs, rhs, opts)
+  local options = {noremap = true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+-- Completion
 map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
 map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
 map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
@@ -77,6 +84,21 @@ map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
 map('i', '<C-Space>', 'compe#complete()',            {expr = true})
 map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+-- LSP and diagnostics
+map('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', 'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
+map('n', 'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
+map('n', '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+map('n', 'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
+map('n', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map('n', 'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n', 'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+map('n', 'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+map('n', 'ga',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
+map('x', 'ga',        ':<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>')
+map('n', '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
+map('n', ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
+map('n', '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
 -- lspkind --
 require('lspkind').init {
@@ -108,8 +130,8 @@ require('telescope').setup {
 -- nvim-tree --
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 vim.g.nvim_tree_bindings = {
-  ['l'] = tree_cb('edit'),
-  ['h'] = tree_cb('close_node')
+  {key = 'l', cb = tree_cb('edit')},
+  {key = 'h', cb = tree_cb('close_node')}
 }
 
 -- Autopairs --
@@ -166,7 +188,7 @@ local function format_on_write()
     augroup FormatOnWrite
       autocmd!
       " autocmd BufWritePost * if b:format_on_write | FormatWrite | endif
-      autocmd BufWritePost *.lua,*.js,*.md,*.py FormatWrite
+      autocmd BufWritePost *.js,*.md,*.py FormatWrite
     augroup END
   ]], true)
 end
@@ -187,8 +209,39 @@ vim.b.format_on_write = 1
 format_on_write()
 map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
 
--- Other --
+-- Statusline --
+require('statusline')
 
+-- Nvim-web-devicons --
+require('nvim-web-devicons').setup {
+  override = {
+    md = {
+      icon = '',
+      color = '#519aba',
+      name = "Markdown"
+    },
+    tex = {
+      icon = '',
+      color = '#3D6117',
+      name = 'Tex'
+    }
+  },
+  default = true
+}
+
+-- Treesitter --
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    disable = {"latex"},
+  },
+}
+
+-- Neoscroll --
+require('neoscroll').setup()
+
+-- Diagnostic --
 local function sign_define(name, symbol)
   vim.fn.sign_define(name, {
     text   = symbol,
