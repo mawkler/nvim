@@ -29,7 +29,6 @@ for _, server in pairs(servers) do
 end
 
 -- Compe --
--- TODO: snippets suddenly stopped working
 vim.o.completeopt = 'menuone,noselect'
 require('compe').setup {
   preselect = 'always',
@@ -77,13 +76,14 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Completion
-map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
-map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true})
-map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
-map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true})
+map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
+map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
+map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
+map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
 map('i', '<C-Space>', 'compe#complete()',            {expr = true})
 map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+
 -- LSP and diagnostics
 map('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', 'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
