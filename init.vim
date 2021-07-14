@@ -96,7 +96,6 @@ Plug 'coachshea/vim-textobj-markdown'
 Plug 'tommcdo/vim-exchange'         " For swapping the place of two text objects
 Plug 'markonm/traces.vim'           " Better highlighting when searching/replacing
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'ryanoasis/vim-devicons'       " vim-devicond should be loaded last
 Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
@@ -436,9 +435,6 @@ set guioptions-=L
 " Command to change directory to the current file's
 command! CDHere cd %:p:h
 
-" Format JSON file to readable form
-command! JSONFormat %!python -m json.tool
-
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
@@ -632,6 +628,7 @@ noremap <silent> <Leader>§ :NvimTreeToggle<CR>
 noremap <silent> <Leader>` :NvimTreeToggle<CR>
 
 " Hides the cursor in nvim-tree
+" TODO: doesn't work
 augroup HideCursor
   autocmd!
   autocmd WinEnter,FileType NvimTree
