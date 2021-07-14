@@ -13,26 +13,26 @@
     ],
     "description": "\\autoref{}"
   },
-  "sec": {
-    "prefix": ["sec"],
+  "section": {
+    "prefix": ["section"],
     "body": [
       "\\section{${1:section name}} \\label{sec:${2:${1/\\s/-/g}}}",
       "${0}"
     ],
     "description": "\\section"
   },
-  "sub": {
-    "prefix": ["sub"],
+  "subsection": {
+    "prefix": ["subsection"],
     "body": [
       "\\subsection{${1:subsection name}} \\label{sub:${2:${1/\\s/-/g}}}",
       "${0}"
     ],
     "description": "\\subsection"
   },
-  "ssub": {
-    "prefix": ["ssub"],
+  "subsubsection": {
+    "prefix": "subsubsection",
     "body": [
-      "\\subsection{${1:subsubsection name}} \\label{ssub:${2:${1/\\s/-/g}}}",
+      "\\subsection{${1:subsubsection name bar}} \\label{ssub:${2:${1/\\s/-/g}}}",
       "${0}"
     ],
     "description": "\\subsubsection"

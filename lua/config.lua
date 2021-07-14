@@ -68,6 +68,14 @@ function _G.s_tab_complete()
   end
 end
 
+function _G.toggle_complete()
+  if vim.fn.pumvisible() == 1 then
+    return vim.fn['compe#close']()
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+
 -- Mappings --
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
@@ -80,7 +88,7 @@ map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = fal
 map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
 map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
 map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
-map('i', '<C-Space>', 'compe#complete()',            {expr = true})
+map('i', '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
 map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
 
