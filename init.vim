@@ -182,6 +182,7 @@ nmap     <C-s>            :w<CR>
 imap     <C-s>            <Esc>:w<CR>
 vmap     <C-s>            <Esc>:w<CR>gv
 smap     <C-s>            <Esc>:w<CR>
+smap     <C-h>            <BS>
 xmap     v                $h
 nnoremap c_               c^
 nnoremap d_               d^
