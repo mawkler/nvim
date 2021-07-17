@@ -62,6 +62,8 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
+  Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
+  Plug 'glepnir/galaxyline.nvim'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -102,8 +104,6 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
-Plug 'karb94/neoscroll.nvim'        " Smooth scrolling animations
-Plug 'glepnir/galaxyline.nvim'
 call plug#end()
 
 " -- General --
@@ -626,17 +626,6 @@ let g:nvim_tree_icons = {
       \ }
 noremap <silent> <Leader>§ :NvimTreeToggle<CR>
 noremap <silent> <Leader>` :NvimTreeToggle<CR>
-
-" Hides the cursor in nvim-tree
-" TODO: doesn't work
-augroup HideCursor
-  autocmd!
-  autocmd WinEnter,FileType NvimTree
-        \ set guicursor=n-c-v:block-Cursor/Cursor-blinkon0,
-  autocmd WinLeave,FileType NvimTree
-        \ set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,n:blinkwait0,i:ver25-blinkwait0
-augroup END
-autocmd FileType NvimTree hi Cursor blend=100
 
 " -- Commentary --
 nmap cm  <Plug>Commentary

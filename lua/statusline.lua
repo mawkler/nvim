@@ -3,8 +3,7 @@ local gls = gl.section
 local extension = require('galaxyline.provider_extensions')
 
 gl.short_line_list = {
-  'LuaTree', 'vista', 'dbui', 'startify', 'term', 'nerdtree', 'fugitive',
-  'fugitiveblame', 'plug'
+  'LuaTree', 'vista', 'dbui', 'startify', 'term', 'nerdtree', 'fugitive', 'fugitiveblame', 'plug'
 }
 
 -- VistaPlugin = extension.vista_nearest
@@ -30,41 +29,30 @@ local function lsp_status(status)
   shorter_stat = ''
   for match in string.gmatch(status, '[^%s]+') do
     err_warn = string.find(match, '^[WE]%d+', 0)
-    if not err_warn then
-      shorter_stat = shorter_stat .. ' ' .. match
-    end
+    if not err_warn then shorter_stat = shorter_stat .. ' ' .. match end
   end
   return shorter_stat
 end
 
 local function get_coc_lsp()
   local status = vim.fn['coc#status']()
-  if not status or status == '' then
-    return ''
-  end
+  if not status or status == '' then return '' end
   return lsp_status(status)
 end
 
 function get_diagnostic_info()
-  if vim.fn.exists('*coc#rpc#start_server') == 1 then
-    return get_coc_lsp()
-  end
+  if vim.fn.exists('*coc#rpc#start_server') == 1 then return get_coc_lsp() end
   return ''
 end
 
 local function get_current_func()
-  local has_func, func_name = pcall(vim.fn.nvim_buf_get_var, 0,
-                                    'coc_current_function')
-  if not has_func then
-    return
-  end
+  local has_func, func_name = pcall(vim.fn.nvim_buf_get_var, 0, 'coc_current_function')
+  if not has_func then return end
   return func_name
 end
 
 function get_function_info()
-  if vim.fn.exists('*coc#rpc#start_server') == 1 then
-    return get_current_func()
-  end
+  if vim.fn.exists('*coc#rpc#start_server') == 1 then return get_current_func() end
   return ''
 end
 
@@ -83,16 +71,12 @@ TrailingWhiteSpace = trailing_whitespace
 
 function has_file_type()
   local f_type = vim.bo.filetype
-  if not f_type or f_type == '' then
-    return false
-  end
+  if not f_type or f_type == '' then return false end
   return true
 end
 
 local buffer_not_empty = function()
-  if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
-    return true
-  end
+  if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then return true end
   return false
 end
 
@@ -166,10 +150,7 @@ gls.left[3] = {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
-    highlight = {
-      require('galaxyline.provider_fileinfo').get_file_icon_color,
-      colors.line_bg
-    }
+    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.line_bg}
   }
 }
 gls.left[4] = {
@@ -199,9 +180,7 @@ gls.left[6] = {
 
 local checkwidth = function()
   local squeeze_width = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
+  if squeeze_width > 40 then return true end
   return false
 end
 
@@ -271,19 +250,11 @@ gls.left[14] = {
 }
 
 gls.left[15] = {
-  CocStatus = {
-    provider = CocStatus,
-    highlight = {colors.green, colors.bg},
-    icon = ' 🗱'
-  }
+  CocStatus = {provider = CocStatus, highlight = {colors.green, colors.bg}, icon = ' 🗱'}
 }
 
 gls.left[16] = {
-  CocFunc = {
-    provider = CocFunc,
-    icon = '  λ ',
-    highlight = {colors.yellow, colors.bg}
-  }
+  CocFunc = {provider = CocFunc, icon = '  λ ', highlight = {colors.yellow, colors.bg}}
 }
 
 gls.right[1] = {

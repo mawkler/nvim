@@ -1,3 +1,5 @@
+local cmd = vim.cmd
+
 -- LSPInstall --
 require('lspinstall').setup()
 
@@ -99,6 +101,7 @@ map('n', 'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n', '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n', 'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
 map('n', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map('x', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
 map('n', 'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', 'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n', 'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
@@ -128,7 +131,7 @@ require('telescope').setup {
         ['<C-j>']   = 'move_selection_next',
         ['<C-k>']   = 'move_selection_previous',
         ['<Esc>']   = 'close',
-        ['<S-Esc>'] = function() vim.cmd 'stopinsert' end,
+        ['<S-Esc>'] = function() cmd 'stopinsert' end,
         ['<C-u>']   = false
       }
     }
@@ -141,6 +144,22 @@ vim.g.nvim_tree_bindings = {
   {key = 'l', cb = tree_cb('edit')},
   {key = 'h', cb = tree_cb('close_node')}
 }
+
+-- Disable cursor in nvim-tree
+require('nvim-tree.view').View.winopts.cursorline = true
+
+_G.nvimTreeEnter = function()
+  cmd 'highlight! Cursor blend=100'
+  vim.opt.guicursor = {'n:Cursor/lCursor', 'v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor2'}
+end
+
+_G.nvimTreeLeave = function()
+  cmd 'highlight! Cursor blend=NONE'
+  vim.opt.guicursor = {'n-v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor20'}
+end
+
+cmd 'autocmd WinEnter,BufWinEnter NvimTree lua nvimTreeEnter()'
+cmd 'autocmd BufLeave,WinClosed NvimTree lua nvimTreeLeave()'
 
 -- Autopairs --
 local rule = require('nvim-autopairs.rule')
@@ -191,31 +210,25 @@ require('formatter').setup {
   }
 }
 
-local function format_on_write()
-  vim.api.nvim_exec([[
-    augroup FormatOnWrite
-      autocmd!
-      " autocmd BufWritePost * if b:format_on_write | FormatWrite | endif
-      autocmd BufWritePost *.js,*.md,*.py FormatWrite
-    augroup END
-  ]], true)
-end
-
 function _G.toggle_format_on_write()
-  if vim.b.format_on_write == 1 then
+  if vim.b.format_on_write == 0 then
+    vim.b.format_on_write = 1
+    print 'Format on write enabled'
+  else
     vim.b.format_on_write = 0
     print 'Format on write disabled'
-  else
-    vim.b.format_on_write = 1
-    format_on_write()
-    print 'Format on write enabled'
   end
 end
 
 vim.b.format_on_write = 1
-
-format_on_write()
 map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
+
+vim.api.nvim_exec([[
+  augroup FormatOnWrite
+    autocmd!
+    autocmd BufWritePost *.js,*.md,*.py if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
+  augroup END
+]], true)
 
 -- Statusline --
 require('statusline')
@@ -226,7 +239,7 @@ require('nvim-web-devicons').setup {
     md = {
       icon = '',
       color = '#519aba',
-      name = "Markdown"
+      name = 'Markdown'
     },
     tex = {
       icon = '',
@@ -239,10 +252,10 @@ require('nvim-web-devicons').setup {
 
 -- Treesitter --
 require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
+  ensure_installed = 'maintained',
   highlight = {
     enable = true,
-    disable = {"latex"},
+    disable = {'latex'},
   },
 }
 
@@ -264,4 +277,4 @@ sign_define('LspDiagnosticsSignWarning',     '')
 sign_define('LspDiagnosticsSignHint',        '')
 sign_define('LspDiagnosticsSignInformation', '')
 
-vim.cmd 'hi link LspDiagnosticsSignWarning DiffChange'
+cmd 'hi link LspDiagnosticsSignWarning DiffChange'
