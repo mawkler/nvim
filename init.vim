@@ -1,5 +1,5 @@
-" -- plugins --
-call plug#begin('~/.vim/bundle')
+" -- Plugins --
+call plug#begin('~/.config/nvim/packages/')
 
 if !$NVIM_MINIMAL
   Plug 'tpope/vim-fugitive'
@@ -933,7 +933,7 @@ command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>
 let g:skipview_files = ['COMMIT_EDITMSG']
 
 " -- Startify --
-let g:startify_session_dir = '~/.vim/sessions'
+let g:startify_session_dir = '~/.config/nvim/sessions/'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
@@ -1055,7 +1055,7 @@ nnoremap <silent> <Leader>9 :BufferLast<CR>
 " -- Neovim specific
 if has('nvim')
 
-" -- scrollbar --
+" -- Scrollbar --
 let g:scrollbar_right_offset = 0
 let g:scrollbar_highlight = {
       \ 'head': 'NonText',
@@ -1094,7 +1094,7 @@ function! ScrollbarClear() abort
   silent! lua require('scrollbar').clear()
 endf
 
-" VSnip
+" -- VSnip --
 let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
 
 " -- Import lua config --
@@ -1132,9 +1132,5 @@ exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('Error', 'fg')
 " -- Peekaboo --
 let g:peekaboo_delay = 300
 
-if !exists("g:gui_oni") " ----------------------- Oni excluded stuff below -----------------------
-
-" Matchup
+" -- Matchup --
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
-
-endif
