@@ -970,6 +970,7 @@ endf
 let g:session_autosave = 'yes'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
+let g:session_directory = '~/.config/nvim/sessions/'
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
