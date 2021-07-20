@@ -1,6 +1,5 @@
 local gl = require('galaxyline')
 local gls = gl.section
-local extension = require('galaxyline.provider_extensions')
 
 gl.short_line_list = {
   'LuaTree', 'vista', 'dbui', 'startify', 'term', 'nerdtree', 'fugitive', 'fugitiveblame', 'plug'
@@ -26,9 +25,9 @@ local colors = {
 }
 
 local function lsp_status(status)
-  shorter_stat = ''
+  local shorter_stat = ''
   for match in string.gmatch(status, '[^%s]+') do
-    err_warn = string.find(match, '^[WE]%d+', 0)
+    local err_warn = string.find(match, '^[WE]%d+', 0)
     if not err_warn then shorter_stat = shorter_stat .. ' ' .. match end
   end
   return shorter_stat
@@ -40,7 +39,7 @@ local function get_coc_lsp()
   return lsp_status(status)
 end
 
-function get_diagnostic_info()
+local function get_diagnostic_info()
   if vim.fn.exists('*coc#rpc#start_server') == 1 then return get_coc_lsp() end
   return ''
 end
@@ -49,11 +48,6 @@ local function get_current_func()
   local has_func, func_name = pcall(vim.fn.nvim_buf_get_var, 0, 'coc_current_function')
   if not has_func then return end
   return func_name
-end
-
-function get_function_info()
-  if vim.fn.exists('*coc#rpc#start_server') == 1 then return get_current_func() end
-  return ''
 end
 
 local function trailing_whitespace()
@@ -69,7 +63,7 @@ CocStatus = get_diagnostic_info
 CocFunc = get_current_func
 TrailingWhiteSpace = trailing_whitespace
 
-function has_file_type()
+local function has_file_type()
   local f_type = vim.bo.filetype
   if not f_type or f_type == '' then return false end
   return true
@@ -99,7 +93,6 @@ gls.left[2] = {
         V = 'VISUAL',
         [''] = 'VISUAL',
         v = 'VISUAL',
-        c = 'COMMAND-LINE',
         ['r?'] = ':CONFIRM',
         rm = '--MORE',
         R = 'REPLACE',
@@ -127,17 +120,11 @@ gls.left[2] = {
         Rv = colors.purple,
         cv = colors.red,
         ce = colors.red,
-        r = colors.cyan,
-        rm = colors.cyan,
         ['r?'] = colors.cyan,
         ['!'] = colors.green,
         t = colors.green,
-        c = colors.purple,
-        ['r?'] = colors.red,
         ['r'] = colors.red,
         rm = colors.red,
-        R = colors.yellow,
-        Rv = colors.magenta
       }
       local vim_mode = vim.fn.mode()
       vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim_mode])
