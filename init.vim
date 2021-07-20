@@ -57,6 +57,7 @@ if has('nvim')
   Plug 'Melkster/friendly-snippets'    " Set of snippets
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
@@ -893,6 +894,10 @@ augroup markdown
   autocmd FileType markdown omap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
   autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
 augroup END
+"
+" Fixes crash
+nmap ]f <Nop>
+nmap [f <Nop>
 
 let g:vim_markdown_strikethrough = 1
 

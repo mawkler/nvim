@@ -78,6 +78,19 @@ function _G.toggle_complete()
   end
 end
 
+require('lspsaga').init_lsp_saga {
+  rename_action_keys = {
+    quit = {'<Esc>'},
+  },
+  code_action_prompt = {
+    enable = false,
+  },
+  code_action_keys = {
+    quit = '<Esc>'
+  },
+  rename_prompt_prefix = 'Rename ➤',
+}
+
 -- Mappings --
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
@@ -93,6 +106,7 @@ map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = fal
 map('i', '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
 map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+map('i', '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
 
 -- LSP and diagnostics
 map('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -257,6 +271,50 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     disable = {'latex'},
   },
+  indent = {
+    enable = true,
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        ['aF'] = '@function.outer',
+        ['iF'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']f'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[f'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_next_end = {
+        [']F'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[F'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      }
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['>,'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<,'] = '@parameter.inner',
+      },
+    },
+  }
 }
 
 -- Neoscroll --
