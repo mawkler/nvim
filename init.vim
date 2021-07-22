@@ -7,7 +7,6 @@ if !$NVIM_MINIMAL
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-abolish'
-  Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
   Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
   Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
   Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
@@ -64,6 +63,7 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
+  Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'

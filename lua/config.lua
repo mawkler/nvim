@@ -347,3 +347,6 @@ require('gitsigns').setup {
     changedelete = {text = '┃'}
   }
 }
+
+-- Lastplace --
+require('nvim-lastplace').setup()
