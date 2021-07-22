@@ -47,6 +47,9 @@ if has('nvim')
   Plug 'kyazdani42/nvim-tree.lua'      " File explorer
   Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
   Plug 'mhartington/formatter.nvim'    " Auto formatting
+  Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
+  Plug 'glepnir/galaxyline.nvim'
+  Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
   Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
@@ -63,8 +66,6 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
-  Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
-  Plug 'glepnir/galaxyline.nvim'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -77,7 +78,6 @@ Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-signify'            " Shows git status for each line
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'magicalbanana/vim-sql-syntax'
 Plug 'vim-scripts/capslock.vim'     " Adds caps lock mapping to insert mode
@@ -586,14 +586,6 @@ map <leader>C <plug>NERDCommenterToEOL
 map <silent> <expr> <CR>
       \ &modifiable && !bufexists('[Command Line]') ?
       \ "<Plug>NERDCommenterToggle" : "<CR>"
-
-" -- Signify --
-set updatetime=100
-let g:signify_sign_show_count        = 0
-let g:signify_sign_add               = '┃'
-let g:signify_sign_delete            = '▁'
-let g:signify_sign_delete_first_line = '▔'
-let g:signify_sign_change            = '┃'
 
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"

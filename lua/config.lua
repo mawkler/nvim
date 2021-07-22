@@ -336,3 +336,14 @@ sign_define('LspDiagnosticsSignHint',        '')
 sign_define('LspDiagnosticsSignInformation', '')
 
 cmd 'hi link LspDiagnosticsSignWarning DiffChange'
+
+-- Gitsigns --
+require('gitsigns').setup {
+  signs = {
+    add          = {text = '┃'},
+    change       = {text = '┃', hl = 'DiffChange'},
+    delete       = {text = '▁'},
+    topdelete    = {text = '▔'},
+    changedelete = {text = '┃'}
+  }
+}
