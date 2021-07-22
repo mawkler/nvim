@@ -7,8 +7,6 @@ if !$NVIM_MINIMAL
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-abolish'
-  Plug 'cakebaker/scss-syntax.vim'
-  Plug 'pangloss/vim-javascript'
   Plug 'vim-scripts/restore_view.vim'        " Automatically restores cursor position and folds
   Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
   Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
@@ -70,7 +68,6 @@ endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'powerline/fonts'
 Plug 'RRethy/nvim-base16'           " Collection of base16 colorschemes in Lua
 Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
@@ -78,8 +75,6 @@ Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'magicalbanana/vim-sql-syntax'
 Plug 'vim-scripts/capslock.vim'     " Adds caps lock mapping to insert mode
 Plug 'vim-scripts/StripWhiteSpaces'
 Plug 'inkarkat/vim-ingo-library'    " Required by visualrepeat and ConflictMotions
@@ -98,12 +93,10 @@ Plug 'plasticboy/vim-markdown'      " Adds extra features to markdown
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'tommcdo/vim-exchange'         " For swapping the place of two text objects
 Plug 'markonm/traces.vim'           " Better highlighting when searching/replacing
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
-Plug 'idbrii/vim-jumpmethod'        " Better ]m/[m for C#, C++ and Java
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 call plug#end()
 
