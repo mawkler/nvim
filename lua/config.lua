@@ -354,33 +354,6 @@ require('nvim-lastplace').setup()
 -- Dial.nvim --
 local dial = require('dial')
 
--- Custom augends
-dial.augends['custom#boolean'] = dial.common.enum_cyclic {
-  name = 'boolean',
-  strlist = {'true', 'false'}
-}
-
-dial.augends['custom#BOOLEAN'] = dial.common.enum_cyclic {
-  name = 'BOOLEAN',
-  strlist = {'TRUE', 'FALSE'}
-}
-
-dial.augends['custom#logical'] = dial.common.enum_cyclic {
-  name = 'logical operator',
-  strlist = {'and', 'or'}
-}
-
-dial.augends['custom#number'] = dial.common.enum_cyclic {
-  name = 'number',
-  strlist = {'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'}
-}
-
-dial.augends['custom#nummer'] = dial.common.enum_cyclic {
-  name = 'nummer',
-  strlist = {'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'}
-
-}
-
 dial.config.searchlist.normal = {
   'number#decimal',
   'number#hex',
@@ -388,12 +361,29 @@ dial.config.searchlist.normal = {
   'date#[%Y/%m/%d]',
   'date#[%H:%M]',
   'markup#markdown#header',
-  'custom#boolean',
-  'custom#BOOLEAN',
-  'custom#logical',
-  'custom#number',
-  'custom#nummer',
 }
+
+-- Custom augends
+local function add_cyclic_augend(name, strlist)
+  local augend_key = 'custom#' .. name
+  dial.augends[augend_key] = dial.common.enum_cyclic {
+    name    = name,
+    strlist = strlist
+  }
+  table.insert(dial.config.searchlist.normal, augend_key)
+end
+
+add_cyclic_augend('boolean', {'true', 'false'})
+add_cyclic_augend('BOOLEAN', {'TRUE', 'FALSE'})
+add_cyclic_augend('logical', {'and', 'or'})
+add_cyclic_augend('number', {
+  'one',   'two',   'three', 'four', 'five',   'six',
+  'seven', 'eight', 'nine',  'ten',  'eleven', 'twelve'
+})
+add_cyclic_augend('nummer', {
+  'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex',
+  'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
+})
 
 map('n', '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
 map('n', '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
