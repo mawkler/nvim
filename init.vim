@@ -118,6 +118,7 @@ set splitright        " Open vertical window splits to the right instead of left
 set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining lines
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 set encoding=utf-8
+set updatetime=100
 
 augroup filechanged
   autocmd!
@@ -838,10 +839,8 @@ nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 augroup quickfix
   autocmd!
-  " autocmd FileType qf nunmap <buffer> <space>
-  autocmd FileType qf nmap <buffer> <Space> <CR><C-w>p
+  autocmd FileType qf nmap <buffer><nowait> <Space> <CR><C-w>p
 augroup END
-" nmap <buffer> <Space> <CR><C-w>p
 
 " -- lens.vim --
 let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame']
