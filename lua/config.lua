@@ -119,7 +119,7 @@ map('x', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
 map('n', 'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', 'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n', 'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-map('n', 'ga',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
+map('n', 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
 map('x', 'ga',        ':<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>')
 map('n', '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
 map('n', ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
@@ -350,3 +350,54 @@ require('gitsigns').setup {
 
 -- Lastplace --
 require('nvim-lastplace').setup()
+
+-- Dial.nvim --
+local dial = require('dial')
+
+-- Custom augends
+dial.augends['custom#boolean'] = dial.common.enum_cyclic {
+  name = 'boolean',
+  strlist = {'true', 'false'}
+}
+
+dial.augends['custom#BOOLEAN'] = dial.common.enum_cyclic {
+  name = 'BOOLEAN',
+  strlist = {'TRUE', 'FALSE'}
+}
+
+dial.augends['custom#logical'] = dial.common.enum_cyclic {
+  name = 'logical operator',
+  strlist = {'and', 'or'}
+}
+
+dial.augends['custom#number'] = dial.common.enum_cyclic {
+  name = 'number',
+  strlist = {'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'}
+}
+
+dial.augends['custom#nummer'] = dial.common.enum_cyclic {
+  name = 'nummer',
+  strlist = {'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'}
+
+}
+
+dial.config.searchlist.normal = {
+  'number#decimal',
+  'number#hex',
+  'number#binary',
+  'date#[%Y/%m/%d]',
+  'date#[%H:%M]',
+  'markup#markdown#header',
+  'custom#boolean',
+  'custom#BOOLEAN',
+  'custom#logical',
+  'custom#number',
+  'custom#nummer',
+}
+
+map('n', '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
+map('n', '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
+map('v', '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
+map('v', '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
+map('v', 'g<C-a>', '<Plug>(dial-increment-additional)', {noremap = false})
+map('v', 'g<C-x>', '<Plug>(dial-decrement-additional)', {noremap = false})

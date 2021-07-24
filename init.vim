@@ -17,7 +17,6 @@ if !$NVIM_MINIMAL
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
-  Plug 'mjbrownie/swapit'                    " For toggling words like `true` to `false`, etc.
   Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
   Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
   Plug 'meain/vim-printer'
@@ -64,6 +63,7 @@ if has('nvim')
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
   Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
+  Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -563,9 +563,9 @@ imap <S-Esc> <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
 " Start in visual mode (e.g. vipga):
-xmap gA <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 " Start for a motion/text object (e.g. gaip)
-nmap gA <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " -- NERDCommenter --
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
@@ -619,27 +619,6 @@ nmap cm  <Plug>Commentary
 nmap cmm <Plug>CommentaryLine
 
 if !$NVIM_MINIMAL
-  " -- swapit --
-  fun SwapLists()
-    ClearSwapList
-    SwapList BOOLEANS TRUE FALSE
-    SwapList numbers zero one two three four five six seven eight nine ten eleven twelve
-    SwapList Numbers Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve
-    SwapList nummer noll en ett två tre fyra fem sex sju åtta nio tio elva tolv
-    SwapList Nummer Noll En Ett Två Tre Fyra Fem Sex Sju Åtta Nio Tio Elva Tolv
-    SwapList a a an
-    SwapList andor and or
-    SwapList andorsymbols && ||
-    SwapList is is are
-    SwapList do do does
-    SwapList isnt isn aren
-    SwapList dont don doesn
-  endfun
-  augroup SwapList
-    autocmd!
-    autocmd BufEnter * call SwapLists()
-  augroup end
-
   " Git-timelapse
   nmap <leader>gt :call TimeLapse() <cr>
 endif
