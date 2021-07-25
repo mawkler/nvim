@@ -8,7 +8,15 @@ local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   return {
-    capabilities = capabilities -- enable snippet support
+    capabilities = capabilities, -- enable snippet support
+    on_attach = function()
+      require('lsp_signature').on_attach({
+        hi_parameter = 'String',
+          handler_opts = {
+            border = 'single'   -- double, single, shadow, none
+          },
+      })
+    end
   }
 end
 
@@ -27,7 +35,7 @@ for _, server in pairs(servers) do
   if server == 'lua' then
     config.settings = lua_settings
   end
-  require'lspconfig'[server].setup(config)
+  require('lspconfig')[server].setup(config)
 end
 
 -- Compe --
@@ -46,6 +54,10 @@ require('compe').setup {
       priority = 20,
     }
   }
+}
+
+require('nvim-autopairs.completion.compe').setup {
+  map_complete = true -- Auto insert `()` after completing a function or method
 }
 
 local function t(str)
@@ -314,6 +326,9 @@ require('nvim-treesitter.configs').setup {
         ['<,'] = '@parameter.inner',
       },
     },
+  },
+  context_commentstring = {
+    enable = true
   }
 }
 

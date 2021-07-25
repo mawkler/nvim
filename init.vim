@@ -52,11 +52,14 @@ if has('nvim')
   Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
   Plug 'hrsh7th/nvim-compe'            " Auto completion
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
+  Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+  Plug 'nvim-treesitter/playground'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
@@ -531,6 +534,7 @@ fun! s:colorschemeMods() abort
   hi CursorLine   guibg=#313742
   hi CursorLineNr guifg=#61afef guibg=#313742
   hi NormalFloat  guibg=#3E4452
+  hi FloatBorder  guibg=#3E4452
 
   hi! link Search     Visual
   hi! link SpecialKey Directory
