@@ -56,8 +56,8 @@ if has('nvim')
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
-  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': '0.5-compat' }
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'nvim-treesitter/playground'
   Plug 'nvim-lua/lsp-status.nvim'
