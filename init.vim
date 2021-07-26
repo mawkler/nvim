@@ -878,9 +878,6 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
 
-" -- restore_view --
-let g:skipview_files = ['COMMIT_EDITMSG']
-
 " -- Startify --
 let g:startify_session_dir = '~/.config/nvim/sessions/'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
@@ -888,6 +885,7 @@ let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead o
 let g:startify_files_number = 8
 let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
 let g:startify_session_sort = 1  " Sort sessions based on mru rather than name
+let g:startify_skiplist = ['COMMIT_EDITMSG']
 let g:startify_lists = [
       \   {'type': 'sessions',  'header': ['   Sessions']},
       \   {'type': 'files',     'header': ['   Recent files']},
