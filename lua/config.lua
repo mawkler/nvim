@@ -138,7 +138,7 @@ map({'n', 'x'}, 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
 map('n',        'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-map({'n', 'x'}, 'ga',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
+map({'n', 'x'}, 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
 map('n',        '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
 map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
 map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
@@ -148,12 +148,12 @@ map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<
 -------------
 require('lspkind').init {
   symbol_map = {
-    Class = '',
+    Class     = '',
     Interface = '',
-    Module = '',
-    Enum = '',
-    Text = '',
-    Struct = ''
+    Module    = '',
+    Enum      = '',
+    Text      = '',
+    Struct    = ''
   }
 }
 
@@ -448,9 +448,9 @@ kommentary.configure_language('default', {
   prefer_single_line_comments = true
 })
 
-map('n', 'cmm',  '<Plug>kommentary_line_default',   {noremap = false})
-map('n', 'cm',   '<Plug>kommentary_motion_default', {noremap = false})
-map({'n', 'x'}, '<CR>', '<Plug>kommentary_line_default',   {noremap = false})
+map('n', 'cmm', '<Plug>kommentary_line_default',         {noremap = false})
+map('n', 'cm',  '<Plug>kommentary_motion_default',       {noremap = false})
+map({'n', 'x'}, '<CR>', '<Plug>kommentary_line_default', {noremap = false})
 
 -- Restores <CR> mapping in command-line window
 cmd 'autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>'
