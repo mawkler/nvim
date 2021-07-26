@@ -1,6 +1,8 @@
 local cmd = vim.cmd
 
+----------------
 -- LSPInstall --
+----------------
 require('lspinstall').setup()
 
 -- Config that activates keymaps and enables snippet support
@@ -38,7 +40,9 @@ for _, server in pairs(servers) do
   require('lspconfig')[server].setup(config)
 end
 
+-----------
 -- Compe --
+-----------
 vim.o.completeopt = 'menuone,noselect'
 require('compe').setup {
   preselect = 'always',
@@ -103,41 +107,45 @@ require('lspsaga').init_lsp_saga {
   rename_prompt_prefix = 'Rename ➤',
 }
 
+--------------
 -- Mappings --
-local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+--------------
+local function map(modes, lhs, rhs, opts)
+  if (type(modes) ~= 'table') then modes = {modes} end
+
+  for _, mode in pairs(modes) do
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  end
 end
 
 -- Completion
-map('i', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
-map('s', '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
-map('i', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
-map('s', '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
-map('i', '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
-map('i', '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
-map('i', '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
-map('i', '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
+map({'i', 's'}, '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
+map({'i', 's'}, '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
+map('i',        '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
+map('i',        '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
+map('i',        '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
+map('i',        '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
 
 -- LSP and diagnostics
-map('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', 'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
-map('n', 'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n', 'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
-map('n', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
-map('x', 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
-map('n', 'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', 'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-map('n', 'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-map('n', 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
-map('x', 'ga',        ':<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>')
-map('n', '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
-map('n', ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
-map('n', '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
+map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
+map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
+map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+map('n',        'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
+map({'n', 'x'}, 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map('n',        'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+map({'n', 'x'}, 'ga',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
+map('n',        '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
+map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
+map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
--- lspkind --
+-------------
+-- LSPKind --
+-------------
 require('lspkind').init {
   symbol_map = {
     Class = '',
@@ -149,7 +157,9 @@ require('lspkind').init {
   }
 }
 
+---------------
 -- Telescope --
+---------------
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -164,7 +174,9 @@ require('telescope').setup {
   }
 }
 
--- nvim-tree --
+---------------
+-- Nvim-tree --
+---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 vim.g.nvim_tree_bindings = {
   {key = 'l', cb = tree_cb('edit')},
@@ -187,7 +199,9 @@ end
 cmd 'autocmd WinEnter,BufWinEnter NvimTree lua nvimTreeEnter()'
 cmd 'autocmd BufLeave,WinClosed NvimTree lua nvimTreeLeave()'
 
+---------------
 -- Autopairs --
+---------------
 local rule = require('nvim-autopairs.rule')
 local n_pairs = require('nvim-autopairs')
 
@@ -200,7 +214,9 @@ n_pairs.add_rules {
 _G.autopairs_cr = n_pairs.autopairs_cr
 map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
 
+---------------
 -- Formatter --
+---------------
 require('formatter').setup {
   logging = false,
   filetype = {
@@ -256,10 +272,14 @@ vim.api.nvim_exec([[
   augroup END
 ]], true)
 
+----------------
 -- Statusline --
+----------------
 require('statusline')
 
+-----------------------
 -- Nvim-web-devicons --
+-----------------------
 require('nvim-web-devicons').setup {
   override = {
     md = {
@@ -276,7 +296,9 @@ require('nvim-web-devicons').setup {
   default = true
 }
 
+----------------
 -- Treesitter --
+----------------
 require('nvim-treesitter.configs').setup {
   ensure_installed = 'maintained',
   highlight = {
@@ -332,10 +354,14 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
+---------------
 -- Neoscroll --
+---------------
 require('neoscroll').setup()
 
+----------------
 -- Diagnostic --
+----------------
 local function sign_define(name, symbol)
   vim.fn.sign_define(name, {
     text   = symbol,
@@ -352,7 +378,9 @@ sign_define('LspDiagnosticsSignInformation', '')
 
 cmd 'hi link LspDiagnosticsSignWarning DiffChange'
 
+--------------
 -- Gitsigns --
+--------------
 require('gitsigns').setup {
   signs = {
     add          = {text = '┃'},
@@ -363,10 +391,14 @@ require('gitsigns').setup {
   }
 }
 
+---------------
 -- Lastplace --
+---------------
 require('nvim-lastplace').setup()
 
+---------------
 -- Dial.nvim --
+---------------
 local dial = require('dial')
 
 dial.config.searchlist.normal = {
@@ -400,9 +432,38 @@ add_cyclic_augend('nummer', {
   'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
 })
 
-map('n', '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
-map('n', '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
-map('v', '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
-map('v', '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
-map('v', 'g<C-a>', '<Plug>(dial-increment-additional)', {noremap = false})
-map('v', 'g<C-x>', '<Plug>(dial-decrement-additional)', {noremap = false})
+map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
+map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
+map('v',        'g<C-a>', '<Plug>(dial-increment-additional)', {noremap = false})
+map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)', {noremap = false})
+
+----------------
+-- Kommentary --
+----------------
+vim.g.kommentary_create_default_mappings = false
+
+local kommentary = require('kommentary.config')
+kommentary.setup()
+kommentary.configure_language('default', {
+  prefer_single_line_comments = true
+})
+
+map('n', 'cmm',  '<Plug>kommentary_line_default',   {noremap = false})
+map('n', 'cm',   '<Plug>kommentary_motion_default', {noremap = false})
+map({'n', 'x'}, '<CR>', '<Plug>kommentary_line_default',   {noremap = false})
+
+-- Restores <CR> mapping in command-line window
+cmd 'autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>'
+
+map('n',        '<leader>cmm', '<Plug>kommentary_line_increase',   {noremap = false})
+map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase', {noremap = false})
+map('n',        '<leader>cuu', '<Plug>kommentary_line_decrease',   {noremap = false})
+map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease', {noremap = false})
+
+map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase',  {noremap = false})
+map('n',
+  '<leader>cA',
+  ':execute "norm! A " . substitute(&commentstring, "%s", " ", "")<CR>A',
+  {silent = true}
+)
+-- TODO: add <leader>C mapping for commenting everything to the right of the cursor

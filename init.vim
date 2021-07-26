@@ -67,12 +67,11 @@ if has('nvim')
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
   Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
   Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
+  Plug 'b3nj5m1n/kommentary'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
 Plug 'RRethy/nvim-base16'           " Collection of base16 colorschemes in Lua
-Plug 'scrooloose/nerdcommenter'
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
@@ -401,10 +400,6 @@ if exists('$TMUX')
   set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
 endif
 
-" -- Language specific settings --
-xnoremap <expr> <Tab> index(['python', 'markdown'], &filetype) >= 0 ?
-      \ ">gv" : "=gv"
-
 " -- Lines and cursor --
 set number relativenumber
 set cursorline                    " Cursor highlighting
@@ -571,20 +566,6 @@ xmap ga <Plug>(EasyAlign)
 " Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" -- NERDCommenter --
-let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
-let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
-let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters
-let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace when uncommenting
-let g:NERDCustomDelimiters = {
-\ 'html': { 'left': '<!-- ', 'right': '-->', 'leftAlt': '//'},
-\ 'javascript': { 'left': '//', 'leftAlt': '<!-- ', 'rightAlt': '-->'}
-\ }
-map <leader>C <plug>NERDCommenterToEOL
-map <silent> <expr> <CR>
-      \ &modifiable && !bufexists('[Command Line]') ?
-      \ "<Plug>NERDCommenterToggle" : "<CR>"
-
 " -- For editing multiple files with `*` --
 com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
@@ -605,7 +586,7 @@ let g:sleuth_automatic = 1
 inoremap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 inoremap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 
-" -- nvim-tree --
+" -- Nvim-tree --
 let g:nvim_tree_lsp_diagnostics = 1
 let g:nvim_tree_show_icons = {
       \   'git':     1,
@@ -617,10 +598,6 @@ let g:nvim_tree_icons = {
       \ }
 noremap <silent> <Leader>§ :NvimTreeToggle<CR>
 noremap <silent> <Leader>` :NvimTreeToggle<CR>
-
-" -- Commentary --
-nmap cm  <Plug>Commentary
-nmap cmm <Plug>CommentaryLine
 
 if !$NVIM_MINIMAL
   " Git-timelapse
@@ -634,21 +611,21 @@ omap aF <Plug>(textobj-function-A)
 xmap iF <Plug>(textobj-function-i)
 omap iF <Plug>(textobj-function-i)
 
-" --- vim-textobj-line ---
+" -- vim-textobj-line --
 let g:textobj_line_no_default_key_mappings = 1
 xmap aL <Plug>(textobj-line-a)
 omap aL <Plug>(textobj-line-a)
 xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
-" -- Cool.vim --
-if has('nvim') || has('gui_running')
-  " Causes regular Vim to launch in replace mode for some reason
-  nnoremap <silent> <expr> <Esc>
-        \ v:hlsearch \|\| &modifiable && !bufexists('[Command Line]')
-        \ ? ":nohlsearch<CR>"
-        \ : "<C-w>c"
-endif
+" -- Command-line window --
+nnoremap <silent><expr>
+      \ <Esc> v:hlsearch \|\| &modifiable ? ':nohlsearch<CR>' : '<C-w>c'
+augroup cmd_win
+  autocmd!
+  autocmd CmdwinEnter * nnoremap <buffer> <Esc> <C-w>c
+  autocmd CmdwinEnter * nnoremap <buffer> <CR>  <CR>
+augroup END
 
 " -- exchange.vim --
 vmap x <Plug>(Exchange)
@@ -666,9 +643,9 @@ xmap af <Plug>DsfTextObjectA
 omap if <Plug>DsfTextObjectI
 xmap if <Plug>DsfTextObjectI
 
-" -- Java syntax highlighting --
-let g:java_highlight_functions = 1
-let g:java_highlight_all = 1
+" " -- Java syntax highlighting --
+" let g:java_highlight_functions = 1
+" let g:java_highlight_all = 1
 
 " -- Fzf --
 function FZF_files()
@@ -845,7 +822,7 @@ hi link mkdLink mkdInlineURL
 augroup toc_markdown
   autocmd!
   autocmd FileType markdown nmap <buffer> <leader>t :Toc<CR>
-  autocmd FileType markdown setlocal keywordprg=:help commentstring=<!--%s-->
+  autocmd FileType markdown setlocal keywordprg=:help
 augroup END
 
 " -- vim-textobj-markdown --
