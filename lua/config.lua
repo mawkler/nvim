@@ -448,9 +448,10 @@ kommentary.configure_language('default', {
   prefer_single_line_comments = true
 })
 
-map('n', 'cmm', '<Plug>kommentary_line_default',         {noremap = false})
-map('n', 'cm',  '<Plug>kommentary_motion_default',       {noremap = false})
-map({'n', 'x'}, '<CR>', '<Plug>kommentary_line_default', {noremap = false})
+map('n', 'cmm',  '<Plug>kommentary_line_default',   {noremap = false})
+map('n', 'cm',   '<Plug>kommentary_motion_default', {noremap = false})
+map('n', '<CR>', '<Plug>kommentary_line_default',   {noremap = false})
+map('x', '<CR>', '<Plug>kommentary_visual_default', {noremap = false})
 
 -- Restores <CR> mapping in command-line window
 cmd 'autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>'
