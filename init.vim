@@ -349,12 +349,7 @@ augroup vertical_help
 augroup END
 
 " Prints the syntax highlighting values under cursor
-function! SynStack()
-  if exists("*synstack")
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-  endif
-endf
-map <leader>H :call SynStack()<CR>
+map <leader>H :TSHighlightCapturesUnderCursor<CR>
 
 " Tries to perform a regular `gf`, if that doesn't work try to call
 " vim-markdown's Markdown_EditUrlUnderCursor
@@ -506,6 +501,7 @@ augroup language_specific
   autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
   " Start commit buffers in insert mode
   autocmd FileType gitcommit exec 'norm gg' | setlocal spell | startinsert!
+  autocmd FileType lua setlocal keywordprg=:help
 augroup end
 
 " -- netrw --
