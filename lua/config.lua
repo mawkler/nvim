@@ -1,4 +1,6 @@
-local cmd = vim.cmd
+local cmd, call, fn = vim.cmd, vim.call, vim.fn
+local o, opt, g, b = vim.o, vim.opt, vim.g, vim.b
+local api = vim.api
 
 ----------------
 -- LSPInstall --
@@ -43,7 +45,7 @@ end
 -----------
 -- Compe --
 -----------
-vim.o.completeopt = 'menuone,noselect'
+o.completeopt = 'menuone,noselect'
 require('compe').setup {
   preselect = 'always',
   source = {
@@ -65,13 +67,13 @@ require('nvim-autopairs.completion.compe').setup {
 }
 
 local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 function _G.tab_complete()
-  if vim.fn.pumvisible() == 1 then
-    return vim.fn['compe#confirm']()
-  elseif vim.fn['vsnip#available'] then
+  if fn.pumvisible() == 1 then
+    return call 'compe#confirm'
+  elseif call 'vsnip#available' == 1 then
     return t '<Plug>(vsnip-expand-or-jump)'
   else
     return t '<C-t>'
@@ -79,7 +81,7 @@ function _G.tab_complete()
 end
 
 function _G.s_tab_complete()
-  if vim.fn['vsnip#jumpable(-1)'] then
+  if fn['vsnip#jumpable'](-1) == 1 then
     return t '<Plug>(vsnip-jump-prev)'
   else
     return t '<C-d>'
@@ -87,10 +89,10 @@ function _G.s_tab_complete()
 end
 
 function _G.toggle_complete()
-  if vim.fn.pumvisible() == 1 then
-    return vim.fn['compe#close']()
+  if fn.pumvisible() == 1 then
+    return call 'compe#close'
   else
-    return vim.fn['compe#complete']()
+    return call 'compe#complete'
   end
 end
 
@@ -116,7 +118,7 @@ local function map(modes, lhs, rhs, opts)
   for _, mode in pairs(modes) do
     local options = {noremap = true}
     if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    api.nvim_set_keymap(mode, lhs, rhs, options)
   end
 end
 
@@ -178,7 +180,7 @@ require('telescope').setup {
 -- Nvim-tree --
 ---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
-vim.g.nvim_tree_bindings = {
+g.nvim_tree_bindings = {
   {key = 'l', cb = tree_cb('edit')},
   {key = 'h', cb = tree_cb('close_node')}
 }
@@ -188,12 +190,12 @@ require('nvim-tree.view').View.winopts.cursorline = true
 
 _G.nvimTreeEnter = function()
   cmd 'highlight! Cursor blend=100'
-  vim.opt.guicursor = {'n:Cursor/lCursor', 'v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor2'}
+  opt.guicursor = {'n:Cursor/lCursor', 'v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor2'}
 end
 
 _G.nvimTreeLeave = function()
   cmd 'highlight! Cursor blend=NONE'
-  vim.opt.guicursor = {'n-v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor20'}
+  opt.guicursor = {'n-v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor20'}
 end
 
 cmd 'autocmd WinEnter,BufWinEnter NvimTree lua nvimTreeEnter()'
@@ -225,7 +227,7 @@ require('formatter').setup {
         return {
           exe = 'prettier',
           args = {
-            '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote'
+            '--stdin-filepath', api.nvim_buf_get_name(0), '--single-quote'
           },
           stdin = true
         }
@@ -235,7 +237,7 @@ require('formatter').setup {
       function()
         return {
           exe = 'prettier',
-          args = {'--stdin-filepath', vim.api.nvim_buf_get_name(0)},
+          args = {'--stdin-filepath', api.nvim_buf_get_name(0)},
           stdin = true
         }
       end
@@ -253,19 +255,19 @@ require('formatter').setup {
 }
 
 function _G.toggle_format_on_write()
-  if vim.b.format_on_write == 0 then
-    vim.b.format_on_write = 1
+  if b.format_on_write == 0 then
+    b.format_on_write = 1
     print 'Format on write enabled'
   else
-    vim.b.format_on_write = 0
+    b.format_on_write = 0
     print 'Format on write disabled'
   end
 end
 
-vim.b.format_on_write = 1
+b.format_on_write = 1
 map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
 
-vim.api.nvim_exec([[
+api.nvim_exec([[
   augroup FormatOnWrite
     autocmd!
     autocmd BufWritePost *.js,*.md,*.py if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
@@ -363,7 +365,7 @@ require('neoscroll').setup()
 -- Diagnostic --
 ----------------
 local function sign_define(name, symbol)
-  vim.fn.sign_define(name, {
+  fn.sign_define(name, {
     text   = symbol,
     texthl = name,
     linehl = name,
@@ -440,7 +442,7 @@ map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)', {noremap = false}
 ----------------
 -- Kommentary --
 ----------------
-vim.g.kommentary_create_default_mappings = false
+g.kommentary_create_default_mappings = false
 
 local kommentary = require('kommentary.config')
 kommentary.setup()
