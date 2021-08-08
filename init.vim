@@ -205,34 +205,16 @@ cmap     <C-a>            <Home>
 imap     <M-o>            <C-o>o
 imap     <M-O>            <C-o>O
 "----------------------------------------------
-map      <M-j>            }
-map      <M-k>            {
-omap     <M-j>            V}
-omap     <M-k>            V{
+nmap     <M-j>            :m .+1<CR>==
+nmap     <M-k>            :m .-2<CR>==
+xmap     <M-j>            :m '>+1<CR>gv=gv
+xmap     <M-k>            :m '<-2<CR>gv=gv
+imap     <M-j>            <Esc>:m .+1<CR>==gi
+imap     <M-k>            <Esc>:m .-2<CR>==gi
 map      <C-Space>        zt
 map      <C-w>gd          <C-w>vgd
 nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
-map      ¨                ]
-map      å                [
-map      ¨¨               ]]
-map      åå               [[
-map      Å                {
-map      ö                ;
-map      gö               g;
-map      Ö                :
-map      ¤                $
-imap     ¤                $
-map!     ¤                $
-map      g¤               g$
-map      ´                =
-imap     §                `
-map      §                `
-map!     ½                ~
-map      ½                ~
-map      Ä                @
-map      ÄÄ               @@
-map      ÄÖ               @:
 nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 map      <leader>v        :source ~/.config/nvim/init.vim<CR>
@@ -254,6 +236,8 @@ nnoremap g#               msg#`s
 map      `/               `s
 map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
+nnoremap n                nzz
+nnoremap N                Nzz
 nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
 vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
@@ -302,6 +286,10 @@ map          <leader>Gc :vertical Git commit -va
 " `;`/`,` always seach forward/backward, respectively
 noremap <expr> ; getcharsearch().forward ? ';' : ','
 noremap <expr> , getcharsearch().forward ? ',' : ';'
+
+" Adds previous cursor location to jumplist if count is > 5
+noremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+noremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 
 " Does `cd path` and prints the command using notifications.vim
 function! CD(path)
@@ -451,16 +439,6 @@ omap ir i]
 omap ar a]
 xmap ir i]
 xmap ar a]
-omap s¤ s$
-
-" surround noun `¤` means `$`
-nmap cs¤ cs$
-nmap ds¤ ds$
-omap i¤  i$
-omap a¤  a$
-vmap i¤  i$
-vmap a¤  a$
-let g:surround_{char2nr('¤')} = "$\r$"
 
 " surround noun `q` means `'`
 nmap csq cs'
