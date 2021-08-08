@@ -796,6 +796,8 @@ nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 augroup quickfix
   autocmd!
   autocmd FileType qf nmap <buffer><nowait> <Space> <CR><C-w>p
+  autocmd FileType qf nmap <buffer><nowait> <CR> <CR>
+  autocmd FileType qf xmap <buffer><nowait> <CR> <CR>
 augroup END
 
 " -- lens.vim --
