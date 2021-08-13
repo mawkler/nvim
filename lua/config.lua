@@ -185,22 +185,6 @@ g.nvim_tree_bindings = {
   {key = 'h', cb = tree_cb('close_node')}
 }
 
--- Disable cursor in nvim-tree
-require('nvim-tree.view').View.winopts.cursorline = true
-
-_G.nvimTreeEnter = function()
-  cmd 'highlight! Cursor blend=100'
-  opt.guicursor = {'n:Cursor/lCursor', 'v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor2'}
-end
-
-_G.nvimTreeLeave = function()
-  cmd 'highlight! Cursor blend=NONE'
-  opt.guicursor = {'n-v-c-sm:block', 'i-ci-ve:ver25', 'r-cr-o:hor20'}
-end
-
-cmd 'autocmd WinEnter,BufWinEnter NvimTree lua nvimTreeEnter()'
-cmd 'autocmd BufLeave,WinClosed NvimTree lua nvimTreeLeave()'
-
 ---------------
 -- Autopairs --
 ---------------
