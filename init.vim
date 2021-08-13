@@ -100,6 +100,7 @@ Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in 
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
+Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
 call plug#end()
 
 " -- General --
@@ -128,7 +129,6 @@ augroup filechanged
 augroup end
 
 " -- Menu autocompletion --
-set wildcharm=<Tab> " Allows remapping of <Down> in wildmenu
 set wildignorecase  " Case insensitive file- and directory name completion
 set path+=**        " Lets `find` search recursively into subfolders
 set cedit=<C-y>     " Enter Command-line Mode from command-mode
@@ -368,13 +368,9 @@ noremap <silent> <C--> :call Zoom(-v:count1)<CR>
 noremap <silent> <C-0> :call ZoomSet(12)<CR>
 
 if has('nvim')
-  " Because NeoVim's menu completions are in a vertical pum
-  cnoremap <expr> <C-k> pumvisible() ? "\<C-p>"       : "\<C-k>"
-  cnoremap <expr> <C-j> pumvisible() ? "\<C-n>"       : "\<Down>"
-  cnoremap <expr> <Tab> pumvisible() ? "\<C-y>"       : "\<Tab>"
-  cnoremap <expr> <C-f> pumvisible() ? "\<C-e>"       : "\<Right>"
-  cnoremap <expr> <C-p> pumvisible() ? "\<Up><C-p>"   : "\<Up>"
-  cnoremap <expr> <C-n> pumvisible() ? "\<C-e><Down>" : "\<Down>"
+  cnoremap <C-p> <Up>
+  cnoremap <C-n> <Down>
+  cnoremap <C-q> <Esc>
   set cpoptions-=_ " Makes cw/cW include the whitespace after the word
   set shada=!,'1000,<50,s10,h
 endif
@@ -918,7 +914,9 @@ function BarbarHi(name, guifg, ...)
 endf
 
 let g:bufferline = get(g:, 'bufferline', {
-      \ 'closable': v:false, 'no_name_title': '[No Name]'
+      \ 'closable': v:false,
+      \ 'no_name_title': '[No Name]',
+      \ 'insert_at_end': v:true
       \ })
 let s:barbar_bg  = '#21242b'
 
@@ -1058,3 +1056,45 @@ let g:peekaboo_delay = 300
 
 " -- Matchup --
 let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
+
+" -- Wilder --
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+
+cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
+cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
+cnoremap <expr> <Tab> wilder#can_accept_completion() ?
+      \ wilder#accept_completion(0) :
+      \ pumvisible() ?
+      \ "\<C-y>" :
+      \ "\<Tab>"
+
+call wilder#set_option('modes', ['/', '?', ':'])
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(wilder#python_file_finder_pipeline({
+      \     'file_command': {_, arg ->
+      \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
+      \     },
+      \     'dir_command': ['fd', '-td'],
+      \     'cache_timestamp': {-> 1}
+      \   }),
+      \   wilder#cmdline_pipeline({'fuzzy': 1}),
+      \     wilder#python_search_pipeline({
+      \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
+      \     })
+      \   )
+      \ ])
+
+let s:highlighters = [wilder#pcre2_highlighter()]
+
+call wilder#set_option('renderer', wilder#renderer_mux({
+      \   ':': wilder#popupmenu_renderer({
+      \     'highlighter': s:highlighters,
+      \     'left': [wilder#popupmenu_devicons()],
+      \     'right': [' ', wilder#popupmenu_scrollbar()]
+      \   }),
+      \   '/': wilder#wildmenu_renderer({
+      \     'highlighter': s:highlighters
+      \   })
+      \ }))
