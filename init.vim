@@ -25,7 +25,6 @@ if !$NVIM_MINIMAL
   Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
   Plug 'mbbill/undotree'
   Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-  Plug 'Melkster/CommandlineComplete.vim'
   Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
   Plug 'junegunn/vim-peekaboo'               " Opens preview when selecting register
   Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
@@ -839,10 +838,6 @@ map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
 let g:bullets_checkbox_markers  = ' x'
 
-" -- CommandlineComplete --
-cmap <M-i> <Plug>CmdlineCompleteBackward
-cmap <M-I> <Plug>CmdlineCompleteForward
-
 " -- Thesaurus --
 let g:tq_map_keys = 0
 nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
@@ -1065,6 +1060,8 @@ cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
 cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
 cnoremap <expr> <Tab> wilder#can_accept_completion() ?
       \ wilder#accept_completion(0) :
+      \ wilder#in_context() ?
+      \ wilder#next() :
       \ pumvisible() ?
       \ "\<C-y>" :
       \ "\<Tab>"
