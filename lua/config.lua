@@ -56,7 +56,7 @@ require('compe').setup {
     buffer   = {kind = '﬘'},
     vsnip    = {kind = '﬌ Snippet'},
     tabnine  = {
-      filetypes = {'markdown', 'text', 'tex'},
+      filetypes = {'markdown', 'text', 'tex', 'gitcommit'},
       priority = 20,
     }
   }
