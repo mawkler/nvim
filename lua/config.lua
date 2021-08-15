@@ -1,5 +1,5 @@
 local cmd, call, fn = vim.cmd, vim.call, vim.fn
-local o, opt, g, b = vim.o, vim.opt, vim.g, vim.b
+local o, g, b = vim.o, vim.g, vim.b
 local api = vim.api
 
 ----------------

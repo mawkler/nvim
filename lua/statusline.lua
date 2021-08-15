@@ -33,6 +33,32 @@ local colors = {
   diff_delete = GetHiVal('DiffDelete')
 }
 
+local function get_mode_color()
+  local mode_color = {
+    n      = colors.green,
+    i      = colors.blue,
+    v      = colors.magenta,
+    [''] = colors.blue,
+    V      = colors.blue,
+    c      = colors.red,
+    no     = colors.magenta,
+    s      = colors.orange,
+    S      = colors.orange,
+    [''] = colors.orange,
+    ic     = colors.yellow,
+    R      = colors.purple,
+    Rv     = colors.purple,
+    cv     = colors.red,
+    ce     = colors.red,
+    ['r?'] = colors.cyan,
+    ['!']  = colors.green,
+    t      = colors.green,
+    ['r']  = colors.red,
+    rm     = colors.red,
+  }
+  return mode_color[vim.fn.mode()]
+end
+
 local function has_file_type()
   local f_type = vim.bo.filetype
   if not f_type or f_type == '' then return false end
@@ -44,17 +70,19 @@ local buffer_not_empty = function()
   return false
 end
 
+-- TODO: consdier switching to feline.nvim
+
 -- Left side of the statusline
-gls.left[1] = {
+table.insert(gls.left, {
   FirstElement = {
     provider = function()
       return '▋'
     end,
-    highlight = {colors.blue, colors.line_bg}
+    highlight = {colors.blue, get_mode_color}
   }
-}
+})
 
-gls.left[2] = {
+table.insert(gls.left, {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
@@ -76,67 +104,47 @@ gls.left[2] = {
         t      = 'TERMINAL',
         ['!']  = 'SHELL'
       }
-      local mode_color = {
-        n      = colors.green,
-        i      = colors.blue,
-        v      = colors.magenta,
-        [''] = colors.blue,
-        V      = colors.blue,
-        c      = colors.red,
-        no     = colors.magenta,
-        s      = colors.orange,
-        S      = colors.orange,
-        [''] = colors.orange,
-        ic     = colors.yellow,
-        R      = colors.purple,
-        Rv     = colors.purple,
-        cv     = colors.red,
-        ce     = colors.red,
-        ['r?'] = colors.cyan,
-        ['!']  = colors.green,
-        t      = colors.green,
-        ['r']  = colors.red,
-        rm     = colors.red,
-      }
       local vim_mode = vim.fn.mode()
-      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim_mode])
+      -- vim.api.nvim_command('hi GalaxyViMode guifg=' .. get_mode_color())
       return alias[vim_mode] .. '   '
     end,
-    highlight = {colors.red, colors.line_bg, 'bold'}
+    highlight = { colors.line_bg, vim.fn.mode(), 'bold' } -- highlight seems to only be set once
   }
-}
+})
 
-gls.left[3] = {
+table.insert(gls.left, {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.line_bg}
   }
-}
+})
 
-gls.left[4] = {
+table.insert(gls.left, {
   FileName = {
     provider = {'FileName'},
     condition = buffer_not_empty,
     highlight = {colors.fg, colors.line_bg, 'bold'}
   }
-}
+})
 
-gls.left[5] = {
+table.insert(gls.left, {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.condition').check_git_workspace,
     highlight = {colors.orange, colors.line_bg}
   }
-}
+})
 
-gls.left[6] = {
+table.insert(gls.left, {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.condition').check_git_workspace,
-    highlight = {'#8FBCBB', colors.line_bg, 'bold'}
+    highlight = {'#8FBCBB', colors.line_bg, 'bold'},
+    separator = ' ', -- Need for some reason for DiffAdd, etc.
+    separator_highlight = {'#8FBCBB', colors.line_bg, 'bold'}
   }
-}
+})
 
 local checkwidth = function()
   local squeeze_width = vim.fn.winwidth(0) / 2
@@ -144,97 +152,97 @@ local checkwidth = function()
   return false
 end
 
-gls.left[7] = {
+table.insert(gls.left, {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = ' ',
+    icon = ' ',
     highlight = {colors.diff_add, colors.line_bg}
   }
-}
+})
 
-gls.left[8] = {
+table.insert(gls.left, {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' ',
+    icon = '柳',
     highlight = {colors.diff_change, colors.line_bg}
   }
-}
+})
 
-gls.left[9] = {
+table.insert(gls.left, {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
-    icon = ' ',
+    icon = ' ',
     highlight = {colors.diff_delete, colors.line_bg}
   }
-}
+})
 
-gls.left[10] = {
+table.insert(gls.left, {
   LeftEnd = {
     provider = function() return '' end,
     highlight = {colors.line_bg, colors.bg},
   }
-}
+})
 
-gls.left[12] = {
+table.insert(gls.left, {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red, colors.bg}
   }
-}
+})
 
-gls.left[13] = {
+table.insert(gls.left, {
   Space = {
     provider = function() return ' ' end
   }
-}
+})
 
-gls.left[14] = {
+table.insert(gls.left, {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
     highlight = {colors.yellow, colors.bg}
   }
-}
+})
 
 -- Right side of the statusline
-gls.right[1] = {
+table.insert(gls.right, {
   RightEnd = {
-    provider = function() return '' end,
+    provider = function() return '█' end,
     highlight = {colors.line_bg, colors.bg},
   }
-}
+})
 
-gls.right[2] = {
+table.insert(gls.right, {
   FileFormat = {
     provider = 'FileFormat',
     highlight = {colors.fg, colors.line_bg, 'bold'}
   }
-}
+})
 
-gls.right[3] = {
+table.insert(gls.right, {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' | ',
     separator_highlight = {colors.blue, colors.line_bg},
     highlight = {colors.fg, colors.line_bg}
   }
-}
+})
 
-gls.right[4] = {
+table.insert(gls.right, {
   PerCent = {
     provider = 'LinePercent',
     separator = ' ',
     separator_highlight = {colors.line_bg, colors.line_bg},
     highlight = {colors.cyan, colors.line_bg, 'bold'}
   }
-}
+})
 
 -- Short statusline for special filetypes like nvim-tree
-gls.short_line_left[1] = {
+table.insert(gls.short_line_left, {
   BufferType = {
     provider = 'FileTypeName',
     separator = '',
@@ -242,9 +250,9 @@ gls.short_line_left[1] = {
     separator_highlight = {colors.line_bg, colors.bg},
     highlight = {colors.fg, colors.line_bg}
   }
-}
+})
 
-gls.short_line_right[1] = {
+table.insert(gls.short_line_right, {
   BufferIcon = {
     provider = 'BufferIcon',
     separator = '',
@@ -252,4 +260,4 @@ gls.short_line_right[1] = {
     separator_highlight = {colors.line_bg, colors.bg},
     highlight = {colors.fg, colors.line_bg}
   }
-}
+})
