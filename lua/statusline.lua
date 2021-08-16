@@ -1,9 +1,7 @@
-local gl = require('galaxyline')
-local gls = gl.section
+local b = vim.b
 
-gl.short_line_list = {
-  'LuaTree', 'vista', 'dbui', 'startify', 'term', 'nerdtree', 'fugitive', 'fugitiveblame', 'plug'
-}
+local vi_mode = require('feline.providers.vi_mode')
+local lsp = require('feline.providers.lsp')
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
@@ -23,41 +21,72 @@ local colors = {
   darkblue = colorscheme.base04,
   green = colorscheme.base0B,
   orange = colorscheme.base09,
-  purple = colorscheme.base06,
+  purple = colorscheme.base0E,
   magenta = colorscheme.base08,
   blue = colorscheme.base0D,
   red = colorscheme.base0F,
+  gray = colorscheme.base05,
 
   diff_add = GetHiVal('DiffAdd'),
   diff_change = GetHiVal('DiffChange'),
   diff_delete = GetHiVal('DiffDelete')
 }
 
-local function get_mode_color()
-  local mode_color = {
-    n      = colors.green,
-    i      = colors.blue,
-    v      = colors.magenta,
-    [''] = colors.blue,
-    V      = colors.blue,
-    c      = colors.red,
-    no     = colors.magenta,
-    s      = colors.orange,
-    S      = colors.orange,
-    [''] = colors.orange,
-    ic     = colors.yellow,
-    R      = colors.purple,
-    Rv     = colors.purple,
-    cv     = colors.red,
-    ce     = colors.red,
-    ['r?'] = colors.cyan,
-    ['!']  = colors.green,
-    t      = colors.green,
-    ['r']  = colors.red,
-    rm     = colors.red,
+local mode_colors = {
+  NORMAL        = colors.green,
+  OP            = colors.green,
+  INSERT        = colors.blue,
+  VISUAL        = colors.purple,
+  BLOCK         = colors.blue,
+  REPLACE       = colors.magenta,
+  ['V-REPLACE'] = colors.purple,
+  ENTER         = colors.orange,
+  MORE          = colors.orange,
+  SELECT        = colors.cyan,
+  COMMAND       = colors.red,
+  SHELL         = colors.green,
+  TERM          = colors.green,
+  NONE          = colors.yellow
+}
+
+local properties = {
+  force_inactive = {
+    filetypes = {},
+    buftypes = {},
+    bufnames = {}
   }
-  return mode_color[vim.fn.mode()]
-end
+}
+
+local components = {
+  left = {
+    active = {},
+    inactive = {}
+  },
+  mid = {
+    active = {},
+    inactive = {}
+  },
+  right = {
+    active = {},
+    inactive = {}
+  }
+}
+
+properties.force_inactive.filetypes = {
+  'NvimTree',
+  'vista',
+  'dbui',
+  'startify',
+  'term',
+  'nerdtree',
+  'fugitive',
+  'fugitiveblame',
+  'plug',
+  'NvimTree',
+  'dbui',
+  'packer',
+  'startify',
+}
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -70,194 +99,150 @@ local buffer_not_empty = function()
   return false
 end
 
--- TODO: consdier switching to feline.nvim
-
 -- Left side of the statusline
-table.insert(gls.left, {
-  FirstElement = {
-    provider = function()
-      return '▋'
-    end,
-    highlight = {colors.blue, get_mode_color}
-  }
+table.insert(components.left.active, {
+  provider = 'vi_mode',
+  hl = function()
+    return {
+      -- name = vi_mode.get_mode_highlight_name(),
+      fg = 'bg',
+      bg = vi_mode.get_mode_color(),
+      style = 'bold'
+    }
+  end,
+  left_sep = '█',
+  right_sep = '█',
+  icon = ''
 })
 
-table.insert(gls.left, {
-  ViMode = {
-    provider = function()
-      -- auto change color according the vim mode
-      local alias = {
-        n      = 'NORMAL',
-        i      = 'INSERT',
-        c      = 'COMMAND',
-        V      = 'VISUAL',
-        [''] = 'VISUAL',
-        v      = 'VISUAL',
-        ['r?'] = ':CONFIRM',
-        rm     = '--MORE',
-        R      = 'REPLACE',
-        Rv     = 'VIRTUAL',
-        s      = 'SELECT',
-        S      = 'SELECT',
-        ['r']  = 'HIT-ENTER',
-        [''] = 'SELECT',
-        t      = 'TERMINAL',
-        ['!']  = 'SHELL'
-      }
-      local vim_mode = vim.fn.mode()
-      -- vim.api.nvim_command('hi GalaxyViMode guifg=' .. get_mode_color())
-      return alias[vim_mode] .. '   '
-    end,
-    highlight = { colors.line_bg, vim.fn.mode(), 'bold' } -- highlight seems to only be set once
-  }
+table.insert(components.right.active, {
+  provider = 'git_diff_added',
+  hl = { fg = 'green' }
 })
 
-table.insert(gls.left, {
-  FileIcon = {
-    provider = 'FileIcon',
-    condition = buffer_not_empty,
-    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.line_bg}
-  }
+table.insert(components.right.active, {
+  provider = 'git_diff_changed',
+  hl = { fg = 'orange' }
 })
 
-table.insert(gls.left, {
-  FileName = {
-    provider = {'FileName'},
-    condition = buffer_not_empty,
-    highlight = {colors.fg, colors.line_bg, 'bold'}
-  }
+table.insert(components.right.active, {
+  provider = 'git_diff_removed',
+  hl = { fg = 'red' },
+  right_sep = function()
+    local val = {}
+    if b.gitsigns_status_dict then val.str = ' ' else val.str = '' end
+
+    return val
+  end
 })
 
-table.insert(gls.left, {
-  GitIcon = {
-    provider = function() return '  ' end,
-    condition = require('galaxyline.condition').check_git_workspace,
-    highlight = {colors.orange, colors.line_bg}
-  }
+table.insert(components.right.active, {
+  provider = 'git_branch',
+  hl = { bg = 'line_bg' },
+  right_sep = {
+    str = '█',
+    hl = {fg = 'line_bg'},
+  },
+  -- icon = '  '
 })
 
-table.insert(gls.left, {
-  GitBranch = {
-    provider = 'GitBranch',
-    condition = require('galaxyline.condition').check_git_workspace,
-    highlight = {'#8FBCBB', colors.line_bg, 'bold'},
-    separator = ' ', -- Need for some reason for DiffAdd, etc.
-    separator_highlight = {'#8FBCBB', colors.line_bg, 'bold'}
-  }
-})
-
-local checkwidth = function()
+local function wide_enough()
   local squeeze_width = vim.fn.winwidth(0) / 2
   if squeeze_width > 40 then return true end
   return false
 end
 
-table.insert(gls.left, {
-  DiffAdd = {
-    provider = 'DiffAdd',
-    condition = checkwidth,
-    icon = ' ',
-    highlight = {colors.diff_add, colors.line_bg}
-  }
+table.insert(components.left.active, {
+  provider = 'diagnostic_errors',
+  enabled = function()
+    return wide_enough() and lsp.diagnostics_exist('Error')
+  end,
+  hl = { fg = 'red' },
 })
 
-table.insert(gls.left, {
-  DiffModified = {
-    provider = 'DiffModified',
-    condition = checkwidth,
-    icon = '柳',
-    highlight = {colors.diff_change, colors.line_bg}
-  }
+table.insert(components.left.active, {
+    provider = 'diagnostic_warnings',
+  enabled = function()
+    return wide_enough() and lsp.diagnostics_exist('Warning')
+  end,
+    hl = { fg = 'orange' }
 })
 
-table.insert(gls.left, {
-  DiffRemove = {
-    provider = 'DiffRemove',
-    condition = checkwidth,
-    icon = ' ',
-    highlight = {colors.diff_delete, colors.line_bg}
-  }
+table.insert(components.left.active, {
+  provider = 'diagnostic_hints',
+  enabled = function()
+      return wide_enough() and lsp.diagnostics_exist('Hint')
+  end,
+  hl = { fg = 'cyan' }
 })
 
-table.insert(gls.left, {
-  LeftEnd = {
-    provider = function() return '' end,
-    highlight = {colors.line_bg, colors.bg},
-  }
+table.insert(components.left.active, {
+  provider = 'diagnostic_info',
+  enabled = function()
+    return wide_enough() and lsp.diagnostics_exist('Information')
+  end,
+  hl = { fg = 'gray' }
 })
 
-table.insert(gls.left, {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red, colors.bg}
-  }
+-- table.insert(gls.right, {
+--   FileFormat = {
+--     provider = 'FileFormat',
+--     highlight = {colors.fg, colors.line_bg, 'bold'}
+--   }
+-- })
+
+-- table.insert(gls.right, {
+--   LineInfo = {
+--     provider = 'LineColumn',
+--     separator = ' | ',
+--     separator_highlight = {colors.blue, colors.line_bg},
+--     highlight = {colors.fg, colors.line_bg}
+--   }
+-- })
+
+-- table.insert(gls.right, {
+--   PerCent = {
+--     provider = 'LinePercent',
+--     separator = ' ',
+--     separator_highlight = {colors.line_bg, colors.line_bg},
+--     highlight = {colors.cyan, colors.line_bg, 'bold'}
+--   }
+-- })
+
+-- -- Short statusline for special filetypes like nvim-tree
+-- table.insert(gls.short_line_left, {
+--   BufferType = {
+--     provider = 'FileTypeName',
+--     separator = '',
+--     condition = has_file_type,
+--     separator_highlight = {colors.line_bg, colors.bg},
+--     highlight = {colors.fg, colors.line_bg}
+--   }
+-- })
+
+-- table.insert(gls.short_line_right, {
+--   BufferIcon = {
+--     provider = 'BufferIcon',
+--     separator = '',
+--     condition = has_file_type,
+--     separator_highlight = {colors.line_bg, colors.bg},
+--     highlight = {colors.fg, colors.line_bg}
+--   }
+-- })
+
+table.insert(components.right.active, {
+  provider = '▊',
+  hl = function()
+    return {fg = vi_mode.get_mode_color()}
+  end
+
 })
 
-table.insert(gls.left, {
-  Space = {
-    provider = function() return ' ' end
-  }
-})
-
-table.insert(gls.left, {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow, colors.bg}
-  }
-})
-
--- Right side of the statusline
-table.insert(gls.right, {
-  RightEnd = {
-    provider = function() return '█' end,
-    highlight = {colors.line_bg, colors.bg},
-  }
-})
-
-table.insert(gls.right, {
-  FileFormat = {
-    provider = 'FileFormat',
-    highlight = {colors.fg, colors.line_bg, 'bold'}
-  }
-})
-
-table.insert(gls.right, {
-  LineInfo = {
-    provider = 'LineColumn',
-    separator = ' | ',
-    separator_highlight = {colors.blue, colors.line_bg},
-    highlight = {colors.fg, colors.line_bg}
-  }
-})
-
-table.insert(gls.right, {
-  PerCent = {
-    provider = 'LinePercent',
-    separator = ' ',
-    separator_highlight = {colors.line_bg, colors.line_bg},
-    highlight = {colors.cyan, colors.line_bg, 'bold'}
-  }
-})
-
--- Short statusline for special filetypes like nvim-tree
-table.insert(gls.short_line_left, {
-  BufferType = {
-    provider = 'FileTypeName',
-    separator = '',
-    condition = has_file_type,
-    separator_highlight = {colors.line_bg, colors.bg},
-    highlight = {colors.fg, colors.line_bg}
-  }
-})
-
-table.insert(gls.short_line_right, {
-  BufferIcon = {
-    provider = 'BufferIcon',
-    separator = '',
-    condition = has_file_type,
-    separator_highlight = {colors.line_bg, colors.bg},
-    highlight = {colors.fg, colors.line_bg}
-  }
-})
+require('feline').setup {
+  default_fg     = colors.fg,
+  default_bg     = colors.bg,
+  colors         = colors,
+  components     = components,
+  properties     = properties,
+  vi_mode_colors = mode_colors
+}

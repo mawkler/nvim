@@ -43,7 +43,7 @@ if has('nvim')
   Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
   Plug 'mhartington/formatter.nvim'    " Auto formatting
   Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
-  Plug 'glepnir/galaxyline.nvim'
+  Plug 'famiu/feline.nvim'
   Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
@@ -287,8 +287,8 @@ noremap <expr> ; getcharsearch().forward ? ';' : ','
 noremap <expr> , getcharsearch().forward ? ',' : ';'
 
 " Adds previous cursor location to jumplist if count is > 5
-noremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
-noremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 
 " Does `cd path` and prints the command using notifications.vim
 function! CD(path)
