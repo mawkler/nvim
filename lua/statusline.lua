@@ -11,23 +11,23 @@ end
 local colorscheme = require('base16-colorscheme').colorschemes['onedark']
 
 local colors = {
-  bg = colorscheme.base00,
-  line_bg = colorscheme.base01,
-  fg = colorscheme.base07,
-  fg_green = colorscheme.base0B,
+  bg          = colorscheme.base00, -- #282c34
+  line_bg     = colorscheme.base01, -- #353b45
+  fg          = colorscheme.base07, -- #c8ccd4
+  fg_green    = colorscheme.base0B,
 
-  yellow = colorscheme.base0A,
-  cyan = colorscheme.base0C,
-  darkblue = colorscheme.base04,
-  green = colorscheme.base0B,
-  orange = colorscheme.base09,
-  purple = colorscheme.base0E,
-  magenta = colorscheme.base08,
-  blue = colorscheme.base0D,
-  red = colorscheme.base0F,
-  gray = colorscheme.base05,
+  yellow      = colorscheme.base0A,
+  cyan        = colorscheme.base0C,
+  darkblue    = colorscheme.base04,
+  green       = colorscheme.base0B,
+  orange      = colorscheme.base09,
+  purple      = colorscheme.base0E,
+  magenta     = colorscheme.base08,
+  blue        = colorscheme.base0D,
+  red         = colorscheme.base0F,
+  gray        = colorscheme.base05,
 
-  diff_add = GetHiVal('DiffAdd'),
+  diff_add    = GetHiVal('DiffAdd'),
   diff_change = GetHiVal('DiffChange'),
   diff_delete = GetHiVal('DiffDelete')
 }
@@ -36,17 +36,17 @@ local mode_colors = {
   NORMAL        = colors.green,
   OP            = colors.green,
   INSERT        = colors.blue,
+  COMMAND       = colors.red,
   VISUAL        = colors.purple,
-  BLOCK         = colors.blue,
+  BLOCK         = colors.purple,
   REPLACE       = colors.magenta,
-  ['V-REPLACE'] = colors.purple,
+  ['V-REPLACE'] = colors.red,
   ENTER         = colors.orange,
   MORE          = colors.orange,
   SELECT        = colors.cyan,
-  COMMAND       = colors.red,
   SHELL         = colors.green,
   TERM          = colors.green,
-  NONE          = colors.yellow
+  NONE          = colors.gray
 }
 
 local properties = {
@@ -88,6 +88,10 @@ properties.force_inactive.filetypes = {
   'startify',
 }
 
+local left_sep  = { str = '█',   hl = { fg = 'line_bg' } }
+local right_sep = { str = '█ ',  hl = { fg = 'line_bg' } }
+local full_sep  = { str = '█ █', hl = { fg = 'line_bg' } }
+
 local function has_file_type()
   local f_type = vim.bo.filetype
   if not f_type or f_type == '' then return false end
@@ -99,7 +103,10 @@ local buffer_not_empty = function()
   return false
 end
 
+local function in_git_repo() return b.gitsigns_status_dict end
+
 -- Left side of the statusline
+
 table.insert(components.left.active, {
   provider = 'vi_mode',
   hl = function()
@@ -128,21 +135,13 @@ table.insert(components.right.active, {
 table.insert(components.right.active, {
   provider = 'git_diff_removed',
   hl = { fg = 'red' },
-  right_sep = function()
-    local val = {}
-    if b.gitsigns_status_dict then val.str = ' ' else val.str = '' end
-
-    return val
-  end
+  right_sep = ''
 })
 
 table.insert(components.right.active, {
   provider = 'git_branch',
-  hl = { bg = 'line_bg' },
-  right_sep = {
-    str = '█',
-    hl = {fg = 'line_bg'},
-  },
+  right_sep = ' ',
+  enabled = in_git_repo
   -- icon = '  '
 })
 
@@ -171,7 +170,7 @@ table.insert(components.left.active, {
 table.insert(components.left.active, {
   provider = 'diagnostic_hints',
   enabled = function()
-      return wide_enough() and lsp.diagnostics_exist('Hint')
+    return wide_enough() and lsp.diagnostics_exist('Hint')
   end,
   hl = { fg = 'cyan' }
 })
@@ -184,41 +183,38 @@ table.insert(components.left.active, {
   hl = { fg = 'gray' }
 })
 
--- table.insert(gls.right, {
---   FileFormat = {
---     provider = 'FileFormat',
---     highlight = {colors.fg, colors.line_bg, 'bold'}
---   }
--- })
+table.insert(components.right.active, {
+  provider = 'file_encoding',
+  hl = { bg = 'line_bg' },
+  left_sep = left_sep,
+  right_sep = full_sep,
+})
 
--- table.insert(gls.right, {
---   LineInfo = {
---     provider = 'LineColumn',
---     separator = ' | ',
---     separator_highlight = {colors.blue, colors.line_bg},
---     highlight = {colors.fg, colors.line_bg}
---   }
--- })
+table.insert(components.right.active, {
+  provider = 'file_type',
+  enabled = has_file_type,
+  right_sep = right_sep,
+  hl = function() return {bg = 'line_bg'} end
+})
 
--- table.insert(gls.right, {
---   PerCent = {
---     provider = 'LinePercent',
---     separator = ' ',
---     separator_highlight = {colors.line_bg, colors.line_bg},
---     highlight = {colors.cyan, colors.line_bg, 'bold'}
---   }
--- })
+table.insert(components.right.active, {
+  provider = 'position',
+  left_sep = left_sep,
+  hl = function() return {fg = vi_mode.get_mode_color(), bg = 'line_bg'} end
+})
 
--- -- Short statusline for special filetypes like nvim-tree
--- table.insert(gls.short_line_left, {
---   BufferType = {
---     provider = 'FileTypeName',
---     separator = '',
---     condition = has_file_type,
---     separator_highlight = {colors.line_bg, colors.bg},
---     highlight = {colors.fg, colors.line_bg}
---   }
--- })
+-- Statusline for special inactive windows
+
+table.insert(components.left.inactive, {
+  provider = 'FileTypeName',
+  right_sep = '',
+  -- condition = has_file_type,
+  -- separator_hi = {
+  --   fg = colors.line_bg,
+  --   bg = colors.bg,
+  -- },
+  hl = {bg = 'line_bg'}
+})
 
 -- table.insert(gls.short_line_right, {
 --   BufferIcon = {
