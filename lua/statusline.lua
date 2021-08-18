@@ -1,4 +1,4 @@
-local b, fn = vim.b, vim.fn
+local b, bo, fn = vim.b, vim.bo, vim.fn
 
 local vi_mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
@@ -122,11 +122,11 @@ local function get_icon_hl()
 end
 
 local function file_osinfo()
-  local os = vim.bo.fileformat:upper()
+  local os = vim.bo.fileformat
   local icon
-  if os == 'UNIX' then
+  if os == 'unix' then
     icon = ' '
-  elseif os == 'MAC' then
+  elseif os == 'mac' then
     icon = ' '
   else
     icon = ' '
@@ -222,7 +222,7 @@ table.insert(components.right.active, {
 })
 
 table.insert(components.right.active, {
-  provider = 'file_type',
+  provider = function() return bo.filetype end,
   enabled = has_file_type,
   right_sep = right_sep,
   hl = function() return {bg = 'line_bg'} end
