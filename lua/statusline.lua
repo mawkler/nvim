@@ -1,11 +1,11 @@
-local b = vim.b
+local b, fn = vim.b, vim.fn
 
 local vi_mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
-  return vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(name)), layer .. '#')
+  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
 
 local colorscheme = require('base16-colorscheme').colorschemes['onedark']
@@ -99,8 +99,39 @@ local function has_file_type()
 end
 
 local buffer_not_empty = function()
-  if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then return true end
+  if fn.empty(fn.expand('%:t')) ~= 1 then return true end
   return false
+end
+
+local function get_icon_full()
+  local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
+  if has_devicons then
+    local icon, iconhl = devicons.get_icon(fn.expand('%:t'), fn.expand('%:e'))
+    if icon ~= nil then
+      return icon, vim.fn.synIDattr(vim.fn.hlID(iconhl), 'fg')
+    end
+  end
+end
+
+local function get_icon()
+  return select(1, get_icon_full()) .. ' '
+end
+
+local function get_icon_hl()
+  return select(2, get_icon_full())
+end
+
+local function file_osinfo()
+  local os = vim.bo.fileformat:upper()
+  local icon
+  if os == 'UNIX' then
+    icon = ' '
+  elseif os == 'MAC' then
+    icon = ' '
+  else
+    icon = ' '
+  end
+  return icon .. os
 end
 
 local function in_git_repo() return b.gitsigns_status_dict end
@@ -146,7 +177,7 @@ table.insert(components.right.active, {
 })
 
 local function wide_enough()
-  local squeeze_width = vim.fn.winwidth(0) / 2
+  local squeeze_width = fn.winwidth(0) / 2
   if squeeze_width > 40 then return true end
   return false
 end
@@ -184,10 +215,10 @@ table.insert(components.left.active, {
 })
 
 table.insert(components.right.active, {
-  provider = 'file_encoding',
-  hl = { bg = 'line_bg' },
+  provider = get_icon,
+  enabled = has_file_type,
   left_sep = left_sep,
-  right_sep = full_sep,
+  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end
 })
 
 table.insert(components.right.active, {
@@ -198,9 +229,24 @@ table.insert(components.right.active, {
 })
 
 table.insert(components.right.active, {
-  provider = 'position',
+  provider = file_osinfo,
+  hl = { bg = 'line_bg' },
   left_sep = left_sep,
-  hl = function() return {fg = vi_mode.get_mode_color(), bg = 'line_bg'} end
+  right_sep = right_sep,
+})
+
+table.insert(components.right.active, {
+  provider = 'file_encoding',
+  hl = { bg = 'line_bg' },
+  left_sep = left_sep,
+  right_sep = right_sep,
+})
+
+table.insert(components.right.active, {
+  provider = 'position',
+  left_sep = function() return { str = '█',  hl = { fg = vi_mode.get_mode_color() } } end,
+  right_sep = function() return { str = '█',  hl = { fg = vi_mode.get_mode_color() } } end,
+  hl = function() return {fg = 'line_bg', bg = vi_mode.get_mode_color(), style = 'bold'} end
 })
 
 -- Statusline for special inactive windows
@@ -226,13 +272,12 @@ table.insert(components.left.inactive, {
 --   }
 -- })
 
-table.insert(components.right.active, {
-  provider = '▊',
-  hl = function()
-    return {fg = vi_mode.get_mode_color()}
-  end
-
-})
+-- table.insert(components.right.active, {
+--   provider = '▊',
+--   hl = function()
+--     return {fg = vi_mode.get_mode_color()}
+--   end
+-- })
 
 require('feline').setup {
   default_fg     = colors.fg,
