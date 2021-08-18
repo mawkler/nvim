@@ -1,6 +1,6 @@
 local b, bo, fn = vim.b, vim.bo, vim.fn
 
-local vi_mode = require('feline.providers.vi_mode')
+local mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
 
 local function GetHiVal(name, layer)
@@ -50,26 +50,13 @@ local mode_colors = {
 }
 
 local properties = {
-  force_inactive = {
-    filetypes = {},
-    buftypes = {},
-    bufnames = {}
-  }
+  force_inactive = { filetypes = {}, buftypes = {}, bufnames = {} }
 }
 
 local components = {
-  left = {
-    active = {},
-    inactive = {}
-  },
-  mid = {
-    active = {},
-    inactive = {}
-  },
-  right = {
-    active = {},
-    inactive = {}
-  }
+  left  = { active = {}, inactive = {} },
+  mid   = { active = {}, inactive = {} },
+  right = { active = {}, inactive = {} }
 }
 
 properties.force_inactive.filetypes = {
@@ -103,6 +90,10 @@ local buffer_not_empty = function()
   return false
 end
 
+local function get_working_dir()
+  return fn.fnamemodify(fn.getcwd(), ":~")
+end
+
 local function get_icon_full()
   local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
   if has_devicons then
@@ -134,7 +125,15 @@ local function file_osinfo()
   return icon .. os
 end
 
-local function in_git_repo() return b.gitsigns_status_dict end
+local function in_git_repo()
+  return b.gitsigns_status_dict
+end
+
+local function wide_enough()
+  local squeeze_width = fn.winwidth(0) / 2
+  if squeeze_width > 40 then return true end
+  return false
+end
 
 -- Left side of the statusline
 
@@ -144,13 +143,27 @@ table.insert(components.left.active, {
     return {
       -- name = vi_mode.get_mode_highlight_name(),
       fg = 'bg',
-      bg = vi_mode.get_mode_color(),
+      bg = mode.get_mode_color(),
       style = 'bold'
     }
   end,
   left_sep = '█',
   right_sep = '█',
   icon = ''
+})
+
+-- Current working directory
+table.insert(components.left.active, {
+  provider = function(component) return component.icon .. get_working_dir() end,
+  hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
+  left_sep = '██',
+  right_sep = '█',
+  icon = ' '
+})
+
+table.insert(components.left.active, {
+  provider = 'lsp_client_names',
+  icon = '  '
 })
 
 table.insert(components.right.active, {
@@ -175,12 +188,6 @@ table.insert(components.right.active, {
   enabled = in_git_repo
   -- icon = '  '
 })
-
-local function wide_enough()
-  local squeeze_width = fn.winwidth(0) / 2
-  if squeeze_width > 40 then return true end
-  return false
-end
 
 table.insert(components.left.active, {
   provider = 'diagnostic_errors',
@@ -225,28 +232,45 @@ table.insert(components.right.active, {
   provider = function() return bo.filetype end,
   enabled = has_file_type,
   right_sep = right_sep,
-  hl = function() return {bg = 'line_bg'} end
+  hl = function() return { bg = 'line_bg' } end
 })
 
 table.insert(components.right.active, {
   provider = file_osinfo,
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
-  right_sep = right_sep,
+  right_sep = full_sep,
 })
 
 table.insert(components.right.active, {
   provider = 'file_encoding',
   hl = { bg = 'line_bg' },
-  left_sep = left_sep,
-  right_sep = right_sep,
+  right_sep = full_sep,
 })
 
+-- Clock
 table.insert(components.right.active, {
-  provider = 'position',
-  left_sep = function() return { str = '█',  hl = { fg = vi_mode.get_mode_color() } } end,
-  right_sep = function() return { str = '█',  hl = { fg = vi_mode.get_mode_color() } } end,
-  hl = function() return {fg = 'line_bg', bg = vi_mode.get_mode_color(), style = 'bold'} end
+  provider = function(component) return component.icon .. fn.strftime('%H:%M') end,
+  hl = { bg = 'line_bg' },
+  right_sep = right_sep,
+  icon = ' '
+})
+
+-- Cursor line and column
+table.insert(components.right.active, {
+  provider = function(component)
+    return component.icon .. require('feline.providers.cursor').position()
+  end,
+  left_sep = function()
+    return { str = '█', hl = { fg = mode.get_mode_color() } }
+  end,
+  right_sep = function()
+    return { str = '█', hl = { fg = mode.get_mode_color() } }
+  end,
+  hl = function()
+    return { fg = 'line_bg', bg = mode.get_mode_color(), style = 'bold' }
+  end,
+  icon = ' '
 })
 
 -- Statusline for special inactive windows
@@ -259,7 +283,7 @@ table.insert(components.left.inactive, {
   --   fg = colors.line_bg,
   --   bg = colors.bg,
   -- },
-  hl = {bg = 'line_bg'}
+  hl = { bg = 'line_bg' }
 })
 
 -- table.insert(gls.short_line_right, {
