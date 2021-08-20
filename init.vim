@@ -1044,7 +1044,7 @@ nmap <leader>gr <Plug>(grammarous-remove-error)
 nmap <leader>gD <Plug>(grammarous-disable-rule)
 
 exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
-exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('Error', 'fg')
+exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
 
 " -- Peekaboo --
 let g:peekaboo_delay = 300
