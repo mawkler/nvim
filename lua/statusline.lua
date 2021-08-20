@@ -59,7 +59,7 @@ local components = {
   right = { active = {}, inactive = {} }
 }
 
-properties.force_inactive.filetypes = {
+local inactive_filetypes = {
   'NvimTree',
   'vista',
   'dbui',
@@ -69,11 +69,12 @@ properties.force_inactive.filetypes = {
   'fugitive',
   'fugitiveblame',
   'plug',
-  'NvimTree',
   'dbui',
   'packer',
   'startify',
 }
+
+properties.force_inactive.filetypes = inactive_filetypes
 
 local left_sep  = { str = '█',   hl = { fg = 'line_bg' } }
 local right_sep = { str = '█ ',  hl = { fg = 'line_bg' } }
@@ -135,13 +136,22 @@ local function wide_enough()
   return false
 end
 
+local function has_inactive_filetype()
+  local filetype = vim.bo.filetype
+  for _, ft in pairs(inactive_filetypes) do
+    if ft == filetype then
+      return true
+    end
+    return false
+  end
+end
+
 -- Left side of the statusline
 
 table.insert(components.left.active, {
   provider = 'vi_mode',
   hl = function()
     return {
-      -- name = vi_mode.get_mode_highlight_name(),
       fg = 'bg',
       bg = mode.get_mode_color(),
       style = 'bold'
@@ -276,32 +286,30 @@ table.insert(components.right.active, {
 -- Statusline for special inactive windows
 
 table.insert(components.left.inactive, {
-  provider = 'FileTypeName',
+  provider = 'file_info',
   right_sep = '',
-  -- condition = has_file_type,
-  -- separator_hi = {
-  --   fg = colors.line_bg,
-  --   bg = colors.bg,
-  -- },
-  hl = { bg = 'line_bg' }
+  type = 'relative',
+  hl = { bg = 'line_bg' },
+  icon = ''
 })
 
--- table.insert(gls.short_line_right, {
---   BufferIcon = {
---     provider = 'BufferIcon',
---     separator = '',
---     condition = has_file_type,
---     separator_highlight = {colors.line_bg, colors.bg},
---     highlight = {colors.fg, colors.line_bg}
---   }
--- })
+table.insert(components.right.inactive, {
+  provider = get_icon,
+  left_sep = '',
+  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
+  enabled = function()
+    return has_file_type() and not has_inactive_filetype()
+  end
+})
 
--- table.insert(components.right.active, {
---   provider = '▊',
---   hl = function()
---     return {fg = vi_mode.get_mode_color()}
---   end
--- })
+table.insert(components.right.inactive, {
+  provider = function() return bo.filetype end,
+  right_sep = left_sep,
+  hl = function() return { bg = 'line_bg' } end,
+  enabled = function()
+    return has_file_type() and not has_inactive_filetype()
+  end
+})
 
 require('feline').setup {
   default_fg     = colors.fg,
