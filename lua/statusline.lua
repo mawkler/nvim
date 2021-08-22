@@ -76,9 +76,9 @@ local inactive_filetypes = {
 
 properties.force_inactive.filetypes = inactive_filetypes
 
-local left_sep  = { str = '█',   hl = { fg = 'line_bg' } }
-local right_sep = { str = '█ ',  hl = { fg = 'line_bg' } }
-local full_sep  = { str = '█ █', hl = { fg = 'line_bg' } }
+local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
+local right_sep = { str = '',  hl = { fg = 'line_bg' } }
+local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -175,30 +175,6 @@ table.insert(components.left.active, {
   provider = 'lsp_client_names',
   icon = '  '
 })
-
-table.insert(components.right.active, {
-  provider = 'git_diff_added',
-  hl = { fg = 'green' }
-})
-
-table.insert(components.right.active, {
-  provider = 'git_diff_changed',
-  hl = { fg = 'orange' }
-})
-
-table.insert(components.right.active, {
-  provider = 'git_diff_removed',
-  hl = { fg = 'red' },
-  right_sep = ''
-})
-
-table.insert(components.right.active, {
-  provider = 'git_branch',
-  right_sep = ' ',
-  enabled = in_git_repo
-  -- icon = '  '
-})
-
 table.insert(components.left.active, {
   provider = 'diagnostic_errors',
   enabled = function()
@@ -229,6 +205,31 @@ table.insert(components.left.active, {
     return wide_enough() and lsp.diagnostics_exist('Information')
   end,
   hl = { fg = 'gray' }
+})
+
+-- Right side
+
+table.insert(components.right.active, {
+  provider = 'git_diff_added',
+  hl = { fg = 'green' }
+})
+
+table.insert(components.right.active, {
+  provider = 'git_diff_changed',
+  hl = { fg = 'orange' }
+})
+
+table.insert(components.right.active, {
+  provider = 'git_diff_removed',
+  hl = { fg = 'red' },
+  right_sep = ''
+})
+
+table.insert(components.right.active, {
+  provider = 'git_branch',
+  right_sep = ' ',
+  enabled = in_git_repo
+  -- icon = '  '
 })
 
 table.insert(components.right.active, {
@@ -272,7 +273,7 @@ table.insert(components.right.active, {
     return component.icon .. require('feline.providers.cursor').position()
   end,
   left_sep = function()
-    return { str = '█', hl = { fg = mode.get_mode_color() } }
+    return { str = ' ', hl = { fg = mode.get_mode_color() } }
   end,
   right_sep = function()
     return { str = '█', hl = { fg = mode.get_mode_color() } }
@@ -304,7 +305,7 @@ table.insert(components.right.inactive, {
 
 table.insert(components.right.inactive, {
   provider = function() return bo.filetype end,
-  right_sep = left_sep,
+  right_sep = '█',
   hl = function() return { bg = 'line_bg' } end,
   enabled = function()
     return has_file_type() and not has_inactive_filetype()
