@@ -76,9 +76,9 @@ local inactive_filetypes = {
 
 properties.force_inactive.filetypes = inactive_filetypes
 
-local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
-local right_sep = { str = '',  hl = { fg = 'line_bg' } }
-local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
+local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
+local right_sep = { str = '',  hl = { fg = 'line_bg' } }
+local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -177,34 +177,34 @@ table.insert(components.left.active, {
 })
 table.insert(components.left.active, {
   provider = 'diagnostic_errors',
-  enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Error')
-  end,
   hl = { fg = 'red' },
+  enabled = function()
+  return wide_enough() and lsp.diagnostics_exist('Error')
+  end
 })
 
 table.insert(components.left.active, {
-    provider = 'diagnostic_warnings',
+  provider = 'diagnostic_warnings',
+  hl = { fg = 'orange' },
   enabled = function()
     return wide_enough() and lsp.diagnostics_exist('Warning')
-  end,
-    hl = { fg = 'orange' }
+  end
 })
 
 table.insert(components.left.active, {
   provider = 'diagnostic_hints',
+  hl = { fg = 'cyan' },
   enabled = function()
     return wide_enough() and lsp.diagnostics_exist('Hint')
-  end,
-  hl = { fg = 'cyan' }
+  end
 })
 
 table.insert(components.left.active, {
   provider = 'diagnostic_info',
+  hl = { fg = 'gray' },
   enabled = function()
     return wide_enough() and lsp.diagnostics_exist('Information')
-  end,
-  hl = { fg = 'gray' }
+  end
 })
 
 -- Right side
@@ -234,35 +234,39 @@ table.insert(components.right.active, {
 
 table.insert(components.right.active, {
   provider = get_icon,
-  enabled = has_file_type,
   left_sep = left_sep,
-  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end
+  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
+  enabled = has_file_type
 })
 
 table.insert(components.right.active, {
   provider = function() return bo.filetype end,
-  enabled = has_file_type,
   right_sep = right_sep,
-  hl = function() return { bg = 'line_bg' } end
+  hl = function() return { bg = 'line_bg' } end,
+  enabled = has_file_type
 })
 
 table.insert(components.right.active, {
   provider = file_osinfo,
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
-  right_sep = full_sep,
+  right_sep = right_sep,
+  enabled = function() return wide_enough() end
 })
 
 table.insert(components.right.active, {
   provider = 'file_encoding',
   hl = { bg = 'line_bg' },
-  right_sep = full_sep,
+  left_sep = left_sep,
+  right_sep = right_sep,
+  enabled = function() return wide_enough() end,
 })
 
 -- Clock
 table.insert(components.right.active, {
   provider = function(component) return component.icon .. fn.strftime('%H:%M') end,
   hl = { bg = 'line_bg' },
+  left_sep = left_sep,
   right_sep = right_sep,
   icon = ' '
 })
@@ -270,10 +274,11 @@ table.insert(components.right.active, {
 -- Cursor line and column
 table.insert(components.right.active, {
   provider = function(component)
-    return component.icon .. require('feline.providers.cursor').position()
+    return component.icon ..
+      string.format('%2d:%-2d', fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
-    return { str = ' ', hl = { fg = mode.get_mode_color() } }
+    return { str = ' ', hl = { fg = mode.get_mode_color() } }
   end,
   right_sep = function()
     return { str = '█', hl = { fg = mode.get_mode_color() } }
