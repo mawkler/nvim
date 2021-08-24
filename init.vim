@@ -500,6 +500,8 @@ fun! s:colorschemeMods() abort
   hi NormalFloat  guibg=#3E4452
   hi FloatBorder  guibg=#3E4452
 
+  hi NvimTreeNormal guifg=#61afef guibg=#252930
+
   hi! link Search     Visual
   hi! link SpecialKey Directory
   hi! link DiffChange Boolean
@@ -974,6 +976,7 @@ if has('nvim')
 
 " -- Scrollbar --
 let g:scrollbar_right_offset = 0
+let g:scrollbar_excluded_filetypes = ['NvimTree']
 let g:scrollbar_highlight = {
       \ 'head': 'NonText',
       \ 'body': 'NonText',
