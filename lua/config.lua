@@ -150,7 +150,7 @@ map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<
 -------------
 require('lspkind').init {
   symbol_map = {
-    Class     = '',
+    Class     = '',
     Interface = '',
     Module    = '',
     Enum      = '',

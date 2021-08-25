@@ -2,6 +2,8 @@ local b, bo, fn = vim.b, vim.bo, vim.fn
 
 local mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
+local gps = require('nvim-gps')
+
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
@@ -26,6 +28,7 @@ local colors = {
   blue        = colorscheme.base0D,
   red         = colorscheme.base0F,
   gray        = colorscheme.base05,
+  darkgray    = '#999fad',
 
   diff_add    = GetHiVal('DiffAdd'),
   diff_change = GetHiVal('DiffChange'),
@@ -146,7 +149,7 @@ local function has_inactive_filetype()
   end
 end
 
--- Left side of the statusline
+-- Left side --
 
 table.insert(components.left.active, {
   provider = 'vi_mode',
@@ -173,8 +176,10 @@ table.insert(components.left.active, {
 
 table.insert(components.left.active, {
   provider = 'lsp_client_names',
+  hl = {fg = 'darkgray'},
   icon = '  '
 })
+
 table.insert(components.left.active, {
   provider = 'diagnostic_errors',
   hl = { fg = 'red' },
@@ -207,7 +212,19 @@ table.insert(components.left.active, {
   end
 })
 
--- Right side
+-- Middle side --
+
+require('nvim-gps').setup({
+  separator = '  ',
+})
+
+table.insert(components.mid.active, {
+  provider = gps.get_location,
+  hl = { fg = 'darkgray' },
+  enabled = gps.is_available
+})
+
+-- Right side --
 
 table.insert(components.right.active, {
   provider = 'git_diff_added',
@@ -228,6 +245,7 @@ table.insert(components.right.active, {
 table.insert(components.right.active, {
   provider = 'git_branch',
   right_sep = ' ',
+  hl = {fg = 'darkgray'},
   enabled = in_git_repo
   -- icon = '  '
 })
