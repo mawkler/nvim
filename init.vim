@@ -475,6 +475,7 @@ augroup language_specific
   " Start commit buffers in insert mode
   autocmd FileType gitcommit exec 'norm gg' | setlocal spell | startinsert!
   autocmd FileType lua setlocal keywordprg=:help
+  autocmd FileType lua let b:surround_{char2nr('F')} = "function() return \r end"
 augroup end
 
 " -- netrw --
