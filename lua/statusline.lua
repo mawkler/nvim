@@ -3,7 +3,9 @@ local b, bo, fn = vim.b, vim.bo, vim.fn
 local mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
+local lsp_status = require('lsp-status')
 
+require('nvim-gps').setup({ separator = '  ' })
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
@@ -149,7 +151,12 @@ local function has_inactive_filetype()
   end
 end
 
--- Left side --
+local function lsp_progress_available()
+  local status = lsp_status.status_progress()
+  return status ~= '' and status ~= nil and status ~= {}
+end
+
+-- Left section --
 
 table.insert(components.left.active, {
   provider = 'vi_mode',
@@ -184,7 +191,7 @@ table.insert(components.left.active, {
   provider = 'diagnostic_errors',
   hl = { fg = 'red' },
   enabled = function()
-  return wide_enough() and lsp.diagnostics_exist('Error')
+    return wide_enough() and lsp.diagnostics_exist('Error')
   end
 })
 
@@ -212,19 +219,24 @@ table.insert(components.left.active, {
   end
 })
 
--- Middle side --
-
-require('nvim-gps').setup({
-  separator = '  ',
-})
+-- Middle section --
 
 table.insert(components.mid.active, {
   provider = gps.get_location,
   hl = { fg = 'darkgray' },
-  enabled = gps.is_available
+  enabled = function()
+    return gps.is_available() and not lsp_progress_available()
+  end
 })
 
--- Right side --
+lsp_status.register_progress()
+
+table.insert(components.mid.active, {
+  provider = lsp_status.status_progress,
+  hl = { fg = 'darkgray' },
+})
+
+-- Right section --
 
 table.insert(components.right.active, {
   provider = 'git_diff_added',
