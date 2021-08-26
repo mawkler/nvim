@@ -30,7 +30,7 @@ local colors = {
   blue        = colorscheme.base0D,
   red         = colorscheme.base0F,
   gray        = colorscheme.base05,
-  darkgray    = '#999fad',
+  darkgray    = '#9ba1b0',
 
   diff_add    = GetHiVal('DiffAdd'),
   diff_change = GetHiVal('DiffChange'),
@@ -316,7 +316,7 @@ table.insert(components.right.active, {
   hl = function()
     return { fg = 'line_bg', bg = mode.get_mode_color(), style = 'bold' }
   end,
-  icon = ' '
+  icon = ' '
 })
 
 -- Statusline for special inactive windows

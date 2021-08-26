@@ -54,7 +54,7 @@ require('compe').setup {
     nvim_lsp = true,
     nvim_lua = true,
     buffer   = {kind = '﬘'},
-    vsnip    = {kind = '﬌ Snippet'},
+    vsnip    = {kind = ' Snippet'},
     tabnine  = {
       filetypes = {'markdown', 'text', 'tex', 'gitcommit'},
       priority = 20,
