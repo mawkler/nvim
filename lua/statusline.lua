@@ -92,7 +92,11 @@ local function has_file_type()
 end
 
 local function get_working_dir()
-  return fn.fnamemodify(fn.getcwd(), ":p:~")
+  return fn.fnamemodify(fn.getcwd(), ':p:~')
+end
+
+local function get_working_dir_short()
+  return fn.pathshorten(fn.fnamemodify(fn.getcwd(), ':~'))
 end
 
 local function get_icon_full()
@@ -176,7 +180,13 @@ table.insert(components.left.active, {
 
 -- Current working directory
 table.insert(components.left.active, {
-  provider = get_working_dir,
+  provider = function()
+    if wide_enough() then
+      return get_working_dir()
+    else
+      return get_working_dir_short()
+    end
+  end,
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
   left_sep = '██',
   right_sep = '█',
