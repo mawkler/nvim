@@ -172,6 +172,13 @@ table.insert(components.left.active, {
   icon = ''
 })
 
+-- Readonly indicator
+table.insert(components.left.active, {
+  provider = ' ',
+  hl = { bg = 'line_bg' },
+  enabled = function() return bo.readonly end,
+})
+
 -- Current working directory
 table.insert(components.left.active, {
   provider = get_working_dir,
@@ -184,6 +191,7 @@ table.insert(components.left.active, {
 table.insert(components.left.active, {
   provider = 'lsp_client_names',
   hl = {fg = 'darkgray'},
+  enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
   icon = '  '
 })
 
