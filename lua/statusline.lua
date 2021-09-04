@@ -91,13 +91,8 @@ local function has_file_type()
   return true
 end
 
-local buffer_not_empty = function()
-  if fn.empty(fn.expand('%:t')) ~= 1 then return true end
-  return false
-end
-
 local function get_working_dir()
-  return fn.fnamemodify(fn.getcwd(), ":~")
+  return fn.fnamemodify(fn.getcwd(), ":p:~")
 end
 
 local function get_icon_full()
@@ -176,7 +171,7 @@ table.insert(components.left.active, {
 table.insert(components.left.active, {
   provider = ' ',
   hl = { bg = 'line_bg' },
-  enabled = function() return bo.readonly end,
+  enabled = function() return bo.readonly and bo.buftype ~= 'help' end,
 })
 
 -- Current working directory
@@ -268,7 +263,7 @@ table.insert(components.right.active, {
   enabled = in_git_repo,
   icon = {
     str = '  ',
-    hl = { fg = 'orange' },
+    hl = { fg = '#f34f29' },
   }
 })
 
@@ -338,7 +333,8 @@ table.insert(components.left.inactive, {
   right_sep = '',
   type = 'relative',
   hl = { bg = 'line_bg' },
-  icon = ''
+  icon = '',
+  file_readonly_icon = ' '
 })
 
 table.insert(components.right.inactive, {
