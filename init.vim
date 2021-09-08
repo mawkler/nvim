@@ -886,6 +886,7 @@ endf
 
 " -- vim-session --
 let g:session_autosave = 'yes'
+let g:session_autosave_to = 'recent'
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 let g:session_directory = '~/.config/nvim/sessions/'
@@ -1070,6 +1071,8 @@ cnoremap <expr> <Tab> wilder#can_accept_completion() ?
       \ pumvisible() ?
       \ "\<C-y>" :
       \ "\<Tab>"
+
+call wilder#set_option('noselect', 0)
 
 call wilder#set_option('modes', ['/', '?', ':'])
 
