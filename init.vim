@@ -886,7 +886,7 @@ endf
 
 " -- vim-session --
 let g:session_autosave = 'yes'
-let g:session_autosave_to = 'recent'
+let g:session_default_overwrite = 1
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 let g:session_directory = '~/.config/nvim/sessions/'
@@ -1096,7 +1096,7 @@ let s:highlighters = [wilder#pcre2_highlighter()]
 call wilder#set_option('renderer', wilder#renderer_mux({
       \   ':': wilder#popupmenu_renderer({
       \     'highlighter': s:highlighters,
-      \     'left': [wilder#popupmenu_devicons()],
+      \     'left': [' ', wilder#popupmenu_devicons()],
       \     'right': [' ', wilder#popupmenu_scrollbar()]
       \   }),
       \   '/': wilder#wildmenu_renderer({
