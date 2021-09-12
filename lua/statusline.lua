@@ -54,21 +54,15 @@ local mode_colors = {
   NONE          = colors.gray
 }
 
-local properties = {
-  force_inactive = { filetypes = {}, buftypes = {}, bufnames = {} }
-}
-
 local components = {
-  left  = { active = {}, inactive = {} },
-  mid   = { active = {}, inactive = {} },
-  right = { active = {}, inactive = {} }
+  active = {{}, {}, {}},
+  inactive = {{}, {}},
 }
 
 local inactive_filetypes = {
   'NvimTree',
   'vista',
   'dbui',
-  'startify',
   'term',
   'nerdtree',
   'fugitive',
@@ -76,10 +70,7 @@ local inactive_filetypes = {
   'plug',
   'dbui',
   'packer',
-  'startify',
 }
-
-properties.force_inactive.filetypes = inactive_filetypes
 
 local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
 local right_sep = { str = '',  hl = { fg = 'line_bg' } }
@@ -155,9 +146,18 @@ local function lsp_progress_available()
   return status ~= '' and status ~= nil and status ~= {}
 end
 
+-- Sections
+
+local active_left = components.active[1]
+local active_mid = components.active[2]
+local active_right = components.active[3]
+
+local inactive_left = components.inactive[1]
+local inactive_right = components.inactive[2]
+
 -- Left section --
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'vi_mode',
   hl = function()
     return {
@@ -172,14 +172,14 @@ table.insert(components.left.active, {
 })
 
 -- Readonly indicator
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = ' ',
   hl = { bg = 'line_bg' },
   enabled = function() return bo.readonly and bo.buftype ~= 'help' end,
 })
 
 -- Current working directory
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = function()
     if wide_enough() then
       return get_working_dir()
@@ -193,14 +193,14 @@ table.insert(components.left.active, {
   icon = ' '
 })
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'lsp_client_names',
   hl = {fg = 'darkgray'},
   enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
   icon = '  '
 })
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'diagnostic_errors',
   hl = { fg = 'red' },
   enabled = function()
@@ -208,7 +208,7 @@ table.insert(components.left.active, {
   end
 })
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'diagnostic_warnings',
   hl = { fg = 'orange' },
   enabled = function()
@@ -216,7 +216,7 @@ table.insert(components.left.active, {
   end
 })
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'diagnostic_hints',
   hl = { fg = 'cyan' },
   enabled = function()
@@ -224,7 +224,7 @@ table.insert(components.left.active, {
   end
 })
 
-table.insert(components.left.active, {
+table.insert(active_left, {
   provider = 'diagnostic_info',
   hl = { fg = 'gray' },
   enabled = function()
@@ -234,7 +234,7 @@ table.insert(components.left.active, {
 
 -- Middle section --
 
-table.insert(components.mid.active, {
+table.insert(active_mid, {
   provider = gps.get_location,
   hl = { fg = 'darkgray' },
   enabled = function()
@@ -244,30 +244,30 @@ table.insert(components.mid.active, {
 
 lsp_status.register_progress()
 
-table.insert(components.mid.active, {
+table.insert(active_mid, {
   provider = lsp_status.status_progress,
   hl = { fg = 'darkgray' },
 })
 
 -- Right section --
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = 'git_diff_added',
   hl = { fg = 'green' }
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = 'git_diff_changed',
   hl = { fg = 'orange' }
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = 'git_diff_removed',
   hl = { fg = 'red' },
   right_sep = ''
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = 'git_branch',
   right_sep = ' ',
   enabled = in_git_repo,
@@ -277,21 +277,21 @@ table.insert(components.right.active, {
   }
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = get_icon,
   left_sep = left_sep,
   hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
   enabled = has_file_type
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = function() return bo.filetype end,
   right_sep = right_sep,
   hl = function() return { bg = 'line_bg' } end,
   enabled = has_file_type
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = file_osinfo,
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
@@ -299,7 +299,7 @@ table.insert(components.right.active, {
   enabled = function() return wide_enough() end
 })
 
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = 'file_encoding',
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
@@ -308,7 +308,7 @@ table.insert(components.right.active, {
 })
 
 -- Clock
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = function() return fn.strftime('%H:%M') end,
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
@@ -320,7 +320,7 @@ table.insert(components.right.active, {
 })
 
 -- Cursor line and column
-table.insert(components.right.active, {
+table.insert(active_right, {
   provider = function()
     return string.format('%2d:%-2d', fn.line('.'), fn.col('.'))
   end,
@@ -336,9 +336,9 @@ table.insert(components.right.active, {
   icon = ' '
 })
 
--- Statusline for special inactive windows
+-- Inactive windows
 
-table.insert(components.left.inactive, {
+table.insert(inactive_left, {
   provider = 'file_info',
   right_sep = '',
   type = 'relative',
@@ -347,7 +347,7 @@ table.insert(components.left.inactive, {
   file_readonly_icon = ' '
 })
 
-table.insert(components.right.inactive, {
+table.insert(inactive_right, {
   provider = get_icon,
   left_sep = '',
   hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
@@ -356,7 +356,7 @@ table.insert(components.right.inactive, {
   end
 })
 
-table.insert(components.right.inactive, {
+table.insert(inactive_right, {
   provider = function() return bo.filetype end,
   right_sep = '█',
   hl = function() return { bg = 'line_bg' } end,
@@ -366,10 +366,12 @@ table.insert(components.right.inactive, {
 })
 
 require('feline').setup {
-  default_fg     = colors.fg,
-  default_bg     = colors.bg,
   colors         = colors,
   components     = components,
-  properties     = properties,
-  vi_mode_colors = mode_colors
+  vi_mode_colors = mode_colors,
+  force_inactive = {
+    filetypes = inactive_filetypes,
+    buftypes = {},
+    bufnames = {},
+  }
 }
