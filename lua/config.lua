@@ -204,20 +204,21 @@ map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
 ---------------
 -- Formatter --
 ---------------
+local prettier_config = {
+  function()
+    return {
+      exe = 'prettier',
+      args = { '--stdin-filepath', api.nvim_buf_get_name(0) },
+      stdin = true
+    }
+  end
+}
+
 require('formatter').setup {
   logging = false,
   filetype = {
-    javascript = {
-      function()
-        return {
-          exe = 'prettier',
-          args = {
-            '--stdin-filepath', api.nvim_buf_get_name(0), '--single-quote'
-          },
-          stdin = true
-        }
-      end
-    },
+    javascript = prettier_config,
+    typescript = prettier_config,
     markdown = {
       function()
         return {
@@ -255,7 +256,7 @@ map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
 api.nvim_exec([[
   augroup FormatOnWrite
     autocmd!
-    autocmd BufWritePost *.js,*.md,*.py if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
+    autocmd BufWritePost *.js,*.md,*.py,*.ts if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
   augroup END
 ]], true)
 
