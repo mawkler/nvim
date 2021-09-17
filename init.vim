@@ -502,7 +502,7 @@ fun! s:colorschemeMods() abort
   hi NormalFloat  guibg=#3E4452
   hi FloatBorder  guibg=#3E4452
 
-  hi NvimTreeNormal guifg=#61afef guibg=#252930
+  hi NvimTreeNormal guifg=#61afef guibg=#21242b
 
   hi! link Search     Visual
   hi! link SpecialKey Directory
@@ -532,6 +532,7 @@ set colorcolumn=99999
 
 " For toggling caps lock in insert mode
 imap <S-Esc> <Plug>CapsLockToggle
+imap <M-c> <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
 " Start in visual mode (e.g. vipga):
@@ -1052,54 +1053,56 @@ nmap <leader>gD <Plug>(grammarous-disable-rule)
 exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
 exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
 
-" -- Peekaboo --
-let g:peekaboo_delay = 300
+if !exists('g:vscode')
+  " -- Peekaboo --
+  let g:peekaboo_delay = 300
 
-" -- Matchup --
-let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
+  " -- Matchup --
+  let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
 
-" -- Wilder --
-call wilder#enable_cmdline_enter()
-set wildcharm=<Tab>
+  " -- Wilder --
+  call wilder#enable_cmdline_enter()
+  set wildcharm=<Tab>
 
-cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
-cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
-cnoremap <expr> <Tab> wilder#can_accept_completion() ?
-      \ wilder#accept_completion(0) :
-      \ wilder#in_context() ?
-      \ wilder#next() :
-      \ pumvisible() ?
-      \ "\<C-y>" :
-      \ "\<Tab>"
+  cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
+  cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
+  cnoremap <expr> <Tab> wilder#can_accept_completion() ?
+        \ wilder#accept_completion(0) :
+        \ wilder#in_context() ?
+        \ wilder#next() :
+        \ pumvisible() ?
+        \ "\<C-y>" :
+        \ "\<Tab>"
 
-call wilder#set_option('noselect', 0)
+  call wilder#set_option('noselect', 0)
 
-call wilder#set_option('modes', ['/', '?', ':'])
+  call wilder#set_option('modes', ['/', '?', ':'])
 
-call wilder#set_option('pipeline', [
-      \   wilder#branch(wilder#python_file_finder_pipeline({
-      \     'file_command': {_, arg ->
-      \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
-      \     },
-      \     'dir_command': ['fd', '-td'],
-      \     'cache_timestamp': {-> 1}
-      \   }),
-      \   wilder#cmdline_pipeline({'fuzzy': 1}),
-      \     wilder#python_search_pipeline({
-      \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
-      \     })
-      \   )
-      \ ])
+  call wilder#set_option('pipeline', [
+        \   wilder#branch(wilder#python_file_finder_pipeline({
+        \     'file_command': {_, arg ->
+        \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
+        \     },
+        \     'dir_command': ['fd', '-td'],
+        \     'cache_timestamp': {-> 1}
+        \   }),
+        \   wilder#cmdline_pipeline({'fuzzy': 1}),
+        \     wilder#python_search_pipeline({
+        \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
+        \     })
+        \   )
+        \ ])
 
-let s:highlighters = [wilder#pcre2_highlighter()]
+  let s:highlighters = [wilder#pcre2_highlighter()]
 
-call wilder#set_option('renderer', wilder#renderer_mux({
-      \   ':': wilder#popupmenu_renderer({
-      \     'highlighter': s:highlighters,
-      \     'left': [' ', wilder#popupmenu_devicons()],
-      \     'right': [' ', wilder#popupmenu_scrollbar()]
-      \   }),
-      \   '/': wilder#wildmenu_renderer({
-      \     'highlighter': s:highlighters
-      \   })
-      \ }))
+  call wilder#set_option('renderer', wilder#renderer_mux({
+        \   ':': wilder#popupmenu_renderer({
+        \     'highlighter': s:highlighters,
+        \     'left': [' ', wilder#popupmenu_devicons()],
+        \     'right': [' ', wilder#popupmenu_scrollbar()]
+        \   }),
+        \   '/': wilder#wildmenu_renderer({
+        \     'highlighter': s:highlighters
+        \   })
+        \ }))
+endif
