@@ -43,6 +43,7 @@ local mode_colors = {
   INSERT        = colors.blue,
   COMMAND       = colors.red,
   VISUAL        = colors.purple,
+  LINES         = colors.purple,
   BLOCK         = colors.purple,
   REPLACE       = colors.magenta,
   ['V-REPLACE'] = colors.red,
@@ -119,10 +120,6 @@ local function file_osinfo()
     icon = ' '
   end
   return icon .. os
-end
-
-local function in_git_repo()
-  return b.gitsigns_status_dict
 end
 
 local function wide_enough()
@@ -270,7 +267,7 @@ table.insert(active_right, {
 table.insert(active_right, {
   provider = 'git_branch',
   right_sep = ' ',
-  enabled = in_git_repo,
+  enabled = 'git_info_exists',
   icon = {
     str = '  ',
     hl = { fg = '#f34f29' },
