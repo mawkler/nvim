@@ -180,11 +180,20 @@ require('telescope').setup {
 -- Nvim-tree --
 ---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
+
+g.nvim_tree_lsp_diagnostics = 1
+g.nvim_tree_disable_netrw = false
+g.nvim_tree_icons = { default = '' }
+g.nvim_tree_show_icons = {
+  git = 1,
+  folders = 1,
+  files = 1,
+}
 g.nvim_tree_bindings = {
   {key = 'l', cb = tree_cb('edit')},
   {key = 'h', cb = tree_cb('close_node')}
 }
-g.nvim_tree_disable_netrw = false
+map('n', '<leader>`', ':NvimTreeToggle<CR>', {silent = true})
 
 ---------------
 -- Autopairs --

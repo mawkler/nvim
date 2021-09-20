@@ -560,19 +560,6 @@ let g:sleuth_automatic = 1
 inoremap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 inoremap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 
-" -- Nvim-tree --
-let g:nvim_tree_lsp_diagnostics = 1
-let g:nvim_tree_show_icons = {
-      \   'git':     1,
-      \   'folders': 1,
-      \   'files':   1,
-      \ }
-let g:nvim_tree_icons = {
-      \ 'default': ''
-      \ }
-noremap <silent> <Leader>§ :NvimTreeToggle<CR>
-noremap <silent> <Leader>` :NvimTreeToggle<CR>
-
 if !$NVIM_MINIMAL
   " Git-timelapse
   nmap <leader>gt :call TimeLapse() <cr>
