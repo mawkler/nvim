@@ -33,11 +33,23 @@ local lua_settings = {
   }
 }
 
+-- YAML config
+local yaml_settings = {
+  yaml = {
+    schemaStore = {
+      url = "https://www.schemastore.org/api/json/catalog.json",
+      enable = true,
+    }
+  }
+}
+
 local servers = require('lspinstall').installed_servers()
 for _, server in pairs(servers) do
   local config = make_config()
   if server == 'lua' then
     config.settings = lua_settings
+  elseif server == 'yaml' then
+    config.settings = yaml_settings
   end
   require('lspconfig')[server].setup(config)
 end
@@ -262,7 +274,7 @@ function _G.toggle_format_on_write()
 end
 
 b.format_on_write = 1
-map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {})
+map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {silent = true})
 
 api.nvim_exec([[
   augroup FormatOnWrite
