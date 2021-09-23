@@ -211,16 +211,18 @@ map('n', '<leader>`', ':NvimTreeToggle<CR>', {silent = true})
 -- Autopairs --
 ---------------
 local rule = require('nvim-autopairs.rule')
-local n_pairs = require('nvim-autopairs')
+local autopairs = require('nvim-autopairs')
 
-n_pairs.setup()
-n_pairs.add_rules {
+autopairs.setup()
+autopairs.add_rules {
   rule('$', '$', 'tex'),
   rule('*', '*', 'markdown'),
 }
 
-_G.autopairs_cr = n_pairs.autopairs_cr
+_G.autopairs_cr = autopairs.autopairs_cr
+_G.autopairs_bs = autopairs.autopairs_bs
 map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
+map('i', '<C-h>', 'v:lua.autopairs_bs()', {expr = true})
 
 ---------------
 -- Formatter --
