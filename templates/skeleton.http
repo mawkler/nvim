@@ -1,7 +1,0 @@
-POST /test HTTP/1.1
-Host: http://foo.example
-Content-Type: application/json
-
-{
-  "foo": "bar"
-}

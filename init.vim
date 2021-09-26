@@ -68,6 +68,7 @@ if has('nvim')
   Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
   Plug 'b3nj5m1n/kommentary'           " For toggling comments
   Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
+  Plug 'NTBBloodbath/rest.nvim'        " For sending GET/POST/etc. requests
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'

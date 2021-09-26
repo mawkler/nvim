@@ -480,4 +480,16 @@ map('n',
   ':execute "norm! A " . substitute(&commentstring, "%s", " ", "")<CR>A',
   {silent = true}
 )
--- TODO: add <leader>C mapping for commenting everything to the right of the cursor
+-- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
+
+-- Rest.nvim
+require('rest-nvim').setup()
+
+cmd('command! Http edit ~/.config/nvim/http | set filetype=http')
+
+api.nvim_exec([[
+  augroup RestNvim
+    autocmd!
+    autocmd FileType http map <buffer> <CR> <Plug>RestNvim:w<CR>
+  augroup END
+]], true)
