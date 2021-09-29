@@ -248,6 +248,7 @@ require('formatter').setup {
   filetype = {
     javascript = prettier_config,
     typescript = prettier_config,
+    typescriptreact = prettier_config,
     yaml = prettier_config,
     json = prettier_config,
     markdown = {
@@ -287,7 +288,7 @@ map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {silent = true})
 api.nvim_exec([[
   augroup FormatOnWrite
     autocmd!
-    autocmd BufWritePost *.js,*.json,*.md,*.py,*.ts,*.yml,*.yaml if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
+    autocmd BufWritePost *.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
   augroup END
 ]], true)
 
