@@ -492,7 +492,7 @@ map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease', {noremap = fa
 map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase',  {noremap = false})
 map('n',
   '<leader>cA',
-  ':execute "norm! A " . substitute(&commentstring, "%s", " ", "")<CR>A',
+  ':lua require("ts_context_commentstring.internal").update_commentstring()<CR>:execute "norm! A " . substitute(&commentstring, "%s", "", "")<CR>A',
   {silent = true}
 )
 -- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
