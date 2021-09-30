@@ -1041,6 +1041,9 @@ nmap <leader>gD <Plug>(grammarous-disable-rule)
 exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
 exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
 
+" -- ConflictMotions --
+nmap <leader>xb :ConflictTake both<CR>
+
 if !exists('g:vscode')
   " -- Peekaboo --
   let g:peekaboo_delay = 300
