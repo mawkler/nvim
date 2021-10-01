@@ -200,33 +200,35 @@ table.insert(active_left, {
 
 table.insert(active_left, {
   provider = 'diagnostic_errors',
-  hl = { fg = 'red' },
+  hl = { fg = GetHiVal('LspDiagnosticsDefaultError') },
   enabled = function()
     return wide_enough() and lsp.diagnostics_exist('Error')
   end
 })
 
+print(GetHiVal('LspDiagnosticsDefaultWarning'))
+
 table.insert(active_left, {
   provider = 'diagnostic_warnings',
-  hl = { fg = 'orange' },
+  hl = { fg = GetHiVal('LspDiagnosticsDefaultWarning') },
   enabled = function()
     return wide_enough() and lsp.diagnostics_exist('Warning')
   end
 })
 
 table.insert(active_left, {
-  provider = 'diagnostic_hints',
-  hl = { fg = 'cyan' },
+  provider = 'diagnostic_info',
+  hl = { fg = GetHiVal('LspDiagnosticsDefaultInformation') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Hint')
+    return wide_enough() and lsp.diagnostics_exist('Information')
   end
 })
 
 table.insert(active_left, {
-  provider = 'diagnostic_info',
-  hl = { fg = 'gray' },
+  provider = 'diagnostic_hints',
+  hl = { fg = GetHiVal('LspDiagnosticsDefaultHint') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Information')
+    return wide_enough() and lsp.diagnostics_exist('Hint')
   end
 })
 

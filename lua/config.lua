@@ -293,11 +293,6 @@ api.nvim_exec([[
   augroup END
 ]], true)
 
-----------------
--- Statusline --
-----------------
-require('statusline')
-
 -----------------------
 -- Nvim-web-devicons --
 -----------------------
@@ -423,6 +418,11 @@ make_diagnoistic_underlined('Error')
 make_diagnoistic_underlined('Warning')
 make_diagnoistic_underlined('Hint')
 make_diagnoistic_underlined('Information')
+
+----------------
+-- Statusline --
+----------------
+require('statusline')
 
 --------------
 -- Gitsigns --
