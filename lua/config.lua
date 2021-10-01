@@ -145,6 +145,7 @@ map('i',        '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
+map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
@@ -375,21 +376,34 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
+ -- Disable treesitter from highlighting errors (LSP does that anyway)
+vim.cmd('highlight! link TSError Normal')
+
 ---------------
 -- Neoscroll --
 ---------------
 require('neoscroll').setup()
 
 ----------------
--- Diagnostic --
+-- Diagnostics --
 ----------------
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+  }
+)
+
 local function sign_define(name, symbol)
   fn.sign_define(name, {
     text   = symbol,
     texthl = name,
-    linehl = name,
-    numhl  = name
   })
+end
+
+local function GetHiVal(name, layer)
+  layer = layer or 'fg'
+  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
 
 sign_define('LspDiagnosticsSignError',       '')
@@ -397,7 +411,18 @@ sign_define('LspDiagnosticsSignWarning',     '')
 sign_define('LspDiagnosticsSignHint',        '')
 sign_define('LspDiagnosticsSignInformation', '')
 
-cmd 'hi link LspDiagnosticsSignWarning DiffChange'
+cmd 'hi link LspDiagnosticsDefaultWarning DiffChange'
+cmd 'hi link LspDiagnosticsDefaultHint Comment'
+
+local function make_diagnoistic_underlined(diagnostic)
+  cmd('hi DiagnosticUnderline' .. diagnostic .. ' gui=underline guisp='
+    .. GetHiVal('LspDiagnosticsDefault' .. diagnostic))
+end
+
+make_diagnoistic_underlined('Error')
+make_diagnoistic_underlined('Warning')
+make_diagnoistic_underlined('Hint')
+make_diagnoistic_underlined('Information')
 
 --------------
 -- Gitsigns --
