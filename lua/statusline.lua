@@ -102,7 +102,8 @@ local function get_icon_full()
 end
 
 local function get_icon()
-  return select(1, get_icon_full()) .. ' '
+  local icon = select(1, get_icon_full()) or ''
+  return icon .. ' '
 end
 
 local function get_icon_hl()
@@ -310,10 +311,13 @@ table.insert(active_right, {
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
   right_sep = right_sep,
-  icon = {
+  icon = function() return {
     str = ' ',
-    hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end
-  }
+    hl = {
+      fg = mode.get_mode_color(),
+      bg = 'line_bg'
+    }
+  } end
 })
 
 -- Cursor line and column
