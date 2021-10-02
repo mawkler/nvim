@@ -206,8 +206,6 @@ table.insert(active_left, {
   end
 })
 
-print(GetHiVal('LspDiagnosticsDefaultWarning'))
-
 table.insert(active_left, {
   provider = 'diagnostic_warnings',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultWarning') },
