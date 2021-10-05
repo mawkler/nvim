@@ -880,6 +880,8 @@ let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 let g:session_directory = '~/.config/nvim/sessions/'
 
+map <leader>o :OpenSession <Tab>
+
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
 let g:resize_count = 3
