@@ -437,6 +437,9 @@ require('gitsigns').setup {
   }
 }
 
+-- Workaround for bug where change highlight switches for some reason
+cmd 'hi! link GitGutterChange DiffChange'
+
 ---------------
 -- Lastplace --
 ---------------
