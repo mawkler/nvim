@@ -198,6 +198,8 @@ require('nvim-tree').setup {
   lsp_diagnostics = true,
   disable_netrw = false,
   icons = { default = '' },
+  update_cwd = true,
+  gitignore = false,
   show_icons = {
     git = true,
     folders = true,

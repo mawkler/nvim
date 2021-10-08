@@ -123,6 +123,7 @@ set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining line
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 set encoding=utf-8
 set updatetime=100
+set guifont=FiraCode\ Nerd\ Font:h12
 
 augroup filechanged
   autocmd!
@@ -508,6 +509,7 @@ fun! s:colorschemeMods() abort
   hi! link Search     Visual
   hi! link SpecialKey Directory
   hi! link DiffChange Boolean
+  hi! link DiffLine   DiffChange
   hi! link PmenuSel   IncSearch
   hi! link Statement  Keyword
 endf
@@ -522,7 +524,7 @@ call s:colorschemeMods()
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#4b5263'
 let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
-let g:indentLine_fileTypeExclude = ['markdown', 'startify', 'sagahover']
+let g:indentLine_fileTypeExclude = ['markdown', 'startify', 'sagahover', 'NvimTree']
 let g:indentLine_bufTypeExclude = ['fzf', 'help']
 let g:indent_blankline_buftype_exclude = ['help']
 let g:indent_blankline_show_first_indent_level = v:false
