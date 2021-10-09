@@ -424,6 +424,7 @@ make_diagnoistic_underlined('Information')
 ----------------
 -- Statusline --
 ----------------
+require('floatline').setup()
 require('statusline')
 
 --------------

@@ -102,6 +102,7 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
+Plug 'windwp/floatline.nvim'        " One global statusline
 call plug#end()
 
 " -- General --
@@ -123,7 +124,9 @@ set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining line
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 set encoding=utf-8
 set updatetime=100
-set guifont=FiraCode\ Nerd\ Font:h12
+if exists('g:goneovim')
+  set guifont=FiraCode\ Nerd\ Font:h12
+endif
 
 augroup filechanged
   autocmd!
@@ -347,7 +350,7 @@ function MarkdownGf()
   set path-=**
   try
     normal! gf
-  catch:
+  catch
     execute "normal \<Plug>Markdown_EditUrlUnderCursor"
   endtry
   set path+=**
@@ -356,12 +359,16 @@ noremap gf :call MarkdownGf()<CR>
 
 " Increases the font zise with `amount`
 function! Zoom(amount) abort
-  call ZoomSet(matchlist(g:GuiFont, ':h\(\d\+\)')[1] + a:amount)
+  call ZoomSet(matchlist(&guifont, ':h\(\d\+\)')[1] + a:amount)
 endf
 
 " Sets the font size
-function ZoomSet(font_size) abort
-  execute 'GuiFont! ' .  substitute(&guifont, ':h\d\+', ':h' . a:font_size, '')
+function! ZoomSet(font_size) abort
+  if !exists('g:goneovim')
+    execute 'GuiFont! ' .  substitute(&guifont, ':h\d\+', ':h' . a:font_size, '')
+  else
+    execute 'set guifont=' .  substitute(substitute(&guifont, ':h\d\+', ':h' . a:font_size, ''), ' ', '\\ ', 'g')
+  endif
 endf
 
 noremap <silent> <C-=> :call Zoom(v:count1)<CR>
