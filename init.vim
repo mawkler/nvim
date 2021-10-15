@@ -417,7 +417,7 @@ set guioptions-=L
 command! CDHere cd %:p:h
 
 " Puts current file in trashcan using trash-cli
-command! -bar -bang -complete=file Trash
+command! -bar -bang -nargs=1 -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
       \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
@@ -519,6 +519,8 @@ fun! s:colorschemeMods() abort
   hi! link DiffLine   DiffChange
   hi! link PmenuSel   IncSearch
   hi! link Statement  Keyword
+  hi! link TSField    TSVariable
+  hi! link TSInclude  Keyword
 endf
 
 augroup colorschemeMods
@@ -710,6 +712,7 @@ let g:vimtex_toc_config = {
       \ 'show_help': 0,
       \ 'layer_status': { 'label': 0, 'todo': 0},
       \ }
+let g:vimtex_syntax_conceal = {'sections': 1}
 let g:vimtex_syntax_conceal_cites = {
       \ 'type': 'icon',
       \ 'icon': '龎',
@@ -733,6 +736,7 @@ augroup END
 function! s:texHighlight() abort
   " Special highlight for \texttt{}
   highlight link texCTextttArg String
+  highlight link texPartArgTitle DiffDelete
 endf
 call s:texHighlight()
 
@@ -949,6 +953,8 @@ nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
+nnoremap <silent> <M-l>           :BufferNext<CR>
+nnoremap <silent> <M-h>           :BufferPrevious<CR>
 nnoremap <silent> <Leader><Tab>   :BufferNext<CR>
 nnoremap <silent> <Leader><S-Tab> :BufferPrevious<CR>
 " Re-order to previous/next
