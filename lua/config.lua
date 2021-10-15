@@ -37,7 +37,7 @@ local lua_settings = {
 local yaml_settings = {
   yaml = {
     schemaStore = {
-      url = "https://www.schemastore.org/api/json/catalog.json",
+      url = 'https://www.schemastore.org/api/json/catalog.json',
       enable = true,
     }
   }
@@ -194,10 +194,16 @@ require('telescope').setup {
 ---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
+g.nvim_tree_special_files = {}
+g.nvim_tree_icons = {
+   default = '' ,
+}
+
 require('nvim-tree').setup {
-  lsp_diagnostics = true,
+  diagnostics = {
+    enable = true
+  },
   disable_netrw = false,
-  icons = { default = '' },
   update_cwd = true,
   gitignore = false,
   show_icons = {
@@ -298,20 +304,17 @@ api.nvim_exec([[
 -----------------------
 -- Nvim-web-devicons --
 -----------------------
-require('nvim-web-devicons').setup {
-  override = {
-    md = {
-      icon = '',
-      color = '#519aba',
-      name = 'Markdown'
-    },
-    tex = {
-      icon = '',
-      color = '#3D6117',
-      name = 'Tex'
-    }
+require('nvim-web-devicons').set_icon {
+  md = {
+    icon = '',
+    color = '#519aba',
+    name = 'Markdown'
   },
-  default = true
+  tex = {
+    icon = '',
+    color = '#3D6117',
+    name = 'Tex'
+  }
 }
 
 ----------------
@@ -385,7 +388,7 @@ require('neoscroll').setup()
 -- Diagnostics --
 ----------------
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
   }
@@ -531,11 +534,21 @@ map('n',
 -- Rest.nvim
 require('rest-nvim').setup()
 
-cmd('command! Http edit ~/.config/nvim/http | set filetype=http')
+function _G.http_request()
+  if api.nvim_win_get_width(api.nvim_get_current_win()) < 80 then
+    cmd('wincmd s')
+  else
+    cmd('wincmd v')
+  end
+  cmd('edit ~/.config/nvim/http | set filetype=http | set buftype=')
+end
+
+cmd 'command! Http call v:lua.http_request()'
 
 api.nvim_exec([[
   augroup RestNvim
     autocmd!
-    autocmd FileType http map <buffer> <CR> <Plug>RestNvim:w<CR>
+    autocmd FileType http map  <buffer> <CR>  <Plug>RestNvim:w<CR>
+    autocmd FileType http nmap <buffer> <Esc> <cmd>BufferClose<CR>:wincmd c<CR>
   augroup END
 ]], true)
