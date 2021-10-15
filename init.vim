@@ -43,7 +43,9 @@ if has('nvim')
   Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
   Plug 'mhartington/formatter.nvim'    " Auto formatting
   Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
-  Plug 'famiu/feline.nvim'
+  Plug 'famiu/feline.nvim'             " Statusline creation framework
+  Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
+  Plug 'windwp/floatline.nvim'         " One global statusline
   Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
@@ -67,8 +69,11 @@ if has('nvim')
   Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
   Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
   Plug 'b3nj5m1n/kommentary'           " For toggling comments
-  Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
   Plug 'NTBBloodbath/rest.nvim'        " For sending GET/POST/etc. requests
+  Plug 'mfussenegger/nvim-dap'         " Debugger client
+  Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
+  Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
+  Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -920,7 +925,9 @@ endf
 let g:bufferline = get(g:, 'bufferline', {
       \ 'closable': v:false,
       \ 'no_name_title': '[No Name]',
-      \ 'insert_at_end': v:true
+      \ 'insert_at_end': v:true,
+      \ 'exclude_name': ['[dap-repl]'],
+      \ 'exclude_ft': ['qf'],
       \ })
 let s:barbar_bg  = '#21242b'
 

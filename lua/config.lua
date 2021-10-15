@@ -430,6 +430,11 @@ make_diagnoistic_underlined('Information')
 require('floatline').setup()
 require('statusline')
 
+----------------
+-- DAP --
+----------------
+require('dap-config')
+
 --------------
 -- Gitsigns --
 --------------

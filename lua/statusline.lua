@@ -71,6 +71,10 @@ local inactive_filetypes = {
   'plug',
   'dbui',
   'packer',
+  'dapui_watches',
+  'dapui_stacks',
+  'dapui_breakpoints',
+  'dapui_scopes',
 }
 
 local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
