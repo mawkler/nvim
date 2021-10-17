@@ -107,7 +107,6 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
-Plug 'windwp/floatline.nvim'        " One global statusline
 call plug#end()
 
 " -- General --

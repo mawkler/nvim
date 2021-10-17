@@ -194,6 +194,7 @@ require('telescope').setup {
 ---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
+g.nvim_tree_indent_markers = 1
 g.nvim_tree_special_files = {}
 g.nvim_tree_icons = {
    default = '' ,
