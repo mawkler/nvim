@@ -283,14 +283,14 @@ nmap <silent> ]q :cbelow<CR>
 nmap <silent> [q :cabove<CR>
 
 " -- Git commands --
-map <silent> <leader>Gm <Plug>(git-messenger)
-map <silent> <leader>Gb :Git blame<CR>
-map <silent> <leader>Gd :tab Gvdiffsplit
+map <silent> <leader>gm <Plug>(git-messenger)
+map <silent> <leader>gb :Git blame<CR>
+map <silent> <leader>gd :tab Gvdiffsplit
       \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
-map <silent> <leader>Gs :vertical Git<CR>
-map <silent> <leader>Gp :Git pull<CR>
-map          <leader>GP :Git push
-map          <leader>Gc :vertical Git commit -va
+map <silent> <leader>gs :vertical Git<CR>
+map <silent> <leader>gp :Git pull<CR>
+map          <leader>gP :Git push
+map          <leader>gc :vertical Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
 noremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -1052,14 +1052,14 @@ function! g:grammarous#hooks.on_reset(errs) abort
 endf
 
 nmap <silent> <leader>gc :GrammarousCheck<CR>
-nmap <leader>gg <Plug>(grammarous-move-to-info-window)
-nmap <leader>gd <Plug>(grammarous-open-info-window)<Plug>(grammarous-move-to-info-window)
-nmap <leader>gQ <Plug>(grammarous-reset)
-nmap <leader>gf <Plug>(grammarous-fixit)
-nmap <leader>gF <Plug>(grammarous-fixall)
-nmap <leader>gq <Plug>(grammarous-close-info-window)
-nmap <leader>gr <Plug>(grammarous-remove-error)
-nmap <leader>gD <Plug>(grammarous-disable-rule)
+nmap <leader>Gg <Plug>(grammarous-move-to-info-window)
+nmap <leader>Gd <Plug>(grammarous-open-info-window)<Plug>(grammarous-move-to-info-window)
+nmap <leader>GQ <Plug>(grammarous-reset)
+nmap <leader>Gf <Plug>(grammarous-fixit)
+nmap <leader>GF <Plug>(grammarous-fixall)
+nmap <leader>Gq <Plug>(grammarous-close-info-window)
+nmap <leader>Gr <Plug>(grammarous-remove-error)
+nmap <leader>GD <Plug>(grammarous-disable-rule)
 
 exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
 exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
