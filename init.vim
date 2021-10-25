@@ -281,6 +281,8 @@ nmap <silent> ]l :lbelow<CR>
 nmap <silent> [l :labove<CR>
 nmap <silent> ]q :cbelow<CR>
 nmap <silent> [q :cabove<CR>
+nmap <silent> ]Q :cnext<CR>
+nmap <silent> [Q :cprev<CR>
 
 " -- Git commands --
 map <silent> <leader>gm <Plug>(git-messenger)
