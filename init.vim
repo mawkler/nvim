@@ -247,10 +247,7 @@ map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<C
 map      g/               /\<\><Left><Left>
 nnoremap n                nzz
 nnoremap N                Nzz
-nmap     <leader>r        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-nmap     <leader>R        :%substitute/<C-R><C-W>//I<Left><Left>
-vmap     <leader>r        y:<C-U>%substitute/<C-R>0//gci<Left><Left><Left><Left>
-vmap     <leader>R        y:<C-U>%substitute/<C-R>0//I<Left><Left>
+nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      Q                @@
 map      <leader>q        qqqqq
 nnoremap §                <C-^>
@@ -287,8 +284,17 @@ nmap <silent> [Q :cprev<CR>
 " -- Git commands --
 map <silent> <leader>gm <Plug>(git-messenger)
 map <silent> <leader>gb :Git blame<CR>
-map <silent> <leader>gd :tab Gvdiffsplit
-      \\| BufferMovePrevious<CR>:windo set wrap \| wincmd w<CR>
+map <silent> <leader>gd :call GitDiff()<CR>
+
+function GitDiff() abort
+  let tmp = g:bufferline.insert_at_end
+  let g:bufferline.insert_at_end = v:false
+  tabnew %
+  exe 'Gvdiffsplit'
+  exe 'BufferMovePrevious'
+  windo set wrap
+  let g:bufferline.insert_at_end = tmp
+endf
 map <silent> <leader>gs :vertical Git<CR>
 map <silent> <leader>gp :Git pull<CR>
 map          <leader>gP :Git push
@@ -423,7 +429,7 @@ set guioptions-=L
 command! CDHere cd %:p:h
 
 " Puts current file in trashcan using trash-cli
-command! -bar -bang -nargs=1 -complete=file Trash
+command! -bar -bang -nargs=? -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
       \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
@@ -1053,7 +1059,7 @@ function! g:grammarous#hooks.on_reset(errs) abort
   nunmap <buffer> [s
 endf
 
-nmap <silent> <leader>gc :GrammarousCheck<CR>
+nmap <silent> <leader>Gc :GrammarousCheck<CR>
 nmap <leader>Gg <Plug>(grammarous-move-to-info-window)
 nmap <leader>Gd <Plug>(grammarous-open-info-window)<Plug>(grammarous-move-to-info-window)
 nmap <leader>GQ <Plug>(grammarous-reset)
