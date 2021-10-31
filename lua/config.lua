@@ -572,3 +572,62 @@ api.nvim_exec([[
     autocmd FileType http nmap <buffer> <Esc> <cmd>BufferClose<CR>:wincmd c<CR>
   augroup END
 ]], true)
+
+----------------------
+-- Refactoring.nvim --
+----------------------
+local refactoring = require("refactoring")
+refactoring.setup()
+
+-- Telescope refactoring helper
+local function refactor(prompt_bufnr)
+  local content = require("telescope.actions.state").get_selected_entry(
+    prompt_bufnr
+  )
+  require("telescope.actions").close(prompt_bufnr)
+  require("refactoring").refactor(content.value)
+end
+
+-- NOTE: M is a global object
+-- for the sake of simplicity in this example
+-- you can extract this function and the helper above
+-- and then require the file and call the extracted function
+-- in the mappings below
+M = {}
+M.refactors = function()
+  local opts = require("telescope.themes").get_cursor() -- set personal telescope options
+  require("telescope.pickers").new(opts, {
+    prompt_title = "refactors",
+    finder = require("telescope.finders").new_table({
+      results = require("refactoring").get_refactors(),
+    }),
+    sorter = require("telescope.config").values.generic_sorter(opts),
+    attach_mappings = function(_, mapping)
+      mapping("i", "<CR>", refactor)
+      mapping("n", "<CR>", refactor)
+      return true
+    end
+  }):find()
+end
+
+vim.api.nvim_set_keymap('v',
+  'gRe',
+  '<Esc><Cmd>lua require("refactoring").refactor("Extract Function")<CR>',
+  { silent = true }
+)
+vim.api.nvim_set_keymap('v',
+  'gRf',
+  '<Esc><Cmd>lua require("refactoring").refactor("Extract Function To File")<CR>',
+  { silent = true }
+)
+vim.api.nvim_set_keymap('v',
+  '<Leader>R',
+  '<Esc><Cmd>lua M.refactors()<CR>',
+  { noremap = true }
+)
+
+
+--------------------
+-- Indent-o-matic --
+--------------------
+require('indent-o-matic').setup{}

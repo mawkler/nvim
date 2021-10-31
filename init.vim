@@ -4,7 +4,6 @@ call plug#begin('~/.config/nvim/packages/')
 if !$NVIM_MINIMAL
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
-  Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-abolish'
   Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
@@ -74,6 +73,8 @@ if has('nvim')
   Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
   Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
   Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
+  Plug 'ThePrimeagen/refactoring.nvim'
+  Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
