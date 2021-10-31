@@ -16,9 +16,9 @@ local function make_config()
     on_attach = function()
       require('lsp_signature').on_attach({
         hi_parameter = 'String',
-          handler_opts = {
-            border = 'single'   -- double, single, shadow, none
-          },
+        handler_opts = {
+          border = 'single'   -- double, single, shadow, none
+        },
       })
     end
   }
@@ -140,22 +140,27 @@ map({'i', 's'}, '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, norema
 map('i',        '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
 map('i',        '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
 map('i',        '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
-map('i',        '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
+map({'i', 's'}, '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
 
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
-map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
+-- map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
+map('n',        'gh',        '<cmd> lua vim.lsp.buf.hover()<cr>')
+-- map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
+map('n',        'gH',        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
-map({'n', 'x'}, 'gr',        '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map({'n', 'x'}, '<leader>r', '<cmd>lua require("lspsaga.rename").rename()<CR>')
 map('n',        'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-map({'n', 'x'}, 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
-map('n',        '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
-map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
+-- map({'n', 'x'}, 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
+map({'n', 'x'}, 'gA',        '<cmd>lua vim.lsp.buf.code_action()<cr>')
+-- map('n',        '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
+map('n',        '[e',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+-- map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
+map('n',        ']e',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
 -------------
@@ -197,7 +202,7 @@ local tree_cb = require('nvim-tree.config').nvim_tree_callback
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_special_files = {}
 g.nvim_tree_icons = {
-   default = '' ,
+  default = '' ,
 }
 
 require('nvim-tree').setup {
@@ -222,6 +227,7 @@ require('nvim-tree').setup {
   }
 }
 map('n', '<leader>`', ':NvimTreeToggle<CR>', {silent = true})
+cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 
 ---------------
 -- Autopairs --
@@ -283,24 +289,30 @@ require('formatter').setup {
 }
 
 function _G.toggle_format_on_write()
-  if b.format_on_write == 0 then
-    b.format_on_write = 1
+  if not b.format_on_write then
+    b.format_on_write = true
     print 'Format on write enabled'
   else
-    b.format_on_write = 0
+    b.format_on_write = false
     print 'Format on write disabled'
   end
 end
 
-b.format_on_write = 1
+b.format_on_write = true
 map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {silent = true})
 
 api.nvim_exec([[
   augroup FormatOnWrite
     autocmd!
-    autocmd BufWritePost *.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml if !exists('b:format_on_write') || b:format_on_write | FormatWrite | endif
+    autocmd BufWritePost *.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml lua format_and_write()
   augroup END
 ]], true)
+
+function _G.format_and_write()
+  if b.format_on_write then
+    cmd 'FormatWrite'
+  end
+end
 
 -----------------------
 -- Nvim-web-devicons --
@@ -377,7 +389,7 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
- -- Disable treesitter from highlighting errors (LSP does that anyway)
+-- Disable treesitter from highlighting errors (LSP does that anyway)
 vim.cmd('highlight! link TSError Normal')
 
 ---------------
@@ -445,10 +457,10 @@ require('gitsigns').setup {
     change       = {text = '┃', hl = 'DiffChange'},
     delete       = {text = '▁'},
     topdelete    = {text = '▔'},
-    changedelete = {text = '┃'}
-  }
+    changedelete = {text = '┃'},
+  },
+  attach_to_untracked = false
 }
-
 -- Workaround for bug where change highlight switches for some reason
 cmd 'hi! link GitGutterChange DiffChange'
 
@@ -537,7 +549,9 @@ map('n',
 )
 -- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
 
--- Rest.nvim
+---------------
+-- Rest.nvim --
+---------------
 require('rest-nvim').setup()
 
 function _G.http_request()
