@@ -509,22 +509,37 @@ augroup netrw
   autocmd FileType netrw nmap <buffer> o <CR>
 augroup end
 
-" -- Colorscheme modifications --
-lua require('onedark').setup()
-
 " -- Quickscope --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" -- Colorscheme modifications --
+lua << EOF
+require('onedark').setup {
+  colors = {
+    fg_cursor_linenumber = 'blue',
+    -- bg_cursor_linenumber = 'bg_highlight'
+  }
+}
+EOF
+
+" Gets the highlight value of highlight group `name`
+" Set `layer` to either 'fg' or 'bg'
+function GetHiVal(name, layer)
+  return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
+endf
 
 fun! s:colorschemeMods() abort
   hi IncSearch    guibg=#61afef
   hi VertSplit    guifg=#181a1f
   hi MatchParen   guifg=NONE guibg=NONE gui=underline,bold
   " hi CursorLine   guibg=#313742
-  hi CursorLineNr guifg=#61afef guibg=#313742
+  " hi CursorLineNr guifg=#61afef guibg=#313742
   " hi NormalFloat  guibg=#3E4452
   " hi FloatBorder  guibg=#3E4452
 
-  " hi NvimTreeNormal guifg=#61afef guibg=#21242b
+  hi link TSTagDelimiter TSPunctBracket
+  exe 'hi! CursorLineNr guifg=' . GetHiVal('Question', 'fg') .
+        \ ' guibg=' . GetHiVal('CursorLine', 'bg') . ' gui=bold'
 
   hi! link Search     Visual
   " hi! link PmenuSel   IncSearch
@@ -674,18 +689,18 @@ autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenu
 let g:fzf_mru_case_sensitive = 0
 let g:fzf_colors = {
       \ "fg":      ["fg", "Normal"],
-      \ "fg+":     ["fg", "SpecialKey", "CursorColumn", "Normal"],
+      \ "fg+":     ["fg", "Question", "CursorColumn", "Normal"],
       \ "bg":      ["bg", "Normal"],
       \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
       \ "hl":      ["fg", "ErrorMsg"],
       \ "hl+":     ["fg", "ErrorMsg"],
       \ "gutter":  ["bg", "Normal"],
-      \ "pointer": ["fg", "SpecialKey"],
+      \ "pointer": ["fg", "Question"],
       \ "marker":  ["fg", "Title"],
       \ "border":  ["fg", "VisualNC"],
       \ "header":  ["fg", "WildMenu"],
       \ "info":    ["fg", "ErrorMsg"],
-      \ "spinner": ["fg", "SpecialKey"],
+      \ "spinner": ["fg", "Question"],
       \ "prompt":  ["fg", "Question"]
       \ }
 
@@ -916,12 +931,6 @@ nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- barbar.nvim --
-" Gets the highlight value of highlight group `name`
-" Set `layer` to either 'fg' or 'bg'
-function GetHiVal(name, layer)
-  return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
-endf
-
 " Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
 " If a third argument is provided gui is set to that
 function BarbarHi(name, guifg, ...)
