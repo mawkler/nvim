@@ -309,7 +309,7 @@ api.nvim_exec([[
 ]], true)
 
 function _G.format_and_write()
-  if b.format_on_write then
+  if fn.exists('b:format_on_write') == 0 or b.format_on_write then
     cmd 'FormatWrite'
   end
 end
