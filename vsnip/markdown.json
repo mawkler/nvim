@@ -11,7 +11,7 @@
     "body": [
       "${1:Mvh}${2:,}",
       "",
-      "Melker ${3:Österberg}$0"
+      "Melker${3: Österberg}$0"
     ],
     "description": "Med vänliga hälsningar"
   },
@@ -20,7 +20,7 @@
     "body": [
       "${1:BR}$2 ",
       "",
-      "Melker ${3:Österberg}$0"
+      "Melker${3: Österberg}$0"
     ],
       "description": "Best regards"
   },
