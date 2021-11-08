@@ -75,6 +75,8 @@ if has('nvim')
   Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
+  Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
+
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -108,6 +110,7 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
+Plug 'github/copilot.vim'
 call plug#end()
 
 " -- General --
@@ -284,7 +287,7 @@ nmap <silent> [Q :cprev<CR>
 
 " -- Git commands --
 map <silent> <leader>gm <Plug>(git-messenger)
-map <silent> <leader>gb :Git blame<CR>
+map <silent> <leader>gB :Git blame<CR>
 map <silent> <leader>gd :call GitDiff()<CR>
 
 function GitDiff() abort

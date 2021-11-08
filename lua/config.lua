@@ -2,6 +2,10 @@ local cmd, call, fn = vim.cmd, vim.call, vim.fn
 local o, g, b = vim.o, vim.g, vim.b
 local api = vim.api
 
+-- Should be loaded before any other plugin
+-- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
+require('impatient')
+
 ----------------
 -- LSPInstall --
 ----------------
@@ -108,6 +112,9 @@ function _G.toggle_complete()
   end
 end
 
+-------------
+-- LSPSaga --
+-------------
 require('lspsaga').init_lsp_saga {
   rename_action_keys = {
     quit = {'<Esc>'},
@@ -227,6 +234,7 @@ require('nvim-tree').setup {
   }
 }
 map('n', '<leader>`', ':NvimTreeToggle<CR>', {silent = true})
+map('n', '<leader>~', ':NvimTreeFindFile<CR>', {silent = true})
 cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 
 ---------------
@@ -289,7 +297,7 @@ require('formatter').setup {
 }
 
 function _G.toggle_format_on_write()
-  if not b.format_on_write then
+  if b.format_on_write == false then
     b.format_on_write = true
     print 'Format on write enabled'
   else
@@ -419,13 +427,23 @@ local function GetHiVal(name, layer)
   return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
 
-sign_define('LspDiagnosticsSignError',       '')
-sign_define('LspDiagnosticsSignWarning',     '')
-sign_define('LspDiagnosticsSignHint',        '')
-sign_define('LspDiagnosticsSignInformation', '')
+if fn.has('nvim-0.6') then
+  sign_define('DiagnosticSignError',   '')
+  sign_define('DiagnosticSignWarning', '')
+  sign_define('DiagnosticSignHint',    '')
+  sign_define('DiagnosticSignInfo',    '')
 
-cmd 'hi link LspDiagnosticsDefaultWarning DiffChange'
-cmd 'hi link LspDiagnosticsDefaultHint Comment'
+  cmd 'hi  link DiagnosticWarning DiffChange'
+  cmd 'hi! link DiagnosticHint Comment'
+else
+  sign_define('LspDiagnosticsSignError',       '')
+  sign_define('LspDiagnosticsSignWarning',     '')
+  sign_define('LspDiagnosticsSignHint',        '')
+  sign_define('LspDiagnosticsSignInformation', '')
+
+  cmd 'hi link LspDiagnosticsDefaultWarning DiffChange'
+  cmd 'hi link LspDiagnosticsDefaultHint Comment'
+end
 
 local function make_diagnoistic_underlined(diagnostic)
   cmd('hi DiagnosticUnderline' .. diagnostic .. ' gui=underline guisp='
@@ -459,7 +477,27 @@ require('gitsigns').setup {
     topdelete    = {text = '▔'},
     changedelete = {text = '┃'},
   },
-  attach_to_untracked = false
+  keymaps = {
+    noremap = true,
+
+    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+
+    ['n <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ['v <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>su'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ['n <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['v <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>sR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ['n <leader>sp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+
+    -- Text objects
+    ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
+  },
+  attach_to_untracked = false,
+  current_line_blame = true,
 }
 -- Workaround for bug where change highlight switches for some reason
 cmd 'hi! link GitGutterChange DiffChange'
@@ -504,6 +542,7 @@ add_cyclic_augend('nummer', {
   'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex',
   'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
 })
+add_cyclic_augend('access modifier', {'private', 'public'})
 
 map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
 map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
