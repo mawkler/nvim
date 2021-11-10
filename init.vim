@@ -76,7 +76,6 @@ if has('nvim')
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
-
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -968,6 +967,8 @@ nnoremap <silent> <C-Space> :BufferPick<CR>
 " Sort automatically by...
 nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
+nnoremap <silent> <Leader>bc :BufferClose<CR>
+nnoremap <silent> <Leader>bC :bufdo BufferClose<CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>

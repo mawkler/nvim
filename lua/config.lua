@@ -496,8 +496,7 @@ require('gitsigns').setup {
     ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
     ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
   },
-  attach_to_untracked = false,
-  current_line_blame = true,
+  attach_to_untracked = false
 }
 -- Workaround for bug where change highlight switches for some reason
 cmd 'hi! link GitGutterChange DiffChange'
