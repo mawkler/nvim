@@ -428,10 +428,10 @@ local function GetHiVal(name, layer)
 end
 
 if fn.has('nvim-0.6') then
-  sign_define('DiagnosticSignError',   '')
-  sign_define('DiagnosticSignWarning', '')
-  sign_define('DiagnosticSignHint',    '')
-  sign_define('DiagnosticSignInfo',    '')
+  sign_define('DiagnosticSignError', '')
+  sign_define('DiagnosticSignWarn',  '')
+  sign_define('DiagnosticSignHint',  '')
+  sign_define('DiagnosticSignInfo',  '')
 
   cmd 'hi  link DiagnosticWarning DiffChange'
   cmd 'hi! link DiagnosticHint Comment'
