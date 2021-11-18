@@ -795,7 +795,7 @@ augroup quickfix
 augroup END
 
 " -- lens.vim --
-let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame']
+let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame', 'NvimTree']
 
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
