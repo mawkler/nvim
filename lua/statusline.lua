@@ -128,9 +128,7 @@ local function file_osinfo()
 end
 
 local function wide_enough()
-  local squeeze_width = fn.winwidth(0) / 2
-  if squeeze_width > 40 then return true end
-  return false
+  return fn.winwidth(0) > 100
 end
 
 local function has_inactive_filetype()
@@ -240,7 +238,7 @@ table.insert(active_mid, {
   provider = gps.get_location,
   hl = { fg = 'darkgray' },
   enabled = function()
-    return gps.is_available() and not lsp_progress_available()
+    return gps.is_available() and not lsp_progress_available() and wide_enough()
   end
 })
 
