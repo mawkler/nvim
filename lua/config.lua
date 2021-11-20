@@ -21,8 +21,9 @@ local function make_config()
       require('lsp_signature').on_attach({
         hi_parameter = 'String',
         handler_opts = {
-          border = 'single'   -- double, single, shadow, none
+          border = 'rounded', -- double, single, shadow, none
         },
+        hint_enable = false
       })
     end
   }
@@ -613,9 +614,9 @@ api.nvim_exec([[
 
 ----------------------
 -- Refactoring.nvim --
-----------------------
+--------------------
 local refactoring = require("refactoring")
-refactoring.setup()
+refactoring.setup({})
 
 -- Telescope refactoring helper
 local function refactor(prompt_bufnr)
