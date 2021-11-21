@@ -73,13 +73,13 @@ if has('nvim')
   Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
   Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
   Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
+  Plug 'ful1e5/onedark.nvim'
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'RRethy/nvim-base16'           " Collection of base16 colorschemes in Lua
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
@@ -484,11 +484,6 @@ vmap iA  i`
 vmap aA  a`
 let g:surround_{char2nr('A')} = "`\r`"
 
-" -- Quickscope (highlight settings have to come before setting `colorscheme`) --
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-hi QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
-hi QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
-
 augroup language_specific
   autocmd!
   " Don't conceal current line in some file formats (LaTeX files' configs don't seem to be overwritten though)
@@ -515,27 +510,30 @@ augroup netrw
 augroup end
 
 " -- Colorscheme modifications --
-lua require('base16-colorscheme').setup('onedark')
+lua require('onedark').setup()
+
+" -- Quickscope --
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 fun! s:colorschemeMods() abort
   hi IncSearch    guibg=#61afef
   hi VertSplit    guifg=#181a1f
-  hi MatchParen   guifg=NONE guibg=NONE gui=underline
-  hi CursorLine   guibg=#313742
+  hi MatchParen   guifg=NONE guibg=NONE gui=underline,bold
+  " hi CursorLine   guibg=#313742
   hi CursorLineNr guifg=#61afef guibg=#313742
-  hi NormalFloat  guibg=#3E4452
-  hi FloatBorder  guibg=#3E4452
+  " hi NormalFloat  guibg=#3E4452
+  " hi FloatBorder  guibg=#3E4452
 
-  hi NvimTreeNormal guifg=#61afef guibg=#21242b
+  " hi NvimTreeNormal guifg=#61afef guibg=#21242b
 
   hi! link Search     Visual
-  hi! link SpecialKey Directory
-  hi! link DiffChange Boolean
-  hi! link DiffLine   DiffChange
-  hi! link PmenuSel   IncSearch
-  hi! link Statement  Keyword
-  hi! link TSField    TSVariable
-  hi! link TSInclude  Keyword
+  " hi! link PmenuSel   IncSearch
+  " hi! link Statement  Keyword
+  " hi! link TSField    TSVariable
+  " hi! link TSInclude  Keyword
+
+  hi! QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
+  hi! QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
 endf
 
 augroup colorschemeMods
@@ -749,8 +747,8 @@ augroup END
 
 function! s:texHighlight() abort
   " Special highlight for \texttt{}
-  highlight link texCTextttArg String
-  highlight link texPartArgTitle DiffDelete
+  " highlight link texCTextttArg String
+  " highlight link texPartArgTitle DiffDelete
 endf
 call s:texHighlight()
 
@@ -804,11 +802,11 @@ map <F13> <Plug>Markdown_EditUrlUnderCursor
 " Disables vim-markdown's default `]c` mapping
 map <F14> <Plug>Markdown_MoveToCurHeader
 " Make italic words actually look italic in Markdown
-hi htmlItalic cterm=italic gui=italic
+" hi htmlItalic cterm=italic gui=italic
 " Underline Markdown URLs
-hi mkdInlineURL guifg=#61AFEF gui=underline cterm=underline
+" hi mkdInlineURL guifg=#61AFEF gui=underline cterm=underline
 " Underline link names in Markdown in-line links
-hi link mkdLink mkdInlineURL
+" hi link mkdLink mkdInlineURL
 
 augroup toc_markdown
   autocmd!

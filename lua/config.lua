@@ -459,8 +459,8 @@ make_diagnoistic_underlined('Information')
 ----------------
 -- Statusline --
 ----------------
-require('floatline').setup()
-require('statusline')
+-- require('floatline').setup()
+-- require('statusline')
 
 ----------------
 -- DAP --
@@ -472,11 +472,11 @@ require('dap-config')
 --------------
 require('gitsigns').setup {
   signs = {
-    add          = {text = '┃'},
-    change       = {text = '┃', hl = 'DiffChange'},
-    delete       = {text = '▁'},
-    topdelete    = {text = '▔'},
-    changedelete = {text = '┃'},
+   add          = {text = '┃', hl = 'String'},
+    change       = {text = '┃', hl = 'Boolean'},
+    changedelete = {text = '┃', hl = 'Boolean'},
+    delete       = {text = '▁', hl = 'Error'},
+    topdelete    = {text = '▔', hl = 'Error'},
   },
   keymaps = {
     noremap = true,

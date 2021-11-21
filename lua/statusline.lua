@@ -12,6 +12,7 @@ local function GetHiVal(name, layer)
   return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
 
+-- TODO: make it possible to pass colorscheme to this file
 local colorscheme = require('base16-colorscheme').colorschemes['onedark']
 
 local colors = {
