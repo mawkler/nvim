@@ -418,7 +418,7 @@ set breakindent                   " Respect indent when line wrapping
 set expandtab                     " Use spaces for indentation
 set shiftwidth=2                  " Width of indentation
 set tabstop=4                     " Width of <Tab> characters
-set list listchars=tab:▏\ ,nbsp:· " Show line for tab indentation, and a dot for non-breaking spaces
+set list listchars=tab:\ \ ,nbsp:·
 set shiftround                    " Round indent to multiple of shiftwdith
 set cinkeys-=0#                   " Indent lines starting with `#`
 
@@ -545,13 +545,12 @@ augroup END
 call s:colorschemeMods()
 
 " -- IndentLine and indent_blankline --
-let g:indentLine_char = '▏'
-let g:indentLine_color_gui = '#4b5263'
-let g:indentLine_setConceal = 0 " Don't overwrite concealcursor and conceallevel
-let g:indentLine_fileTypeExclude = ['markdown', 'startify', 'sagahover', 'NvimTree']
-let g:indentLine_bufTypeExclude = ['fzf', 'help']
-let g:indent_blankline_buftype_exclude = ['help']
+let g:indent_blankline_char = '▏'
 let g:indent_blankline_show_first_indent_level = v:false
+let g:indent_blankline_buftype_exclude = ['fzf', 'help']
+let g:indent_blankline_filetype_exclude = [
+      \   'markdown', 'startify', 'sagahover', 'NvimTree'
+      \ ]
 " Fixes bug where blank lines get highlighted by cursorline highlighting
 " https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
 " TODO: remove this once the bug is fixed
