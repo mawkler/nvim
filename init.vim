@@ -517,7 +517,6 @@ lua << EOF
 require('onedark').setup {
   colors = {
     fg_cursor_linenumber = 'blue',
-    -- bg_cursor_linenumber = 'bg_highlight'
   }
 }
 EOF

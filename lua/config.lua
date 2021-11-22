@@ -460,7 +460,12 @@ make_diagnoistic_underlined('Information')
 -- Statusline --
 ----------------
 -- require('floatline').setup()
--- require('statusline')
+local colors = vim.tbl_extend('force', require('onedark.colors').setup(), {
+  fg = '#c8ccd4',
+  line_bg = '#353b45',
+  darkgray = '#9ba1b0'
+})
+require('statusline').setup({colorscheme = colors})
 
 ----------------
 -- DAP --

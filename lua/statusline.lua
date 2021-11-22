@@ -13,48 +13,30 @@ local function GetHiVal(name, layer)
 end
 
 -- TODO: make it possible to pass colorscheme to this file
-local colorscheme = require('base16-colorscheme').colorschemes['onedark']
+-- local colorscheme = require('base16-colorscheme').colorschemes['onedark']
 
-local colors = {
-  bg          = colorscheme.base00, -- #282c34
-  line_bg     = colorscheme.base01, -- #353b45
-  fg          = colorscheme.base07, -- #c8ccd4
-  fg_green    = colorscheme.base0B,
+-- local colors = {
+--   bg          = colorscheme.base00, -- #282c34
+--   line_bg     = colorscheme.base01, -- #353b45
+--   fg          = colorscheme.base07, -- #c8ccd4
+--   fg_green    = colorscheme.base0B,
 
-  yellow      = colorscheme.base0A,
-  cyan        = colorscheme.base0C,
-  darkblue    = colorscheme.base04,
-  green       = colorscheme.base0B,
-  orange      = colorscheme.base09,
-  purple      = colorscheme.base0E,
-  magenta     = colorscheme.base08,
-  blue        = colorscheme.base0D,
-  red         = colorscheme.base0F,
-  gray        = colorscheme.base05,
-  darkgray    = '#9ba1b0',
+--   yellow      = colorscheme.base0A,
+--   cyan        = colorscheme.base0C,
+--   darkblue    = colorscheme.base04,
+--   green       = colorscheme.base0B,
+--   orange      = colorscheme.base09,
+--   purple      = colorscheme.base0E,
+--   magenta     = colorscheme.base08,
+--   blue        = colorscheme.base0D,
+--   red         = colorscheme.base0F,
+--   gray        = colorscheme.base05,
+--   darkgray    = '#9ba1b0',
 
-  diff_add    = GetHiVal('DiffAdd'),
-  diff_change = GetHiVal('DiffChange'),
-  diff_delete = GetHiVal('DiffDelete')
-}
-
-local mode_colors = {
-  NORMAL        = colors.green,
-  OP            = colors.green,
-  INSERT        = colors.blue,
-  COMMAND       = colors.red,
-  VISUAL        = colors.purple,
-  LINES         = colors.purple,
-  BLOCK         = colors.purple,
-  REPLACE       = colors.magenta,
-  ['V-REPLACE'] = colors.red,
-  ENTER         = colors.orange,
-  MORE          = colors.orange,
-  SELECT        = colors.cyan,
-  SHELL         = colors.green,
-  TERM          = colors.green,
-  NONE          = colors.gray
-}
+--   diff_add    = GetHiVal('DiffAdd'),
+--   diff_change = GetHiVal('DiffChange'),
+--   diff_delete = GetHiVal('DiffDelete')
+-- }
 
 local components = {
   active = {{}, {}, {}},
@@ -369,13 +351,41 @@ table.insert(inactive_right, {
   end
 })
 
-require('feline').setup {
-  colors         = colors,
-  components     = components,
-  vi_mode_colors = mode_colors,
-  force_inactive = {
-    filetypes = inactive_filetypes,
-    buftypes = {},
-    bufnames = {},
-  }
-}
+local function setup(config)
+  if not config or not config.colorscheme then
+    error('No colorscheme provided')
+  else
+    local colorscheme = config.colorscheme
+
+    local mode_colors = {
+      NORMAL        = colorscheme.green,
+      OP            = colorscheme.green,
+      INSERT        = colorscheme.blue,
+      COMMAND       = colorscheme.red,
+      VISUAL        = colorscheme.purple,
+      LINES         = colorscheme.purple,
+      BLOCK         = colorscheme.purple,
+      REPLACE       = colorscheme.red,
+      ['V-REPLACE'] = colorscheme.magenta,
+      ENTER         = colorscheme.orange,
+      MORE          = colorscheme.orange,
+      SELECT        = colorscheme.cyan,
+      SHELL         = colorscheme.green,
+      TERM          = colorscheme.green,
+      NONE          = colorscheme.gray
+    }
+
+    require('feline').setup {
+      colors         = colorscheme,
+      components     = components,
+      vi_mode_colors = mode_colors,
+      force_inactive = {
+        filetypes = inactive_filetypes,
+        buftypes = {},
+        bufnames = {},
+      }
+    }
+  end
+end
+
+return { setup = setup }
