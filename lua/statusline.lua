@@ -356,6 +356,9 @@ local function setup(config)
     error('No colorscheme provided')
   else
     local colorscheme = config.colorscheme
+    if config.modifications then
+      colorscheme = vim.tbl_extend('force', colorscheme, config.modifications)
+    end
 
     local mode_colors = {
       NORMAL        = colorscheme.green,

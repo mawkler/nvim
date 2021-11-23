@@ -512,14 +512,8 @@ augroup end
 " -- Quickscope --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" -- Colorscheme modifications --
-lua << EOF
-require('onedark').setup {
-  colors = {
-    fg_cursor_linenumber = 'blue',
-  }
-}
-EOF
+" -- Import lua config --
+lua require('config')
 
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
@@ -527,27 +521,45 @@ function GetHiVal(name, layer)
   return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
 endf
 
+" Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
+" If a third argument is provided gui is set to that
+function BarbarHi(name, guifg, ...)
+  let s:barbar_bg  = '#21242b'
+  let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
+  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' s:barbar_bg gui
+endf
+
 fun! s:colorschemeMods() abort
   hi IncSearch    guibg=#61afef
   hi VertSplit    guifg=#181a1f
   hi MatchParen   guifg=NONE guibg=NONE gui=underline,bold
-  " hi CursorLine   guibg=#313742
-  " hi CursorLineNr guifg=#61afef guibg=#313742
-  " hi NormalFloat  guibg=#3E4452
-  " hi FloatBorder  guibg=#3E4452
 
   hi link TSTagDelimiter TSPunctBracket
   exe 'hi! CursorLineNr guifg=' . GetHiVal('Question', 'fg') .
         \ ' guibg=' . GetHiVal('CursorLine', 'bg') . ' gui=bold'
 
-  hi! link Search     Visual
-  " hi! link PmenuSel   IncSearch
-  " hi! link Statement  Keyword
-  " hi! link TSField    TSVariable
-  " hi! link TSInclude  Keyword
+  hi! link MsgArea Normal
 
   hi! QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
   hi! QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
+
+  let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
+  let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
+  let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
+  let fg_tabpages = GetHiVal('Directory', 'fg')  " #61AFEF
+
+  call BarbarHi('BufferTabpageFill', fg_sign)
+  call BarbarHi('BufferTabpages', fg_tabpages, 'bold')
+  call BarbarHi('BufferVisible', fg_visible)
+  call BarbarHi('BufferVisibleSign', fg_sign)
+  call BarbarHi('BufferVisibleMod', fg_modified)
+  call BarbarHi('BufferVisibleIndex', fg_sign)
+  call BarbarHi('BufferInactive', '#707070')
+  call BarbarHi('BufferInactiveSign', fg_sign)
+  call BarbarHi('BufferInactiveMod', fg_modified)
+  call BarbarHi('BufferInactiveIndex', fg_sign)
+  call BarbarHi('BufferInactiveTarget', 'red', 'bold')
+  call BarbarHi('BufferModifiedIndex', fg_sign)
 endf
 
 augroup colorschemeMods
@@ -930,13 +942,6 @@ nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- barbar.nvim --
-" Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
-" If a third argument is provided gui is set to that
-function BarbarHi(name, guifg, ...)
-  let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
-  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' s:barbar_bg gui
-endf
-
 let g:bufferline = get(g:, 'bufferline', {
       \ 'closable': v:false,
       \ 'no_name_title': '[No Name]',
@@ -944,25 +949,6 @@ let g:bufferline = get(g:, 'bufferline', {
       \ 'exclude_name': ['[dap-repl]'],
       \ 'exclude_ft': ['qf'],
       \ })
-let s:barbar_bg  = '#21242b'
-
-let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
-let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
-let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
-let fg_tabpages = GetHiVal('Directory', 'fg')  " #61AFEF
-
-call BarbarHi('BufferTabpageFill', fg_sign)
-call BarbarHi('BufferTabpages', fg_tabpages, 'bold')
-call BarbarHi('BufferVisible', fg_visible)
-call BarbarHi('BufferVisibleSign', fg_sign)
-call BarbarHi('BufferVisibleMod', fg_modified)
-call BarbarHi('BufferVisibleIndex', fg_sign)
-call BarbarHi('BufferInactive', '#707070')
-call BarbarHi('BufferInactiveSign', fg_sign)
-call BarbarHi('BufferInactiveMod', fg_modified)
-call BarbarHi('BufferInactiveIndex', fg_sign)
-call BarbarHi('BufferInactiveTarget', 'red', 'bold')
-call BarbarHi('BufferModifiedIndex', fg_sign)
 
 map <M-w>         :BufferClose<CR>
 map <leader><M-w> :BufferClose!<CR>
@@ -1049,9 +1035,6 @@ endf
 
 " -- VSnip --
 let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
-
-" -- Import lua config --
-lua require('config')
 
 endif
 

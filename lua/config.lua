@@ -113,6 +113,18 @@ function _G.toggle_complete()
   end
 end
 
+-----------------
+-- ColorScheme --
+-----------------
+local colors = require('onedark.colors').setup()
+require('onedark').setup {
+  colors = {
+    fg_cursor_linenumber = 'blue',
+    fg_search = colors.fg,
+    bg_search = colors.bg_visual
+  }
+}
+
 -------------
 -- LSPSaga --
 -------------
@@ -460,12 +472,14 @@ make_diagnoistic_underlined('Information')
 -- Statusline --
 ----------------
 -- require('floatline').setup()
-local colors = vim.tbl_extend('force', require('onedark.colors').setup(), {
-  fg = '#c8ccd4',
-  line_bg = '#353b45',
-  darkgray = '#9ba1b0'
+require('statusline').setup({
+  colorscheme = colors,
+  modifications = {
+    fg = '#c8ccd4',
+    line_bg = '#353b45',
+    darkgray = '#9ba1b0'
+  }
 })
-require('statusline').setup({colorscheme = colors})
 
 ----------------
 -- DAP --
