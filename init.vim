@@ -994,12 +994,13 @@ nnoremap <silent> <Leader>9 :BufferLast<CR>
 if has('nvim')
 
 " -- Scrollbar --
+exe 'hi Scrollbar guifg=' .. GetHiVal('Visual', 'bg')
 let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['NvimTree']
 let g:scrollbar_highlight = {
-      \ 'head': 'NonText',
-      \ 'body': 'NonText',
-      \ 'tail': 'NonText',
+      \ 'head': 'Scrollbar',
+      \ 'body': 'Scrollbar',
+      \ 'tail': 'Scrollbar',
       \ }
 let g:scrollbar_shape = {
       \ 'head': '▖',

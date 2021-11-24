@@ -121,7 +121,13 @@ require('onedark').setup {
   colors = {
     fg_cursor_linenumber = 'blue',
     fg_search = colors.fg,
-    bg_search = colors.bg_visual
+    bg_search = colors.bg_visual,
+    fg_gutter = colors.yelow,
+    git = {
+      add = colors.green,
+      change = colors.orange,
+      delete = colors.red
+    }
   }
 }
 
