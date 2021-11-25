@@ -48,7 +48,7 @@ if has('nvim')
   Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
   " Neovim LSP
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
-  Plug 'kabouzeid/nvim-lspinstall'     " Adds LspInstall command
+  Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
   Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
   Plug 'hrsh7th/nvim-compe'            " Auto completion
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons

@@ -6,12 +6,9 @@ local api = vim.api
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
-----------------
--- LSPInstall --
-----------------
-require('lspinstall').setup()
-
--- Config that activates keymaps and enables snippet support
+-------------------
+-- LSP Installer --
+-------------------
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -21,7 +18,7 @@ local function make_config()
       require('lsp_signature').on_attach({
         hi_parameter = 'String',
         handler_opts = {
-          border = 'rounded', -- double, single, shadow, none
+          border = 'rounded',
         },
         hint_enable = false
       })
@@ -48,16 +45,15 @@ local yaml_settings = {
   }
 }
 
-local servers = require('lspinstall').installed_servers()
-for _, server in pairs(servers) do
+require('nvim-lsp-installer').on_server_ready(function(server)
   local config = make_config()
   if server == 'lua' then
     config.settings = lua_settings
   elseif server == 'yaml' then
     config.settings = yaml_settings
   end
-  require('lspconfig')[server].setup(config)
-end
+  server:setup(config)
+end)
 
 -----------
 -- Compe --
