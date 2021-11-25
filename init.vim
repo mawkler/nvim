@@ -109,7 +109,8 @@ Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
-Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'           " GitHub Copilot
+Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 call plug#end()
 
 " -- General --
@@ -912,6 +913,12 @@ let g:startify_custom_header = [
       \ '   :   |\    \ | \_____) \____/   \_/  |__||__|_|__/',
       \ '    \__| \____\)----------------------------------- ',
       \ ]
+
+" Disable q mapping
+augroup Startify
+  autocmd!
+  autocmd User Startified nunmap <buffer> q
+augroup END
 
 " Use nvim-web-devicons
 lua function _G.webDevIcons(path)
