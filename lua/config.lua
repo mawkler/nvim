@@ -9,7 +9,7 @@ require('impatient')
 -------------------
 -- LSP Installer --
 -------------------
-local function make_config()
+local function make_opts()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   return {
@@ -27,13 +27,7 @@ local function make_config()
 end
 
 -- Lua config
-local lua_settings = {
-  Lua = {
-    diagnostics = {
-      globals = {'vim'} -- Make the LSP recognize the `vim` global
-    }
-  }
-}
+local lua_settings = require('lua-dev').setup().settings
 
 -- YAML config
 local yaml_settings = {
@@ -46,38 +40,57 @@ local yaml_settings = {
 }
 
 require('nvim-lsp-installer').on_server_ready(function(server)
-  local config = make_config()
-  if server == 'lua' then
-    config.settings = lua_settings
-  elseif server == 'yaml' then
-    config.settings = yaml_settings
+  local opts = make_opts()
+  print(vim.inspect(server.name))
+  if server.name == 'sumneko_lua' then
+    opts.settings = lua_settings
+  elseif server.name == 'yaml' then
+    opts.settings = yaml_settings
   end
-  server:setup(config)
+  server:setup(opts)
+  vim.cmd 'do User LspAttachBuffers'
 end)
 
------------
--- Compe --
------------
-o.completeopt = 'menuone,noselect'
-require('compe').setup {
-  preselect = 'always',
-  source = {
-    path     = true,
-    calc     = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    buffer   = {kind = '﬘'},
-    vsnip    = {kind = ' Snippet'},
-    tabnine  = {
-      filetypes = {'markdown', 'text', 'tex', 'gitcommit'},
-      priority = 20,
-    }
+--------------
+ -- lua-dev --
+--------------
+local luadev = require("lua-dev").setup({})
+require('lspconfig').sumneko_lua.setup(luadev)
+
+-------------
+-- LSPKind --
+-------------
+local lspkind = require('lspkind')
+lspkind.init {
+  symbol_map = {
+    Class     = '',
+    Interface = '',
+    Module    = '',
+    Enum      = '',
+    Text      = '',
+    Struct    = ''
   }
 }
 
-require('nvim-autopairs.completion.compe').setup {
-  map_complete = true -- Auto insert `()` after completing a function or method
-}
+---------
+-- Cmp --
+---------
+o.completeopt = 'menuone,noselect'
+-- require('compe').setup {
+--   preselect = 'always',
+--   source = {
+--     path     = true,
+--     calc     = true,
+--     nvim_lsp = true,
+--     nvim_lua = true,
+--     buffer   = {kind = '﬘'},
+--     vsnip    = {kind = ' Snippet'},
+--     tabnine  = {
+--       filetypes = {'markdown', 'text', 'tex', 'gitcommit'},
+--       priority = 20,
+--     }
+--   }
+-- }
 
 local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
@@ -108,6 +121,59 @@ function _G.toggle_complete()
     return call 'compe#complete'
   end
 end
+
+-- Setup nvim-cmp.
+local cmp = require('cmp')
+
+cmp.PreselectMode = true
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+ 	-- { name = 'cmp_tabnine' },
+  }, {
+      { name = 'buffer' },
+    }),
+  formatting = {
+    format = lspkind.cmp_format()
+  },
+  completion = {
+    completeopt = 'menu,menuone,noinsert',
+  }
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+      { name = 'cmdline' }
+    })
+})
 
 -----------------
 -- ColorScheme --
@@ -185,20 +251,6 @@ map('n',        '[e',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 map('n',        ']e',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
--------------
--- LSPKind --
--------------
-require('lspkind').init {
-  symbol_map = {
-    Class     = '',
-    Interface = '',
-    Module    = '',
-    Enum      = '',
-    Text      = '',
-    Struct    = ''
-  }
-}
-
 ---------------
 -- Telescope --
 ---------------
@@ -255,6 +307,12 @@ cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 ---------------
 -- Autopairs --
 ---------------
+-- Auto insert `()` after completing a function or method
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({
+  map_char = { tex = '' },
+}))
+
 local rule = require('nvim-autopairs.rule')
 local autopairs = require('nvim-autopairs')
 

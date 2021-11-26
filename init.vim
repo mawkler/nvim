@@ -50,12 +50,17 @@ if has('nvim')
   Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
   Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
   Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
-  Plug 'hrsh7th/nvim-compe'            " Auto completion
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/nvim-cmp'
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
-  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': '0.5-compat' }
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -65,6 +70,7 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
+  Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
   Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
   Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
   Plug 'b3nj5m1n/kommentary'           " For toggling comments
@@ -1084,48 +1090,48 @@ if !exists('g:vscode')
   let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
 
   " -- Wilder --
-  call wilder#enable_cmdline_enter()
-  set wildcharm=<Tab>
+"   call wilder#enable_cmdline_enter()
+"   set wildcharm=<Tab>
 
-  cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
-  cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
-  cnoremap <expr> <Tab> wilder#can_accept_completion() ?
-        \ wilder#accept_completion(0) :
-        \ wilder#in_context() ?
-        \ wilder#next() :
-        \ pumvisible() ?
-        \ "\<C-y>" :
-        \ "\<Tab>"
+"   cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
+"   cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
+"   cnoremap <expr> <Tab> wilder#can_accept_completion() ?
+"         \ wilder#accept_completion(0) :
+"         \ wilder#in_context() ?
+"         \ wilder#next() :
+"         \ pumvisible() ?
+"         \ "\<C-y>" :
+"         \ "\<Tab>"
 
-  call wilder#set_option('noselect', 0)
+"   call wilder#set_option('noselect', 0)
 
-  call wilder#set_option('modes', ['/', '?', ':'])
+"   call wilder#set_option('modes', ['/', '?', ':'])
 
-  call wilder#set_option('pipeline', [
-        \   wilder#branch(wilder#python_file_finder_pipeline({
-        \     'file_command': {_, arg ->
-        \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
-        \     },
-        \     'dir_command': ['fd', '-td'],
-        \     'cache_timestamp': {-> 1}
-        \   }),
-        \   wilder#cmdline_pipeline({'fuzzy': 1}),
-        \     wilder#python_search_pipeline({
-        \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
-        \     })
-        \   )
-        \ ])
+"   call wilder#set_option('pipeline', [
+"         \   wilder#branch(wilder#python_file_finder_pipeline({
+"         \     'file_command': {_, arg ->
+"         \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
+"         \     },
+"         \     'dir_command': ['fd', '-td'],
+"         \     'cache_timestamp': {-> 1}
+"         \   }),
+"         \   wilder#cmdline_pipeline({'fuzzy': 1}),
+"         \     wilder#python_search_pipeline({
+"         \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
+"         \     })
+"         \   )
+"         \ ])
 
-  let s:highlighters = [wilder#pcre2_highlighter()]
+"   let s:highlighters = [wilder#pcre2_highlighter()]
 
-  call wilder#set_option('renderer', wilder#renderer_mux({
-        \   ':': wilder#popupmenu_renderer({
-        \     'highlighter': s:highlighters,
-        \     'left': [' ', wilder#popupmenu_devicons()],
-        \     'right': [' ', wilder#popupmenu_scrollbar()]
-        \   }),
-        \   '/': wilder#wildmenu_renderer({
-        \     'highlighter': s:highlighters
-        \   })
-        \ }))
+"   call wilder#set_option('renderer', wilder#renderer_mux({
+"         \   ':': wilder#popupmenu_renderer({
+"         \     'highlighter': s:highlighters,
+"         \     'left': [' ', wilder#popupmenu_devicons()],
+"         \     'right': [' ', wilder#popupmenu_scrollbar()]
+"         \   }),
+"         \   '/': wilder#wildmenu_renderer({
+"         \     'highlighter': s:highlighters
+"         \   })
+"         \ }))
 endif
