@@ -114,7 +114,6 @@ Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in 
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
-Plug 'gelguy/wilder.nvim'           " Auto-show suggetsions in command-line mode
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 call plug#end()
@@ -1088,50 +1087,4 @@ if !exists('g:vscode')
 
   " -- Matchup --
   let g:matchup_matchparen_offscreen = {} " Disables displaying off-screen matching pair
-
-  " -- Wilder --
-"   call wilder#enable_cmdline_enter()
-"   set wildcharm=<Tab>
-
-"   cnoremap <expr> <C-j> wilder#in_context() ? wilder#next()     : "\<C-n>"
-"   cnoremap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<C-p>"
-"   cnoremap <expr> <Tab> wilder#can_accept_completion() ?
-"         \ wilder#accept_completion(0) :
-"         \ wilder#in_context() ?
-"         \ wilder#next() :
-"         \ pumvisible() ?
-"         \ "\<C-y>" :
-"         \ "\<Tab>"
-
-"   call wilder#set_option('noselect', 0)
-
-"   call wilder#set_option('modes', ['/', '?', ':'])
-
-"   call wilder#set_option('pipeline', [
-"         \   wilder#branch(wilder#python_file_finder_pipeline({
-"         \     'file_command': {_, arg ->
-"         \       stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']
-"         \     },
-"         \     'dir_command': ['fd', '-td'],
-"         \     'cache_timestamp': {-> 1}
-"         \   }),
-"         \   wilder#cmdline_pipeline({'fuzzy': 1}),
-"         \     wilder#python_search_pipeline({
-"         \       'pattern': wilder#python_fuzzy_pattern({'start_at_boundary': 0})
-"         \     })
-"         \   )
-"         \ ])
-
-"   let s:highlighters = [wilder#pcre2_highlighter()]
-
-"   call wilder#set_option('renderer', wilder#renderer_mux({
-"         \   ':': wilder#popupmenu_renderer({
-"         \     'highlighter': s:highlighters,
-"         \     'left': [' ', wilder#popupmenu_devicons()],
-"         \     'right': [' ', wilder#popupmenu_scrollbar()]
-"         \   }),
-"         \   '/': wilder#wildmenu_renderer({
-"         \     'highlighter': s:highlighters
-"         \   })
-"         \ }))
 endif

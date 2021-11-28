@@ -41,7 +41,7 @@ local yaml_settings = {
 
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
-  print(vim.inspect(server.name))
+  -- print(vim.inspect(server.name))
   if server.name == 'sumneko_lua' then
     opts.settings = lua_settings
   elseif server.name == 'yaml' then
@@ -114,18 +114,23 @@ function _G.s_tab_complete()
   end
 end
 
-function _G.toggle_complete()
-  if fn.pumvisible() == 1 then
-    return call 'compe#close'
-  else
-    return call 'compe#complete'
-  end
-end
-
 -- Setup nvim-cmp.
 local cmp = require('cmp')
 
+local function toggle_complete()
+  return function()
+    if cmp.visible() then
+      cmp.mapping.close()()
+    else
+      cmp.mapping.complete()()
+    end
+  end
+end
+
 cmp.PreselectMode = true
+
+local disabled = cmp.config.disable
+local insert = { behavior = cmp.SelectBehavior.Insert }
 
 cmp.setup({
   snippet = {
@@ -134,20 +139,20 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable,
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(insert), {'i', 'c'}),
+    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(insert), {'i', 'c'}),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+    ['<C-Space>'] = cmp.mapping(toggle_complete(), {'i', 'c', 's'}),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({select = true}), { 'i', 'c' }),
+    ['<C-y>'] = disabled,
+    ['<C-n>'] = disabled,
+    ['<C-p>'] = disabled,
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
- 	-- { name = 'cmp_tabnine' },
+    -- { name = 'cmp_tabnine' },
   }, {
       { name = 'buffer' },
     }),
@@ -222,13 +227,11 @@ local function map(modes, lhs, rhs, opts)
   end
 end
 
--- Completion
-map({'i', 's'}, '<Tab>',     'v:lua.tab_complete()',        {expr = true, noremap = false})
-map({'i', 's'}, '<S-Tab>',   'v:lua.s_tab_complete()',      {expr = true, noremap = false})
-map('i',        '<C-Space>', 'v:lua.toggle_complete()',     {expr = true})
-map('i',        '<C-y>',     'compe#scroll({"delta": -2})', {expr = true})
-map('i',        '<C-e>',     'compe#scroll({"delta": +2})', {expr = true})
-map({'i', 's'}, '<C-l>',     '<Plug>(vsnip-jump-next)',     {noremap = false})
+-- Snippets
+map({'i', 's'}, '<M-l>', '<Plug>(vsnip-jump-next)', { noremap = false})
+map({'i', 's'}, '<M-h>', '<Plug>(vsnip-jump-prev)', { noremap = false})
+map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)', { noremap = false})
+map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', { noremap = false})
 
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
