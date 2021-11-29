@@ -79,7 +79,7 @@ if has('nvim')
   Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
   Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
   Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
-  Plug 'ful1e5/onedark.nvim'
+  Plug 'Melkster/onedark.nvim'
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim

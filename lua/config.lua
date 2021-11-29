@@ -153,9 +153,8 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     -- { name = 'cmp_tabnine' },
-  }, {
-      { name = 'buffer' },
-    }),
+    { name = 'buffer' },
+  }),
   formatting = {
     format = lspkind.cmp_format()
   },
