@@ -119,22 +119,18 @@ Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 call plug#end()
 
 " -- General --
-syntax on
 set shortmess+=A  " Ignores swapfiles when opening file
 set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
 set shortmess+=s  " Disable 'Search hit BOTTOM, continuing at TOP' messages
 set termguicolors " Use GUI colors in terminal as well
 set noshowmode    " Don't write out `--INSERT--`, etc.
 set linebreak     " Don't break lines in the middle of a word
-set hidden
 set lazyredraw
 set undofile
 set viewoptions=cursor,folds,slash,unix
 set fileformat=unix   " Use Unix eol format
 set spelllang=en,sv   " Use both Engligh and Swedish spell check
 set splitright        " Open vertical window splits to the right instead of left
-set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining lines
-set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 set encoding=utf-8
 set updatetime=500
 if exists('g:goneovim')
@@ -408,7 +404,6 @@ set cursorline                    " Cursor highlighting
 set scrolloff=8                   " Cursor margin
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
-set mouse=a                       " Enable mouse
 set conceallevel=2                " Hide concealed characters completely
 set concealcursor=nic             " Conceal characters on the cursor line
 set breakindent                   " Respect indent when line wrapping
