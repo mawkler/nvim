@@ -675,7 +675,7 @@ else
 endif
 map <silent> <leader>m :History<CR>
 map <silent> <leader>h :Helptags<CR>
-map          <leader>a :Ag<Space>
+map          <leader>A :Ag<Space>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 let $FZF_DEFAULT_COMMAND = 'ag --hidden -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS = '
