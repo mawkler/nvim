@@ -1,4 +1,4 @@
-local cmd, call, fn = vim.cmd, vim.call, vim.fn
+local cmd, fn = vim.cmd, vim.fn
 local o, g, b = vim.o, vim.g, vim.b
 local api = vim.api
 
@@ -70,44 +70,6 @@ lspkind.init {
 -- Cmp --
 ---------
 o.completeopt = 'menuone,noselect'
--- require('compe').setup {
---   preselect = 'always',
---   source = {
---     path     = true,
---     calc     = true,
---     nvim_lsp = true,
---     nvim_lua = true,
---     buffer   = {kind = '﬘'},
---     vsnip    = {kind = ' Snippet'},
---     tabnine  = {
---       filetypes = {'markdown', 'text', 'tex', 'gitcommit'},
---       priority = 20,
---     }
---   }
--- }
-
-local function t(str)
-  return api.nvim_replace_termcodes(str, true, true, true)
-end
-
-function _G.tab_complete()
-  if fn.pumvisible() == 1 then
-    return call 'compe#confirm'
-  elseif call 'vsnip#available' == 1 then
-    return t '<Plug>(vsnip-expand-or-jump)'
-  else
-    return t '<C-t>'
-  end
-end
-
-function _G.s_tab_complete()
-  if fn['vsnip#jumpable'](-1) == 1 then
-    return t '<Plug>(vsnip-jump-prev)'
-  else
-    return t '<C-d>'
-  end
-end
-
 local cmp = require('cmp')
 
 local function toggle_complete()
@@ -166,20 +128,19 @@ cmp.setup({
   }
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+-- Use buffer source for `/` (searching)
 cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer' }
   }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- Use cmdline & path source for `:`
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-      { name = 'cmdline' }
-    })
+    { name = 'path' },
+    { name = 'cmdline' }
+  })
 })
 
 
@@ -237,6 +198,10 @@ local function map(modes, lhs, rhs, opts)
     if opts then options = vim.tbl_extend('force', options, opts) end
     api.nvim_set_keymap(mode, lhs, rhs, options)
   end
+end
+
+local function t(str)
+  return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 function _G.right_or_snip_next()
@@ -584,7 +549,7 @@ require('dap-config')
 --------------
 require('gitsigns').setup {
   signs = {
-   add          = {text = '┃', hl = 'String'},
+    add          = {text = '┃', hl = 'String'},
     change       = {text = '┃', hl = 'Boolean'},
     changedelete = {text = '┃', hl = 'Boolean'},
     delete       = {text = '▁', hl = 'Error'},
