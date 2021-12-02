@@ -71,6 +71,18 @@ lspkind.init {
 ---------
 o.completeopt = 'menuone,noselect'
 local cmp = require('cmp')
+local mapping = cmp.mapping
+local disabled = cmp.config.disable
+local insert = { behavior = cmp.SelectBehavior.Insert }
+
+local function cmp_map(rhs, modes)
+  if (modes == nil) then
+    modes = {'i', 'c'}
+  else if (type(modes) ~= 'table')
+    then modes = {modes} end
+  end
+  return cmp.mapping(rhs, modes)
+end
 
 local function toggle_complete()
   return function()
@@ -87,15 +99,21 @@ local function complete()
     if cmp.visible() then
       cmp.mapping.confirm({select = true})()
     else
+       -- TODO: check if copilot suggestion is available, otherwise do nothing
       api.nvim_feedkeys(fn['copilot#Accept'](), 'i', true)
     end
   end
 end
 
-cmp.PreselectMode = true
+local function visible_buffers()
+  local bufs = {}
+  for _, win in ipairs(api.nvim_list_wins()) do
+    bufs[api.nvim_win_get_buf(win)] = true
+  end
+  return vim.tbl_keys(bufs)
+end
 
-local disabled = cmp.config.disable
-local insert = { behavior = cmp.SelectBehavior.Insert }
+cmp.PreselectMode = true
 
 cmp.setup({
   snippet = {
@@ -104,12 +122,12 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(insert), {'i', 'c'}),
-    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(insert), {'i', 'c'}),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-    ['<C-Space>'] = cmp.mapping(toggle_complete(), {'i', 'c', 's'}),
-    ['<Tab>'] = cmp.mapping(complete(), { 'i', 'c' }),
+    ['<C-j>'] = cmp_map(mapping.select_next_item(insert)),
+    ['<C-k>'] = cmp_map(mapping.select_prev_item(insert)),
+    ['<C-b>'] = cmp_map(mapping.scroll_docs(-4)),
+    ['<C-f>'] = cmp_map(mapping.scroll_docs(4)),
+    ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
+    ['<Tab>'] = cmp_map(complete()),
     ['<C-y>'] = disabled,
     ['<C-n>'] = disabled,
     ['<C-p>'] = disabled,
@@ -118,7 +136,12 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'cmp_tabnine' },
-    { name = 'buffer' },
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
+      },
+    }
   }),
   formatting = {
     format = lspkind.cmp_format()
