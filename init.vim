@@ -108,7 +108,6 @@ Plug 'romainl/vim-cool'             " Highlights all search matches until moving
 Plug 'plasticboy/vim-markdown'      " Adds extra features to markdown
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'tommcdo/vim-exchange'         " For swapping the place of two text objects
-Plug 'markonm/traces.vim'           " Better highlighting when searching/replacing
 Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
