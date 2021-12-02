@@ -669,7 +669,7 @@ if has('nvim')
         \   'highlight': 'SpecialKey',
         \   'border': 'rounded'
         \ }}
-  map <silent> <C-p> :call FZF_files()<CR>
+  nmap <silent> <C-p> :call FZF_files()<CR>
 else
   map <silent> <C-p> :Files<CR>
 endif
@@ -959,7 +959,7 @@ nnoremap <silent> <C-Space> :BufferPick<CR>
 nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
 nnoremap <silent> <Leader>bc :BufferClose<CR>
-nnoremap <silent> <Leader>bC :bufdo BufferClose<CR>
+nnoremap <silent> <Leader>bC :BufferCloseAllButCurrent<CR><CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
