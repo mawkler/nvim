@@ -198,6 +198,7 @@ require('onedark').setup {
     fg_search = colors.fg,
     bg_search = colors.bg_visual,
     fg_gutter = colors.yelow,
+    hint = colors.syntax.comment,
     git = {
       add = colors.green,
       change = colors.orange,
@@ -270,11 +271,12 @@ map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n',        'gh',        '<cmd> lua vim.lsp.buf.hover()<CR>')
 -- map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
 map('n',        'gH',        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
+map('n',        '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
 map({'n', 'x'}, '<leader>r', '<cmd>lua require("lspsaga.rename").rename()<CR>')
-map('n',        'gR',        '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
 map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 -- map({'n', 'x'}, 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
@@ -361,6 +363,7 @@ require('nvim-tree').setup {
     files = true,
   },
   view = {
+    width = 40,
     mappings = {
       list = {
         { key = 'l', cb = tree_cb('edit') },
