@@ -108,7 +108,6 @@ function _G.s_tab_complete()
   end
 end
 
--- Setup nvim-cmp.
 local cmp = require('cmp')
 
 local function toggle_complete()
@@ -156,7 +155,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-    -- { name = 'cmp_tabnine' },
+    { name = 'cmp_tabnine' },
     { name = 'buffer' },
   }),
   formatting = {
@@ -181,6 +180,16 @@ cmp.setup.cmdline(':', {
   }, {
       { name = 'cmdline' }
     })
+})
+
+
+-------------
+-- Tabnine --
+-------------
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+  max_num_results = 5;
+  ignored_file_types = {};
 })
 
 -----------------
