@@ -345,6 +345,7 @@ require('telescope').setup {
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
 g.nvim_tree_indent_markers = 1
+g.nvim_tree_highlight_opened_files = 2
 g.nvim_tree_special_files = {}
 g.nvim_tree_icons = {
   default = '' ,
@@ -356,7 +357,9 @@ require('nvim-tree').setup {
   },
   disable_netrw = false,
   update_cwd = true,
-  gitignore = false,
+  git = {
+    ignore = true,
+  },
   show_icons = {
     git = true,
     folders = true,
@@ -636,9 +639,9 @@ require('gitsigns').setup {
     ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
 
     ['n <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['v <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <leader>su'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ['n <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['v <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['v <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <leader>sR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
     ['n <leader>sp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
