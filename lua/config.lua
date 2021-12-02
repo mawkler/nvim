@@ -51,12 +51,6 @@ require('nvim-lsp-installer').on_server_ready(function(server)
   vim.cmd 'do User LspAttachBuffers'
 end)
 
---------------
- -- lua-dev --
---------------
-local luadev = require("lua-dev").setup({})
-require('lspconfig').sumneko_lua.setup(luadev)
-
 -------------
 -- LSPKind --
 -------------
@@ -236,16 +230,34 @@ local function map(modes, lhs, rhs, opts)
   end
 end
 
+function _G.right_or_snip_next()
+  if fn['vsnip#jumpable'](1) == 1 then
+    return t '<Plug>(vsnip-jump-next)'
+  else
+    return t '<Right>'
+  end
+end
+
+function _G.left_or_snip_prev()
+  if fn['vsnip#jumpable'](-1) == 1 then
+    return t '<Plug>(vsnip-jump-prev)'
+  else
+    return t '<Left>'
+  end
+end
+
 -- Snippets
-map({'i', 's'}, '<M-l>', '<Plug>(vsnip-jump-next)', { noremap = false})
-map({'i', 's'}, '<M-h>', '<Plug>(vsnip-jump-prev)', { noremap = false})
-map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)', { noremap = false})
-map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', { noremap = false})
+map('i', '<M-l>', 'v:lua.right_or_snip_next()', {noremap = false, expr = true})
+map('i', '<M-h>', 'v:lua.left_or_snip_prev()', {noremap = false, expr = true})
+map('s', '<M-l>', '<Plug>(vsnip-jump-next)', {noremap = false})
+map('s', '<M-h>', '<Plug>(vsnip-jump-prev)', {noremap = false})
+map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)', {noremap = false})
+map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', {noremap = false})
 
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 -- map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
-map('n',        'gh',        '<cmd> lua vim.lsp.buf.hover()<cr>')
+map('n',        'gh',        '<cmd> lua vim.lsp.buf.hover()<CR>')
 -- map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
 map('n',        'gH',        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
