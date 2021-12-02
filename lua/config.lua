@@ -127,6 +127,16 @@ local function toggle_complete()
   end
 end
 
+local function complete()
+  return function ()
+    if cmp.visible() then
+      cmp.mapping.confirm({select = true})()
+    else
+      api.nvim_feedkeys(fn['copilot#Accept'](), 'i', true)
+    end
+  end
+end
+
 cmp.PreselectMode = true
 
 local disabled = cmp.config.disable
@@ -144,7 +154,7 @@ cmp.setup({
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
     ['<C-Space>'] = cmp.mapping(toggle_complete(), {'i', 'c', 's'}),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({select = true}), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(complete(), { 'i', 'c' }),
     ['<C-y>'] = disabled,
     ['<C-n>'] = disabled,
     ['<C-p>'] = disabled,
