@@ -87,20 +87,22 @@ end
 local function toggle_complete()
   return function()
     if cmp.visible() then
-      cmp.mapping.close()()
+      cmp.close()
     else
-      cmp.mapping.complete()()
+      cmp.complete()
     end
   end
 end
 
 local function complete()
   return function ()
+    local copilot_keys = fn["copilot#Accept"]("")
     if cmp.visible() then
       cmp.mapping.confirm({select = true})()
+    elseif copilot_keys ~= "" then
+      api.nvim_feedkeys(copilot_keys, "i", true)
     else
-       -- TODO: check if copilot suggestion is available, otherwise do nothing
-      api.nvim_feedkeys(fn['copilot#Accept'](), 'i', true)
+      cmp.complete()
     end
   end
 end
@@ -127,6 +129,7 @@ cmp.setup({
     ['<C-b>'] = cmp_map(mapping.scroll_docs(-4)),
     ['<C-f>'] = cmp_map(mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
+    -- TODO: <Tab> in selct mode should trigger cmp.complete()
     ['<Tab>'] = cmp_map(complete()),
     ['<C-y>'] = disabled,
     ['<C-n>'] = disabled,
@@ -227,6 +230,8 @@ local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
+-- TODO: check if there is a next snippet, otherwise do nothing and stay in
+-- insert mode (currently jumps to normal mode)
 function _G.right_or_snip_next()
   if fn['vsnip#jumpable'](1) == 1 then
     return t '<Plug>(vsnip-jump-next)'
