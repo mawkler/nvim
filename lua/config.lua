@@ -1,6 +1,10 @@
 local cmd, fn = vim.cmd, vim.fn
-local o, g, b = vim.o, vim.g, vim.b
+local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
 local api = vim.api
+
+local function error(message)
+  vim.api.nvim_echo({{message, 'Error'}}, false, {})
+end
 
 -- Should be loaded before any other plugin
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
@@ -280,6 +284,41 @@ map('n',        '[e',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 -- map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
 map('n',        ']e',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
+
+-- Sets `bufhidden = delete` if buffer was jumped to
+function _G.quickfix_jump(command)
+  if b.buffer_jumped_to then
+    bo.bufhidden = 'delete'
+  end
+  -- cmd(command)
+  local successful, err_message = pcall(cmd, command)
+  if successful then
+    b.buffer_jumped_to = true
+  else
+    error(err_message)
+  end
+end
+
+map('n', ']q', ':lua quickfix_jump("cnext")<CR>')
+map('n', '[q', ':lua quickfix_jump("cprev")<CR>')
+map('n', ']Q', ':cbelow<CR>')
+map('n', '[Q', ':cabove<CR>')
+map('n', ']l', ':lbelow<CR>')
+map('n', '[l', ':labove<CR>')
+
+-------------
+-- LSPKind --
+-------------
+require('lspkind').init {
+  symbol_map = {
+    Class     = '',
+    Interface = '',
+    Module    = '',
+    Enum      = '',
+    Text      = '',
+    Struct    = ''
+  }
+}
 
 ---------------
 -- Telescope --

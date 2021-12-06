@@ -136,7 +136,7 @@ set splitright        " Open vertical window splits to the right instead of left
 set nojoinspaces      " Only add one space after a `.`/`?`/`!` when joining lines
 set fillchars+=vert:▏ " Adds nicer lines for vertical splits
 set encoding=utf-8
-set updatetime=100
+set updatetime=500
 if exists('g:goneovim')
   set guifont=FiraCode\ Nerd\ Font:h12
 endif
@@ -282,13 +282,6 @@ nmap <silent> <C-W>N    :tabe<CR>
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
 nmap <silent> <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
 nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
-
-nmap <silent> ]l :lbelow<CR>
-nmap <silent> [l :labove<CR>
-nmap <silent> ]q :cbelow<CR>
-nmap <silent> [q :cabove<CR>
-nmap <silent> ]Q :cnext<CR>
-nmap <silent> [Q :cprev<CR>
 
 " -- Git commands --
 map <silent> <leader>gm <Plug>(git-messenger)
