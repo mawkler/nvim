@@ -41,7 +41,6 @@ local yaml_settings = {
 
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
-  -- print(vim.inspect(server.name))
   if server.name == 'sumneko_lua' then
     opts.settings = lua_settings
   elseif server.name == 'yaml' then
