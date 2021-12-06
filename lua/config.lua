@@ -285,6 +285,8 @@ map({'n', 'x'}, '<leader>a',        '<cmd>Telescope lsp_code_actions<cr>')
 map('n',        '[e',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 -- map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
 map('n',        ']e',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+map('n',        ']E',        '<cmd>lua vim.lsp.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}})<CR>')
+map('n',        '[E',        '<cmd>lua vim.lsp.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}})<CR>')
 map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
 -- Sets `bufhidden = delete` if buffer was jumped to

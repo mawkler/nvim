@@ -950,6 +950,7 @@ let g:bufferline = get(g:, 'bufferline', {
       \ })
 
 map <M-w>         :BufferClose<CR>
+map <M-W>         :BufferClose<CR>:wincmd c<CR>
 map <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
