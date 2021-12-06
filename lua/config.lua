@@ -138,7 +138,6 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-    { name = 'cmp_tabnine' },
     {
       name = 'buffer',
       option = {
@@ -153,6 +152,13 @@ cmp.setup({
     completeopt = 'menu,menuone,noinsert',
   }
 })
+
+-- Tabnine
+cmd [[autocmd FileType markdown,text,tex,gitcommit
+\ lua require'cmp'.setup.buffer {
+\   sources = {{ name = 'cmp_tabnine' }},
+\ }
+]]
 
 -- Use buffer source for `/` (searching)
 cmp.setup.cmdline('/', {
