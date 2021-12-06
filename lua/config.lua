@@ -129,12 +129,13 @@ cmp.setup({
     ['<C-b>'] = cmp_map(mapping.scroll_docs(-4)),
     ['<C-f>'] = cmp_map(mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-    -- TODO: <Tab> in selct mode should trigger cmp.complete()
+    -- TODO: <Tab> in select mode should trigger cmp.complete()
     ['<Tab>'] = cmp_map(complete()),
     ['<C-y>'] = disabled,
     ['<C-n>'] = disabled,
     ['<C-p>'] = disabled,
   },
+
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
@@ -174,7 +175,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
 
 -------------
 -- Tabnine --
@@ -236,29 +236,28 @@ local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
--- TODO: check if there is a next snippet, otherwise do nothing and stay in
--- insert mode (currently jumps to normal mode)
 function _G.right_or_snip_next()
   if fn['vsnip#jumpable'](1) == 1 then
     return t '<Plug>(vsnip-jump-next)'
-  else
+  elseif fn.mode() == 'i' then
     return t '<Right>'
+  else
+    return ''
   end
 end
 
 function _G.left_or_snip_prev()
   if fn['vsnip#jumpable'](-1) == 1 then
     return t '<Plug>(vsnip-jump-prev)'
-  else
+  elseif fn.mode() == 'i' then
     return t '<Left>'
+  else return ''
   end
 end
 
 -- Snippets
-map('i', '<M-l>', 'v:lua.right_or_snip_next()', {noremap = false, expr = true})
-map('i', '<M-h>', 'v:lua.left_or_snip_prev()', {noremap = false, expr = true})
-map('s', '<M-l>', '<Plug>(vsnip-jump-next)', {noremap = false})
-map('s', '<M-h>', '<Plug>(vsnip-jump-prev)', {noremap = false})
+map({'i', 's'}, '<M-l>', 'v:lua.right_or_snip_next()', {noremap = false, expr = true})
+map({'i', 's'}, '<M-h>', 'v:lua.left_or_snip_prev()', {noremap = false, expr = true})
 map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)', {noremap = false})
 map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', {noremap = false})
 
@@ -775,7 +774,6 @@ vim.api.nvim_set_keymap('v',
   '<Esc><Cmd>lua M.refactors()<CR>',
   { noremap = true }
 )
-
 
 --------------------
 -- Indent-o-matic --
