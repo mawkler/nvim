@@ -28,7 +28,7 @@ if !$NVIM_MINIMAL
   Plug 'junegunn/vim-peekaboo'               " Opens preview when selecting register
   Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
   Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
-  Plug 'RRethy/vim-hexokinase', { 'do': 'make' } " Displays the colours (rgb, etc.) in files
+  Plug 'RRethy/vim-hexokinase', {'do': 'make'} " Displays the colours (rgb, etc.) in files
   Plug 'mhinz/vim-startify'                  " Nicer start screen
   Plug 'DanilaMihailov/beacon.nvim'          " Flash the cursor location on jump
 endif
@@ -61,8 +61,8 @@ if has('nvim')
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
   Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': '0.5-compat' }
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects',
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'nvim-treesitter/playground'
   Plug 'nvim-lua/lsp-status.nvim'
