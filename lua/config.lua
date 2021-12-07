@@ -43,12 +43,19 @@ local yaml_settings = {
   }
 }
 
+-- Zsh/Bash config
+local bash_settings = {
+  filetypes = {'sh', 'zsh'}
+}
+
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
   if server.name == 'sumneko_lua' then
     opts.settings = lua_settings
   elseif server.name == 'yaml' then
     opts.settings = yaml_settings
+  elseif server.name == 'bashls' then
+    opts = bash_settings
   end
   server:setup(opts)
   vim.cmd 'do User LspAttachBuffers'

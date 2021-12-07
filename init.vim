@@ -55,12 +55,12 @@ if has('nvim')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/cmp-vsnip'
+  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   Plug 'hrsh7th/nvim-cmp'
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
-  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects',
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
