@@ -3,7 +3,7 @@ local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
 local api = vim.api
 
 local function error(message)
-  vim.api.nvim_echo({{message, 'Error'}}, false, {})
+  api.nvim_echo({{message, 'Error'}}, false, {})
 end
 
 -- Should be loaded before any other plugin
@@ -58,7 +58,7 @@ require('nvim-lsp-installer').on_server_ready(function(server)
     opts = bash_settings
   end
   server:setup(opts)
-  vim.cmd 'do User LspAttachBuffers'
+  cmd 'do User LspAttachBuffers'
 end)
 
 -------------
@@ -130,7 +130,7 @@ cmp.PreselectMode = true
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      fn["vsnip#anonymous"](args.body)
     end,
   },
   mapping = {
@@ -344,10 +344,58 @@ require('telescope').setup {
         ['<S-Esc>'] = function() cmd 'stopinsert' end,
         ['<C-u>']   = false
       }
-    }
+    },
+    layout_config = { width = 0.9, preview_width = 0.58 },
+    selection_caret = '▶ ',
+    prompt_prefix = '   ',
   }
 }
 
+require('telescope').load_extension('zoxide')
+require('telescope').load_extension('project')
+
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local actions = require('telescope.actions')
+local action_state = require "telescope.actions.state"
+local conf = require("telescope.config").values
+
+function _G.telescope_cd(dir)
+  if dir == nil then dir = '.' end
+  local opts = {cwd = dir}
+
+  -- TODO:
+  -- require('plenary.scandir').scan_dir(vim.loop.cwd(), {
+  --   hidden = true,
+  --   add_dirs = true,
+  --   depth = 1,
+  -- })
+  pickers.new(opts, {
+    prompt_title = 'Change Directory',
+    finder = finders.new_oneshot_job({
+      'fd',
+      '-t',
+      'd',
+      '--hidden',
+      '--ignore-file',
+      fn.expand('$HOME/') .. '.agignore'
+    }, opts),
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        print(selection)
+        if selection ~= nil then
+          actions.close(prompt_bufnr)
+          api.nvim_command('cd ' .. dir .. '/' .. selection[1])
+        end
+      end)
+      return true
+    end,
+  }):find()
+end
+map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
+map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
 ---------------
 -- Nvim-tree --
 ---------------
@@ -555,7 +603,7 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Disable treesitter from highlighting errors (LSP does that anyway)
-vim.cmd('highlight! link TSError Normal')
+cmd 'highlight! link TSError Normal'
 
 ---------------
 -- Neoscroll --
@@ -812,17 +860,17 @@ M.refactors = function()
   }):find()
 end
 
-vim.api.nvim_set_keymap('v',
+api.nvim_set_keymap('v',
   'gRe',
   '<Esc><Cmd>lua require("refactoring").refactor("Extract Function")<CR>',
   { silent = true }
 )
-vim.api.nvim_set_keymap('v',
+api.nvim_set_keymap('v',
   'gRf',
   '<Esc><Cmd>lua require("refactoring").refactor("Extract Function To File")<CR>',
   { silent = true }
 )
-vim.api.nvim_set_keymap('v',
+api.nvim_set_keymap('v',
   '<Leader>R',
   '<Esc><Cmd>lua M.refactors()<CR>',
   { noremap = true }

@@ -38,5 +38,5 @@ endf
 
 command! -nargs=* -complete=dir Cd call s:fzf_cd(<q-args>)
 
-nnoremap <silent> cd :Cd .<CR>
-nnoremap <silent> cD :Cd ~<CR>
+" nnoremap <silent> cd :Cd .<CR>
+" nnoremap <silent> cD :Cd ~<CR>

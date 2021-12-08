@@ -211,8 +211,6 @@ map!     <C-f>            <Right>
 map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
 map!     <M-b>            <C-Left>
-map!     <M-h>            <Left>
-map!     <M-l>            <Right>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
 imap     <M-o>            <C-o>o
