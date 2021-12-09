@@ -125,7 +125,32 @@ local function visible_buffers()
   return vim.tbl_keys(bufs)
 end
 
+local function join(tbl1, tbl2)
+  local tbl3 = {}
+  for _, item in ipairs(tbl1) do
+    table.insert(tbl3, item)
+  end
+  for _, item in ipairs(tbl2) do
+    table.insert(tbl3, item)
+  end
+  return tbl3
+end
+
 cmp.PreselectMode = true
+
+local sources = {
+  { name = 'nvim_lsp' },
+  { name = 'vsnip' },
+  {
+    name = 'buffer',
+    option = {
+      get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
+    },
+  }
+}
+local markdown_sources = join(sources, {
+  { name = 'cmp_tabnine' }
+})
 
 cmp.setup({
   snippet = {
@@ -145,17 +170,7 @@ cmp.setup({
     ['<C-n>'] = disabled,
     ['<C-p>'] = disabled,
   },
-
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-    {
-      name = 'buffer',
-      option = {
-        get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
-      },
-    }
-  }),
+  sources = cmp.config.sources(sources),
   formatting = {
     format = lspkind.cmp_format()
   },
@@ -165,10 +180,11 @@ cmp.setup({
 })
 
 -- Tabnine
-cmd [[autocmd FileType markdown,text,tex,gitcommit
-\ lua require'cmp'.setup.buffer {
-\   sources = {{ name = 'cmp_tabnine' }},
-\ }
+cmd [[
+  autocmd FileType markdown,text,tex,gitcommit
+  \ lua require('cmp').setup.buffer {
+  \   sources = markdown_sources,
+  \ }
 ]]
 
 -- Use buffer source for `/` (searching)
