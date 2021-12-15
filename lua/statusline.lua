@@ -271,7 +271,7 @@ table.insert(active_right, {
   provider = function() return bo.filetype end,
   right_sep = right_sep,
   hl = function() return { bg = 'line_bg' } end,
-  enabled = has_file_type
+  enabled = has_file_type -- TODO: only write out filetype if window is wide enough
 })
 
 table.insert(active_right, {

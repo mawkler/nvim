@@ -58,7 +58,8 @@ if has('nvim')
   Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   Plug 'hrsh7th/nvim-cmp'
   Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
-  Plug 'ray-x/lsp_signature.nvim'
+  Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
+  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
   Plug 'Melkster/friendly-snippets'    " Set of snippets
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -210,6 +211,8 @@ map      <M-x>            v<C-x>
 map!     <C-f>            <Right>
 map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
+cmap     <M-l>            <Right>
+cmap     <M-h>            <Left>
 map!     <M-b>            <C-Left>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
@@ -564,7 +567,7 @@ let g:indent_blankline_char = '▏'
 let g:indent_blankline_show_first_indent_level = v:false
 let g:indent_blankline_buftype_exclude = ['fzf', 'help']
 let g:indent_blankline_filetype_exclude = [
-      \   'markdown', 'startify', 'sagahover', 'NvimTree'
+      \   'markdown', 'startify', 'sagahover', 'NvimTree', 'lsp-installer'
       \ ]
 " Fixes bug where blank lines get highlighted by cursorline highlighting
 " https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
@@ -928,7 +931,7 @@ let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 let g:session_directory = '~/.config/nvim/sessions/'
 
-map <leader>o :OpenSession <Tab>
+map <leader>s :OpenSession<Space>
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1

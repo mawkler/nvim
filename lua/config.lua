@@ -30,8 +30,36 @@ local function make_opts()
   }
 end
 
+-- Typescript config
+local typescript_settings = {
+  init_options = require("nvim-lsp-ts-utils").init_options,
+  on_attach = function(client, bufnr)
+    local ts_utils = require("nvim-lsp-ts-utils")
+    ts_utils.setup({
+      auto_inlay_hints = false,
+      inlay_hints_highlight = 'CopilotSuggestion'
+    })
+    ts_utils.setup_client(client)
+
+    local opts = { silent = true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', ':TSLspRenameFile<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', ':TSLspImportAll<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gI', ':TSLspToggleInlayHints<CR>', opts)
+  end,
+}
+
 -- Lua config
-local lua_settings = require('lua-dev').setup().settings
+local lua_settings = require('lua-dev').setup({
+  lspconfig = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = {'use'}, -- For when i eventually switch to packer
+        },
+      },
+    }
+  }
+})
 
 -- YAML config
 local yaml_settings = {
@@ -51,11 +79,13 @@ local bash_settings = {
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
   if server.name == 'sumneko_lua' then
-    opts.settings = lua_settings
+    opts = lua_settings
   elseif server.name == 'yaml' then
     opts.settings = yaml_settings
   elseif server.name == 'bashls' then
     opts = bash_settings
+  elseif server.name == 'tsserver' then
+    opts = typescript_settings
   end
   server:setup(opts)
   cmd 'do User LspAttachBuffers'
@@ -141,6 +171,7 @@ cmp.PreselectMode = true
 local sources = {
   { name = 'nvim_lsp' },
   { name = 'vsnip' },
+  { name = 'path' },
   {
     name = 'buffer',
     option = {
