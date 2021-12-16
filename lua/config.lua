@@ -1,6 +1,10 @@
-local cmd, fn = vim.cmd, vim.fn
+local cmd, fn, call = vim.cmd, vim.fn, vim.call
 local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
 local api = vim.api
+
+local function t(str)
+  return api.nvim_replace_termcodes(str, true, true, true)
+end
 
 local function error(message)
   api.nvim_echo({{message, 'Error'}}, false, {})
@@ -32,9 +36,9 @@ end
 
 -- Typescript config
 local typescript_settings = {
-  init_options = require("nvim-lsp-ts-utils").init_options,
+  init_options = require('nvim-lsp-ts-utils').init_options,
   on_attach = function(client, bufnr)
-    local ts_utils = require("nvim-lsp-ts-utils")
+    local ts_utils = require('nvim-lsp-ts-utils')
     ts_utils.setup({
       auto_inlay_hints = false,
       inlay_hints_highlight = 'CopilotSuggestion'
@@ -136,11 +140,13 @@ end
 
 local function complete()
   return function ()
-    local copilot_keys = fn["copilot#Accept"]("")
+    local copilot_keys = fn['copilot#Accept']('')
     if cmp.visible() then
       cmp.mapping.confirm({select = true})()
-    elseif copilot_keys ~= "" then
-      api.nvim_feedkeys(copilot_keys, "i", true)
+    elseif call 'vsnip#available' == 1 then
+      return api.nvim_feedkeys(t '<Plug>(vsnip-expand)', 'i', true)
+    elseif copilot_keys ~= '' then
+      api.nvim_feedkeys(copilot_keys, 'i', true)
     else
       cmp.complete()
     end
@@ -169,8 +175,8 @@ end
 cmp.PreselectMode = true
 
 local sources = {
-  { name = 'nvim_lsp' },
   { name = 'vsnip' },
+  { name = 'nvim_lsp' },
   { name = 'path' },
   {
     name = 'buffer',
@@ -179,6 +185,7 @@ local sources = {
     },
   }
 }
+---@diagnostic disable-next-line: unused-local
 local markdown_sources = join(sources, {
   { name = 'cmp_tabnine' }
 })
@@ -186,7 +193,7 @@ local markdown_sources = join(sources, {
 cmp.setup({
   snippet = {
     expand = function(args)
-      fn["vsnip#anonymous"](args.body)
+      fn['vsnip#anonymous'](args.body)
     end,
   },
   mapping = {
@@ -288,10 +295,6 @@ local function map(modes, lhs, rhs, opts)
     if opts then options = vim.tbl_extend('force', options, opts) end
     api.nvim_set_keymap(mode, lhs, rhs, options)
   end
-end
-
-local function t(str)
-  return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 function _G.right_or_snip_next()
@@ -873,16 +876,16 @@ api.nvim_exec([[
 ----------------------
 -- Refactoring.nvim --
 --------------------
-local refactoring = require("refactoring")
+local refactoring = require('refactoring')
 refactoring.setup({})
 
 -- Telescope refactoring helper
 local function refactor(prompt_bufnr)
-  local content = require("telescope.actions.state").get_selected_entry(
+  local content = require('telescope.actions.state').get_selected_entry(
     prompt_bufnr
   )
-  require("telescope.actions").close(prompt_bufnr)
-  require("refactoring").refactor(content.value)
+  require('telescope.actions').close(prompt_bufnr)
+  require('refactoring').refactor(content.value)
 end
 
 -- NOTE: M is a global object
@@ -892,16 +895,16 @@ end
 -- in the mappings below
 M = {}
 M.refactors = function()
-  local opts = require("telescope.themes").get_cursor() -- set personal telescope options
-  require("telescope.pickers").new(opts, {
-    prompt_title = "refactors",
-    finder = require("telescope.finders").new_table({
-      results = require("refactoring").get_refactors(),
+  local opts = require('telescope.themes').get_cursor() -- set personal telescope options
+  require('telescope.pickers').new(opts, {
+    prompt_title = 'refactors',
+    finder = require('telescope.finders').new_table({
+      results = require('refactoring').get_refactors(),
     }),
-    sorter = require("telescope.config").values.generic_sorter(opts),
+    sorter = require('telescope.config').values.generic_sorter(opts),
     attach_mappings = function(_, mapping)
-      mapping("i", "<CR>", refactor)
-      mapping("n", "<CR>", refactor)
+      mapping('i', '<CR>', refactor)
+      mapping('n', '<CR>', refactor)
       return true
     end
   }):find()

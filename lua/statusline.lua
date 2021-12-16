@@ -5,7 +5,7 @@ local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
 local lsp_status = require('lsp-status')
 
-require('nvim-gps').setup({ separator = '  ' })
+require('nvim-gps').setup({ separator = '  ', depth = 1 })
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
