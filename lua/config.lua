@@ -6,6 +6,16 @@ local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local function map(modes, lhs, rhs, opts)
+  if (type(modes) ~= 'table') then modes = {modes} end
+
+  for _, mode in pairs(modes) do
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    api.nvim_set_keymap(mode, lhs, rhs, options)
+  end
+end
+
 local function error(message)
   api.nvim_echo({{message, 'Error'}}, false, {})
 end
@@ -249,6 +259,15 @@ tabnine:setup({
   ignored_file_types = {};
 })
 
+-------------
+-- Copilot --
+-------------
+map('i', '<C-l>', 'copilot#Accept("")', {expr = true, silent = true})
+g.copilot_assume_mapped = true
+g.copilot_filetypes = {
+  TelescopePrompt = false
+}
+
 -----------------
 -- ColorScheme --
 -----------------
@@ -287,16 +306,6 @@ require('lspsaga').init_lsp_saga {
 --------------
 -- Mappings --
 --------------
-local function map(modes, lhs, rhs, opts)
-  if (type(modes) ~= 'table') then modes = {modes} end
-
-  for _, mode in pairs(modes) do
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    api.nvim_set_keymap(mode, lhs, rhs, options)
-  end
-end
-
 function _G.right_or_snip_next()
   if fn['vsnip#jumpable'](1) == 1 then
     return t '<Plug>(vsnip-jump-next)'
