@@ -1,6 +1,6 @@
 local cmd, fn, call = vim.cmd, vim.fn, vim.call
 local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
-local api = vim.api
+local api, lsp = vim.api, vim.lsp
 
 local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
@@ -27,9 +27,10 @@ require('impatient')
 -------------------
 -- LSP Installer --
 -------------------
-local function make_opts()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
+local function make_opts(snippets)
+  if snippets == nil then snippets = true end
+  local capabilities = lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = snippets
   return {
     capabilities = capabilities, -- enable snippet support
     on_attach = function()
@@ -93,6 +94,7 @@ local bash_settings = {
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
   if server.name == 'sumneko_lua' then
+    opts = make_opts(false)
     opts = lua_settings
   elseif server.name == 'yaml' then
     opts.settings = yaml_settings
@@ -104,6 +106,19 @@ require('nvim-lsp-installer').on_server_ready(function(server)
   server:setup(opts)
   cmd 'do User LspAttachBuffers'
 end)
+
+----------------
+-- LSP Config --
+----------------
+lsp.handlers['textDocument/hover'] = lsp.with(
+  lsp.handlers.hover,
+  { border = 'single' }
+)
+
+lsp.handlers['textDocument/signatureHelp'] = lsp.with(
+  lsp.handlers.signature_help,
+  { border = 'single' }
+)
 
 -------------
 -- LSPKind --
@@ -333,27 +348,21 @@ map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', {noremap = false})
 
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
--- map('n',        'gh',        '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>')
-map('n',        'gh',        '<cmd> lua vim.lsp.buf.hover()<CR>')
--- map('n',        'gH',        '<cmd>lua require("lspsaga.diagnostic").show_cursor_diagnostics()<CR>')
-map('n',        'gH',        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
-map('n',        '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>')
+map('n',        'gh',        '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n',        'gH',        '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
+map('n',        '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
+map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({float = { border = "single" }})<CR>')
+map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({float = { border = "single" }})<CR>')
+map('n',        ']E',        '<cmd>lua vim.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        '[E',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n',        'gs',        '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>')
+map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map({'n', 'x'}, '<leader>r', '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map({'n', 'x'}, '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
 map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
--- map({'n', 'x'}, 'gA',        '<cmd>lua require("lspsaga.codeaction").code_action()<CR>')
-map({'n', 'x'}, '<leader>a',        '<cmd>Telescope lsp_code_actions<cr>')
--- map('n',        '[e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>')
-map('n',        '[e',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
--- map('n',        ']e',        '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>')
-map('n',        ']e',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-map('n',        ']E',        '<cmd>lua vim.lsp.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}})<CR>')
-map('n',        '[E',        '<cmd>lua vim.lsp.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}})<CR>')
-map('n',        '<leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 function _G.quickfix_jump(command)
@@ -673,8 +682,8 @@ require('neoscroll').setup()
 -- Diagnostics --
 ----------------
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(
+  lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
   }
 )
