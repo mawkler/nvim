@@ -24,6 +24,9 @@ end
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
+-- Lua autocmds
+local autocmd = require('autocmd-lua')
+
 -------------------
 -- LSP Installer --
 -------------------
@@ -210,7 +213,7 @@ local sources = {
     },
   }
 }
----@diagnostic disable-next-line: unused-local
+
 local markdown_sources = join(sources, {
   { name = 'cmp_tabnine' }
 })
@@ -227,7 +230,6 @@ cmp.setup({
     ['<C-b>'] = cmp_map(mapping.scroll_docs(-4)),
     ['<C-f>'] = cmp_map(mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-    -- TODO: <Tab> in select mode should trigger cmp.complete()
     ['<Tab>'] = cmp_map(complete()),
     ['<C-y>'] = disabled,
     ['<C-n>'] = disabled,
@@ -243,12 +245,16 @@ cmp.setup({
 })
 
 -- Tabnine
-cmd [[
-  autocmd FileType markdown,text,tex,gitcommit
-  \ lua require('cmp').setup.buffer {
-  \   sources = markdown_sources,
-  \ }
-]]
+autocmd.augroup {
+  'tabnine',
+  {{ 'FileType', {
+    ['markdown,text,tex,gitcommit'] = function()
+      cmp.setup.buffer {
+        sources = cmp.config.sources(markdown_sources)
+      }
+    end
+  }}}
+}
 
 -- Use buffer source for `/` (searching)
 cmp.setup.cmdline('/', {
@@ -288,6 +294,7 @@ g.copilot_filetypes = {
 -----------------
 local colors = require('onedark.colors').setup()
 require('onedark').setup {
+  hide_end_of_buffer = false,
   colors = {
     fg_cursor_linenumber = 'blue',
     fg_search = colors.fg,
@@ -483,7 +490,7 @@ require('nvim-tree').setup {
   disable_netrw = false,
   update_cwd = true,
   git = {
-    ignore = true,
+    ignore = false,
   },
   show_icons = {
     git = true,
@@ -770,7 +777,7 @@ require('gitsigns').setup {
     ['v <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <leader>sR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
     ['n <leader>sp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+    ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line({full = true, ignore_whitespace = true})<CR>',
 
     -- Text objects
     ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
@@ -947,4 +954,4 @@ api.nvim_set_keymap('v',
 --------------------
 -- Indent-o-matic --
 --------------------
-require('indent-o-matic').setup{}
+require('indent-o-matic').setup {}

@@ -84,6 +84,7 @@ if has('nvim')
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
+  Plug 'jakelinnzy/autocmd-lua'        " Lua autocommands
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -647,10 +648,6 @@ omap af <Plug>DsfTextObjectA
 xmap af <Plug>DsfTextObjectA
 omap if <Plug>DsfTextObjectI
 xmap if <Plug>DsfTextObjectI
-
-" " -- Java syntax highlighting --
-" let g:java_highlight_functions = 1
-" let g:java_highlight_all = 1
 
 " -- Fzf --
 function FZF_files()
