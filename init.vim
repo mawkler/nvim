@@ -251,8 +251,6 @@ nnoremap g#               msg#`s
 map      `/               `s
 nmap     <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
-nnoremap n                nzz
-nnoremap N                Nzz
 nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      Q                @@
 map      <leader>q        qqqqq
@@ -404,7 +402,7 @@ endif
 " -- Lines and cursor --
 set number relativenumber
 set cursorline                    " Cursor highlighting
-set scrolloff=8                   " Cursor margin
+set scrolloff=14                  " Cursor margin
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set conceallevel=2                " Hide concealed characters completely
