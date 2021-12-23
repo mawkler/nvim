@@ -7,16 +7,25 @@ endfunction
 
 map <silent> <Plug>VisualAppend-. :call VisualAppend(".")<CR>
       \:call repeat#set("\<Plug>VisualAppend-.")<CR>
-map <leader>. <Plug>VisualAppend-.
+nmap <leader>. <Plug>VisualAppend-.
+xmap <leader>. <Plug>VisualAppend-.
+
 map <silent> <Plug>VisualAppend-, :call VisualAppend(",")<CR>
       \:call repeat#set("\<Plug>VisualAppend-,")<CR>
-map <leader>, <Plug>VisualAppend-,
+nmap <leader>, <Plug>VisualAppend-,
+xmap <leader>, <Plug>VisualAppend-,
+
 map <silent> <Plug>VisualAppend-; :call VisualAppend(";")<CR>
       \:call repeat#set("\<Plug>VisualAppend-;")<CR>
-map <leader>; <Plug>VisualAppend-;
+nmap <leader>; <Plug>VisualAppend-;
+xmap <leader>; <Plug>VisualAppend-;
+
 map <silent> <Plug>VisualAppend-! :call VisualAppend("!")<CR>
       \:call repeat#set("\<Plug>VisualAppend-!")<CR>
-map <leader>! <Plug>VisualAppend-!
+nmap <leader>! <Plug>VisualAppend-!
+xmap <leader>! <Plug>VisualAppend-!
+
 map <silent> <Plug>VisualAppend-? :call VisualAppend("?")<CR>
       \:call repeat#set("\<Plug>VisualAppend-?")<CR>
-map <leader>? <Plug>VisualAppend-?
+nmap <leader>? <Plug>VisualAppend-?
+xmap <leader>? <Plug>VisualAppend-?

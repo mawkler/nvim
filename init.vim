@@ -232,12 +232,12 @@ nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
 nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
-map      <leader>v        :source ~/.config/nvim/init.vim<CR>
-map      <leader>V        :drop ~/.vimrc<CR>
-map      <leader>Ii       :drop ~/.config/nvim/init.vim<CR>
-map      <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
-map      <leader>Z        :drop ~/.zshrc<CR>
-map      <leader>~        :cd ~<CR>
+nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
+nmap     <leader>V        :drop ~/.vimrc<CR>
+nmap     <leader>Ii       :drop ~/.config/nvim/init.vim<CR>
+nmap     <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
+nmap     <leader>Z        :drop ~/.zshrc<CR>
+nmap     <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
 xnoremap //               omsy/<C-R>"<CR>`s
@@ -249,7 +249,7 @@ nnoremap <leader>g*       msg*`s
 nnoremap #                ms#
 nnoremap g#               msg#`s
 map      `/               `s
-map      <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
+nmap     <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 map      g/               /\<\><Left><Left>
 nnoremap n                nzz
 nnoremap N                Nzz
@@ -355,7 +355,7 @@ augroup vertical_help
 augroup END
 
 " Prints the syntax highlighting values under cursor
-map <leader>H :TSHighlightCapturesUnderCursor<CR>
+nmap <leader>H :TSHighlightCapturesUnderCursor<CR>
 
 " Tries to perform a regular `gf`, if that doesn't work try to call
 " vim-markdown's Markdown_EditUrlUnderCursor
@@ -368,7 +368,7 @@ function MarkdownGf()
   endtry
   set path+=**
 endf
-noremap gf :call MarkdownGf()<CR>
+nnoremap gf :call MarkdownGf()<CR>
 
 " Increases the font zise with `amount`
 function! Zoom(amount) abort
@@ -468,8 +468,8 @@ nmap csQ cs"
 nmap dsQ ds"
 omap iQ  i"
 omap aQ  a"
-vmap iQ  i"
-vmap aQ  a"
+xmap iQ  i"
+xmap aQ  a"
 let g:surround_{char2nr('Q')} = "\"\r\""
 
 " surround noun `A` means `
@@ -627,7 +627,7 @@ xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
 " -- exchange.vim --
-vmap x <Plug>(Exchange)
+xmap x <Plug>(Exchange)
 nmap cX cx$
 
 " -- dsf.vim --
@@ -921,7 +921,7 @@ let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
 let g:session_directory = '~/.config/nvim/sessions/'
 
-map <leader>s :OpenSession<Space>
+nmap <leader>s :OpenSession<Space>
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
@@ -940,9 +940,9 @@ let g:bufferline = get(g:, 'bufferline', {
       \ 'exclude_ft': ['qf'],
       \ })
 
-map <M-w>         :BufferClose<CR>
-map <M-W>         :BufferClose<CR>:wincmd c<CR>
-map <leader><M-w> :BufferClose!<CR>
+nmap <M-w>         :BufferClose<CR>
+nmap <M-W>         :BufferClose<CR>:wincmd c<CR>
+nmap <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>
