@@ -1,4 +1,4 @@
-local b, bo, fn = vim.b, vim.bo, vim.fn
+local bo, fn = vim.bo, vim.fn
 
 local mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
@@ -11,32 +11,6 @@ local function GetHiVal(name, layer)
   layer = layer or 'fg'
   return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
-
--- TODO: make it possible to pass colorscheme to this file
--- local colorscheme = require('base16-colorscheme').colorschemes['onedark']
-
--- local colors = {
---   bg          = colorscheme.base00, -- #282c34
---   line_bg     = colorscheme.base01, -- #353b45
---   fg          = colorscheme.base07, -- #c8ccd4
---   fg_green    = colorscheme.base0B,
-
---   yellow      = colorscheme.base0A,
---   cyan        = colorscheme.base0C,
---   darkblue    = colorscheme.base04,
---   green       = colorscheme.base0B,
---   orange      = colorscheme.base09,
---   purple      = colorscheme.base0E,
---   magenta     = colorscheme.base08,
---   blue        = colorscheme.base0D,
---   red         = colorscheme.base0F,
---   gray        = colorscheme.base05,
---   darkgray    = '#9ba1b0',
-
---   diff_add    = GetHiVal('DiffAdd'),
---   diff_change = GetHiVal('DiffChange'),
---   diff_delete = GetHiVal('DiffDelete')
--- }
 
 local components = {
   active = {{}, {}, {}},
@@ -187,7 +161,7 @@ table.insert(active_left, {
   provider = 'diagnostic_errors',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultError') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Error')
+    return wide_enough() and lsp.diagnostics_exist('ERROR')
   end
 })
 
@@ -195,7 +169,7 @@ table.insert(active_left, {
   provider = 'diagnostic_warnings',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultWarning') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Warning')
+    return wide_enough() and lsp.diagnostics_exist('WARN')
   end
 })
 
@@ -203,7 +177,7 @@ table.insert(active_left, {
   provider = 'diagnostic_info',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultInformation') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Information')
+    return wide_enough() and lsp.diagnostics_exist('INFO')
   end
 })
 
@@ -211,7 +185,7 @@ table.insert(active_left, {
   provider = 'diagnostic_hints',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultHint') },
   enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('Hint')
+    return wide_enough() and lsp.diagnostics_exist('HINT')
   end
 })
 
@@ -352,35 +326,34 @@ table.insert(inactive_right, {
 })
 
 local function setup(config)
-  if not config or not config.colorscheme then
-    error('No colorscheme provided')
+  if not config or not config.theme then
+    error('No config and/or theme provided')
   else
-    local colorscheme = config.colorscheme
+    local theme = config.theme
     if config.modifications then
-      colorscheme = vim.tbl_extend('force', colorscheme, config.modifications)
+      theme = vim.tbl_extend('force', theme, config.modifications)
     end
-
     local mode_colors = {
-      NORMAL        = colorscheme.green,
-      OP            = colorscheme.green,
-      INSERT        = colorscheme.blue,
-      COMMAND       = colorscheme.red,
-      VISUAL        = colorscheme.purple,
-      LINES         = colorscheme.purple,
-      BLOCK         = colorscheme.purple,
-      REPLACE       = colorscheme.red,
-      ['V-REPLACE'] = colorscheme.magenta,
-      ENTER         = colorscheme.orange,
-      MORE          = colorscheme.orange,
-      SELECT        = colorscheme.cyan,
-      SHELL         = colorscheme.green,
-      TERM          = colorscheme.green,
-      NONE          = colorscheme.gray
+      NORMAL        = 'green',
+      OP            = 'green',
+      INSERT        = 'blue',
+      COMMAND       = 'red',
+      VISUAL        = 'purple',
+      LINES         = 'purple',
+      BLOCK         = 'purple',
+      REPLACE       = 'red',
+      ['V-REPLACE'] = 'magenta',
+      ENTER         = 'orange',
+      MORE          = 'orange',
+      SELECT        = 'cyan',
+      SHELL         = 'green',
+      TERM          = 'green',
+      NONE          = 'gray'
     }
 
     require('feline').setup {
-      colors         = colorscheme,
-      components     = components,
+      theme = theme,
+      components = components,
       vi_mode_colors = mode_colors,
       force_inactive = {
         filetypes = inactive_filetypes,

@@ -749,7 +749,7 @@ make_diagnoistic_underlined('Information')
 ----------------
 -- require('floatline').setup()
 require('statusline').setup({
-  colorscheme = colors,
+  theme = colors,
   modifications = {
     fg = '#c8ccd4',
     line_bg = '#353b45',
