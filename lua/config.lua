@@ -872,29 +872,25 @@ autocmd.augroup {
   'mappings',
   {
     { 'CmdwinEnter', {
-        ['*'] = function()
-          map('n', '<CR>',  '<CR>',   { buffer = true })
+      ['*'] = function()
+        map('n', '<CR>',  '<CR>',   { buffer = true })
+        map('n', '<Esc>', '<C-w>c', { buffer = true })
+      end
+    }},
+    { 'BufWinEnter', {
+      ['*'] = function()
+        if not bo.modifiable then
           map('n', '<Esc>', '<C-w>c', { buffer = true })
         end
-      }
-    },
-    { 'BufEnter', {
-        ['*'] = function()
-          if not bo.modifiable then
-            map('n', '<Esc>', '<C-w>c', { buffer = true })
-          end
-        end
-      }
-    }
+      end
+    }}
   }
 }
-
 
 map('n',        '<leader>cmm', '<Plug>kommentary_line_increase',   {noremap = false})
 map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase', {noremap = false})
 map('n',        '<leader>cuu', '<Plug>kommentary_line_decrease',   {noremap = false})
 map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease', {noremap = false})
-
 map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase',  {noremap = false})
 map('n',
   '<leader>cA',
