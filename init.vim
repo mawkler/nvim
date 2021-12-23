@@ -300,8 +300,10 @@ map          <leader>gP :Git push
 map          <leader>gc :vertical Git commit -va
 
 " `;`/`,` always seach forward/backward, respectively
-noremap <expr> ; getcharsearch().forward ? ';' : ','
-noremap <expr> , getcharsearch().forward ? ',' : ';'
+nnoremap <expr> ; getcharsearch().forward ? ';' : ','
+xnoremap <expr> ; getcharsearch().forward ? ';' : ','
+nnoremap <expr> , getcharsearch().forward ? ',' : ';'
+xnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
 " Adds previous cursor location to jumplist if count is > 5
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
@@ -475,8 +477,8 @@ nmap csA cs`
 nmap dsA ds`
 omap iA  i`
 omap aA  a`
-vmap iA  i`
-vmap aA  a`
+xmap iA  i`
+xmap aA  a`
 let g:surround_{char2nr('A')} = "`\r`"
 
 augroup language_specific
@@ -623,15 +625,6 @@ xmap aL <Plug>(textobj-line-a)
 omap aL <Plug>(textobj-line-a)
 xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
-
-" -- Command-line window --
-nnoremap <silent><expr>
-      \ <Esc> v:hlsearch \|\| &modifiable ? ':nohlsearch<CR>' : '<C-w>c'
-augroup cmd_win
-  autocmd!
-  autocmd CmdwinEnter * nnoremap <buffer> <Esc> <C-w>c
-  autocmd CmdwinEnter * nnoremap <buffer> <CR>  <CR>
-augroup END
 
 " -- exchange.vim --
 vmap x <Plug>(Exchange)

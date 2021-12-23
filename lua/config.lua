@@ -7,12 +7,23 @@ local function t(str)
 end
 
 local function map(modes, lhs, rhs, opts)
+ -- TODO: change so that opts is a table of strings
   if (type(modes) ~= 'table') then modes = {modes} end
 
+  local keymap
+  if opts ~= nil and opts.buffer then
+    keymap = function(m, l, r, op)
+      return api.nvim_buf_set_keymap(0, m, l, r, op)
+    end
+    opts.buffer = nil
+  else
+    keymap = api.nvim_set_keymap
+  end
+
   for _, mode in pairs(modes) do
-    local options = {noremap = true}
+    local options = {noremap = true, silent = true}
     if opts then options = vim.tbl_extend('force', options, opts) end
-    api.nvim_set_keymap(mode, lhs, rhs, options)
+    keymap(mode, lhs, rhs, options)
   end
 end
 
@@ -60,9 +71,9 @@ local typescript_settings = {
     ts_utils.setup_client(client)
 
     local opts = { silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', ':TSLspRenameFile<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', ':TSLspImportAll<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gI', ':TSLspToggleInlayHints<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',        ':TSLspRenameFile<CR>',       opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>A', ':TSLspImportAll<CR>',        opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gI',        ':TSLspToggleInlayHints<CR>', opts)
   end,
 }
 
@@ -246,7 +257,7 @@ cmp.setup({
 
 -- Tabnine
 autocmd.augroup {
-  'tabnine',
+  'TabNine',
   {{ 'FileType', {
     ['markdown,text,tex,gitcommit'] = function()
       cmp.setup.buffer {
@@ -283,7 +294,7 @@ tabnine:setup({
 -------------
 -- Copilot --
 -------------
-map('i', '<C-l>', 'copilot#Accept("")', {expr = true, silent = true})
+map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
 g.copilot_assume_mapped = true
 g.copilot_filetypes = {
   TelescopePrompt = false
@@ -507,8 +518,8 @@ require('nvim-tree').setup {
     }
   }
 }
-map('n', '<leader>`', ':NvimTreeToggle<CR>', {silent = true})
-map('n', '<leader>~', ':NvimTreeFindFile<CR>', {silent = true})
+map('n', '<leader>`', ':NvimTreeToggle<CR>')
+map('n', '<leader>~', ':NvimTreeFindFile<CR>')
 cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 
 ---------------
@@ -587,14 +598,16 @@ function _G.toggle_format_on_write()
 end
 
 b.format_on_write = true
-map('n', '<F2>', ':lua toggle_format_on_write()<CR>', {silent = true})
+map('n', '<F2>', ':lua toggle_format_on_write()<CR>')
 
-api.nvim_exec([[
-  augroup FormatOnWrite
-    autocmd!
-    autocmd BufWritePost *.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml lua format_and_write()
-  augroup END
-]], true)
+autocmd.augroup {
+  'FormatOnWrite',
+  {{ 'BufWritePost', {
+    ['*.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml'] = function()
+      format_and_write()
+    end
+  }}}
+}
 
 function _G.format_and_write()
   if fn.exists('b:format_on_write') == 0 or b.format_on_write then
@@ -853,13 +866,33 @@ kommentary.configure_language('typescriptreact', {
   end,
 })
 
-map('n', 'cmm',  '<Plug>kommentary_line_default',   {noremap = false})
-map('n', 'cm',   '<Plug>kommentary_motion_default', {noremap = false})
-map('n', '<CR>', '<Plug>kommentary_line_default',   {noremap = false})
-map('x', '<CR>', '<Plug>kommentary_visual_default', {noremap = false})
+map('n', 'cmm',  '<Plug>kommentary_line_default',   { noremap = false })
+map('n', 'cm',   '<Plug>kommentary_motion_default', { noremap = false })
+map('n', '<CR>', '<Plug>kommentary_line_default',   { noremap = false })
+map('x', '<CR>', '<Plug>kommentary_visual_default', { noremap = false })
 
--- Restores <CR> mapping in command-line window
-cmd 'autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>'
+map('n', '<Esc>', '<cmd>nohlsearch<CR>')
+autocmd.augroup {
+  'mappings',
+  {
+    { 'CmdwinEnter', {
+        ['*'] = function()
+          map('n', '<CR>',  '<CR>',   { buffer = true })
+          map('n', '<Esc>', '<C-w>c', { buffer = true })
+        end
+      }
+    },
+    { 'BufEnter', {
+        ['*'] = function()
+          if not bo.modifiable then
+            map('n', '<Esc>', '<C-w>c', { buffer = true })
+          end
+        end
+      }
+    }
+  }
+}
+
 
 map('n',        '<leader>cmm', '<Plug>kommentary_line_increase',   {noremap = false})
 map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase', {noremap = false})
@@ -869,8 +902,7 @@ map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease', {noremap = fa
 map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase',  {noremap = false})
 map('n',
   '<leader>cA',
-  ':lua require("ts_context_commentstring.internal").update_commentstring()<CR>:execute "norm! A " . substitute(&commentstring, "%s", "", "")<CR>A',
-  {silent = true}
+  ':lua require("ts_context_commentstring.internal").update_commentstring()<CR>:execute "norm! A " . substitute(&commentstring, "%s", "", "")<CR>A'
 )
 -- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
 
@@ -890,17 +922,19 @@ end
 
 cmd 'command! Http call v:lua.http_request()'
 
-api.nvim_exec([[
-  augroup RestNvim
-    autocmd!
-    autocmd FileType http map  <buffer> <CR>  <Plug>RestNvim:w<CR>
-    autocmd FileType http nmap <buffer> <Esc> <cmd>BufferClose<CR>:wincmd c<CR>
-  augroup END
-]], true)
+autocmd.augroup {
+  'RestNvim',
+  {{ 'FileType', {
+    ['http'] = function()
+      map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true, noremap = false })
+      map('n', '<Esc>', '<cmd>BufferClose<CR>:wincmd c<CR>', { buffer = true })
+    end
+  }}}
+}
 
 ----------------------
 -- Refactoring.nvim --
---------------------
+----------------------
 local refactoring = require('refactoring')
 refactoring.setup({})
 
