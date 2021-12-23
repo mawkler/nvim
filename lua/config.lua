@@ -225,10 +225,6 @@ local sources = {
   }
 }
 
-local markdown_sources = join(sources, {
-  { name = 'cmp_tabnine' }
-})
-
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -261,7 +257,7 @@ autocmd.augroup {
   {{ 'FileType', {
     ['markdown,text,tex,gitcommit'] = function()
       cmp.setup.buffer {
-        sources = cmp.config.sources(markdown_sources)
+        sources = cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
       }
     end
   }}}
