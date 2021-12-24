@@ -428,6 +428,12 @@ require('lspkind').init {
 ---------------
 -- Telescope --
 ---------------
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+local conf = require('telescope.config').values
+
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -469,7 +475,11 @@ require('telescope').setup {
       fuzzy = true,
       override_generic_sorter = true,
       override_file_sorter = true,
-    }
+    },
+    bookmarks = {
+      selected_browser = 'brave',
+      url_open_command = 'xdg-open &>/dev/null',
+    },
   }
 }
 
@@ -490,32 +500,6 @@ function _G.telescope_config()
     path_display = { 'truncate' },
   })
 end
-
-map('n', '<C-p>',      '<cmd>Telescope find_files<CR>')
-map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
-map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
-map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
-map('n', '<leader>m',  '<cmd>Telescope oldfiles<CR>')
-map('n', '<leader>h',  '<cmd>Telescope help_tags<CR>')
-map('n', '<leader>tt', '<cmd>Telescope<CR>')
-map('n', '<leader>th', '<cmd>Telescope highlights<CR>')
-map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<CR>')
-map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
-map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
-map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
-
-map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
-map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
-
-require('telescope').load_extension('zoxide')
-require('telescope').load_extension('ui-select')
-require('telescope').load_extension('fzf')
-
-local pickers = require('telescope.pickers')
-local finders = require('telescope.finders')
-local actions = require('telescope.actions')
-local action_state = require 'telescope.actions.state'
-local conf = require('telescope.config').values
 
 function _G.telescope_cd(dir)
   if dir == nil then dir = '.' end
@@ -543,9 +527,30 @@ function _G.telescope_cd(dir)
   }):find()
 end
 
+map('n', '<C-p>',      '<cmd>Telescope find_files<CR>')
+map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
+map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
+map('n', '<leader>m',  '<cmd>Telescope oldfiles<CR>')
+map('n', '<leader>h',  '<cmd>Telescope help_tags<CR>')
+map('n', '<leader>tt', '<cmd>Telescope<CR>')
+map('n', '<leader>th', '<cmd>Telescope highlights<CR>')
+map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<CR>')
+map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
+map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
+map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
+
 map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
 map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
 map('n', 'cz', ':Telescope zoxide list<CR>')
+map('n', '<leader>B', '<cmd>Telescope bookmarks<CR>')
+map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
+map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
+
+require('telescope').load_extension('zoxide')
+require('telescope').load_extension('ui-select')
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('bookmarks')
 
 ---------
 -- nui --
@@ -958,7 +963,6 @@ map('n', '<CR>', '<Plug>kommentary_line_default',   { noremap = false })
 map('x', '<CR>', '<Plug>kommentary_visual_default', { noremap = false })
 
 function _G.escape()
-  print(bo.modifiable)
   if bo.modifiable then
     cmd 'nohlsearch'
   else
@@ -1025,10 +1029,10 @@ refactoring.setup({})
 
 -- Telescope refactoring helper
 local function refactor(prompt_bufnr)
-  local content = require('telescope.actions.state').get_selected_entry(
+  local content = action_state.get_selected_entry(
     prompt_bufnr
   )
-  require('telescope.actions').close(prompt_bufnr)
+  actions.close(prompt_bufnr)
   require('refactoring').refactor(content.value)
 end
 
@@ -1040,12 +1044,12 @@ end
 M = {}
 M.refactors = function()
   local opts = require('telescope.themes').get_cursor() -- set personal telescope options
-  require('telescope.pickers').new(opts, {
+  pickers.new(opts, {
     prompt_title = 'refactors',
-    finder = require('telescope.finders').new_table({
+    finder = finders.new_table({
       results = require('refactoring').get_refactors(),
     }),
-    sorter = require('telescope.config').values.generic_sorter(opts),
+    sorter = conf.generic_sorter(opts),
     attach_mappings = function(_, mapping)
       mapping('i', '<CR>', refactor)
       mapping('n', '<CR>', refactor)
