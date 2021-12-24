@@ -221,6 +221,7 @@ cmp.PreselectMode = true
 local sources = {
   { name = 'vsnip' },
   { name = 'nvim_lsp' },
+  { name = 'nvim_lua' },
   { name = 'path' },
   {
     name = 'buffer',
