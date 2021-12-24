@@ -69,7 +69,11 @@ if has('nvim')
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
+  Plug 'jvgrootveld/telescope-zoxide'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-telescope/telescope-ui-select.nvim' " Use telescope for vim.ui.select
   Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
+  Plug 'MunifTanjim/nui.nvim'          " UI component library
   Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
   Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
   Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
@@ -262,10 +266,8 @@ vnoremap gdn              //Ndgn
 xnoremap g.               .
 
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
-vmap     <leader>K        y:vertical Man <C-R>"<CR>
+xmap     <leader>K        y:vertical Man <C-R>"<CR>
 
-map  <silent> <leader>M :FilesWithDevicons $DROPBOX/Dokument/Markdowns/<CR>
-map  <silent> <leader>E :cd $DROPBOX/Exjobb/<CR>
 nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
 map           g)        w)ge
@@ -641,30 +643,22 @@ omap if <Plug>DsfTextObjectI
 xmap if <Plug>DsfTextObjectI
 
 " -- Fzf --
-function FZF_files()
+function FZF_files(dir)
   echohl Comment
-  echo 'Directory: ' . fnamemodify(getcwd(), ':~')
+  echo 'Directory: ' . fnamemodify(a:dir, ':~')
   echohl None
-  exe 'FilesWithDevicons'
+  exe 'FilesWithDevicons ' .. a:dir
 endf
 
-if has('nvim')
-  " Use floating window
-  let g:fzf_layout = {
-        \ 'window': {
-        \   'width': 0.9,
-        \   'height': 0.8,
-        \   'highlight': 'SpecialKey',
-        \   'border': 'rounded'
-        \ }}
-  nmap <silent> <C-p> :call FZF_files()<CR>
-else
-  map <silent> <C-p> :Files<CR>
-endif
-map <silent> <leader>m :History<CR>
-map <silent> <leader>h :Helptags<CR>
-map          <leader>A :Ag<Space>
-tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+let g:fzf_layout = {
+      \ 'window': {
+      \   'width': 0.9,
+      \   'height': 0.8,
+      \   'highlight': 'SpecialKey',
+      \   'border': 'rounded'
+      \ }}
+" TODO: Check if we're in a git repo, if we are, use telescope
+nmap <silent> <leader><C-p> :call FZF_files('~')<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden -g "" -p $HOME/.agignore-vim'
 let $FZF_DEFAULT_OPTS = '
       \ --multi
@@ -675,9 +669,10 @@ let $FZF_DEFAULT_OPTS = '
       \ --history-size=10000
       \ '
 
-" Disable statusbar, numbers and IndentLines in FZF
-autocmd! FileType fzf              set laststatus=0 ruler! nonumber norelativenumber
-      \| autocmd BufLeave <buffer> set laststatus=2 ruler! number   relativenumber
+augroup fzf
+  autocmd!
+  autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+augroup END
 
 let g:fzf_mru_case_sensitive = 0
 let g:fzf_colors = {

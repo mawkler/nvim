@@ -292,9 +292,7 @@ tabnine:setup({
 -------------
 map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
 g.copilot_assume_mapped = true
-g.copilot_filetypes = {
-  TelescopePrompt = false
-}
+g.copilot_filetypes = { TelescopePrompt = false }
 
 -----------------
 -- ColorScheme --
@@ -392,6 +390,14 @@ function _G.quickfix_jump(command)
   end
 end
 
+function _G.grep_string()
+  vim.ui.input({prompt = 'Grep > '}, function(value)
+    if value ~= nil then
+      require('telescope.builtin').grep_string({search = value})
+    end
+  end)
+end
+
 map('n', ']q', ':lua quickfix_jump("cnext")<CR>')
 map('n', '[q', ':lua quickfix_jump("cprev")<CR>')
 map('n', ']Q', ':cbelow<CR>')
@@ -420,55 +426,109 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-j>']   = 'move_selection_next',
-        ['<C-k>']   = 'move_selection_previous',
-        ['<Esc>']   = 'close',
-        ['<S-Esc>'] = function() cmd 'stopinsert' end,
-        ['<C-u>']   = false
+        ['<C-j>'] = 'move_selection_next',
+        ['<C-k>'] = 'move_selection_previous',
+        ['<C-p>'] = 'cycle_history_prev',
+        ['<C-n>'] = 'cycle_history_next',
+        ['<C-q>'] = 'close',
+        ['<M-q>'] = 'send_to_qflist',
+        ['<C-a>'] = function() api.nvim_feedkeys(t '<Home>', 'i', true) end,
+        ['<C-e>'] = function() api.nvim_feedkeys(t '<End>', 'i', true) end,
+        ['<C-u>'] = false
+      },
+      n = {
+        ['<C-q>'] = 'close',
       }
     },
-    layout_config = { width = 0.9, preview_width = 0.58 },
+    -- layout_config = { width = 0.9, preview_width = 80 },
+    layout_config = { width = 0.9},
     selection_caret = '▶ ',
+    path_display = {"truncate"},
     prompt_prefix = '   ',
+    file_ignore_patterns = {
+      '%.git/', 'node_modules/', '%.npm/', '__pycache__/', '%[Cc]ache/',
+      '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.local/',
+      '%.py[c]', '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$',
+      '%.tmp', '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
+      '%.class$', '%.pdb$', '%.dll$', '%.dat$'
+    }
+  },
+  extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown({
+         preview_width = nil,
+      }),
+    },
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+    }
   }
 }
 
+function _G.telescope_markdowns()
+  require("telescope.builtin").find_files({
+    search_dirs = { '$MARKDOWNS' },
+    prompt_title = 'Markdowns',
+    path_display = function(_, path)
+      return path:gsub(vim.fn.expand('$MARKDOWNS'), '')
+    end,
+  })
+end
+
+function _G.telescope_config()
+  require('telescope.builtin').find_files({
+    search_dirs = { '~/.config/nvim/' },
+    prompt_title = 'Neovim config',
+    path_display = { 'truncate' },
+  })
+end
+
+map('n', '<C-p>',      '<cmd>Telescope find_files<CR>')
+map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
+map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
+map('n', '<leader>m',  '<cmd>Telescope oldfiles<CR>')
+map('n', '<leader>h',  '<cmd>Telescope help_tags<CR>')
+map('n', '<leader>tt', '<cmd>Telescope<CR>')
+map('n', '<leader>th', '<cmd>Telescope highlights<CR>')
+map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<CR>')
+map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
+map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
+map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
+
+map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
+map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
+
 require('telescope').load_extension('zoxide')
-require('telescope').load_extension('project')
+require('telescope').load_extension('ui-select')
+require('telescope').load_extension('fzf')
 
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local actions = require('telescope.actions')
-local action_state = require "telescope.actions.state"
-local conf = require("telescope.config").values
+local action_state = require 'telescope.actions.state'
+local conf = require('telescope.config').values
 
 function _G.telescope_cd(dir)
   if dir == nil then dir = '.' end
   local opts = {cwd = dir}
+  local ignore_file = fn.expand('$HOME/') .. '.agignore'
 
-  -- TODO:
-  -- require('plenary.scandir').scan_dir(vim.loop.cwd(), {
-  --   hidden = true,
-  --   add_dirs = true,
-  --   depth = 1,
-  -- })
   pickers.new(opts, {
     prompt_title = 'Change Directory',
-    finder = finders.new_oneshot_job({
-      'fd',
-      '-t',
-      'd',
-      '--hidden',
-      '--ignore-file',
-      fn.expand('$HOME/') .. '.agignore'
-    }, opts),
+    finder = finders.new_oneshot_job(
+      { 'fd', '-t', 'd', '--hidden', '--ignore-file', ignore_file },
+      opts
+    ),
     sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr, map)
+    attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
         local selection = action_state.get_selected_entry()
-        print(selection)
         if selection ~= nil then
           actions.close(prompt_bufnr)
+          -- TODO: allow using tcd on <C-t>
           api.nvim_command('cd ' .. dir .. '/' .. selection[1])
         end
       end)
@@ -476,8 +536,31 @@ function _G.telescope_cd(dir)
     end,
   }):find()
 end
+
 map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
 map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
+map('n', 'cz', ':Telescope zoxide list<CR>')
+
+---------
+-- nui --
+---------
+local popup = {
+  position = { row = '40%', col = '50%' },
+  size = { width = '30%' },
+  border = { style = 'rounded', highlight = 'FloatBorder' },
+  win_options = { winhighlight = 'Normal:Normal' }
+}
+
+vim.ui.input = function(opts, on_submit)
+  local input = require('nui.input')(
+    popup, { prompt = opts.prompt, default_value = '', on_submit = on_submit }
+  )
+  input:mount()
+  input:map('i', '<Esc>', input.input_props.on_close, { noremap = true })
+  input:map('i', '<C-c>', input.input_props.on_close, { noremap = true })
+  input:map('i', '<C-q>', input.input_props.on_close, { noremap = true })
+end
+
 ---------------
 -- Nvim-tree --
 ---------------
@@ -538,6 +621,7 @@ autopairs.add_rules {
 
 _G.autopairs_cr = autopairs.autopairs_cr
 _G.autopairs_bs = autopairs.autopairs_bs
+
 map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
 map('i', '<C-h>', 'v:lua.autopairs_bs()', {expr = true})
 
@@ -868,6 +952,7 @@ map('n', '<CR>', '<Plug>kommentary_line_default',   { noremap = false })
 map('x', '<CR>', '<Plug>kommentary_visual_default', { noremap = false })
 
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
+map('t', '<Esc>', '<C-\\><C-n>')
 autocmd.augroup {
   'mappings',
   {
