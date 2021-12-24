@@ -27,6 +27,11 @@ local function map(modes, lhs, rhs, opts)
   end
 end
 
+local function feedkeys(keys, mode)
+  if mode == nil then mode = 'i' end
+  return api.nvim_feedkeys(t(keys), mode, true)
+end
+
 local function error(message)
   api.nvim_echo({{message, 'Error'}}, false, {})
 end
@@ -183,9 +188,9 @@ local function complete()
     if cmp.visible() then
       cmp.mapping.confirm({select = true})()
     elseif call 'vsnip#available' == 1 then
-      return api.nvim_feedkeys(t '<Plug>(vsnip-expand)', 'i', true)
+      return feedkeys('<Plug>(vsnip-expand)')
     elseif copilot_keys ~= '' then
-      api.nvim_feedkeys(copilot_keys, 'i', true)
+      feedkeys(copilot_keys)
     else
       cmp.complete()
     end
@@ -432,8 +437,8 @@ require('telescope').setup {
         ['<C-n>'] = 'cycle_history_next',
         ['<C-q>'] = 'close',
         ['<M-q>'] = 'send_to_qflist',
-        ['<C-a>'] = function() api.nvim_feedkeys(t '<Home>', 'i', true) end,
-        ['<C-e>'] = function() api.nvim_feedkeys(t '<End>', 'i', true) end,
+        ['<C-a>'] = function() feedkeys('<Home>') end,
+        ['<C-e>'] = function() feedkeys('<End>') end,
         ['<C-u>'] = false
       },
       n = {
@@ -951,7 +956,16 @@ map('n', 'cm',   '<Plug>kommentary_motion_default', { noremap = false })
 map('n', '<CR>', '<Plug>kommentary_line_default',   { noremap = false })
 map('x', '<CR>', '<Plug>kommentary_visual_default', { noremap = false })
 
-map('n', '<Esc>', '<cmd>nohlsearch<CR>')
+function _G.escape()
+  print(bo.modifiable)
+  if bo.modifiable then
+    cmd 'nohlsearch'
+  else
+    return feedkeys('<C-w>c', 'n')
+  end
+end
+
+map('n', '<Esc>', '<cmd>lua escape()<CR>', { noremap = false })
 map('t', '<Esc>', '<C-\\><C-n>')
 autocmd.augroup {
   'mappings',
@@ -960,13 +974,6 @@ autocmd.augroup {
       ['*'] = function()
         map('n', '<CR>',  '<CR>',   { buffer = true })
         map('n', '<Esc>', '<C-w>c', { buffer = true })
-      end
-    }},
-    { 'BufWinEnter', {
-      ['*'] = function()
-        if not bo.modifiable then
-          map('n', '<Esc>', '<C-w>c', { buffer = true })
-        end
       end
     }}
   }
