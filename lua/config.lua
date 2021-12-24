@@ -455,7 +455,7 @@ require('telescope').setup {
     -- layout_config = { width = 0.9, preview_width = 80 },
     layout_config = { width = 0.9},
     selection_caret = '▶ ',
-    path_display = {"truncate"},
+    path_display = { 'truncate' },
     prompt_prefix = '   ',
     file_ignore_patterns = {
       '%.git/', 'node_modules/', '%.npm/', '__pycache__/', '%[Cc]ache/',
@@ -479,12 +479,12 @@ require('telescope').setup {
     bookmarks = {
       selected_browser = 'brave',
       url_open_command = 'xdg-open &>/dev/null',
-    },
+    }
   }
 }
 
 function _G.telescope_markdowns()
-  require("telescope.builtin").find_files({
+  require('telescope.builtin').find_files({
     search_dirs = { '$MARKDOWNS' },
     prompt_title = 'Markdowns',
     path_display = function(_, path)
@@ -531,7 +531,7 @@ map('n', '<C-p>',      '<cmd>Telescope find_files<CR>')
 map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
 map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
-map('n', '<leader>m',  '<cmd>Telescope oldfiles<CR>')
+map('n', '<leader>m',  '<cmd>Telescope frecency<CR>')
 map('n', '<leader>h',  '<cmd>Telescope help_tags<CR>')
 map('n', '<leader>tt', '<cmd>Telescope<CR>')
 map('n', '<leader>th', '<cmd>Telescope highlights<CR>')
@@ -551,6 +551,7 @@ require('telescope').load_extension('zoxide')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('bookmarks')
+require('telescope').load_extension('frecency')
 
 ---------
 -- nui --
@@ -884,8 +885,8 @@ require('gitsigns').setup {
     ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line({full = true, ignore_whitespace = true})<CR>',
 
     -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
+    ['o ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>'
   },
   attach_to_untracked = false
 }
