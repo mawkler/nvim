@@ -539,10 +539,11 @@ map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<CR>')
 map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
 map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
 map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
+map('n', '<leader>tc', '<cmd>Telescope cheat fd<CR>')
 
 map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
 map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
-map('n', 'cz', ':Telescope zoxide list<CR>')
+map('n', 'cz', '<cmd>Telescope zoxide list<CR>')
 map('n', '<leader>B', '<cmd>Telescope bookmarks<CR>')
 map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
 map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
@@ -552,6 +553,7 @@ require('telescope').load_extension('ui-select')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('frecency')
+require('telescope').load_extension('cheat')
 
 ---------
 -- nui --

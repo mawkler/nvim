@@ -73,6 +73,7 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
   Plug 'jvgrootveld/telescope-zoxide'
   Plug 'dhruvmanila/telescope-bookmarks.nvim'
+  Plug 'nvim-telescope/telescope-cheat.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope-ui-select.nvim' " Use telescope for vim.ui.select
   Plug 'nvim-telescope/telescope-frecency.nvim'
