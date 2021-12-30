@@ -7,7 +7,7 @@ local function t(str)
 end
 
 local function map(modes, lhs, rhs, opts)
- -- TODO: change so that opts is a table of strings
+  -- TODO: change so that opts is a table of strings
   if (type(modes) ~= 'table') then modes = {modes} end
 
   local keymap
@@ -452,8 +452,12 @@ require('telescope').setup {
         ['<C-q>'] = 'close',
       }
     },
-    -- layout_config = { width = 0.9, preview_width = 80 },
-    layout_config = { width = 0.9},
+    layout_config = {
+      width = 0.9,
+      horizontal = {
+        preview_width = 80
+      }
+    },
     selection_caret = '▶ ',
     path_display = { 'truncate' },
     prompt_prefix = '   ',
@@ -468,7 +472,7 @@ require('telescope').setup {
   extensions = {
     ['ui-select'] = {
       require('telescope.themes').get_dropdown({
-         preview_width = nil,
+        preview_width = nil,
       }),
     },
     fzf = {
