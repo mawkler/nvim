@@ -502,6 +502,7 @@ function _G.telescope_config()
     search_dirs = { '~/.config/nvim/' },
     prompt_title = 'Neovim config',
     path_display = { 'truncate' },
+    hidden = true,
   })
 end
 
