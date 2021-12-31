@@ -243,10 +243,8 @@ nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
 nmap     <leader>V        :drop ~/.config/nvim/init.vim<CR>
-nmap     <leader>Ii       :drop ~/.config/nvim/init.vim<CR>
 nmap     <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
 nmap     <leader>Z        :drop ~/.zshrc<CR>
-nmap     <leader>~        :cd ~<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 nmap     gF               :e <C-r>+<CR>
 xnoremap //               omsy/<C-R>"<CR>`s
