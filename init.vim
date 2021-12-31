@@ -242,7 +242,7 @@ nnoremap <C-w>C           :tabclose<CR>
 nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
-nmap     <leader>V        :drop ~/.vimrc<CR>
+nmap     <leader>V        :drop ~/.config/nvim/init.vim<CR>
 nmap     <leader>Ii       :drop ~/.config/nvim/init.vim<CR>
 nmap     <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
 nmap     <leader>Z        :drop ~/.zshrc<CR>
@@ -449,7 +449,7 @@ augroup END
 " -- vim-plug --
 augroup vim_plug
   autocmd!
-  autocmd FileType vim nmap <buffer> <F5> :source ~/.vimrc \| :PlugInstall<CR>
+  autocmd FileType vim nmap <buffer> <F5> :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
 augroup end
 
 " -- Surround --
