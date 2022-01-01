@@ -8,7 +8,7 @@
 
 1. ```sh
    # Clone this repository to ~/.config/nvim/
-   git clone https://github.com/Melkster/nvim/ ~/.config/nvim/
+   git clone https://github.com/melkster/nvim/ ~/.config/nvim/
    # Install vim-plug
    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -18,4 +18,4 @@
    pip install --user neovim
    ```
 
-My other dotfiles are available [here](https://github.com/Melkster/nvim/).
+My other dotfiles are available [here](https://github.com/melkster/nvim/).

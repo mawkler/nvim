@@ -23,7 +23,7 @@ if !$NVIM_MINIMAL
   Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
   Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
   Plug 'mbbill/undotree'
-  Plug 'Melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
+  Plug 'melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
   Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
   Plug 'junegunn/vim-peekaboo'               " Opens preview when selecting register
   Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
@@ -62,7 +62,7 @@ if has('nvim')
   Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'hrsh7th/vim-vsnip'             " Snippet engine
-  Plug 'Melkster/friendly-snippets'    " Set of snippets
+  Plug 'melkster/friendly-snippets'    " Set of snippets
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects',
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -89,7 +89,7 @@ if has('nvim')
   Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
   Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
   Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
-  Plug 'Melkster/onedark.nvim'
+  Plug 'melkster/onedark.nvim'
   Plug 'ThePrimeagen/refactoring.nvim'
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
