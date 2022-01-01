@@ -1,4 +1,4 @@
-# Melker's Neovim configuraiton
+# Melker's Neovim configuration
 
 ![Neovim screenshot](https://user-images.githubusercontent.com/15816726/147858310-10f08157-8f95-403a-9065-a00c07cfa5b3.png)
 
