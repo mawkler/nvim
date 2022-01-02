@@ -443,7 +443,9 @@ require('telescope').setup {
         ['<C-p>'] = 'cycle_history_prev',
         ['<C-n>'] = 'cycle_history_next',
         ['<C-q>'] = 'close',
+        ['<M-a>'] = 'toggle_all',
         ['<M-q>'] = 'send_to_qflist',
+        ['<C-s>'] = 'file_vsplit',
         ['<C-a>'] = function() feedkeys('<Home>') end,
         ['<C-e>'] = function() feedkeys('<End>') end,
         ['<C-u>'] = false
@@ -1086,3 +1088,12 @@ api.nvim_set_keymap('v',
 -- Indent-o-matic --
 --------------------
 require('indent-o-matic').setup {}
+
+
+--------------
+-- Miniyank --
+--------------
+map({'n', 'x'}, 'p',     '<Plug>(miniyank-autoput)',   { noremap = false })
+map({'n', 'x'}, 'P',     '<Plug>(miniyank-autoPut)',   { noremap = false })
+map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)',     { noremap = false })
+map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)', { noremap = false })

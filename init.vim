@@ -94,13 +94,13 @@ if has('nvim')
   Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
   Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
   Plug 'jakelinnzy/autocmd-lua'        " Lua autocommands
+  Plug 'bfredl/nvim-miniyank'
 endif
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'unblevable/quick-scope'
 Plug 'andymass/vim-matchup'         " Ads additional `%` commands
 Plug 'windwp/nvim-autopairs'        " Automatically add closing brackets, quotes, etc
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/capslock.vim'     " Adds caps lock mapping to insert mode
 Plug 'vim-scripts/StripWhiteSpaces'
@@ -166,9 +166,6 @@ augroup custom_filetypes
   autocmd!
   autocmd BufNewFile,BufRead *.dconf set syntax=sh
 augroup END
-
-" -- Yankstack --
-call yankstack#setup() " Has to be called before remap of any yankstack_yank_keys
 
 " -- Key mappings --
 let mapleader = "\<Space>"
