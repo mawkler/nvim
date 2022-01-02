@@ -126,6 +126,7 @@ Plug 'xolox/vim-session'            " Extened session management
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
+Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
 call plug#end()
 
 " -- General --
