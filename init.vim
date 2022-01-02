@@ -174,12 +174,12 @@ map <S-space> <space>
 
 nnoremap Y                y$
 nnoremap yp               yyp
-map      <leader>y        "+y
-map      <leader>Y        "+Y
-map      <leader>d        "+d
-map      <leader>D        "+D
-map      <leader>p        "+p
-map      <leader>P        "+P
+noremap  <leader>y        "+y
+noremap  <leader>Y        "+Y
+noremap  <leader>d        "+d
+noremap  <leader>D        "+D
+noremap  <leader>p        "+p
+noremap  <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
 nnoremap <S-Tab>          <<

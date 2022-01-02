@@ -1089,7 +1089,6 @@ api.nvim_set_keymap('v',
 --------------------
 require('indent-o-matic').setup {}
 
-
 --------------
 -- Miniyank --
 --------------
