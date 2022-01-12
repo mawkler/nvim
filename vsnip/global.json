@@ -1,0 +1,31 @@
+{
+  "diso": {
+    "prefix": "diso",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ],
+    "description": "ISO date time stamp"
+  },
+  "date": {
+    "prefix": ["date", "today"],
+    "body": ["${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"],
+    "description": "Current date YYYY-MM-DD"
+  },
+  "datetime": {
+    "prefix": "datetime",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}"
+    ],
+    "description": "Current date and time YYYY-MM-DD hh:mm"
+  },
+  "time": {
+    "prefix": "time",
+    "body": ["${CURRENT_HOUR}:${CURRENT_MINUTE}"],
+    "description": "Current time hh:mm"
+  },
+  "todo": {
+    "prefix": "todo",
+    "body": ["$LINE_COMMENT TODO: ${1}"],
+    "description": "TODO: ..."
+  }
+}
