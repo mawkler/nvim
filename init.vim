@@ -145,7 +145,7 @@ set splitright        " Open vertical window splits to the right instead of left
 set encoding=utf-8
 set updatetime=500
 if exists('g:goneovim')
-  set guifont=FiraCode\ Nerd\ Font:h12
+  set guifont=FiraCode\ Nerd\ Font:h11
 endif
 
 augroup filechanged
@@ -388,7 +388,7 @@ endf
 noremap <silent> <C-=> :call Zoom(v:count1)<CR>
 noremap <silent> <C-+> :call Zoom(v:count1)<CR>
 noremap <silent> <C--> :call Zoom(-v:count1)<CR>
-noremap <silent> <C-0> :call ZoomSet(12)<CR>
+noremap <silent> <C-0> :call ZoomSet(11)<CR>
 
 if has('nvim')
   cnoremap <C-p> <Up>
@@ -910,6 +910,8 @@ endf
 
 " -- vim-session --
 let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 1
+let g:session_autosave_silent = 1
 let g:session_default_overwrite = 1
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
