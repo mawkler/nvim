@@ -660,7 +660,7 @@ let g:fzf_layout = {
       \ }}
 " TODO: Check if we're in a git repo, if we are, use telescope
 nmap <silent> <leader><C-p> :call FZF_files('~')<CR>
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -g "" -p $HOME/.agignore-vim'
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --ignore-file-case-insensitive --ignore-file=$HOME/.ignore-nvim'
 let $FZF_DEFAULT_OPTS = '
       \ --multi
       \ --prompt ">>> "
