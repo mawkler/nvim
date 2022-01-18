@@ -618,6 +618,14 @@ require('nvim-tree').setup {
     }
   }
 }
+
+autocmd.augroup {
+  'NvimTreeRefresh',
+  {{ 'BufEnter', {
+    ['NvimTree'] = require('nvim-tree.lib').refresh_tree
+  }}}
+}
+
 map('n', '<leader>`', ':NvimTreeToggle<CR>')
 map('n', '<leader>~', ':NvimTreeFindFile<CR>')
 cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
