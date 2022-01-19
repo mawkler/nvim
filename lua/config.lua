@@ -884,10 +884,26 @@ require('statusline').setup({
   }
 })
 
-----------------
+---------
 -- DAP --
-----------------
+---------
 require('dap-config')
+
+----------------------
+-- Indent blankline --
+----------------------
+require('indent_blankline').setup {
+  char = '▏',
+  show_first_indent_level = false,
+  buftype_exclude = {'fzf', 'help'},
+  filetype_exclude = {
+    'markdown',
+    'startify',
+    'sagahover',
+    'NvimTree',
+    'lsp-installer',
+  }
+}
 
 --------------
 -- Gitsigns --
@@ -1118,3 +1134,17 @@ map({'n', 'x'}, 'p',     '<Plug>(miniyank-autoput)',   { noremap = false })
 map({'n', 'x'}, 'P',     '<Plug>(miniyank-autoPut)',   { noremap = false })
 map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)',     { noremap = false })
 map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)', { noremap = false })
+
+---------------------
+-- General config --
+---------------------
+-- Highlight text object on yank
+autocmd.augroup {
+  'HighlightYank',
+  {{ 'TextYankPost', {
+    ['*'] = function()
+      vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
+    end
+  }}
+  }
+}

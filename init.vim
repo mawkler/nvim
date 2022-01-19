@@ -1,101 +1,97 @@
 " -- Plugins --
 call plug#begin('~/.config/nvim/packages/')
-
-if !$NVIM_MINIMAL
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
-  Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-abolish'
-  Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
-  Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
-  Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
-  Plug 'kana/vim-niceblock'                  " Improves visual mode
-  Plug 'kana/vim-textobj-syntax'
-  Plug 'haya14busa/vim-textobj-function-syntax'
-  Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
-  Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
-  Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
-  Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
-  Plug 'meain/vim-printer'
-  Plug 'rhysd/git-messenger.vim'
-  Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
-  Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
-  Plug 'mbbill/undotree'
-  Plug 'melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
-  Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
-  Plug 'junegunn/vim-peekaboo'               " Opens preview when selecting register
-  Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
-  Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
-  Plug 'RRethy/vim-hexokinase', {'do': 'make'} " Displays the colours (rgb, etc.) in files
-  Plug 'mhinz/vim-startify'                  " Nicer start screen
-  Plug 'DanilaMihailov/beacon.nvim'          " Flash the cursor location on jump
-endif
-if has('nvim')
-  Plug 'lukas-reineke/indent-blankline.nvim'
-  Plug 'wsdjeg/notifications.vim'
-  Plug 'coreyja/fzf.devicon.vim'
-  Plug 'Xuyuanp/scrollbar.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'  " Required by barbar.nvim
-  Plug 'kyazdani42/nvim-tree.lua'      " File explorer
-  Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
-  Plug 'mhartington/formatter.nvim'    " Auto formatting
-  Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
-  Plug 'famiu/feline.nvim'             " Statusline creation framework
-  Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
-  Plug 'windwp/floatline.nvim'         " One global statusline
-  Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
-  " Neovim LSP
-  Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
-  Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
-  Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/cmp-nvim-lua'
-  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
-  Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
-  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-  Plug 'hrsh7th/vim-vsnip'             " Snippet engine
-  Plug 'melkster/friendly-snippets'    " Set of snippets
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects',
-  Plug 'JoosepAlviste/nvim-ts-context-commentstring'
-  Plug 'nvim-treesitter/playground'
-  Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'tami5/sqlite.lua'              " Required by telescope-frecency
-  Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
-  Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
-  Plug 'jvgrootveld/telescope-zoxide'
-  Plug 'dhruvmanila/telescope-bookmarks.nvim'
-  Plug 'nvim-telescope/telescope-cheat.nvim'
-  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-  Plug 'nvim-telescope/telescope-ui-select.nvim' " Use telescope for vim.ui.select
-  Plug 'nvim-telescope/telescope-frecency.nvim'
-  Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
-  Plug 'MunifTanjim/nui.nvim'          " UI component library
-  Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
-  Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
-  Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
-  Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
-  Plug 'b3nj5m1n/kommentary'           " For toggling comments
-  Plug 'NTBBloodbath/rest.nvim'        " For sending GET/POST/etc. requests
-  Plug 'mfussenegger/nvim-dap'         " Debugger client
-  Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
-  Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
-  Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
-  Plug 'melkster/onedark.nvim'
-  Plug 'ThePrimeagen/refactoring.nvim'
-  Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
-  Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
-  Plug 'jakelinnzy/autocmd-lua'        " Lua autocommands
-  Plug 'bfredl/nvim-miniyank'
-endif
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'                  " Makes actions like `:Gpush` asynchronous
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
+Plug 'vim-scripts/git-time-lapse'          " Step through a file's git history
+Plug 'inkarkat/vim-visualrepeat'           " Allows repeating using `.` over visual selection
+Plug 'milkypostman/vim-togglelist'         " Adds mapping to toggle QuickFix window
+Plug 'kana/vim-niceblock'                  " Improves visual mode
+Plug 'kana/vim-textobj-syntax'
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'PeterRincker/vim-argumentative'      " Adds mappings for swapping arguments
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
+Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
+Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
+Plug 'meain/vim-printer'
+Plug 'rhysd/git-messenger.vim'
+Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
+Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
+Plug 'mbbill/undotree'
+Plug 'melkster/vim-outdated-plugins'       " Gives notification on startup with number of outdated plugins
+Plug 'breuckelen/vim-resize'               " For resizing with arrow keys
+Plug 'junegunn/vim-peekaboo'               " Opens preview when selecting register
+Plug 'RishabhRD/popfix'                    " Required by nvim-cheat.sh
+Plug 'RishabhRD/nvim-cheat.sh'             " cheat.sh integration for neovim
+Plug 'RRethy/vim-hexokinase', {'do': 'make'} " Displays the colours (rgb, etc.) in files
+Plug 'mhinz/vim-startify'                  " Nicer start screen
+Plug 'DanilaMihailov/beacon.nvim'          " Flash the cursor location on jump
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'wsdjeg/notifications.vim'
+Plug 'coreyja/fzf.devicon.vim'
+Plug 'Xuyuanp/scrollbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'  " Required by barbar.nvim
+Plug 'kyazdani42/nvim-tree.lua'      " File explorer
+Plug 'romgrk/barbar.nvim'            " Sexiest buffer tabline
+Plug 'mhartington/formatter.nvim'    " Auto formatting
+Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
+Plug 'famiu/feline.nvim'             " Statusline creation framework
+Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
+Plug 'windwp/floatline.nvim'         " One global statusline
+Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
+" Neovim LSP
+Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
+Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
+Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
+Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'hrsh7th/vim-vsnip'             " Snippet engine
+Plug 'melkster/friendly-snippets'    " Set of snippets
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects',
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-lua/lsp-status.nvim'
+"-----------
+Plug 'tami5/sqlite.lua'              " Required by telescope-frecency
+Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
+Plug 'nvim-lua/plenary.nvim'         " Required by telescope.nvim
+Plug 'jvgrootveld/telescope-zoxide'
+Plug 'dhruvmanila/telescope-bookmarks.nvim'
+Plug 'nvim-telescope/telescope-cheat.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-ui-select.nvim' " Use telescope for vim.ui.select
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
+Plug 'MunifTanjim/nui.nvim'          " UI component library
+Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
+Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
+Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
+Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
+Plug 'b3nj5m1n/kommentary'           " For toggling comments
+Plug 'NTBBloodbath/rest.nvim'        " For sending GET/POST/etc. requests
+Plug 'mfussenegger/nvim-dap'         " Debugger client
+Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
+Plug 'Pocco81/DAPInstall.nvim'       " For installing and managing debuggers
+Plug 'jbyuki/one-small-step-for-vimkind' " Lua plugin debug adapter
+Plug 'melkster/onedark.nvim'
+Plug 'ThePrimeagen/refactoring.nvim'
+Plug 'Darazaki/indent-o-matic'       " Automatic fast indentation detection
+Plug 'lewis6991/impatient.nvim'      " Improve startup time for Neovim
+Plug 'jakelinnzy/autocmd-lua'        " Lua autocommands
+Plug 'bfredl/nvim-miniyank'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'unblevable/quick-scope'
@@ -173,7 +169,6 @@ let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 map <S-space> <space>
 
-nnoremap Y                y$
 nnoremap yp               yyp
 noremap  <leader>y        "+y
 noremap  <leader>Y        "+Y
@@ -183,9 +178,6 @@ noremap  <leader>p        "+p
 noremap  <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
-nnoremap <S-Tab>          <<
-vnoremap <S-Tab>          <gv
-nnoremap <M-o>            <C-i>
 map      <S-CR>           <C-w>W
 map      -                3<C-W><
 map      +                3<C-W>>
@@ -205,17 +197,12 @@ xmap     v                $h
 nnoremap c_               c^
 nnoremap d_               d^
 nmap     <BS>             X
-nmap     <S-BS>           x
 nmap     <M-BS>           db
 map!     <M-BS>           <C-w>
-nmap     <M-S-BS>         dw
-imap     <M-S-BS>         <C-o>dw
-map      <M-d>            dw
 map!     <M-p>            <C-r>"
 smap     <M-p>            <C-g>p
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
-" Cursor movement in cmd and insert mode--------
 map!     <C-f>            <Right>
 map!     <M-f>            <C-Right>
 map!     <C-b>            <Left>
@@ -224,16 +211,12 @@ cmap     <M-h>            <Left>
 map!     <M-b>            <C-Left>
 map!     <M-w>            <C-Right>
 cmap     <C-a>            <Home>
-imap     <M-o>            <C-o>o
-imap     <M-O>            <C-o>O
-"----------------------------------------------
 nmap     <M-j>            :m .+1<CR>==
 nmap     <M-k>            :m .-2<CR>==
 xmap     <M-j>            :m '>+1<CR>gv=gv
 xmap     <M-k>            :m '<-2<CR>gv=gv
 imap     <M-j>            <Esc>:m .+1<CR>==gi
 imap     <M-k>            <Esc>:m .-2<CR>==gi
-map      <C-Space>        zt
 map      <C-w>gd          <C-w>vgd
 nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
@@ -244,7 +227,6 @@ nmap     <leader>V        :drop ~/.config/nvim/init.vim<CR>
 nmap     <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
 nmap     <leader>Z        :drop ~/.zshrc<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
-nmap     gF               :e <C-r>+<CR>
 xnoremap //               omsy/<C-R>"<CR>`s
 nnoremap /                ms/
 nnoremap *                ms*
@@ -259,7 +241,6 @@ map      g/               /\<\><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      Q                @@
 map      <leader>q        qqqqq
-nnoremap §                <C-^>
 nnoremap cg*              *Ncgn
 nnoremap dg*              *Ndgn
 vnoremap gcn              //Ncgn
@@ -285,6 +266,10 @@ nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
 map <silent> <leader>gm <Plug>(git-messenger)
 map <silent> <leader>gB :Git blame<CR>
 map <silent> <leader>gd :call GitDiff()<CR>
+map <silent> <leader>gs :vertical Git<CR>
+map <silent> <leader>gp :Git pull<CR>
+map          <leader>gP :Git push
+map          <leader>gc :vertical Git commit -va
 
 function GitDiff() abort
   let tmp = g:bufferline.insert_at_end
@@ -295,10 +280,7 @@ function GitDiff() abort
   windo set wrap
   let g:bufferline.insert_at_end = tmp
 endf
-map <silent> <leader>gs :vertical Git<CR>
-map <silent> <leader>gp :Git pull<CR>
-map          <leader>gP :Git push
-map          <leader>gc :vertical Git commit -va
+set fillchars+=diff:\  " Makes removed lines in diff cleaner
 
 " `;`/`,` always seach forward/backward, respectively
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -352,7 +334,7 @@ augroup vertical_help
   autocmd FileType help
         \ setlocal bufhidden=unload |
         \ wincmd L |
-        \ vertical resize 79
+        \ vertical resize 80
 augroup END
 
 " Prints the syntax highlighting values under cursor
@@ -390,13 +372,11 @@ noremap <silent> <C-+> :call Zoom(v:count1)<CR>
 noremap <silent> <C--> :call Zoom(-v:count1)<CR>
 noremap <silent> <C-0> :call ZoomSet(11)<CR>
 
-if has('nvim')
-  cnoremap <C-p> <Up>
-  cnoremap <C-n> <Down>
-  cnoremap <C-q> <Esc>
-  set cpoptions-=_ " Makes cw/cW include the whitespace after the word
-  set shada=!,'1000,<50,s10,h
-endif
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-q> <Esc>
+set cpoptions-=_ " Makes cw/cW include the whitespace after the word
+set shada=!,'1000,<50,s10,h
 
 if exists('$TMUX')
   set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
@@ -420,12 +400,6 @@ set list listchars=tab:\ \ ,nbsp:·
 set shiftround                    " Round indent to multiple of shiftwdith
 set cinkeys-=0#                   " Indent lines starting with `#`
 
-" Disable toolbar, scrollbar and menubar
-set guioptions-=T
-set guioptions-=r
-set guioptions-=m
-set guioptions-=L
-
 " Command to change directory to the current file's
 command! CDHere cd %:p:h
 
@@ -435,12 +409,6 @@ command! -bar -bang -nargs=? -complete=file Trash
       \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
-
-" Highlight text object on yank
-augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
-augroup END
 
 " -- vim-plug --
 augroup vim_plug
@@ -494,17 +462,6 @@ augroup language_specific
   autocmd FileType gitcommit exec 'norm gg' | setlocal spell | startinsert!
   autocmd FileType lua setlocal keywordprg=:help
   autocmd FileType lua let b:surround_{char2nr('F')} = "function() return \r end"
-augroup end
-
-" -- netrw --
-let g:netrw_silent = 1
-let g:netrw_preview = 1
-let g:netrw_browse_split = 0
-let g:netrw_altv = 1
-let g:netrw_bufsettings = 'noma nomod nonu nowrap ro bl'
-augroup netrw
-  autocmd!
-  autocmd FileType netrw nmap <buffer> o <CR>
 augroup end
 
 " -- Quickscope --
@@ -566,30 +523,16 @@ augroup colorschemeMods
 augroup END
 call s:colorschemeMods()
 
-" -- IndentLine and indent_blankline --
-let g:indent_blankline_char = '▏'
-let g:indent_blankline_show_first_indent_level = v:false
-let g:indent_blankline_buftype_exclude = ['fzf', 'help']
-let g:indent_blankline_filetype_exclude = [
-      \   'markdown', 'startify', 'sagahover', 'NvimTree', 'lsp-installer'
-      \ ]
-" Fixes bug where blank lines get highlighted by cursorline highlighting
-" https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-" TODO: remove this once the bug is fixed
-set colorcolumn=99999
-
 " For toggling caps lock in insert mode
 imap <S-Esc> <Plug>CapsLockToggle
-imap <M-c> <Plug>CapsLockToggle
+imap <M-c>   <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
-" Start in visual mode (e.g. vipga):
 xmap ga <Plug>(EasyAlign)
-" Start for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
 " -- For editing multiple files with `*` --
-com! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
+command! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
 " -- Targets.vim --
 let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
@@ -600,9 +543,6 @@ augroup targets
         \ 'b': {'pair': [{'o':'(', 'c':')'}]}
         \ })
 augroup end
-
-" -- Vim Sleuth --
-let g:sleuth_automatic = 1
 
 " Use <C-k>/<C-j> to move up/down in PUM selection
 inoremap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
@@ -660,7 +600,7 @@ let g:fzf_layout = {
       \ }}
 " TODO: Check if we're in a git repo, if we are, use telescope
 nmap <silent> <leader><C-p> :call FZF_files('~')<CR>
-let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --ignore-file-case-insensitive --ignore-file=$HOME/.ignore-nvim'
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --ignore-file-case-insensitive --ignore-file=$HOME/.config/nvim/.ignore-nvim'
 let $FZF_DEFAULT_OPTS = '
       \ --multi
       \ --prompt ">>> "
@@ -831,7 +771,7 @@ augroup markdown
   autocmd FileType markdown omap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
   autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
 augroup END
-"
+
 " Fixes crash
 nmap ]f <Nop>
 nmap [f <Nop>
@@ -850,9 +790,9 @@ let g:highlighturl_guifg = '#61AFEF'
 nmap <silent> <leader>u :UndotreeShow \| UndotreeFocus<CR>
 augroup undotree
   autocmd!
-  autocmd FileType undotree nmap <silent> <buffer> <Tab> <Plug>UndotreeFocusTarget
+  autocmd FileType undotree nmap <silent> <buffer> <Tab>     <Plug>UndotreeFocusTarget
   autocmd FileType undotree nmap <silent> <buffer> <leader>u <Plug>UndotreeClose
-  autocmd FileType undotree nmap <silent> <buffer> <Esc> <Plug>UndotreeClose
+  autocmd FileType undotree nmap <silent> <buffer> <Esc>     <Plug>UndotreeClose
 augroup end
 
 " -- bullets --
@@ -977,9 +917,6 @@ nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
 nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
 nnoremap <silent> <Leader>9 :BufferLast<CR>
 
-" -- Neovim specific
-if has('nvim')
-
 " -- Scrollbar --
 exe 'hi Scrollbar guifg=' .. GetHiVal('Visual', 'bg') .. ' guibg=' .. GetHiVal('Normal', 'bg')
 let g:scrollbar_right_offset = 0
@@ -1023,8 +960,6 @@ endf
 
 " -- VSnip --
 let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
-
-endif
 
 " -- Grammarous --
 let g:grammarous#languagetool_cmd = 'languagetool'
