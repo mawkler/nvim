@@ -18,4 +18,4 @@
    pip install --user neovim
    ```
 
-My other dotfiles are available [here](https://github.com/melkster/nvim/).
+My other dotfiles are available [here](https://github.com/melkster/dotfiles).
