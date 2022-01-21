@@ -159,9 +159,9 @@ lspkind.init {
 ---------
 o.completeopt = 'menuone,noselect'
 local cmp = require('cmp')
-local mapping = cmp.mapping
-local disabled = cmp.config.disable
-local insert = { behavior = cmp.SelectBehavior.Insert }
+local cmp_mapping = cmp.mapping
+local cmp_disabled = cmp.config.disable
+local cmp_insert = { behavior = cmp.SelectBehavior.Insert }
 
 local function cmp_map(rhs, modes)
   if (modes == nil) then
@@ -222,7 +222,11 @@ local sources = {
   { name = 'vsnip' },
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
-  { name = 'path' },
+  { name = 'path',
+    option = {
+      trailing_slash = true
+    }
+  },
   {
     name = 'buffer',
     option = {
@@ -238,15 +242,15 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-j>'] = cmp_map(mapping.select_next_item(insert)),
-    ['<C-k>'] = cmp_map(mapping.select_prev_item(insert)),
-    ['<C-b>'] = cmp_map(mapping.scroll_docs(-4)),
-    ['<C-f>'] = cmp_map(mapping.scroll_docs(4)),
+    ['<C-j>'] = cmp_map(cmp_mapping.select_next_item(cmp_insert)),
+    ['<C-k>'] = cmp_map(cmp_mapping.select_prev_item(cmp_insert)),
+    ['<C-b>'] = cmp_map(cmp_mapping.scroll_docs(-4)),
+    ['<C-f>'] = cmp_map(cmp_mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
     ['<Tab>'] = cmp_map(complete()),
-    ['<C-y>'] = disabled,
-    ['<C-n>'] = disabled,
-    ['<C-p>'] = disabled,
+    ['<C-y>'] = cmp_disabled,
+    ['<C-n>'] = cmp_disabled,
+    ['<C-p>'] = cmp_disabled,
   },
   sources = cmp.config.sources(sources),
   formatting = {
@@ -367,10 +371,10 @@ map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n',        'gh',        '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n',        'gH',        '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
 map('n',        '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
-map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({float = { border = "single" }})<CR>')
-map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({float = { border = "single" }})<CR>')
-map('n',        ']E',        '<cmd>lua vim.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        '[E',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        '[h',        '<cmd>lua vim.diagnostic.goto_prev({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        ']h',        '<cmd>lua vim.diagnostic.goto_next({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
@@ -395,7 +399,7 @@ function _G.quickfix_jump(command)
 end
 
 function _G.grep_string()
-  vim.ui.input({prompt = 'Grep > '}, function(value)
+  vim.ui.input({prompt = 'Grep  '}, function(value)
     if value ~= nil then
       require('telescope.builtin').grep_string({search = value})
     end
@@ -432,6 +436,30 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
 
+-- Allows editing multiple files with multi selection
+local custom_action = {}
+function custom_action._multiopen(prompt_bufnr, open_cmd)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local num_selections = #picker:get_multi_selection()
+    if not num_selections or num_selections <= 1 then
+        actions.add_selection(prompt_bufnr)
+    end
+    actions.send_selected_to_qflist(prompt_bufnr)
+    vim.cmd("cfdo " .. open_cmd)
+end
+function custom_action.multi_selection_open_vsplit(prompt_bufnr)
+    custom_action._multiopen(prompt_bufnr, "vsplit")
+end
+function custom_action.multi_selection_open_split(prompt_bufnr)
+    custom_action._multiopen(prompt_bufnr, "split")
+end
+function custom_action.multi_selection_open_tab(prompt_bufnr)
+    custom_action._multiopen(prompt_bufnr, "tabe")
+end
+function custom_action.multi_selection_open(prompt_bufnr)
+    custom_action._multiopen(prompt_bufnr, "edit")
+end
+
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -442,10 +470,17 @@ require('telescope').setup {
         ['<C-n>'] = 'cycle_history_next',
         ['<C-q>'] = 'close',
         ['<M-a>'] = 'toggle_all',
-        ['<M-q>'] = 'send_to_qflist',
-        ['<C-s>'] = 'file_vsplit',
+        ['<M-q>'] = 'smart_send_to_qflist',
+        ['<M-Q>'] = 'smart_add_to_qflist',
+        ['<M-l>'] = 'smart_send_to_loclist',
+        ['<M-L>'] = 'smart_add_to_loclist',
+        ['<M-y>'] = 'open_qflist',
         ['<C-a>'] = function() feedkeys('<Home>') end,
         ['<C-e>'] = function() feedkeys('<End>') end,
+        ['<CR>'] = custom_action.multi_selection_open,
+        ['<C-v>'] = custom_action.multi_selection_open_vsplit,
+        ['<C-s>'] = custom_action.multi_selection_open_split,
+        ['<C-t>'] = custom_action.multi_selection_open_tab,
         ['<C-u>'] = false
       },
       n = {
@@ -459,8 +494,10 @@ require('telescope').setup {
       }
     },
     selection_caret = '▶ ',
+    multi_icon = '',
     path_display = { 'truncate' },
     prompt_prefix = '   ',
+    no_ignore = true,
     file_ignore_patterns = {
       '%.git/', 'node_modules/', '%.npm/', '__pycache__/', '%[Cc]ache/',
       '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.local/',
@@ -474,11 +511,6 @@ require('telescope').setup {
       require('telescope.themes').get_dropdown({
         preview_width = nil,
       }),
-    },
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
     },
     bookmarks = {
       selected_browser = 'brave',
@@ -499,10 +531,17 @@ end
 
 function _G.telescope_config()
   require('telescope.builtin').find_files({
-    search_dirs = { '~/.config/nvim/' },
+    search_dirs = { '$HOME/.config/nvim/' },
     prompt_title = 'Neovim config',
-    path_display = { 'truncate' },
+    file_ignore_patterns = {
+      '.config/nvim/packages/', '.config/nvim/sessions/'
+    },
+    no_ignore = true,
     hidden = true,
+    path_display = function(_, path)
+      -- TODO: refactor this truncation function call
+      return path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
+    end,
   })
 end
 
@@ -518,7 +557,10 @@ function _G.telescope_cd(dir)
       opts
     ),
     sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
+    attach_mappings = function(prompt_bufnr, attach_map)
+      -- These two mappings fix issue with custom actions
+      attach_map('n', '<CR>', 'select_default')
+      attach_map('i', '<CR>', 'select_default')
       actions.select_default:replace(function()
         local selection = action_state.get_selected_entry()
         if selection ~= nil then
@@ -532,7 +574,7 @@ function _G.telescope_cd(dir)
   }):find()
 end
 
-map('n', '<C-p>',      '<cmd>Telescope find_files<CR>')
+map('n', '<C-p>',      '<cmd>Telescope find_files hidden=true<CR>')
 map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
 map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
@@ -545,6 +587,7 @@ map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
 map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
 map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
 map('n', '<leader>tc', '<cmd>Telescope cheat fd<CR>')
+map('n', '<leader>tg', '<cmd>Telescope git_files<CR>')
 
 map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
 map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
@@ -1027,14 +1070,12 @@ map('n', '<Esc>', '<cmd>lua escape()<CR>', { noremap = false })
 map('t', '<Esc>', '<C-\\><C-n>')
 autocmd.augroup {
   'mappings',
-  {
-    { 'CmdwinEnter', {
-      ['*'] = function()
-        map('n', '<CR>',  '<CR>',   { buffer = true })
-        map('n', '<Esc>', '<C-w>c', { buffer = true })
-      end
-    }}
-  }
+  {{ 'CmdwinEnter', {
+    ['*'] = function()
+      map('n', '<CR>',  '<CR>',   { buffer = true })
+      map('n', '<Esc>', '<C-w>c', { buffer = true })
+    end
+  }}}
 }
 
 map('n',        '<leader>cmm', '<Plug>kommentary_line_increase',   {noremap = false})
@@ -1150,6 +1191,15 @@ autocmd.augroup {
     ['*'] = function()
       vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
     end
-  }}
-  }
+  }}}
+}
+
+-- TypeScript specific --
+autocmd.augroup {
+  'TypeScript',
+  {{ 'FileType', {
+    ['typescript'] = function()
+      map('n', '<leader>lo', '<cmd>TSLspOrganize<CR>', { buffer = true })
+    end
+  }}}
 }
