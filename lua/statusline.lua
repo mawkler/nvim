@@ -337,7 +337,7 @@ local function setup(config)
       NORMAL        = 'green',
       OP            = 'green',
       INSERT        = 'blue',
-      COMMAND       = 'red',
+      COMMAND       = 'red2',
       VISUAL        = 'purple',
       LINES         = 'purple',
       BLOCK         = 'purple',

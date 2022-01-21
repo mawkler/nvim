@@ -307,15 +307,13 @@ local colors = require('onedark.colors').setup()
 require('onedark').setup {
   hide_end_of_buffer = false,
   colors = {
-    fg_cursor_linenumber = 'blue',
     fg_search = colors.fg,
     bg_search = colors.bg_visual,
-    fg_gutter = colors.yelow,
-    hint = colors.syntax.comment,
+    hint = colors.fg_dark,
     git = {
-      add = colors.green,
-      change = colors.orange,
-      delete = colors.red
+      add = colors.green0,
+      change = colors.orange1,
+      delete = colors.red1
     }
   }
 }
@@ -878,9 +876,16 @@ make_diagnoistic_underlined('Information')
 require('statusline').setup({
   theme = colors,
   modifications = {
+    bg = colors.bg0,
     fg = '#c8ccd4',
     line_bg = '#353b45',
-    darkgray = '#9ba1b0'
+    darkgray = '#9ba1b0',
+    green = colors.green0,
+    blue = colors.blue0,
+    orange = colors.orange0,
+    purple = colors.purple0,
+    red = colors.red0,
+    cyan = colors.cyan0,
   }
 })
 
