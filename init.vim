@@ -59,7 +59,7 @@ Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'hrsh7th/vim-vsnip'             " Snippet engine
 Plug 'melkster/friendly-snippets'    " Set of snippets
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-textobjects',
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'nvim-treesitter/playground'
@@ -200,7 +200,7 @@ nmap     <BS>             X
 nmap     <M-BS>           db
 map!     <M-BS>           <C-w>
 map!     <M-p>            <C-r>"
-smap     <M-p>            <C-g>p
+smap     <M-p>            <C-g>pgv<C-g>
 map      <M-a>            v<C-a>
 map      <M-x>            v<C-x>
 map!     <C-f>            <Right>
@@ -240,7 +240,7 @@ nmap     <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<C
 map      g/               /\<\><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 map      Q                @@
-map      <leader>q        qqqqq
+map      <leader>Q        qqqqq
 nnoremap cg*              *Ncgn
 nnoremap dg*              *Ndgn
 vnoremap gcn              //Ncgn
@@ -727,7 +727,7 @@ augroup END
 " -- togglelist.vim --
 let g:toggle_list_no_mappings = 1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
-nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
+nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 augroup quickfix
   autocmd!
   autocmd FileType qf nmap <buffer><nowait> <Space> <CR><C-w>p
@@ -989,7 +989,8 @@ exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' 
 exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
 
 " -- ConflictMotions --
-nmap <leader>xb :ConflictTake both<CR>
+nmap <leader>xb     :ConflictTake both<CR>
+nmap <leader>x<Esc> <Esc>
 
 if !exists('g:vscode')
   " -- Peekaboo --
