@@ -33,3 +33,5 @@ node_modules/
 *.dat
 *.mca
 __pycache__
+
+!.config/nvim/packages/

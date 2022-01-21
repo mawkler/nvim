@@ -3,4 +3,4 @@ sessions/
 packages/
 
 http
-plugin/work.vim
+plugin/work.lua
