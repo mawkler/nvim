@@ -250,7 +250,6 @@ xnoremap g.               .
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
 xmap     <leader>K        y:vertical Man <C-R>"<CR>
 
-nmap <silent> <leader>F :let @+ = expand("%:p")<CR>:call Print("Yanked file path <C-r>+")<CR>
 map  <silent> <leader>S :setlocal spell!<CR>
 map           g)        w)ge
 omap <silent> g)        :silent normal vg)h<CR>
@@ -402,6 +401,9 @@ set cinkeys-=0#                   " Indent lines starting with `#`
 
 " Command to change directory to the current file's
 command! CDHere cd %:p:h
+
+" Yank path to current file
+command! YankPath let @+ = expand("%:~") | echo "Yanked file path: " . @+
 
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -nargs=? -complete=file Trash
