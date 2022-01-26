@@ -41,6 +41,7 @@ Plug 'karb94/neoscroll.nvim'         " Smooth scrolling animations
 Plug 'famiu/feline.nvim'             " Statusline creation framework
 Plug 'SmiteshP/nvim-gps'             " For displaying the current scope in statusline
 Plug 'windwp/floatline.nvim'         " One global statusline
+Plug 'j-hui/fidget.nvim'             " LSP progress in the bottom right corner
 Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP

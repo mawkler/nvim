@@ -927,6 +927,16 @@ require('statusline').setup({
 })
 
 
+------------
+-- Fidget --
+------------
+require('fidget').setup {
+  text = {
+    spinner = 'dots',
+    done = ''
+  }
+}
+
 ---------
 -- DAP --
 ---------
