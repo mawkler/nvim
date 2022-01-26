@@ -45,7 +45,6 @@ Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
 Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
-Plug 'glepnir/lspsaga.nvim'          " Various LSP functionality
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -72,9 +71,9 @@ Plug 'jvgrootveld/telescope-zoxide'
 Plug 'dhruvmanila/telescope-bookmarks.nvim'
 Plug 'nvim-telescope/telescope-cheat.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope-ui-select.nvim' " Use telescope for vim.ui.select
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder
+Plug 'stevearc/dressing.nvim'        " Improves default `vim.ui` interfaces
 Plug 'MunifTanjim/nui.nvim'          " UI component library
 Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
 Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
@@ -171,7 +170,7 @@ map <S-space> <space>
 
 nnoremap yp               yyp
 noremap  <leader>y        "+y
-noremap  <leader>Y        "+Y
+map      <leader>Y        "+Y
 noremap  <leader>d        "+d
 noremap  <leader>D        "+D
 noremap  <leader>p        "+p

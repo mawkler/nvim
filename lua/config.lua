@@ -311,7 +311,6 @@ local colors = require('onedark.colors').setup()
 require('onedark').setup {
   hide_end_of_buffer = false,
   colors = {
-    fg_search = colors.fg,
     bg_search = colors.bg_visual,
     hint = colors.fg_dark,
     git = {
@@ -320,22 +319,6 @@ require('onedark').setup {
       delete = colors.red1
     }
   }
-}
-
--------------
--- LSPSaga --
--------------
-require('lspsaga').init_lsp_saga {
-  rename_action_keys = {
-    quit = {'<Esc>'},
-  },
-  code_action_prompt = {
-    enable = false,
-  },
-  code_action_keys = {
-    quit = '<Esc>'
-  },
-  rename_prompt_prefix = 'Rename ➤',
 }
 
 --------------
@@ -378,7 +361,7 @@ map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-map({'n', 'x'}, '<leader>r', '<cmd>lua require("lspsaga.rename").rename()<CR>')
+map({'n', 'x'}, '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map({'n', 'x'}, '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
 map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
@@ -399,7 +382,7 @@ function _G.quickfix_jump(command)
 end
 
 function _G.grep_string()
-  vim.ui.input({prompt = 'Grep  '}, function(value)
+  vim.ui.input({prompt = 'Grep string'}, function(value)
     if value ~= nil then
       require('telescope.builtin').grep_string({search = value})
     end
@@ -433,6 +416,7 @@ require('lspkind').init {
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local actions = require('telescope.actions')
+local builtin = require('telescope.builtin')
 local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
 
@@ -507,11 +491,6 @@ require('telescope').setup {
     }
   },
   extensions = {
-    ['ui-select'] = {
-      require('telescope.themes').get_dropdown({
-        preview_width = nil,
-      }),
-    },
     bookmarks = {
       selected_browser = 'brave',
       url_open_command = 'xdg-open &>/dev/null',
@@ -520,7 +499,7 @@ require('telescope').setup {
 }
 
 function _G.telescope_markdowns()
-  require('telescope.builtin').find_files({
+  builtin.find_files({
     search_dirs = { '$MARKDOWNS' },
     prompt_title = 'Markdowns',
     path_display = function(_, path)
@@ -530,7 +509,7 @@ function _G.telescope_markdowns()
 end
 
 function _G.telescope_config()
-  require('telescope.builtin').find_files({
+  builtin.find_files({
     search_dirs = { '$HOME/.config/nvim/' },
     prompt_title = 'Neovim config',
     file_ignore_patterns = {
@@ -597,7 +576,6 @@ map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
 map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
 
 require('telescope').load_extension('zoxide')
-require('telescope').load_extension('ui-select')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('frecency')
@@ -623,6 +601,18 @@ vim.ui.input = function(opts, on_submit)
   input:map('i', '<C-q>', input.input_props.on_close, { noremap = true })
 end
 
+require('dressing').setup {
+  select = {
+    telescope = {
+      theme = 'dropdown'
+    }
+  },
+  input = {
+    insert_only = false,
+    default_prompt = ' ' -- Doesn't seem to work
+  }
+}
+
 ---------------
 -- Nvim-tree --
 ---------------
@@ -631,8 +621,12 @@ local tree_cb = require('nvim-tree.config').nvim_tree_callback
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_highlight_opened_files = 2
 g.nvim_tree_special_files = {}
+g.nvim_tree_git_hl = 1
 g.nvim_tree_icons = {
   default = '' ,
+  git = {
+    untracked = '' -- doesn't seem to work
+  }
 }
 
 require('nvim-tree').setup {
@@ -931,6 +925,7 @@ require('statusline').setup({
     cyan = colors.cyan0,
   }
 })
+
 
 ---------
 -- DAP --
