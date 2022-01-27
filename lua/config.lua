@@ -156,6 +156,32 @@ lspkind.init {
   }
 }
 
+require('trouble').setup {
+  auto_preview = false,
+  use_diagnostic_signs = true,
+  auto_close = true,
+  action_keys = {
+    close = {'q', '<C-q>', '<C-c>'},
+    cancel = '<esc>',
+    refresh = 'R',
+    jump = {'<Space>'},
+    open_split = {'<c-s>'},
+    open_vsplit = {'<c-v>'},
+    open_tab = {'<c-t>'},
+    jump_close = {'<CR>'},
+    toggle_mode = 'm',
+    toggle_preview = 'P',
+    hover = {'gh'},
+    preview = 'p',
+    close_folds = {'h', 'zM', 'zm'},
+    open_folds = {'l', 'zR', 'zr'},
+    toggle_fold = {'zA', 'za'},
+    previous = 'k',
+    next = 'j'
+  },
+}
+map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
+
 ---------
 -- Cmp --
 ---------
@@ -448,19 +474,19 @@ function custom_action._multiopen(prompt_bufnr, open_cmd)
         actions.add_selection(prompt_bufnr)
     end
     actions.send_selected_to_qflist(prompt_bufnr)
-    vim.cmd("cfdo " .. open_cmd)
+    vim.cmd('cfdo ' .. open_cmd)
 end
 function custom_action.multi_selection_open_vsplit(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, "vsplit")
+    custom_action._multiopen(prompt_bufnr, 'vsplit')
 end
 function custom_action.multi_selection_open_split(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, "split")
+    custom_action._multiopen(prompt_bufnr, 'split')
 end
 function custom_action.multi_selection_open_tab(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, "tabe")
+    custom_action._multiopen(prompt_bufnr, 'tabe')
 end
 function custom_action.multi_selection_open(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, "edit")
+    custom_action._multiopen(prompt_bufnr, 'edit')
 end
 
 require('telescope').setup {
@@ -1193,6 +1219,9 @@ map({'n', 'x'}, 'P',     '<Plug>(miniyank-autoPut)',   { noremap = false })
 map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)',     { noremap = false })
 map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)', { noremap = false })
 
+-- Stabilize.nvim
+require('stabilize').setup()
+
 ---------------------
 -- General config --
 ---------------------
@@ -1209,11 +1238,11 @@ autocmd.augroup {
 -- TypeScript specific --
 autocmd.augroup {
   'TypeScript',
-  {{ 'FileType', {
-    ['typescript'] = function()
+  {{ 'BufWritePost', {
+    ['*.ts,*.tsx'] = function()
       if b.format_on_write then
-        cmd '<cmd>TSLspOrganize<CR>'
-        cmd '<cmd>TSLspImportAll<CR>'
+        cmd 'TSLspOrganize'
+        cmd 'TSLspImportAll'
       end
     end
   }}}

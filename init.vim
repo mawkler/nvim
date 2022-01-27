@@ -64,6 +64,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects',
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/trouble.nvim'
 "-----------
 Plug 'tami5/sqlite.lua'              " Required by telescope-frecency
 Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
@@ -123,6 +124,7 @@ Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
+Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windows
 call plug#end()
 
 " -- General --
