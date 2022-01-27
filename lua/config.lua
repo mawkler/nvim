@@ -64,25 +64,27 @@ local function make_opts(snippets)
   }
 end
 
--- Typescript config
+-- Typescript LSP config
 local typescript_settings = {
   init_options = require('nvim-lsp-ts-utils').init_options,
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     local ts_utils = require('nvim-lsp-ts-utils')
     ts_utils.setup({
-      auto_inlay_hints = false,
-      inlay_hints_highlight = 'CopilotSuggestion'
+      update_imports_on_move = true,
+      inlay_hints_highlight = 'NvimLspTSUtilsInlineHint'
     })
     ts_utils.setup_client(client)
 
-    local opts = { silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',        ':TSLspRenameFile<CR>',       opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>A', ':TSLspImportAll<CR>',        opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gI',        ':TSLspToggleInlayHints<CR>', opts)
+    local opts = { buffer = true }
+    map('n', '<leader>lo', '<cmd>TSLspOrganize<CR>', opts)
+    map('n', '<leader>lr', '<cmd>TSLspRenameFile<CR>', opts)
+    map('n', '<leader>li', '<cmd>TSLspImportAll<CR>', opts)
+    map('n', '<leader>lI', '<cmd>TSLspImportCurrent<CR>', opts)
+    map('n', '<leader>lh', '<cmd>TSLspToggleInlayHints<CR>', opts)
   end,
 }
 
--- Lua config
+-- Lua LSP config
 local lua_settings = require('lua-dev').setup({
   lspconfig = {
     settings = {
@@ -95,7 +97,7 @@ local lua_settings = require('lua-dev').setup({
   }
 })
 
--- YAML config
+-- YAML LSP config
 local yaml_settings = {
   yaml = {
     schemaStore = {
@@ -105,7 +107,7 @@ local yaml_settings = {
   }
 }
 
--- Zsh/Bash config
+-- Zsh/Bash LSP config
 local bash_settings = {
   filetypes = {'sh', 'zsh'}
 }
@@ -301,6 +303,7 @@ tabnine:setup({
 -- Copilot --
 -------------
 map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
+map('i', '<C-f>', 'copilot#Accept("")', {expr = true})
 g.copilot_assume_mapped = true
 g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
 
@@ -354,10 +357,12 @@ map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n',        'gh',        '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n',        'gH',        '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
 map('n',        '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
-map('n',        '[h',        '<cmd>lua vim.diagnostic.goto_prev({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        ']h',        '<cmd>lua vim.diagnostic.goto_next({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>')
+map('n',        '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        '[h',        '<cmd>lua vim.diagnostic.goto_prev({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        ']h',        '<cmd>lua vim.diagnostic.goto_next({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
@@ -452,6 +457,8 @@ require('telescope').setup {
         ['<C-k>'] = 'move_selection_previous',
         ['<C-p>'] = 'cycle_history_prev',
         ['<C-n>'] = 'cycle_history_next',
+        ['<C-b>'] = 'preview_scrolling_up',
+        ['<C-f>'] = 'preview_scrolling_down',
         ['<C-q>'] = 'close',
         ['<M-a>'] = 'toggle_all',
         ['<M-q>'] = 'smart_send_to_qflist',
@@ -941,7 +948,6 @@ require('statusline').setup({
   }
 })
 
-
 ------------
 -- Fidget --
 ------------
@@ -1219,7 +1225,10 @@ autocmd.augroup {
   'TypeScript',
   {{ 'FileType', {
     ['typescript'] = function()
-      map('n', '<leader>lo', '<cmd>TSLspOrganize<CR>', { buffer = true })
+      if b.format_on_write then
+        cmd '<cmd>TSLspOrganize<CR>'
+        cmd '<cmd>TSLspImportAll<CR>'
+      end
     end
   }}}
 }
