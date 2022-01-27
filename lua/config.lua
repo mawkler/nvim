@@ -302,7 +302,7 @@ tabnine:setup({
 -------------
 map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
 g.copilot_assume_mapped = true
-g.copilot_filetypes = { TelescopePrompt = false }
+g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
 
 -----------------
 -- ColorScheme --
@@ -656,7 +656,14 @@ require('nvim-tree').setup {
     mappings = {
       list = {
         { key = 'l', cb = tree_cb('edit') },
-        { key = 'h', cb = tree_cb('close_node') }
+        { key = 'h', cb = tree_cb('close_node') },
+        { key = '>', cb = tree_cb('cd') },
+        { key = '<', cb = tree_cb('dir_up') },
+        { key = 'd', cb = tree_cb('trash') },
+        { key = 'D', cb = tree_cb('remove') },
+        { key = '<C-r>', cb = tree_cb('refresh') },
+        { key = 'R', cb = tree_cb('full_rename') },
+        { key = '<Space>', cb = tree_cb('preview') },
       }
     }
   }
