@@ -461,10 +461,6 @@ require('telescope').setup {
         ['<M-y>'] = 'open_qflist',
         ['<C-a>'] = function() feedkeys('<Home>') end,
         ['<C-e>'] = function() feedkeys('<End>') end,
-        ['<CR>'] = custom_action.multi_selection_open,
-        ['<C-v>'] = custom_action.multi_selection_open_vsplit,
-        ['<C-s>'] = custom_action.multi_selection_open_split,
-        ['<C-t>'] = custom_action.multi_selection_open_tab,
         ['<C-u>'] = false
       },
       n = {
@@ -488,6 +484,18 @@ require('telescope').setup {
       '%.py[c]', '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$',
       '%.tmp', '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
       '%.class$', '%.pdb$', '%.dll$', '%.dat$'
+    }
+  },
+  pickers = {
+    find_files = {
+      mappings = {
+        i = {
+          ['<CR>'] = custom_action.multi_selection_open,
+          ['<C-v>'] = custom_action.multi_selection_open_vsplit,
+          ['<C-s>'] = custom_action.multi_selection_open_split,
+          ['<C-t>'] = custom_action.multi_selection_open_tab,
+        }
+      }
     }
   },
   extensions = {
