@@ -315,13 +315,27 @@ require('onedark').setup {
   hide_end_of_buffer = false,
   colors = {
     bg_search = colors.bg_visual,
-    hint = colors.fg_dark,
+    hint = colors.dev_icons.gray,
     git = {
       add = colors.green0,
       change = colors.orange1,
       delete = colors.red1
+    },
+  },
+  overrides = function(c)
+    return {
+      Substitute = {link = 'Search'},
+      mkdHeading = { fg = c.blue0, style = 'bold' },
+      mkdLink = { fg = c.blue0, style = 'underline' },
+      NvimTreeFolderName = { fg = c.blue0 },
+      NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
+
+      DiagnosticUnderlineError = { style = 'underline', sp = c.error },
+      DiagnosticUnderlineWarning = { style = 'underline', sp = c.warning },
+      DiagnosticUnderlineHint = { style = 'underline', sp = c.hint },
+      DiagnosticUnderlineInfo = { style = 'underline', sp = c.info }
     }
-  }
+  end
 }
 
 --------------
@@ -895,38 +909,10 @@ local function sign_define(name, symbol)
   })
 end
 
-local function GetHiVal(name, layer)
-  layer = layer or 'fg'
-  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
-end
-
-if fn.has('nvim-0.6') then
-  sign_define('DiagnosticSignError', '')
-  sign_define('DiagnosticSignWarn',  '')
-  sign_define('DiagnosticSignHint',  '')
-  sign_define('DiagnosticSignInfo',  '')
-
-  cmd 'hi  link DiagnosticWarning DiffChange'
-  cmd 'hi! link DiagnosticHint Comment'
-else
-  sign_define('LspDiagnosticsSignError',       '')
-  sign_define('LspDiagnosticsSignWarning',     '')
-  sign_define('LspDiagnosticsSignHint',        '')
-  sign_define('LspDiagnosticsSignInformation', '')
-
-  cmd 'hi link LspDiagnosticsDefaultWarning DiffChange'
-  cmd 'hi link LspDiagnosticsDefaultHint Comment'
-end
-
-local function make_diagnoistic_underlined(diagnostic)
-  cmd('hi DiagnosticUnderline' .. diagnostic .. ' gui=underline guisp='
-    .. GetHiVal('LspDiagnosticsDefault' .. diagnostic))
-end
-
-make_diagnoistic_underlined('Error')
-make_diagnoistic_underlined('Warning')
-make_diagnoistic_underlined('Hint')
-make_diagnoistic_underlined('Information')
+sign_define('DiagnosticSignError', '')
+sign_define('DiagnosticSignWarn',  '')
+sign_define('DiagnosticSignHint',  '')
+sign_define('DiagnosticSignInfo',  '')
 
 ----------------
 -- Statusline --
