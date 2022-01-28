@@ -125,6 +125,7 @@ Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
 Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windows
+Plug 'sindrets/diffview.nvim'
 call plug#end()
 
 " -- General --
@@ -740,7 +741,7 @@ augroup quickfix
 augroup END
 
 " -- lens.vim --
-let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame', 'NvimTree']
+let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame', 'NvimTree', 'DiffviewFileHistory']
 
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
