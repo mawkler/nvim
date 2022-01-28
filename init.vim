@@ -223,6 +223,11 @@ imap     <M-k>            <Esc>:m .-2<CR>==gi
 map      <C-w>gd          <C-w>vgd
 nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
+nnoremap <leader>wn       :tab split<CR>
+nnoremap <leader>wc       :tabclose<CR>
+nnoremap <leader>wo       :tabonly<CR>
+nnoremap <leader>wl       :tabnext<CR>
+nnoremap <leader>wh       :tabprevious<CR>
 nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
