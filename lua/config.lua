@@ -394,8 +394,14 @@ map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', {noremap = false})
 
 -- LSP and diagnostics
 map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n',        'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
+map('n',        'gD',        '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n',        'gh',        '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n',        'gH',        '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
+map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
+map({'n', 'x'}, '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
+map({'n', 'x'}, '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('n',        '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
 map('n',        ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>')
 map('n',        '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>')
@@ -403,14 +409,6 @@ map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({severity = {min
 map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        '[h',        '<cmd>lua vim.diagnostic.goto_prev({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
 map('n',        ']h',        '<cmd>lua vim.diagnostic.goto_next({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        'gD',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n',        '1gD',       '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-map({'n', 'x'}, '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map({'n', 'x'}, '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
-map('n',        'g0',        '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-map('n',        'gW',        '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 function _G.quickfix_jump(command)
@@ -719,7 +717,7 @@ require('nvim-tree').setup {
 autocmd.augroup {
   'NvimTreeRefresh',
   {{ 'BufEnter', {
-    ['NvimTree'] = require('nvim-tree.lib').refresh_tree
+    NvimTree = require('nvim-tree.lib').refresh_tree
   }}}
 }
 
@@ -1146,7 +1144,7 @@ cmd 'command! Http call v:lua.http_request()'
 autocmd.augroup {
   'RestNvim',
   {{ 'FileType', {
-    ['http'] = function()
+    http = function()
       map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true, noremap = false })
       map('n', '<Esc>', '<cmd>BufferClose<CR>:wincmd c<CR>', { buffer = true })
     end
