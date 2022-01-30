@@ -638,6 +638,16 @@ require('dressing').setup {
   }
 }
 
+autocmd.augroup {
+  'DressingMappings',
+  {{ 'Filetype', {
+    DressingInput = function()
+      map('i', '<C-j>', '<Down>', { buffer=true, remap=true })
+      map('i', '<C-k>', '<Up>', { buffer=true, remap=true })
+    end
+  }}}
+}
+
 ---------------
 -- Nvim-tree --
 ---------------
