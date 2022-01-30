@@ -1,30 +1,16 @@
 local cmd, fn, call = vim.cmd, vim.fn, vim.call
 local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
-local api, lsp = vim.api, vim.lsp
+local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
 
 local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local function map(modes, lhs, rhs, opts)
-  -- TODO: change so that opts is a table of strings
-  if (type(modes) ~= 'table') then modes = {modes} end
-
-  local keymap
-  if opts ~= nil and opts.buffer then
-    keymap = function(m, l, r, op)
-      return api.nvim_buf_set_keymap(0, m, l, r, op)
-    end
-    opts.buffer = nil
-  else
-    keymap = api.nvim_set_keymap
+  if type(opts) == 'string' then
+    opts = { desc = opts }
   end
-
-  for _, mode in pairs(modes) do
-    local options = {noremap = true, silent = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    keymap(mode, lhs, rhs, options)
-  end
+  vim.keymap.set(modes, lhs, rhs, opts)
 end
 
 local function feedkeys(keys, mode)
@@ -33,7 +19,7 @@ local function feedkeys(keys, mode)
 end
 
 local function error(message)
-  api.nvim_echo({{message, 'Error'}}, false, {})
+  api.nvim_echo({{ message, 'Error' }}, false, {})
 end
 
 -- Should be loaded before any other plugin
@@ -367,7 +353,7 @@ require('onedark').setup {
 --------------
 -- Mappings --
 --------------
-function _G.right_or_snip_next()
+local function right_or_snip_next()
   if fn['vsnip#jumpable'](1) == 1 then
     return t '<Plug>(vsnip-jump-next)'
   elseif fn.mode() == 'i' then
@@ -377,7 +363,7 @@ function _G.right_or_snip_next()
   end
 end
 
-function _G.left_or_snip_prev()
+local function left_or_snip_prev()
   if fn['vsnip#jumpable'](-1) == 1 then
     return t '<Plug>(vsnip-jump-prev)'
   elseif fn.mode() == 'i' then
@@ -387,35 +373,38 @@ function _G.left_or_snip_prev()
 end
 
 -- Snippets
-map({'i', 's'}, '<M-l>', 'v:lua.right_or_snip_next()', {noremap = false, expr = true})
-map({'i', 's'}, '<M-h>', 'v:lua.left_or_snip_prev()', {noremap = false, expr = true})
-map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)', {noremap = false})
-map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)', {noremap = false})
+map({'i', 's'}, '<M-l>', right_or_snip_next, '<Right> or next snippet')
+map({'i', 's'}, '<M-h>', left_or_snip_prev, '<Left> or previous snippet')
+map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)')
+map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)')
+
+local INFO = vim.diagnostic.severity.INFO
+local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
+local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
 
 -- LSP and diagnostics
-map('n',        'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n',        'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n',        'gD',        '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n',        'gh',        '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n',        'gH',        '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
-map('n',        'gs',        '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-map('n',        'gR',        '<cmd>lua vim.lsp.buf.references({includeDeclaration = false})<CR>')
-map({'n', 'x'}, '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map({'n', 'x'}, '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-map('n',        '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {border = "single"})<CR>')
-map('n',        ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>')
-map('n',        '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-map('n',        ']e',        '<cmd>lua vim.diagnostic.goto_next({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        '[e',        '<cmd>lua vim.diagnostic.goto_prev({severity = {min = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        '[h',        '<cmd>lua vim.diagnostic.goto_prev({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
-map('n',        ']h',        '<cmd>lua vim.diagnostic.goto_next({severity = {max = vim.diagnostic.severity.INFO}, float = { border = "single" }})<CR>')
+map('n',        'gd',        lsp.buf.definition, 'LSP go to definition')
+map('n',        'gi',        lsp.buf.implementation, 'LSP go to implementation')
+map('n',        'gD',        lsp.buf.type_definition, 'LSP go to type definition')
+map('n',        'gh',        lsp.buf.hover, 'LSP hover')
+map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
+map('n',        'gR',        function() return lsp.buf.references({includeDeclaration = false}) end, 'LSP references')
+map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'LSP rename')
+map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'LSP show code actions')
+map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'Show errors on line')
+map('n',        ']d',        diagnostic.goto_next, 'Next diagnostic')
+map('n',        '[d',        diagnostic.goto_prev, 'Previous diagnostic')
+map('n',        ']e',        function() return diagnostic.goto_next(error_opts) end, 'Next error')
+map('n',        '[e',        function() return diagnostic.goto_prev(error_opts) end, 'Previous error')
+map('n',        '[h',        function() return diagnostic.goto_prev(info_opts) end, 'Previous info')
+map('n',        ']h',        function() return diagnostic.goto_next(info_opts) end, 'Next info')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
-function _G.quickfix_jump(command)
+local function quickfix_jump(command)
   if b.buffer_jumped_to then
     bo.bufhidden = 'delete'
   end
-  -- cmd(command)
+
   local successful, err_message = pcall(cmd, command)
   if successful then
     b.buffer_jumped_to = true
@@ -424,7 +413,7 @@ function _G.quickfix_jump(command)
   end
 end
 
-function _G.grep_string()
+local function grep_string()
   vim.ui.input({prompt = 'Grep string'}, function(value)
     if value ~= nil then
       require('telescope.builtin').grep_string({search = value})
@@ -432,12 +421,12 @@ function _G.grep_string()
   end)
 end
 
-map('n', ']q', ':lua quickfix_jump("cnext")<CR>')
-map('n', '[q', ':lua quickfix_jump("cprev")<CR>')
-map('n', ']Q', ':cbelow<CR>')
-map('n', '[Q', ':cabove<CR>')
-map('n', ']l', ':lbelow<CR>')
-map('n', '[l', ':labove<CR>')
+map('n', ']q', function() return quickfix_jump('cnext') end, 'Next quickfix item')
+map('n', '[q', function() return quickfix_jump('cprev') end, 'Previous quickfix item')
+map('n', ']Q', '<cmd>cbelow<CR>')
+map('n', '[Q', '<cmd>cabove<CR>')
+map('n', ']l', '<cmd>lbelow<CR>')
+map('n', '[l', '<cmd>labove<CR>')
 
 -------------
 -- LSPKind --
@@ -456,6 +445,7 @@ require('lspkind').init {
 ---------------
 -- Telescope --
 ---------------
+local telescope = require('telescope')
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local actions = require('telescope.actions')
@@ -606,54 +596,36 @@ function _G.telescope_cd(dir)
   }):find()
 end
 
-map('n', '<C-p>',      '<cmd>Telescope find_files hidden=true<CR>')
-map('n', '<leader>f',  '<cmd>lua grep_string()<CR>')
-map('n', '<leader>F',  '<cmd>Telescope live_grep<CR>')
-map('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
-map('n', '<leader>m',  '<cmd>Telescope frecency<CR>')
-map('n', '<leader>h',  '<cmd>Telescope help_tags<CR>')
-map('n', '<leader>tt', '<cmd>Telescope<CR>')
-map('n', '<leader>th', '<cmd>Telescope highlights<CR>')
-map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<CR>')
-map('n', '<leader>tS', '<cmd>Telescope lsp_workspace_symbols<CR>')
-map('n', '<leader>tr', '<cmd>Telescope resume<CR>')
-map('n', '<leader>tf', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>')
-map('n', '<leader>tc', '<cmd>Telescope cheat fd<CR>')
-map('n', '<leader>tg', '<cmd>Telescope git_files<CR>')
+map('n', '<C-p>',      function() return builtin.find_files({hidden = true}) end, 'Find files')
+map('n', '<leader>f',  grep_string, 'Grep string')
+map('n', '<leader>F',  builtin.live_grep, 'Live grep')
+map('n', '<leader>bb', builtin.buffers, 'Open buffers')
+map('n', '<leader>m',  telescope.extensions.frecency.frecency, 'Recently used files')
+map('n', '<leader>h',  builtin.help_tags, 'Help tags')
+map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
+map('n', '<leader>th', builtin.highlights, 'Highlights')
+map('n', '<leader>ts', builtin.lsp_document_symbols, 'LSP document symbols')
+map('n', '<leader>tS', builtin.lsp_workspace_symbols, 'LSP workspace symbols')
+map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
+map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
-map('n', 'cd', '<cmd>lua telescope_cd()<CR>')
-map('n', 'cD', '<cmd>lua telescope_cd("~")<CR>')
-map('n', 'cz', '<cmd>Telescope zoxide list<CR>')
-map('n', '<leader>B', '<cmd>Telescope bookmarks<CR>')
-map('n', '<leader>M', '<cmd>lua telescope_markdowns()<CR>')
-map('n', '<leader>N', '<cmd>lua telescope_config()<CR>')
+map('n', 'cd',         telescope_cd, 'Change directory')
+map('n', 'cD',         function() return telescope_cd("~") end, 'cd from home directory')
+map('n', 'cz',         telescope.extensions.zoxide.list, 'Change directory with zoxide')
+map('n', '<leader>B',  telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
+map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
+map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
+map('n', '<leader>N',  telescope_config, 'Neovim config')
 
-require('telescope').load_extension('zoxide')
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('bookmarks')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('cheat')
+telescope.load_extension('zoxide')
+telescope.load_extension('fzf')
+telescope.load_extension('bookmarks')
+telescope.load_extension('frecency')
+telescope.load_extension('cheat')
 
----------
--- nui --
----------
-local popup = {
-  position = { row = '40%', col = '50%' },
-  size = { width = '30%' },
-  border = { style = 'rounded', highlight = 'FloatBorder' },
-  win_options = { winhighlight = 'Normal:Normal' }
-}
-
-vim.ui.input = function(opts, on_submit)
-  local input = require('nui.input')(
-    popup, { prompt = opts.prompt, default_value = '', on_submit = on_submit }
-  )
-  input:mount()
-  input:map('i', '<Esc>', input.input_props.on_close, { noremap = true })
-  input:map('i', '<C-c>', input.input_props.on_close, { noremap = true })
-  input:map('i', '<C-q>', input.input_props.on_close, { noremap = true })
-end
-
+--------------
+-- Dressing --
+--------------
 require('dressing').setup {
   select = {
     telescope = {
@@ -670,6 +642,7 @@ require('dressing').setup {
 -- Nvim-tree --
 ---------------
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
+local nvim_tree = require('nvim-tree')
 
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_highlight_opened_files = 2
@@ -682,7 +655,7 @@ g.nvim_tree_icons = {
   }
 }
 
-require('nvim-tree').setup {
+nvim_tree.setup {
   diagnostics = {
     enable = true
   },
@@ -717,12 +690,12 @@ require('nvim-tree').setup {
 autocmd.augroup {
   'NvimTreeRefresh',
   {{ 'BufEnter', {
-    NvimTree = require('nvim-tree.lib').refresh_tree
+    NvimTree = nvim_tree.refresh_tree
   }}}
 }
 
-map('n', '<leader>`', ':NvimTreeToggle<CR>')
-map('n', '<leader>~', ':NvimTreeFindFile<CR>')
+map('n', '<leader>`', function() return nvim_tree.toggle(false) end, 'Toggle file tree')
+map('n', '<leader>~', function() return nvim_tree.toggle(true) end, 'Show current file in file tree')
 cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 
 ---------------
@@ -737,17 +710,13 @@ cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({
 local rule = require('nvim-autopairs.rule')
 local autopairs = require('nvim-autopairs')
 
-autopairs.setup()
+autopairs.setup {
+  map_c_h = true
+}
 autopairs.add_rules {
   rule('$', '$', 'tex'),
   rule('*', '*', 'markdown'),
 }
-
-_G.autopairs_cr = autopairs.autopairs_cr
-_G.autopairs_bs = autopairs.autopairs_bs
-
-map('i', '<CR>', 'v:lua.autopairs_cr()', {expr = true})
-map('i', '<C-h>', 'v:lua.autopairs_bs()', {expr = true})
 
 ---------------
 -- Formatter --
@@ -802,7 +771,7 @@ function _G.toggle_format_on_write()
 end
 
 b.format_on_write = true
-map('n', '<F2>', ':lua toggle_format_on_write()<CR>')
+map('n', '<F2>', toggle_format_on_write, 'Toggle autoformatting on write')
 
 autocmd.augroup {
   'FormatOnWrite',
@@ -1066,10 +1035,10 @@ add_cyclic_augend('nummer', {
 })
 add_cyclic_augend('access modifier', {'private', 'public'})
 
-map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)',            {noremap = false})
-map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)',            {noremap = false})
-map('v',        'g<C-a>', '<Plug>(dial-increment-additional)', {noremap = false})
-map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)', {noremap = false})
+map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)')
+map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)')
+map('v',        'g<C-a>', '<Plug>(dial-increment-additional)')
+map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)')
 
 ----------------
 -- Kommentary --
@@ -1089,10 +1058,10 @@ kommentary.configure_language('typescriptreact', {
   end,
 })
 
-map('n', 'cmm',  '<Plug>kommentary_line_default',   { noremap = false })
-map('n', 'cm',   '<Plug>kommentary_motion_default', { noremap = false })
-map('n', '<CR>', '<Plug>kommentary_line_default',   { noremap = false })
-map('x', '<CR>', '<Plug>kommentary_visual_default', { noremap = false })
+map('n', 'cmm',  '<Plug>kommentary_line_default')
+map('n', 'cm',   '<Plug>kommentary_motion_default')
+map('n', '<CR>', '<Plug>kommentary_line_default')
+map('x', '<CR>', '<Plug>kommentary_visual_default')
 
 function _G.escape()
   if bo.modifiable then
@@ -1102,7 +1071,7 @@ function _G.escape()
   end
 end
 
-map('n', '<Esc>', '<cmd>lua escape()<CR>', { noremap = false })
+map('n', '<Esc>', escape, 'Close window if not modifiable, otherwise :set nohlsearch')
 map('t', '<Esc>', '<C-\\><C-n>')
 autocmd.augroup {
   'mappings',
@@ -1114,15 +1083,17 @@ autocmd.augroup {
   }}}
 }
 
-map('n',        '<leader>cmm', '<Plug>kommentary_line_increase',   {noremap = false})
-map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase', {noremap = false})
-map('n',        '<leader>cuu', '<Plug>kommentary_line_decrease',   {noremap = false})
-map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease', {noremap = false})
-map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase',  {noremap = false})
-map('n',
-  '<leader>cA',
-  ':lua require("ts_context_commentstring.internal").update_commentstring()<CR>:execute "norm! A " . substitute(&commentstring, "%s", "", "")<CR>A'
-)
+local function commentary_append()
+  require("ts_context_commentstring.internal").update_commentstring()
+  vim.api.nvim_input('A ' .. vim.fn.substitute(o.commentstring, '%s', '', ''))
+end
+
+map('n',        '<leader>cmm', '<Plug>kommentary_line_increase')
+map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase')
+map('n',        '<leader>cuu', '<Plug>kommentary_line_decrease')
+map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease')
+map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase')
+map('n', '<leader>ca', commentary_append, 'Append comment')
 -- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
 
 ---------------
@@ -1145,8 +1116,8 @@ autocmd.augroup {
   'RestNvim',
   {{ 'FileType', {
     http = function()
-      map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true, noremap = false })
-      map('n', '<Esc>', '<cmd>BufferClose<CR>:wincmd c<CR>', { buffer = true })
+      map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true })
+      map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', { buffer = true })
     end
   }}}
 }
@@ -1212,10 +1183,10 @@ require('indent-o-matic').setup {}
 --------------
 -- Miniyank --
 --------------
-map({'n', 'x'}, 'p',     '<Plug>(miniyank-autoput)',   { noremap = false })
-map({'n', 'x'}, 'P',     '<Plug>(miniyank-autoPut)',   { noremap = false })
-map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)',     { noremap = false })
-map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)', { noremap = false })
+map({'n', 'x'}, 'p',     '<Plug>(miniyank-autoput)')
+map({'n', 'x'}, 'P',     '<Plug>(miniyank-autoPut)')
+map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)')
+map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)')
 
 --------------------
 -- Stabilize.nvim --
