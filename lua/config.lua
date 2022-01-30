@@ -1,5 +1,5 @@
 local cmd, fn, call = vim.cmd, vim.fn, vim.call
-local o, g, b, bo = vim.o, vim.g, vim.b, vim.bo
+local opt, g, b, bo = vim.o, vim.g, vim.b, vim.bo
 local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
 
 local function t(str)
@@ -171,7 +171,7 @@ map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
 ---------
 -- Cmp --
 ---------
-o.completeopt = 'menuone,noselect'
+opt.completeopt = 'menuone,noselect'
 local cmp = require('cmp')
 local cmp_mapping = cmp.mapping
 local cmp_disabled = cmp.config.disable
@@ -1095,7 +1095,7 @@ autocmd.augroup {
 
 local function commentary_append()
   require("ts_context_commentstring.internal").update_commentstring()
-  vim.api.nvim_input('A ' .. vim.fn.substitute(o.commentstring, '%s', '', ''))
+  vim.api.nvim_input('A ' .. vim.fn.substitute(opt.commentstring, '%s', '', ''))
 end
 
 map('n',        '<leader>cmm', '<Plug>kommentary_line_increase')
