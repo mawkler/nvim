@@ -228,7 +228,6 @@ nnoremap <leader>wc       :tabclose<CR>
 nnoremap <leader>wo       :tabonly<CR>
 nnoremap <leader>wl       :tabnext<CR>
 nnoremap <leader>wh       :tabprevious<CR>
-nmap     <C-c>            <Nop>
 nmap     <Leader><Esc>    <Nop>
 nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
 nmap     <leader>V        :drop ~/.config/nvim/init.vim<CR>
@@ -267,8 +266,8 @@ omap <silent> g(        :silent normal vg(oh<CR>
 nmap <silent> <C-W>N    :tabe<CR>
 
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
-nmap <silent> <expr> ]s &spell ? "]s" : ":setlocal spell<CR>]s"
-nmap <silent> <expr> [s &spell ? "[s" : ":setlocal spell<CR>[s"
+nmap <silent> <expr> ]s        &spell ? "]s" : ":setlocal spell<CR>]s"
+nmap <silent> <expr> [s        &spell ? "[s" : ":setlocal spell<CR>[s"
 
 " -- Git commands --
 map <silent> <leader>gm <Plug>(git-messenger)

@@ -704,8 +704,8 @@ autocmd.augroup {
   }}}
 }
 
-map('n', '<leader>`', function() return nvim_tree.toggle(false) end, 'Toggle file tree')
-map('n', '<leader>~', function() return nvim_tree.toggle(true) end, 'Show current file in file tree')
+map('n', '<leader>`', nvim_tree.toggle, 'Toggle file tree')
+map('n', '<leader>~', function() return nvim_tree.find_file(true) end, 'Show current file in file tree')
 cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 
 ---------------
@@ -1253,7 +1253,13 @@ require('diffview').setup {
 
 map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
 map('n', '<leader>gh', '<cmd>DiffviewFileHistory<CR>')
-map('n', '<C-c>',      '<cmd>DiffviewClose<CR>')
+map('n', '<C-c>', function()
+  if opt.diff then
+    cmd 'tabclose'
+  else
+    cmd 'DiffviewClose'
+  end
+end, 'Close diff view')
 
 ---------------------
 -- General config --
