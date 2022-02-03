@@ -355,20 +355,17 @@ require('onedark').setup {
 --------------
 local function right_or_snip_next()
   if fn['vsnip#jumpable'](1) == 1 then
-    return t '<Plug>(vsnip-jump-next)'
+    feedkeys('<Plug>(vsnip-jump-next)')
   elseif fn.mode() == 'i' then
-    return t '<Right>'
-  else
-    return ''
+    feedkeys('<Right>')
   end
 end
 
 local function left_or_snip_prev()
   if fn['vsnip#jumpable'](-1) == 1 then
-    return t '<Plug>(vsnip-jump-prev)'
+    feedkeys('<Plug>(vsnip-jump-prev)')
   elseif fn.mode() == 'i' then
-    return t '<Left>'
-  else return ''
+    feedkeys('<Left>')
   end
 end
 
@@ -381,6 +378,7 @@ map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)')
 local INFO = vim.diagnostic.severity.INFO
 local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
 local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
+local with_border = {float = { border = 'single' }}
 
 -- LSP and diagnostics
 map('n',        'gd',        lsp.buf.definition, 'LSP go to definition')
@@ -392,12 +390,14 @@ map('n',        'gR',        function() return lsp.buf.references({includeDeclar
 map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'LSP rename')
 map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'LSP show code actions')
 map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'Show errors on line')
-map('n',        ']d',        diagnostic.goto_next, 'Next diagnostic')
-map('n',        '[d',        diagnostic.goto_prev, 'Previous diagnostic')
 map('n',        ']e',        function() return diagnostic.goto_next(error_opts) end, 'Next error')
 map('n',        '[e',        function() return diagnostic.goto_prev(error_opts) end, 'Previous error')
 map('n',        '[h',        function() return diagnostic.goto_prev(info_opts) end, 'Previous info')
 map('n',        ']h',        function() return diagnostic.goto_next(info_opts) end, 'Next info')
+map('n',        ']d',        function() return diagnostic.goto_next(with_border) end, 'Next diagnostic')
+map('n',        '[d',        function() return diagnostic.goto_prev(with_border) end, 'Previous diagnostic')
+map('n',        '<C-w>gd',   '<C-w>vgd', {desc = 'LSP go to definition in window split', remap = true})
+map('n',        '<C-w>gD',   '<C-w>vgD', {desc = 'LSP go to type definition in window split', remap = true})
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 local function quickfix_jump(command)
@@ -604,6 +604,7 @@ map('n', '<leader>m',  telescope.extensions.frecency.frecency, 'Recently used fi
 map('n', '<leader>h',  builtin.help_tags, 'Help tags')
 map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
 map('n', '<leader>th', builtin.highlights, 'Highlights')
+map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
 map('n', '<leader>ts', builtin.lsp_document_symbols, 'LSP document symbols')
 map('n', '<leader>tS', builtin.lsp_workspace_symbols, 'LSP workspace symbols')
 map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
@@ -692,6 +693,7 @@ nvim_tree.setup {
         { key = '<C-r>', cb = tree_cb('refresh') },
         { key = 'R', cb = tree_cb('full_rename') },
         { key = '<Space>', cb = tree_cb('preview') },
+        { key = '<C-s>', cb = tree_cb('split') },
       }
     }
   }

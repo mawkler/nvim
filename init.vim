@@ -220,7 +220,6 @@ xmap     <M-j>            :m '>+1<CR>gv=gv
 xmap     <M-k>            :m '<-2<CR>gv=gv
 imap     <M-j>            <Esc>:m .+1<CR>==gi
 imap     <M-k>            <Esc>:m .-2<CR>==gi
-map      <C-w>gd          <C-w>vgd
 nnoremap <C-w>T           :tab split<CR>
 nnoremap <C-w>C           :tabclose<CR>
 nnoremap <leader>wn       :tab split<CR>
@@ -896,7 +895,7 @@ nnoremap <silent> <C-Space> :BufferPick<CR>
 nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
 nnoremap <silent> <Leader>bc :BufferClose<CR>
-nnoremap <silent> <Leader>bC :BufferCloseAllButCurrent<CR><CR>
+nnoremap <silent> <Leader>bo :BufferCloseAllButCurrent<CR><CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
