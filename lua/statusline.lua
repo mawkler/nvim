@@ -299,9 +299,13 @@ table.insert(active_right, {
 -- Inactive windows
 
 table.insert(inactive_left, {
-  provider = 'file_info',
+  provider = {
+    name = 'file_info',
+    opts = {
+      type = 'relative',
+    }
+  },
   right_sep = '',
-  type = 'relative',
   hl = { bg = 'line_bg' },
   icon = '',
   file_readonly_icon = ' '
