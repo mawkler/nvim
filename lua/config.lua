@@ -381,16 +381,16 @@ local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
 local with_border = {float = { border = 'single' }}
 
 -- LSP and diagnostics
-map('n',        'gd',        lsp.buf.definition, 'LSP go to definition')
-map('n',        'gi',        lsp.buf.implementation, 'LSP go to implementation')
-map('n',        'gD',        lsp.buf.type_definition, 'LSP go to type definition')
-map('n',        'gh',        lsp.buf.hover, 'LSP hover')
-map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
-map('n',        'gR',        function() return lsp.buf.references({includeDeclaration = false}) end, 'LSP references')
-map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'LSP rename')
-map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'LSP show code actions')
-map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'Show errors on line')
-map('n',        ']e',        function() return diagnostic.goto_next(error_opts) end, 'Next error')
+map('n',        'gd',        lsp.buf.definition, 'vim.lsp.buf.definition')
+map('n',        'gi',        lsp.buf.implementation, 'vim.lsp.buf.implementation')
+map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
+map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
+map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
+map('n',        'gR',        function() return lsp.buf.references({includeDeclaration = false}) end, 'vim.lsp.buf.references')
+map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'vim.lsp.buf.rename')
+map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
+map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'diagnostic.open_float')
+map('n',        ']e',        function() return diagnostic.goto_next(error_opts) end, 'diagnostic.goto_next')
 map('n',        '[e',        function() return diagnostic.goto_prev(error_opts) end, 'Previous error')
 map('n',        '[h',        function() return diagnostic.goto_prev(info_opts) end, 'Previous info')
 map('n',        ']h',        function() return diagnostic.goto_next(info_opts) end, 'Next info')
@@ -599,7 +599,7 @@ end
 map('n', '<C-p>',      function() return builtin.find_files({hidden = true}) end, 'Find files')
 map('n', '<leader>f',  grep_string, 'Grep string')
 map('n', '<leader>F',  builtin.live_grep, 'Live grep')
-map('n', '<leader>bb', builtin.buffers, 'Open buffers')
+map('n', '<leader>B', builtin.buffers, 'Open buffers')
 map('n', '<leader>m',  telescope.extensions.frecency.frecency, 'Recently used files')
 map('n', '<leader>h',  builtin.help_tags, 'Help tags')
 map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
@@ -613,7 +613,7 @@ map('n', '<leader>tg', builtin.git_files, 'Find git files')
 map('n', 'cd',         telescope_cd, 'Change directory')
 map('n', 'cD',         function() return telescope_cd("~") end, 'cd from home directory')
 map('n', 'cz',         telescope.extensions.zoxide.list, 'Change directory with zoxide')
-map('n', '<leader>B',  telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
+map('n', '<leader>tb',  telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
 map('n', '<leader>N',  telescope_config, 'Neovim config')
@@ -998,7 +998,9 @@ require('gitsigns').setup {
 
     -- Text objects
     ['o ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>'
+    ['x ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
+    ['o ah'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
+    ['x ah'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>'
   },
   attach_to_untracked = false
 }

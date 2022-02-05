@@ -251,7 +251,7 @@ nnoremap cg*              *Ncgn
 nnoremap dg*              *Ndgn
 vnoremap gcn              //Ncgn
 vnoremap gdn              //Ndgn
-nnoremap g.               /\V<C-R>"<CR>cgn<C-a><Esc>
+nnoremap g.               /\V\C<C-R>"<CR>cgn<C-a><Esc>
 xnoremap g.               .
 
 nmap     <leader>K        :vertical Man <C-R><C-W><CR>
