@@ -125,7 +125,8 @@ Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
 Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
 Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windows
-Plug 'sindrets/diffview.nvim'
+Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
+Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
 call plug#end()
 
 " -- General --

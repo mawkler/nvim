@@ -1265,9 +1265,28 @@ map('n', '<C-c>', function()
   end
 end, 'Close diff view')
 
+----------------
+-- Lightspeed --
+----------------
+g.lightspeed_no_default_keymaps = true
+require'lightspeed'.setup {
+  exit_after_idle_msecs = { labeled = 1000 }
+}
+
+map('n', 'zj', '<Plug>Lightspeed_s',  'Lightspeed jump downwards')
+map('n', 'zk', '<Plug>Lightspeed_S',  'Lightspeed jump upwards')
+map('n', 'zJ', '<Plug>Lightspeed_gs', 'Lightspeed jump to window above/right')
+map('n', 'zK', '<Plug>Lightspeed_gS', 'Lightspeed jump to window below/left')
+-- Move default zj/zk bindings to ]z/[z
+map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')
+map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
+
 ---------------------
 -- General config --
 ---------------------
+map('n', '<leader><C-t>', function()
+  bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
+end, 'Delete buffer and pop jump stack')
 -- Highlight text object on yank
 autocmd.augroup {
   'HighlightYank',
