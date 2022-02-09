@@ -337,7 +337,8 @@ require('onedark').setup {
   overrides = function(c)
     return {
       Substitute = {link = 'Search'},
-      mkdHeading = { fg = c.blue0, style = 'bold' },
+      Title = { fg = c.red0, style = 'bold' },
+      mkdHeading = { link = 'Title' },
       mkdLink = { fg = c.blue0, style = 'underline' },
       NvimTreeFolderName = { fg = c.blue0 },
       NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
@@ -652,9 +653,6 @@ autocmd.augroup {
 ---------------
 -- Nvim-tree --
 ---------------
-local tree_cb = require('nvim-tree.config').nvim_tree_callback
-local nvim_tree = require('nvim-tree')
-
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_highlight_opened_files = 2
 g.nvim_tree_special_files = {}
@@ -662,9 +660,18 @@ g.nvim_tree_git_hl = 1
 g.nvim_tree_icons = {
   default = '' ,
   git = {
-    untracked = '' -- doesn't seem to work
+    ignored   = '',
+    untracked = '',
+    unstaged  = '',
+    staged    = '',
+    unmerged  = '',
+    renamed   = '',
+    deleted   = '',
   }
 }
+
+local tree_cb = require('nvim-tree.config').nvim_tree_callback
+local nvim_tree = require('nvim-tree')
 
 nvim_tree.setup {
   diagnostics = {
