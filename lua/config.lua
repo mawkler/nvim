@@ -615,8 +615,8 @@ map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
 map('n', 'cd',         telescope_cd, 'Change directory')
 map('n', 'cD',         function() return telescope_cd("~") end, 'cd from home directory')
-map('n', 'cz',         telescope.extensions.zoxide.list, 'Change directory with zoxide')
-map('n', '<leader>tb',  telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
+map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
+map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
 map('n', '<leader>N',  telescope_config, 'Neovim config')
@@ -804,7 +804,7 @@ autocmd.augroup {
 }
 
 function _G.format_and_write()
-  if fn.exists('b:format_on_write') == 0 or b.format_on_write then
+  if b.format_on_write ~= false then
     cmd 'FormatWrite'
   end
 end
@@ -1278,14 +1278,17 @@ end, 'Close diff view')
 -- Lightspeed --
 ----------------
 g.lightspeed_no_default_keymaps = true
-require'lightspeed'.setup {
+require('lightspeed').setup {
   exit_after_idle_msecs = { labeled = 1000 }
 }
 
-map('n', 'zj', '<Plug>Lightspeed_s',  'Lightspeed jump downwards')
-map('n', 'zk', '<Plug>Lightspeed_S',  'Lightspeed jump upwards')
-map('n', 'zJ', '<Plug>Lightspeed_gs', 'Lightspeed jump to window above/right')
-map('n', 'zK', '<Plug>Lightspeed_gS', 'Lightspeed jump to window below/left')
+map({'n', 'o'}, 'zj', '<Plug>Lightspeed_s',  'Lightspeed jump downwards')
+map({'n', 'o'}, 'zk', '<Plug>Lightspeed_S',  'Lightspeed jump upwards')
+map('o',        'zJ', '<Plug>Lightspeed_x',  'Lightspeed jump downwards (inclusive op)')
+map('o',        'zK', '<Plug>Lightspeed_X',  'Lightspeed jump upwards (inclusive op)')
+map('n',        'zJ', '<Plug>Lightspeed_gs', 'Lightspeed jump to window above/right')
+map('n',        'zK', '<Plug>Lightspeed_gS', 'Lightspeed jump to window below/left')
+
 -- Move default zj/zk bindings to ]z/[z
 map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')
 map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
@@ -1309,9 +1312,9 @@ autocmd.augroup {
 -- TypeScript specific --
 autocmd.augroup {
   'TypeScript',
-  {{ 'BufWritePost', {
+  {{ 'BufWritePre', {
     ['*.ts,*.tsx'] = function()
-      if b.format_on_write then
+      if b.format_on_write ~= false then
         cmd 'TSLspOrganize'
         cmd 'TSLspImportAll'
       end
