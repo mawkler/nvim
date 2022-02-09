@@ -36,7 +36,7 @@ local inactive_filetypes = {
 
 local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
 local right_sep = { str = '',  hl = { fg = 'line_bg' } }
-local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
+-- local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -62,9 +62,13 @@ local function get_icon_full()
   end
 end
 
-local function get_icon()
+local function get_icon(padding)
   local icon = select(1, get_icon_full()) or ''
-  return icon .. ' '
+  if not padding then
+    return icon
+  else
+    return icon .. ' '
+  end
 end
 
 local function get_icon_hl()
@@ -125,7 +129,8 @@ table.insert(active_left, {
   end,
   left_sep = '█',
   right_sep = '█',
-  icon = ''
+  icon = '',
+  priority = 10,
 })
 
 -- Readonly indicator
@@ -133,28 +138,29 @@ table.insert(active_left, {
   provider = ' ',
   hl = { bg = 'line_bg' },
   enabled = function() return bo.readonly and bo.buftype ~= 'help' end,
+  truncate_hide = true,
+  priority = 7
 })
 
 -- Current working directory
 table.insert(active_left, {
-  provider = function()
-    if wide_enough() then
-      return get_working_dir()
-    else
-      return get_working_dir_short()
-    end
-  end,
+  provider = get_working_dir,
+  short_provider = get_working_dir_short,
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
-  left_sep = '██',
+  left_sep = '█',
   right_sep = '█',
-  icon = ' '
+  icon = ' ',
+  truncate_hide = true,
+  priority = 9
 })
 
 table.insert(active_left, {
   provider = 'lsp_client_names',
   hl = {fg = 'darkgray'},
   enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
-  icon = '  '
+  icon = '  ',
+  truncate_hide = true,
+  priority = -1,
 })
 
 table.insert(active_left, {
@@ -196,7 +202,9 @@ table.insert(active_mid, {
   hl = { fg = 'darkgray' },
   enabled = function()
     return gps.is_available() and not lsp_progress_available() and wide_enough()
-  end
+  end,
+  truncate_hide = true,
+  priority = -1
 })
 
 lsp_status.register_progress()
@@ -204,24 +212,29 @@ lsp_status.register_progress()
 table.insert(active_mid, {
   provider = lsp_status.status_progress,
   hl = { fg = 'darkgray' },
+  truncate_hide = true,
+  priority = 5
 })
 
 -- Right section --
 
 table.insert(active_right, {
   provider = 'git_diff_added',
-  hl = { fg = 'green' }
+  hl = { fg = 'green' },
+  truncate_hide = true
 })
 
 table.insert(active_right, {
   provider = 'git_diff_changed',
-  hl = { fg = 'orange' }
+  hl = { fg = 'orange' },
+  truncate_hide = true
 })
 
 table.insert(active_right, {
   provider = 'git_diff_removed',
   hl = { fg = 'red' },
-  right_sep = ''
+  right_sep = '',
+  truncate_hide = true
 })
 
 table.insert(active_right, {
@@ -231,21 +244,37 @@ table.insert(active_right, {
   icon = {
     str = '  ',
     hl = { fg = '#f34f29' },
-  }
+  },
+  truncate_hide = true,
+  priority = 2
 })
 
 table.insert(active_right, {
-  provider = get_icon,
-  left_sep = left_sep,
-  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
-  enabled = has_file_type
-})
-
-table.insert(active_right, {
-  provider = function() return bo.filetype end,
-  right_sep = right_sep,
-  hl = function() return { bg = 'line_bg' } end,
-  enabled = has_file_type -- TODO: only write out filetype if window is wide enough
+  provider = function() return ' ' .. bo.filetype end,
+  left_sep = {
+    str = ' ',
+    hl = { fg = 'line_bg' },
+    always_visible = true
+  },
+  right_sep = {
+    str = '',
+    hl = { fg = 'line_bg' },
+    always_visible = true
+  },
+  hl = { bg = 'line_bg' },
+  enabled = has_file_type,
+  icon = function()
+    return {
+      str = get_icon(),
+      hl = {
+        fg = get_icon_hl(),
+        bg = 'line_bg',
+      },
+      always_visible = true,
+    }
+  end,
+  truncate_hide = true,
+  priority = 1
 })
 
 table.insert(active_right, {
@@ -253,7 +282,8 @@ table.insert(active_right, {
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
   right_sep = right_sep,
-  enabled = function() return wide_enough() end
+  truncate_hide = true,
+  priority = -1
 })
 
 table.insert(active_right, {
@@ -261,7 +291,8 @@ table.insert(active_right, {
   hl = { bg = 'line_bg' },
   left_sep = left_sep,
   right_sep = right_sep,
-  enabled = function() return wide_enough() end,
+  truncate_hide = true,
+  priority = -1
 })
 
 -- Clock
@@ -276,13 +307,17 @@ table.insert(active_right, {
       fg = mode.get_mode_color(),
       bg = 'line_bg'
     }
-  } end
+  } end,
+  truncate_hide = true
 })
 
 -- Cursor line and column
 table.insert(active_right, {
   provider = function()
     return string.format('%2d:%-2d', fn.line('.'), fn.col('.'))
+  end,
+  short_provider = function()
+    return string.format('%d:%-d', fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
     return { str = ' ', hl = { fg = mode.get_mode_color() } }
@@ -293,7 +328,8 @@ table.insert(active_right, {
   hl = function()
     return { fg = 'line_bg', bg = mode.get_mode_color(), style = 'bold' }
   end,
-  icon = ' '
+  icon = ' ',
+  priority = 9,
 })
 
 -- Inactive windows
@@ -303,12 +339,12 @@ table.insert(inactive_left, {
     name = 'file_info',
     opts = {
       type = 'relative',
+      file_readonly_icon = ' '
     }
   },
   right_sep = '',
   hl = { bg = 'line_bg' },
   icon = '',
-  file_readonly_icon = ' '
 })
 
 table.insert(inactive_right, {
