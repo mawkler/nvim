@@ -53,9 +53,9 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
-Plug 'ray-x/lsp_signature.nvim'      " Display function signature while typing
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'hrsh7th/vim-vsnip'             " Snippet engine
 Plug 'melkster/friendly-snippets'    " Set of snippets

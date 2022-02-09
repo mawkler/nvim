@@ -236,6 +236,7 @@ local sources = {
   { name = 'vsnip' },
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
+  { name = 'nvim_lsp_signature_help' },
   { name = 'path',
     option = {
       trailing_slash = true
@@ -387,6 +388,7 @@ map('n',        'gi',        lsp.buf.implementation, 'vim.lsp.buf.implementation
 map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
 map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
 map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
+map('i',        '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
 map('n',        'gR',        function() return lsp.buf.references({includeDeclaration = false}) end, 'vim.lsp.buf.references')
 map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'vim.lsp.buf.rename')
 map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
