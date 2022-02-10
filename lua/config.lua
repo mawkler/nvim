@@ -38,15 +38,6 @@ local function make_opts(snippets)
   capabilities.textDocument.completion.completionItem.snippetSupport = snippets
   return {
     capabilities = capabilities, -- enable snippet support
-    on_attach = function()
-      require('lsp_signature').on_attach({
-        hi_parameter = 'String',
-        handler_opts = {
-          border = 'rounded',
-        },
-        hint_enable = false
-      })
-    end
   }
 end
 
@@ -781,18 +772,10 @@ require('formatter').setup {
   }
 }
 
-function _G.toggle_format_on_write()
-  if b.format_on_write == false then
-    b.format_on_write = true
-    print 'Format on write enabled'
-  else
-    b.format_on_write = false
-    print 'Format on write disabled'
-  end
-end
-
-b.format_on_write = true
-map('n', '<F2>', toggle_format_on_write, 'Toggle autoformatting on write')
+map('n', '<F2>', function()
+  b.format_on_write = (not b.format_on_write and b.format_on_write ~= nil)
+  print('Format on write ' .. (b.format_on_write and 'enabled' or 'disabled'))
+end, 'Toggle autoformatting on write')
 
 autocmd.augroup {
   'FormatOnWrite',
@@ -1321,3 +1304,9 @@ autocmd.augroup {
     end
   }}}
 }
+
+map('n', '<leader>n', '<cmd>vnew<CR>')
+map('n', '<leader>N', function ()
+  opt.relativenumber = not opt.relativenumber
+  print('Relative numbers ' .. (opt.relativenumber and 'enabled' or 'disabled'))
+end, 'Toggle relative numbers')
