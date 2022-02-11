@@ -25,7 +25,7 @@
   },
   "todo": {
     "prefix": "todo",
-    "body": ["$LINE_COMMENT TODO: ${1}"],
-    "description": "TODO: ..."
+    "body": ["$LINE_COMMENT TODO${2:: }${1}"],
+    "description": "TODO"
   }
 }
