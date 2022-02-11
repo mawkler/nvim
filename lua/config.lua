@@ -62,24 +62,24 @@ local typescript_settings = {
 }
 
 -- Lua LSP config
-local lua_settings = require('lua-dev').setup({
+local lua_settings = require('lua-dev').setup {
   lspconfig = {
     settings = {
       Lua = {
         diagnostics = {
           globals = {'use'}, -- For when i eventually switch to packer
-        },
-      },
+        }
+      }
     }
   }
-})
+}
 
 -- YAML LSP config
 local yaml_settings = {
   yaml = {
     schemaStore = {
       url = 'https://www.schemastore.org/api/json/catalog.json',
-      enable = true,
+      enable = true
     }
   }
 }
@@ -89,17 +89,26 @@ local bash_settings = {
   filetypes = {'sh', 'zsh'}
 }
 
+-- Json
+
+local json_settings = {
+  json = {
+    schemas = require('schemastore').json.schemas()
+  }
+}
+
 require('nvim-lsp-installer').on_server_ready(function(server)
   local opts = make_opts()
   if server.name == 'sumneko_lua' then
-    opts = make_opts(false)
     opts = lua_settings
-  elseif server.name == 'yaml' then
-    opts.settings = yaml_settings
   elseif server.name == 'bashls' then
     opts = bash_settings
   elseif server.name == 'tsserver' then
     opts = typescript_settings
+  elseif server.name == 'yaml' then
+    opts.settings = yaml_settings
+  elseif server.name == 'jsonls' then
+    opts.settings = json_settings
   end
   server:setup(opts)
   cmd 'do User LspAttachBuffers'

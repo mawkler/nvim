@@ -64,6 +64,7 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/trouble.nvim'
+Plug 'b0o/schemastore.nvim'
 "-----------
 Plug 'tami5/sqlite.lua'              " Required by telescope-frecency
 Plug 'nvim-lua/popup.nvim'           " Required by telescope.nvim
