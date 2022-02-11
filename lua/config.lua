@@ -347,7 +347,11 @@ require('onedark').setup {
       DiagnosticUnderlineError = { style = 'underline', sp = c.error },
       DiagnosticUnderlineWarning = { style = 'underline', sp = c.warning },
       DiagnosticUnderlineHint = { style = 'underline', sp = c.hint },
-      DiagnosticUnderlineInfo = { style = 'underline', sp = c.info }
+      DiagnosticUnderlineInfo = { style = 'underline', sp = c.info },
+
+      TSNote = { fg = c.info, style = 'bold' },
+      TSWarning = { fg = c.warning, style = 'bold' },
+      TSDanger = { fg = c.error, style = 'bold' },
     }
   end
 }
