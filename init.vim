@@ -17,7 +17,6 @@ Plug 'dkarter/bullets.vim'                 " Autocomplete markdown lists, etc.
 Plug 'Julian/vim-textobj-variable-segment' " Adds camel case and snake case text objects
 Plug 'wsdjeg/vim-fetch'                    " Process line and column jump specification in file path
 Plug 'meain/vim-printer'
-Plug 'rhysd/git-messenger.vim'
 Plug 'camspiers/lens.vim'                  " An automatic window resizing plugin
 Plug 'Ron89/thesaurus_query.vim'           " Retrieves the synonyms and antonyms of a given word
 Plug 'mbbill/undotree'
@@ -270,7 +269,6 @@ nmap <silent> <expr> ]s        &spell ? "]s" : ":setlocal spell<CR>]s"
 nmap <silent> <expr> [s        &spell ? "[s" : ":setlocal spell<CR>[s"
 
 " -- Git commands --
-map <silent> <leader>gm <Plug>(git-messenger)
 map <silent> <leader>gB :Git blame<CR>
 map <silent> <leader>gd :call GitDiff()<CR>
 map <silent> <leader>gs :vertical Git<CR>
