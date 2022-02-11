@@ -1059,61 +1059,50 @@ map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)')
 map('v',        'g<C-a>', '<Plug>(dial-increment-additional)')
 map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)')
 
-----------------
--- Kommentary --
-----------------
-g.kommentary_create_default_mappings = false
 
-local kommentary = require('kommentary.config')
-kommentary.setup()
-kommentary.configure_language('default', {
-  prefer_single_line_comments = true
-})
-kommentary.configure_language('typescriptreact', {
-  single_line_comment_string = 'auto',
-  multi_line_comment_strings = 'auto',
-  hook_function = function()
-    require('ts_context_commentstring.internal').update_commentstring()
-  end,
-})
-
-map('n', 'cmm',  '<Plug>kommentary_line_default')
-map('n', 'cm',   '<Plug>kommentary_motion_default')
-map('n', '<CR>', '<Plug>kommentary_line_default')
-map('x', '<CR>', '<Plug>kommentary_visual_default')
-
-function _G.escape()
-  if bo.modifiable then
-    cmd 'nohlsearch'
-  else
-    return feedkeys('<C-w>c', 'n')
-  end
-end
-
-map('n', '<Esc>', escape, 'Close window if not modifiable, otherwise :set nohlsearch')
-map('t', '<Esc>', '<C-\\><C-n>')
-autocmd.augroup {
-  'mappings',
-  {{ 'CmdwinEnter', {
-    ['*'] = function()
-      map('n', '<CR>',  '<CR>',   { buffer = true })
-      map('n', '<Esc>', '<C-w>c', { buffer = true })
-    end
-  }}}
+------------------
+-- Comment.nvim --
+------------------
+require('Comment').setup {
+  toggler = {
+    line = '<leader>cc',
+    block = '<leader>cbb'
+  },
+  opleader = {
+    line = '<leader>c',
+  },
+  extra = {
+    above = '<leader>cO',
+    below = '<leader>co',
+    eol = '<leader>cA'
+  }
 }
 
-local function commentary_append()
-  require("ts_context_commentstring.internal").update_commentstring()
-  vim.api.nvim_input('A ' .. vim.fn.substitute(opt.commentstring, '%s', '', ''))
+local comment_api = require('Comment.api')
+local function comment_map(modes, lhs, command, operator_pending)
+  map(modes, lhs, function()
+    comment_api.call(command)
+    if not operator_pending then
+      feedkeys('g@$')
+    else
+      feedkeys('g@')
+    end
+  end, command)
 end
 
-map('n',        '<leader>cmm', '<Plug>kommentary_line_increase')
-map({'n', 'x'}, '<leader>cm',  '<Plug>kommentary_motion_increase')
-map('n',        '<leader>cuu', '<Plug>kommentary_line_decrease')
-map({'n', 'x'}, '<leader>cu',  '<Plug>kommentary_motion_decrease')
-map({'n', 'x'}, '<leader>cy', 'yy<Plug>kommentary_line_increase')
-map('n', '<leader>ca', commentary_append, 'Append comment')
--- TODO: add <leader>C or cM mapping for commenting everything to the right of the cursor
+map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
+map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
+map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
+
+comment_map('n', '<leader>c>',   'comment_linewise_op', true)
+comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
+comment_map('n', '<leader>cb>>', 'comment_current_blockwise_op')
+comment_map('x', '<leader>>',    'comment_current_linewise_op')
+
+comment_map('n', '<leader>c<',   'uncomment_linewise_op', true)
+comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
+comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
+comment_map('x', '<leader><',    'uncomment_current_linewise_op')
 
 ---------------
 -- Rest.nvim --
@@ -1292,9 +1281,29 @@ map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
 ---------------------
 -- General config --
 ---------------------
+-- Mappings
+map('n', '<Esc>', function()
+  if bo.modifiable then
+    cmd 'nohlsearch'
+  else
+    return feedkeys('<C-w>c', 'n')
+  end
+end , 'Close window if not modifiable, otherwise :set nohlsearch')
+map('t', '<Esc>', '<C-\\><C-n>')
+autocmd.augroup {
+  'mappings',
+  {{ 'CmdwinEnter', {
+    ['*'] = function()
+      map('n', '<CR>',  '<CR>',   { buffer = true })
+      map('n', '<Esc>', '<C-w>c', { buffer = true })
+    end
+  }}}
+}
+
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
 end, 'Delete buffer and pop jump stack')
+
 -- Highlight text object on yank
 autocmd.augroup {
   'HighlightYank',

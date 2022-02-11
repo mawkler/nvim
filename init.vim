@@ -81,7 +81,7 @@ Plug 'milisims/nvim-luaref'          " Vim :help reference for lua
 Plug 'folke/lua-dev.nvim'            " Lua signature help, docs and completion
 Plug 'ethanholz/nvim-lastplace'      " Reopen files at last edit position
 Plug 'monaqa/dial.nvim'              " Enhanced increment/decrement functionality
-Plug 'b3nj5m1n/kommentary'           " For toggling comments
+Plug 'numToStr/Comment.nvim', {'branch': 'plug'} " TODO: remove once merged
 Plug 'NTBBloodbath/rest.nvim'        " For sending GET/POST/etc. requests
 Plug 'mfussenegger/nvim-dap'         " Debugger client
 Plug 'rcarriga/nvim-dap-ui'          " UI for nvim-dap
