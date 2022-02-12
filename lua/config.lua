@@ -619,7 +619,7 @@ map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
 map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
 map('n', 'cd',         telescope_cd, 'Change directory')
-map('n', 'cD',         function() return telescope_cd("~") end, 'cd from home directory')
+map('n', 'cD',         function() return telescope_cd('~') end, 'cd from home directory')
 map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
 map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
@@ -988,8 +988,8 @@ require('gitsigns').setup {
   keymaps = {
     noremap = true,
 
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+    ['n ]c'] = { expr = true, '&diff ? "]c" : "<cmd>lua require\"gitsigns\".next_hunk()<CR>"' },
+    ['n [c'] = { expr = true, '&diff ? "[c" : "<cmd>lua require\"gitsigns\".prev_hunk()<CR>"' },
 
     ['n <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['n <leader>su'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
@@ -1057,7 +1057,6 @@ map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)')
 map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)')
 map('v',        'g<C-a>', '<Plug>(dial-increment-additional)')
 map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)')
-
 
 ------------------
 -- Comment.nvim --
