@@ -1075,7 +1075,26 @@ require('Comment').setup {
     above = '<leader>cO',
     below = '<leader>co',
     eol = '<leader>cA'
-  }
+  },
+  pre_hook = function(ctx)
+    if vim.bo.filetype == 'typescriptreact' then
+      local utils = require('Comment.utils')
+      local ts_context_utils = require('ts_context_commentstring.utils')
+      local type = ctx.ctype == utils.ctype.line and '__default' or '__multiline'
+      local location
+
+      if ctx.ctype == utils.ctype.block then
+        location = ts_context_utils.get_cursor_location()
+      elseif ctx.cmotion == utils.cmotion.v or ctx.cmotion == utils.cmotion.V then
+        location = ts_context_utils.get_visual_start_location()
+      end
+
+      return require('ts_context_commentstring.internal').calculate_commentstring({
+        key = type,
+        location = location
+      })
+    end
+  end
 }
 
 local comment_api = require('Comment.api')
