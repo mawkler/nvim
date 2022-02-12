@@ -1290,6 +1290,32 @@ map('n',        'zK', '<Plug>Lightspeed_gS', 'Lightspeed jump to window below/le
 map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')
 map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
 
+--------------
+-- Winshift --
+--------------
+require('winshift').setup {
+  window_picker_ignore = {
+    filetype = { 'NvimTree' },
+    buftype = { 'terminal', 'quickfix' }
+  }
+}
+
+local function winshift(arg)
+  return function()
+    require('winshift').cmd_winshift(arg)
+  end
+end
+
+map('n', '<C-w><C-m>', winshift())
+map('n', '<C-w>m',     winshift())
+map('n', '<C-w><C-x>', winshift('swap'))
+map('n', '<C-w>x',     winshift('swap'))
+
+map('n', '<C-M-H>', winshift('left'))
+map('n', '<C-M-J>', winshift('down'))
+map('n', '<C-M-K>', winshift('up'))
+map('n', '<C-M-L>', winshift('right'))
+
 ---------------------
 -- General config --
 ---------------------

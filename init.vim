@@ -127,6 +127,7 @@ Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
 Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windows
 Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
 Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
+Plug 'sindrets/winshift.nvim'       " Improved window movement
 call plug#end()
 
 " -- General --
