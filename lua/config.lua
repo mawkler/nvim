@@ -339,7 +339,6 @@ require('onedark').setup {
     return {
       Substitute = {link = 'Search'},
       Title = { fg = c.red0, style = 'bold' },
-      mkdHeading = { link = 'Title' },
       mkdLink = { fg = c.blue0, style = 'underline' },
       NvimTreeFolderName = { fg = c.blue0 },
       NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
@@ -988,8 +987,8 @@ require('gitsigns').setup {
   keymaps = {
     noremap = true,
 
-    ['n ]c'] = { expr = true, '&diff ? "]c" : "<cmd>lua require\"gitsigns\".next_hunk()<CR>"' },
-    ['n [c'] = { expr = true, '&diff ? "[c" : "<cmd>lua require\"gitsigns\".prev_hunk()<CR>"' },
+    ['n ]c'] = { expr = true, '&diff ? "]c" : "<cmd>lua require\'gitsigns\'.next_hunk()<CR>"' },
+    ['n [c'] = { expr = true, '&diff ? "[c" : "<cmd>lua require\'gitsigns\'.prev_hunk()<CR>"' },
 
     ['n <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['n <leader>su'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
