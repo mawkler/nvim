@@ -352,6 +352,7 @@ require('onedark').setup {
       TSNote = { fg = c.info, style = 'bold' },
       TSWarning = { fg = c.warning, style = 'bold' },
       TSDanger = { fg = c.error, style = 'bold' },
+      Todo = { link = 'TSWarning' },
     }
   end
 }
@@ -905,7 +906,6 @@ require('neoscroll.config').set_mappings {
 ----------------
 -- Diagnostics --
 ----------------
-
 lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(
   lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
@@ -927,7 +927,6 @@ sign_define('DiagnosticSignInfo',  '')
 ----------------
 -- Statusline --
 ----------------
--- require('floatline').setup()
 require('statusline').setup({
   theme = colors,
   modifications = {
@@ -1333,18 +1332,18 @@ autocmd.augroup {
   }}}
 }
 
--- TypeScript specific --
-autocmd.augroup {
-  'TypeScript',
-  {{ 'BufWritePre', {
-    ['*.ts,*.tsx'] = function()
-      if b.format_on_write ~= false then
-        cmd 'TSLspOrganize'
-        cmd 'TSLspImportAll'
-      end
-    end
-  }}}
-}
+-- -- TypeScript specific --
+-- autocmd.augroup {
+--   'TypeScript',
+--   {{ 'BufWritePre', {
+--     ['*.ts,*.tsx'] = function()
+--       if b.format_on_write ~= false then
+--         cmd 'TSLspOrganize'
+--         cmd 'TSLspImportAll'
+--       end
+--     end
+--   }}}
+-- }
 
 map('n', '<leader>n', '<cmd>vnew<CR>')
 map('n', '<leader>N', function ()
