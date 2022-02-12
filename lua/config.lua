@@ -1269,13 +1269,6 @@ require('diffview').setup {
 
 map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
 map('n', '<leader>gh', '<cmd>DiffviewFileHistory<CR>')
-map('n', '<C-c>', function()
-  if opt.diff then
-    cmd 'tabclose'
-  else
-    cmd 'DiffviewClose'
-  end
-end, 'Close diff view')
 
 ----------------
 -- Lightspeed --

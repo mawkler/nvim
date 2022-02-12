@@ -475,6 +475,16 @@ augroup end
 
 " -- Quickscope --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+map <C-c> <cmd>call Esc()<CR>
+
+" Doing this mapping in Lua breaks quickscope for some reason
+function Esc() abort
+  if &diff
+    exec 'tabclose'
+  else
+    exec 'DiffviewClose'
+  end
+endfunction
 
 " -- Import lua config --
 lua require('config')
