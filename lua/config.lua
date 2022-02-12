@@ -979,9 +979,9 @@ require('indent_blankline').setup {
 --------------
 require('gitsigns').setup {
   signs = {
-    add          = {text = '┃', hl = 'String'},
-    change       = {text = '┃', hl = 'Boolean'},
-    changedelete = {text = '┃', hl = 'Boolean'},
+    add          = {text = '│', hl = 'String'},
+    change       = {text = '│', hl = 'Boolean'},
+    changedelete = {text = '│', hl = 'Boolean'},
     delete       = {text = '▁', hl = 'Error'},
     topdelete    = {text = '▔', hl = 'Error'},
   },
