@@ -681,7 +681,8 @@ local nvim_tree = require('nvim-tree')
 
 nvim_tree.setup {
   diagnostics = {
-    enable = true
+    enable = true,
+    show_on_dirs = true
   },
   disable_netrw = false,
   update_cwd = true,
