@@ -317,8 +317,21 @@ tabnine:setup({
 -------------
 map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
 map('i', '<C-f>', 'copilot#Accept("")', {expr = true})
+map('i', '<M-.>', '<Plug>(copilot-next)')
+map('i', '<M-,>', '<Plug>(copilot-previous)')
 g.copilot_assume_mapped = true
 g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
+
+autocmd.augroup {
+  'Copilot',
+  {{ 'InsertEnter', {
+    ['*'] = function()
+      -- Copilot takes a while to load, so statusline waits for this variable
+      -- TODO: try to lazy load instead when vim-plug has been replaced with packer.nvim
+      g.insert_entered = true
+    end
+  }}}
+}
 
 -----------------
 -- ColorScheme --
@@ -507,6 +520,7 @@ require('telescope').setup {
       },
       n = {
         ['<C-q>'] = 'close',
+        ['<C-c>'] = 'close',
       }
     },
     layout_config = {
@@ -1222,7 +1236,7 @@ require('stabilize').setup()
 --------------
 -- Diffview --
 --------------
-local dv_callback = require'diffview.config'.diffview_callback
+local dv_callback = require('diffview.config').diffview_callback
 require('diffview').setup {
   enhanced_diff_hl = false,
   file_panel = {

@@ -295,6 +295,17 @@ table.insert(active_right, {
   priority = -1
 })
 
+table.insert(active_right, {
+  provider = ' ',
+  hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
+  left_sep = left_sep,
+  right_sep = right_sep,
+  enabled = function()
+    return vim.g.insert_entered and vim.call('copilot#Enabled') == 1
+  end,
+  truncate_hide = true
+})
+
 -- Clock
 table.insert(active_right, {
   provider = function() return fn.strftime('%H:%M') end,
