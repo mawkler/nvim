@@ -337,11 +337,13 @@ autocmd.augroup {
 -- ColorScheme --
 -----------------
 local colors = require('onedark.colors').setup()
+local bg_float = colors.bg_highlight
 require('onedark').setup {
   hide_end_of_buffer = false,
   colors = {
     bg_search = colors.bg_visual,
     hint = colors.dev_icons.gray,
+    bg_float = bg_float,
     git = {
       add = colors.green0,
       change = colors.orange1,
@@ -352,7 +354,9 @@ require('onedark').setup {
     return {
       Substitute = {link = 'Search'},
       Title = { fg = c.red0, style = 'bold' },
+      Folded = { fg = c.fg_dark, bg = c.bg1 },
       mkdLink = { fg = c.blue0, style = 'underline' },
+
       NvimTreeFolderName = { fg = c.blue0 },
       NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
 
