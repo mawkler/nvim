@@ -35,6 +35,40 @@ local inactive_filetypes = {
   'dapui_scopes',
 }
 
+local modes = {
+  ['n']    = 'NORMAL',
+  ['no']   = 'OP',
+  ['nov']  = 'OP',
+  ['noV']  = 'OP',
+  ['no'] = 'OP',
+  ['niI']  = 'NORMAL',
+  ['niR']  = 'NORMAL',
+  ['niV']  = 'NORMAL',
+  ['v']    = 'VISUAL',
+  ['V']    = 'LINES ',
+  ['']   = 'BLOCK ',
+  ['s']    = 'SELECT',
+  ['S']    = 'SELECT',
+  ['']   = 'BLOCK ',
+  ['i']    = 'INSERT',
+  ['ic']   = 'INSERT',
+  ['ix']   = 'INSERT',
+  ['R']    = 'REPLACE',
+  ['Rc']   = 'REPLACE',
+  ['Rv']   = 'V-REPLACE',
+  ['Rx']   = 'REPLACE',
+  ['c']    = 'COMMAND',
+  ['cv']   = 'COMMAND',
+  ['ce']   = 'COMMAND',
+  ['r']    = 'ENTER ',
+  ['rm']   = 'MORE  ',
+  ['r?']   = 'CONFIRM',
+  ['!']    = 'SHELL ',
+  ['t']    = 'TERM  ',
+  ['nt']   = 'TERM  ',
+  ['null'] = 'NONE  ',
+}
+
 local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
 local right_sep = { str = '',  hl = { fg = 'line_bg' } }
 -- local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
@@ -120,7 +154,9 @@ local inactive_right = components.inactive[2]
 -- Left section --
 
 table.insert(active_left, {
-  provider = 'vi_mode',
+  provider = function()
+    return ' ' .. modes[vim.api.nvim_get_mode().mode] .. ' '
+  end,
   hl = function()
     return {
       fg = 'bg',
@@ -128,9 +164,6 @@ table.insert(active_left, {
       style = 'bold'
     }
   end,
-  left_sep = '█',
-  right_sep = '█',
-  icon = '',
   priority = 10,
 })
 
