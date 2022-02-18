@@ -5,8 +5,6 @@ local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
 local lsp_status = require('lsp-status')
 
-require('nvim-gps').setup({ separator = '  ', depth = 1 })
-
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
   return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
@@ -231,8 +229,13 @@ table.insert(active_left, {
 
 -- Middle section --
 
+gps.setup({ separator = '  ' })
+
 table.insert(active_mid, {
   provider = gps.get_location,
+  short_provider = function()
+    return gps.get_location({ depth = 1 })
+  end,
   hl = { fg = 'darkgray' },
   enabled = function()
     return gps.is_available() and not lsp_progress_available() and wide_enough()
