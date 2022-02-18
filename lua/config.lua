@@ -501,6 +501,15 @@ function custom_action.multi_selection_open(prompt_bufnr)
     custom_action._multiopen(prompt_bufnr, 'edit')
 end
 
+local telescope_multiselect_mappings = {
+  i = {
+    ['<CR>'] = custom_action.multi_selection_open,
+    ['<C-v>'] = custom_action.multi_selection_open_vsplit,
+    ['<C-s>'] = custom_action.multi_selection_open_split,
+    ['<C-t>'] = custom_action.multi_selection_open_tab,
+  }
+}
+
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -547,16 +556,8 @@ require('telescope').setup {
     }
   },
   pickers = {
-    find_files = {
-      mappings = {
-        i = {
-          ['<CR>'] = custom_action.multi_selection_open,
-          ['<C-v>'] = custom_action.multi_selection_open_vsplit,
-          ['<C-s>'] = custom_action.multi_selection_open_split,
-          ['<C-t>'] = custom_action.multi_selection_open_tab,
-        }
-      }
-    }
+    find_files = { mappings = telescope_multiselect_mappings },
+    grep_string = { mappings = telescope_multiselect_mappings }
   },
   extensions = {
     bookmarks = {
