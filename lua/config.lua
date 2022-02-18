@@ -641,7 +641,7 @@ map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with 
 map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
-map('n', '<leader>N',  telescope_config, 'Neovim config')
+map('n', '<leader>n',  telescope_config, 'Neovim config')
 
 telescope.load_extension('zoxide')
 telescope.load_extension('fzf')
@@ -1009,13 +1009,13 @@ require('gitsigns').setup {
     ['n ]c'] = { expr = true, '&diff ? "]c" : "<cmd>lua require\'gitsigns\'.next_hunk()<CR>"' },
     ['n [c'] = { expr = true, '&diff ? "[c" : "<cmd>lua require\'gitsigns\'.prev_hunk()<CR>"' },
 
-    ['n <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['n <leader>su'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['v <leader>ss'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['v <leader>sr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>sR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <leader>sp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ['n <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ['n <leader>ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ['n <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['x <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['x <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>ghR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ['n <leader>ghp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line({full = true, ignore_whitespace = true})<CR>',
 
     -- Text objects
@@ -1260,24 +1260,28 @@ require('diffview').setup {
       ['H']     = dv_callback('toggle_files'),
     },
     file_panel = {
-      ['<Space>'] = dv_callback('select_entry'),
-      ['<C-j>']   = dv_callback('select_next_entry'),
-      ['<C-k>']   = dv_callback('select_prev_entry'),
-      ['<CR>']    = dv_callback('goto_file'),
-      ['<C-t>']   = dv_callback('goto_file_tab'),
-      ['<Esc>']   = dv_callback('toggle_files')
+      ['<Space>']  = dv_callback('select_entry'),
+      ['<C-j>']    = dv_callback('select_next_entry'),
+      ['<C-k>']    = dv_callback('select_prev_entry'),
+      ['<CR>']     = dv_callback('goto_file'),
+      ['<C-t>']    = dv_callback('goto_file_tab'),
+      ['<Esc>']    = dv_callback('toggle_files'),
+      ['<space>e'] = dv_callback(),
+      ['<space>b'] = dv_callback()
     },
     file_history_panel = {
-      ['!']       = dv_callback('options'),
-      ['<CR>']    = dv_callback('open_in_diffview'),
-      ['<Space>'] = dv_callback('select_entry'),
-      ['<C-j>']   = dv_callback('select_next_entry'),
-      ['<C-k>']   = dv_callback('select_prev_entry'),
-      ['gf']      = dv_callback('goto_file'),
-      ['<C-s>']   = dv_callback('goto_file_split'),
-      ['<C-t>']   = dv_callback('goto_file_tab'),
-      ['~']       = dv_callback('focus_files'),
-      ['H']       = dv_callback('toggle_files')
+      ['!']        = dv_callback('options'),
+      ['<CR>']     = dv_callback('open_in_diffview'),
+      ['<Space>']  = dv_callback('select_entry'),
+      ['<C-j>']    = dv_callback('select_next_entry'),
+      ['<C-k>']    = dv_callback('select_prev_entry'),
+      ['gf']       = dv_callback('goto_file'),
+      ['<C-s>']    = dv_callback('goto_file_split'),
+      ['<C-t>']    = dv_callback('goto_file_tab'),
+      ['~']        = dv_callback('focus_files'),
+      ['H']        = dv_callback('toggle_files'),
+      ['<space>e'] = dv_callback(),
+      ['<space>b'] = dv_callback()
     },
     option_panel = {
       ['<CR>'] = dv_callback('select')
@@ -1286,7 +1290,7 @@ require('diffview').setup {
 }
 
 map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
-map('n', '<leader>gh', '<cmd>DiffviewFileHistory<CR>')
+map('n', '<leader>gH', '<cmd>DiffviewFileHistory<CR>')
 
 ----------------
 -- Lightspeed --
@@ -1382,8 +1386,12 @@ autocmd.augroup {
 --   }}}
 -- }
 
-map('n', '<leader>n', '<cmd>vnew<CR>')
+map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<leader>N', function ()
   opt.relativenumber = not opt.relativenumber
   print('Relative numbers ' .. (opt.relativenumber and 'enabled' or 'disabled'))
 end, 'Toggle relative numbers')
+map('n', '<leader>W', function ()
+  vim.o.wrap = not vim.o.wrap
+  print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
+end, 'Toggle line wrap')

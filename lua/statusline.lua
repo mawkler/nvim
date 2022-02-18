@@ -19,6 +19,7 @@ local components = {
 
 local inactive_filetypes = {
   'NvimTree',
+  'DiffViewFiles',
   'vista',
   'dbui',
   'term',
