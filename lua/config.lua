@@ -1348,6 +1348,14 @@ map('n', '<C-M-J>', winshift('down'))
 map('n', '<C-M-K>', winshift('up'))
 map('n', '<C-M-L>', winshift('right'))
 
+------------------
+-- Auto-session --
+------------------
+require('auto-session').setup {
+  auto_restore_enabled = false,
+}
+map('n', '<leader>s', '<cmd>SearchSession<CR>')
+
 ---------------------
 -- General config --
 ---------------------
