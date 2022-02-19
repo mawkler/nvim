@@ -197,17 +197,23 @@ local function toggle_complete()
 end
 
 local function complete()
-  return function ()
-    local copilot_keys = fn['copilot#Accept']('')
-    if cmp.visible() then
-      cmp.mapping.confirm({select = true})()
-    elseif call 'vsnip#available' == 1 then
-      return feedkeys('<Plug>(vsnip-expand)')
-    elseif copilot_keys ~= '' then
-      feedkeys(copilot_keys)
-    else
-      cmp.complete()
-    end
+  local copilot_keys = fn['copilot#Accept']('')
+  if cmp.visible() then
+    cmp.mapping.confirm({select = true})()
+  elseif call 'vsnip#available' == 1 then
+    return feedkeys('<Plug>(vsnip-expand)')
+  elseif copilot_keys ~= '' then
+    feedkeys(copilot_keys)
+  else
+    cmp.complete()
+  end
+end
+
+local function cmdline_complete()
+  if cmp.visible() then
+    cmp.mapping.confirm({select = true})()
+  else
+    cmp.complete()
   end
 end
 
@@ -257,12 +263,15 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-j>'] = cmp_map(cmp_mapping.select_next_item(cmp_insert)),
-    ['<C-k>'] = cmp_map(cmp_mapping.select_prev_item(cmp_insert)),
-    ['<C-b>'] = cmp_map(cmp_mapping.scroll_docs(-4)),
-    ['<C-f>'] = cmp_map(cmp_mapping.scroll_docs(4)),
+    ['<C-j>'] = cmp_map(cmp.mapping.select_next_item(cmp_insert)),
+    ['<C-k>'] = cmp_map(cmp.mapping.select_prev_item(cmp_insert)),
+    ['<C-b>'] = cmp_map(cmp.mapping.scroll_docs(-4)),
+    ['<C-f>'] = cmp_map(cmp.mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-    ['<Tab>'] = cmp_map(complete()),
+    ['<Tab>'] = cmp.mapping({
+      i = complete,
+      c = cmdline_complete,
+    }),
     ['<C-y>'] = cmp_disabled,
     ['<C-n>'] = cmp_disabled,
     ['<C-p>'] = cmp_disabled,
