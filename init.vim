@@ -45,6 +45,8 @@ Plug 'lewis6991/gitsigns.nvim'       " Shows git status for each line
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'         " Enables built-in LSP
 Plug 'williamboman/nvim-lsp-installer' " Adds LspInstall command
+Plug 'L3MON4D3/LuaSnip'              " Snippet engine
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -56,7 +58,6 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'          " VSCode-like completion icons
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'hrsh7th/vim-vsnip'             " Snippet engine
 Plug 'melkster/friendly-snippets'    " Set of snippets
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-textobjects',

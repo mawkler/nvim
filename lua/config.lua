@@ -168,6 +168,41 @@ require('trouble').setup {
 }
 map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
 
+-------------
+-- Luasnip --
+-------------
+local luasnip = require("luasnip")
+luasnip.config.setup {
+  history = true
+}
+
+local function right_or_snip_next()
+  if luasnip.jumpable(1) then
+    luasnip.jump(1)
+  elseif fn.mode() == 'i' then
+    feedkeys('<Right>')
+  end
+end
+
+local function left_or_snip_prev()
+  if luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  elseif fn.mode() == 'i' then
+    feedkeys('<Left>')
+  end
+end
+
+
+local function toggle_active_choice()
+  if luasnip.choice_active() then
+    luasnip.change_choice(1)
+  end
+end
+
+map({'i', 's'}, '<M-l>', right_or_snip_next, '<Right> or next snippet')
+map({'i', 's'}, '<M-h>', left_or_snip_prev, '<Left> or previous snippet')
+map({'i', 's'}, '<M-space>', toggle_active_choice, 'Toggle active snippet choice')
+
 ---------
 -- Cmp --
 ---------
@@ -200,8 +235,8 @@ local function complete()
   local copilot_keys = fn['copilot#Accept']('')
   if cmp.visible() then
     cmp.mapping.confirm({select = true})()
-  elseif call 'vsnip#available' == 1 then
-    return feedkeys('<Plug>(vsnip-expand)')
+  elseif luasnip.expandable() then
+    luasnip.expand()
   elseif copilot_keys ~= '' then
     feedkeys(copilot_keys)
   else
@@ -239,7 +274,7 @@ end
 cmp.PreselectMode = true
 
 local sources = {
-  { name = 'vsnip' },
+  { name = 'luasnip' },
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
   { name = 'nvim_lsp_signature_help' },
@@ -259,7 +294,7 @@ local sources = {
 cmp.setup({
   snippet = {
     expand = function(args)
-      fn['vsnip#anonymous'](args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -385,28 +420,6 @@ require('onedark').setup {
 --------------
 -- Mappings --
 --------------
-local function right_or_snip_next()
-  if fn['vsnip#jumpable'](1) == 1 then
-    feedkeys('<Plug>(vsnip-jump-next)')
-  elseif fn.mode() == 'i' then
-    feedkeys('<Right>')
-  end
-end
-
-local function left_or_snip_prev()
-  if fn['vsnip#jumpable'](-1) == 1 then
-    feedkeys('<Plug>(vsnip-jump-prev)')
-  elseif fn.mode() == 'i' then
-    feedkeys('<Left>')
-  end
-end
-
--- Snippets
-map({'i', 's'}, '<M-l>', right_or_snip_next, '<Right> or next snippet')
-map({'i', 's'}, '<M-h>', left_or_snip_prev, '<Left> or previous snippet')
-map({'i', 's'}, '<C-n>', '<Plug>(vsnip-jump-next)')
-map({'i', 's'}, '<C-p>', '<Plug>(vsnip-jump-prev)')
-
 local INFO = vim.diagnostic.severity.INFO
 local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
 local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
