@@ -1060,39 +1060,46 @@ require('nvim-lastplace').setup()
 ---------------
 -- Dial.nvim --
 ---------------
-local dial = require('dial')
+local augend = require('dial.augend')
 
-dial.config.searchlist.normal = {
-  'number#decimal',
-  'number#hex',
-  'number#binary',
-  'date#[%Y/%m/%d]',
-  'date#[%H:%M]',
-  'markup#markdown#header',
+require('dial.config').augends:register_group {
+  default = {
+    augend.integer.alias.decimal,
+    augend.integer.alias.hex,
+    augend.integer.alias.binary,
+    augend.date.alias['%Y/%m/%d'],
+    augend.date.alias['%H:%M'],
+    augend.constant.alias.ja_weekday,
+    augend.constant.alias.ja_weekday_full,
+    augend.constant.alias.bool,
+    -- augend.markdown.header -- Not yet implemented
+  }
 }
 
--- Custom augends
-local function add_cyclic_augend(name, strlist)
-  local augend_key = 'custom#' .. name
-  dial.augends[augend_key] = dial.common.enum_cyclic {
-    name    = name,
-    strlist = strlist
+local function add_constant(elements)
+  return augend.constant.new {
+    elements = elements,
+    cyclic = true,
+    word = false
   }
-  table.insert(dial.config.searchlist.normal, augend_key)
 end
 
-add_cyclic_augend('boolean', {'true', 'false'})
-add_cyclic_augend('BOOLEAN', {'TRUE', 'FALSE'})
-add_cyclic_augend('logical', {'and', 'or'})
-add_cyclic_augend('number', {
-  'one',   'two',   'three', 'four', 'five',   'six',
-  'seven', 'eight', 'nine',  'ten',  'eleven', 'twelve'
-})
-add_cyclic_augend('nummer', {
-  'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex',
-  'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
-})
-add_cyclic_augend('access modifier', {'private', 'public'})
+require('dial.config').augends:register_group{
+  default = {
+    add_constant({'and', 'or'}),
+    add_constant({'&&', '||'}),
+    add_constant({'TRUE', 'FALSE'}),
+    add_constant({'private', 'public'}),
+    add_constant({
+      'one',   'two',   'three', 'four', 'five',   'six',
+      'seven', 'eight', 'nine',  'ten',  'eleven', 'twelve'
+    }),
+    add_constant({
+      'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex',
+      'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
+    }),
+  }
+}
 
 map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)')
 map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)')
@@ -1151,6 +1158,8 @@ end
 map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
 map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
 map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
+map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
+map('n', 'cm',         '<Plug>(comment_toggle_current_linewise)')
 
 comment_map('n', '<leader>c>',   'comment_linewise_op', true)
 comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
