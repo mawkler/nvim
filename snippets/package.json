@@ -1,0 +1,35 @@
+{
+  "name": "snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "global"
+        ],
+        "path": "./global.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "./markdown.json"
+      },
+      {
+        "language": [
+          "plaintex",
+          "tex"
+        ],
+        "path": "./tex.json"
+      },
+      {
+        "language": [
+          "vim"
+        ],
+        "path": "./vim.json"
+      }
+    ]
+  }
+}

@@ -172,8 +172,38 @@ map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
 -- Luasnip --
 -------------
 local luasnip = require("luasnip")
-luasnip.config.setup {
-  history = true
+local s = luasnip.snippet
+local sn = luasnip.snippet_node
+local lt = luasnip.text_node
+local i = luasnip.insert_node
+local d = luasnip.dynamic_node
+
+luasnip.config.setup { history = true }
+luasnip.filetype_extend('all', {'global'})
+require('luasnip/loaders/from_vscode').load {
+  paths = {
+    '~/.config/nvim/packages/friendly-snippets/',
+    '~/.config/nvim/snippets'
+  }
+}
+
+local luasnip_clipboard = function()
+  return sn(nil, { i(1, fn.getreg('+')) })
+end
+
+luasnip.snippets = {
+  markdown = {
+    s({
+      trig = 'link',
+      name = 'hyperlink',
+      dscr = 'Insert a hyperlink with the content in the clipboard (by default)'
+    }, {
+      lt '[', i(1, {'text'}), lt ']',
+      lt "(",
+      d(2, luasnip_clipboard, {}),
+      lt ") ",
+    }),
+  }
 }
 
 local function right_or_snip_next()
