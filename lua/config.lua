@@ -238,7 +238,6 @@ map({'i', 's'}, '<M-space>', toggle_active_choice, 'Toggle active snippet choice
 ---------
 opt.completeopt = 'menuone,noselect'
 local cmp = require('cmp')
-local cmp_mapping = cmp.mapping
 local cmp_disabled = cmp.config.disable
 local cmp_insert = { behavior = cmp.SelectBehavior.Insert }
 
@@ -308,11 +307,7 @@ local sources = {
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
   { name = 'nvim_lsp_signature_help' },
-  { name = 'path',
-    option = {
-      trailing_slash = true
-    }
-  },
+  { name = 'path', option = { trailing_slash = true } },
   {
     name = 'buffer',
     option = {
@@ -1357,8 +1352,9 @@ require('lightspeed').setup {
   exit_after_idle_msecs = { labeled = 1000 }
 }
 
-map({'n', 'x', 'o'}, 'zj', '<Plug>Lightspeed_s',  'Lightspeed jump downwards')
-map({'n', 'x', 'o'}, 'zk', '<Plug>Lightspeed_S',  'Lightspeed jump upwards')
+map({'n', 'x', 'o'}, 'zj',   '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
+map({'n', 'x', 'o'}, 'zk',   '<Plug>Lightspeed_S',       'Lightspeed jump upwards')
+map({'n', 'x', 'o'}, '<CR>', '<Plug>Lightspeed_omni_s',  'Lightspeed jump bidirectionally')
 
 map('o', 'zJ', '<Plug>Lightspeed_x',  'Lightspeed jump downwards (inclusive op)')
 map('o', 'zK', '<Plug>Lightspeed_X',  'Lightspeed jump upwards (inclusive op)')
