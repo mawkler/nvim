@@ -1062,6 +1062,14 @@ require('nvim-lastplace').setup()
 ---------------
 local augend = require('dial.augend')
 
+local function add_constant(elements)
+  return augend.constant.new {
+    elements = elements,
+    cyclic = true,
+    word = false
+  }
+end
+
 require('dial.config').augends:register_group {
   default = {
     augend.integer.alias.decimal,
@@ -1073,19 +1081,6 @@ require('dial.config').augends:register_group {
     augend.constant.alias.ja_weekday_full,
     augend.constant.alias.bool,
     -- augend.markdown.header -- Not yet implemented
-  }
-}
-
-local function add_constant(elements)
-  return augend.constant.new {
-    elements = elements,
-    cyclic = true,
-    word = false
-  }
-end
-
-require('dial.config').augends:register_group{
-  default = {
     add_constant({'and', 'or'}),
     add_constant({'&&', '||'}),
     add_constant({'TRUE', 'FALSE'}),
