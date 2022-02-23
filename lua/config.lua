@@ -442,6 +442,9 @@ require('onedark').setup {
   end
 }
 
+-- Use different highlights for special keys in cmdline vs other windows
+vim.opt.winhighlight:append('SpecialKey:SpecialKeyWin')
+
 --------------
 -- Mappings --
 --------------
