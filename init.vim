@@ -831,7 +831,7 @@ command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>
 " -- Startify --
 let g:startify_session_dir = '~/.config/nvim/sessions/'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
-let g:startify_custom_indices = 'asdfghlvnmyturieowpqxz' " Use letters instead of numbers
+let g:startify_custom_indices = 'asdfhlvnmytureowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
 let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
 let g:startify_session_sort = 1  " Sort sessions based on mru rather than name

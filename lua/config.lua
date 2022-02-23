@@ -1180,6 +1180,7 @@ map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
 map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
 map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
 map('n', 'cm',         '<Plug>(comment_toggle_current_linewise)')
+map('n', '<leader>cp', 'yycmp', {remap = true})
 
 comment_map('n', '<leader>c>',   'comment_linewise_op', true)
 comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
@@ -1427,18 +1428,31 @@ autocmd.augroup {
   }}}
 }
 
--- -- TypeScript specific --
--- autocmd.augroup {
---   'TypeScript',
---   {{ 'BufWritePre', {
---     ['*.ts,*.tsx'] = function()
---       if b.format_on_write ~= false then
---         cmd 'TSLspOrganize'
---         cmd 'TSLspImportAll'
---       end
---     end
---   }}}
--- }
+-- TypeScript specific --
+autocmd.augroup {
+  'TypeScript',
+  {
+    { 'FileType',
+      {
+        typescript = function()
+          vim.opt.matchpairs:append('<:>')
+        end
+      }
+    },
+    -- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
+    -- formatter.nvim
+    -- { 'BufWritePre',
+    --   {
+    --     ['*.ts,*.tsx'] = function()
+    --       if b.format_on_write ~= false then
+    --         cmd 'TSLspOrganize'
+    --         cmd 'TSLspImportAll'
+    --       end
+    --     end
+    --   }
+    -- }
+  }
+}
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<leader>N', function ()
