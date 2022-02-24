@@ -433,6 +433,9 @@ require('onedark').setup {
       DiagnosticUnderlineWarning = { style = 'underline', sp = c.warning },
       DiagnosticUnderlineHint = { style = 'underline', sp = c.hint },
       DiagnosticUnderlineInfo = { style = 'underline', sp = c.info },
+      LspReferenceText = { link = 'Search' },
+      LspReferenceRead = { link = 'Search' },
+      LspReferenceWrite = { link = 'Search' },
 
       TSNote = { fg = c.info, style = 'bold' },
       TSWarning = { fg = c.warning, style = 'bold' },
@@ -453,6 +456,11 @@ local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
 local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
 local with_border = {float = { border = 'single' }}
 
+local function lsp_references()
+  vim.lsp.buf.document_highlight()
+  return lsp.buf.references({includeDeclaration = false})
+end
+
 -- LSP and diagnostics
 map('n',        'gd',        lsp.buf.definition, 'vim.lsp.buf.definition')
 map('n',        'gi',        lsp.buf.implementation, 'vim.lsp.buf.implementation')
@@ -460,8 +468,8 @@ map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definiti
 map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
 map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
 map('i',        '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
-map('n',        'gR',        function() return lsp.buf.references({includeDeclaration = false}) end, 'vim.lsp.buf.references')
-map({'n', 'x'}, '<leader>r', lsp.buf.rename, 'vim.lsp.buf.rename')
+map('n',        'gr',        lsp_references, 'vim.lsp.buf.references')
+map({'n', 'x'}, '<leader>r', vim.lsp.buf.rename, 'vim.lsp.buf.rename')
 map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
 map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'diagnostic.open_float')
 map('n',        ']e',        function() return diagnostic.goto_next(error_opts) end, 'diagnostic.goto_next')
@@ -1402,6 +1410,7 @@ map('n', '<C-M-L>', winshift('right'))
 map('n', '<Esc>', function()
   if bo.modifiable then
     cmd 'nohlsearch'
+    lsp.buf.clear_references()
   else
     return feedkeys('<C-w>c', 'n')
   end
