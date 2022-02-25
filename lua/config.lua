@@ -1404,6 +1404,7 @@ map('n', '<C-w><C-m>', winshift())
 map('n', '<C-w>m',     winshift())
 map('n', '<C-w><C-x>', winshift('swap'))
 map('n', '<C-w>x',     winshift('swap'))
+map('n', '<C-w>M',     winshift('swap'))
 
 map('n', '<C-M-H>', winshift('left'))
 map('n', '<C-M-J>', winshift('down'))
