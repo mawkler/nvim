@@ -48,6 +48,7 @@ local typescript_settings = {
     local ts_utils = require('nvim-lsp-ts-utils')
     ts_utils.setup({
       update_imports_on_move = true,
+      require_confirmation_on_move = true,
       inlay_hints_highlight = 'NvimLspTSUtilsInlineHint'
     })
     ts_utils.setup_client(client)
@@ -174,7 +175,7 @@ map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
 local luasnip = require("luasnip")
 local s = luasnip.snippet
 local sn = luasnip.snippet_node
-local lt = luasnip.text_node
+local tn = luasnip.text_node
 local i = luasnip.insert_node
 local d = luasnip.dynamic_node
 
@@ -1091,6 +1092,7 @@ require('gitsigns').setup {
 }
 -- Workaround for bug where change highlight switches for some reason
 cmd 'hi! link GitGutterChange DiffChange'
+vim.opt.diffopt:append { 'algorithm:patience' } -- Use patience diff algorithm
 
 ---------------
 -- Lastplace --
