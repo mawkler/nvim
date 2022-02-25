@@ -479,6 +479,7 @@ map('n',        ']h',        function() return diagnostic.goto_next(info_opts) e
 map('n',        ']d',        function() return diagnostic.goto_next(with_border) end, 'Next diagnostic')
 map('n',        '[d',        function() return diagnostic.goto_prev(with_border) end, 'Previous diagnostic')
 map('n',        '<C-w>gd',   '<C-w>vgd', {desc = 'LSP go to definition in window split', remap = true})
+map('n',        '<C-w>gi',   '<C-w>vgi', {desc = 'LSP go to implementaiton in window split', remap = true})
 map('n',        '<C-w>gD',   '<C-w>vgD', {desc = 'LSP go to type definition in window split', remap = true})
 
 -- Sets `bufhidden = delete` if buffer was jumped to
@@ -568,7 +569,7 @@ local telescope_multiselect_mappings = {
   }
 }
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -607,9 +608,9 @@ require('telescope').setup {
     no_ignore = true,
     file_ignore_patterns = {
       '%.git/', 'node_modules/', '%.npm/', '__pycache__/', '%[Cc]ache/',
-      '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.local/',
-      '%.py[c]', '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$',
-      '%.tmp', '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
+      '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.py[c]',
+      '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$', '%.tmp',
+      '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
       '%.class$', '%.pdb$', '%.dll$', '%.dat$'
     }
   },
@@ -621,6 +622,9 @@ require('telescope').setup {
     bookmarks = {
       selected_browser = 'brave',
       url_open_command = 'xdg-open &>/dev/null',
+    },
+    sessions_picker = {
+      sessions_dir = vim.fn.stdpath('data') ..'/sessions/'
     }
   }
 }
@@ -639,9 +643,7 @@ function _G.telescope_config()
   builtin.find_files({
     search_dirs = { '$HOME/.config/nvim/' },
     prompt_title = 'Neovim config',
-    file_ignore_patterns = {
-      '.config/nvim/packages/', '.config/nvim/sessions/'
-    },
+    file_ignore_patterns = { '.config/nvim/packages/' },
     no_ignore = true,
     hidden = true,
     path_display = function(_, path)
@@ -683,11 +685,12 @@ end
 map('n', '<C-p>',      function() return builtin.find_files({hidden = true}) end, 'Find files')
 map('n', '<leader>f',  grep_string, 'Grep string')
 map('n', '<leader>F',  builtin.live_grep, 'Live grep')
-map('n', '<leader>B', builtin.buffers, 'Open buffers')
-map('n', '<leader>m',  telescope.extensions.frecency.frecency, 'Recently used files')
+map('n', '<leader>B',  builtin.buffers, 'Open buffers')
+map('n', '<leader>m',  builtin.oldfiles, 'Recently used files')
+map('n', '<leader>th', telescope.extensions.frecency.frecency, 'Frecency')
 map('n', '<leader>h',  builtin.help_tags, 'Help tags')
 map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
-map('n', '<leader>th', builtin.highlights, 'Highlights')
+map('n', '<leader>tH', builtin.highlights, 'Highlights')
 map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
 map('n', '<leader>ts', builtin.lsp_document_symbols, 'LSP document symbols')
 map('n', '<leader>tS', builtin.lsp_workspace_symbols, 'LSP workspace symbols')
@@ -698,6 +701,7 @@ map('n', 'cd',         telescope_cd, 'Change directory')
 map('n', 'cD',         function() return telescope_cd('~') end, 'cd from home directory')
 map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
 map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
+map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Sessions')
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
 map('n', '<leader>n',  telescope_config, 'Neovim config')
@@ -1153,6 +1157,7 @@ require('Comment').setup {
     below = '<leader>co',
     eol = '<leader>cA'
   },
+  ignore = '^$', -- Ignore empty lines
   pre_hook = function(ctx)
     if vim.bo.filetype == 'typescriptreact' then
       local utils = require('Comment.utils')

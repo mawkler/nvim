@@ -121,6 +121,7 @@ Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
+Plug 'JoseConseco/telescope_sessions_picker.nvim'
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
@@ -829,7 +830,7 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
 
 " -- Startify --
-let g:startify_session_dir = '~/.config/nvim/sessions/'
+let g:startify_session_dir = stdpath('data') .'/sessions/'
 let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
 let g:startify_custom_indices = 'asdfhlvnmytureowpqxz' " Use letters instead of numbers
 let g:startify_files_number = 8
@@ -876,9 +877,7 @@ let g:session_autosave_silent = 1
 let g:session_default_overwrite = 1
 let g:session_autoload = 'no'
 let g:session_lock_enabled = 0
-let g:session_directory = '~/.config/nvim/sessions/'
-
-nmap <leader>s :OpenSession<Space>
+let g:session_directory = g:startify_session_dir
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1
