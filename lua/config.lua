@@ -1419,6 +1419,9 @@ map('n', '<Esc>', function()
   if bo.modifiable then
     cmd 'nohlsearch'
     lsp.buf.clear_references()
+    for _, buffer in pairs(visible_buffers()) do
+      lsp.util.buf_clear_references(buffer)
+    end
   else
     return feedkeys('<C-w>c', 'n')
   end
