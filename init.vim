@@ -185,7 +185,6 @@ noremap  <leader>p        "+p
 noremap  <leader>P        "+P
 map!     <M-v>            <C-r>+
 map      <C-q>            :qa<CR>
-map      <S-CR>           <C-w>W
 map      -                3<C-W><
 map      +                3<C-W>>
 nmap     <M-+>            <C-W>+
