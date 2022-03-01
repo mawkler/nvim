@@ -407,6 +407,7 @@ autocmd.augroup {
 -- ColorScheme --
 -----------------
 local colors = require('onedark.colors').setup()
+local style = require('onedark.types').od.HighlightStyle
 local bg_float = colors.bg_highlight
 require('onedark').setup {
   hide_end_of_buffer = false,
@@ -429,6 +430,8 @@ require('onedark').setup {
 
       NvimTreeFolderName = { fg = c.blue0 },
       NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
+
+      TelescopeMatching = { fg = c.blue0, style = style.Bold },
 
       DiagnosticUnderlineError = { style = 'underline', sp = c.error },
       DiagnosticUnderlineWarning = { style = 'underline', sp = c.warning },
