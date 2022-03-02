@@ -147,8 +147,10 @@ set spelllang=en,sv   " Use both Engligh and Swedish spell check
 set splitright        " Open vertical window splits to the right instead of left
 set encoding=utf-8
 set updatetime=500
-if exists('g:goneovim')
+
+if exists('g:goneovim') && !exists('g:font_set')
   set guifont=FiraCode\ Nerd\ Font:h11
+  let g:font_set = v:true " Prevents goneovim from changing zoom level when reloading init.vim
 endif
 
 augroup filechanged
