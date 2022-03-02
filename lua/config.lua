@@ -408,43 +408,66 @@ autocmd.augroup {
 -----------------
 local colors = require('onedark.colors').setup()
 local style = require('onedark.types').od.HighlightStyle
-local bg_float = colors.bg_highlight
+local onedark_utils = require('onedark.util')
+
 require('onedark').setup {
   hide_end_of_buffer = false,
+  dev = true,
   colors = {
     bg_search = colors.bg_visual,
     hint = colors.dev_icons.gray,
-    bg_float = bg_float,
+    bg_float = colors.bg_highlight,
     git = {
       add = colors.green0,
       change = colors.orange1,
       delete = colors.red1
-    },
+    }
   },
   overrides = function(c)
     return {
+      -- General
       Substitute = {link = 'Search'},
-      Title = { fg = c.red0, style = 'bold' },
+      Title = { fg = c.red0, style = style.Bold },
       Folded = { fg = c.fg_dark, bg = c.bg1 },
-      mkdLink = { fg = c.blue0, style = 'underline' },
-
+      FloatBorder = { fg = c.blue0, bg = c.bg_float  },
+      Search = { bg = c.bg_search },
+      SpecialKey = { fg = c.blue0 },
+      -- Treesitter
+      TSNote = { fg = c.info, style = style.Bold },
+      TSWarning = { fg = c.warning, style = style.Bold },
+      TSDanger = { fg = c.error, style = style.Bold },
+      Todo = { link = 'TSWarning' },
+      -- Markdown/html
+      mkdLink = { fg = c.blue0, style = style.Underline },
+      htmlBold = { fg = c.orange0, style = style.Bold },
+      htmlItalic = { fg = c.purple0, style = style.Italic },
+      mkdHeading = { link = 'Title' },
+      -- NvimTree
       NvimTreeFolderName = { fg = c.blue0 },
-      NvimTreeOpenedFolderName = { fg = c.blue0, style = 'bold' },
-
+      NvimTreeOpenedFolderName = { fg = c.blue0, style = style.Bold },
+      NvimTreeOpenedFile = { style = style.Bold },
+      NvimTreeGitDirty = { fg = c.orange1 },
+      NvimTreeGitNew = { fg = c.green0 },
+      NvimTreeGitIgnored = { fg = c.fg_dark },
+      -- Telescope
       TelescopeMatching = { fg = c.blue0, style = style.Bold },
-
-      DiagnosticUnderlineError = { style = 'underline', sp = c.error },
-      DiagnosticUnderlineWarning = { style = 'underline', sp = c.warning },
-      DiagnosticUnderlineHint = { style = 'underline', sp = c.hint },
-      DiagnosticUnderlineInfo = { style = 'underline', sp = c.info },
+      TelescopePromptPrefix = { fg = c.fg0, style = style.Bold },
+      -- LSP
       LspReferenceText = { link = 'Search' },
       LspReferenceRead = { link = 'Search' },
       LspReferenceWrite = { link = 'Search' },
-
-      TSNote = { fg = c.info, style = 'bold' },
-      TSWarning = { fg = c.warning, style = 'bold' },
-      TSDanger = { fg = c.error, style = 'bold' },
-      Todo = { link = 'TSWarning' },
+      -- Diagnostics
+      DiagnosticUnderlineError = { style = style.Underline, sp = c.error },
+      DiagnosticUnderlineWarning = { style = style.Underline, sp = c.warning },
+      DiagnosticUnderlineHint = { style = style.Underline, sp = c.hint },
+      DiagnosticUnderlineInfo = { style = style.Underline, sp = c.info },
+      -- nvim-cmp
+      CmpItemAbbrDeprecatedDefault = { fg = onedark_utils.darken(c.fg0, 0.8) },
+      CmpItemAbbrMatchFuzzy = { fg = c.fg0, style = style.Bold },
+      CmpItemKindSnippetDefault = { fg = c.blue0 },
+      CmpItemKindTextDefault = { link = 'Normal' },
+      -- nvim-lsp-ts-utils
+      NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
     }
   end
 }
