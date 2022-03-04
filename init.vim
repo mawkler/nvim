@@ -899,9 +899,9 @@ let g:bufferline = get(g:, 'bufferline', {
       \ 'exclude_ft': ['qf'],
       \ })
 
-nmap <M-w>         :BufferClose<CR>
-nmap <M-W>         :BufferClose<CR>:wincmd c<CR>
-nmap <leader><M-w> :BufferClose!<CR>
+nmap <silent> <M-w>         :BufferClose<CR>
+nmap <silent> <M-W>         :BufferClose<CR>:wincmd c<CR>
+nmap <silent> <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
 nnoremap <silent> <C-Space> :BufferPick<CR>

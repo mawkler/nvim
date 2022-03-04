@@ -468,6 +468,8 @@ require('onedark').setup {
       CmpItemKindTextDefault = { link = 'Normal' },
       -- nvim-lsp-ts-utils
       NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
+      -- Fidget.nvim
+      FidgetTitle = { fg = c.blue0, style = style.Bold },
     }
   end
 }
