@@ -752,6 +752,7 @@ require('dressing').setup {
   },
   input = {
     insert_only = false,
+    relative = "editor",
     default_prompt = ' ' -- Doesn't seem to work
   }
 }
@@ -808,16 +809,17 @@ nvim_tree.setup {
     width = 40,
     mappings = {
       list = {
-        { key = 'l', cb = tree_cb('edit') },
-        { key = 'h', cb = tree_cb('close_node') },
-        { key = '>', cb = tree_cb('cd') },
-        { key = '<', cb = tree_cb('dir_up') },
-        { key = 'd', cb = tree_cb('trash') },
-        { key = 'D', cb = tree_cb('remove') },
-        { key = '<C-r>', cb = tree_cb('refresh') },
-        { key = 'R', cb = tree_cb('full_rename') },
-        { key = '<Space>', cb = tree_cb('preview') },
-        { key = '<C-s>', cb = tree_cb('split') },
+      { key = 'l',       cb = tree_cb('edit') },
+      { key = 'h',       cb = tree_cb('close_node') },
+      { key = '>',       cb = tree_cb('cd') },
+      { key = '<',       cb = tree_cb('dir_up') },
+      { key = 'd',       cb = tree_cb('trash') },
+      { key = 'D',       cb = tree_cb('remove') },
+      { key = '<C-r>',   cb = tree_cb('refresh') },
+      { key = 'R',       cb = tree_cb('full_rename') },
+      { key = '<Space>', cb = tree_cb('preview') },
+      { key = '<C-s>',   cb = tree_cb('split') },
+      { key = 'gh',      cb = tree_cb('show_file_info') },
       }
     }
   }
@@ -1234,6 +1236,7 @@ comment_map('n', '<leader>cb>>', 'comment_current_blockwise_op')
 comment_map('x', '<leader>>',    'comment_current_linewise_op')
 
 comment_map('n', '<leader>c<',   'uncomment_linewise_op', true)
+comment_map('n', '<leader>cu',   'uncomment_linewise_op', true)
 comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
 comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
 comment_map('x', '<leader><',    'uncomment_current_linewise_op')
