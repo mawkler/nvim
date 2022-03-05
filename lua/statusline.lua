@@ -4,6 +4,7 @@ local mode = require('feline.providers.vi_mode')
 local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
 local lsp_status = require('lsp-status')
+local luasnip = require('luasnip')
 
 local function GetHiVal(name, layer)
   layer = layer or 'fg'
@@ -238,7 +239,9 @@ table.insert(active_mid, {
   end,
   hl = { fg = 'darkgray' },
   enabled = function()
-    return gps.is_available() and not lsp_progress_available() and wide_enough()
+    return gps.is_available()
+      and not lsp_progress_available()
+      and not luasnip.in_snippet()
   end,
   truncate_hide = true,
   priority = -1
@@ -251,6 +254,16 @@ table.insert(active_mid, {
   hl = { fg = 'darkgray' },
   truncate_hide = true,
   priority = 5
+})
+
+table.insert(active_mid, {
+  provider = 'snippet',
+  hl = { fg = 'darkgray' },
+  enabled = luasnip.in_snippet,
+  icon = {
+    str =' ',
+    hl = { fg = 'blue' }
+  },
 })
 
 -- Right section --

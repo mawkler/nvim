@@ -208,7 +208,7 @@ luasnip.snippets = {
 }
 
 local function right_or_snip_next()
-  if luasnip.jumpable(1) then
+  if luasnip.in_snippet() and luasnip.jumpable(1) then
     luasnip.jump(1)
   elseif fn.mode() == 'i' then
     feedkeys('<Right>')
@@ -216,7 +216,7 @@ local function right_or_snip_next()
 end
 
 local function left_or_snip_prev()
-  if luasnip.jumpable(-1) then
+  if luasnip.in_snippet() and luasnip.jumpable(-1) then
     luasnip.jump(-1)
   elseif fn.mode() == 'i' then
     feedkeys('<Left>')
