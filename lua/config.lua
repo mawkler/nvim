@@ -192,6 +192,12 @@ local luasnip_clipboard = function()
   return sn(nil, { i(1, fn.getreg('+')) })
 end
 
+local luasnip_plug = function()
+  return sn(nil, {
+    i(1, fn.getreg('+'):gsub('.*github.com/([^/]*/[^/]*).*', '%1')),
+  })
+end
+
 luasnip.snippets = {
   markdown = {
     s({
@@ -199,11 +205,20 @@ luasnip.snippets = {
       name = 'hyperlink',
       dscr = 'Insert a hyperlink with the content in the clipboard (by default)'
     }, {
-      lt '[', i(1, {'text'}), lt ']',
-      lt "(",
+      tn '[', i(1, {'text'}), tn ']',
+      tn "(",
       d(2, luasnip_clipboard, {}),
-      lt ") ",
+      tn ") ",
     }),
+  },
+  vim = {
+    s({
+      trig = 'plug',
+      name = 'vim-plug plugin',
+      dscr = 'Insert a vim-plug plugin with the content in the clipboard (by default)'
+    }, {
+      tn "Plug '", d(1, luasnip_plug, {}), tn "'",
+    })
   }
 }
 
