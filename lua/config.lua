@@ -26,9 +26,6 @@ end
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
--- Lua autocmds
-local autocmd = require('autocmd-lua')
-
 -------------------
 -- LSP Installer --
 -------------------
@@ -361,17 +358,26 @@ cmp.setup({
   }
 })
 
--- Tabnine
-autocmd.augroup {
-  'TabNine',
-  {{ 'FileType', {
-    ['markdown,text,tex,gitcommit'] = function()
-      cmp.setup.buffer {
-        sources = cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
-      }
-    end
-  }}}
-}
+local function autocmd(event, opts)
+  if opts.group then
+    api.nvim_create_augroup(opts.group, {})
+  else
+    opts.group = 'DefaultAugroup'
+    api.nvim_create_augroup('DefaultAugroup', {})
+  end
+
+  vim.api.nvim_create_autocmd(event, opts)
+end
+
+autocmd('FileType', {
+  pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
+  callback = function()
+    cmp.setup.buffer({
+      sources = cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
+    })
+  end,
+  group = 'TabNine'
+})
 
 -- Use buffer source for `/` (searching)
 cmp.setup.cmdline('/', {
@@ -400,23 +406,22 @@ tabnine:setup({
 -------------
 -- Copilot --
 -------------
-map('i', '<C-l>', 'copilot#Accept("")', {expr = true})
-map('i', '<C-f>', 'copilot#Accept("")', {expr = true})
+map('i', '<C-l>', 'copilot#Accept("")', { expr = true })
+map('i', '<C-f>', 'copilot#Accept("")', { expr = true })
 map('i', '<M-.>', '<Plug>(copilot-next)')
 map('i', '<M-,>', '<Plug>(copilot-previous)')
 g.copilot_assume_mapped = true
 g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
 
-autocmd.augroup {
-  'Copilot',
-  {{ 'InsertEnter', {
-    ['*'] = function()
-      -- Copilot takes a while to load, so statusline waits for this variable
-      -- TODO: try to lazy load instead when vim-plug has been replaced with packer.nvim
-      g.insert_entered = true
-    end
-  }}}
-}
+autocmd('InsertEnter', {
+  callback = function()
+    -- Copilot takes a while to load, so statusline waits for this variable
+    -- TODO: try to lazy load instead when vim-plug has been replaced with
+    -- packer.nvim
+    g.insert_entered = true
+  end,
+  group = 'Copilot',
+})
 
 -----------------
 -- ColorScheme --
@@ -772,15 +777,14 @@ require('dressing').setup {
   }
 }
 
-autocmd.augroup {
-  'DressingMappings',
-  {{ 'Filetype', {
-    DressingInput = function()
-      map('i', '<C-j>', '<Down>', { buffer=true, remap=true })
-      map('i', '<C-k>', '<Up>', { buffer=true, remap=true })
-    end
-  }}}
-}
+autocmd('Filetype', {
+  pattern = 'DressingInput',
+  callback = function()
+    map('i', '<C-j>', '<Down>', { buffer = true, remap = true })
+    map('i', '<C-k>', '<Up>', { buffer = true, remap = true })
+  end,
+  group = 'DressingInput'
+})
 
 ---------------
 -- Nvim-tree --
@@ -840,12 +844,11 @@ nvim_tree.setup {
   }
 }
 
-autocmd.augroup {
-  'NvimTreeRefresh',
-  {{ 'BufEnter', {
-    NvimTree = nvim_tree.refresh_tree
-  }}}
-}
+autocmd('BufEnter', {
+  pattern = 'NvimTree_1',
+  command = 'NvimTreeRefresh',
+  group   = 'NvimTreeRefresh'
+})
 
 map('n', '<leader>`', nvim_tree.toggle, 'Toggle file tree')
 map('n', '<leader>~', function() return nvim_tree.find_file(true) end, 'Show current file in file tree')
@@ -918,20 +921,16 @@ map('n', '<F2>', function()
   print('Format on write ' .. (b.format_on_write and 'enabled' or 'disabled'))
 end, 'Toggle autoformatting on write')
 
-autocmd.augroup {
-  'FormatOnWrite',
-  {{ 'BufWritePost', {
-    ['*.js,*.json,*.md,*.py,*.ts,*.tsx,*.yml,*.yaml'] = function()
-      format_and_write()
+autocmd('BufWritePost', {
+  pattern = {'*.js', '*.json', '*.md', '*.py', '*.ts', '*.tsx', '*.yml', '*.yaml'},
+  callback = function()
+    if b.format_on_write ~= false then
+      cmd 'FormatWrite'
     end
-  }}}
-}
+  end,
+  group = 'FormatOnWrite'
+})
 
-function _G.format_and_write()
-  if b.format_on_write ~= false then
-    cmd 'FormatWrite'
-  end
-end
 
 -----------------------
 -- Nvim-web-devicons --
@@ -1272,15 +1271,14 @@ end
 
 cmd 'command! Http call v:lua.http_request()'
 
-autocmd.augroup {
-  'RestNvim',
-  {{ 'FileType', {
-    http = function()
-      map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true })
-      map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', { buffer = true })
-    end
-  }}}
-}
+autocmd('FileType', {
+  pattern = 'http',
+  callback = function()
+    map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true })
+    map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', { buffer = true })
+  end,
+  group = 'RestNvim'
+})
 
 ----------------------
 -- Refactoring.nvim --
@@ -1472,55 +1470,48 @@ map('n', '<Esc>', function()
   end
 end , 'Close window if not modifiable, otherwise :set nohlsearch')
 map('t', '<Esc>', '<C-\\><C-n>')
-autocmd.augroup {
-  'mappings',
-  {{ 'CmdwinEnter', {
-    ['*'] = function()
-      map('n', '<CR>',  '<CR>',   { buffer = true })
-      map('n', '<Esc>', '<C-w>c', { buffer = true })
-    end
-  }}}
-}
+
+autocmd('CmdwinEnter', {
+  callback = function()
+    map('n', '<CR>',  '<CR>',   { buffer = true })
+    map('n', '<Esc>', '<C-w>c', { buffer = true })
+  end,
+  group = 'mappings'
+})
 
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
 end, 'Delete buffer and pop jump stack')
 
 -- Highlight text object on yank
-autocmd.augroup {
-  'HighlightYank',
-  {{ 'TextYankPost', {
-    ['*'] = function()
-      vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
-    end
-  }}}
-}
+autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
+  end,
+  group = 'HighlightYank'
+})
 
 -- TypeScript specific --
-autocmd.augroup {
-  'TypeScript',
-  {
-    { 'FileType',
-      {
-        typescript = function()
-          vim.opt.matchpairs:append('<:>')
-        end
-      }
-    },
-    -- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
-    -- formatter.nvim
-    -- { 'BufWritePre',
-    --   {
-    --     ['*.ts,*.tsx'] = function()
-    --       if b.format_on_write ~= false then
-    --         cmd 'TSLspOrganize'
-    --         cmd 'TSLspImportAll'
-    --       end
-    --     end
-    --   }
-    -- }
-  }
-}
+autocmd('FileType', {
+  pattern = 'typescript',
+  callback = function()
+    vim.opt.matchpairs:append('<:>')
+  end,
+  group = 'TypeScript'
+})
+
+-- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
+-- formatter.nvim
+-- { 'BufWritePre',
+--   {
+--     ['*.ts,*.tsx'] = function()
+--       if b.format_on_write ~= false then
+--         cmd 'TSLspOrganize'
+--         cmd 'TSLspImportAll'
+--       end
+--     end
+--   }
+-- }
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<leader>N', function ()
