@@ -14,9 +14,8 @@ syn match qfInfo           / I .*$/    contained
 syn match qfNote           / [NH] .*$/ contained
 
 hi def link qfFileName       Directory
-hi def link qfSeparatorLeft  Comment
-hi def link qfSeparatorRight Comment
-" hi def link qfLineNr         LineNr
+hi def link qfSeparatorLeft  qfLineNr
+hi def link qfSeparatorRight qfLineNr
 
 hi def link qfError          DiagnosticError
 hi def link qfWarning        Diagnostic

@@ -8,9 +8,10 @@ function _G.qftf(info)
   else
     items = fn.getloclist(info.winid, {id = info.id, items = 0}).items
   end
-  local limit = 50
-  local fname_fmt1, fname_fmt2 = '%-' .. limit .. 's', '…%.' .. (limit - 1) .. 's'
-  local valid_fmt = '%s│%5d:%-3d│%s %s'
+  local fname_width_ratio = 0.4
+  local fname_width = fn.winwidth(0) * fname_width_ratio
+  local fname_fmt1, fname_fmt2 = '%-' .. fname_width .. 's', '…%.' .. (fname_width - 1) .. 's'
+  local valid_fmt = '%s│%4d:%-3d│%s %s'
   for i = info.start_idx, info.end_idx do
     local e = items[i]
     local fname = ''
@@ -24,10 +25,10 @@ function _G.qftf(info)
           fname = fname:gsub('^' .. vim.env.HOME, '~')
         end
         -- char in fname may occur more than 1 width, ignore this issue in order to keep performance
-        if #fname <= limit then
+        if #fname <= fname_width then
           fname = fname_fmt1:format(fname)
         else
-          fname = fname_fmt2:format(fname:sub(1 - limit))
+          fname = fname_fmt2:format(fname:sub(1 - fname_width))
         end
       end
       local lnum = e.lnum > 99999 and -1 or e.lnum

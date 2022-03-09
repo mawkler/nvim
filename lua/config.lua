@@ -453,7 +453,7 @@ require('onedark').setup {
       Search = { bg = c.bg_search },
       SpecialKey = { fg = c.blue0 },
       -- Quickfix
-      qfLineNr = { link = 'LineNr' },
+      qfLineNr = { fg = c.fg_gutter },
       -- Treesitter
       TSNote = { fg = c.info, style = style.Bold },
       TSWarning = { fg = c.warning, style = style.Bold },
