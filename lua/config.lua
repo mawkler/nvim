@@ -1097,6 +1097,7 @@ require('indent_blankline').setup {
     'sagahover',
     'NvimTree',
     'lsp-installer',
+    'toggleterm',
   }
 }
 
