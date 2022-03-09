@@ -130,6 +130,8 @@ Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windo
 Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
 Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
 Plug 'sindrets/winshift.nvim'       " Improved window movement
+Plug 'NarutoXY/dim.lua'
+Plug 'akinsho/toggleterm.nvim'
 call plug#end()
 
 " -- General --

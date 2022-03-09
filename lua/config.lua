@@ -1454,6 +1454,27 @@ map('n', '<C-M-J>', winshift('down'))
 map('n', '<C-M-K>', winshift('up'))
 map('n', '<C-M-L>', winshift('right'))
 
+-------------
+-- Dim.lua --
+-------------
+require('dim').setup() -- not working for some reason
+
+----------------
+-- Toggleterm --
+----------------
+require('toggleterm').setup {
+  open_mapping = '<C-CR>',
+  direction = 'float',
+  float_opts = {
+    border = 'curved',
+    winblend = 4,
+    highlights = {
+      background = 'NormalFloat',
+      border = 'TelescopeBorder',
+    },
+  },
+}
+
 ---------------------
 -- General config --
 ---------------------
