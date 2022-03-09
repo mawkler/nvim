@@ -133,6 +133,7 @@ Plug 'sindrets/winshift.nvim'       " Improved window movement
 Plug 'rcarriga/nvim-notify'
 Plug 'NarutoXY/dim.lua'
 Plug 'akinsho/toggleterm.nvim'
+Plug 'kevinhwang91/nvim-bqf'
 call plug#end()
 
 " -- General --

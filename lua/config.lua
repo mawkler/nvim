@@ -446,12 +446,14 @@ require('onedark').setup {
   overrides = function(c)
     return {
       -- General
-      Substitute = {link = 'Search'},
+      Substitute = { link = 'Search' },
       Title = { fg = c.red0, style = style.Bold },
       Folded = { fg = c.fg_dark, bg = c.bg1 },
       FloatBorder = { fg = c.blue0, bg = c.bg_float  },
       Search = { bg = c.bg_search },
       SpecialKey = { fg = c.blue0 },
+      -- Quickfix
+      qfLineNr = { link = 'LineNr' },
       -- Treesitter
       TSNote = { fg = c.info, style = style.Bold },
       TSWarning = { fg = c.warning, style = style.Bold },
@@ -1496,6 +1498,11 @@ require('toggleterm').setup {
     },
   },
 }
+
+-------------
+-- Modules --
+-------------
+require('quickfix')
 
 ---------------------
 -- General config --
