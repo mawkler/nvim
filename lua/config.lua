@@ -1375,15 +1375,16 @@ require('diffview').setup {
       ['<C-t>'] = dv_callback('goto_file_tab'),
       ['~']     = dv_callback('focus_files'),
       ['`']     = dv_callback('toggle_files'),
-      ['H']     = dv_callback('toggle_files'),
     },
     file_panel = {
       ['<Space>']  = dv_callback('select_entry'),
+      ['<CR>']     = dv_callback('focus_entry'),
+      ['gf']       = dv_callback('goto_file_edit'),
       ['<C-j>']    = dv_callback('select_next_entry'),
       ['<C-k>']    = dv_callback('select_prev_entry'),
-      ['<CR>']     = dv_callback('goto_file'),
       ['<C-t>']    = dv_callback('goto_file_tab'),
       ['<Esc>']    = dv_callback('toggle_files'),
+      ['`']        = dv_callback('toggle_files'),
       ['<space>e'] = dv_callback(),
       ['<space>b'] = dv_callback()
     },
@@ -1397,7 +1398,7 @@ require('diffview').setup {
       ['<C-s>']    = dv_callback('goto_file_split'),
       ['<C-t>']    = dv_callback('goto_file_tab'),
       ['~']        = dv_callback('focus_files'),
-      ['H']        = dv_callback('toggle_files'),
+      ['`']        = dv_callback('toggle_files'),
       ['<space>e'] = dv_callback(),
       ['<space>b'] = dv_callback()
     },
