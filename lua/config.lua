@@ -509,7 +509,7 @@ local with_border = {float = { border = 'single' }}
 
 local function lsp_references()
   vim.lsp.buf.document_highlight()
-  return lsp.buf.references({includeDeclaration = false})
+  return lsp.buf.references({ includeDeclaration = false })
 end
 
 -- LSP and diagnostics

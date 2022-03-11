@@ -125,13 +125,12 @@ Plug 'JoseConseco/telescope_sessions_picker.nvim'
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
-Plug 'nathom/filetype.nvim'         " A faster version of filetype.vim
 Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windows
 Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
 Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
 Plug 'sindrets/winshift.nvim'       " Improved window movement
 Plug 'rcarriga/nvim-notify'
-Plug 'NarutoXY/dim.lua'
+" Plug 'NarutoXY/dim.lua'           " It's kinda buggy
 Plug 'akinsho/toggleterm.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 call plug#end()

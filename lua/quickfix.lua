@@ -9,7 +9,15 @@ function _G.qftf(info)
     items = fn.getloclist(info.winid, {id = info.id, items = 0}).items
   end
   local fname_width_ratio = 0.4
-  local fname_width = fn.winwidth(0) * fname_width_ratio
+  local win_width = fn.winwidth(0) * fname_width_ratio
+
+  local fname_width
+  if win_width < 99 then
+    fname_width = math.floor(win_width)
+  else
+    fname_width = 99 -- format() cannot format strings longer than 99 characters
+  end
+
   local fname_fmt1, fname_fmt2 = '%-' .. fname_width .. 's', '…%.' .. (fname_width - 1) .. 's'
   local valid_fmt = '%s│%4d:%-3d│%s %s'
   for i = info.start_idx, info.end_idx do
