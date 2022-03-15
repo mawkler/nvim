@@ -176,7 +176,7 @@ local d = luasnip.dynamic_node
 
 luasnip.config.setup { history = true }
 luasnip.filetype_extend('all', {'global'})
-require('luasnip/loaders/from_vscode').load {
+require('luasnip/loaders/from_vscode').lazy_load {
   paths = {
     '~/.config/nvim/packages/friendly-snippets/',
     '~/.config/nvim/snippets'
