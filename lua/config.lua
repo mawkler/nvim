@@ -33,9 +33,7 @@ local function make_opts(snippets)
   if snippets == nil then snippets = true end
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = snippets
-  return {
-    capabilities = capabilities, -- enable snippet support
-  }
+  return { capabilities = capabilities } -- enable snippet support
 end
 
 -- Typescript LSP config
@@ -499,17 +497,37 @@ require('onedark').setup {
 -- Use different highlights for special keys in cmdline vs other windows
 vim.opt.winhighlight:append('SpecialKey:SpecialKeyWin')
 
---------------
--- Mappings --
---------------
+------------------
+-- LSP Mappings --
+------------------
 local INFO = vim.diagnostic.severity.INFO
 local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
 local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
 local with_border = {float = { border = 'single' }}
 
+local function lsp_server_has_references()
+  for _, client in pairs(vim.lsp.buf_get_clients()) do
+    if client.resolved_capabilities.find_references then
+      return true
+    end
+  end
+  return false
+end
+
+local function clear_lsp_references()
+  cmd 'nohlsearch'
+  if lsp_server_has_references() then
+    lsp.buf.clear_references()
+    for _, buffer in pairs(visible_buffers()) do
+      lsp.util.buf_clear_references(buffer)
+    end
+  end
+end
+
 local function lsp_references()
+  clear_lsp_references()
   vim.lsp.buf.document_highlight()
-  return lsp.buf.references({ includeDeclaration = false })
+  require('telescope.builtin').lsp_references({ includeDeclaration = false })
 end
 
 -- LSP and diagnostics
@@ -1511,11 +1529,7 @@ require('quickfix')
 -- Mappings
 map('n', '<Esc>', function()
   if bo.modifiable then
-    cmd 'nohlsearch'
-    lsp.buf.clear_references()
-    for _, buffer in pairs(visible_buffers()) do
-      lsp.util.buf_clear_references(buffer)
-    end
+    clear_lsp_references()
   else
     return feedkeys('<C-w>c', 'n')
   end
