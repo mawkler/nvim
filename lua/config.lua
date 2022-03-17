@@ -536,7 +536,7 @@ map('n',        'gi',        lsp.buf.implementation, 'vim.lsp.buf.implementation
 map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
 map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
 map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
-map('i',        '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
+map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
 map('n',        'gr',        lsp_references, 'vim.lsp.buf.references')
 map({'n', 'x'}, '<leader>r', vim.lsp.buf.rename, 'vim.lsp.buf.rename')
 map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
@@ -568,7 +568,7 @@ end
 local function grep_string()
   vim.ui.input({prompt = 'Grep string'}, function(value)
     if value ~= nil then
-      require('telescope.builtin').grep_string({search = value})
+      require('telescope.builtin').grep_string({ search = value })
     end
   end)
 end
@@ -786,14 +786,12 @@ telescope.load_extension('cheat')
 --------------
 require('dressing').setup {
   select = {
-    telescope = {
-      theme = 'dropdown'
-    }
+    telescope = require('telescope.themes').get_dropdown()
   },
   input = {
     insert_only = false,
-    relative = "editor",
-    default_prompt = ' ' -- Doesn't seem to work
+    relative = 'editor',
+    default_prompt = ' ', -- Doesn't seem to work
   }
 }
 
@@ -1124,6 +1122,7 @@ require('indent_blankline').setup {
 --------------
 -- Gitsigns --
 --------------
+local gitsigns = require('gitsigns')
 require('gitsigns').setup {
   signs = {
     add          = {text = '│', hl = 'String'},
@@ -1132,28 +1131,39 @@ require('gitsigns').setup {
     delete       = {text = '▁', hl = 'Error'},
     topdelete    = {text = '▔', hl = 'Error'},
   },
-  keymaps = {
-    noremap = true,
+  attach_to_untracked = false,
+  on_attach = function()
+    map({'n', 'x'}, '<leader>ghs', '<cmd>Gitsigns stage_hunk<CR>')
+    map({'n', 'x'}, '<leader>ghr', '<cmd>Gitsigns reset_hunk<CR>')
+    map('n',        '<leader>ghS', gitsigns.stage_buffer)
+    map('n',        '<leader>ghR', gitsigns.reset_buffer)
+    map('n',        '<leader>ghu', gitsigns.undo_stage_hunk)
+    map('n',        '<leader>ghp', gitsigns.preview_hunk)
+    map('n',        '<leader>gb',  function() return gitsigns.blame_line({
+      full = true,
+      ignore_whitespace = true,
+    }) end)
 
-    ['n ]c'] = { expr = true, '&diff ? "]c" : "<cmd>lua require\'gitsigns\'.next_hunk()<CR>"' },
-    ['n [c'] = { expr = true, '&diff ? "[c" : "<cmd>lua require\'gitsigns\'.prev_hunk()<CR>"' },
-
-    ['n <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['n <leader>ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['x <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['x <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>ghR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <leader>ghp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <leader>gb'] = '<cmd>lua require"gitsigns".blame_line({full = true, ignore_whitespace = true})<CR>',
+    -- Next/previous hunk
+    map('n', ']c', function()
+      if opt.diff then
+        feedkeys(']c', 'n')
+      else
+        gitsigns.next_hunk()
+      end
+    end)
+    map('n', '[c', function()
+      if opt.diff then
+        feedkeys('[c', 'n')
+      else
+        gitsigns.prev_hunk()
+      end
+    end)
 
     -- Text objects
-    ['o ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
-    ['o ah'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>',
-    ['x ah'] = ':<C-U>lua require("gitsigns").select_hunk()<CR>'
-  },
-  attach_to_untracked = false
+    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+    map({'o', 'x'}, 'ah', gitsigns.select_hunk)
+  end,
 }
 -- Workaround for bug where change highlight switches for some reason
 cmd 'hi! link GitGutterChange DiffChange'
