@@ -1086,6 +1086,7 @@ require('statusline').setup({
     cyan = colors.cyan0,
   }
 })
+opt.laststatus = 3 -- Global statusline
 
 ------------
 -- Fidget --

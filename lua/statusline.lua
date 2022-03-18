@@ -11,28 +11,7 @@ local function GetHiVal(name, layer)
   return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
 end
 
-local components = {
-  active = {{}, {}, {}},
-  inactive = {{}, {}},
-}
-
-local inactive_filetypes = {
-  'NvimTree',
-  'DiffViewFiles',
-  'vista',
-  'dbui',
-  'term',
-  'nerdtree',
-  'fugitive',
-  'fugitiveblame',
-  'plug',
-  'dbui',
-  'packer',
-  'dapui_watches',
-  'dapui_stacks',
-  'dapui_breakpoints',
-  'dapui_scopes',
-}
+local components = { active = { {}, {}, {} } }
 
 local modes = {
   ['n']    = 'NORMAL',
@@ -78,12 +57,12 @@ local function has_file_type()
   return true
 end
 
-local function get_working_dir()
-  return fn.fnamemodify(fn.getcwd(), ':p:~')
-end
-
-local function get_working_dir_short()
-  return fn.pathshorten(fn.fnamemodify(fn.getcwd(), ':~'))
+local function get_working_dir(shorten)
+  if shorten == true then
+    return fn.pathshorten(fn.fnamemodify(fn.getcwd(), ':~'))
+  else
+    return fn.fnamemodify(fn.getcwd(), ':p:~')
+  end
 end
 
 local function get_icon_full()
@@ -126,16 +105,6 @@ local function wide_enough()
   return fn.winwidth(0) > 100
 end
 
-local function has_inactive_filetype()
-  local filetype = vim.bo.filetype
-  for _, ft in pairs(inactive_filetypes) do
-    if ft == filetype then
-      return true
-    end
-    return false
-  end
-end
-
 local function lsp_progress_available()
   local status = lsp_status.status_progress()
   return status ~= '' and status ~= nil and status ~= {}
@@ -146,9 +115,6 @@ end
 local active_left = components.active[1]
 local active_mid = components.active[2]
 local active_right = components.active[3]
-
-local inactive_left = components.inactive[1]
-local inactive_right = components.inactive[2]
 
 -- Left section --
 
@@ -178,7 +144,7 @@ table.insert(active_left, {
 -- Current working directory
 table.insert(active_left, {
   provider = get_working_dir,
-  short_provider = get_working_dir_short,
+  short_provider = function () return get_working_dir(true) end,
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
   left_sep = '█',
   right_sep = '█',
@@ -234,9 +200,7 @@ gps.setup({ separator = '  ' })
 
 table.insert(active_mid, {
   provider = gps.get_location,
-  short_provider = function()
-    return gps.get_location({ depth = 1 })
-  end,
+  short_provider = function() return gps.get_location({ depth = 1 }) end,
   hl = { fg = 'darkgray' },
   enabled = function()
     return gps.is_available()
@@ -393,39 +357,6 @@ table.insert(active_right, {
   priority = 9,
 })
 
--- Inactive windows
-
-table.insert(inactive_left, {
-  provider = {
-    name = 'file_info',
-    opts = {
-      type = 'relative',
-      file_readonly_icon = ' '
-    }
-  },
-  right_sep = '',
-  hl = { bg = 'line_bg' },
-  icon = '',
-})
-
-table.insert(inactive_right, {
-  provider = get_icon,
-  left_sep = '',
-  hl = function() return { fg = get_icon_hl(), bg = 'line_bg' } end,
-  enabled = function()
-    return has_file_type() and not has_inactive_filetype()
-  end
-})
-
-table.insert(inactive_right, {
-  provider = function() return bo.filetype end,
-  right_sep = '█',
-  hl = function() return { bg = 'line_bg' } end,
-  enabled = function()
-    return has_file_type() and not has_inactive_filetype()
-  end
-})
-
 local function setup(config)
   if not config or not config.theme then
     error('No config and/or theme provided')
@@ -456,11 +387,7 @@ local function setup(config)
       theme = theme,
       components = components,
       vi_mode_colors = mode_colors,
-      force_inactive = {
-        filetypes = inactive_filetypes,
-        buftypes = {},
-        bufnames = {},
-      }
+      force_inactive = {}
     }
   end
 end
