@@ -121,7 +121,6 @@ Plug 'itchyny/vim-highlighturl'     " Highlights URLs everywhere
 Plug 'AndrewRadev/bufferize.vim'    " Execute a :command and show the output in a temporary buffer
 Plug 'xolox/vim-misc'               " Required by vim-session
 Plug 'xolox/vim-session'            " Extened session management
-Plug 'JoseConseco/telescope_sessions_picker.nvim'
 Plug 'rhysd/vim-grammarous'         " Grammar checking using LanguageTool
 Plug 'github/copilot.vim'           " GitHub Copilot
 Plug 'tvaintrob/bicep.vim'          " Syntax highlight for Bicep files
@@ -129,10 +128,11 @@ Plug 'luukvbaal/stabilize.nvim'     " Stablis windows when opening/closing windo
 Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
 Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
 Plug 'sindrets/winshift.nvim'       " Improved window movement
-Plug 'rcarriga/nvim-notify'
+Plug 'rcarriga/nvim-notify'         " Floating notifications popups
 " Plug 'NarutoXY/dim.lua'           " It's kinda buggy
-Plug 'akinsho/toggleterm.nvim'
-Plug 'kevinhwang91/nvim-bqf'
+Plug 'akinsho/toggleterm.nvim'      " For toggling built-in terminal
+Plug 'kevinhwang91/nvim-bqf'        " Better quickfix
+Plug 'TimUntersberger/neogit'       " Git wrapper
 call plug#end()
 
 " -- General --
@@ -279,25 +279,6 @@ nmap <silent> <C-W>N    :tabe<CR>
 nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
 nmap <silent> <expr> ]s        &spell ? "]s" : ":setlocal spell<CR>]s"
 nmap <silent> <expr> [s        &spell ? "[s" : ":setlocal spell<CR>[s"
-
-" -- Git commands --
-map <silent> <leader>gB :Git blame<CR>
-map <silent> <leader>gd :call GitDiff()<CR>
-map <silent> <leader>gs :vertical Git<CR>
-map <silent> <leader>gp :Git pull<CR>
-map          <leader>gP :Git push
-map          <leader>gc :vertical Git commit -va
-
-function GitDiff() abort
-  let tmp = g:bufferline.insert_at_end
-  let g:bufferline.insert_at_end = v:false
-  tabnew %
-  exe 'Gvdiffsplit'
-  exe 'BufferMovePrevious'
-  windo set wrap
-  let g:bufferline.insert_at_end = tmp
-endf
-set fillchars+=diff:\  " Makes removed lines in diff cleaner
 
 " `;`/`,` always seach forward/backward, respectively
 nnoremap <expr> ; getcharsearch().forward ? ';' : ','
@@ -486,7 +467,7 @@ augroup end
 
 " -- Quickscope --
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-map <C-c> <cmd>call Esc()<CR>
+nmap <C-c> <cmd>call Esc()<CR>
 
 " Doing this mapping in Lua breaks quickscope for some reason
 function Esc() abort

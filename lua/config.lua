@@ -167,7 +167,7 @@ map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
 -------------
 -- Luasnip --
 -------------
-local luasnip = require("luasnip")
+local luasnip = require('luasnip')
 local s = luasnip.snippet
 local sn = luasnip.snippet_node
 local tn = luasnip.text_node
@@ -201,9 +201,9 @@ luasnip.snippets = {
       dscr = 'Insert a hyperlink with the content in the clipboard (by default)'
     }, {
       tn '[', i(1, {'text'}), tn ']',
-      tn "(",
+      tn '(',
       d(2, luasnip_clipboard, {}),
-      tn ") ",
+      tn ') ',
     }),
   },
   vim = {
@@ -775,6 +775,7 @@ map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Se
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
 map('n', '<leader>n',  telescope_config, 'Neovim config')
+map('n', '<leader>tM', telescope.extensions.notify.notify, 'Notifications')
 
 telescope.load_extension('zoxide')
 telescope.load_extension('fzf')
@@ -782,6 +783,7 @@ telescope.load_extension('bookmarks')
 telescope.load_extension('frecency')
 telescope.load_extension('cheat')
 telescope.load_extension('refactoring')
+telescope.load_extension('notify')
 
 --------------
 -- Dressing --
@@ -1459,7 +1461,7 @@ map('n', '<C-M-L>', winshift('right'))
 -- Notify --
 -------------
 local notify = require('notify')
-require("notify").setup {
+require('notify').setup {
   timeout = 2000,
 }
 vim.notify = notify
@@ -1496,6 +1498,59 @@ require('toggleterm').setup {
     },
   },
 }
+
+---------
+-- Bqf --
+---------
+require('bqf').setup {
+  func_map = {
+    prevfile  = '<C-k>',
+    nextfile  = '<C-j>',
+    fzffilter = '<C-p>',
+    split     = '<C-s>',
+  }
+}
+
+---------
+-- Git --
+---------
+local neogit = require('neogit')
+neogit.setup {
+  commit_popup = {
+    kind = 'vsplit',
+  },
+  signs = {
+    section = { '', '' },
+    item = { '', '' },
+  },
+  integrations = { diffview = true  },
+}
+
+map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
+map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
+map('n', '<leader>gP', '<cmd>Neogit push<CR>')
+map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
+map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Telescope git branch')
+map('n', '<leader>gs', function() return neogit.open({
+  cwd = vim.fn.expand('%:p:h'),
+  kind = 'vsplit',
+}) end, 'Neogit status')
+
+-- TODO: replace with Neogit or Diffview diff once feature is available
+map('n', '<leader>gd', function () call('GitDiff') end, 'Git diff current file')
+cmd [[
+  function GitDiff() abort
+    let tmp = g:bufferline.insert_at_end
+    let g:bufferline.insert_at_end = v:false
+    tabnew %
+    exe 'Gvdiffsplit'
+    exe 'BufferMovePrevious'
+    windo set wrap
+    let g:bufferline.insert_at_end = tmp
+  endf
+]]
+
+vim.opt.fillchars = { diff = ' ' }
 
 -------------
 -- Modules --
