@@ -509,14 +509,14 @@ endf
 " Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
 " If a third argument is provided gui is set to that
 function BarbarHi(name, guifg, ...)
-  let s:barbar_bg  = '#21242b'
+  let s:barbar_bg  = '#1d2026'
   let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
   exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' s:barbar_bg gui
 endf
 
 fun! s:colorschemeMods() abort
   hi IncSearch    guibg=#61afef
-  hi VertSplit    guifg=#181a1f
+  hi VertSplit    guifg=#1d2026
   hi MatchParen   guifg=NONE guibg=NONE gui=underline,bold
 
   hi link TSTagDelimiter TSPunctBracket
@@ -533,10 +533,12 @@ fun! s:colorschemeMods() abort
   let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
   let fg_tabpages = GetHiVal('Directory', 'fg')  " #61AFEF
 
+  let bg_visible = '#23262d'
+  exe 'hi! BufferVisible guifg=' . fg_visible .' guibg=' . bg_visible
+  exe 'hi! BufferVisibleSign guifg=' . fg_sign . ' guibg=' . bg_visible
+
   call BarbarHi('BufferTabpageFill', fg_sign)
   call BarbarHi('BufferTabpages', fg_tabpages, 'bold')
-  call BarbarHi('BufferVisible', fg_visible)
-  call BarbarHi('BufferVisibleSign', fg_sign)
   call BarbarHi('BufferVisibleMod', fg_modified)
   call BarbarHi('BufferVisibleIndex', fg_sign)
   call BarbarHi('BufferInactive', '#707070')
