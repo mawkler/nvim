@@ -566,6 +566,7 @@ local function quickfix_jump(command)
 end
 
 local function grep_string()
+  cmd 'let @s = expand("<cword>")'
   vim.ui.input({prompt = 'Grep string'}, function(value)
     if value ~= nil then
       require('telescope.builtin').grep_string({ search = value })
@@ -780,10 +781,12 @@ telescope.load_extension('fzf')
 telescope.load_extension('bookmarks')
 telescope.load_extension('frecency')
 telescope.load_extension('cheat')
+telescope.load_extension('refactoring')
 
 --------------
 -- Dressing --
 --------------
+local d_input = require('dressing.input')
 require('dressing').setup {
   select = {
     telescope = require('telescope.themes').get_dropdown()
@@ -798,10 +801,15 @@ require('dressing').setup {
 autocmd('Filetype', {
   pattern = 'DressingInput',
   callback = function()
-    map('i', '<C-j>', '<Down>', { buffer = true, remap = true })
-    map('i', '<C-k>', '<Up>', { buffer = true, remap = true })
+    -- Enter input window in select mode with text in "s highlighted
+    feedkeys('<Esc>"sPV<C-g>', 'i')
+
+    map({'i', 's'}, '<C-j>', d_input.history_next, { buffer = true })
+    map({'i', 's'}, '<C-k>', d_input.history_prev, { buffer = true })
+    map({'s', 'n'}, '<C-c>', d_input.close,        { buffer = true })
+    map('s',        '<CR>',  d_input.confirm,      { buffer = true })
   end,
-  group = 'DressingInput'
+  group = 'Dressing'
 })
 
 ---------------
