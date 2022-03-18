@@ -1326,52 +1326,12 @@ autocmd('FileType', {
 local refactoring = require('refactoring')
 refactoring.setup({})
 
--- Telescope refactoring helper
-local function refactor(prompt_bufnr)
-  local content = action_state.get_selected_entry(
-    prompt_bufnr
-  )
-  actions.close(prompt_bufnr)
-  require('refactoring').refactor(content.value)
-end
-
--- NOTE: M is a global object
--- for the sake of simplicity in this example
--- you can extract this function and the helper above
--- and then require the file and call the extracted function
--- in the mappings below
-M = {}
-M.refactors = function()
-  local opts = require('telescope.themes').get_cursor() -- set personal telescope options
-  pickers.new(opts, {
-    prompt_title = 'refactors',
-    finder = finders.new_table({
-      results = require('refactoring').get_refactors(),
-    }),
-    sorter = conf.generic_sorter(opts),
-    attach_mappings = function(_, mapping)
-      mapping('i', '<CR>', refactor)
-      mapping('n', '<CR>', refactor)
-      return true
-    end
-  }):find()
-end
-
-api.nvim_set_keymap('v',
-  'gRe',
-  '<Esc><Cmd>lua require("refactoring").refactor("Extract Function")<CR>',
-  { silent = true }
-)
-api.nvim_set_keymap('v',
-  'gRf',
-  '<Esc><Cmd>lua require("refactoring").refactor("Extract Function To File")<CR>',
-  { silent = true }
-)
-api.nvim_set_keymap('v',
-  '<Leader>R',
-  '<Esc><Cmd>lua M.refactors()<CR>',
-  { noremap = true }
-)
+map('x', 'gRe', function() return refactoring.refactor('Extract Function') end)
+map('x', 'gRf', function() return refactoring.refactor('Extract Function To File') end)
+map('x', '<leader>R', function()
+  feedkeys('<Esc>', 'n')
+  telescope.extensions.refactoring.refactors()
+end, 'Select refactor')
 
 --------------------
 -- Indent-o-matic --
