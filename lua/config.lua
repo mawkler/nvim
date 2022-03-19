@@ -184,13 +184,12 @@ require('luasnip/loaders/from_vscode').lazy_load {
 }
 
 local luasnip_clipboard = function()
-  return sn(nil, { i(1, fn.getreg('+')) })
+  return sn(nil, i(1, fn.getreg('+')))
 end
 
 local luasnip_plug = function()
-  return sn(nil, {
-    i(1, fn.getreg('+'):gsub('.*github.com/([^/]*/[^/]*).*', '%1')),
-  })
+  local plug, _ = fn.getreg('+'):gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
+  return sn(nil,  i(1, plug) )
 end
 
 luasnip.snippets = {
@@ -198,11 +197,11 @@ luasnip.snippets = {
     s({
       trig = 'link',
       name = 'hyperlink',
-      dscr = 'Insert a hyperlink with the content in the clipboard (by default)'
+      dscr = 'Hyperlink with the content in the clipboard (by default)'
     }, {
-      tn '[', i(1, {'text'}), tn ']',
+      tn '[', i(1, 'text'), tn ']',
       tn '(',
-      d(2, luasnip_clipboard, {}),
+      d(2, luasnip_clipboard),
       tn ') ',
     }),
   },
@@ -210,9 +209,9 @@ luasnip.snippets = {
     s({
       trig = 'plug',
       name = 'vim-plug plugin',
-      dscr = 'Insert a vim-plug plugin with the content in the clipboard (by default)'
+      dscr = 'Vim-plug plugin with the content in the clipboard (by default)'
     }, {
-      tn "Plug '", d(1, luasnip_plug, {}), tn "'",
+      tn "Plug '", d(1, luasnip_plug), tn "'",
     })
   }
 }
