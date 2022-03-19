@@ -565,12 +565,12 @@ local function quickfix_jump(command)
 end
 
 local function grep_string()
-  cmd 'let @s = expand("<cword>")'
-  vim.ui.input({prompt = 'Grep string'}, function(value)
-    if value ~= nil then
-      require('telescope.builtin').grep_string({ search = value })
-    end
-  end)
+  vim.ui.input({ prompt = 'Grep string', default = fn.expand("<cword>") },
+    function(value)
+      if value ~= nil then
+        require('telescope.builtin').grep_string({ search = value })
+      end
+    end)
 end
 
 map('n', ']q', function() return quickfix_jump('cnext') end, 'Next quickfix item')
@@ -802,9 +802,7 @@ require('dressing').setup {
 autocmd('Filetype', {
   pattern = 'DressingInput',
   callback = function()
-    -- Enter input window in select mode with text in "s highlighted
-    feedkeys('<Esc>"sPV<C-g>', 'i')
-
+    feedkeys('<Esc>V<C-g>', 'i') -- Enter input window in select mode
     map({'i', 's'}, '<C-j>', d_input.history_next, { buffer = true })
     map({'i', 's'}, '<C-k>', d_input.history_prev, { buffer = true })
     map({'s', 'n'}, '<C-c>', d_input.close,        { buffer = true })
