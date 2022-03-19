@@ -129,7 +129,7 @@ Plug 'sindrets/diffview.nvim'       " Git diff for each file and file history
 Plug 'ggandor/lightspeed.nvim'      " For moving the cursor anywhere in any window
 Plug 'sindrets/winshift.nvim'       " Improved window movement
 Plug 'rcarriga/nvim-notify'         " Floating notifications popups
-" Plug 'NarutoXY/dim.lua'           " It's kinda buggy
+Plug 'NarutoXY/dim.lua'             " It's kinda buggy
 Plug 'akinsho/toggleterm.nvim'      " For toggling built-in terminal
 Plug 'kevinhwang91/nvim-bqf'        " Better quickfix
 Plug 'TimUntersberger/neogit'       " Git wrapper
