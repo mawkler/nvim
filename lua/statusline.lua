@@ -1,15 +1,8 @@
 local bo, fn = vim.bo, vim.fn
-
 local mode = require('feline.providers.vi_mode')
-local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
 local lsp_status = require('lsp-status')
 local luasnip = require('luasnip')
-
-local function GetHiVal(name, layer)
-  layer = layer or 'fg'
-  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
-end
 
 local components = { active = { {}, {}, {} } }
 
@@ -47,9 +40,15 @@ local modes = {
   ['null'] = 'NONE  ',
 }
 
-local left_sep  = { str = ' ',   hl = { fg = 'line_bg' } }
-local right_sep = { str = '',  hl = { fg = 'line_bg' } }
--- local full_sep  = { str = ' ', hl = { fg = 'line_bg' } }
+local left_sep  = { str = ' ',   hl = { fg = 'line_bg', bg = 'bg0' } }
+local right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'bg0' } }
+
+-- Help functions
+
+local function GetHiVal(name, layer)
+  layer = layer or 'fg'
+  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
+end
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -101,33 +100,27 @@ local function file_osinfo()
   return icon .. os
 end
 
-local function wide_enough()
-  return fn.winwidth(0) > 100
-end
-
 local function lsp_progress_available()
   local status = lsp_status.status_progress()
   return status ~= '' and status ~= nil and status ~= {}
 end
 
 -- Sections
-
 local active_left = components.active[1]
 local active_mid = components.active[2]
 local active_right = components.active[3]
 
+------------------
 -- Left section --
+------------------
 
+-- Vim mode
 table.insert(active_left, {
   provider = function()
     return ' ' .. modes[vim.api.nvim_get_mode().mode] .. ' '
   end,
   hl = function()
-    return {
-      fg = 'bg',
-      bg = mode.get_mode_color(),
-      style = 'bold'
-    }
+    return { fg = 'bg', bg = mode.get_mode_color(), style = 'bold' }
   end,
   priority = 10,
 })
@@ -147,17 +140,24 @@ table.insert(active_left, {
   short_provider = function () return get_working_dir(true) end,
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
   left_sep = '█',
-  right_sep = '█',
+  right_sep = {str = '',  hl = { fg = 'line_bg', bg = 'bg0' } },
   icon = ' ',
   truncate_hide = true,
   priority = 9
 })
 
 table.insert(active_left, {
+  provider = ' ',
+  hl = { fg = 'bg', bg = 'bg0' },
+})
+
+-- LSP client
+table.insert(active_left, {
   provider = 'lsp_client_names',
-  hl = {fg = 'darkgray'},
+  left_sep = ' ',
+  hl = {fg = 'darkgray' },
   enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
-  icon = '  ',
+  icon = ' ',
   truncate_hide = true,
   priority = -1,
 })
@@ -165,37 +165,28 @@ table.insert(active_left, {
 table.insert(active_left, {
   provider = 'diagnostic_errors',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultError') },
-  enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('ERROR')
-  end
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_warnings',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultWarning') },
-  enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('WARN')
-  end
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_info',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultInformation') },
-  enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('INFO')
-  end
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_hints',
   hl = { fg = GetHiVal('LspDiagnosticsDefaultHint') },
-  enabled = function()
-    return wide_enough() and lsp.diagnostics_exist('HINT')
-  end
 })
 
+--------------------
 -- Middle section --
+--------------------
 
+-- GPS
 gps.setup({ separator = '  ' })
 
 table.insert(active_mid, {
@@ -211,6 +202,7 @@ table.insert(active_mid, {
   priority = -1
 })
 
+-- LSP status progress
 lsp_status.register_progress()
 
 table.insert(active_mid, {
@@ -220,6 +212,7 @@ table.insert(active_mid, {
   priority = 5
 })
 
+-- Snippet indicator
 table.insert(active_mid, {
   provider = 'snippet',
   hl = { fg = 'darkgray' },
@@ -230,7 +223,9 @@ table.insert(active_mid, {
   },
 })
 
+-------------------
 -- Right section --
+-------------------
 
 table.insert(active_right, {
   provider = 'git_diff_added',
@@ -251,6 +246,7 @@ table.insert(active_right, {
   truncate_hide = true
 })
 
+-- Git branch
 table.insert(active_right, {
   provider = 'git_branch',
   right_sep = ' ',
@@ -264,26 +260,21 @@ table.insert(active_right, {
 })
 
 table.insert(active_right, {
+  provider = '',
+  hl = { fg = 'bg', bg = 'bg0' },
+})
+
+-- Filetype
+table.insert(active_right, {
   provider = function() return ' ' .. bo.filetype end,
-  left_sep = {
-    str = ' ',
-    hl = { fg = 'line_bg' },
-    always_visible = true
-  },
-  right_sep = {
-    str = '',
-    hl = { fg = 'line_bg' },
-    always_visible = true
-  },
+  left_sep = left_sep,
+  right_sep = right_sep,
   hl = { bg = 'line_bg' },
   enabled = has_file_type,
   icon = function()
     return {
       str = get_icon(),
-      hl = {
-        fg = get_icon_hl(),
-        bg = 'line_bg',
-      },
+      hl = { fg = get_icon_hl(), bg = 'line_bg' },
       always_visible = true,
     }
   end,
@@ -291,6 +282,7 @@ table.insert(active_right, {
   priority = 1
 })
 
+-- File OS info
 table.insert(active_right, {
   provider = file_osinfo,
   hl = { bg = 'line_bg' },
@@ -300,6 +292,7 @@ table.insert(active_right, {
   priority = -1
 })
 
+-- File encoding
 table.insert(active_right, {
   provider = 'file_encoding',
   hl = { bg = 'line_bg' },
@@ -309,6 +302,7 @@ table.insert(active_right, {
   priority = -1
 })
 
+-- Copilot
 table.insert(active_right, {
   provider = ' ',
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
@@ -345,10 +339,10 @@ table.insert(active_right, {
     return string.format('%d:%-d', fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
-    return { str = ' ', hl = { fg = mode.get_mode_color() } }
+    return { str = ' ', hl = { fg = mode.get_mode_color(), bg = 'bg0' } }
   end,
   right_sep = function()
-    return { str = '█', hl = { fg = mode.get_mode_color() } }
+    return { str = '█', hl = { fg = mode.get_mode_color(), bg = 'bg0' } }
   end,
   hl = function()
     return { fg = 'line_bg', bg = mode.get_mode_color(), style = 'bold' }
@@ -356,6 +350,10 @@ table.insert(active_right, {
   icon = ' ',
   priority = 9,
 })
+
+-----------
+-- Setup --
+-----------
 
 local function setup(config)
   if not config or not config.theme then

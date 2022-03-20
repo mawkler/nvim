@@ -1081,7 +1081,7 @@ sign_define('DiagnosticSignInfo',  '')
 require('statusline').setup({
   theme = colors,
   modifications = {
-    bg = colors.bg0,
+    bg = colors.bg_sidebar,
     fg = '#c8ccd4',
     line_bg = '#353b45',
     darkgray = '#9ba1b0',
