@@ -774,7 +774,7 @@ map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Se
 map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
 map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
 map('n', '<leader>n',  telescope_config, 'Neovim config')
-map('n', '<leader>tM', telescope.extensions.notify.notify, 'Notifications')
+map('n', '<leader>tn', telescope.extensions.notify.notify, 'Notifications')
 
 telescope.load_extension('zoxide')
 telescope.load_extension('fzf')
@@ -1521,6 +1521,8 @@ neogit.setup {
     item = { '', '' },
   },
   integrations = { diffview = true  },
+  disable_builtin_notifications = true,
+  disable_commit_confirmation = true,
 }
 
 map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
