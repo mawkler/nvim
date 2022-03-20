@@ -1191,7 +1191,7 @@ local function add_constant(elements)
   return augend.constant.new {
     elements = elements,
     cyclic = true,
-    word = false
+    word = true
   }
 end
 
