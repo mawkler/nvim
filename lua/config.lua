@@ -1562,7 +1562,13 @@ require('quickfix')
 ---------------------
 -- General config --
 ---------------------
--- Mappings
+api.nvim_add_user_command(
+  'Search',
+  ':let @/="\\\\V" . escape(<q-args>, "\\\\\") | normal! n',
+  { nargs = 1, desc = 'Search literally, with no regex' }
+)
+
+-- Mappings --
 map('n', '<Esc>', function()
   if bo.modifiable then
     clear_lsp_references()
@@ -1583,23 +1589,6 @@ autocmd('CmdwinEnter', {
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
 end, 'Delete buffer and pop jump stack')
-
--- Highlight text object on yank
-autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
-  end,
-  group = 'HighlightYank'
-})
-
--- TypeScript specific --
-autocmd('FileType', {
-  pattern = 'typescript',
-  callback = function()
-    vim.opt.matchpairs:append('<:>')
-  end,
-  group = 'TypeScript'
-})
 
 -- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
 -- formatter.nvim
@@ -1623,3 +1612,21 @@ map('n', '<leader>W', function ()
   vim.o.wrap = not vim.o.wrap
   print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
+map('s', '<BS>', '<BS>i') -- By default <BS> puts you in normal mode
+
+-- General autocmds --
+autocmd('TextYankPost', { -- Highlight text object on yank
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
+  end,
+  group = 'HighlightYank'
+})
+
+-- TypeScript specific --
+autocmd('FileType', {
+  pattern = 'typescript',
+  callback = function()
+    vim.opt.matchpairs:append('<:>')
+  end,
+  group = 'TypeScript'
+})
