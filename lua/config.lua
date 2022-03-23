@@ -449,6 +449,7 @@ require('onedark').setup {
       FloatBorder = { fg = c.blue0, bg = c.bg_float  },
       Search = { bg = c.bg_search },
       SpecialKey = { fg = c.blue0 },
+      SpecialKeyWin = { link = 'Comment' },
       -- Quickfix
       qfLineNr = { fg = c.fg_gutter },
       -- Treesitter
@@ -494,7 +495,7 @@ require('onedark').setup {
 }
 
 -- Use different highlights for special keys in cmdline vs other windows
-vim.opt.winhighlight:append('SpecialKey:SpecialKeyWin')
+vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 
 ------------------
 -- LSP Mappings --
