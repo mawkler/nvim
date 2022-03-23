@@ -1529,6 +1529,8 @@ neogit.setup {
 map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
 map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
 map('n', '<leader>gP', '<cmd>Neogit push<CR>')
+map('n', '<leader>gr', '<cmd>Neogit rebase<CR>')
+map('n', '<leader>gl', '<cmd>Neogit log<CR>')
 map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
 map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Telescope git branch')
 map('n', '<leader>gs', function() return neogit.open({
@@ -1537,9 +1539,9 @@ map('n', '<leader>gs', function() return neogit.open({
 }) end, 'Neogit status')
 
 -- TODO: replace with Neogit or Diffview diff once feature is available
-map('n', '<leader>gd', function () call('GitDiff') end, 'Git diff current file')
+map('n', '<leader>gd', function() call('GitDiff') end, 'Git diff current file')
 cmd [[
-  function GitDiff() abort
+  function! GitDiff() abort
     let tmp = g:bufferline.insert_at_end
     let g:bufferline.insert_at_end = v:false
     tabnew %
