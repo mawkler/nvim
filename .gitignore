@@ -4,3 +4,4 @@ packages/
 
 http
 plugin/work.lua
+plugin/packer_compiled.lua

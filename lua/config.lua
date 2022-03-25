@@ -2,6 +2,149 @@ local cmd, fn, call = vim.cmd, vim.fn, vim.call
 local opt, g, b, bo = vim.o, vim.g, vim.b, vim.bo
 local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
 
+-- Should be loaded before any other plugin
+-- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
+require('impatient')
+
+require('packer').init({
+  autoremove = true
+})
+
+require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
+  use 'tpope/vim-fugitive'                  -- Makes actions like `:Gpush` asynchronous
+  use 'tpope/vim-dispatch'
+  use 'tpope/vim-eunuch'
+  use 'tpope/vim-abolish'
+  use 'inkarkat/vim-visualrepeat'           -- Repeat using `.` over visual selection
+  use 'milkypostman/vim-togglelist'         -- Mapping to toggle QuickFix window
+  use 'kana/vim-niceblock'                  -- Improves visual mode
+  use 'kana/vim-textobj-syntax'
+  use 'haya14busa/vim-textobj-function-syntax'
+  use 'PeterRincker/vim-argumentative'      -- Adds mappings for swapping arguments
+  use 'AndrewRadev/splitjoin.vim'
+  use 'junegunn/vim-easy-align'
+  use 'dkarter/bullets.vim'                 -- Autocomplete markdown lists, etc.
+  use 'Julian/vim-textobj-variable-segment' -- camelCase and snake_case text objects
+  use 'wsdjeg/vim-fetch'                    -- Line and column position when opening file
+  use 'meain/vim-printer'
+  use 'camspiers/lens.vim'                  -- Automatic window resizing
+  use 'Ron89/thesaurus_query.vim'           -- Synonyms and antonyms of a given word
+  use 'mbbill/undotree'
+  use 'breuckelen/vim-resize'               -- Resizing with arrow keys
+  use 'junegunn/vim-peekaboo'               -- Register selection window
+  use 'RishabhRD/popfix'                    -- Required by nvim-cheat.sh
+  use 'RishabhRD/nvim-cheat.sh'
+  use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays the colours (rgb, etc.) in files
+  use 'mhinz/vim-startify'                  -- Nicer start screen
+  use 'DanilaMihailov/beacon.nvim'          -- Flash the cursor location on jump
+  use 'lukas-reineke/indent-blankline.nvim'
+  use 'wsdjeg/notifications.vim'
+  use 'coreyja/fzf.devicon.vim'
+  use 'Xuyuanp/scrollbar.nvim'
+  use 'kyazdani42/nvim-web-devicons'        -- Required by barbar.nvim
+  use 'kyazdani42/nvim-tree.lua'            -- File explorer
+  use 'romgrk/barbar.nvim'                  -- Sexiest buffer tabline
+  use 'mhartington/formatter.nvim'          -- Auto formatting
+  use 'karb94/neoscroll.nvim'               -- Smooth scrolling animations
+  use 'famiu/feline.nvim'                   -- Statusline creation framework
+  use 'SmiteshP/nvim-gps'                   -- Display current scope in statusline
+  use 'j-hui/fidget.nvim'                   -- LSP progress in the bottom right corner
+  use 'lewis6991/gitsigns.nvim'             -- Git status in sign column
+
+  use 'neovim/nvim-lspconfig'               -- Enables built-in LSP
+  use 'williamboman/nvim-lsp-installer'     -- Adds LspInstall command
+  use 'L3MON4D3/LuaSnip'                    -- Snippet engine
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/cmp-nvim-lua'
+  use { 'tzachar/cmp-tabnine', run = './install.sh' }
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'hrsh7th/nvim-cmp'
+  use 'onsails/lspkind-nvim'                -- VSCode-like completion icons
+  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  use 'melkster/friendly-snippets'          -- Snippet collection
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'nvim-treesitter/playground'
+  use 'nvim-lua/lsp-status.nvim'
+  use 'folke/trouble.nvim'
+  use 'b0o/schemastore.nvim'
+
+  use 'tami5/sqlite.lua'                    -- Required by telescope-frecency
+  use 'nvim-lua/popup.nvim'                 -- Required by telescope.nvim
+  use 'nvim-lua/plenary.nvim'               -- Required by telescope.nvim
+  use 'jvgrootveld/telescope-zoxide'
+  use 'dhruvmanila/telescope-bookmarks.nvim'
+  use 'nvim-telescope/telescope-cheat.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use 'nvim-telescope/telescope-frecency.nvim'
+  use 'JoseConseco/telescope_sessions_picker.nvim'
+  use 'nvim-telescope/telescope.nvim'       -- Fuzzy finder
+  use 'stevearc/dressing.nvim'              -- Improves default `vim.ui` interfaces
+  use 'MunifTanjim/nui.nvim'                -- UI component library
+  use 'milisims/nvim-luaref'                -- Vim :help reference for lua
+  use 'folke/lua-dev.nvim'                  -- Lua signature help, docs and completion
+  use 'ethanholz/nvim-lastplace'            -- Reopen files at last edit position
+  use 'monaqa/dial.nvim'                    -- Enhanced increment/decrement
+  use { 'numToStr/Comment.nvim', branch = 'plug' } -- TODO: remove `branch` once merged
+  use 'NTBBloodbath/rest.nvim'              -- For sending HTTP requests
+  use 'mfussenegger/nvim-dap'               -- Debugger client
+  use 'rcarriga/nvim-dap-ui'                -- UI for nvim-dap
+  use 'Pocco81/DAPInstall.nvim'             -- Installing and managing debuggers
+  use 'jbyuki/one-small-step-for-vimkind'   -- Lua plugin debug adapter
+  use 'ful1e5/onedark.nvim'
+  use 'ThePrimeagen/refactoring.nvim'
+  use 'Darazaki/indent-o-matic'             -- Automatic indentation detection
+  use 'lewis6991/impatient.nvim'            -- Improve startup time for Neovim
+  use 'jakelinnzy/autocmd-lua'              -- Lua autocommands
+  use 'bfredl/nvim-miniyank'
+  use 'tpope/vim-surround'
+  use 'tpope/vim-repeat'
+  use 'unblevable/quick-scope'
+  use 'andymass/vim-matchup'                -- Ads additional `%` commands
+  use 'windwp/nvim-autopairs'               -- Auto-close brackets, etc.
+  use 'junegunn/fzf.vim'
+  use 'vim-scripts/capslock.vim'            -- Adds caps lock mapping to insert mode
+  use 'vim-scripts/StripWhiteSpaces'
+  use 'inkarkat/vim-ingo-library'           -- Required by visualrepeat and ConflictMotions
+  use 'inkarkat/vim-CountJump'              -- Dependency for ConflictMotions
+  use 'inkarkat/vim-ConflictMotions'        -- Adds motions for Git conflicts
+  use 'kana/vim-textobj-user'
+  use 'kana/vim-textobj-function'
+  use 'kana/vim-textobj-line'
+  use 'kana/vim-textobj-entire'
+  use 'lervag/vimtex'
+  use 'AndrewRadev/dsf.vim'
+  use 'michaeljsmith/vim-indent-object'
+  use 'wellle/targets.vim'                  -- Adds arguments, etc. as text objects
+  use 'romainl/vim-cool'                    -- Better search highlighting behaviour
+  use 'plasticboy/vim-markdown'             -- Adds extra features to markdown
+  use 'coachshea/vim-textobj-markdown'
+  use 'tommcdo/vim-exchange'                -- Swapping two text objects
+  use 'itchyny/vim-highlighturl'            -- Highlights URLs everywhere
+  use 'AndrewRadev/bufferize.vim'           -- Send command output to temporary buffer
+  use 'xolox/vim-misc'                      -- Required by vim-session
+  use 'xolox/vim-session'                   -- Extened session management
+  use 'rhysd/vim-grammarous'                -- LanguageTool grammar checking
+  use 'github/copilot.vim'                  -- GitHub Copilot
+  use 'tvaintrob/bicep.vim'                 -- Syntax highlight for Bicep files
+  use 'luukvbaal/stabilize.nvim'            -- Stabilize windows when opening/closing windows
+  use 'sindrets/diffview.nvim'              -- Git diff for each file and file history
+  use 'ggandor/lightspeed.nvim'             -- Moving cursor anywhere in any window
+  use 'sindrets/winshift.nvim'              -- Improved window movement
+  use 'rcarriga/nvim-notify'                -- Floating notifications popups
+  use 'NarutoXY/dim.lua'                    -- It's kinda buggy
+  use 'akinsho/toggleterm.nvim'             -- For toggling built-in terminal
+  use 'kevinhwang91/nvim-bqf'               -- Better quickfix
+  use 'TimUntersberger/neogit'              -- Git wrapper
+end)
+
 local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -22,9 +165,25 @@ local function error(message)
   api.nvim_echo({{ message, 'Error' }}, false, {})
 end
 
--- Should be loaded before any other plugin
--- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
-require('impatient')
+local function autocmd(event, opts)
+  if opts.group then
+    api.nvim_create_augroup(opts.group, {})
+  else
+    opts.group = 'DefaultAugroup'
+    api.nvim_create_augroup('DefaultAugroup', {})
+  end
+
+  vim.api.nvim_create_autocmd(event, opts)
+end
+
+------------
+-- Packer --
+------------
+autocmd('BufWritePost', {
+  pattern = 'config.lua',
+  command = 'source <afile> | PackerCompile',
+  group   = 'Packer'
+})
 
 -------------------
 -- LSP Installer --
@@ -178,7 +337,7 @@ luasnip.config.setup { history = true }
 luasnip.filetype_extend('all', {'global'})
 require('luasnip/loaders/from_vscode').lazy_load {
   paths = {
-    '~/.config/nvim/packages/friendly-snippets/',
+    '~/.local/share/nvim/site/pack/packer/start/friendly-snippets/',
     '~/.config/nvim/snippets'
   }
 }
@@ -354,17 +513,6 @@ cmp.setup({
     completeopt = 'menu,menuone,noinsert',
   }
 })
-
-local function autocmd(event, opts)
-  if opts.group then
-    api.nvim_create_augroup(opts.group, {})
-  else
-    opts.group = 'DefaultAugroup'
-    api.nvim_create_augroup('DefaultAugroup', {})
-  end
-
-  vim.api.nvim_create_autocmd(event, opts)
-end
 
 autocmd('FileType', {
   pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
@@ -713,7 +861,6 @@ function _G.telescope_config()
   builtin.find_files({
     search_dirs = { '$HOME/.config/nvim/' },
     prompt_title = 'Neovim config',
-    file_ignore_patterns = { '.config/nvim/packages/' },
     no_ignore = true,
     hidden = true,
     path_display = function(_, path)
@@ -784,6 +931,7 @@ telescope.load_extension('frecency')
 telescope.load_extension('cheat')
 telescope.load_extension('refactoring')
 telescope.load_extension('notify')
+telescope.load_extension('sessions_picker')
 
 --------------
 -- Dressing --
@@ -1125,6 +1273,7 @@ require('indent_blankline').setup {
     'NvimTree',
     'lsp-installer',
     'toggleterm',
+    'packer',
   }
 }
 
