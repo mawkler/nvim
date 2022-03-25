@@ -16,7 +16,7 @@ require('packer').startup(function()
   use 'tpope/vim-dispatch'
   use 'tpope/vim-eunuch'
   use 'tpope/vim-abolish'
-  use 'inkarkat/vim-visualrepeat'           -- Repeat using `.` over visual selection
+  use { 'inkarkat/vim-visualrepeat', requires = 'inkarkat/vim-ingo-library' }
   use 'milkypostman/vim-togglelist'         -- Mapping to toggle QuickFix window
   use 'kana/vim-niceblock'                  -- Improves visual mode
   use 'kana/vim-textobj-syntax'
@@ -33,8 +33,7 @@ require('packer').startup(function()
   use 'mbbill/undotree'
   use 'breuckelen/vim-resize'               -- Resizing with arrow keys
   use 'junegunn/vim-peekaboo'               -- Register selection window
-  use 'RishabhRD/popfix'                    -- Required by nvim-cheat.sh
-  use 'RishabhRD/nvim-cheat.sh'
+  use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays the colours (rgb, etc.) in files
   use 'mhinz/vim-startify'                  -- Nicer start screen
   use 'DanilaMihailov/beacon.nvim'          -- Flash the cursor location on jump
@@ -42,7 +41,7 @@ require('packer').startup(function()
   use 'wsdjeg/notifications.vim'
   use 'coreyja/fzf.devicon.vim'
   use 'Xuyuanp/scrollbar.nvim'
-  use 'kyazdani42/nvim-web-devicons'        -- Required by barbar.nvim
+  use 'kyazdani42/nvim-web-devicons'        -- Nerdfont icons
   use 'kyazdani42/nvim-tree.lua'            -- File explorer
   use 'romgrk/barbar.nvim'                  -- Sexiest buffer tabline
   use 'mhartington/formatter.nvim'          -- Auto formatting
@@ -75,17 +74,16 @@ require('packer').startup(function()
   use 'nvim-lua/lsp-status.nvim'
   use 'folke/trouble.nvim'
   use 'b0o/schemastore.nvim'
-
-  use 'tami5/sqlite.lua'                    -- Required by telescope-frecency
-  use 'nvim-lua/popup.nvim'                 -- Required by telescope.nvim
-  use 'nvim-lua/plenary.nvim'               -- Required by telescope.nvim
   use 'jvgrootveld/telescope-zoxide'
   use 'dhruvmanila/telescope-bookmarks.nvim'
   use 'nvim-telescope/telescope-cheat.nvim'
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use 'nvim-telescope/telescope-frecency.nvim'
+  use { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' }
   use 'JoseConseco/telescope_sessions_picker.nvim'
-  use 'nvim-telescope/telescope.nvim'       -- Fuzzy finder
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+  }
   use 'stevearc/dressing.nvim'              -- Improves default `vim.ui` interfaces
   use 'MunifTanjim/nui.nvim'                -- UI component library
   use 'milisims/nvim-luaref'                -- Vim :help reference for lua
@@ -112,9 +110,8 @@ require('packer').startup(function()
   use 'junegunn/fzf.vim'
   use 'vim-scripts/capslock.vim'            -- Adds caps lock mapping to insert mode
   use 'vim-scripts/StripWhiteSpaces'
-  use 'inkarkat/vim-ingo-library'           -- Required by visualrepeat and ConflictMotions
   use 'inkarkat/vim-CountJump'              -- Dependency for ConflictMotions
-  use 'inkarkat/vim-ConflictMotions'        -- Adds motions for Git conflicts
+  use { 'inkarkat/vim-ConflictMotions', requires = 'inkarkat/vim-ingo-library' }
   use 'kana/vim-textobj-user'
   use 'kana/vim-textobj-function'
   use 'kana/vim-textobj-line'
@@ -129,8 +126,7 @@ require('packer').startup(function()
   use 'tommcdo/vim-exchange'                -- Swapping two text objects
   use 'itchyny/vim-highlighturl'            -- Highlights URLs everywhere
   use 'AndrewRadev/bufferize.vim'           -- Send command output to temporary buffer
-  use 'xolox/vim-misc'                      -- Required by vim-session
-  use 'xolox/vim-session'                   -- Extened session management
+  use { 'xolox/vim-session', requires = 'xolox/vim-misc' }
   use 'rhysd/vim-grammarous'                -- LanguageTool grammar checking
   use 'github/copilot.vim'                  -- GitHub Copilot
   use 'tvaintrob/bicep.vim'                 -- Syntax highlight for Bicep files
