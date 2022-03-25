@@ -1206,7 +1206,7 @@ require('dial.config').augends:register_group {
     augend.constant.alias.ja_weekday,
     augend.constant.alias.ja_weekday_full,
     augend.constant.alias.bool,
-    -- augend.markdown.header -- Not yet implemented
+    augend.misc.alias.markdown_header,
     add_constant({'and', 'or'}),
     add_constant({'&&', '||'}),
     add_constant({'TRUE', 'FALSE'}),
