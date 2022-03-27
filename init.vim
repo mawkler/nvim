@@ -350,55 +350,6 @@ function GetHiVal(name, layer)
   return synIDattr(synIDtrans(hlID(a:name)), a:layer . '#')
 endf
 
-" Creates highlight group `name` with guifg `guifg`, and guibg s:barbar_bg
-" If a third argument is provided gui is set to that
-function BarbarHi(name, guifg, ...)
-  let s:barbar_bg  = '#1d2026'
-  let gui = a:0 > 0 ? 'gui=' . get(a:, 1, '') : ''
-  exe 'hi!' a:name 'guifg=' a:guifg 'guibg=' s:barbar_bg gui
-endf
-
-fun! s:colorschemeMods() abort
-  hi IncSearch    guibg=#61afef
-  hi VertSplit    guifg=#1d2026
-  hi MatchParen   guifg=NONE guibg=NONE gui=underline,bold
-
-  hi link TSTagDelimiter TSPunctBracket
-  exe 'hi! CursorLineNr guifg=' . GetHiVal('Question', 'fg') .
-        \ ' guibg=' . GetHiVal('CursorLine', 'bg') . ' gui=bold'
-
-  hi! link MsgArea Normal
-
-  hi! QuickScopePrimary   cterm=bold ctermfg=204 gui=bold guifg=#E06C75
-  hi! QuickScopeSecondary cterm=bold ctermfg=173 gui=bold guifg=#D19A66
-
-  let fg_visible  = GetHiVal('Normal', 'fg')     " #abb2bf
-  let fg_sign     = GetHiVal('NonText', 'fg')    " #3b4048
-  let fg_modified = GetHiVal('WarningMsg', 'fg') " #e5c07b
-  let fg_tabpages = GetHiVal('Directory', 'fg')  " #61AFEF
-
-  let bg_visible = '#23262d'
-  exe 'hi! BufferVisible guifg=' . fg_visible .' guibg=' . bg_visible
-  exe 'hi! BufferVisibleSign guifg=' . fg_sign . ' guibg=' . bg_visible
-
-  call BarbarHi('BufferTabpageFill', fg_sign)
-  call BarbarHi('BufferTabpages', fg_tabpages, 'bold')
-  call BarbarHi('BufferVisibleMod', fg_modified)
-  call BarbarHi('BufferVisibleIndex', fg_sign)
-  call BarbarHi('BufferInactive', '#707070')
-  call BarbarHi('BufferInactiveSign', fg_sign)
-  call BarbarHi('BufferInactiveMod', fg_modified)
-  call BarbarHi('BufferInactiveIndex', fg_sign)
-  call BarbarHi('BufferInactiveTarget', 'red', 'bold')
-  call BarbarHi('BufferModifiedIndex', fg_sign)
-endf
-
-augroup colorschemeMods
-  autocmd!
-  autocmd ColorScheme * call s:colorschemeMods()
-augroup END
-call s:colorschemeMods()
-
 " For toggling caps lock in insert mode
 imap <S-Esc> <Plug>CapsLockToggle
 imap <M-c>   <Plug>CapsLockToggle
@@ -621,12 +572,6 @@ let g:vim_markdown_math = 1
 map <F13> <Plug>Markdown_EditUrlUnderCursor
 " Disables vim-markdown's default `]c` mapping
 map <F14> <Plug>Markdown_MoveToCurHeader
-" Make italic words actually look italic in Markdown
-" hi htmlItalic cterm=italic gui=italic
-" Underline Markdown URLs
-" hi mkdInlineURL guifg=#61AFEF gui=underline cterm=underline
-" Underline link names in Markdown in-line links
-" hi link mkdLink mkdInlineURL
 
 augroup toc_markdown
   autocmd!
@@ -752,6 +697,7 @@ let g:bufferline = get(g:, 'bufferline', {
 
 nmap <silent> <M-w>         :BufferClose<CR>
 nmap <silent> <M-W>         :BufferClose<CR>:wincmd c<CR>
+nmap <silent> <leader>bC    :BufferClose<CR>:wincmd c<CR>
 nmap <silent> <leader><M-w> :BufferClose!<CR>
 
 " Magic buffer-picking mode
@@ -792,7 +738,6 @@ nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
 nnoremap <silent> <Leader>9 :BufferLast<CR>
 
 " -- Scrollbar --
-exe 'hi Scrollbar guifg=' .. GetHiVal('Visual', 'bg') .. ' guibg=' .. GetHiVal('Normal', 'bg')
 let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['NvimTree']
 let g:scrollbar_highlight = {
@@ -858,9 +803,6 @@ nmap <leader>GF <Plug>(grammarous-fixall)
 nmap <leader>Gq <Plug>(grammarous-close-info-window)
 nmap <leader>Gr <Plug>(grammarous-remove-error)
 nmap <leader>GD <Plug>(grammarous-disable-rule)
-
-exe 'hi SpellBad        gui=undercurl guisp=' . GetHiVal('SpellRare', 'fg') . ' guifg=NONE'
-exe 'hi GrammarousError gui=undercurl guisp=' . GetHiVal('ErrorMsg', 'fg')
 
 " -- ConflictMotions --
 nmap <leader>xb     :ConflictTake both<CR>

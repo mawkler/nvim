@@ -140,7 +140,7 @@ table.insert(active_left, {
   short_provider = function () return get_working_dir(true) end,
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
   left_sep = '█',
-  right_sep = {str = '',  hl = { fg = 'line_bg', bg = 'bg0' } },
+  right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'bg0' } },
   icon = ' ',
   truncate_hide = true,
   priority = 9
@@ -155,6 +155,7 @@ table.insert(active_left, {
 table.insert(active_left, {
   provider = 'lsp_client_names',
   left_sep = ' ',
+  riht_sep = ' ',
   hl = {fg = 'darkgray' },
   enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
   icon = ' ',

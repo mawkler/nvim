@@ -571,6 +571,10 @@ local colors = require('onedark.colors').setup()
 local style = require('onedark.types').od.HighlightStyle
 local onedark_utils = require('onedark.util')
 
+local barbar_bg = '#1d2026'
+local barbar_bg_visible = '#23262d'
+local barbar_fg_gray = '#3b4048'
+
 require('onedark').setup {
   hide_end_of_buffer = false,
   dev = true,
@@ -594,9 +598,16 @@ require('onedark').setup {
       Search = { bg = c.bg_search },
       SpecialKey = { fg = c.blue0 },
       SpecialKeyWin = { link = 'Comment' },
+      IncSearch = { bg = c.blue0 },
+      WinSeparator = { fg = barbar_bg, style = style.Bold  },
+      MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
+      CursorLineNr = { fg = c.blue0, bg = c.bg_highlight, style = style.Bold },
+      MsgArea = { link = 'Normal' },
+      SpellBad = { style = style.Undercurl, sp = c.red1 },
       -- Quickfix
       qfLineNr = { fg = c.fg_gutter },
       -- Treesitter
+      TSTagDelimiter = { link = 'TSPunctBracket'},
       TSNote = { fg = c.info, style = style.Bold },
       TSWarning = { fg = c.warning, style = style.Bold },
       TSDanger = { fg = c.error, style = style.Bold },
@@ -606,6 +617,9 @@ require('onedark').setup {
       htmlBold = { fg = c.orange0, style = style.Bold },
       htmlItalic = { fg = c.purple0, style = style.Italic },
       mkdHeading = { link = 'Title' },
+      -- QuickScope
+      QuickScopePrimary = { fg = c.red0, style = style.Bold },
+      QuickScopeSecondary = { fg = c.orange1, style = style.Bold },
       -- NvimTree
       NvimTreeFolderName = { fg = c.blue0 },
       NvimTreeOpenedFolderName = { fg = c.blue0, style = style.Bold },
@@ -632,8 +646,25 @@ require('onedark').setup {
       CmpItemKindTextDefault = { link = 'Normal' },
       -- nvim-lsp-ts-utils
       NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
-      -- Fidget.nvim
+      -- Fidget
       FidgetTitle = { fg = c.blue0, style = style.Bold },
+      -- Barbar
+      BufferVisible        = { fg = c.fg0,          bg = barbar_bg_visible },
+      BufferVisibleSign    = { fg = barbar_fg_gray, bg = barbar_bg_visible },
+      BufferTabpageFill    = { fg = barbar_fg_gray, bg = barbar_bg },
+      BufferTabpages       = { fg = c.blue0,        bg = barbar_bg, style = style.Bold },
+      BufferVisibleMod     = { fg = c.warning,      bg = barbar_bg },
+      BufferVisibleIndex   = { fg = barbar_fg_gray, bg = barbar_bg },
+      BufferInactive       = { fg = '#707070',      bg = barbar_bg },
+      BufferInactiveSign   = { fg = barbar_fg_gray, bg = barbar_bg },
+      BufferInactiveMod    = { fg = c.warning,      bg = barbar_bg },
+      BufferInactiveTarget = { fg = 'red',          bg = barbar_bg },
+      BufferInactiveIndex  = { fg = barbar_fg_gray, bg = barbar_bg },
+      BufferModifiedIndex  = { fg = barbar_fg_gray, bg = barbar_bg },
+      -- Grammarous
+      GrammarousError = { style = style.Undercurl, sp = c.error },
+      -- Scrollbar
+      Scrollbar = { fg = c.bg_visual }
     }
   end
 }
@@ -675,9 +706,9 @@ local function lsp_references()
 end
 
 -- LSP and diagnostics
-map('n',        'gd',        lsp.buf.definition, 'vim.lsp.buf.definition')
-map('n',        'gi',        lsp.buf.implementation, 'vim.lsp.buf.implementation')
-map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
+map('n',        'gd',        require('telescope.builtin').lsp_definitions, 'vim.lsp.buf.definition')
+map('n',        'gi',        require('telescope.builtin').lsp_implementations, 'vim.lsp.buf.implementation')
+map('n',        'gD',        require('telescope.builtin').lsp_type_definitions, 'vim.lsp.buf.type_definition')
 map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
 map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
 map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
@@ -907,6 +938,7 @@ map('n', '<leader>tH', builtin.highlights, 'Highlights')
 map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
 map('n', '<leader>ts', builtin.lsp_document_symbols, 'LSP document symbols')
 map('n', '<leader>tS', builtin.lsp_workspace_symbols, 'LSP workspace symbols')
+map('n', '<leader>tw', builtin.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
 map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
 map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
