@@ -38,7 +38,6 @@ require('packer').startup(function()
   use 'mhinz/vim-startify'                  -- Nicer start screen
   use 'DanilaMihailov/beacon.nvim'          -- Flash the cursor location on jump
   use 'lukas-reineke/indent-blankline.nvim'
-  use 'wsdjeg/notifications.vim'
   use 'coreyja/fzf.devicon.vim'
   use 'Xuyuanp/scrollbar.nvim'
   use 'kyazdani42/nvim-web-devicons'        -- Nerdfont icons
@@ -1739,10 +1738,26 @@ require('quickfix')
 ---------------------
 -- General config --
 ---------------------
+-- Commands
 api.nvim_add_user_command(
   'Search',
   ':let @/="\\\\V" . escape(<q-args>, "\\\\\") | normal! n',
   { nargs = 1, desc = 'Search literally, with no regex' }
+)
+
+api.nvim_add_user_command(
+  'CDHere',
+  'cd %:p:h',
+  { desc = "Change working directory to current file's" }
+)
+
+api.nvim_add_user_command(
+  'YankPath',
+  function()
+    fn.setreg('+', fn.expand('%:~'))
+    vim.notify('Yanked file path: ' .. fn.getreg('+'))
+  end,
+  { desc = "Yank current file's path" }
 )
 
 -- Mappings --

@@ -153,42 +153,6 @@ xnoremap <expr> , getcharsearch().forward ? ',' : ';'
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
 nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 
-" Does `cd path` and prints the command using notifications.vim
-function! CD(path)
-  exe 'tcd' a:path
-  call Print('cd ' . fnamemodify(getcwd(), ":~"))
-endf
-
-function! Print(message)
-  try
-    exe 'Echo' a:message
-  catch " if notifications.vim is not installed
-    echo a:message
-  endtry
-endf
-
-function s:print_error(message)
-  try
-    exe 'Echoerr' a:message
-  catch " if notifications.vim is not installed
-    echohl ErrorMsg
-    echom a:message
-    echohl None
-  endtry
-endf
-
-" Prints the new directory after working path changes
-augroup dir_changed
-  " Ignoring 'nofile' and 'terminal' deals with fzf doing cd twice on trigger
-  " for some reasone
-  let blacklist = ['nofile', 'terminal']
-  autocmd!
-  autocmd DirChanged *
-        \ if &runtimepath =~ 'notifications.vim' && index(blacklist, &buftype) < 0 |
-        \   exe 'Echo  ' fnamemodify(getcwd(), ":~") |
-        \ endif
-augroup end
-
 augroup vertical_help
   " Open :help in vertical split instead of horizontal
   autocmd!
@@ -260,12 +224,6 @@ set tabstop=4                     " Width of <Tab> characters
 set list listchars=tab:\ \ ,nbsp:·
 set shiftround                    " Round indent to multiple of shiftwdith
 set cinkeys-=0#                   " Indent lines starting with `#`
-
-" Command to change directory to the current file's
-command! CDHere cd %:p:h
-
-" Yank path to current file
-command! YankPath let @+ = expand("%:~") | echo "Yanked file path: " . @+
 
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -nargs=? -complete=file Trash
