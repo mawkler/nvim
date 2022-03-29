@@ -49,7 +49,6 @@ require('packer').startup(function()
   use 'SmiteshP/nvim-gps'                   -- Display current scope in statusline
   use 'j-hui/fidget.nvim'                   -- LSP progress in the bottom right corner
   use 'lewis6991/gitsigns.nvim'             -- Git status in sign column
-
   use 'neovim/nvim-lspconfig'               -- Enables built-in LSP
   use 'williamboman/nvim-lsp-installer'     -- Adds LspInstall command
   use 'L3MON4D3/LuaSnip'                    -- Snippet engine
@@ -179,7 +178,7 @@ end
 -- Packer --
 ------------
 autocmd('BufWritePost', {
-  pattern = 'config.lua',
+  pattern = 'init.lua',
   command = 'source <afile> | PackerCompile',
   group   = 'Packer'
 })
@@ -714,7 +713,7 @@ end
 -- LSP and diagnostics
 map('n',        'gd',        require('telescope.builtin').lsp_definitions, 'vim.lsp.buf.definition')
 map('n',        'gi',        require('telescope.builtin').lsp_implementations, 'vim.lsp.buf.implementation')
-map('n',        'gD',        require('telescope.builtin').lsp_type_definitions, 'vim.lsp.buf.type_definition')
+map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
 map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
 map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
 map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
