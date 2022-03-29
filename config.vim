@@ -101,9 +101,9 @@ nnoremap <leader>wo       :tabonly<CR>
 nnoremap <leader>wl       :tabnext<CR>
 nnoremap <leader>wh       :tabprevious<CR>
 nmap     <Leader><Esc>    <Nop>
-nmap     <leader>v        :source ~/.config/nvim/init.vim<CR>
-nmap     <leader>V        :drop ~/.config/nvim/init.vim<CR>
-nmap     <leader>Ig       :drop ~/.config/nvim/ginit.vim<CR>
+nmap     <leader>i        :source ~/.config/nvim/init.lua<CR>
+nmap     <leader>I        :drop ~/.config/nvim/init.lua<CR>
+nmap     <leader>V        :drop ~/.config/nvim/config.vim<CR>
 nmap     <leader>Z        :drop ~/.zshrc<CR>
 map      gX               :exec 'silent !brave %:p &'<CR>
 xnoremap //               omsy/<C-R>"<CR>`s
@@ -299,9 +299,6 @@ function Esc() abort
   end
 endfunction
 
-" -- Import lua config --
-lua require('config')
-
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
 function GetHiVal(name, layer)
@@ -353,7 +350,7 @@ xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
 " -- exchange.vim --
-xmap x <Plug>(Exchange)
+xmap X <Plug>(Exchange)
 nmap cX cx$
 
 " -- dsf.vim --

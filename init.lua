@@ -140,6 +140,10 @@ require('packer').startup(function()
   use 'TimUntersberger/neogit'              -- Git wrapper
 end)
 
+if fn.filereadable('~/.config/nvim/config.vim') then
+  cmd 'source ~/.config/nvim/config.vim'
+end
+
 local function t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
