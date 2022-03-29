@@ -341,38 +341,41 @@ require('luasnip/loaders/from_vscode').lazy_load {
   }
 }
 
+local function clipboad_oneline()
+  local clipboard, _ = fn.getreg('+'):gsub('\n', ' ')
+  return clipboard
+end
+
 local luasnip_clipboard = function()
-  return sn(nil, i(1, fn.getreg('+')))
+  return sn(nil, i(1, clipboad_oneline()))
 end
 
 local luasnip_plug = function()
-  local plug, _ = fn.getreg('+'):gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
-  return sn(nil,  i(1, plug) )
+  local repo = clipboad_oneline():gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
+  return sn(nil,  i(1, repo) )
 end
 
-luasnip.snippets = {
-  markdown = {
-    s({
-      trig = 'link',
-      name = 'hyperlink',
-      dscr = 'Hyperlink with the content in the clipboard (by default)'
-    }, {
-      tn '[', i(1, 'text'), tn ']',
-      tn '(',
-      d(2, luasnip_clipboard),
-      tn ') ',
-    }),
-  },
-  vim = {
-    s({
-      trig = 'plug',
-      name = 'vim-plug plugin',
-      dscr = 'Vim-plug plugin with the content in the clipboard (by default)'
-    }, {
-      tn "Plug '", d(1, luasnip_plug), tn "'",
-    })
-  }
-}
+luasnip.add_snippets('markdown', {
+  s({
+    trig = 'link',
+    name = 'hyperlink',
+    dscr = 'Hyperlink with the content in the clipboard (by default)'
+  }, {
+    tn '[', i(1, 'text'), tn ']',
+    tn '(',
+    d(2, luasnip_clipboard),
+    tn ') ',
+  })
+})
+luasnip.add_snippets('vim', {
+  s({
+    trig = 'plug',
+    name = 'vim-plug plugin',
+    dscr = 'Vim-plug plugin with the content in the clipboard (by default)'
+  }, {
+    tn "Plug '", d(1, luasnip_plug), tn "'",
+  })
+})
 
 local function right_or_snip_next()
   if luasnip.in_snippet() and luasnip.jumpable(1) then
