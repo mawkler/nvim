@@ -785,35 +785,53 @@ local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
 
 -- Allows editing multiple files with multi selection
-local custom_action = {}
-function custom_action._multiopen(prompt_bufnr, open_cmd)
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    local num_selections = #picker:get_multi_selection()
-    if not num_selections or num_selections <= 1 then
-        actions.add_selection(prompt_bufnr)
+-- Workaround for https://github.com/nvim-telescope/telescope.nvim/issues/1048
+local multiopen = function(prompt_bufnr, open_cmd)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = #picker:get_multi_selection()
+  if not num_selections or num_selections <= 1 then
+    actions.add_selection(prompt_bufnr)
+  end
+  actions.send_selected_to_qflist(prompt_bufnr)
+
+  local results = vim.fn.getqflist()
+
+  for _, result in ipairs(results) do
+    local current_file = vim.fn.bufname()
+    local next_file = vim.fn.bufname(result.bufnr)
+
+    if current_file == '' then
+      vim.api.nvim_command('edit' .. ' ' .. next_file)
+    else
+      vim.api.nvim_command(open_cmd .. ' ' .. next_file)
     end
-    actions.send_selected_to_qflist(prompt_bufnr)
-    vim.cmd('cfdo ' .. open_cmd)
+  end
+
+  vim.api.nvim_command('cd .')
 end
-function custom_action.multi_selection_open_vsplit(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, 'vsplit')
+
+local function multi_selection_open(prompt_bufnr)
+  multiopen(prompt_bufnr, 'edit')
 end
-function custom_action.multi_selection_open_split(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, 'split')
+
+local function multi_selection_open_vsplit(prompt_bufnr)
+  multiopen(prompt_bufnr, 'vsplit')
 end
-function custom_action.multi_selection_open_tab(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, 'tabe')
+
+local function multi_selection_open_split(prompt_bufnr)
+  multiopen(prompt_bufnr, 'split')
 end
-function custom_action.multi_selection_open(prompt_bufnr)
-    custom_action._multiopen(prompt_bufnr, 'edit')
+
+local function multi_selection_open_tab(prompt_bufnr)
+  multiopen(prompt_bufnr, 'tabedit')
 end
 
 local telescope_multiselect_mappings = {
   i = {
-    ['<CR>'] = custom_action.multi_selection_open,
-    ['<C-v>'] = custom_action.multi_selection_open_vsplit,
-    ['<C-s>'] = custom_action.multi_selection_open_split,
-    ['<C-t>'] = custom_action.multi_selection_open_tab,
+    ['<CR>'] = multi_selection_open,
+    ['<C-v>'] = multi_selection_open_vsplit,
+    ['<C-s>'] = multi_selection_open_split,
+    ['<C-t>'] = multi_selection_open_tab,
   }
 }
 
