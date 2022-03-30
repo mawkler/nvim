@@ -340,17 +340,17 @@ require('luasnip/loaders/from_vscode').lazy_load {
   }
 }
 
-local function clipboad_oneline()
+local function clipboad_oneline_node()
   local clipboard, _ = fn.getreg('+'):gsub('\n', ' ')
   return clipboard
 end
 
 local luasnip_clipboard = function()
-  return sn(nil, i(1, clipboad_oneline()))
+  return sn(nil, i(1, clipboad_oneline_node()))
 end
 
-local luasnip_plug = function()
-  local repo = clipboad_oneline():gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
+local luasnip_use = function()
+  local repo, _ = clipboad_oneline_node():gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
   return sn(nil,  i(1, repo) )
 end
 
@@ -358,7 +358,7 @@ luasnip.add_snippets('markdown', {
   s({
     trig = 'link',
     name = 'hyperlink',
-    dscr = 'Hyperlink with the content in the clipboard (by default)'
+    dscr = 'Hyperlink with the content in the clipboard'
   }, {
     tn '[', i(1, 'text'), tn ']',
     tn '(',
@@ -366,13 +366,13 @@ luasnip.add_snippets('markdown', {
     tn ') ',
   })
 })
-luasnip.add_snippets('vim', {
+luasnip.add_snippets('lua', {
   s({
-    trig = 'plug',
-    name = 'vim-plug plugin',
-    dscr = 'Vim-plug plugin with the content in the clipboard (by default)'
+    trig = 'use',
+    name = 'Add plugin',
+    dscr = 'Add packer.nvim plugin from the clipboard'
   }, {
-    tn "Plug '", d(1, luasnip_plug), tn "'",
+    tn "use '", d(1, luasnip_use), tn "'",
   })
 })
 
