@@ -1846,7 +1846,7 @@ autocmd('TextYankPost', { -- Highlight text object on yank
 
 -- Packer --
 autocmd('BufEnter', {
-  pattern = 'init.lua',
+  pattern = fn.stdpath('config') .. '/init.lua',
   callback = function ()
     map('n', '<F5>', ':source ~/.config/nvim/init.lua | PackerInstall<CR>', {
       buffer = true,
