@@ -7,7 +7,12 @@ local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
 require('impatient')
 
 require('packer').init({
-  autoremove = true
+  autoremove = true,
+  display = {
+    keybindings = {
+      quit = '<Esc>',
+    }
+  }
 })
 
 require('packer').startup(function()
@@ -1836,6 +1841,16 @@ autocmd('TextYankPost', { -- Highlight text object on yank
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
   end,
   group = 'HighlightYank'
+})
+
+-- Packer --
+autocmd('BufEnter', {
+  pattern = 'init.lua',
+  callback = function ()
+    map('n', '<F5>', ':source ~/.config/nvim/init.lua | PackerInstall<CR>', {
+      buffer = true,
+    })
+  end
 })
 
 -- TypeScript specific --

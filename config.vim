@@ -232,12 +232,6 @@ command! -bar -bang -nargs=? -complete=file Trash
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
-" -- vim-plug --
-augroup vim_plug
-  autocmd!
-  autocmd FileType vim nmap <buffer> <F5> :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
-augroup end
-
 " -- Surround --
 xmap s  <Plug>VSurround
 xmap S  <Plug>VgSurround
