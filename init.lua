@@ -412,9 +412,9 @@ map({'i', 's'}, '<M-space>', toggle_active_choice, 'Toggle active snippet choice
 -- Cmp --
 ---------
 opt.completeopt = 'menuone,noselect'
-local cmp = require('cmp')
-local cmp_disabled = cmp.config.disable
-local cmp_insert = { behavior = cmp.SelectBehavior.Insert }
+local nvim_cmp = require('cmp')
+local cmp_disabled = nvim_cmp.config.disable
+local cmp_insert = { behavior = nvim_cmp.SelectBehavior.Insert }
 
 local function cmp_map(rhs, modes)
   if (modes == nil) then
@@ -422,37 +422,37 @@ local function cmp_map(rhs, modes)
   else if (type(modes) ~= 'table')
     then modes = {modes} end
   end
-  return cmp.mapping(rhs, modes)
+  return nvim_cmp.mapping(rhs, modes)
 end
 
 local function toggle_complete()
   return function()
-    if cmp.visible() then
-      cmp.close()
+    if nvim_cmp.visible() then
+      nvim_cmp.close()
     else
-      cmp.complete()
+      nvim_cmp.complete()
     end
   end
 end
 
 local function complete()
   local copilot_keys = fn['copilot#Accept']('')
-  if cmp.visible() then
-    cmp.mapping.confirm({select = true})()
+  if nvim_cmp.visible() then
+    nvim_cmp.mapping.confirm({select = true})()
   elseif luasnip.expandable() then
     luasnip.expand()
   elseif copilot_keys ~= '' then
     feedkeys(copilot_keys)
   else
-    cmp.complete()
+    nvim_cmp.complete()
   end
 end
 
 local function cmdline_complete()
-  if cmp.visible() then
-    cmp.mapping.confirm({select = true})()
+  if nvim_cmp.visible() then
+    nvim_cmp.mapping.confirm({select = true})()
   else
-    cmp.complete()
+    nvim_cmp.complete()
   end
 end
 
@@ -475,35 +475,36 @@ local function join(tbl1, tbl2)
   return tbl3
 end
 
-cmp.PreselectMode = true
+nvim_cmp.PreselectMode = true
 
 local sources = {
-  { name = 'luasnip' },
+  { name = 'luasnip', max_item_count = 5 },
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
   { name = 'nvim_lsp_signature_help' },
   { name = 'path', option = { trailing_slash = true } },
-  {
-    name = 'buffer',
+  { name = 'buffer',
+    max_item_count = 3,
+    keyword_length = 2,
     option = {
       get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
     },
   }
 }
 
-cmp.setup({
+nvim_cmp.setup({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
-    ['<C-j>'] = cmp_map(cmp.mapping.select_next_item(cmp_insert)),
-    ['<C-k>'] = cmp_map(cmp.mapping.select_prev_item(cmp_insert)),
-    ['<C-b>'] = cmp_map(cmp.mapping.scroll_docs(-4)),
-    ['<C-f>'] = cmp_map(cmp.mapping.scroll_docs(4)),
+    ['<C-j>'] = cmp_map(nvim_cmp.mapping.select_next_item(cmp_insert)),
+    ['<C-k>'] = cmp_map(nvim_cmp.mapping.select_prev_item(cmp_insert)),
+    ['<C-b>'] = cmp_map(nvim_cmp.mapping.scroll_docs(-4)),
+    ['<C-f>'] = cmp_map(nvim_cmp.mapping.scroll_docs(4)),
     ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-    ['<Tab>'] = cmp.mapping({
+    ['<Tab>'] = nvim_cmp.mapping({
       i = complete,
       c = cmdline_complete,
     }),
@@ -511,7 +512,7 @@ cmp.setup({
     ['<C-n>'] = cmp_disabled,
     ['<C-p>'] = cmp_disabled,
   },
-  sources = cmp.config.sources(sources),
+  sources = nvim_cmp.config.sources(sources),
   formatting = {
     format = lspkind.cmp_format()
   },
@@ -523,23 +524,23 @@ cmp.setup({
 autocmd('FileType', {
   pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
   callback = function()
-    cmp.setup.buffer({
-      sources = cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
+    nvim_cmp.setup.buffer({
+      sources = nvim_cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
     })
   end,
   group = 'TabNine'
 })
 
 -- Use buffer source for `/` (searching)
-cmp.setup.cmdline('/', {
+nvim_cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer' }
   }
 })
 
 -- Use cmdline & path source for `:`
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
+nvim_cmp.setup.cmdline(':', {
+  sources = nvim_cmp.config.sources({
     { name = 'path' },
     { name = 'cmdline' }
   })
@@ -550,7 +551,7 @@ cmp.setup.cmdline(':', {
 -------------
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
-  max_num_results = 5;
+  max_num_results = 3;
   ignored_file_types = {};
 })
 
@@ -1089,7 +1090,7 @@ cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
 ---------------
 -- Auto insert `()` after completing a function or method
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({
+nvim_cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({
   map_char = { tex = '' },
 }))
 
