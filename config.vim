@@ -557,15 +557,6 @@ augroup highlighturl_filetype
 augroup END
 let g:highlighturl_guifg = '#61AFEF'
 
-" -- undotree --
-nmap <silent> <leader>u :UndotreeShow \| UndotreeFocus<CR>
-augroup undotree
-  autocmd!
-  autocmd FileType undotree nmap <silent> <buffer> <Tab>     <Plug>UndotreeFocusTarget
-  autocmd FileType undotree nmap <silent> <buffer> <leader>u <Plug>UndotreeClose
-  autocmd FileType undotree nmap <silent> <buffer> <Esc>     <Plug>UndotreeClose
-augroup end
-
 " -- bullets --
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically

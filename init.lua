@@ -16,132 +16,205 @@ require('packer').init({
 })
 
 require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
-  use 'tpope/vim-fugitive'                  -- Makes actions like `:Gpush` asynchronous
-  use 'tpope/vim-dispatch'
-  use 'tpope/vim-eunuch'
-  use 'tpope/vim-abolish'
+  use { 'wbthomason/packer.nvim' }
+  use { 'tpope/vim-fugitive',        -- :Git commands
+    requires = 'tpope/vim-dispatch', -- Makes actions like `:Gpush` asynchronous
+    cmd = {'G', 'Git', 'Gvdiffsplit'},
+  }
+  use { 'tpope/vim-eunuch' }
+  use { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} }
   use { 'inkarkat/vim-visualrepeat', requires = 'inkarkat/vim-ingo-library' }
-  use 'milkypostman/vim-togglelist'         -- Mapping to toggle QuickFix window
-  use 'kana/vim-niceblock'                  -- Improves visual mode
-  use 'kana/vim-textobj-syntax'
-  use 'haya14busa/vim-textobj-function-syntax'
-  use 'PeterRincker/vim-argumentative'      -- Adds mappings for swapping arguments
-  use 'AndrewRadev/splitjoin.vim'
-  use 'junegunn/vim-easy-align'
-  use 'dkarter/bullets.vim'                 -- Autocomplete markdown lists, etc.
-  use 'Julian/vim-textobj-variable-segment' -- camelCase and snake_case text objects
-  use 'wsdjeg/vim-fetch'                    -- Line and column position when opening file
-  use 'meain/vim-printer'
-  use 'camspiers/lens.vim'                  -- Automatic window resizing
-  use 'Ron89/thesaurus_query.vim'           -- Synonyms and antonyms of a given word
-  use 'mbbill/undotree'
-  use 'breuckelen/vim-resize'               -- Resizing with arrow keys
-  use 'junegunn/vim-peekaboo'               -- Register selection window
+  use { 'milkypostman/vim-togglelist', fn = 'ToggleQuickfixList' } -- Mapping to toggle QuickFix window
+  use { 'kana/vim-niceblock', event = 'ModeChanged *:[vV]' } -- Improves visual mode
+  use { 'kana/vim-textobj-syntax' }
+  use { 'haya14busa/vim-textobj-function-syntax' }
+  use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
+  use { 'AndrewRadev/splitjoin.vim', keys = 'gS' }
+  use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
+  use { 'dkarter/bullets.vim', ft = 'markdown' } -- Autocomplete markdown lists, etc.
+  use { 'Julian/vim-textobj-variable-segment', keys = {{'o', 'iv'}, {'o', 'av'}} } -- camelCase and snake_case text objects
+  use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
+  use { 'meain/vim-printer', keys = 'gp' }
+  use { 'camspiers/lens.vim' }                  -- Automatic window resizing
+  use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
+  use { 'mbbill/undotree',
+    -- keys = '<leader>u',
+    -- cmd = {'UndoTreeShow', 'UndoTreeToggle'},
+  }
+  use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
+    cmd = {'CmdResizeUp', 'CmdResizeRight', 'CmdResizeDown', 'CmdResizeLeft'},
+  }
+  use { 'junegunn/vim-peekaboo' }               -- Register selection window
   use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays the colours (rgb, etc.) in files
-  use 'mhinz/vim-startify'                  -- Nicer start screen
-  use 'DanilaMihailov/beacon.nvim'          -- Flash the cursor location on jump
-  use 'lukas-reineke/indent-blankline.nvim'
-  use 'coreyja/fzf.devicon.vim'
-  use 'Xuyuanp/scrollbar.nvim'
-  use 'kyazdani42/nvim-web-devicons'        -- Nerdfont icons
-  use 'kyazdani42/nvim-tree.lua'            -- File explorer
-  use 'romgrk/barbar.nvim'                  -- Sexiest buffer tabline
-  use 'mhartington/formatter.nvim'          -- Auto formatting
-  use 'karb94/neoscroll.nvim'               -- Smooth scrolling animations
-  use 'famiu/feline.nvim'                   -- Statusline creation framework
-  use 'SmiteshP/nvim-gps'                   -- Display current scope in statusline
-  use 'j-hui/fidget.nvim'                   -- LSP progress in the bottom right corner
-  use 'lewis6991/gitsigns.nvim'             -- Git status in sign column
-  use 'neovim/nvim-lspconfig'               -- Enables built-in LSP
-  use 'williamboman/nvim-lsp-installer'     -- Adds LspInstall command
-  use 'L3MON4D3/LuaSnip'                    -- Snippet engine
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/cmp-nvim-lua'
+  use { 'mhinz/vim-startify' }                  -- Nicer start screen
+  use { 'DanilaMihailov/beacon.nvim', event = 'WinEnter' } -- Flash the cursor location on jump
+  use { 'lukas-reineke/indent-blankline.nvim' }
+  use { 'coreyja/fzf.devicon.vim',
+    requires = 'junegunn/fzf.vim',
+    cmd = 'FilesWithDevicons',
+  }
+  use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
+  use { 'kyazdani42/nvim-web-devicons' }        -- Nerdfont icons
+  use { 'kyazdani42/nvim-tree.lua', --[[ module_pattern = 'nvim-tree.*' ]] } -- File explorer
+  use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
+  use { 'mhartington/formatter.nvim'--[[ , module = 'formatter'  ]] } -- Auto formatting
+  use { 'karb94/neoscroll.nvim', event = 'WinScrolled', config = {
+    function() -- Smooth scrolling animations
+      local scroll_speed = 140
+      require('neoscroll').setup { easing_function = 'cubic' }
+      require('neoscroll.config').set_mappings {
+        ['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', scroll_speed}},
+        ['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', scroll_speed}},
+        ['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
+        ['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
+        ['zt']    = {'zt', {scroll_speed}, 'sine'},
+        ['zz']    = {'zz', {scroll_speed}, 'sine'},
+        ['zb']    = {'zb', {scroll_speed}, 'sine'},
+      }
+    end
+  } }
+  use { 'famiu/feline.nvim' }                   -- Statusline creation framework
+  use { 'SmiteshP/nvim-gps' }                   -- Display current scope in statusline
+  use { 'j-hui/fidget.nvim', config = function()
+    require('fidget').setup {                   -- LSP progress in the bottom right corner
+      text = { spinner = 'dots', done = '' }
+    }
+  end }
+  use { 'lewis6991/gitsigns.nvim' }             -- Git status in sign column
+  use { 'neovim/nvim-lspconfig' }               -- Enables built-in LSP
+  use { 'williamboman/nvim-lsp-installer'--[[ , module = 'nvim-lsp-installer'  ]] } -- Adds LspInstall command
+  use { 'L3MON4D3/LuaSnip' --[[ , module = 'luasnip'  ]] } -- Snippet engine
+  use { 'saadparwaiz1/cmp_luasnip' }
+  use { 'hrsh7th/cmp-nvim-lsp' }
+  use { 'hrsh7th/cmp-buffer' }
+  use { 'hrsh7th/cmp-path' }
+  use { 'hrsh7th/cmp-cmdline' }
+  use { 'hrsh7th/cmp-vsnip' }
+  use { 'hrsh7th/cmp-nvim-lua' }
   use { 'tzachar/cmp-tabnine', run = './install.sh' }
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'hrsh7th/nvim-cmp'
-  use 'onsails/lspkind-nvim'                -- VSCode-like completion icons
-  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
-  use 'melkster/friendly-snippets'          -- Snippet collection
+  use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+  use { 'hrsh7th/nvim-cmp' }
+  use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
+  use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
+  use { 'melkster/friendly-snippets' }          -- Snippet collection
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use 'nvim-treesitter/playground'
-  use 'nvim-lua/lsp-status.nvim'
-  use 'folke/trouble.nvim'
-  use 'b0o/schemastore.nvim'
-  use 'jvgrootveld/telescope-zoxide'
-  use 'dhruvmanila/telescope-bookmarks.nvim'
-  use 'nvim-telescope/telescope-cheat.nvim'
+  use { 'nvim-treesitter/nvim-treesitter-textobjects' }
+  use { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  use { 'nvim-treesitter/playground',
+    cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
+  }
+  use { 'nvim-lua/lsp-status.nvim' }
+  use { 'folke/trouble.nvim'--[[ , cmd = 'TroubleToggle'  ]]}
+  use { 'b0o/schemastore.nvim'--[[ , ft = {'json', 'yaml'}  ]]}
+  use { 'jvgrootveld/telescope-zoxide' }
+  use { 'dhruvmanila/telescope-bookmarks.nvim' }
+  use { 'nvim-telescope/telescope-cheat.nvim' }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' }
-  use 'JoseConseco/telescope_sessions_picker.nvim'
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+  use { 'JoseConseco/telescope_sessions_picker.nvim' }
+  use { 'nvim-lua/plenary.nvim', module_pattern = 'plenary%..*' }
+  use { 'nvim-telescope/telescope.nvim',
+    requires =  {
+      {'nvim-lua/popup.nvim', module_pattern = 'popup%..*'},
+      {'nvim-lua/plenary.nvim'}
+    },
   }
-  use 'stevearc/dressing.nvim'              -- Improves default `vim.ui` interfaces
-  use 'MunifTanjim/nui.nvim'                -- UI component library
-  use 'milisims/nvim-luaref'                -- Vim :help reference for lua
-  use 'folke/lua-dev.nvim'                  -- Lua signature help, docs and completion
-  use 'ethanholz/nvim-lastplace'            -- Reopen files at last edit position
-  use 'monaqa/dial.nvim'                    -- Enhanced increment/decrement
+  use { 'stevearc/dressing.nvim' }              -- Improves default `vim.ui` interfaces
+  use { 'MunifTanjim/nui.nvim', module_pattern = 'nui.*' }                -- UI component library
+  use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
+  use { 'folke/lua-dev.nvim' }                  -- Lua signature help, docs and completion
+  use { 'ethanholz/nvim-lastplace', config = function()
+    require('nvim-lastplace').setup()           -- Reopen files at last edit position
+  end }
+  use { 'monaqa/dial.nvim'--[[ , module_pattern = 'dial%.command.*'  ]] } -- Enhanced increment/decrement
   use { 'numToStr/Comment.nvim', branch = 'plug' } -- TODO: remove `branch` once merged
-  use 'NTBBloodbath/rest.nvim'              -- For sending HTTP requests
-  use 'mfussenegger/nvim-dap'               -- Debugger client
-  use 'rcarriga/nvim-dap-ui'                -- UI for nvim-dap
-  use 'Pocco81/DAPInstall.nvim'             -- Installing and managing debuggers
-  use 'jbyuki/one-small-step-for-vimkind'   -- Lua plugin debug adapter
-  use 'ful1e5/onedark.nvim'
-  use 'ThePrimeagen/refactoring.nvim'
-  use 'Darazaki/indent-o-matic'             -- Automatic indentation detection
-  use 'lewis6991/impatient.nvim'            -- Improve startup time for Neovim
-  use 'jakelinnzy/autocmd-lua'              -- Lua autocommands
-  use 'bfredl/nvim-miniyank'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-repeat'
-  use 'unblevable/quick-scope'
-  use 'andymass/vim-matchup'                -- Ads additional `%` commands
-  use 'windwp/nvim-autopairs'               -- Auto-close brackets, etc.
-  use 'junegunn/fzf.vim'
-  use 'vim-scripts/capslock.vim'            -- Adds caps lock mapping to insert mode
-  use 'vim-scripts/StripWhiteSpaces'
-  use 'inkarkat/vim-CountJump'              -- Dependency for ConflictMotions
-  use { 'inkarkat/vim-ConflictMotions', requires = 'inkarkat/vim-ingo-library' }
-  use 'kana/vim-textobj-user'
-  use 'kana/vim-textobj-function'
-  use 'kana/vim-textobj-line'
-  use 'kana/vim-textobj-entire'
-  use 'lervag/vimtex'
-  use 'AndrewRadev/dsf.vim'
-  use 'michaeljsmith/vim-indent-object'
-  use 'wellle/targets.vim'                  -- Adds arguments, etc. as text objects
-  use 'romainl/vim-cool'                    -- Better search highlighting behaviour
-  use 'plasticboy/vim-markdown'             -- Adds extra features to markdown
-  use 'coachshea/vim-textobj-markdown'
-  use 'tommcdo/vim-exchange'                -- Swapping two text objects
-  use 'itchyny/vim-highlighturl'            -- Highlights URLs everywhere
-  use 'AndrewRadev/bufferize.vim'           -- Send command output to temporary buffer
+  use { 'NTBBloodbath/rest.nvim'--[[ , cmd = 'Http'  ]]}-- For sending HTTP requests
+  use { 'mfussenegger/nvim-dap' }               -- Debugger client
+  use { 'rcarriga/nvim-dap-ui' }                -- UI for nvim-dap
+  use { 'Pocco81/DAPInstall.nvim'--[[ , module_pattern = 'dap-install.*'   ]]} -- Managing debuggers
+  use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
+  use { 'ful1e5/onedark.nvim' }
+  use { 'ThePrimeagen/refactoring.nvim' }
+  use { 'Darazaki/indent-o-matic' }             -- Automatic indentation detection
+  use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
+  use { 'bfredl/nvim-miniyank' }
+  use { 'tpope/vim-surround' }
+  use { 'tpope/vim-repeat', keys = '<Plug>(RepeatDot)' }
+  use { 'unblevable/quick-scope'--[[ , keys = {      -- Highlight unique characters on t/f/T/F
+    '<Plug>(QuickScopet)',
+    '<Plug>(QuickScopef)',
+    '<Plug>(QuickScopeT)',
+    '<Plug>(QuickScopeF)',
+  }  ]]}
+  use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
+  use { 'windwp/nvim-autopairs' }               -- Auto-close brackets, etc.
+  use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
+  use { 'vim-scripts/capslock.vim' } -- Adds caps lock mapping to insert mode
+  use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
+  use { 'inkarkat/vim-ConflictMotions',
+    requires = {'inkarkat/vim-ingo-library', 'inkarkat/vim-CountJump'},
+  }
+  use { 'kana/vim-textobj-user' }
+  use { 'kana/vim-textobj-function' }
+  use { 'kana/vim-textobj-line' }
+  use { 'kana/vim-textobj-entire' }
+  use { 'lervag/vimtex', ft = {'tex', 'latex'} }
+  use { 'AndrewRadev/dsf.vim' }
+  use { 'michaeljsmith/vim-indent-object' }
+  use { 'wellle/targets.vim' }                  -- Adds arguments, etc. as text objects
+  use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
+  use { 'plasticboy/vim-markdown', ft = 'markdown' }
+  use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
+  use { 'tommcdo/vim-exchange' }                -- Swapping two text objects
+  use { 'itchyny/vim-highlighturl' }            -- Highlights URLs everywhere
+  use { 'AndrewRadev/bufferize.vim', cmd = 'Bufferize' } -- Send command output to temporary buffer
   use { 'xolox/vim-session', requires = 'xolox/vim-misc' }
-  use 'rhysd/vim-grammarous'                -- LanguageTool grammar checking
-  use 'github/copilot.vim'                  -- GitHub Copilot
-  use 'tvaintrob/bicep.vim'                 -- Syntax highlight for Bicep files
-  use 'luukvbaal/stabilize.nvim'            -- Stabilize windows when opening/closing windows
-  use 'sindrets/diffview.nvim'              -- Git diff for each file and file history
-  use 'ggandor/lightspeed.nvim'             -- Moving cursor anywhere in any window
-  use 'sindrets/winshift.nvim'              -- Improved window movement
-  use 'rcarriga/nvim-notify'                -- Floating notifications popups
-  use 'NarutoXY/dim.lua'                    -- It's kinda buggy
-  use 'akinsho/toggleterm.nvim'             -- For toggling built-in terminal
-  use 'kevinhwang91/nvim-bqf'               -- Better quickfix
-  use 'TimUntersberger/neogit'              -- Git wrapper
+  use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
+  use { 'github/copilot.vim', event = 'ModeChanged *:[iI]'  } -- GitHub Copilot
+  use { 'tvaintrob/bicep.vim', ft = 'bicep' }
+  use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function ()
+    require('stabilize').setup()                -- Stabilize windows when opening/closing windows
+  end }
+  use { 'sindrets/diffview.nvim' }              -- Git diff for each file and file history
+  use { 'ggandor/lightspeed.nvim' }             -- Moving cursor anywhere in any window
+  use { 'sindrets/winshift.nvim', module = 'winshift', config = function() -- Improved window movement
+    require('winshift').setup {
+      window_picker_ignore = {
+        filetype = { 'NvimTree' },
+        buftype = { 'terminal', 'quickfix' }
+      }
+    }
+  end }
+  use { 'rcarriga/nvim-notify' }                -- Floating notifications popups
+  use { 'NarutoXY/dim.lua' }                    -- It's kinda buggy
+  use { 'akinsho/toggleterm.nvim', config = {
+    require('toggleterm').setup {
+      open_mapping = '<C-CR>',
+      direction = 'float',
+      float_opts = {
+        border = 'curved',
+        winblend = 4,
+        highlights = {
+          background = 'NormalFloat',
+          border = 'TelescopeBorder',
+        },
+      },
+    }
+  } }
+  use { 'kevinhwang91/nvim-bqf', event = 'FileType qf', config = function()
+    require('quickfix')                         -- Better quickfix
+    require('bqf').setup {
+      func_map = {
+        prevfile  = '<C-k>',
+        nextfile  = '<C-j>',
+        fzffilter = '<C-p>',
+        split     = '<C-s>',
+      }
+    }
+  end }
+  use { 'TimUntersberger/neogit' }              -- Git wrapper
+  use { 'famiu/nvim-reload', cmd = {'Reload', 'Restart'} } -- Reloads Neovim config
 end)
 
 if fn.filereadable('~/.config/nvim/config.vim') then
@@ -248,7 +321,6 @@ local bash_settings = {
 }
 
 -- Json
-
 local json_settings = {
   json = {
     schemas = require('schemastore').json.schemas()
@@ -1162,7 +1234,6 @@ autocmd('BufWritePost', {
   group = 'FormatOnWrite'
 })
 
-
 -----------------------
 -- Nvim-web-devicons --
 -----------------------
@@ -1241,25 +1312,6 @@ require('nvim-treesitter.configs').setup {
 -- Disable treesitter from highlighting errors (LSP does that anyway)
 cmd 'highlight! link TSError Normal'
 
----------------
--- Neoscroll --
----------------
-require('neoscroll').setup {
-  easing_function = 'cubic',
-}
-
-local scroll_speed = 140
-
-require('neoscroll.config').set_mappings {
-  ['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', scroll_speed}},
-  ['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', scroll_speed}},
-  ['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
-  ['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
-  ['zt']    = {'zt', {scroll_speed}, 'sine'},
-  ['zz']    = {'zz', {scroll_speed}, 'sine'},
-  ['zb']    = {'zb', {scroll_speed}, 'sine'},
-}
-
 ----------------
 -- Diagnostics --
 ----------------
@@ -1300,16 +1352,6 @@ require('statusline').setup({
   }
 })
 opt.laststatus = 3 -- Global statusline
-
-------------
--- Fidget --
-------------
-require('fidget').setup {
-  text = {
-    spinner = 'dots',
-    done = ''
-  }
-}
 
 ---------
 -- DAP --
@@ -1385,11 +1427,6 @@ cmd 'hi! link GitGutterChange DiffChange'
 vim.opt.diffopt:append { 'algorithm:patience' } -- Use patience diff algorithm
 
 ---------------
--- Lastplace --
----------------
-require('nvim-lastplace').setup()
-
----------------
 -- Dial.nvim --
 ---------------
 local augend = require('dial.augend')
@@ -1432,7 +1469,6 @@ map({'n', 'v'}, '<C-a>',  '<Plug>(dial-increment)')
 map({'n', 'v'}, '<C-x>',  '<Plug>(dial-decrement)')
 map('v',        'g<C-a>', '<Plug>(dial-increment-additional)')
 map('v',        'g<C-x>', '<Plug>(dial-decrement-additional)')
-
 ------------------
 -- Comment.nvim --
 ------------------
@@ -1553,11 +1589,6 @@ map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)')
 map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)')
 map('x', 'p', '"_dPP', { remap = true })
 
---------------------
--- Stabilize.nvim --
---------------------
-require('stabilize').setup()
-
 --------------
 -- Diffview --
 --------------
@@ -1637,13 +1668,6 @@ map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
 --------------
 -- Winshift --
 --------------
-require('winshift').setup {
-  window_picker_ignore = {
-    filetype = { 'NvimTree' },
-    buftype = { 'terminal', 'quickfix' }
-  }
-}
-
 local function winshift(arg)
   return function()
     require('winshift').cmd_winshift(arg)
@@ -1686,34 +1710,6 @@ end
 -- Dim.lua --
 -------------
 require('dim').setup() -- not working for some reason
-
-----------------
--- Toggleterm --
-----------------
-require('toggleterm').setup {
-  open_mapping = '<C-CR>',
-  direction = 'float',
-  float_opts = {
-    border = 'curved',
-    winblend = 4,
-    highlights = {
-      background = 'NormalFloat',
-      border = 'TelescopeBorder',
-    },
-  },
-}
-
----------
--- Bqf --
----------
-require('bqf').setup {
-  func_map = {
-    prevfile  = '<C-k>',
-    nextfile  = '<C-j>',
-    fzffilter = '<C-p>',
-    split     = '<C-s>',
-  }
-}
 
 ---------
 -- Git --
@@ -1760,10 +1756,24 @@ cmd [[
 
 vim.opt.fillchars = { diff = ' ' }
 
--------------
--- Modules --
--------------
-require('quickfix')
+--------------
+-- Undotree --
+--------------
+map('n', '<leader>u', function ()
+  cmd 'UndotreeShow'
+  cmd 'UndotreeFocus'
+end, 'Open undo tree')
+
+autocmd('FileType', {
+  pattern = 'undotree',
+  callback = function()
+    local opts = { buffer = true, nowait = true }
+    map('n', '<Space>', '<Plug>UndotreeEnter',         opts)
+    map('n', '<C-j>',   '<plug>UndotreeNextState',     opts)
+    map('n', '<C-k>',   '<plug>UndotreePreviousState', opts)
+  end,
+  group = 'UndoTreeMaps'
+})
 
 ---------------------
 -- General config --
