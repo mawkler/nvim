@@ -2,6 +2,7 @@
 set shortmess+=A  " Ignores swapfiles when opening file
 set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
 set shortmess+=s  " Disable 'Search hit BOTTOM, continuing at TOP' messages
+set shortmess+=FW " Disable message after editing/writing file
 set termguicolors " Use GUI colors in terminal as well
 set winblend=4    " Transparent floating windows
 set pumblend=4    " Transparent popup-menu
