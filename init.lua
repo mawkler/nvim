@@ -6,14 +6,14 @@ local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
-require('packer').init({
+require('packer').init {
   autoremove = true,
   display = {
     keybindings = {
       quit = '<Esc>',
     }
   }
-})
+}
 
 require('packer').startup(function()
   use { 'wbthomason/packer.nvim' }
@@ -140,7 +140,7 @@ require('packer').startup(function()
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   use { 'bfredl/nvim-miniyank' }
   use { 'tpope/vim-surround' }
-  use { 'tpope/vim-repeat', keys = '<Plug>(RepeatDot)' }
+  use { 'tpope/vim-repeat', fn = 'repeat#set' }
   use { 'unblevable/quick-scope'--[[ , keys = {      -- Highlight unique characters on t/f/T/F
     '<Plug>(QuickScopet)',
     '<Plug>(QuickScopef)',
@@ -623,8 +623,9 @@ nvim_cmp.setup.cmdline(':', {
 -------------
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
-  max_num_results = 3;
-  ignored_file_types = {};
+  max_num_results = 3,
+  show_prediction_strength = true,
+  ignored_file_types = {},
 })
 
 -------------
@@ -1029,6 +1030,7 @@ end
 
 map('n', '<C-p>',      function() return builtin.find_files({hidden = true}) end, 'Find files')
 map('n', '<leader>f',  grep_string, 'Grep string')
+map('n', '<leader>/',  grep_string, 'Grep string')
 map('n', '<leader>F',  builtin.live_grep, 'Live grep')
 map('n', '<leader>B',  builtin.buffers, 'Open buffers')
 map('n', '<leader>m',  builtin.oldfiles, 'Recently used files')

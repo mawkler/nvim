@@ -116,7 +116,6 @@ nnoremap <leader>g*       msg*`s
 nnoremap #                ms#
 nnoremap g#               msg#`s
 nmap     `/               `s
-nmap     <leader>/        :execute '/\V' . escape(input('/'), '\\/')<CR><C-r>+<CR>
 nmap     g/               /\<\><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap      Q                @@
