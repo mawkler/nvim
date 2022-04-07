@@ -203,9 +203,9 @@ cnoremap <C-q> <Esc>
 set cpoptions-=_ " Makes cw/cW include the whitespace after the word
 set shada=!,'1000,<50,s10,h
 
-if exists('$TMUX')
-  set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
-endif
+" if exists('$TMUX')
+"   set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
+" endif
 
 " -- Lines and cursor --
 set number relativenumber
@@ -567,56 +567,6 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
-
-" -- Startify --
-let g:startify_session_dir = stdpath('data') .'/sessions/'
-let g:startify_enable_special = 0 " Dont' show <empty buffer> or <quit>
-let g:startify_custom_indices = 'asdfhlvnmytureowpqxz' " Use letters instead of numbers
-let g:startify_files_number = 8
-let g:startify_change_to_dir = 0 " Don't `cd` to selected file's directory
-let g:startify_session_sort = 1  " Sort sessions based on mru rather than name
-let g:startify_skiplist = ['COMMIT_EDITMSG']
-let g:startify_lists = [
-      \   {'type': 'sessions',  'header': ['   Sessions']},
-      \   {'type': 'files',     'header': ['   Recent files']},
-      \   {'type': 'bookmarks', 'header': ['   Bookmarks']},
-      \   {'type': 'commands',  'header': ['   Commands']},
-      \ ]
-let g:startify_custom_header = [
-      \ '    _____   __                                      ',
-      \ '   (\    \ |  \                         __          ',
-      \ '   | \    \|   :  ____    ____  ___  __[__]  _____  ',
-      \ '   |  \    \   | / __ \  /  _ \ \  \/ /|  | /     \ ',
-      \ '   |   \    \  |(  ___/ (  (_) ) \   / |  ||  Y Y  \',
-      \ '   :   |\    \ | \_____) \____/   \_/  |__||__|_|__/',
-      \ '    \__| \____\)----------------------------------- ',
-      \ ]
-
-" Disable q mapping
-augroup Startify
-  autocmd!
-  autocmd User Startified nunmap <buffer> q
-augroup END
-
-" Use nvim-web-devicons
-lua function _G.webDevIcons(path)
-      \   local filename = vim.fn.fnamemodify(path, ':t')
-      \   local extension = vim.fn.fnamemodify(path, ':e')
-      \   return require('nvim-web-devicons').get_icon(filename, extension, { default = true })
-      \ end
-
-function! StartifyEntryFormat() abort
-  return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
-endf
-
-" -- vim-session --
-let g:session_autosave = 'yes'
-let g:session_autosave_periodic = 1
-let g:session_autosave_silent = 1
-let g:session_default_overwrite = 1
-let g:session_autoload = 'no'
-let g:session_lock_enabled = 0
-let g:session_directory = g:startify_session_dir
 
 " -- vim-resize --
 let g:vim_resize_disable_auto_mappings = 1

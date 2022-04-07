@@ -310,7 +310,9 @@ table.insert(active_right, {
   left_sep = left_sep,
   right_sep = right_sep,
   enabled = function()
-    return vim.g.insert_entered and vim.call('copilot#Enabled') == 1
+    return vim.g.insert_entered
+      and fn.exists('copilot#Enabled') == 1
+      and vim.call('copilot#Enabled') == 1
   end,
   truncate_hide = true
 })
