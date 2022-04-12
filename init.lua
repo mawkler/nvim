@@ -1135,6 +1135,15 @@ api.nvim_add_user_command(
   { desc = "Yank current file's path" }
 )
 
+api.nvim_add_user_command(
+  'YankPathRelative',
+  function()
+    fn.setreg('+', fn.expand('%'))
+    vim.notify('Yanked file path: ' .. fn.getreg('+'))
+  end,
+  { desc = "Yank current file's path" }
+)
+
 -- Mappings --
 autocmd('CmdwinEnter', {
   callback = function()

@@ -210,7 +210,7 @@ set shada=!,'1000,<50,s10,h
 " -- Lines and cursor --
 set number relativenumber
 set cursorline                    " Cursor highlighting
-set scrolloff=12                  " Cursor margin
+set scrolloff=10                  " Cursor margin
 set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
 set guicursor+=i:ver25-blinkwait0 " And in insert mode
 set conceallevel=2                " Hide concealed characters completely
