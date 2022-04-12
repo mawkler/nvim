@@ -145,7 +145,7 @@ end
 local function lsp_references()
   clear_lsp_references()
   vim.lsp.buf.document_highlight()
-  require('telescope.builtin').lsp_references({ includeDeclaration = false })
+  require('telescope.builtin').lsp_references({ include_declaration = false })
 end
 
 -- LSP and diagnostics
