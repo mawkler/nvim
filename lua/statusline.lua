@@ -1,4 +1,4 @@
-local bo, fn = vim.bo, vim.fn
+local bo, fn, call = vim.bo, vim.fn, vim.call
 local mode = require('feline.providers.vi_mode')
 local gps = require('nvim-gps')
 local lsp_status = require('lsp-status')
@@ -310,9 +310,7 @@ table.insert(active_right, {
   left_sep = left_sep,
   right_sep = right_sep,
   enabled = function()
-    return vim.g.insert_entered
-      and fn.exists('copilot#Enabled') == 1
-      and vim.call('copilot#Enabled') == 1
+    return fn.exists('*copilot#Enabled') == 1 and call('copilot#Enabled') == 1
   end,
   truncate_hide = true
 })

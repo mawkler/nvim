@@ -114,7 +114,6 @@ require('packer').startup(function()
     end
   }
   use { 'j-hui/fidget.nvim', config = function()
-    print('fidget')
     require('fidget').setup {                   -- LSP progress in the bottom right corner
       text = { spinner = 'dots', done = '' }
     }
@@ -308,13 +307,10 @@ local function toggle_complete()
 end
 
 local function complete()
-  local copilot_keys = fn['copilot#Accept']('')
   if nvim_cmp.visible() then
     nvim_cmp.mapping.confirm({select = true})()
   elseif luasnip.expandable() then
     luasnip.expand()
-  elseif copilot_keys ~= '' then
-    feedkeys(copilot_keys)
   else
     nvim_cmp.complete()
   end
@@ -404,21 +400,21 @@ nvim_cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for `:`
 nvim_cmp.setup.cmdline(':', {
-  sources = nvim_cmp.config.sources({
+  sources = nvim_cmp.config.sources {
     { name = 'path' },
     { name = 'cmdline' }
-  })
+  }
 })
 
 -------------
 -- Tabnine --
 -------------
 local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
+tabnine:setup {
   max_num_results = 3,
   show_prediction_strength = true,
   ignored_file_types = {},
-})
+}
 
 -------------
 -- Copilot --
@@ -429,16 +425,6 @@ map('i', '<M-.>', '<Plug>(copilot-next)')
 map('i', '<M-,>', '<Plug>(copilot-previous)')
 g.copilot_assume_mapped = true
 g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
-
-autocmd('InsertEnter', {
-  callback = function()
-    -- Copilot takes a while to load, so statusline waits for this variable
-    -- TODO: try to lazy load instead when vim-plug has been replaced with
-    -- packer.nvim
-    g.insert_entered = true
-  end,
-  group = 'Copilot',
-})
 
 ---------------
 -- Telescope --
