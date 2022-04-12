@@ -5,7 +5,6 @@
 local map = require('../utils').map
 local autocmd = require('../utils').autocmd
 
-vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_highlight_opened_files = 2
 vim.g.nvim_tree_special_files = {}
 vim.g.nvim_tree_git_hl = 1
@@ -39,6 +38,11 @@ nvim_tree.setup {
     git = true,
     folders = true,
     files = true,
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+    }
   },
   view = {
     width = 40,
