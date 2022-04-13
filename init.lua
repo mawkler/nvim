@@ -36,7 +36,7 @@ require('packer').startup(function()
   use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
   use { 'AndrewRadev/splitjoin.vim', keys = 'gS' }
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
-  use { 'dkarter/bullets.vim', ft = 'markdown' } -- Autocomplete markdown lists, etc.
+  use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
   use { 'Julian/vim-textobj-variable-segment', keys = {{'o', 'iv'}, {'o', 'av'}} } -- camelCase and snake_case text objects
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
   use { 'meain/vim-printer', keys = 'gp' }
@@ -135,8 +135,12 @@ require('packer').startup(function()
   use { 'hrsh7th/cmp-vsnip' }
   use { 'hrsh7th/cmp-nvim-lua' }
   use { 'tzachar/cmp-tabnine', run = './install.sh' }
-  use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
-  use { 'hrsh7th/nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
+  use {
+    'hrsh7th/nvim-cmp',
+    config = GetConfig('cmp'),
+    event = 'InsertEnter'
+  }
   use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
   use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
   use { 'melkster/friendly-snippets' }          -- Snippet collection
@@ -199,7 +203,7 @@ require('packer').startup(function()
   }  ]]}
   use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
   use { 'windwp/nvim-autopairs',                -- Auto-close brackets, etc.
-    event = 'ModeChanged *:[iI]' ,
+    event = 'InsertEnter' ,
     config = GetConfig('autopairs')
   }
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
@@ -235,7 +239,7 @@ require('packer').startup(function()
     end
   }
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
-  use { 'github/copilot.vim', event = 'ModeChanged *:[iI]'  } -- GitHub Copilot
+  use { 'github/copilot.vim', event = 'InsertEnter'  } -- GitHub Copilot
   use { 'tvaintrob/bicep.vim', ft = 'bicep' }
   use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
     return require('stabilize').setup()
@@ -276,145 +280,6 @@ local utils = require('utils')
 local map = utils.map
 local feedkeys = utils.feedkeys
 local autocmd = utils.autocmd
-local visible_buffers = utils.visible_buffers
-
----------
--- Cmp --
----------
-opt.completeopt = 'menuone,noselect'
-local nvim_cmp = require('cmp')
-local luasnip = require('luasnip')
-local cmp_disabled = nvim_cmp.config.disable
-local cmp_insert = { behavior = nvim_cmp.SelectBehavior.Insert }
-
-local function cmp_map(rhs, modes)
-  if (modes == nil) then
-    modes = {'i', 'c'}
-  else if (type(modes) ~= 'table')
-    then modes = {modes} end
-  end
-  return nvim_cmp.mapping(rhs, modes)
-end
-
-local function toggle_complete()
-  return function()
-    if nvim_cmp.visible() then
-      nvim_cmp.close()
-    else
-      nvim_cmp.complete()
-    end
-  end
-end
-
-local function complete()
-  if nvim_cmp.visible() then
-    nvim_cmp.mapping.confirm({select = true})()
-  elseif luasnip.expandable() then
-    luasnip.expand()
-  else
-    nvim_cmp.complete()
-  end
-end
-
-local function cmdline_complete()
-  if nvim_cmp.visible() then
-    nvim_cmp.mapping.confirm({select = true})()
-  else
-    nvim_cmp.complete()
-  end
-end
-
-local function join(tbl1, tbl2)
-  local tbl3 = {}
-  for _, item in ipairs(tbl1) do
-    table.insert(tbl3, item)
-  end
-  for _, item in ipairs(tbl2) do
-    table.insert(tbl3, item)
-  end
-  return tbl3
-end
-
-nvim_cmp.PreselectMode = true
-
-local sources = {
-  { name = 'luasnip', max_item_count = 5 },
-  { name = 'nvim_lsp' },
-  { name = 'nvim_lua' },
-  { name = 'nvim_lsp_signature_help' },
-  { name = 'path', option = { trailing_slash = true } },
-  { name = 'buffer',
-    max_item_count = 3,
-    keyword_length = 2,
-    option = {
-      get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
-    },
-  }
-}
-
-nvim_cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = {
-    ['<C-j>'] = cmp_map(nvim_cmp.mapping.select_next_item(cmp_insert)),
-    ['<C-k>'] = cmp_map(nvim_cmp.mapping.select_prev_item(cmp_insert)),
-    ['<C-b>'] = cmp_map(nvim_cmp.mapping.scroll_docs(-4)),
-    ['<C-f>'] = cmp_map(nvim_cmp.mapping.scroll_docs(4)),
-    ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-    ['<Tab>'] = nvim_cmp.mapping({
-      i = complete,
-      c = cmdline_complete,
-    }),
-    ['<C-y>'] = cmp_disabled,
-    ['<C-n>'] = cmp_disabled,
-    ['<C-p>'] = cmp_disabled,
-  },
-  sources = nvim_cmp.config.sources(sources),
-  formatting = {
-    format = require('lspkind').cmp_format()
-  },
-  completion = {
-    completeopt = 'menu,menuone,noinsert',
-  }
-})
-
-autocmd('FileType', {
-  pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
-  callback = function()
-    nvim_cmp.setup.buffer({
-      sources = nvim_cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
-    })
-  end,
-  group = 'TabNine'
-})
-
--- Use buffer source for `/` (searching)
-nvim_cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for `:`
-nvim_cmp.setup.cmdline(':', {
-  sources = nvim_cmp.config.sources {
-    { name = 'path' },
-    { name = 'cmdline' }
-  }
-})
-
--------------
--- Tabnine --
--------------
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup {
-  max_num_results = 3,
-  show_prediction_strength = true,
-  ignored_file_types = {},
-}
 
 -------------
 -- Copilot --

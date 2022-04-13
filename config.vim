@@ -667,9 +667,6 @@ function! ScrollbarClear() abort
   silent! lua require('scrollbar').clear()
 endf
 
-" -- VSnip --
-let g:vsnip_snippet_dir = '~/.config/nvim/vsnip/'
-
 " -- Grammarous --
 let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#hooks = {}
