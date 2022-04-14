@@ -4,7 +4,7 @@
 
 > Version 1.2, February 2021
 
-> Copyright (C) [year] [fullname]
+> Copyright (C) 2022 Melker Österberg
  
  Everyone is permitted to copy and distribute verbatim or modified copies of this license document.
 
