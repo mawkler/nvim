@@ -399,19 +399,19 @@ require('dim').setup() -- not working for some reason
 -- General config --
 ---------------------
 -- Commands
-api.nvim_add_user_command(
+api.nvim_create_user_command(
   'Search',
   ':let @/="\\\\V" . escape(<q-args>, "\\\\\") | normal! n',
   { nargs = 1, desc = 'Search literally, with no regex' }
 )
 
-api.nvim_add_user_command(
+api.nvim_create_user_command(
   'CDHere',
   'cd %:p:h',
   { desc = "Change working directory to current file's" }
 )
 
-api.nvim_add_user_command(
+api.nvim_create_user_command(
   'YankPath',
   function()
     fn.setreg('+', fn.expand('%:~'))
@@ -420,7 +420,7 @@ api.nvim_add_user_command(
   { desc = "Yank current file's path" }
 )
 
-api.nvim_add_user_command(
+api.nvim_create_user_command(
   'YankPathRelative',
   function()
     fn.setreg('+', fn.expand('%'))
