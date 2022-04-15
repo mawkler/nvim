@@ -59,17 +59,23 @@ require('packer').startup(function()
     config = Config('startify'),
   }
   use { 'DanilaMihailov/beacon.nvim', event = 'WinEnter' } -- Flash the cursor location on jump
-  use { 'lukas-reineke/indent-blankline.nvim' }
+  use { 'lukas-reineke/indent-blankline.nvim', config = Config('indent_blankline') }
   use { 'coreyja/fzf.devicon.vim',
     requires = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
     cmd = 'FilesWithDevicons',
   }
   use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
-  use { 'kyazdani42/nvim-web-devicons', config = Config('web-devicons') }
+  use { 'kyazdani42/nvim-web-devicons', config = Config('web_devicons') }
   use { 'kyazdani42/nvim-tree.lua',             -- File explorer
     after = 'nvim-web-devicons',
-    -- module_pattern = 'nvim-tree.*',
-    config = Config('nvim-tree')
+    module_pattern = 'nvim-tree.*',
+    keys = {'<leader>`', '<leader>`'},
+    cmd = { 'NvimTreeOpen',
+      'NvimTreeToggle',
+      'NvimTreeFocus',
+      'NvimTreeFindFile',
+    },
+    config = Config('nvim_tree')
   }
   use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
   use { 'mhartington/formatter.nvim',           -- Auto formatting on save
@@ -119,7 +125,9 @@ require('packer').startup(function()
       text = { spinner = 'dots', done = '' }
     }
   end }
-  use { 'lewis6991/gitsigns.nvim' }             -- Git status in sign column
+  use { 'lewis6991/gitsigns.nvim',              -- Git status in sign column
+    config = Config('gitsigns'),
+  }
   use { 'neovim/nvim-lspconfig',                -- Enables built-in LSP
     requires = 'williamboman/nvim-lsp-installer',-- Adds LspInstall command
     config = Config('lsp')
@@ -139,12 +147,15 @@ require('packer').startup(function()
   use {
     'hrsh7th/nvim-cmp',
     config = Config('cmp'),
-    event = 'InsertEnter'
+    event = {'InsertEnter', 'CmdlineEnter'}
   }
   use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
   use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
   use { 'melkster/friendly-snippets' }          -- Snippet collection
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter',
+    config = Config('treesitter'),
+    run = ':TSUpdate',
+  }
   use { 'nvim-treesitter/nvim-treesitter-textobjects' }
   use { 'JoosepAlviste/nvim-ts-context-commentstring' }
   use { 'nvim-treesitter/playground',
@@ -184,8 +195,23 @@ require('packer').startup(function()
     -- module_pattern = 'dial%.command.*',
     config = Config('dial')
   }
-  use { 'numToStr/Comment.nvim', branch = 'plug' } -- TODO: remove `branch` once merged
-  use { 'NTBBloodbath/rest.nvim'--[[ , cmd = 'Http'  ]]}-- For sending HTTP requests
+  use { 'numToStr/Comment.nvim',
+    branch = 'plug', -- TODO: remove `branch` once merged
+    config = Config('comment'),
+    keys = {
+      {'n', '<leader>c'},
+      {'x', '<leader>c'},
+      {'n', '<leader>C'},
+      {'x', '<leader><'},
+      {'x', '<leader>>'},
+      {'x', '<leader>b'},
+      {'n', 'cm'},
+    }
+  }
+  use { 'NTBBloodbath/rest.nvim',               -- Sending HTTP requests
+    config = Config('rest'),
+    cmd = 'Http'
+  }
   use { 'mfussenegger/nvim-dap',                -- Debugger client
     requires = 'rcarriga/nvim-dap-ui',          -- UI for nvim-dap
     config = Config('dap'),
@@ -193,18 +219,36 @@ require('packer').startup(function()
   use { 'Pocco81/DAPInstall.nvim'--[[ , module_pattern = 'dap-install.*'   ]]} -- Managing debuggers
   use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   use { 'ful1e5/onedark.nvim', config = Config('onedark') }
-  use { 'ThePrimeagen/refactoring.nvim' }
-  use { 'Darazaki/indent-o-matic' }             -- Automatic indentation detection
+  use { 'ThePrimeagen/refactoring.nvim',
+    config = Config('refactoring'),
+    keys = {
+      {'x', '<leader>R'},
+      {'x', 'gRe'},
+      {'x', 'gRf'},
+    }
+  }
+  use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
+    config = require('indent-o-matic').setup {}
+  }
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
-  use { 'bfredl/nvim-miniyank' }
+  use { 'bfredl/nvim-miniyank',
+    config = Config('miniyank'),
+    keys = { 'p', '<M-p>' }
+  }
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
-  use { 'unblevable/quick-scope'--[[ , keys = { -- Highlight unique characters on t/f/T/F
-    '<Plug>(QuickScopet)',
-    '<Plug>(QuickScopef)',
-    '<Plug>(QuickScopeT)',
-    '<Plug>(QuickScopeF)',
-  }  ]]}
+  use { 'unblevable/quick-scope',
+    setup = function()
+      -- vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
+      -- map('n', '<C-c>', '<cmd>call Esc()<CR>')
+    end,
+    -- keys = { -- Highlight unique characters on t/f/T/F
+    --   '<Plug>(QuickScopet)',
+    --   '<Plug>(QuickScopef)',
+    --   '<Plug>(QuickScopeT)',
+    --   '<Plug>(QuickScopeF)',
+    -- }
+  }
   use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
   use { 'windwp/nvim-autopairs',                -- Auto-close brackets, etc.
     event = 'InsertEnter' ,
@@ -252,8 +296,13 @@ require('packer').startup(function()
   use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
     return require('stabilize').setup()
   end }
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use { 'ggandor/lightspeed.nvim' }             -- Moving cursor anywhere in any window
+  use { 'sindrets/diffview.nvim',               -- Git diff and file history
+    requires = 'nvim-lua/plenary.nvim',
+    config = Config('diffview')
+  }
+  use { 'ggandor/lightspeed.nvim',              -- Moving cursor anywhere in any window
+    config = Config('lightspeed')
+  }
   use { 'sindrets/winshift.nvim', module = 'winshift', config = function()
     require('winshift').setup {                 -- Improved window movement
       window_picker_ignore = {
@@ -280,359 +329,15 @@ require('packer').startup(function()
   use { 'famiu/nvim-reload', cmd = {'Reload', 'Restart'} } -- Reloads Neovim config
 end)
 
+-- Other configs
+require('plugin_configs.diagnostics')
+
 if fn.filereadable('~/.config/nvim/config.vim') then
   cmd 'source ~/.config/nvim/config.vim'
 end
 
 local utils = require('utils')
 local map, feedkeys, autocmd = utils.map, utils.feedkeys, utils.autocmd
-
-----------------
--- Treesitter --
-----------------
-require('nvim-treesitter.configs').setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-    disable = {'latex', 'vim'},
-  },
-  indent = {
-    enable = true,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        ['aF'] = '@function.outer',
-        ['iF'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- Whether to set jumps in the jumplist
-      goto_next_start = {
-        [']f'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[f'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_next_end = {
-        [']F'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[F'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      }
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['>,'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<,'] = '@parameter.inner',
-      },
-    },
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  }
-}
-
--- Disable treesitter from highlighting errors (LSP does that anyway)
-cmd 'highlight! link TSError Normal'
-
-----------------
--- Diagnostics --
-----------------
-lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(
-  lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-  }
-)
-
-local function sign_define(name, symbol)
-  fn.sign_define(name, {
-    text   = symbol,
-    texthl = name,
-  })
-end
-
-sign_define('DiagnosticSignError', '')
-sign_define('DiagnosticSignWarn',  '')
-sign_define('DiagnosticSignHint',  '')
-sign_define('DiagnosticSignInfo',  '')
-
-----------------------
--- Indent blankline --
-----------------------
-require('indent_blankline').setup {
-  char = '▏',
-  show_first_indent_level = false,
-  buftype_exclude = {'fzf', 'help'},
-  filetype_exclude = {
-    'markdown',
-    'startify',
-    'sagahover',
-    'NvimTree',
-    'lsp-installer',
-    'toggleterm',
-    'packer',
-  }
-}
-
---------------
--- Gitsigns --
---------------
-local gitsigns = require('gitsigns')
-require('gitsigns').setup {
-  signs = {
-    add          = {text = '│', hl = 'String'},
-    change       = {text = '│', hl = 'Boolean'},
-    changedelete = {text = '│', hl = 'Boolean'},
-    delete       = {text = '▁', hl = 'Error'},
-    topdelete    = {text = '▔', hl = 'Error'},
-  },
-  attach_to_untracked = false,
-  on_attach = function()
-    map({'n', 'x'}, '<leader>ghs', '<cmd>Gitsigns stage_hunk<CR>')
-    map({'n', 'x'}, '<leader>ghr', '<cmd>Gitsigns reset_hunk<CR>')
-    map('n',        '<leader>ghS', gitsigns.stage_buffer)
-    map('n',        '<leader>ghR', gitsigns.reset_buffer)
-    map('n',        '<leader>ghu', gitsigns.undo_stage_hunk)
-    map('n',        '<leader>ghp', gitsigns.preview_hunk)
-    map('n',        '<leader>gb',  function() return gitsigns.blame_line({
-      full = true,
-      ignore_whitespace = true,
-    }) end)
-
-    -- Next/previous hunk
-    map('n', ']c', function()
-      if opt.diff then
-        feedkeys(']c', 'n')
-      else
-        gitsigns.next_hunk()
-      end
-    end)
-    map('n', '[c', function()
-      if opt.diff then
-        feedkeys('[c', 'n')
-      else
-        gitsigns.prev_hunk()
-      end
-    end)
-
-    -- Text objects
-    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
-    map({'o', 'x'}, 'ah', gitsigns.select_hunk)
-  end,
-}
--- Workaround for bug where change highlight switches for some reason
-cmd 'hi! link GitGutterChange DiffChange'
-vim.opt.diffopt:append { 'algorithm:patience' } -- Use patience diff algorithm
-
-------------------
--- Comment.nvim --
-------------------
-require('Comment').setup {
-  toggler = {
-    line = '<leader>cc',
-    block = '<leader>cbb'
-  },
-  opleader = {
-    line = '<leader>c',
-  },
-  extra = {
-    above = '<leader>cO',
-    below = '<leader>co',
-    eol = '<leader>cA'
-  },
-  ignore = '^$', -- Ignore empty lines
-  pre_hook = function(ctx)
-    if vim.bo.filetype == 'typescriptreact' then
-      local c_utils = require('Comment.utils')
-      local ts_context_utils = require('ts_context_commentstring.utils')
-      local type = ctx.ctype == c_utils.ctype.line and '__default' or '__multiline'
-      local location
-
-      if ctx.ctype == c_utils.ctype.block then
-        location = ts_context_utils.get_cursor_location()
-      elseif ctx.cmotion == c_utils.cmotion.v or ctx.cmotion == c_utils.cmotion.V then
-        location = ts_context_utils.get_visual_start_location()
-      end
-
-      return require('ts_context_commentstring.internal').calculate_commentstring({
-        key = type,
-        location = location
-      })
-    end
-  end
-}
-
-local comment_api = require('Comment.api')
-local function comment_map(modes, lhs, command, operator_pending)
-  map(modes, lhs, function()
-    comment_api.call(command)
-    if not operator_pending then
-      feedkeys('g@$')
-    else
-      feedkeys('g@')
-    end
-  end, command)
-end
-
-map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
-map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
-map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
-map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
-map('n', 'cm',         '<Plug>(comment_toggle_current_linewise)')
-map('n', '<leader>cp', 'yycmp', {remap = true})
-
-comment_map('n', '<leader>c>',   'comment_linewise_op', true)
-comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
-comment_map('n', '<leader>cb>>', 'comment_current_blockwise_op')
-comment_map('x', '<leader>>',    'comment_current_linewise_op')
-
-comment_map('n', '<leader>c<',   'uncomment_linewise_op', true)
-comment_map('n', '<leader>cu',   'uncomment_linewise_op', true)
-comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
-comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
-comment_map('x', '<leader><',    'uncomment_current_linewise_op')
-
----------------
--- Rest.nvim --
----------------
-require('rest-nvim').setup()
-
-function _G.http_request()
-  if api.nvim_win_get_width(api.nvim_get_current_win()) < 80 then
-    cmd('wincmd s')
-  else
-    cmd('wincmd v')
-  end
-  cmd('edit ~/.config/nvim/http | set filetype=http | set buftype=')
-end
-
-cmd 'command! Http call v:lua.http_request()'
-
-autocmd('FileType', {
-  pattern = 'http',
-  callback = function()
-    map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true })
-    map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', { buffer = true })
-  end,
-  group = 'RestNvim'
-})
-
-----------------------
--- Refactoring.nvim --
-----------------------
-local refactoring = require('refactoring')
-refactoring.setup({})
-
-map('x', 'gRe', function() return refactoring.refactor('Extract Function') end)
-map('x', 'gRf', function() return refactoring.refactor('Extract Function To File') end)
-map('x', '<leader>R', function()
-  feedkeys('<Esc>', 'n')
-  require('telescope').extensions.refactoring.refactors()
-end, 'Select refactor')
-
---------------------
--- Indent-o-matic --
---------------------
-require('indent-o-matic').setup {}
-
---------------
--- Miniyank --
---------------
-map('n',        'p',     '<Plug>(miniyank-autoput)')
-map('n',        'P',     '<Plug>(miniyank-autoPut)')
-map({'n', 'x'}, '<M-p>', '<Plug>(miniyank-cycle)')
-map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)')
-map('x', 'p', '"_dPP', { remap = true })
-
---------------
--- Diffview --
---------------
-local dv_callback = require('diffview.config').diffview_callback
-require('diffview').setup {
-  enhanced_diff_hl = false,
-  file_panel = {
-    width = 40
-  },
-  file_history_panel = {
-    height = 15,
-  },
-  key_bindings = {
-    view = {
-      ['<C-j>'] = dv_callback('select_next_entry'),
-      ['<C-k>'] = dv_callback('select_prev_entry'),
-      ['<C-s>'] = dv_callback('goto_file_split'),
-      ['<C-t>'] = dv_callback('goto_file_tab'),
-      ['~']     = dv_callback('focus_files'),
-      ['`']     = dv_callback('toggle_files'),
-    },
-    file_panel = {
-      ['<Space>']  = dv_callback('select_entry'),
-      ['<CR>']     = dv_callback('focus_entry'),
-      ['gf']       = dv_callback('goto_file_edit'),
-      ['<C-j>']    = dv_callback('select_next_entry'),
-      ['<C-k>']    = dv_callback('select_prev_entry'),
-      ['<C-t>']    = dv_callback('goto_file_tab'),
-      ['<Esc>']    = dv_callback('toggle_files'),
-      ['`']        = dv_callback('toggle_files'),
-      ['<space>e'] = dv_callback(),
-      ['<space>b'] = dv_callback()
-    },
-    file_history_panel = {
-      ['!']        = dv_callback('options'),
-      ['<CR>']     = dv_callback('open_in_diffview'),
-      ['<Space>']  = dv_callback('select_entry'),
-      ['<C-j>']    = dv_callback('select_next_entry'),
-      ['<C-k>']    = dv_callback('select_prev_entry'),
-      ['gf']       = dv_callback('goto_file'),
-      ['<C-s>']    = dv_callback('goto_file_split'),
-      ['<C-t>']    = dv_callback('goto_file_tab'),
-      ['~']        = dv_callback('focus_files'),
-      ['`']        = dv_callback('toggle_files'),
-      ['<space>e'] = dv_callback(),
-      ['<space>b'] = dv_callback()
-    },
-    option_panel = {
-      ['<CR>'] = dv_callback('select')
-    }
-  }
-}
-
-map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
-map('n', '<leader>gH', '<cmd>DiffviewFileHistory<CR>')
-
-----------------
--- Lightspeed --
-----------------
-g.lightspeed_no_default_keymaps = true
-require('lightspeed').setup {
-  exit_after_idle_msecs = { labeled = 1000 }
-}
-
-map({'n', 'x', 'o'}, 'zj',     '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
-map({'n', 'x', 'o'}, 'zk',     '<Plug>Lightspeed_S',       'Lightspeed jump upwards')
-map({'n', 'x', 'o'}, '<CR>',   '<Plug>Lightspeed_omni_s',  'Lightspeed jump bidirectionally')
-map({'n', 'x', 'o'}, '<S-CR>', '<Plug>Lightspeed_omni_gs', 'Lightspeed jump to window bidirectionally')
-
-map('o', 'zJ', '<Plug>Lightspeed_x',  'Lightspeed jump downwards (inclusive op)')
-map('o', 'zK', '<Plug>Lightspeed_X',  'Lightspeed jump upwards (inclusive op)')
-
--- Move default zj/zk bindings to ]z/[z
-map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')
-map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
 
 --------------
 -- Winshift --
