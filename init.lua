@@ -136,13 +136,23 @@ require('packer').startup(function()
     -- module = 'luasnip',
     config = Config('luasnip')
   }
-  use { 'saadparwaiz1/cmp_luasnip' }
-  use { 'hrsh7th/cmp-nvim-lsp' }
-  use { 'hrsh7th/cmp-buffer' }
-  use { 'hrsh7th/cmp-path' }
-  use { 'hrsh7th/cmp-cmdline' }
-  use { 'hrsh7th/cmp-nvim-lua' }
-  use { 'tzachar/cmp-tabnine', run = './install.sh' }
+  use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-path',         after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' }
+  use { 'tzachar/cmp-tabnine',
+    run = './install.sh',
+    after = 'nvim-cmp',
+    config = function()
+      local tabnine = require('cmp_tabnine.config')
+      tabnine:setup {
+        max_num_results = 3,
+        show_prediction_strength = true,
+        ignored_file_types = {},
+      }
+    end }
   use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
   use {
     'hrsh7th/nvim-cmp',
@@ -228,7 +238,7 @@ require('packer').startup(function()
     }
   }
   use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
-    config = require('indent-o-matic').setup {}
+    config = function() return require('indent-o-matic').setup {} end
   }
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   use { 'bfredl/nvim-miniyank',

@@ -129,13 +129,3 @@ nvim_cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   }
 })
-
--------------
--- Tabnine --
--------------
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup {
-  max_num_results = 3,
-  show_prediction_strength = true,
-  ignored_file_types = {},
-}
