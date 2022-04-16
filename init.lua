@@ -66,17 +66,7 @@ require('packer').startup(function()
   }
   use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
   use { 'kyazdani42/nvim-web-devicons', config = Config('web_devicons') }
-  use { 'kyazdani42/nvim-tree.lua',             -- File explorer
-    after = 'nvim-web-devicons',
-    module_pattern = 'nvim-tree.*',
-    keys = {'<leader>`', '<leader>`'},
-    cmd = { 'NvimTreeOpen',
-      'NvimTreeToggle',
-      'NvimTreeFocus',
-      'NvimTreeFindFile',
-    },
-    config = Config('nvim_tree')
-  }
+  use(require 'plugin_configs.nvim_tree')       -- File explorer
   use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
   use { 'mhartington/formatter.nvim',           -- Auto formatting on save
     module = 'formatter',
