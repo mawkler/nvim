@@ -20,7 +20,12 @@ function Config(module)
 end
 
 require('packer').startup(function()
-  use { 'wbthomason/packer.nvim' }
+  -- `use` packer config for plugin that's in an external module
+  function Use(module)
+    use(require(string.format('plugin_configs.%s', module)))
+  end
+
+  use { 'wbthomason/packer.nvim', opt = false }
   use { 'tpope/vim-fugitive',        -- :Git commands
     requires = 'tpope/vim-dispatch', -- Makes actions like `:Gpush` asynchronous
     cmd = {'G', 'Git', 'Gvdiffsplit'},
@@ -66,7 +71,7 @@ require('packer').startup(function()
   }
   use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
   use { 'kyazdani42/nvim-web-devicons', config = Config('web_devicons') }
-  use(require 'plugin_configs.nvim_tree')       -- File explorer
+  Use 'nvim_tree'                               -- File explorer
   use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
   use { 'mhartington/formatter.nvim',           -- Auto formatting on save
     module = 'formatter',
