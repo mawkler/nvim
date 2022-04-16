@@ -27,19 +27,20 @@ require('gitsigns').setup {
 
     -- Next/previous hunk
     map('n', ']c', function()
-      if vim.opt.diff then
+      if vim.o.diff then
         feedkeys(']c', 'n')
       else
+        print('Gitsigns: next')
         gitsigns.next_hunk()
       end
-    end)
+    end, 'Next git hunk')
     map('n', '[c', function()
-      if vim.opt.diff then
+      if vim.o.diff then
         feedkeys('[c', 'n')
       else
         gitsigns.prev_hunk()
       end
-    end)
+    end, 'Previous git hunk')
 
     -- Text objects
     map({'o', 'x'}, 'ih', gitsigns.select_hunk)
