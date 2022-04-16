@@ -269,7 +269,7 @@ let g:surround_{char2nr('A')} = "`\r`"
 augroup language_specific
   autocmd!
   " Don't conceal current line in some file formats (LaTeX files' configs don't seem to be overwritten though)
-  autocmd FileType markdown,latex,tex,json setlocal concealcursor=""
+  autocmd FileType markdown,latex,tex,json,http setlocal concealcursor=""
   " For adding a horizontal line below and entering insert mode below it
   autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
   " Custom filetype indent settings

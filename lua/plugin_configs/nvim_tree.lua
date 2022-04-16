@@ -4,16 +4,18 @@
 return { 'kyazdani42/nvim-tree.lua',
   after = 'nvim-web-devicons',
   module_pattern = 'nvim-tree.*',
-  keys = {'<leader>`', '<leader>`'},
-  cmd = { 'NvimTreeOpen',
+  keys = {'<leader>`', '<leader>`', '<leader>~'},
+  cmd = {
+    'NvimTreeOpen',
     'NvimTreeToggle',
     'NvimTreeFocus',
     'NvimTreeFindFile',
   },
-  -- config = Config('nvim_tree')
   config = function()
-    local map = require('../utils').map
-    local autocmd = require('../utils').autocmd
+    local map, autocmd = require('../utils').map, require('../utils').autocmd
+
+    local callback = require('nvim-tree.config').nvim_tree_callback
+    local nvim_tree = require('nvim-tree')
 
     vim.g.nvim_tree_highlight_opened_files = 2
     vim.g.nvim_tree_special_files = {}
@@ -30,9 +32,6 @@ return { 'kyazdani42/nvim-tree.lua',
         deleted   = '',
       }
     }
-
-    local tree_cb = require('nvim-tree.config').nvim_tree_callback
-    local nvim_tree = require('nvim-tree')
 
     nvim_tree.setup {
       diagnostics = {
@@ -58,17 +57,17 @@ return { 'kyazdani42/nvim-tree.lua',
         width = 40,
         mappings = {
           list = {
-            { key = 'l',       cb = tree_cb('edit') },
-            { key = 'h',       cb = tree_cb('close_node') },
-            { key = '>',       cb = tree_cb('cd') },
-            { key = '<',       cb = tree_cb('dir_up') },
-            { key = 'd',       cb = tree_cb('trash') },
-            { key = 'D',       cb = tree_cb('remove') },
-            { key = '<C-r>',   cb = tree_cb('refresh') },
-            { key = 'R',       cb = tree_cb('full_rename') },
-            { key = '<Space>', cb = tree_cb('preview') },
-            { key = '<C-s>',   cb = tree_cb('split') },
-            { key = 'gh',      cb = tree_cb('show_file_info') },
+            { key = 'l',       cb = callback('edit') },
+            { key = 'h',       cb = callback('close_node') },
+            { key = '>',       cb = callback('cd') },
+            { key = '<',       cb = callback('dir_up') },
+            { key = 'd',       cb = callback('trash') },
+            { key = 'D',       cb = callback('remove') },
+            { key = '<C-r>',   cb = callback('refresh') },
+            { key = 'R',       cb = callback('full_rename') },
+            { key = '<Space>', cb = callback('preview') },
+            { key = '<C-s>',   cb = callback('split') },
+            { key = 'gh',      cb = callback('show_file_info') },
           }
         }
       }
