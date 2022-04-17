@@ -32,7 +32,6 @@ return { 'lewis6991/gitsigns.nvim',
           if vim.o.diff then
             feedkeys(']c', 'n')
           else
-            print('Gitsigns: next')
             gitsigns.next_hunk()
           end
         end, 'Next git hunk')

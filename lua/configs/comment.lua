@@ -2,7 +2,6 @@
 -- Comment.nvim --
 ------------------
 return { 'numToStr/Comment.nvim',
-  branch = 'plug', -- TODO: remove `branch` once merged
   keys = {
     {'n', '<leader>c'},
     {'x', '<leader>c'},

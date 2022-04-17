@@ -280,19 +280,6 @@ augroup language_specific
   autocmd FileType lua let b:surround_{char2nr('F')} = "function() return \r end"
 augroup end
 
-" -- Quickscope --
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-nmap <C-c> <cmd>call Esc()<CR>
-
-" Doing this mapping in Lua breaks quickscope for some reason
-function Esc() abort
-  if &diff
-    exec 'tabclose'
-  else
-    exec 'DiffviewClose'
-  end
-endfunction
-
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
 function GetHiVal(name, layer)

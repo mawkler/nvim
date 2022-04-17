@@ -14,15 +14,10 @@ require('packer').init {
   }
 }
 
--- Returns the `require` for use in `config` parameter of packer's `use`
-function Config(module)
-  return string.format('require("plugin_configs/%s")', module)
-end
-
 require('packer').startup(function()
   -- `use` packer config for plugin that's in an external module
   function Use(module)
-    use(require(string.format('plugin_configs.%s', module)))
+    use(require(string.format('configs.%s', module)))
   end
 
   use { 'wbthomason/packer.nvim', opt = false }
@@ -154,7 +149,7 @@ require('packer').startup(function()
   use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
   use { 'folke/lua-dev.nvim' }                  -- Lua signature help, docs and completion
   use { 'ethanholz/nvim-lastplace', config = function()
-    require('nvim-lastplace').setup {}          -- Reopen files at last edit position
+    require('nvim-lastplace').setup {}          -- Restore cursor position
   end }
   Use 'dial'                                    -- Enhanced increment/decrement
   Use 'comment'
@@ -171,18 +166,7 @@ require('packer').startup(function()
   Use 'miniyank'                                -- Cycle register history
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
-  use { 'unblevable/quick-scope',
-    setup = function()
-      -- vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-      -- map('n', '<C-c>', '<cmd>call Esc()<CR>')
-    end,
-    -- keys = { -- Highlight unique characters on t/f/T/F
-    --   '<Plug>(QuickScopet)',
-    --   '<Plug>(QuickScopef)',
-    --   '<Plug>(QuickScopeT)',
-    --   '<Plug>(QuickScopeF)',
-    -- }
-  }
+  Use 'quick_scope'
   use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
   Use 'autopairs'
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
@@ -225,16 +209,11 @@ require('packer').startup(function()
   end }
   Use 'diffview'                                -- Git diff and file history
   Use 'lightspeed'                              -- Moving cursor anywhere
-  use { 'sindrets/winshift.nvim', module = 'winshift', config = function()
-    require('winshift').setup {                 -- Improved window movement
-      window_picker_ignore = {
-        filetype = { 'NvimTree' },
-        buftype = { 'terminal', 'quickfix' }
-      }
-    }
-  end }
-  use { 'rcarriga/nvim-notify' }                -- Floating notifications popups
-  use { 'NarutoXY/dim.lua' }                    -- It's kinda buggy
+  Use 'winshift'                                -- Improved window movement
+  Use 'notify'                                  -- Floating notifications popups
+  use { 'NarutoXY/dim.lua',                     -- Dim unused words
+    config = function() return require('dim').setup() end,
+  }
   Use 'toggleterm'                              -- Toggleable terminal
   use { 'kevinhwang91/nvim-bqf', event = 'FileType qf', config = function()
     require('quickfix')                         -- Better quickfix
@@ -252,7 +231,7 @@ require('packer').startup(function()
 end)
 
 -- Other configs
-require('plugin_configs.diagnostics')
+require('configs.diagnostics')
 
 if fn.filereadable('~/.config/nvim/config.vim') then
   cmd 'source ~/.config/nvim/config.vim'
@@ -260,52 +239,6 @@ end
 
 local utils = require('utils')
 local map, feedkeys, autocmd = utils.map, utils.feedkeys, utils.autocmd
-
---------------
--- Winshift --
---------------
-local function winshift(arg)
-  return function()
-    require('winshift').cmd_winshift(arg)
-  end
-end
-
-map('n', '<C-w><C-m>', winshift())
-map('n', '<C-w>m',     winshift())
-map('n', '<C-w><C-x>', winshift('swap'))
-map('n', '<C-w>x',     winshift('swap'))
-map('n', '<C-w>M',     winshift('swap'))
-
-map('n', '<C-M-H>', winshift('left'))
-map('n', '<C-M-J>', winshift('down'))
-map('n', '<C-M-K>', winshift('up'))
-map('n', '<C-M-L>', winshift('right'))
-
--------------
--- Notify --
--------------
-local notify = require('notify')
-require('notify').setup {
-  timeout = 2000,
-}
-vim.notify = notify
-
--- LSP window/showMessage
-vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-  local level = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
-
-  notify({ result.message }, level, {
-    title = 'LSP | ' .. client.name,
-    timeout = 10000,
-    keep = function() return level == 'ERROR' or level == 'WARN' end,
-  })
-end
-
--------------
--- Dim.lua --
--------------
-require('dim').setup() -- not working for some reason
 
 ---------------------
 -- General config --
@@ -374,6 +307,7 @@ map('n', '<leader>W', function ()
   print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
 map('s', '<BS>', '<BS>i') -- By default <BS> puts you in normal mode
+map({'n', 'i', 'v', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
 
 -- General autocmds --
 autocmd('TextYankPost', { -- Highlight text object on yank
