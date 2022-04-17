@@ -2,11 +2,12 @@
 -- DAP --
 ---------
 return { 'mfussenegger/nvim-dap',
-  requires = 'rcarriga/nvim-dap-ui', -- UI for nvim-dap
+  requires = {
+    'rcarriga/nvim-dap-ui',   -- UI for nvim-dap
+    'Pocco81/DAPInstall.nvim' -- Manages debuggers
+  },
+  keys = { '<F5>', '<F10>', '<F11>', '<F12>', '<F12>', '<F9>' },
   config = function ()
-    local cmd, call, fn = vim.cmd, vim.call, vim.fn
-    local api = vim.api
-
     local di = require('dap-install')
     di.setup { verbosely_call_debuggers = true }
     di.config('chrome', {})
@@ -22,7 +23,7 @@ return { 'mfussenegger/nvim-dap',
       for _, mode in pairs(modes) do
         local options = {noremap = true}
         if opts then options = vim.tbl_extend('force', options, opts) end
-        api.nvim_set_keymap(mode, lhs, rhs, options)
+        vim.api.nvim_set_keymap(mode, lhs, rhs, options)
       end
     end
 

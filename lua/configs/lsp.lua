@@ -2,7 +2,10 @@
 -- LSP Installer --
 -------------------
 return { 'neovim/nvim-lspconfig',
-  requires = 'williamboman/nvim-lsp-installer', -- Adds LspInstall commands
+  requires = {
+    'williamboman/nvim-lsp-installer', -- Adds LspInstall commands
+    'b0o/schemastore.nvim',            -- Adds YAML/JSON schemas
+  },
   config = function()
     local map = require('../utils').map
     local visible_buffers = require('../utils').visible_buffers

@@ -42,11 +42,6 @@ augroup custom_filetypes
   autocmd BufNewFile,BufRead *.dconf set syntax=sh
 augroup END
 
-" -- Key mappings --
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
-map <S-space> <space>
-
 nnoremap yp               yyp
 noremap  <leader>y        "+y
 map      <leader>Y        "+Y

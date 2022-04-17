@@ -1,7 +1,6 @@
 local bo, fn, call = vim.bo, vim.fn, vim.call
 local mode = require('feline.providers.vi_mode')
 local gps = require('nvim-gps')
-local lsp_status = require('lsp-status')
 local luasnip = require('luasnip')
 
 local components = { active = { {}, {}, {} } }
@@ -100,11 +99,6 @@ local function file_osinfo()
   return icon .. os
 end
 
-local function lsp_progress_available()
-  local status = lsp_status.status_progress()
-  return status ~= '' and status ~= nil and status ~= {}
-end
-
 -- Sections
 local active_left = components.active[1]
 local active_mid = components.active[2]
@@ -195,22 +189,10 @@ table.insert(active_mid, {
   short_provider = function() return gps.get_location({ depth = 1 }) end,
   hl = { fg = 'darkgray' },
   enabled = function()
-    return gps.is_available()
-      and not lsp_progress_available()
-      and not luasnip.in_snippet()
+    return gps.is_available() and not luasnip.in_snippet()
   end,
   truncate_hide = true,
   priority = -1
-})
-
--- LSP status progress
-lsp_status.register_progress()
-
-table.insert(active_mid, {
-  provider = lsp_status.status_progress,
-  hl = { fg = 'darkgray' },
-  truncate_hide = true,
-  priority = 5
 })
 
 -- Snippet indicator
