@@ -1,8 +1,7 @@
 -------------
 -- Copilot --
 -------------
-return {
-  'github/copilot.vim',
+return { 'github/copilot.vim',
   event = 'InsertEnter',
   config = function()
     local map = require('../utils').map

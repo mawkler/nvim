@@ -2,7 +2,7 @@
 -- Vim-session --
 -----------------
 return { 'xolox/vim-session',
-  requires = {'xolox/vim-misc'},
+  requires = 'xolox/vim-misc',
   config = function()
     vim.g.session_autosave = 'yes'
     vim.g.session_autosave_periodic = 1

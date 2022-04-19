@@ -3,7 +3,7 @@
 require('impatient')
 
 require('packer').init {
-  opt_default = false, -- Set to make loading plugins optional by default
+  opt_default = true, -- Set to make loading plugins optional by default
   display = {
     keybindings = {
       quit = '<Esc>',
@@ -14,56 +14,74 @@ require('packer').init {
 require('packer').startup(function()
   -- `use` packer config for plugin that's in an external module
   function Use(module)
-    use(require(string.format('configs.%s', module)))
+    if type(module) == 'string' then
+      module = require(string.format('configs.%s', module))
+    elseif type(module) ~= 'table' then
+      error('Invalid argument type')
+    end
+
+    if type(module.requires) == 'string' then
+      module.requires = {{ module.requires, opt = false }}
+    elseif type(module.requires) == 'table' then
+      local requires = {}
+      for _, required in pairs(module.requires) do
+        table.insert(requires, { required, opt = false })
+      end
+      module.requires = requires
+    end
+
+    module.opt = false
+    print(vim.inspect(module))
+    use(module)
   end
 
-  use { 'wbthomason/packer.nvim', opt = false }
-  use { 'tpope/vim-fugitive',                   -- :Git commands
-    requires = 'tpope/vim-dispatch',            -- Asynchronous `:Gpush`, etc.
+  Use { 'wbthomason/packer.nvim', opt = false }
+  Use { 'tpope/vim-fugitive',                   -- :Git commands
+    requires = {'tpope/vim-dispatch' },            -- Asynchronous `:Gpush`, etc.
     cmd = {'G', 'Git', 'Gvdiffsplit'},
   }
-  use { 'tpope/vim-eunuch' }
-  use { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} }
-  use { 'inkarkat/vim-visualrepeat', requires = 'inkarkat/vim-ingo-library' }
-  use { 'milkypostman/vim-togglelist',          -- Mapping to toggle QuickFix window
+  Use { 'tpope/vim-eunuch' }
+  Use { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} }
+  Use { 'inkarkat/vim-visualrepeat', requires = {'inkarkat/vim-ingo-library' } }
+  Use { 'milkypostman/vim-togglelist',          -- Mapping to toggle QuickFix window
     fn = 'ToggleQuickfixList',
   }
-  use { 'kana/vim-niceblock',                   -- Improves visual mode
+  Use { 'kana/vim-niceblock',                   -- Improves visual mode
     event = 'ModeChanged *:[vV]',
   }
-  use { 'kana/vim-textobj-syntax' }
-  use { 'haya14busa/vim-textobj-function-syntax' }
-  use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
-  use { 'AndrewRadev/splitjoin.vim', keys = 'gS' }
-  use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
-  use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
-  use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
+  Use { 'kana/vim-textobj-syntax' }
+  Use { 'haya14busa/vim-textobj-function-syntax' }
+  Use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
+  Use { 'AndrewRadev/splitjoin.vim', keys = 'gS' }
+  Use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
+  Use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
+  Use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
     keys = {{'o', 'iv'}, {'o', 'av'}},
   }
-  use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
-  use { 'meain/vim-printer', keys = 'gp' }
-  use { 'camspiers/lens.vim' }                  -- Automatic window resizing
-  use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
+  Use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
+  Use { 'meain/vim-printer', keys = 'gp' }
+  Use { 'camspiers/lens.vim' }                  -- Automatic window resizing
+  Use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
-  use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
+  Use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
     cmd = {'CmdResizeUp', 'CmdResizeRight', 'CmdResizeDown', 'CmdResizeLeft'},
   }
-  use { 'junegunn/vim-peekaboo' }               -- Register selection window
-  use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
-  use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
+  Use { 'junegunn/vim-peekaboo' }               -- Register selection window
+  Use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
+  Use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
   Use 'startify'                                -- Nicer start screen
-  use { 'DanilaMihailov/beacon.nvim',           -- Flash the cursor location on jump
+  Use { 'DanilaMihailov/beacon.nvim',           -- Flash the cursor location on jump
     event = 'WinEnter',
   }
   Use 'indent_blankline'                        -- Indent markers
-  use { 'coreyja/fzf.devicon.vim',
+  Use { 'coreyja/fzf.devicon.vim',
     requires = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
     cmd = 'FilesWithDevicons',
   }
-  use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
+  Use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
   Use 'web_devicons'
   Use 'nvim_tree'                               -- File explorer
-  use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
+  Use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
   Use 'formatter'                               -- Auto formatting on save
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework
@@ -71,99 +89,99 @@ require('packer').startup(function()
   Use 'gitsigns'                                -- Git status in sign column
   Use 'lsp'                                     -- Built-in LSP
   Use 'luasnip'                                 -- Snippet engine
-  use { 'saadparwaiz1/cmp_luasnip',            after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lsp',                after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-buffer',                  after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-path',                    after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-cmdline',                 after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lua',                after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
+  Use { 'saadparwaiz1/cmp_luasnip',            after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-nvim-lsp',                after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-buffer',                  after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-path',                    after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-cmdline',                 after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-nvim-lua',                after = 'nvim-cmp' }
+  Use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
   Use 'cmp_tabnine'
   Use 'cmp'
-  use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
-  use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
-  use { 'melkster/friendly-snippets' }          -- Snippet collection
+  Use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
+  Use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
+  Use { 'melkster/friendly-snippets' }          -- Snippet collection
   Use 'treesitter'
-  use { 'nvim-treesitter/nvim-treesitter-textobjects' }
-  use { 'JoosepAlviste/nvim-ts-context-commentstring' }
-  use { 'nvim-treesitter/playground',
+  Use { 'nvim-treesitter/nvim-treesitter-textobjects' }
+  Use { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  Use { 'nvim-treesitter/playground',
     cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
   }
   Use 'trouble'                                 -- Nicer list of diagnostics
-  use { 'jvgrootveld/telescope-zoxide' }
-  use { 'dhruvmanila/telescope-bookmarks.nvim' }
-  use { 'nvim-telescope/telescope-cheat.nvim' }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' }
-  use { 'JoseConseco/telescope_sessions_picker.nvim' }
-  use { 'nvim-lua/plenary.nvim' }
+  Use { 'jvgrootveld/telescope-zoxide' }
+  Use { 'dhruvmanila/telescope-bookmarks.nvim' }
+  Use { 'nvim-telescope/telescope-cheat.nvim' }
+  Use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  Use { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' }
+  Use { 'JoseConseco/telescope_sessions_picker.nvim' }
+  Use { 'nvim-lua/plenary.nvim' }
   Use 'telescope'                               -- Fuzzy finder
   Use 'dressing'                                -- Improves `vim.ui` interfaces
-  use { 'MunifTanjim/nui.nvim',                 -- UI component library
+  Use { 'MunifTanjim/nui.nvim',                 -- UI component library
     module_pattern = 'nui.*',
   }
-  use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
-  use { 'folke/lua-dev.nvim' }                  -- Lua signature help, docs and completion
-  use { 'ethanholz/nvim-lastplace',             -- Restore cursor position
+  Use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
+  Use { 'folke/lua-dev.nvim' }                  -- Lua signature help, docs and completion
+  Use { 'ethanholz/nvim-lastplace',             -- Restore cursor position
     config = function() require('nvim-lastplace').setup {} end
   }
   Use 'dial'                                    -- Enhanced increment/decrement
   Use 'comment'
   Use 'rest'                                    -- Sending HTTP requests
   Use 'dap'                                     -- UI for nvim-dap
-  use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
+  Use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   Use 'onedark'
   Use 'refactoring'
-  use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
+  Use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
     config = function() return require('indent-o-matic').setup {} end
   }
-  use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
+  Use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'miniyank'                                -- Cycle register history
-  use { 'tpope/vim-surround' }
-  use { 'tpope/vim-repeat', fn = 'repeat#set' }
+  Use { 'tpope/vim-surround' }
+  Use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
-  use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
+  Use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
   Use 'autopairs'
-  use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
-  use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
-  use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
-  use { 'inkarkat/vim-ConflictMotions',
+  Use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
+  Use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
+  Use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
+  Use { 'inkarkat/vim-ConflictMotions',
     requires = {'inkarkat/vim-ingo-library', 'inkarkat/vim-CountJump'},
   }
-  use { 'kana/vim-textobj-user' }
-  use { 'kana/vim-textobj-function' }
-  use { 'kana/vim-textobj-line' }
-  use { 'kana/vim-textobj-entire' }
-  use { 'lervag/vimtex', ft = {'tex', 'latex'} }
-  use { 'AndrewRadev/dsf.vim', keys = {{'n', 'dsf'}, {'n', 'dsF'}}, opt = false }
-  use { 'michaeljsmith/vim-indent-object' }
-  use { 'wellle/targets.vim' }                  -- Adds arguments, etc. as text objects
-  use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
-  use { 'plasticboy/vim-markdown', ft = 'markdown' }
-  use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
-  use { 'tommcdo/vim-exchange' }                -- Swapping two text objects
-  use { 'itchyny/vim-highlighturl' }            -- Highlights URLs everywhere
-  use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
+  Use { 'kana/vim-textobj-user' }
+  Use { 'kana/vim-textobj-function' }
+  Use { 'kana/vim-textobj-line' }
+  Use { 'kana/vim-textobj-entire' }
+  Use { 'lervag/vimtex', ft = {'tex', 'latex'} }
+  Use { 'AndrewRadev/dsf.vim', keys = {{'n', 'dsf'}, {'n', 'dsF'}} }
+  Use { 'michaeljsmith/vim-indent-object' }
+  Use { 'wellle/targets.vim' }                  -- Adds arguments, etc. as text objects
+  Use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
+  Use { 'plasticboy/vim-markdown', ft = 'markdown' }
+  Use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
+  Use { 'tommcdo/vim-exchange' }                -- Swapping two text objects
+  Use { 'itchyny/vim-highlighturl' }            -- Highlights URLs everywhere
+  Use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
     cmd = 'Bufferize',
   }
   Use 'vim_session'
-  use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
+  Use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
-  use { 'tvaintrob/bicep.vim', ft = 'bicep' }
-  use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
+  Use { 'tvaintrob/bicep.vim', ft = 'bicep' }
+  Use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
     return require('stabilize').setup()
   end }
   Use 'diffview'                                -- Git diff and file history
   Use 'lightspeed'                              -- Moving cursor anywhere
   Use 'winshift'                                -- Improved window movement
   Use 'notify'                                  -- Floating notifications popups
-  use { 'NarutoXY/dim.lua',                     -- Dim unused words
+  Use { 'NarutoXY/dim.lua',                     -- Dim unused words
     config = function() return require('dim').setup() end,
   }
   Use 'toggleterm'                              -- Toggleable terminal
   Use 'bqf'
   Use 'git'                                     -- Git wrapper
-  use { 'famiu/nvim-reload',                    -- Reloads Neovim config
+  Use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},
   }
 end)
