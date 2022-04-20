@@ -53,6 +53,8 @@ return { 'ful1e5/onedark.nvim', config = function()
         htmlBold = { fg = c.orange0, style = style.Bold },
         htmlItalic = { fg = c.purple0, style = style.Italic },
         mkdHeading = { link = 'Title' },
+        -- TypeScript
+        typescriptParens = { link = 'TSPunctBracket' },
         -- QuickScope
         QuickScopePrimary = { fg = c.red0, style = style.Bold },
         QuickScopeSecondary = { fg = c.orange1, style = style.Bold },

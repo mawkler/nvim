@@ -153,6 +153,14 @@ return { 'neovim/nvim-lspconfig',
       require('telescope.builtin').lsp_references({ include_declaration = false })
     end
 
+    local function close_floating_windows()
+      for _, win in pairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_get_config(win).relative == "win" then
+          vim.api.nvim_win_close(win, false)
+        end
+      end
+    end
+
     -- LSP and diagnostics
     map('n',        'gd',        require('telescope.builtin').lsp_definitions, 'vim.lsp.buf.definition')
     map('n',        'gi',        require('telescope.builtin').lsp_implementations, 'vim.lsp.buf.implementation')
@@ -196,12 +204,13 @@ return { 'neovim/nvim-lspconfig',
     map('n', '[l', '<cmd>labove<CR>')
 
     map('n', '<Esc>', function()
+      close_floating_windows()
       if bo.modifiable then
         clear_lsp_references()
       else
         return feedkeys('<C-w>c', 'n')
       end
-    end , 'Close window if not modifiable, otherwise :set nohlsearch')
+    end, 'Close window if not modifiable, otherwise clear LSP references')
     map('t', '<Esc>', '<C-\\><C-n>')
 
   end

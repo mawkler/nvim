@@ -57,7 +57,10 @@ return { 'nvim-treesitter/nvim-treesitter',
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
-      }
+      },
+      matchup = {
+        enable = true,
+      },
     }
 
     -- Disable treesitter from highlighting errors (LSP does that anyway)
