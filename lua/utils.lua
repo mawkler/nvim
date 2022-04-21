@@ -39,4 +39,23 @@ M.visible_buffers = function()
   return vim.tbl_keys(bufs)
 end
 
+local function lsp_server_has_references()
+  for _, client in pairs(vim.lsp.buf_get_clients()) do
+    if client.resolved_capabilities.find_references then
+      return true
+    end
+  end
+  return false
+end
+
+M.clear_lsp_references = function()
+  vim.cmd 'nohlsearch'
+  if lsp_server_has_references() then
+    vim.lsp.buf.clear_references()
+    for _, buffer in pairs(M.visible_buffers()) do
+      vim.lsp.util.buf_clear_references(buffer)
+    end
+  end
+end
+
 return M

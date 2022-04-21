@@ -8,10 +8,7 @@ return { 'neovim/nvim-lspconfig',
   },
   config = function()
     local map = require('../utils').map
-    local visible_buffers = require('../utils').visible_buffers
-    local feedkeys = require('../utils').feedkeys
-
-    local b, bo, lsp, diagnostic = vim.b, vim.bo, vim.lsp, vim.diagnostic
+    local lsp, diagnostic = vim.lsp, vim.diagnostic
 
     local function make_opts(snippets)
       if snippets == nil then snippets = true end
@@ -128,37 +125,10 @@ return { 'neovim/nvim-lspconfig',
     local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
     local with_border = {float = { border = 'single' }}
 
-    local function lsp_server_has_references()
-      for _, client in pairs(vim.lsp.buf_get_clients()) do
-        if client.resolved_capabilities.find_references then
-          return true
-        end
-      end
-      return false
-    end
-
-    local function clear_lsp_references()
-      vim.cmd 'nohlsearch'
-      if lsp_server_has_references() then
-        lsp.buf.clear_references()
-        for _, buffer in pairs(visible_buffers()) do
-          lsp.util.buf_clear_references(buffer)
-        end
-      end
-    end
-
     local function lsp_references()
-      clear_lsp_references()
+      require('../utils').clear_lsp_references()
       vim.lsp.buf.document_highlight()
       require('telescope.builtin').lsp_references({ include_declaration = false })
-    end
-
-    local function close_floating_windows()
-      for _, win in pairs(vim.api.nvim_list_wins()) do
-        if vim.api.nvim_win_get_config(win).relative == "win" then
-          vim.api.nvim_win_close(win, false)
-        end
-      end
     end
 
     -- LSP and diagnostics
@@ -181,37 +151,6 @@ return { 'neovim/nvim-lspconfig',
     map('n',        '<C-w>gd',   '<C-w>vgd', {desc = 'LSP go to definition in window split', remap = true})
     map('n',        '<C-w>gi',   '<C-w>vgi', {desc = 'LSP go to implementaiton in window split', remap = true})
     map('n',        '<C-w>gD',   '<C-w>vgD', {desc = 'LSP go to type definition in window split', remap = true})
-
-    -- Sets `bufhidden = delete` if buffer was jumped to
-    local function quickfix_jump(command)
-      if b.buffer_jumped_to then
-        bo.bufhidden = 'delete'
-      end
-
-      local successful, err_message = pcall(vim.cmd, command)
-      if successful then
-        b.buffer_jumped_to = true
-      else
-        error(err_message)
-      end
-    end
-
-    map('n', ']q', function() return quickfix_jump('cnext') end, 'Next quickfix item')
-    map('n', '[q', function() return quickfix_jump('cprev') end, 'Previous quickfix item')
-    map('n', ']Q', '<cmd>cbelow<CR>')
-    map('n', '[Q', '<cmd>cabove<CR>')
-    map('n', ']l', '<cmd>lbelow<CR>')
-    map('n', '[l', '<cmd>labove<CR>')
-
-    map('n', '<Esc>', function()
-      close_floating_windows()
-      if bo.modifiable then
-        clear_lsp_references()
-      else
-        return feedkeys('<C-w>c', 'n')
-      end
-    end, 'Close window if not modifiable, otherwise clear LSP references')
-    map('t', '<Esc>', '<C-\\><C-n>')
 
   end
 }
