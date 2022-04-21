@@ -96,6 +96,10 @@ return {
           i = complete,
           c = cmdline_complete,
         }),
+        ['<Tab>'] = nvim_cmp.mapping({
+          i = complete,
+          c = cmdline_complete,
+        }),
         ['<C-y>'] = cmp_disabled,
         ['<C-n>'] = cmp_disabled,
         ['<C-p>'] = cmp_disabled,
