@@ -184,11 +184,14 @@ return { 'nvim-telescope/telescope.nvim',
     end
 
     local function grep_string()
+      vim.g.grep_string_mode = true
+      -- print(vim.g.grep_string_mode)
       vim.ui.input({ prompt = 'Grep string', default = fn.expand("<cword>") },
         function(value)
           if value ~= nil then
             require('telescope.builtin').grep_string({ search = value })
           end
+          vim.g.grep_string_mode = false
         end)
     end
 

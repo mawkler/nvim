@@ -60,6 +60,8 @@ return { 'nvim-treesitter/nvim-treesitter',
       },
       matchup = {
         enable = true,
+        disable_virtual_text = true,
+        include_match_words = true
       },
     }
 
