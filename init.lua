@@ -34,14 +34,14 @@ require('packer').startup(function()
   use { 'kana/vim-textobj-syntax' }
   use { 'haya14busa/vim-textobj-function-syntax' }
   use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
-  use { 'AndrewRadev/splitjoin.vim', keys = 'gS' }
+  use { 'AndrewRadev/splitjoin.vim', keys = {'n', 'gS'} }
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
   use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
   use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
     keys = {{'o', 'iv'}, {'o', 'av'}},
   }
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
-  use { 'meain/vim-printer', keys = 'gp' }
+  use { 'meain/vim-printer', keys = {'n', 'gp'} }
   use { 'camspiers/lens.vim' }                  -- Automatic window resizing
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
@@ -115,14 +115,14 @@ require('packer').startup(function()
   Use 'onedark'
   Use 'refactoring'
   use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
-    config = function() return require('indent-o-matic').setup {} end
+    config = function() require('indent-o-matic').setup {} end
   }
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'miniyank'                                -- Cycle register history
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
-  use { 'andymass/vim-matchup', keys = '%' }    -- Ads additional `%` commands
+  use { 'andymass/vim-matchup', keys = {'n', '%'} }    -- Ads additional `%` commands
   Use 'autopairs'
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
   use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
@@ -151,15 +151,15 @@ require('packer').startup(function()
   Use 'copilot'                                 -- GitHub Copilot
   use { 'tvaintrob/bicep.vim', ft = 'bicep' }
   use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
-    return require('stabilize').setup()
+    require('stabilize').setup()
   end }
   Use 'diffview'                                -- Git diff and file history
   Use 'lightspeed'                              -- Moving cursor anywhere
   Use 'winshift'                                -- Improved window movement
   Use 'notify'                                  -- Floating notifications popups
-  use { 'NarutoXY/dim.lua',                     -- Dim unused words
-    config = function() return require('dim').setup() end,
-  }
+  use { 'NarutoXY/dim.lua', config = function() -- Dim unused words
+    require('dim').setup()
+  end }
   Use 'toggleterm'                              -- Toggleable terminal
   Use 'bqf'
   Use 'git'                                     -- Git wrapper

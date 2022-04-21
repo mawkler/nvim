@@ -4,7 +4,12 @@
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
 
 return { 'unblevable/quick-scope',
-  keys = {'f', 'F', 't', 'T'},
+  keys = {
+    {'i', 'f'},
+    {'i', 'F'},
+    {'i', 't'},
+    {'i', 'T'},
+  },
   setup = function()
     vim.cmd [[
       nmap <C-c> <cmd>call Esc()<CR>

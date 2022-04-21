@@ -2,6 +2,11 @@
 -- Miniyank --
 --------------
 return { 'bfredl/nvim-miniyank',
+  keys = {
+    {'n', 'y'},
+    {'n', 'p'},
+    {'n', '<M-p>'},
+  },
   config = function()
     local map = require('../utils').map
 
@@ -11,5 +16,4 @@ return { 'bfredl/nvim-miniyank',
     map({'n', 'x'}, '<M-P>', '<Plug>(miniyank-cycleback)')
     map('x',        'p',     '"_dPP', { remap = true })
   end,
-  keys = { 'p', '<M-p>' }
 }
