@@ -2,6 +2,19 @@
 -- Git --
 ---------
 return { 'TimUntersberger/neogit',
+  cmd = 'Neogit',
+  keys = { '<leader>gC', '<leader>gs', '<leader>gd'  },
+  setup = function ()
+    -- Since Packer doesn't allow references to variables outside the setup table
+    -- for some reason, we have to use two different map()s
+    local map = require('../utils').map
+    map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
+    map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
+    map('n', '<leader>gP', '<cmd>Neogit push<CR>')
+    map('n', '<leader>gr', '<cmd>Neogit rebase<CR>')
+    map('n', '<leader>gl', '<cmd>Neogit log<CR>')
+    map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
+  end,
   config = function()
     local map = require('../utils').map
     local cmd, call = vim.cmd, vim.call
@@ -20,12 +33,6 @@ return { 'TimUntersberger/neogit',
       disable_commit_confirmation = true,
     }
 
-    map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
-    map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
-    map('n', '<leader>gP', '<cmd>Neogit push<CR>')
-    map('n', '<leader>gr', '<cmd>Neogit rebase<CR>')
-    map('n', '<leader>gl', '<cmd>Neogit log<CR>')
-    map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
     map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Telescope git branch')
     map('n', '<leader>gs', function() return neogit.open({
       cwd = vim.fn.expand('%:p:h'),
