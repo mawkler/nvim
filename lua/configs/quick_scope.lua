@@ -1,16 +1,16 @@
 -----------------
 -- Quick-scope --
 -----------------
-vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-
 return { 'unblevable/quick-scope',
   keys = {
-    {'i', 'f'},
-    {'i', 'F'},
-    {'i', 't'},
-    {'i', 'T'},
+    {'n', 'f'},
+    {'n', 'F'},
+    {'n', 't'},
+    {'n', 'T'},
   },
   setup = function()
+    vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
+
     vim.cmd [[
       nmap <C-c> <cmd>call Esc()<CR>
 
