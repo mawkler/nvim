@@ -22,8 +22,10 @@ map('n', '<leader>W', function()
   vim.o.wrap = not vim.o.wrap
   print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
-map('s', '<BS>', '<BS>i') -- By default <BS> puts you in normal mode
+map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode
 map({'n', 'i', 'v', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
+map('n', 'g<C-a>', 'v<C-a>', 'Increment number under cursor')
+map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 local function quickfix_jump(command)
