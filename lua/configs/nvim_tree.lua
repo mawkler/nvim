@@ -4,7 +4,7 @@
 return { 'kyazdani42/nvim-tree.lua',
   after = 'nvim-web-devicons',
   module_pattern = 'nvim-tree.*',
-  keys = {'<leader>`', '<leader>`', '<leader>~'},
+  keys = {'<leader>`', '<leader>`', '<leader>~', {'n', 'gf'}},
   cmd = {
     'NvimTreeOpen',
     'NvimTreeToggle',
@@ -42,11 +42,6 @@ return { 'kyazdani42/nvim-tree.lua',
       update_cwd = true,
       git = {
         ignore = false,
-      },
-      show_icons = {
-        git = true,
-        folders = true,
-        files = true,
       },
       renderer = {
         indent_markers = {
