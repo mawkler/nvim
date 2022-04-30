@@ -119,7 +119,7 @@ require('packer').startup(function()
   }
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'miniyank'                                -- Cycle register history
-  use { 'tpope/vim-surround' }
+  Use 'surround'
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
   use { 'andymass/vim-matchup', keys = {'n', '%'} }    -- Ads additional `%` commands

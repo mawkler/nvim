@@ -227,40 +227,6 @@ command! -bar -bang -nargs=? -complete=file Trash
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
 
-" -- Surround --
-xmap s  <Plug>VSurround
-xmap S  <Plug>VgSurround
-nmap s  ys
-nmap S  ys$
-omap ir i]
-omap ar a]
-xmap ir i]
-xmap ar a]
-
-" surround noun `q` means `'`
-nmap csq cs'
-nmap dsq ds'
-" noun `q` already means any quotes i.e. `/"/'
-let g:surround_{char2nr('q')} = "'\r'"
-
-" surround noun `Q` means `"`
-nmap csQ cs"
-nmap dsQ ds"
-omap iQ  i"
-omap aQ  a"
-xmap iQ  i"
-xmap aQ  a"
-let g:surround_{char2nr('Q')} = "\"\r\""
-
-" surround noun `A` means `
-nmap csA cs`
-nmap dsA ds`
-omap iA  i`
-omap aA  a`
-xmap iA  i`
-xmap aA  a`
-let g:surround_{char2nr('A')} = "`\r`"
-
 augroup language_specific
   autocmd!
   " Don't conceal current line in some file formats (LaTeX files' configs don't seem to be overwritten though)
