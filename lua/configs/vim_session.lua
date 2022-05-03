@@ -3,6 +3,7 @@
 -----------------
 return { 'xolox/vim-session',
   requires = {'xolox/vim-misc'},
+  after = 'vim-startify',
   config = function()
     vim.g.session_autosave = 'yes'
     vim.g.session_autosave_periodic = 1
