@@ -52,17 +52,17 @@ return { 'kyazdani42/nvim-tree.lua',
         width = 40,
         mappings = {
           list = {
-            { key = 'l',       cb = callback('edit') },
-            { key = 'h',       cb = callback('close_node') },
-            { key = '>',       cb = callback('cd') },
-            { key = '<',       cb = callback('dir_up') },
-            { key = 'd',       cb = callback('trash') },
-            { key = 'D',       cb = callback('remove') },
-            { key = '<C-r>',   cb = callback('refresh') },
-            { key = 'R',       cb = callback('full_rename') },
-            { key = '<Space>', cb = callback('preview') },
-            { key = '<C-s>',   cb = callback('split') },
-            { key = 'gh',      cb = callback('show_file_info') },
+            { key = 'l',     cb = callback('edit') },
+            { key = 'h',     cb = callback('close_node') },
+            { key = '>',     cb = callback('cd') },
+            { key = '<',     cb = callback('dir_up') },
+            { key = 'd',     cb = callback('trash') },
+            { key = 'D',     cb = callback('remove') },
+            { key = '<C-r>', cb = callback('refresh') },
+            { key = 'R',     cb = callback('full_rename') },
+            { key = '<Tab>', cb = callback('preview') },
+            { key = '<C-s>', cb = callback('split') },
+            { key = 'gh',    cb = callback('show_file_info') },
           }
         }
       }

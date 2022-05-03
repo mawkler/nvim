@@ -113,7 +113,7 @@ return { 'nvim-telescope/telescope.nvim',
           '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.py[c]',
           '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$', '%.tmp',
           '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
-          '%.class$', '%.pdb$', '%.dll$', '%.dat$'
+          '%.class$', '%.pdb$', '%.dll$'
         }
       },
       pickers = {
