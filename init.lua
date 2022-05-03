@@ -2,22 +2,14 @@
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
-require('packer').init {
-  opt_default = false, -- Set to make loading plugins optional by default
-  display = {
-    keybindings = {
-      quit = '<Esc>',
-    }
-  }
-}
-
+require('configs.packer_config')
 require('packer').startup(function()
   -- `use` packer config for plugin that's in an external module
   function Use(module)
     use(require(string.format('configs.%s', module)))
   end
 
-  use { 'wbthomason/packer.nvim', opt = false }
+  use { 'wbthomason/packer.nvim' }
   use { 'tpope/vim-fugitive',                   -- :Git commands
     requires = 'tpope/vim-dispatch',            -- Asynchronous `:Gpush`, etc.
     cmd = {'G', 'Git', 'Gvdiffsplit'},

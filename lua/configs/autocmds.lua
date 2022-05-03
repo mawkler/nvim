@@ -1,29 +1,13 @@
 ---------------
 -- Autocmds --
 ---------------
-local map, autocmd = require('../utils').map, require('../utils').autocmd
+local autocmd = require('../utils').autocmd
 
 autocmd('TextYankPost', { -- Highlight text object on yank
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
   end,
   group = 'HighlightYank'
-})
-
--- Packer --
-autocmd('BufEnter', {
-  pattern = vim.fn.stdpath('config') .. '/init.lua',
-  callback = function()
-    map('n', '<F5>', ':source ~/.config/nvim/init.lua | PackerInstall<CR>', {
-      buffer = true,
-    })
-  end
-})
-
-autocmd('BufWritePost', {
-  pattern = 'init.lua',
-  command = 'source <afile> | PackerCompile',
-  group   = 'Packer'
 })
 
 -- TypeScript specific --

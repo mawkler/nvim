@@ -64,6 +64,15 @@ map('n', '<Esc>', function()
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
 
+-- Packer
+map('n', '<leader>ku', '<cmd>PackerUpdate<CR>')
+map('n', '<leader>kc', '<cmd>PackerCompile<CR>')
+map('n', '<leader>kC', '<cmd>PackerCompile<CR>')
+map('n', '<leader>ks', '<cmd>PackerSync<CR>')
+map('n', '<leader>kS', '<cmd>PackerStatus<CR>')
+map('n', '<leader>ki', '<cmd>PackerInstall<CR>')
+map('n', '<leader>kp', '<cmd>PackerProfile<CR>')
+
 autocmd('CmdwinEnter', {
   callback = function()
     map('n', '<CR>',  '<CR>',   { buffer = true })
