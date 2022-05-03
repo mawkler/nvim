@@ -14,7 +14,7 @@ require('packer').startup(function()
     requires = 'tpope/vim-dispatch',            -- Asynchronous `:Gpush`, etc.
     cmd = {'G', 'Git', 'Gvdiffsplit'},
   }
-  use { 'tpope/vim-eunuch' }
+  Use 'eunuch'
   use { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} }
   use { 'inkarkat/vim-visualrepeat', requires = 'inkarkat/vim-ingo-library' }
   use { 'milkypostman/vim-togglelist',          -- Mapping to toggle QuickFix window
