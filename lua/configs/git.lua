@@ -1,6 +1,8 @@
 ---------
 -- Git --
 ---------
+vim.opt.fillchars = { diff = ' ' }
+
 return { 'TimUntersberger/neogit',
   cmd = 'Neogit',
   keys = { '<leader>gC', '<leader>gs', '<leader>gd'  },
@@ -52,7 +54,5 @@ return { 'TimUntersberger/neogit',
         let g:bufferline.insert_at_end = tmp
       endf
     ]]
-
-    vim.opt.fillchars = { diff = ' ' }
   end
 }
