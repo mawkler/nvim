@@ -160,6 +160,14 @@ require('packer').startup(function()
   }
 end)
 
+if vim.fn.expand('$NVIM_AUTOCOMPILE') == 'true' then
+  print('Autocompiling...')
+  require('utils').autocmd('VimEnter', {
+    command = 'PackerCompile',
+    group   = 'Packer'
+  })
+end
+
 -- Other configs
 require('configs.keymaps')
 require('configs.autocmds')
