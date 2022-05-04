@@ -1,6 +1,9 @@
 return { 'famiu/feline.nvim',
-  requires = { 'SmiteshP/nvim-gps', 'nvim-lua/lsp-status.nvim' },
-  after = 'onedark.nvim',
+  requires = {
+    'SmiteshP/nvim-gps',
+    'nvim-lua/lsp-status.nvim',
+    'ful1e5/onedark.nvim'
+  },
   config = function()
     local colors = require('onedark.colors').setup()
     require('../statusline').setup({
@@ -21,4 +24,3 @@ return { 'famiu/feline.nvim',
     vim.opt.laststatus = 3 -- Global statusline
   end
 }
-
