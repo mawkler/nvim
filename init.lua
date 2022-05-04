@@ -103,7 +103,7 @@ require('packer').startup(function()
   Use 'comment'
   Use 'rest'                                    -- Sending HTTP requests
   Use 'dap'                                     -- UI for nvim-dap
-  use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
+  -- use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   Use 'onedark'
   Use 'refactoring'
   use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
@@ -127,7 +127,7 @@ require('packer').startup(function()
   use { 'kana/vim-textobj-line' }
   use { 'kana/vim-textobj-entire' }
   use { 'lervag/vimtex', ft = {'tex', 'latex'} }
-  use { 'AndrewRadev/dsf.vim', keys = {{'n', 'dsf'}, {'n', 'dsF'}}, opt = false }
+  -- use { 'AndrewRadev/dsf.vim',--[[  keys = {{'n', 'dsf'}, {'n', 'dsF'}}, ]] opt = false }
   use { 'michaeljsmith/vim-indent-object' }
   use { 'wellle/targets.vim' }                  -- Adds arguments, etc. as text objects
   use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
