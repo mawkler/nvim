@@ -5,10 +5,10 @@ return { 'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   config = function ()
     require('nvim-treesitter.configs').setup {
-      ensure_installed = "all",
+      ensure_installed = 'all',
       highlight = {
         enable = true,
-        disable = {'latex', 'vim', 'markdown'},
+        disable = {'latex', 'vim'},
       },
       indent = {
         enable = true,

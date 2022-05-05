@@ -48,11 +48,16 @@ return { 'ful1e5/onedark.nvim', config = function()
         TSWarning = { fg = c.warning, style = style.Bold },
         TSDanger = { fg = c.error, style = style.Bold },
         Todo = { link = 'TSWarning' },
+        TSPunctSpecial = { fg = c.red0 },
         -- Markdown/html
         mkdLink = { fg = c.blue0, style = style.Underline },
         htmlBold = { fg = c.orange0, style = style.Bold },
         htmlItalic = { fg = c.purple0, style = style.Italic },
         mkdHeading = { link = 'Title' },
+        -- Markdown (Treesitter)
+        TSLiteral = { fg = c.green0 },
+        TSEmphasis = { fg = c.purple0, style = style.Italic },
+        TSStrong = { fg = c.orange0, style = style.Bold },
         -- TypeScript
         typescriptParens = { link = 'TSPunctBracket' },
         -- QuickScope
