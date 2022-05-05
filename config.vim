@@ -115,8 +115,8 @@ nmap     g/               /\<\><Left><Left>
 nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
 nmap      Q                @@
 xmap      Q                @@
-nmap      <leader>Q        qqqqq
-xmap      <leader>Q        qqqqq
+nmap      <leader>q        qqqqq
+xmap      <leader>q        qqqqq
 nnoremap cg*              *Ncgn
 nnoremap dg*              *Ndgn
 vnoremap gcn              //Ncgn
@@ -451,7 +451,7 @@ augroup END
 " -- togglelist.vim --
 let g:toggle_list_no_mappings = 1
 nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
-nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
 augroup quickfix
   autocmd!
   autocmd FileType qf nmap <buffer><nowait> <Space> <CR><C-w>p
