@@ -2,7 +2,7 @@
 -- Telescope --
 ---------------
 return { 'nvim-telescope/telescope.nvim',
-  module_pattern = 'telescope%..*',
+  module_pattern = 'telescope%..*', -- used to throw error after running PackerCompile 3 times for some reason
   requires =  {
     {'nvim-lua/popup.nvim', module_pattern = 'popup%..*'},
     {'nvim-lua/plenary.nvim'}

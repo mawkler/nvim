@@ -6,7 +6,7 @@ vim.opt.fillchars = { diff = ' ' }
 return { 'TimUntersberger/neogit',
   cmd = 'Neogit',
   keys = { '<leader>gC', '<leader>gs', '<leader>gd'  },
-  setup = function ()
+  setup = function()
     -- Since Packer doesn't allow references to variables outside the setup table
     -- for some reason, we have to use two different map()s
     local map = require('../utils').map

@@ -2,8 +2,7 @@
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
-require('configs.packer_config')
-require('packer').startup(function()
+require('packer').startup { function()
   -- `use` packer config for plugin that's in an external module
   function Use(module)
     use(require(string.format('configs.%s', module)))
@@ -158,9 +157,18 @@ require('packer').startup(function()
   use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},
   }
-end)
+end, {
+  profile = {
+    enable = true,
+  },
+  display = {
+    keybindings = {
+      quit = '<Esc>',
+    }
+  }
+}}
 
-if vim.fn.expand('$NVIM_AUTOCOMPILE') == 'true' then
+if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
   print('Autocompiling...')
   require('utils').autocmd('VimEnter', {
     command = 'PackerCompile',
