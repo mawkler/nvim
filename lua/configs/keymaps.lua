@@ -1,7 +1,7 @@
 -------------
 -- Keymaps --
 -------------
-local bo, opt = vim.bo, vim.opt
+local bo, o = vim.bo, vim.o
 local utils = require('../utils')
 local map, autocmd, feedkeys = utils.map, utils.autocmd, utils.feedkeys
 
@@ -15,8 +15,8 @@ end, 'Delete buffer and pop jump stack')
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<leader>N', function()
-  opt.relativenumber = not opt.relativenumber
-  print('Relative numbers ' .. (opt.relativenumber and 'enabled' or 'disabled'))
+  o.relativenumber = not o.relativenumber
+  print('Relative numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
 end, 'Toggle relative numbers')
 map('n', '<leader>W', function()
   vim.o.wrap = not vim.o.wrap
@@ -24,6 +24,7 @@ map('n', '<leader>W', function()
 end, 'Toggle line wrap')
 map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode
 map({'n', 'i', 'v', 's', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
+map('i', '<C-i>', '<Tab>', { remap = true })
 map('n', 'g<C-a>', 'v<C-a>', 'Increment number under cursor')
 map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
 map('s', '<C-r>', '<C-g>c<C-r>', 'Insert content of a register')

@@ -133,7 +133,7 @@ require('packer').startup { function()
   use { 'plasticboy/vim-markdown', ft = 'markdown' }
   use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
   use { 'tommcdo/vim-exchange' }                -- Swapping two text objects
-  use { 'itchyny/vim-highlighturl' }            -- Highlights URLs everywhere
+  Use 'highlighturl'
   use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
     cmd = 'Bufferize',
   }
@@ -157,14 +157,15 @@ require('packer').startup { function()
   use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},
   }
-end, {
+end, config = {
   profile = {
     enable = true,
   },
   display = {
     keybindings = {
       quit = '<Esc>',
-    }
+      toggle_info = '<Space>',
+    },
   }
 }}
 

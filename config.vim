@@ -496,14 +496,6 @@ nmap [f <Nop>
 
 let g:vim_markdown_strikethrough = 1
 
-" -- vim-highlighturl --
-" Disable vim-highlighturl in Markdown files
-augroup highlighturl_filetype
-  autocmd!
-  autocmd FileType markdown call highlighturl#disable_local()
-augroup END
-let g:highlighturl_guifg = '#61AFEF'
-
 " -- bullets --
 map <silent> <leader>X :ToggleCheckbox<CR>
 let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically

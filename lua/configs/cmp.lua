@@ -92,10 +92,6 @@ return {
         ['<C-b>'] = cmp_map(nvim_cmp.mapping.scroll_docs(-4)),
         ['<C-f>'] = cmp_map(nvim_cmp.mapping.scroll_docs(4)),
         ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-        ['<C-i>'] = nvim_cmp.mapping({
-          i = complete,
-          c = cmdline_complete,
-        }),
         ['<Tab>'] = nvim_cmp.mapping({
           i = complete,
           c = cmdline_complete,
