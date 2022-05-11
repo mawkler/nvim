@@ -10,12 +10,13 @@ return { 'neovim/nvim-lspconfig',
     local map = require('../utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
 
-    local function make_opts(snippets)
-      if snippets == nil then snippets = true end
-      local capabilities = lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = snippets
-      return { capabilities = capabilities } -- enable snippet support
-    end
+    -- Enable LSP snippets by default
+    local util = require('lspconfig.util')
+    local capabilities = lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    util.default_config = vim.tbl_extend('force', util.default_config, {
+      capabilities = { my_capabilities = capabilities, }
+    })
 
     -- Typescript LSP config
     local typescript_settings = {
@@ -53,10 +54,12 @@ return { 'neovim/nvim-lspconfig',
 
     -- YAML LSP config
     local yaml_settings = {
-      yaml = {
-        schemaStore = {
-          url = 'https://www.schemastore.org/api/json/catalog.json',
-          enable = true
+      settings = {
+        yaml = {
+          schemaStore = {
+            url = 'https://www.schemastore.org/api/json/catalog.json',
+            enable = true
+          }
         }
       }
     }
@@ -73,22 +76,14 @@ return { 'neovim/nvim-lspconfig',
       }
     }
 
-    require('nvim-lsp-installer').on_server_ready(function(server)
-      local opts = make_opts()
-      if server.name == 'sumneko_lua' then
-        opts = lua_settings
-      elseif server.name == 'bashls' then
-        opts = bash_settings
-      elseif server.name == 'tsserver' then
-        opts = typescript_settings
-      elseif server.name == 'yaml' then
-        opts.settings = yaml_settings
-      elseif server.name == 'jsonls' then
-        opts.settings = json_settings
-      end
-      server:setup(opts)
-      vim.cmd 'do User LspAttachBuffers'
-    end)
+    require('nvim-lsp-installer').setup()
+    local lspconfig = require('lspconfig')
+
+    lspconfig.sumneko_lua.setup(lua_settings)
+    lspconfig.tsserver.setup(typescript_settings)
+    lspconfig.bashls.setup(bash_settings)
+    lspconfig.yamlls.setup(yaml_settings)
+    lspconfig.jsonls.setup(json_settings)
 
     ----------------
     -- LSP Config --
