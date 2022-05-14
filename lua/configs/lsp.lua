@@ -1,25 +1,25 @@
--------------------
--- LSP Installer --
--------------------
+---------------
+-- LSP stuff --
+---------------
 return { 'neovim/nvim-lspconfig',
   requires = {
-    'williamboman/nvim-lsp-installer', -- Adds LspInstall commands
-    'b0o/schemastore.nvim',            -- Adds YAML/JSON schemas
+    'williamboman/nvim-lsp-installer',      -- LspInstall commands
+    'b0o/schemastore.nvim',                 -- YAML/JSON schemas
+    'onsails/lspkind-nvim',                 -- Completion icons
+    'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
   },
   config = function()
     local map = require('../utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
+    local lspconfig = require('lspconfig')
 
-    -- Enable LSP snippets by default
-    local util = require('lspconfig.util')
-    local capabilities = lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    util.default_config = vim.tbl_extend('force', util.default_config, {
-      capabilities = { my_capabilities = capabilities, }
-    })
+    -------------------
+    -- LSP Installer --
+    -------------------
+    require('nvim-lsp-installer').setup()
 
-    -- Typescript LSP config
-    local typescript_settings = {
+    -- Typescript --
+    lspconfig.tsserver.setup({
       init_options = require('nvim-lsp-ts-utils').init_options,
       on_attach = function(client)
         local ts_utils = require('nvim-lsp-ts-utils')
@@ -37,23 +37,25 @@ return { 'neovim/nvim-lspconfig',
         map('n', '<leader>lI', '<cmd>TSLspImportCurrent<CR>', opts)
         map('n', '<leader>lh', '<cmd>TSLspToggleInlayHints<CR>', opts)
       end,
-    }
+    })
 
-    -- Lua LSP config
-    local lua_settings = require('lua-dev').setup {
-      lspconfig = {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = {'use'},
+    -- Lua --
+    lspconfig.sumneko_lua.setup(
+      require('lua-dev').setup({
+        lspconfig = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = {'use'},
+              }
             }
           }
         }
-      }
-    }
+      })
+    )
 
-    -- YAML LSP config
-    local yaml_settings = {
+    -- YAML --
+    lspconfig.yamlls.setup({
       settings = {
         yaml = {
           schemaStore = {
@@ -62,32 +64,27 @@ return { 'neovim/nvim-lspconfig',
           }
         }
       }
-    }
+    })
 
-    -- Zsh/Bash LSP config
-    local bash_settings = {
+    -- Zsh/Bash --
+    lspconfig.bashls.setup({
       filetypes = {'sh', 'zsh'}
-    }
+    })
 
-    -- Json
-    local json_settings = {
+    -- Json --
+    lspconfig.jsonls.setup({
       json = {
         schemas = require('schemastore').json.schemas()
       }
-    }
+    })
 
-    require('nvim-lsp-installer').setup()
-    local lspconfig = require('lspconfig')
+    lspconfig.jdtls.setup{}
 
-    lspconfig.sumneko_lua.setup(lua_settings)
-    lspconfig.tsserver.setup(typescript_settings)
-    lspconfig.bashls.setup(bash_settings)
-    lspconfig.yamlls.setup(yaml_settings)
-    lspconfig.jsonls.setup(json_settings)
+    ------------
+    -- Config --
+    ------------
 
-    ----------------
-    -- LSP Config --
-    ----------------
+    -- Add borders to hover/signature windows
     lsp.handlers['textDocument/hover'] = lsp.with(
       lsp.handlers.hover,
       { border = 'single' }
@@ -97,6 +94,14 @@ return { 'neovim/nvim-lspconfig',
       lsp.handlers.signature_help,
       { border = 'single' }
     )
+
+    -- Enable LSP snippets by default
+    local util = require('lspconfig.util')
+    local capabilities = lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    util.default_config = vim.tbl_extend('force', util.default_config, {
+      capabilities = { my_capabilities = capabilities, }
+    })
 
     -------------
     -- LSPKind --
@@ -112,9 +117,9 @@ return { 'neovim/nvim-lspconfig',
       }
     }
 
-    ------------------
-    -- LSP Mappings --
-    ------------------
+    -------------
+    -- Keymaps --
+    -------------
     local INFO = vim.diagnostic.severity.INFO
     local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
     local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
@@ -126,7 +131,6 @@ return { 'neovim/nvim-lspconfig',
       require('telescope.builtin').lsp_references({ include_declaration = false })
     end
 
-    -- LSP and diagnostics
     map('n',        'gd',        require('telescope.builtin').lsp_definitions, 'vim.lsp.buf.definition')
     map('n',        'gi',        require('telescope.builtin').lsp_implementations, 'vim.lsp.buf.implementation')
     map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')

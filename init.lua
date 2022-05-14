@@ -71,8 +71,6 @@ require('packer').startup { function()
   use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
   Use 'cmp_tabnine'
   Use 'cmp'
-  use { 'onsails/lspkind-nvim' }                -- VSCode-like completion icons
-  use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
   use { 'melkster/friendly-snippets' }          -- Snippet collection
   Use 'treesitter'
   use { 'nvim-treesitter/nvim-treesitter-textobjects' }
@@ -182,7 +180,4 @@ require('configs.keymaps')
 require('configs.autocmds')
 require('configs.commands')
 require('configs.diagnostics')
-
-if vim.fn.filereadable('~/.config/nvim/config.vim') then
-  vim.cmd 'source ~/.config/nvim/config.vim'
-end
+pcall(vim.cmd, 'source ~/.config/nvim/config.vim')
