@@ -24,7 +24,7 @@ map('n', '<leader>W', function()
 end, 'Toggle line wrap')
 map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode
 map({'n', 'i', 'v', 's', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
-map('i', '<C-i>', '<Tab>', { remap = true })
+map({'i', 'c'}, '<C-i>', '<Tab>', { remap = true })
 map('n', 'g<C-a>', 'v<C-a>', 'Increment number under cursor')
 map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
 map('s', '<C-r>', '<C-g>c<C-r>', 'Insert content of a register')
