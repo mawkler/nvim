@@ -5,16 +5,15 @@
 ## Installation
 
 1. Install [Neovim](https://github.com/neovim/neovim/releases/)
-
 2. ```sh
    # Clone this repository to ~/.config/nvim/
    git clone https://github.com/melkster/nvim/ ~/.config/nvim/
-   # Install vim-plug
-   curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-   # Install plugins using vim-plug
-   nvim +PlugInstall +qa 2> /dev/null
-   # Install python module for neovim (optional)
+   # Install packer.nvim
+   git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+       ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+   # Install plugins using packer.nvim
+   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+   # Install python module for Neovim (optional)
    pip install --user neovim
    ```
 
