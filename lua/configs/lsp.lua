@@ -7,6 +7,7 @@ return { 'neovim/nvim-lspconfig',
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
+    'folke/lua-dev.nvim'                    -- Lua signature help and completion
   },
   config = function()
     local map = require('../utils').map
@@ -17,6 +18,7 @@ return { 'neovim/nvim-lspconfig',
     -- LSP Installer --
     -------------------
     require('nvim-lsp-installer').setup()
+    local lsp_server_dir = vim.fn.stdpath('data') .. '/lsp_servers/'
 
     -- Typescript --
     lspconfig.tsserver.setup({
@@ -78,7 +80,13 @@ return { 'neovim/nvim-lspconfig',
       }
     })
 
-    lspconfig.jdtls.setup{}
+    -- Bicep --
+    lspconfig.bicep.setup({
+      cmd = { 'dotnet', lsp_server_dir .. 'bicep/Bicep.LangServer.dll' }
+    })
+
+    -- HTML --
+    lspconfig.html.setup {}
 
     ------------
     -- Config --

@@ -92,7 +92,6 @@ require('packer').startup { function()
     module_pattern = 'nui.*',
   }
   use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
-  use { 'folke/lua-dev.nvim' }                  -- Lua signature help, docs and completion
   use { 'ethanholz/nvim-lastplace',             -- Restore cursor position
     config = function() require('nvim-lastplace').setup {} end
   }

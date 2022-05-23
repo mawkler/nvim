@@ -26,6 +26,7 @@ return { 'mhartington/formatter.nvim',
         javascript = prettier_config,
         typescript = prettier_config,
         typescriptreact = prettier_config,
+        html = prettier_config,
         yaml = prettier_config,
         json = prettier_config,
         markdown = {
@@ -55,7 +56,7 @@ return { 'mhartington/formatter.nvim',
     end, 'Toggle autoformatting on write')
 
     autocmd('BufWritePost', {
-      pattern = {'*.js', '*.json', '*.md', '*.py', '*.ts', '*.tsx', '*.yml', '*.yaml'},
+      pattern = {'*.js', '*.json', '*.md', '*.py', '*.ts', '*.tsx', '*.yml', '*.yaml', '*.html'},
       callback = function()
         if b.format_on_write ~= false then
           vim.cmd 'FormatWrite'
