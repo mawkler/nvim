@@ -252,8 +252,9 @@ imap <S-Esc> <Plug>CapsLockToggle
 imap <M-c>   <Plug>CapsLockToggle
 
 " -- Vim-easy-align --
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+xmap ga  <Plug>(EasyAlign)
+nmap ga  <Plug>(EasyAlign)
+nmap gaa gaiL
 
 " -- For editing multiple files with `*` --
 command! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
