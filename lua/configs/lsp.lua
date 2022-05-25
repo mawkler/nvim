@@ -88,6 +88,10 @@ return { 'neovim/nvim-lspconfig',
     -- HTML --
     lspconfig.html.setup {}
 
+
+    -- Python --
+    lspconfig.pylsp.setup {}
+
     ------------
     -- Config --
     ------------
