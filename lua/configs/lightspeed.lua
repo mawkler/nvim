@@ -7,7 +7,8 @@ return { 'ggandor/lightspeed.nvim',              -- Moving cursor anywhere in an
 
     vim.g.lightspeed_no_default_keymaps = true
     require('lightspeed').setup {
-      exit_after_idle_msecs = { labeled = 1000 }
+      exit_after_idle_msecs = { labeled = 1000 },
+      ignore_case = true
     }
 
     map({'n', 'x', 'o'}, 'zj',     '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
