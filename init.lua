@@ -175,6 +175,7 @@ if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
 end
 
 -- Other configs
+require('configs.options')
 require('configs.keymaps')
 require('configs.autocmds')
 require('configs.commands')

@@ -1,22 +1,3 @@
-" -- General --
-set shortmess+=A  " Ignores swapfiles when opening file
-set shortmess+=c  " Disable completion menu messages like 'match 1 of 2'
-set shortmess+=s  " Disable 'Search hit BOTTOM, continuing at TOP' messages
-set shortmess+=FW " Disable message after editing/writing file
-set termguicolors " Use GUI colors in terminal as well
-set winblend=5    " Transparent floating windows
-set pumblend=5    " Transparent popup-menu
-set noshowmode    " Don't write out `--INSERT--`, etc.
-set linebreak     " Don't break lines in the middle of a word
-set lazyredraw
-set undofile
-set viewoptions=cursor,folds,slash,unix
-set fileformat=unix   " Use Unix eol format
-set spelllang=en,sv   " Use both Engligh and Swedish spell check
-set splitright        " Open vertical window splits to the right instead of left
-set encoding=utf-8
-set updatetime=500
-
 if exists('g:goneovim') && !exists('g:font_set')
   set guifont=FiraCode\ Nerd\ Font:h11
   let g:font_set = v:true " Prevents goneovim from changing zoom level when reloading init.vim
@@ -26,15 +7,6 @@ augroup filechanged
   autocmd!
   autocmd FocusGained * silent! checktime " Check if any file has changed when Vim is focused
 augroup end
-
-" -- Menu autocompletion --
-set wildignorecase  " Case insensitive file- and directory name completion
-set path+=**        " Lets `find` search recursively into subfolders
-set cedit=<C-y>     " Enter Command-line Mode from command-mode
-
-" -- Searching --
-set ignorecase " Case insensitive searching
-set smartcase  " Except for when searching in CAPS
 
 " -- Custom filetypes --
 augroup custom_filetypes
@@ -195,30 +167,6 @@ noremap <silent> <C-0> :call ZoomSet(11)<CR>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-q> <Esc>
-set cpoptions-=_ " Makes cw/cW include the whitespace after the word
-set shada=!,'1000,<50,s10,h
-
-" if exists('$TMUX')
-"   set notermguicolors " Tmux screws up the colors if `set termguicolors` is used
-" endif
-
-" -- Lines and cursor --
-set number relativenumber
-set cursorline                    " Cursor highlighting
-set scrolloff=10                  " Cursor margin
-set guicursor+=n:blinkwait0       " Disables cursor blinking in normal mode
-set guicursor+=i:ver25-blinkwait0 " And in insert mode
-set conceallevel=2                " Hide concealed characters completely
-set concealcursor=nic             " Conceal characters on the cursor line
-set breakindent                   " Respect indent when line wrapping
-
-" -- Tab characters --
-set expandtab                     " Use spaces for indentation
-set shiftwidth=2                  " Width of indentation
-set tabstop=4                     " Width of <Tab> characters
-set list listchars=tab:\ \ ,nbsp:·
-set shiftround                    " Round indent to multiple of shiftwdith
-set cinkeys-=0#                   " Indent lines starting with `#`
 
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -nargs=? -complete=file Trash
