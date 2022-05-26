@@ -1,4 +1,4 @@
-return { 'famiu/feline.nvim',
+return { 'feline-nvim/feline.nvim',
   requires = {
     'SmiteshP/nvim-gps',
     'nvim-lua/lsp-status.nvim',

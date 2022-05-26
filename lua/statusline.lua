@@ -150,31 +150,36 @@ table.insert(active_left, {
   provider = 'lsp_client_names',
   left_sep = ' ',
   riht_sep = ' ',
-  hl = {fg = 'darkgray' },
+  hl = { fg = 'darkgray' },
   enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
   icon = ' ',
   truncate_hide = true,
   priority = -1,
 })
 
+local hl_error = GetHiVal('LspDiagnosticsError')
+local hl_warning = GetHiVal('LspDiagnosticsWarning')
+local hl_information = GetHiVal('LspDiagnosticsInformation')
+local hl_hint = GetHiVal('LspDiagnosticsHint')
+
 table.insert(active_left, {
   provider = 'diagnostic_errors',
-  hl = { fg = GetHiVal('LspDiagnosticsDefaultError') },
+  hl = { fg = hl_error },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_warnings',
-  hl = { fg = GetHiVal('LspDiagnosticsDefaultWarning') },
+  hl = { fg = hl_warning },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_info',
-  hl = { fg = GetHiVal('LspDiagnosticsDefaultInformation') },
+  hl = { fg = hl_information },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_hints',
-  hl = { fg = GetHiVal('LspDiagnosticsDefaultHint') },
+  hl = { fg = hl_hint },
 })
 
 --------------------
