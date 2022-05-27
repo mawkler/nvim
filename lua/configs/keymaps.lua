@@ -1,7 +1,7 @@
 -------------
 -- Keymaps --
 -------------
-local bo, o, fn = vim.bo, vim.o, vim.fn
+local bo, o, v, fn = vim.bo, vim.o, vim.v, vim.fn
 local utils = require('../utils')
 local map, autocmd, feedkeys = utils.map, utils.autocmd, utils.feedkeys
 
@@ -43,6 +43,9 @@ map('!',        '<M-f>',         '<C-Right>')
 map('!',        '<C-b>',         '<Left>')
 map('c',        '<M-l>',         '<Right>')
 map('c',        '<M-h>',         '<Left>')
+map('c',        '<C-p>',         '<Up>')
+map('c',        '<C-n>',         '<Down>')
+map('c',        '<C-q>',         '<Esc>')
 map('!',        '<M-b>',         '<C-Left>')
 map('!',        '<M-w>',         '<C-Right>')
 map('c',        '<C-a>',         '<Home>')
@@ -125,12 +128,42 @@ map('o',        'g(',        ':silent normal vg(oh<CR>')
 map({'n', 'v'}, '<leader>S', ':setlocal spell!<CR>')
 map('n',        '<C-W>N',    ':tabe<CR>')
 
--- -- Adds previous cursor location to jumplist if count is > 5
--- -- map('n', '<expr>', 'k (v:count > 5 ? "m'" . v:count : "") . 'k'')
--- -- map('n', '<expr>', 'j (v:count > 5 ? "m'" . v:count : "") . 'j'')
--- map('n', 'j', function()
---   return
--- end)
+-- Adds previous cursor location to jumplist if count is > 5
+local function move_vertically(direction)
+  if v.count > 5 then
+    feedkeys("m'" .. v.count .. direction, 'n')
+  else
+    feedkeys(direction, 'n')
+  end
+end
+
+map('n', 'k', function () move_vertically('k') end, 'k')
+map('n', 'j', function () move_vertically('j') end, 'j')
+
+-- Sets the font size
+local function zoom_set(font_size)
+  if fn.exists('g:goneovim') then
+    o.guifont = fn.substitute(
+      fn.substitute(o.guifont, ':h\\d\\+', ':h' .. font_size, ''),
+      ' ',
+      '\\ ',
+      'g'
+    )
+  else
+    local font = fn.substitute(o.guifont, ':h\\d\\+', ':h' .. font_size, '')
+    vim.cmd('GuiFont! ' .. font)
+  end
+end
+
+-- Increases the font zise with `amount`
+local function zoom(amount)
+  zoom_set(fn.matchlist(o.guifont, ':h\\(\\d\\+\\)')[2] + amount)
+end
+
+map('n', '<C-=>', function() zoom(v.count1) end)
+map('n', '<C-+>', function() zoom(v.count1) end)
+map('n', '<C-->', function() zoom(-v.count1) end)
+map('n', '<C-0>', function() zoom_set(11) end)
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode

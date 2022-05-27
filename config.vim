@@ -16,29 +16,6 @@ function MarkdownGf()
 endf
 nnoremap gf :call MarkdownGf()<CR>
 
-" Increases the font zise with `amount`
-function! Zoom(amount) abort
-  call ZoomSet(matchlist(&guifont, ':h\(\d\+\)')[1] + a:amount)
-endf
-
-" Sets the font size
-function! ZoomSet(font_size) abort
-  if !exists('g:goneovim')
-    execute 'GuiFont! ' .  substitute(&guifont, ':h\d\+', ':h' . a:font_size, '')
-  else
-    execute 'set guifont=' .  substitute(substitute(&guifont, ':h\d\+', ':h' . a:font_size, ''), ' ', '\\ ', 'g')
-  endif
-endf
-
-noremap <silent> <C-=> :call Zoom(v:count1)<CR>
-noremap <silent> <C-+> :call Zoom(v:count1)<CR>
-noremap <silent> <C--> :call Zoom(-v:count1)<CR>
-noremap <silent> <C-0> :call ZoomSet(11)<CR>
-
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-q> <Esc>
-
 " Puts current file in trashcan using trash-cli
 command! -bar -bang -nargs=? -complete=file Trash
       \ let s:file = fnamemodify(bufname(<q-args>),':p') |
