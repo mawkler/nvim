@@ -14,112 +14,6 @@ augroup custom_filetypes
   autocmd BufNewFile,BufRead *.dconf set syntax=sh
 augroup END
 
-nnoremap yp               yyp
-noremap  <leader>y        "+y
-map      <leader>Y        "+Y
-noremap  <leader>d        "+d
-noremap  <leader>D        "+D
-noremap  <leader>p        "+p
-noremap  <leader>P        "+P
-map!     <M-v>            <C-r>+
-map      <C-q>            :qa<CR>
-map      -                3<C-W><
-map      +                3<C-W>>
-nmap     <M-+>            <C-W>+
-nmap     <M-->            <C-W>-
-nmap     <C-j>            o<Esc>
-nmap     g<C-j>           i<CR><Esc>
-nmap     <C-k>            O<Esc>
-nmap     g<C-k>           DO<Esc>P_
-nmap     gK               kjddkPJ<C-y>
-nmap     <C-s>            :w<CR>
-imap     <C-s>            <Esc>:w<CR>
-vmap     <C-s>            <Esc>:w<CR>gv
-smap     <C-s>            <Esc>:w<CR>
-smap     <C-h>            <BS>
-xmap     v                $h
-nnoremap c_               c^
-nnoremap d_               d^
-nmap     <BS>             X
-nmap     <M-BS>           db
-map!     <M-BS>           <C-w>
-map!     <M-p>            <C-r>"
-smap     <M-p>            <C-g>pgv<C-g>
-map      <M-a>            v<C-a>
-map      <M-x>            v<C-x>
-map!     <C-f>            <Right>
-map!     <M-f>            <C-Right>
-map!     <C-b>            <Left>
-cmap     <M-l>            <Right>
-cmap     <M-h>            <Left>
-map!     <M-b>            <C-Left>
-map!     <M-w>            <C-Right>
-cmap     <C-a>            <Home>
-nmap     <M-j>            :m .+1<CR>==
-nmap     <M-k>            :m .-2<CR>==
-xmap     <M-j>            :m '>+1<CR>gv=gv
-xmap     <M-k>            :m '<-2<CR>gv=gv
-imap     <M-j>            <Esc>:m .+1<CR>==gi
-imap     <M-k>            <Esc>:m .-2<CR>==gi
-nnoremap <C-w>T           :tab split<CR>
-nnoremap <C-w>C           :tabclose<CR>
-nnoremap <leader>wn       :tab split<CR>
-nnoremap <leader>wc       :tabclose<CR>
-nnoremap <leader>wo       :tabonly<CR>
-nnoremap <leader>wl       :tabnext<CR>
-nnoremap <leader>wh       :tabprevious<CR>
-nmap     <Leader><Esc>    <Nop>
-nmap     <leader>i        :source ~/.config/nvim/init.lua<CR>
-nmap     <leader>I        :drop ~/.config/nvim/init.lua<CR>
-nmap     <leader>V        :drop ~/.config/nvim/config.vim<CR>
-nmap     <leader>Z        :drop ~/.zshrc<CR>
-map      gX               :exec 'silent !brave %:p &'<CR>
-xnoremap //               omsy/<C-R>"<CR>`s
-nnoremap /                ms/
-nnoremap *                ms*
-nnoremap g*               msg*`s
-nnoremap <leader>*        ms*`s
-nnoremap <leader>g*       msg*`s
-nnoremap #                ms#
-nnoremap g#               msg#`s
-nmap     `/               `s
-nmap     g/               /\<\><Left><Left>
-nmap     <leader>R        :%substitute/<C-R><C-W>//gci<Left><Left><Left><Left>
-nmap      Q                @@
-xmap      Q                @@
-nmap      <leader>q        qqqqq
-xmap      <leader>q        qqqqq
-nnoremap cg*              *Ncgn
-nnoremap dg*              *Ndgn
-vnoremap gcn              //Ncgn
-vnoremap gdn              //Ndgn
-nnoremap g.               /\V\C<C-R>"<CR>cgn<C-a><Esc>
-xnoremap g.               .
-
-nmap     <leader>K        :vertical Man <C-R><C-W><CR>
-xmap     <leader>K        y:vertical Man <C-R>"<CR>
-
-map  <silent> <leader>S :setlocal spell!<CR>
-map           g)        w)ge
-omap <silent> g)        :silent normal vg)h<CR>
-map           g(        (ge
-omap <silent> g(        :silent normal vg(oh<CR>
-nmap <silent> <C-W>N    :tabe<CR>
-
-nmap <silent> <expr> <leader>z &spell ? "1z=" : ":setlocal spell<CR>1z=:setlocal nospell<CR>"
-nmap <silent> <expr> ]s        &spell ? "]s" : ":setlocal spell<CR>]s"
-nmap <silent> <expr> [s        &spell ? "[s" : ":setlocal spell<CR>[s"
-
-" `;`/`,` always seach forward/backward, respectively
-nnoremap <expr> ; getcharsearch().forward ? ';' : ','
-xnoremap <expr> ; getcharsearch().forward ? ';' : ','
-nnoremap <expr> , getcharsearch().forward ? ',' : ';'
-xnoremap <expr> , getcharsearch().forward ? ',' : ';'
-
-" Adds previous cursor location to jumplist if count is > 5
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
-
 augroup vertical_help
   " Open :help in vertical split instead of horizontal
   autocmd!
@@ -128,9 +22,6 @@ augroup vertical_help
         \ wincmd L |
         \ vertical resize 80
 augroup END
-
-" Prints the syntax highlighting values under cursor
-nmap <leader>H :TSHighlightCapturesUnderCursor<CR>
 
 " Tries to perform a regular `gf`, if that doesn't work try to call
 " vim-markdown's Markdown_EditUrlUnderCursor

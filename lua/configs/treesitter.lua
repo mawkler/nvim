@@ -4,6 +4,8 @@
 return { 'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   config = function ()
+    local map = require('../utils').map
+
     require('nvim-treesitter.configs').setup {
       ensure_installed = 'all',
       highlight = {
@@ -64,6 +66,9 @@ return { 'nvim-treesitter/nvim-treesitter',
         include_match_words = true
       },
     }
+
+    -- Prints the syntax highlighting values under cursor
+    map('n', '<leader>H', '<cmd>TSHighlightCapturesUnderCursor<CR>')
 
     -- Disable treesitter from highlighting errors (LSP does that anyway)
     vim.cmd 'highlight! link TSError Normal'

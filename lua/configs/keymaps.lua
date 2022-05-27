@@ -1,19 +1,148 @@
 -------------
 -- Keymaps --
 -------------
-local bo, o = vim.bo, vim.o
+local bo, o, fn = vim.bo, vim.o, vim.fn
 local utils = require('../utils')
 local map, autocmd, feedkeys = utils.map, utils.autocmd, utils.feedkeys
 
+-- Leader --
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 map('n', '<S-Space>', '<Space>')
 
+map('n',        'yp',            'yyp')
+map('n',        '<leader>y',     '"+y')
+map('n',        '<leader>Y',     '"+Y')
+map('n',        '<leader>d',     '"+d')
+map('n',        '<leader>D',     '"+D')
+map('n',        '<leader>p',     '"+p')
+map('n',        '<leader>P',     '"+P')
+map('!',        '<M-v>',         '<C-r>+')
+map({'n', 'v'}, '<C-q>',         ':qa<CR>')
+map({'n', 'v'}, '-',             '3<C-W><')
+map({'n', 'v'}, '+',             '3<C-W>>')
+map({'n', 'v'}, '<M-+>',         '<C-W>+')
+map({'n', 'v'}, '<M-->',         '<C-W>-')
+map('n',        '<C-j>',         'o<Esc>')
+map('n',        '<C-j>',         'i<CR><Esc>')
+map('n',        '<C-k>',         'O<Esc>')
+map('n',        'g<C-k>',        'DO<Esc>P_')
+map('n',        'gK',             'kjddkPJ<C-y>')
+map('n',        '<C-s>',         ':w<CR>')
+map({'i', 's'}, '<C-s>',         '<Esc>:w<CR>')
+map('v',        '<C-s>',         '<Esc>:w<CR>gv')
+map('s',        '<C-h>',         '<BS>')
+map('x',        'v',             '$h')
+map('n',        '<BS>',          'X')
+map('n',        '<M-BS>',        'db')
+map('!',        '<M-BS>',        '<C-w>')
+map('!',        '<M-p>',         '<C-r>"')
+map('s',        '<M-p>',         '<C-g>pgv<C-g>')
+map('!',        '<C-f>',         '<Right>')
+map('!',        '<M-f>',         '<C-Right>')
+map('!',        '<C-b>',         '<Left>')
+map('c',        '<M-l>',         '<Right>')
+map('c',        '<M-h>',         '<Left>')
+map('!',        '<M-b>',         '<C-Left>')
+map('!',        '<M-w>',         '<C-Right>')
+map('c',        '<C-a>',         '<Home>')
+map('n',        '<M-j>',         ':m      .+1<CR>==')
+map('n',        '<M-k>',         ':m      .-2<CR>==')
+map('x',        '<M-j>',         ":m      '>+1<CR>gv=gv")
+map('x',        '<M-k>',         ":m      '<-2<CR>gv=gv")
+map('i',        '<M-j>',         '<Esc>:m .+1<CR>==gi')
+map('i',        '<M-k>',         '<Esc>:m .-2<CR>==gi')
+map('n',        '<C-w>T',        ':tab    split<CR>')
+map('n',        '<C-w>C',        ':tabclose<CR>')
+map('n',        '<leader>wn',    ':tab    split<CR>')
+map('n',        '<leader>wc',    ':tabclose<CR>')
+map('n',        '<leader>wo',    ':tabonly<CR>')
+map('n',        '<leader>wl',    ':tabnext<CR>')
+map('n',         '<leader>wh',  ':tabprevious<CR>')
+map('n',        '<Leader><Esc>', '<Nop>')
+map('n',        '<leader>i',     ':source ~/.config/nvim/init.lua<CR>')
+map('n',        '<leader>I',     ':drop   ~/.config/nvim/init.lua<CR>')
+map('n',        '<leader>V',     ':drop   ~/.config/nvim/config.vim<CR>')
+map('n',        '<leader>Z',     ':drop   ~/.zshrc<CR>')
+map('n',        'gX',            ':exec   "silent !brave %:p &"<CR>')
+map('x',        '//',            'omsy/<C-R>"<CR>`s')
+map('n',        '/',             'ms/')
+map('n',        '*',             'ms*')
+map('n',        'g*',            'msg*`s')
+map('n',        '<leader>*',     'ms*`s')
+map('n',        '<leader>g*',    'msg*`s')
+map('n',        '#',             'ms#')
+map('n',        'g#',            'msg#`s')
+map('n',        '`/',            '`s')
+map('n',        'g/',             '/\\<\\><Left><Left>')
+map('n',        '<leader>R',     ':%s/<C-R><C-W>//gci<Left><Left><Left><Left>')
+map({'n', 'x'}, '<leader>q',     'qqqqq')
+map({'n', 'x'}, 'Q',             '@@')
+map('n',        'cg*',           '*Ncgn')
+map('n',        'cg*',           '*Ndgn')
+map('v',        'gcn',           '//Ncgn')
+map('v',        'gdn',           '//Ndgn')
+map('n',        'g.',            '/\\V\\C<C-R>"<CR>cgn<C-a><Esc>')
+map('x',        'g.',            '.')
+
+map('n', '<leader>z', function()
+  o.spell = true
+  feedkeys('1z=')
+  o.spell = false
+end)
+map('n', ']s', function()
+  o.spell = true
+  feedkeys(']s')
+end)
+map('n', '[s', function()
+  o.spell = true
+  feedkeys('[s')
+end)
+
+-- ;/, always seach forwards/backwards, respectively
+map({'n', 'x'}, ';', function()
+  if fn.getcharsearch().forward == 1 then
+    feedkeys(';', 'n')
+  else
+    feedkeys(',', 'n')
+  end
+end)
+map({'n', 'x'}, ',', function()
+  if fn.getcharsearch().forward == 1 then
+    feedkeys(',', 'n')
+  else
+    feedkeys(';', 'n')
+  end
+end)
+
+map('n', '<leader>K',        ':vertical Man <C-R><C-W><CR>')
+map('x', '<leader>K',        'y:vertical Man <C-R>"<CR>')
+
+map({'n', 'v'}, 'g)',        'w)ge')
+map({'n', 'v'}, 'g(',        '(ge')
+map('o',        'g)',        ':silent normal vg)h<CR>')
+map('o',        'g(',        ':silent normal vg(oh<CR>')
+map({'n', 'v'}, '<leader>S', ':setlocal spell!<CR>')
+map('n',        '<C-W>N',    ':tabe<CR>')
+
+-- -- Adds previous cursor location to jumplist if count is > 5
+-- -- map('n', '<expr>', 'k (v:count > 5 ? "m'" . v:count : "") . 'k'')
+-- -- map('n', '<expr>', 'j (v:count > 5 ? "m'" . v:count : "") . 'j'')
+-- map('n', 'j', function()
+--   return
+-- end)
+
+map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
+map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode
+map({'n', 'i', 'v', 's', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
+map({'i', 'c'}, '<C-i>', '<Tab>', { remap = true })
+map('n', 'g<C-a>', 'v<C-a>', 'Increment number under cursor')
+map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
+map('s', '<C-r>', '<C-g>c<C-r>', 'Insert content of a register')
+
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
 end, 'Delete buffer and pop jump stack')
-
-map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<leader>N', function()
   o.relativenumber = not o.relativenumber
   print('Relative numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
@@ -22,12 +151,6 @@ map('n', '<leader>W', function()
   vim.o.wrap = not vim.o.wrap
   print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
-map('s', '<BS>', '<BS>a') -- By default <BS> puts you in normal mode
-map({'n', 'i', 'v', 's', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
-map({'i', 'c'}, '<C-i>', '<Tab>', { remap = true })
-map('n', 'g<C-a>', 'v<C-a>', 'Increment number under cursor')
-map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
-map('s', '<C-r>', '<C-g>c<C-r>', 'Insert content of a register')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 local function quickfix_jump(command)
@@ -41,8 +164,8 @@ local function quickfix_jump(command)
   end
 end
 
-map('n', ']q', function() return quickfix_jump('cnext') end, 'Next quickfix item')
-map('n', '[q', function() return quickfix_jump('cprev') end, 'Previous quickfix item')
+map('n', ']q', function() return quickfix_jump('cnext') end, 'Next qf item')
+map('n', '[q', function() return quickfix_jump('cprev') end, 'Previous qf item')
 map('n', ']Q', '<cmd>cbelow<CR>')
 map('n', '[Q', '<cmd>cabove<CR>')
 map('n', ']l', '<cmd>lbelow<CR>')
