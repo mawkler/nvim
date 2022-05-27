@@ -3,26 +3,6 @@ if exists('g:goneovim') && !exists('g:font_set')
   let g:font_set = v:true " Prevents goneovim from changing zoom level when reloading init.vim
 endif
 
-augroup filechanged
-  autocmd!
-  autocmd FocusGained * silent! checktime " Check if any file has changed when Vim is focused
-augroup end
-
-" -- Custom filetypes --
-augroup custom_filetypes
-  autocmd!
-  autocmd BufNewFile,BufRead *.dconf set syntax=sh
-augroup END
-
-augroup vertical_help
-  " Open :help in vertical split instead of horizontal
-  autocmd!
-  autocmd FileType help
-        \ setlocal bufhidden=unload |
-        \ wincmd L |
-        \ vertical resize 80
-augroup END
-
 " Tries to perform a regular `gf`, if that doesn't work try to call
 " vim-markdown's Markdown_EditUrlUnderCursor
 function MarkdownGf()
@@ -65,20 +45,6 @@ command! -bar -bang -nargs=? -complete=file Trash
       \ execute 'BufferClose<bang>' |
       \ execute 'silent !trash ' . s:file |
       \ unlet s:file
-
-augroup language_specific
-  autocmd!
-  " Don't conceal current line in some file formats (LaTeX files' configs don't seem to be overwritten though)
-  autocmd FileType markdown,latex,tex,json,http setlocal concealcursor=""
-  " For adding a horizontal line below and entering insert mode below it
-  autocmd FileType markdown nnoremap <buffer> <leader>- o<Esc>0Do<Esc>0C---<CR><CR>
-  " Custom filetype indent settings
-  autocmd FileType css,python,cs setlocal shiftwidth=4 tabstop=4
-  " Start commit buffers in insert mode
-  autocmd FileType gitcommit exec 'norm gg' | setlocal spell | startinsert!
-  autocmd FileType lua setlocal keywordprg=:help
-  autocmd FileType lua let b:surround_{char2nr('F')} = "function() return \r end"
-augroup end
 
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
