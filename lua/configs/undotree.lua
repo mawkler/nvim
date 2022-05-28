@@ -13,6 +13,7 @@ return { 'mbbill/undotree',
       vim.cmd 'UndotreeFocus'
     end, 'Open undo tree')
 
+    vim.api.nvim_create_augroup('UndoTreeMaps', {})
     autocmd('FileType', {
       pattern = 'undotree',
       callback = function()

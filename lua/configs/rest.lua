@@ -19,6 +19,7 @@ return { 'NTBBloodbath/rest.nvim',
 
     vim.cmd 'command! Http call v:lua.http_request()'
 
+    vim.api.nvim_create_augroup('RestNvim', {})
     autocmd('FileType', {
       pattern = 'http',
       callback = function()

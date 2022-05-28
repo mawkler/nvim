@@ -11,7 +11,6 @@ autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
   end,
-  group = 'HighlightYank'
 })
 
 -- TypeScript specific --
@@ -20,7 +19,6 @@ autocmd('FileType', {
   callback = function()
     opt.matchpairs:append('<:>')
   end,
-  group = 'TypeScript'
 })
 
 -- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
@@ -34,16 +32,12 @@ autocmd('FileType', {
 -- }
 
 -- Check if any file has changed when Neovim is focused
-autocmd('FocusGained', {
-  command = 'checktime',
-  group = 'filechanged',
-})
+autocmd('FocusGained', { command = 'checktime' })
 
 -- Custom filetypes
 autocmd({'BufNewFile', 'BufRead'}, {
   pattern = '*.dconf',
   callback = function() o.syntax = 'sh' end,
-  group = 'CustomFiletypes'
 })
 
 -- Open :help in vertical split instead of horizontal
@@ -54,33 +48,29 @@ autocmd('FileType', {
     vim.cmd 'wincmd L'
     vim.cmd 'vertical resize 81'
   end,
-  group = 'VerticalHelp'
 })
 
 -- Don't conceal current line in some file formats
 autocmd('FileType', {
   pattern = { 'markdown', 'latex', 'tex', 'json', 'http' },
-  callback = function() bo.concealcursor = '' end,
-  group = 'LanguageSpecific'
+  callback = function() wo.concealcursor = '' end,
 })
 
 -- Adds horizontal line below and enters insert mode below it
 autocmd('FileType', {
   pattern = 'markdown',
   callback = function() map('n', '<leader>-', 'o<Esc>0Do<Esc>0C---<CR><CR>') end,
-  group = 'LanguageSpecific'
 })
 
 -- Filetype specific indent settings
 autocmd('FileType', {
   pattern = { 'css', 'python', 'cs' },
   callback = function() bo.shiftwidth = 4 end,
-  group = 'LanguageSpecific'
 })
 
 -- Start git commits at start of line, and insert mode if message is empty
-autocmd('BufEnter', {
-  pattern = 'COMMIT_EDITMSG',
+autocmd('FileType', {
+  pattern = 'gitcommit',
   callback = function()
     wo.spell = true
     api.nvim_win_set_cursor(0, {1, 0})
@@ -88,14 +78,12 @@ autocmd('BufEnter', {
       vim.cmd 'startinsert!'
     end
   end,
-  group = 'LanguageSpecific'
 })
 
 -- `K` in Lua files opens Vim helpdocs
 autocmd('FileType', {
   pattern = 'lua',
   callback = function() bo.keywordprg = ':help' end,
-  group = 'LanguageSpecific'
 })
 
 -- `F` surround object in Lua files
@@ -104,5 +92,4 @@ autocmd('FileType', {
   callback = function()
     vim.cmd [[ let b:surround_{char2nr('F')} = "function() return \r end" ]]
   end,
-  group = 'LanguageSpecific'
 })

@@ -236,5 +236,4 @@ autocmd('CmdwinEnter', {
     map('n', '<CR>',  '<CR>',   { buffer = true })
     map('n', '<Esc>', '<C-w>c', { buffer = true })
   end,
-  group = 'mappings'
 })

@@ -18,6 +18,7 @@ return { 'stevearc/dressing.nvim',
       }
     }
 
+    vim.api.nvim_create_augroup('Dressing', {})
     autocmd('Filetype', {
       pattern = 'DressingInput',
       callback = function()

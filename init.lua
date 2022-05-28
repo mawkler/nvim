@@ -168,10 +168,7 @@ end, config = {
 
 if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
   print('Autocompiling...')
-  require('utils').autocmd('VimEnter', {
-    command = 'PackerCompile',
-    group   = 'Packer'
-  })
+  require('utils').autocmd('VimEnter', { command = 'PackerCompile' })
 end
 
 -- Other configs

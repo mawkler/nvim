@@ -20,14 +20,10 @@ M.error = function(message)
   vim.api.nvim_echo({{ message, 'Error' }}, false, {})
 end
 
-M.autocmd = function(event, opts)
-  if opts.group then
-    vim.api.nvim_create_augroup(opts.group, {})
-  else
-    opts.group = 'DefaultAugroup'
-    vim.api.nvim_create_augroup('DefaultAugroup', {})
-  end
+vim.api.nvim_create_augroup('DefaultAugroup', {})
 
+M.autocmd = function(event, opts)
+  opts.group = opts.group or 'DefaultAugroup'
   vim.api.nvim_create_autocmd(event, opts)
 end
 

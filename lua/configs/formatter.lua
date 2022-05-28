@@ -62,7 +62,6 @@ return { 'mhartington/formatter.nvim',
           vim.cmd 'FormatWrite'
         end
       end,
-      group = 'FormatOnWrite'
     })
   end,
 }

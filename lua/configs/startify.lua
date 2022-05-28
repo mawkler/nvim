@@ -30,6 +30,7 @@ return { 'mhinz/vim-startify',
       '    \\__| \\____\\)----------------------------------- ',
     }
 
+    vim.api.nvim_create_augroup('Startify', {})
     autocmd('User Startified', {
       callback = function ()
         -- Disable q mapping
