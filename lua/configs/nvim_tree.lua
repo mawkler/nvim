@@ -17,22 +17,6 @@ return { 'kyazdani42/nvim-tree.lua',
     local callback = require('nvim-tree.config').nvim_tree_callback
     local nvim_tree = require('nvim-tree')
 
-    vim.g.nvim_tree_highlight_opened_files = 2
-    vim.g.nvim_tree_special_files = {}
-    vim.g.nvim_tree_git_hl = 1
-    vim.g.nvim_tree_icons = {
-      default = '' ,
-      git = {
-        ignored   = '',
-        untracked = '',
-        unstaged  = '',
-        staged    = '',
-        unmerged  = '',
-        renamed   = '',
-        deleted   = '',
-      }
-    }
-
     nvim_tree.setup {
       diagnostics = {
         enable = true,
@@ -44,8 +28,23 @@ return { 'kyazdani42/nvim-tree.lua',
         ignore = false,
       },
       renderer = {
+        highlight_opened_files = 'all',
+        special_files = {},
+        highlight_git = true,
         indent_markers = {
           enable = true,
+        },
+        icons = {
+          default = '' ,
+          git = {
+            ignored   = '',
+            untracked = '',
+            unstaged  = '',
+            staged    = '',
+            unmerged  = '',
+            renamed   = '',
+            deleted   = '',
+          }
         }
       },
       view = {
@@ -67,6 +66,8 @@ return { 'kyazdani42/nvim-tree.lua',
         }
       }
     }
+
+    vim.api.nvim_create_augroup('NvimTreeRefresh', {})
 
     autocmd('BufEnter', {
       pattern = 'NvimTree_1',
