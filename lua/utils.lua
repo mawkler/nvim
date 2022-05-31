@@ -12,7 +12,7 @@ M.map = function(modes, lhs, rhs, opts)
 end
 
 M.feedkeys = function(keys, mode)
-  if mode == nil then mode = 'i' end
+  if mode == nil then mode = 'in' end
   return vim.api.nvim_feedkeys(M.termcodes(keys), mode, true)
 end
 

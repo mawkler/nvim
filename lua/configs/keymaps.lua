@@ -105,16 +105,16 @@ end)
 -- ;/, always seach forwards/backwards, respectively
 map({'n', 'x'}, ';', function()
   if fn.getcharsearch().forward == 1 then
-    feedkeys(';', 'n')
+    feedkeys(';')
   else
-    feedkeys(',', 'n')
+    feedkeys(',')
   end
 end)
 map({'n', 'x'}, ',', function()
   if fn.getcharsearch().forward == 1 then
-    feedkeys(',', 'n')
+    feedkeys(',')
   else
-    feedkeys(';', 'n')
+    feedkeys(';')
   end
 end)
 
@@ -131,9 +131,9 @@ map('n',        '<C-W>N',    ':tabe<CR>')
 -- Adds previous cursor location to jumplist if count is > 5
 local function move_vertically(direction)
   if v.count > 5 then
-    feedkeys("m'" .. v.count .. direction, 'n')
+    feedkeys("m'" .. v.count .. direction)
   else
-    feedkeys(direction, 'n')
+    feedkeys(direction)
   end
 end
 
@@ -174,7 +174,8 @@ map('n', 'g<C-x>', 'v<C-x>', 'Decrement number under cursor')
 map('s', '<C-r>', '<C-g>c<C-r>', 'Insert content of a register')
 
 map('n', '<leader><C-t>', function()
-  bo.bufhidden = 'delete' feedkeys('<C-t>', 'n')
+  bo.bufhidden = 'delete'
+  feedkeys('<C-t>')
 end, 'Delete buffer and pop jump stack')
 map('n', '<leader>N', function()
   o.relativenumber = not o.relativenumber
@@ -217,7 +218,7 @@ map('n', '<Esc>', function()
   if bo.modifiable then
     require('../utils').clear_lsp_references()
   else
-    return feedkeys('<C-w>c', 'n')
+    return feedkeys('<C-w>c')
   end
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
