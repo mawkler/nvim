@@ -20,13 +20,6 @@ M.error = function(message)
   vim.api.nvim_echo({{ message, 'Error' }}, false, {})
 end
 
-vim.api.nvim_create_augroup('DefaultAugroup', {})
-
-M.autocmd = function(event, opts)
-  opts.group = opts.group or 'DefaultAugroup'
-  vim.api.nvim_create_autocmd(event, opts)
-end
-
 M.visible_buffers = function()
   local bufs = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do

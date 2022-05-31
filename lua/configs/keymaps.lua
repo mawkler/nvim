@@ -3,7 +3,7 @@
 -------------
 local bo, o, v, fn = vim.bo, vim.o, vim.v, vim.fn
 local utils = require('../utils')
-local map, autocmd, feedkeys = utils.map, utils.autocmd, utils.feedkeys
+local map, feedkeys = utils.map, utils.feedkeys
 
 -- Leader --
 vim.g.mapleader = ' '
@@ -11,12 +11,12 @@ vim.g.maplocalleader = ' '
 map('n', '<S-Space>', '<Space>')
 
 map('n',        'yp',            'yyp')
-map('n',        '<leader>y',     '"+y')
-map('n',        '<leader>Y',     '"+Y')
-map('n',        '<leader>d',     '"+d')
+map({'n', 'v'}, '<leader>y',     '"+y')
+map('n',        '<leader>Y',     '"+y$')
+map({'n', 'v'}, '<leader>d',     '"+d')
 map('n',        '<leader>D',     '"+D')
-map('n',        '<leader>p',     '"+p')
-map('n',        '<leader>P',     '"+P')
+map({'n', 'v'}, '<leader>p',     '"+p')
+map({'n', 'v'}, '<leader>P',     '"+P')
 map('!',        '<M-v>',         '<C-r>+')
 map({'n', 'v'}, '<C-q>',         ':qa<CR>')
 map({'n', 'v'}, '-',             '3<C-W><')
@@ -231,9 +231,11 @@ map('n', '<leader>kS', '<cmd>PackerStatus<CR>')
 map('n', '<leader>ki', '<cmd>PackerInstall<CR>')
 map('n', '<leader>kp', '<cmd>PackerProfile<CR>')
 
-autocmd('CmdwinEnter', {
+vim.api.nvim_create_augroup('CmdWinMaps', {})
+vim.api.nvim_create_autocmd('CmdwinEnter', {
   callback = function()
     map('n', '<CR>',  '<CR>',   { buffer = true })
     map('n', '<Esc>', '<C-w>c', { buffer = true })
   end,
+  group = 'CmdWinMaps'
 })

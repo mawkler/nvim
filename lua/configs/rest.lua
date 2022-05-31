@@ -4,7 +4,7 @@
 return { 'NTBBloodbath/rest.nvim',
   cmd = 'Http',
   config = function()
-    local map, autocmd = require('../utils').map, require('../utils').autocmd
+    local map = require('../utils').map
 
     require('rest-nvim').setup()
 
@@ -20,7 +20,7 @@ return { 'NTBBloodbath/rest.nvim',
     vim.cmd 'command! Http call v:lua.http_request()'
 
     vim.api.nvim_create_augroup('RestNvim', {})
-    autocmd('FileType', {
+    vim.api.nvim_create_autocmd('FileType', {
       pattern = 'http',
       callback = function()
         map('n', '<CR>', '<Plug>RestNvim:w<CR>', { buffer = true })

@@ -4,7 +4,7 @@
 return { 'stevearc/dressing.nvim',
   config = function()
     local utils = require('../utils')
-    local map, feedkeys, autocmd = utils.map, utils.feedkeys, utils.autocmd
+    local map, feedkeys = utils.map, utils.feedkeys
 
     local input = require('dressing.input')
     require('dressing').setup {
@@ -19,7 +19,7 @@ return { 'stevearc/dressing.nvim',
     }
 
     vim.api.nvim_create_augroup('Dressing', {})
-    autocmd('Filetype', {
+    vim.api.nvim_create_autocmd('Filetype', {
       pattern = 'DressingInput',
       callback = function()
         if vim.g.grep_string_mode then

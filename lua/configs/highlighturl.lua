@@ -3,13 +3,13 @@
 ------------------
 return { 'itchyny/vim-highlighturl',
   setup = function()
-    local autocmd = require('../utils').autocmd
+    local autocmd = vim.api.nvim_create_autocmd
+    local augroup = vim.api.nvim_create_augroup
     local colors = require('onedark').get_colors()
 
     vim.g.highlighturl_guifg = colors.blue0
 
-    vim.api.nvim_create_augroup('HighlightURL', {})
-
+    augroup('HighlightURL', {})
     autocmd('FileType', {
       callback = 'highlighturl#disable_local',
       group    = 'HighlightURL'

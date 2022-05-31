@@ -12,7 +12,7 @@ return { 'kyazdani42/nvim-tree.lua',
     'NvimTreeFindFile',
   },
   config = function()
-    local map, autocmd = require('../utils').map, require('../utils').autocmd
+    local map = require('../utils').map
 
     local callback = require('nvim-tree.config').nvim_tree_callback
     local nvim_tree = require('nvim-tree')
@@ -62,14 +62,14 @@ return { 'kyazdani42/nvim-tree.lua',
             { key = '<Tab>', cb = callback('preview') },
             { key = '<C-s>', cb = callback('split') },
             { key = 'gh',    cb = callback('show_file_info') },
+            { key = '<C-e>', cb = '' },
           }
         }
       }
     }
 
     vim.api.nvim_create_augroup('NvimTreeRefresh', {})
-
-    autocmd('BufEnter', {
+    vim.api.nvim_create_autocmd('BufEnter', {
       pattern = 'NvimTree_1',
       command = 'NvimTreeRefresh',
       group   = 'NvimTreeRefresh'

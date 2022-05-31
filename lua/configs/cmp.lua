@@ -6,7 +6,6 @@ return {
   event = {'InsertEnter', 'CmdlineEnter'},
   config = function()
     local visible_buffers = require('../utils').visible_buffers
-    local autocmd = require('../utils').autocmd
 
     local nvim_cmp = require('cmp')
     local luasnip = require('luasnip')
@@ -110,7 +109,7 @@ return {
     })
 
     vim.api.nvim_create_augroup('TabNine', {})
-    autocmd('FileType', {
+    vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
       callback = function()
         nvim_cmp.setup.buffer({

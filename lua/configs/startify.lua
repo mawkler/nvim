@@ -4,7 +4,6 @@
 return { 'mhinz/vim-startify',
   requires = 'kyazdani42/nvim-web-devicons',
   config = function()
-    local autocmd = require('../utils').autocmd
     local g = vim.g
 
     g.startify_session_dir    = vim.fn.stdpath('data') .. '/sessions/'
@@ -31,7 +30,7 @@ return { 'mhinz/vim-startify',
     }
 
     vim.api.nvim_create_augroup('Startify', {})
-    autocmd('User Startified', {
+    vim.api.nvim_create_autocmd('User Startified', {
       callback = function ()
         -- Disable q mapping
         -- vim.keymap.del('n', 'q', { buffer = true })

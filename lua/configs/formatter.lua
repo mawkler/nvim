@@ -7,7 +7,6 @@ return { 'mhartington/formatter.nvim',
   cmd = { 'Format', 'FormatWrite' },
   config = function()
     local map = require('../utils').map
-    local autocmd = require('../utils').autocmd
     local b, api = vim.b, vim.api
 
     local prettier_config = {
@@ -55,13 +54,25 @@ return { 'mhartington/formatter.nvim',
       print('Format on write ' .. (b.format_on_write and 'enabled' or 'disabled'))
     end, 'Toggle autoformatting on write')
 
-    autocmd('BufWritePost', {
-      pattern = {'*.js', '*.json', '*.md', '*.py', '*.ts', '*.tsx', '*.yml', '*.yaml', '*.html'},
+    vim.api.nvim_create_augroup('AutoFormatting', {})
+    vim.api.nvim_create_autocmd('BufWritePost', {
+      pattern = {
+        '*.js',
+        '*.json',
+        '*.md',
+        '*.py',
+        '*.ts',
+        '*.tsx',
+        '*.yml',
+        '*.yaml',
+        '*.html',
+      },
       callback = function()
         if b.format_on_write ~= false then
           vim.cmd 'FormatWrite'
         end
       end,
+      group = 'AutoFormatting'
     })
   end,
 }

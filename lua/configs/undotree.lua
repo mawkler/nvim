@@ -6,7 +6,6 @@ return { 'mbbill/undotree',
   cmd = {'UndoTreeShow', 'UndoTreeToggle'},
   config = function()
     local map = require('../utils').map
-    local autocmd = require('../utils').autocmd
 
     map('n', '<leader>u', function ()
       vim.cmd 'UndotreeShow'
@@ -14,7 +13,7 @@ return { 'mbbill/undotree',
     end, 'Open undo tree')
 
     vim.api.nvim_create_augroup('UndoTreeMaps', {})
-    autocmd('FileType', {
+    vim.api.nvim_create_autocmd('FileType', {
       pattern = 'undotree',
       callback = function()
         local opts = { buffer = true, nowait = true }
