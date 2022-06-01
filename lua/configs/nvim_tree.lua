@@ -35,16 +35,16 @@ return { 'kyazdani42/nvim-tree.lua',
           enable = true,
         },
         icons = {
-          default = '' ,
-          git = {
-            ignored   = '',
-            untracked = '',
-            unstaged  = '',
-            staged    = '',
-            unmerged  = '',
-            renamed   = '',
-            deleted   = '',
-          }
+          glyphs = {
+            default = '' ,
+            git = {
+              unstaged  = '',
+              staged    = '',
+              deleted   = '',
+              ignored   = '',
+            }
+          },
+          git_placement = 'signcolumn',
         }
       },
       view = {
@@ -74,6 +74,17 @@ return { 'kyazdani42/nvim-tree.lua',
       command = 'NvimTreeRefresh',
       group   = 'NvimTreeRefresh'
     })
+
+    local function remove_highlight(group)
+      vim.api.nvim_set_hl(0, group, { fg = nil, bg = nil })
+    end
+
+    remove_highlight('NvimTreeFileDirty')
+    remove_highlight('NvimTreeFileStaged')
+    remove_highlight('NvimTreeFileMerge')
+    remove_highlight('NvimTreeFileRenamed')
+    remove_highlight('NvimTreeFileNew')
+    remove_highlight('NvimTreeFileDeleted')
 
     map('n', '<leader>`', nvim_tree.toggle, 'Toggle file tree')
     map('n', '<leader>~', function() return nvim_tree.find_file(true) end, 'Show current file in file tree')
