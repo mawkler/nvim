@@ -157,29 +157,24 @@ table.insert(active_left, {
   priority = -1,
 })
 
-local hl_error = GetHiVal('LspDiagnosticsError')
-local hl_warning = GetHiVal('LspDiagnosticsWarning')
-local hl_information = GetHiVal('LspDiagnosticsInformation')
-local hl_hint = GetHiVal('LspDiagnosticsHint')
-
 table.insert(active_left, {
   provider = 'diagnostic_errors',
-  hl = { fg = hl_error },
+  hl = { fg = 'error' },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_warnings',
-  hl = { fg = hl_warning },
+  hl = { fg = 'warning' },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_info',
-  hl = { fg = hl_information },
+  hl = { fg = 'info' },
 })
 
 table.insert(active_left, {
   provider = 'diagnostic_hints',
-  hl = { fg = hl_hint },
+  hl = { fg = 'hint' },
 })
 
 --------------------
