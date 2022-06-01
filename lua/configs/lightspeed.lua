@@ -3,7 +3,8 @@
 ----------------
 return { 'ggandor/lightspeed.nvim',              -- Moving cursor anywhere in any window
   config = function()
-    local map = require('../utils').map
+    local utils = require('../utils')
+    local map = utils.map
 
     vim.g.lightspeed_no_default_keymaps = true
     require('lightspeed').setup {
@@ -22,5 +23,12 @@ return { 'ggandor/lightspeed.nvim',              -- Moving cursor anywhere in an
     -- Move default zj/zk bindings to ]z/[z
     map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')
     map('n', '[z', 'zk', 'Jump to previous fold using [z instead of zk')
+
+    vim.api.nvim_create_augroup('Lightspeed', {})
+    vim.api.nvim_create_autocmd('User', {
+      pattern  = 'LightspeedEnter',
+      callback = utils.close_floating_windows,
+      group    = 'Lightspeed'
+    })
   end
 }

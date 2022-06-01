@@ -205,18 +205,10 @@ map('n', '[Q', '<cmd>cabove<CR>')
 map('n', ']l', '<cmd>lbelow<CR>')
 map('n', '[l', '<cmd>labove<CR>')
 
-local function close_floating_windows()
-  for _, win in pairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative == "win" then
-      vim.api.nvim_win_close(win, false)
-    end
-  end
-end
-
 map('n', '<Esc>', function()
-  close_floating_windows()
+  utils.close_floating_windows()
   if bo.modifiable then
-    require('../utils').clear_lsp_references()
+    utils.clear_lsp_references()
   else
     return feedkeys('<C-w>c')
   end
