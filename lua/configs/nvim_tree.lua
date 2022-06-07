@@ -27,6 +27,9 @@ return { 'kyazdani42/nvim-tree.lua',
       git = {
         ignore = false,
       },
+      filesystem_watchers = {
+        enable = true,
+      },
       renderer = {
         highlight_opened_files = 'all',
         special_files = {},
