@@ -82,7 +82,7 @@ map('n',        '<leader>R',     ':%s/<C-R><C-W>//gci<Left><Left><Left><Left>')
 map({'n', 'x'}, '<leader>q',     'qqqqq')
 map({'n', 'x'}, 'Q',             '@@')
 map('n',        'cg*',           '*Ncgn')
-map('n',        'cg*',           '*Ndgn')
+map('n',        'dg*',           '*Ndgn')
 map('v',        'gcn',           '//Ncgn')
 map('v',        'gdn',           '//Ndgn')
 map('n',        'g.',            '/\\V\\C<C-R>"<CR>cgn<C-a><Esc>')
@@ -130,15 +130,12 @@ map('n',        '<C-W>N',    ':tabe<CR>')
 
 -- Adds previous cursor location to jumplist if count is > 5
 local function move_vertically(direction)
-  if v.count > 5 then
-    feedkeys("m'" .. v.count .. direction)
-  else
-    feedkeys(direction)
-  end
+  local mark = v.count > 5 and "m'" or ""
+  feedkeys(mark .. v.count1 .. direction)
 end
 
-map('n', 'k', function () move_vertically('k') end, 'k')
-map('n', 'j', function () move_vertically('j') end, 'j')
+map('n', 'k', function() move_vertically('k') end, 'k')
+map('n', 'j', function() move_vertically('j') end, 'j')
 
 -- Sets the font size
 local function zoom_set(font_size)
