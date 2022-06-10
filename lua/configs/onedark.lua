@@ -89,6 +89,8 @@ return { 'ful1e5/onedark.nvim', config = function()
         CmpItemKindTextDefault = { link = 'Normal' },
         -- nvim-lsp-ts-utils
         NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
+        -- Gitsigns
+        GitSignsDeleteLn = { link = 'GitSignsDeleteVirtLn' },
         -- Fidget
         FidgetTitle = { fg = c.blue0, style = style.Bold },
         -- Barbar
