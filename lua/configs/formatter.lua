@@ -6,7 +6,7 @@ return { 'mhartington/formatter.nvim',
   event = 'BufWritePost',
   cmd = { 'Format', 'FormatWrite' },
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
     local b, api = vim.b, vim.api
 
     local prettier_config = {

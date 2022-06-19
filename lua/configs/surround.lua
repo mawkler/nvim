@@ -8,7 +8,7 @@ return { 'tpope/vim-surround',
     {'x', 'S'},
   },
   setup = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     -- Noun `r` means `]`
     map({'o', 'x'}, 'ir', 'i]', { remap = true })
@@ -23,7 +23,7 @@ return { 'tpope/vim-surround',
     map({'o', 'x'}, 'aA',  'a`',  { remap = true })
   end,
   config = function ()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     map('x', 's', '<Plug>VSurround')
     map('x', 'S', '<Plug>VgSurround')

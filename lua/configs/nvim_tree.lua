@@ -12,7 +12,7 @@ return { 'kyazdani42/nvim-tree.lua',
     'NvimTreeFindFile',
   },
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     local callback = require('nvim-tree.config').nvim_tree_callback
     local nvim_tree = require('nvim-tree')

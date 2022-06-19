@@ -1,9 +1,9 @@
 ----------------
 -- Lightspeed --
 ----------------
-return { 'ggandor/lightspeed.nvim',              -- Moving cursor anywhere in any window
+return { 'ggandor/lightspeed.nvim',
   config = function()
-    local utils = require('../utils')
+    local utils = require('utils')
     local map = utils.map
 
     vim.g.lightspeed_no_default_keymaps = true

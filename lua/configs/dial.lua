@@ -4,7 +4,7 @@
 return { 'monaqa/dial.nvim',
   -- module_pattern = 'dial%.command.*',
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
     local augend = require('dial.augend')
 
     local function add_constant(elements)

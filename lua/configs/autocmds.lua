@@ -1,7 +1,7 @@
 ---------------
 -- Autocmds --
 ---------------
-local utils = require('../utils')
+local utils = require('utils')
 local map = utils.map
 local o, opt, bo, wo = vim.o, vim.opt, vim.bo, vim.wo
 local fn, api = vim.fn, vim.api

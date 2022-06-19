@@ -8,7 +8,7 @@ return { 'bfredl/nvim-miniyank',
     {'n', '<M-p>'},
   },
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     map('n',        'p',     '<Plug>(miniyank-autoput)')
     map('n',        'P',     '<Plug>(miniyank-autoPut)')

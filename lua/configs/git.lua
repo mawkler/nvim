@@ -9,7 +9,7 @@ return { 'TimUntersberger/neogit',
   setup = function()
     -- Since Packer doesn't allow references to variables outside the setup table
     -- for some reason, we have to use two different map()s
-    local map = require('../utils').map
+    local map = require('utils').map
     map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
     map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
     map('n', '<leader>gP', '<cmd>Neogit push<CR>')
@@ -18,7 +18,7 @@ return { 'TimUntersberger/neogit',
     map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
   end,
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
     local cmd, call = vim.cmd, vim.call
 
     local neogit = require('neogit')

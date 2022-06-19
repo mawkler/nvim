@@ -10,7 +10,7 @@ return { 'neovim/nvim-lspconfig',
     'folke/lua-dev.nvim'                    -- Lua signature help and completion
   },
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
 
@@ -138,7 +138,7 @@ return { 'neovim/nvim-lspconfig',
     local with_border = {float = { border = 'single' }}
 
     local function lsp_references()
-      require('../utils').clear_lsp_references()
+      require('utils').clear_lsp_references()
       vim.lsp.buf.document_highlight()
       require('telescope.builtin').lsp_references({ include_declaration = false })
     end

@@ -4,7 +4,7 @@
 return { 'NTBBloodbath/rest.nvim',
   cmd = 'Http',
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     require('rest-nvim').setup()
 

@@ -3,7 +3,7 @@
 --------------
 return { 'lewis6991/gitsigns.nvim',
   config = function()
-    local map, feedkeys = require('../utils').map, require('../utils').feedkeys
+    local map, feedkeys = require('utils').map, require('utils').feedkeys
 
     local gitsigns = require('gitsigns')
     require('gitsigns').setup {

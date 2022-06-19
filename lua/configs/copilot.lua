@@ -10,7 +10,7 @@ return {
   'github/copilot.vim',
   event = 'InsertEnter',
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     map('i', '<C-l>', 'copilot#Accept("")', { expr = true })
     map('i', '<C-f>', 'copilot#Accept("")', { expr = true })

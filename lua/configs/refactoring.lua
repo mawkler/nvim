@@ -8,7 +8,7 @@ return { 'ThePrimeagen/refactoring.nvim',
     {'x', 'gRf'},
   },
   config = function()
-    local map, feedkeys = require('../utils').map, require('../utils').feedkeys
+    local map, feedkeys = require('utils').map, require('utils').feedkeys
 
     local refactoring = require('refactoring')
     refactoring.setup {}

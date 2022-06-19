@@ -1,7 +1,7 @@
 --------------
 -- Winshift --
 --------------
-local map = require('../utils').map
+local map = require('utils').map
 
 local function winshift(arg)
   return function()

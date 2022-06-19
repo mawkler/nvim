@@ -4,7 +4,7 @@
 return { 'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   config = function ()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     require('nvim-treesitter.configs').setup {
       ensure_installed = 'all',

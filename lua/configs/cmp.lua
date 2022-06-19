@@ -5,7 +5,7 @@ return {
   'hrsh7th/nvim-cmp',
   event = {'InsertEnter', 'CmdlineEnter'},
   config = function()
-    local visible_buffers = require('../utils').visible_buffers
+    local visible_buffers = require('utils').visible_buffers
 
     local nvim_cmp = require('cmp')
     local luasnip = require('luasnip')

@@ -4,7 +4,7 @@
 return { 'sindrets/diffview.nvim',
   requires = 'nvim-lua/plenary.nvim',
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
     local actions = require('diffview.config').actions
 
     map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')

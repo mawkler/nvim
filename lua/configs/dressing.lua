@@ -3,7 +3,7 @@
 --------------
 return { 'stevearc/dressing.nvim',
   config = function()
-    local utils = require('../utils')
+    local utils = require('utils')
     local map, feedkeys = utils.map, utils.feedkeys
 
     local input = require('dressing.input')

@@ -5,7 +5,7 @@ return { 'mbbill/undotree',
   keys = '<leader>u',
   cmd = {'UndoTreeShow', 'UndoTreeToggle'},
   config = function()
-    local map = require('../utils').map
+    local map = require('utils').map
 
     map('n', '<leader>u', function ()
       vim.cmd 'UndotreeShow'

@@ -2,7 +2,7 @@
 -- Keymaps --
 -------------
 local bo, o, v, fn = vim.bo, vim.o, vim.v, vim.fn
-local utils = require('../utils')
+local utils = require('utils')
 local map, feedkeys = utils.map, utils.feedkeys
 
 -- Leader --

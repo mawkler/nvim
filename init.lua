@@ -79,13 +79,6 @@ require('packer').startup { function()
     cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
   }
   Use 'trouble'                                 -- Nicer list of diagnostics
-  use { 'jvgrootveld/telescope-zoxide' }
-  use { 'dhruvmanila/telescope-bookmarks.nvim' }
-  use { 'nvim-telescope/telescope-cheat.nvim' }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' }
-  use { 'JoseConseco/telescope_sessions_picker.nvim' }
-  use { 'nvim-lua/plenary.nvim' }
   Use 'telescope'                               -- Fuzzy finder
   Use 'dressing'                                -- Improves `vim.ui` interfaces
   use { 'MunifTanjim/nui.nvim',                 -- UI component library

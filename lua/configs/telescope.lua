@@ -5,11 +5,19 @@ return { 'nvim-telescope/telescope.nvim',
   module_pattern = 'telescope%..*', -- used to throw error after running PackerCompile 3 times for some reason
   requires =  {
     {'nvim-lua/popup.nvim', module_pattern = 'popup%..*'},
-    {'nvim-lua/plenary.nvim'}
+    {'nvim-lua/plenary.nvim'},
+    { 'jvgrootveld/telescope-zoxide' },
+    { 'dhruvmanila/telescope-bookmarks.nvim' },
+    { 'nvim-telescope/telescope-cheat.nvim' },
+    { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+    { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' },
+    { 'JoseConseco/telescope_sessions_picker.nvim' },
+    { 'Zane-/cder.nvim' }
   },
   config = function()
-    local feedkeys = require('../utils').feedkeys
-    local map = require('../utils').map
+    local feedkeys = require('utils').feedkeys
+    local map = require('utils').map
+    local append = require('utils').append
     local fn, api = vim.fn, vim.api
 
     local telescope = require('telescope')
