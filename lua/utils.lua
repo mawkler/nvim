@@ -20,6 +20,13 @@ M.error = function(message)
   vim.api.nvim_echo({{ message, 'Error' }}, false, {})
 end
 
+--- Returns a new table with `element` appended to `tbl`
+M.append = function(tbl, element)
+  local new_table = vim.deepcopy(tbl)
+  table.insert(new_table, element)
+  return new_table
+end
+
 M.visible_buffers = function()
   local bufs = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
