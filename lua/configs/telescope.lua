@@ -79,6 +79,17 @@ return { 'nvim-telescope/telescope.nvim',
       }
     }
 
+    local fd_ignore_file = fn.expand('$HOME/') .. '.agignore'
+    local cder_dir_cmd = {
+      'fd',
+      '-t',
+      'd',
+      '--hidden',
+      '--ignore-file',
+      fd_ignore_file,
+      '.',
+    }
+
     telescope.setup {
       defaults = {
         mappings = {
@@ -135,6 +146,17 @@ return { 'nvim-telescope/telescope.nvim',
         },
         sessions_picker = {
           sessions_dir = vim.fn.stdpath('data') ..'/sessions/'
+        },
+        cder = {
+          previewer_command = 'exa '
+            .. '--color=always '
+            .. '-T '
+            .. '--level=2 '
+            .. '--icons '
+            .. '--git-ignore '
+            .. '--git '
+            .. '--ignore-glob=.git',
+          dir_command = append(cder_dir_cmd),
         }
       }
     }
@@ -193,7 +215,6 @@ return { 'nvim-telescope/telescope.nvim',
 
     local function grep_string()
       vim.g.grep_string_mode = true
-      -- print(vim.g.grep_string_mode)
       vim.ui.input({ prompt = 'Grep string', default = fn.expand("<cword>") },
         function(value)
           if value ~= nil then
@@ -220,8 +241,13 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
     map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
-    map('n', 'cd',         telescope_cd, 'Change directory')
-    map('n', 'cD',         function() return telescope_cd('~') end, 'cd from home directory')
+    map('n', 'cd',         telescope.extensions.cder.cder, 'Change directory')
+    map('n', 'cD',         function()
+      return telescope.extensions.cder.cder({
+        dir_command = append(cder_dir_cmd, vim.env.HOME),
+        prompt_title = 'Change Directory',
+      })
+    end, 'Change directory (from home directory)')
     map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
     map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
     map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Sessions')
@@ -237,5 +263,6 @@ return { 'nvim-telescope/telescope.nvim',
     telescope.load_extension('cheat')
     telescope.load_extension('notify')
     telescope.load_extension('sessions_picker')
+    telescope.load_extension('cder')
   end
 }
