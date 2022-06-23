@@ -9,7 +9,12 @@ return { 'ggandor/lightspeed.nvim',
     vim.g.lightspeed_no_default_keymaps = true
     require('lightspeed').setup {
       exit_after_idle_msecs = { labeled = 1000 },
-      ignore_case = true
+      ignore_case = true,
+      labels = {},
+      safe_labels = {
+        'w', 'b', 'e', 'h', 'j', 'k', 'l', 'm', 'f', 'n', 'u', 't', '/', ',',
+        ';', "'", '\\', '[', ']',
+      },
     }
 
     map({'n', 'x', 'o'}, 'zj',     '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
