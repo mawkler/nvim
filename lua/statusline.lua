@@ -218,6 +218,7 @@ table.insert(active_right, {
 
 table.insert(active_right, {
   provider = 'git_diff_changed',
+  icon = '  ',
   hl = { fg = 'orange' },
   truncate_hide = true
 })
