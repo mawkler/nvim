@@ -242,9 +242,6 @@ augroup quickfix
   autocmd FileType qf xmap <buffer><nowait> <CR> <CR>
 augroup END
 
-" -- lens.vim --
-let g:lens#disabled_filetypes = ['fzf', 'fugitiveblame', 'NvimTree', 'DiffviewFileHistory']
-
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
