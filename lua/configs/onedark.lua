@@ -115,6 +115,4 @@ return { 'ful1e5/onedark.nvim', config = function()
 
   -- Use different highlights for special keys in cmdline vs other windows
   vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
-
-  -- vim.cmd 'colorscheme onedark'
 end }

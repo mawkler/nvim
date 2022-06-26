@@ -22,6 +22,7 @@ return { 'feline-nvim/feline.nvim',
         purple = colors.purple0,
         red = colors.red0,
         cyan = colors.cyan0,
+        hint = colors.dev_icons.gray,
       }
     })
     vim.opt.laststatus = 3 -- Global statusline
