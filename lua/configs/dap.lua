@@ -10,15 +10,23 @@ return { 'mfussenegger/nvim-dap',
   },
   keys = { '<F5>', '<F10>', '<F11>', '<F12>', '<F12>', '<F9>' },
   cmd = { 'DIInstall', 'DIUninstall', 'DIList' },
-  config = function ()
+  module_pattern = { 'dap.*', 'jester.*' },
+  config = function()
+    local sign_define = vim.fn.sign_define
     local dap, dap_ui, di = require('dap'), require('dapui'), require('dap-install')
     local map = require('utils').map
+
+    sign_define('DapBreakpoint',          { text='', texthl='Error' })
+    sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
+    sign_define('DapLogPoint',            { text='', texthl='Directory' })
+    sign_define('DapStopped',             { text='ﰲ', texthl='TSConstant' })
+    sign_define('DapBreakpointRejected',  { text='', texthl='Error' })
 
     -- DAPInstall --
     di.config('jsnode')
 
     -- Mappings --
-    map('n', '<F5>',  function()
+    map('n', '<F5>', function()
       dap.continue()
       dap_ui.open()
     end)
@@ -27,7 +35,7 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<F12>', dap.step_out)
     map('n', '<F12>', dap.step_out)
     map('n', '<F9>',  dap.toggle_breakpoint)
-    map('n', '<leader><F9>',  function()
+    map('n', '<leader><F9>', function()
       dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
     end)
     map('n', '<leader>dr', dap.repl.open)
@@ -36,11 +44,6 @@ return { 'mfussenegger/nvim-dap',
 
     -- DAP-UI --
     dap_ui.setup()
-
-    -- Jester --
-    require('jester').setup({
-      path_to_jest_run = './node_modules/bin/jest'
-    })
 
     dap.adapters.node2 = {
       type = 'executable',
