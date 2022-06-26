@@ -1,3 +1,6 @@
+------------
+-- Feline --
+------------
 return { 'feline-nvim/feline.nvim',
   requires = {
     'SmiteshP/nvim-gps',

@@ -1,9 +1,8 @@
------------------
--- ColorScheme --
------------------
+-------------
+-- Onedark --
+-------------
 return { 'ful1e5/onedark.nvim', config = function()
   local colors = require('onedark.colors').setup()
-  -- local colors = require('onedark').get_colors()
   local style = require('onedark.types').od.HighlightStyle
   local onedark_utils = require('onedark.util')
 

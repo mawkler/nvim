@@ -33,7 +33,7 @@ require('packer').startup { function()
   }
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
   use { 'meain/vim-printer', keys = {'n', 'gp'} }
-  use { 'camspiers/lens.vim' }                  -- Automatic window resizing
+  Use 'lens'
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
   use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
