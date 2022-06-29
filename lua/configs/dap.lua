@@ -3,17 +3,35 @@
 ---------
 return { 'mfussenegger/nvim-dap',
   requires = {
-    'rcarriga/nvim-dap-ui',     -- UI for nvim-dap
-    'ravenxrz/DAPInstall.nvim', -- Installing/uninstalling debuggers
-                                -- temporary branch while dap-buddy is written
-    'David-Kunz/jester',        -- Debugging Jest tests
+    'rcarriga/nvim-dap-ui',             -- UI for nvim-dap
+    'ravenxrz/DAPInstall.nvim',         -- Installing/uninstalling debuggers - temporary branch while dap-buddy is re-written
+    'David-Kunz/jester',                -- Debugging Jest tests
+    'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
   },
-  keys = { '<F5>', '<F10>', '<F11>', '<F12>', '<F12>', '<F9>' },
-  cmd = { 'DIInstall', 'DIUninstall', 'DIList' },
-  module_pattern = { 'dap.*', 'jester.*' },
+  -- TODO: fix lazy loading
+  -- keys = {
+  --   -- '<F10>',
+  --   -- '<F11>',
+  --   -- '<S-F11>',
+  --   -- '<F9>',
+  --   -- '<leader>s',
+  --   -- '<leader>di',
+  --   -- '<leader>do',
+  --   -- '<leader>db',
+  --   -- '<leader>dB',
+  --   -- '<leader>dr',
+  --   -- '<leader>dl',
+  --   -- '<leader>de',
+  --   -- '<leader>dt',
+  --   -- '<leader>dj',
+  --   -- '<leader>dJ',
+  -- },
+  -- cmd = { 'DIInstall', 'DIUninstall', 'DIList' },
+  -- module_pattern = { 'dap.*', 'jester.*' },
   config = function()
     local sign_define = vim.fn.sign_define
     local dap, dap_ui, di = require('dap'), require('dapui'), require('dap-install')
+    local jester = require('jester')
     local map = require('utils').map
 
     sign_define('DapBreakpoint',          { text='', texthl='Error' })
@@ -26,21 +44,42 @@ return { 'mfussenegger/nvim-dap',
     di.config('jsnode')
 
     -- Mappings --
+    -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
     map('n', '<F5>', function()
       dap.continue()
       dap_ui.open()
     end)
-    map('n', '<F10>', dap.step_over)
-    map('n', '<F11>', dap.step_into)
-    map('n', '<F12>', dap.step_out)
-    map('n', '<F12>', dap.step_out)
-    map('n', '<F9>',  dap.toggle_breakpoint)
-    map('n', '<leader><F9>', function()
+    map('n', '<leader>dd', function()
+      dap.continue()
+      dap_ui.open()
+    end)
+    map('n', '<leader>dc', dap.continue)
+    map('n', '<F10>',      dap.step_over)
+    map('n', '<leader>ds', dap.step_over)
+    map('n', '<F11>',      dap.step_into)
+    map('n', '<leader>di', dap.step_into)
+    map('n', '<S-F11>',    dap.step_out)
+    map('n', '<leader>do', dap.step_out)
+    map('n', '<F9>',       dap.toggle_breakpoint)
+    map('n', '<leader>db', dap.toggle_breakpoint)
+    map('n', '<leader>dB', function()
       dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
     end)
     map('n', '<leader>dr', dap.repl.open)
     map('n', '<leader>dl', dap.run_last)
+    map('n', '<leader>dr', dap.restart)
+    map('n', '<leader>dq', dap.terminate)
+
+    -- DAP-UI
     map('n', '<leader>de', dap_ui.eval)
+    map('n', '<leader>dt', dap_ui.toggle)
+
+    -- Jester
+    map('n', '<leader>dj', jester.debug)
+    map('n', '<leader>dJ', jester.debug_file)
+
+    -- DAP virtual text --
+    require('nvim-dap-virtual-text').setup()
 
     -- DAP-UI --
     dap_ui.setup()
