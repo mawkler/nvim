@@ -12,8 +12,8 @@ return { 'ggandor/lightspeed.nvim',
       ignore_case = true,
       labels = {},
       safe_labels = {
-        'w', 'b', 'e', 'h', 'j', 'k', 'l', 'm', 'f', 'n', 'u', 't', '/', ',',
-        ';', "'", '\\', '[', ']',
+        'h', 'j', 'k', 'l', 'f', ';', "'", 'm', 'w', 'e', 'n', 'u', '/', ',',
+        'b', 't', '[', ']', '\\',
       },
     }
 
