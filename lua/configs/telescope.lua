@@ -12,7 +12,8 @@ return { 'nvim-telescope/telescope.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' },
     { 'JoseConseco/telescope_sessions_picker.nvim' },
-    { 'Zane-/cder.nvim' }
+    { 'Zane-/cder.nvim' },
+    { 'nvim-telescope/telescope-dap.nvim' },
   },
   config = function()
     local feedkeys = require('utils').feedkeys
@@ -27,6 +28,16 @@ return { 'nvim-telescope/telescope.nvim',
     local builtin = require('telescope.builtin')
     local action_state = require('telescope.actions.state')
     local conf = require('telescope.config').values
+
+    telescope.load_extension('zoxide')
+    telescope.load_extension('fzf')
+    telescope.load_extension('bookmarks')
+    telescope.load_extension('frecency')
+    telescope.load_extension('cheat')
+    telescope.load_extension('notify')
+    telescope.load_extension('sessions_picker')
+    telescope.load_extension('cder')
+    telescope.load_extension('dap')
 
     -- Allows editing multiple files with multi selection
     -- Workaround for https://github.com/nvim-telescope/telescope.nvim/issues/1048
@@ -224,7 +235,9 @@ return { 'nvim-telescope/telescope.nvim',
         end)
     end
 
-    map('n', '<C-p>',      function() return builtin.find_files({hidden = true}) end, 'Find files')
+    map('n', '<C-p>',      function() return builtin.find_files({
+      hidden = true,
+    }) end, 'Find files')
     map('n', '<leader>f',  grep_string, 'Grep string')
     map('n', '<leader>/',  grep_string, 'Grep string')
     map('n', '<leader>F',  builtin.live_grep, 'Live grep')
@@ -249,20 +262,16 @@ return { 'nvim-telescope/telescope.nvim',
       })
     end, 'Change directory (from home directory)')
     map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
-    map('n', '<leader>tb', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
+    map('n', '<leader>tB', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
     map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Sessions')
     map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
     map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
     map('n', '<leader>n',  telescope_config, 'Neovim config')
     map('n', '<leader>tn', telescope.extensions.notify.notify, 'Notifications')
 
-    telescope.load_extension('zoxide')
-    telescope.load_extension('fzf')
-    telescope.load_extension('bookmarks')
-    telescope.load_extension('frecency')
-    telescope.load_extension('cheat')
-    telescope.load_extension('notify')
-    telescope.load_extension('sessions_picker')
-    telescope.load_extension('cder')
+    map('n', '<leader>td', telescope.extensions.dap.commands)
+    map('n', '<leader>tb', telescope.extensions.dap.list_breakpoints)
+    map('n', '<leader>tv', telescope.extensions.dap.variables)
+    map('n', '<leader>tf', telescope.extensions.dap.frames)
   end
 }

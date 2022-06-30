@@ -11,6 +11,10 @@ return { 'camspiers/lens.vim', -- Automatic window resizing
       'DiffviewFileHistory',
       'dapui_scopes',
       'dap-repl',
+      'dapui_watches',
+      'dapui_console',
+      'dapui_stacks',
+      'dapui_breakpoints',
     }
   end
 }
