@@ -48,5 +48,15 @@ return { 'tpope/vim-surround',
     map('n',        'csA', 'cs`', { remap = true })
     map('n',        'dsA', 'ds`', { remap = true })
     vim.cmd [[ let g:surround_{char2nr('A')} = "`\r`" ]]
+
+    -- `F` in Lua files surrounds text in an anonymous function
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'lua',
+      callback = function()
+        vim.cmd [[ let b:surround_{char2nr('F')} = 'function() return \r end' ]]
+      end,
+      group = 'FileTypeAutocmds',
+    })
+
   end
 }

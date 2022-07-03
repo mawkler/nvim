@@ -100,12 +100,3 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function() bo.keywordprg = ':help' end,
   group = 'FileTypeAutocmds',
 })
-
--- `F` surround object in Lua files
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'lua',
-  callback = function()
-    vim.cmd [[ let b:surround_{char2nr('F')} = "function() return \r end" ]]
-  end,
-  group = 'FileTypeAutocmds',
-})
