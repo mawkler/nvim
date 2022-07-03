@@ -30,7 +30,8 @@ return { 'mfussenegger/nvim-dap',
   -- module_pattern = { 'dap.*', 'jester.*' },
   config = function()
     local sign_define = vim.fn.sign_define
-    local dap, dap_ui, di = require('dap'), require('dapui'), require('dap-install')
+    local dap, widgets = require('dap'), require('dap.ui.widgets')
+    local dap_ui, di = require('dapui'), require('dap-install')
     local jester = require('jester')
     local map = require('utils').map
 
@@ -45,38 +46,37 @@ return { 'mfussenegger/nvim-dap',
 
     -- Mappings --
     -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
-    map('n', '<F5>', function()
-      dap.continue()
-      dap_ui.open()
-    end)
     map('n', '<leader>dd', function()
       dap.continue()
       dap_ui.open()
     end)
-    map('n', '<leader>dc', dap.continue)
-    map('n', '<F10>',      dap.step_over)
-    map('n', '<leader>ds', dap.step_over)
-    map('n', '<F11>',      dap.step_into)
-    map('n', '<leader>di', dap.step_into)
-    map('n', '<S-F11>',    dap.step_out)
-    map('n', '<leader>do', dap.step_out)
-    map('n', '<F9>',       dap.toggle_breakpoint)
-    map('n', '<leader>db', dap.toggle_breakpoint)
     map('n', '<leader>dB', function()
-      dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
-    end)
-    map('n', '<leader>dr', dap.repl.open)
-    map('n', '<leader>dl', dap.run_last)
-    map('n', '<leader>dr', dap.restart)
-    map('n', '<leader>dq', dap.terminate)
+      vim.ui.input({ prompt = 'Breakpoint condition: ' }, function(condition)
+        dap.set_breakpoint(condition)
+      end)
+    end, 'DAP set conditional breakpoint')
+    map('n', '<leader>dc', dap.continue,          'DAP continue')
+    map('n', '<leader>ds', dap.step_over,         'DAP step over')
+    map('n', '<leader>di', dap.step_into,         'DAP step into')
+    map('n', '<leader>do', dap.step_out,          'DAP step out')
+    map('n', '<leader>db', dap.toggle_breakpoint, 'DAP toggle breakpoint')
+    map('n', '<leader>dr', dap.repl.open,         'DAP open REPL')
+    map('n', '<leader>dl', dap.run_last,          'DAP run last session')
+    map('n', '<leader>dr', dap.restart,           'DAP restart session')
+    map('n', '<leader>dq', dap.terminate,         'DAP terminate session')
+    map('n', '<leader>dh', widgets.hover,         'DAP hover')
 
     -- DAP-UI
-    map('n', '<leader>de', dap_ui.eval)
-    map('n', '<leader>dt', dap_ui.toggle)
+    map({'n', 'x'}, '<leader>de', dap_ui.eval,   'DAP evaluate expression')
+    map('n',        '<leader>dt', dap_ui.toggle, 'DAP toggle UI')
 
     -- Jester
-    map('n', '<leader>dj', jester.debug)
-    map('n', '<leader>dJ', jester.debug_file)
+    map('n', '<leader>djt', jester.debug,      'DAP Jester debug test')
+    map('n', '<leader>djf', jester.debug_file, 'DAP Jester debug file')
+    map('n', '<leader>djr', jester.debug_last, 'DAP Jester rerun debug')
+    map('n', '<leader>djT', jester.run,        'DAP Jester run test')
+    map('n', '<leader>djF', jester.run_file,   'DAP Jester run file')
+    map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
 
     -- DAP virtual text --
     require('nvim-dap-virtual-text').setup()
