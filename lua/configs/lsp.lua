@@ -13,6 +13,7 @@ return { 'neovim/nvim-lspconfig',
     local map = require('utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
+    local telescope = require('telescope.builtin')
 
     -------------------
     -- LSP Installer --
@@ -28,6 +29,7 @@ return { 'neovim/nvim-lspconfig',
         ts_utils.setup({
           update_imports_on_move = true,
           require_confirmation_on_move = true,
+          auto_inlay_hints = false,
           inlay_hints_highlight = 'NvimLspTSUtilsInlineHint'
         })
         ts_utils.setup_client(client)
@@ -140,16 +142,25 @@ return { 'neovim/nvim-lspconfig',
     local function lsp_references()
       require('utils').clear_lsp_references()
       vim.lsp.buf.document_highlight()
-      require('telescope.builtin').lsp_references({ include_declaration = false })
+      require('telescope.builtin').lsp_references({
+        include_declaration = false,
+        -- fname_width = 60,
+      })
     end
 
-    map('n',        'gd',        require('telescope.builtin').lsp_definitions, 'vim.lsp.buf.definition')
-    map('n',        'gi',        require('telescope.builtin').lsp_implementations, 'vim.lsp.buf.implementation')
+    map('n', 'gd',         telescope.lsp_definitions, 'vim.lsp.buf.definition')
+    map('n', 'gi',         telescope.lsp_implementations, 'vim.lsp.buf.implementation')
+    map('n', 'gd',         telescope.lsp_definitions, 'LSP definitions')
+    map('n', 'gi',         telescope.lsp_implementations, 'LSP implementations')
+    map('n', '<leader>ts', telescope.lsp_document_symbols, 'LSP document symbols')
+    map('n', '<leader>tS', telescope.lsp_workspace_symbols, 'LSP workspace symbols')
+    map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
+    map('n', 'gr',         lsp_references, 'LSP references')
+
     map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
     map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
     map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
     map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
-    map('n',        'gr',        lsp_references, 'vim.lsp.buf.references')
     map({'n', 'x'}, '<leader>r', vim.lsp.buf.rename, 'vim.lsp.buf.rename')
     map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
     map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'diagnostic.open_float')

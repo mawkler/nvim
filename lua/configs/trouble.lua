@@ -13,7 +13,6 @@ return { 'folke/trouble.nvim',
       auto_close = true,
       action_keys = {
         close = {'<Esc>', '<C-q>', '<C-c>'},
-        cancel = '<esc>',
         refresh = 'R',
         jump = {'<Space>'},
         open_split = {'<c-s>'},

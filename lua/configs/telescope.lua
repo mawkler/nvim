@@ -22,6 +22,7 @@ return { 'nvim-telescope/telescope.nvim',
     local fn, api = vim.fn, vim.api
 
     local telescope = require('telescope')
+    local extensions = telescope.extensions
     local pickers = require('telescope.pickers')
     local finders = require('telescope.finders')
     local actions = require('telescope.actions')
@@ -101,26 +102,34 @@ return { 'nvim-telescope/telescope.nvim',
       '.',
     }
 
+    -- Filename section width
+    local picker_default_config = { fname_width = 60 }
+
     telescope.setup {
       defaults = {
         mappings = {
           i = {
-            ['<C-j>'] = 'move_selection_next',
-            ['<C-k>'] = 'move_selection_previous',
-            ['<C-p>'] = 'cycle_history_prev',
-            ['<C-n>'] = 'cycle_history_next',
-            ['<C-b>'] = 'preview_scrolling_up',
-            ['<C-f>'] = 'preview_scrolling_down',
-            ['<C-q>'] = 'close',
-            ['<M-a>'] = 'toggle_all',
-            ['<M-q>'] = 'smart_send_to_qflist',
-            ['<M-Q>'] = 'smart_add_to_qflist',
-            ['<M-l>'] = 'smart_send_to_loclist',
-            ['<M-L>'] = 'smart_add_to_loclist',
-            ['<M-y>'] = 'open_qflist',
-            ['<C-a>'] = function() feedkeys('<Home>') end,
-            ['<C-e>'] = function() feedkeys('<End>') end,
-            ['<C-u>'] = false
+            ['<C-j>']  = 'move_selection_next',
+            ['<C-k>']  = 'move_selection_previous',
+            ['<C-p>']  = 'cycle_history_prev',
+            ['<C-n>']  = 'cycle_history_next',
+            ['<C-b>']  = 'preview_scrolling_up',
+            ['<C-f>']  = 'preview_scrolling_down',
+            ['<C-q>']  = 'close',
+            ['<M-a>']  = 'toggle_all',
+            ['<M-q>']  = 'smart_send_to_qflist',
+            ['<M-Q>']  = 'smart_add_to_qflist',
+            ['<M-l>']  = 'smart_send_to_loclist',
+            ['<M-L>']  = 'smart_add_to_loclist',
+            ['<M-y>']  = 'open_qflist',
+            ['<C-a>']  = function() feedkeys('<Home>') end,
+            ['<C-e>']  = function() feedkeys('<End>') end,
+            ['<M-BS>'] = function()
+              print('foo')
+              feedkeys('<C-w>')
+            end,
+            ['<M-;>'] = function() print('foo') end,
+            ['<C-u>']  = false
           },
           n = {
             ['<C-q>'] = 'close',
@@ -147,8 +156,15 @@ return { 'nvim-telescope/telescope.nvim',
         }
       },
       pickers = {
-        find_files = { mappings = telescope_multiselect_mappings },
-        grep_string = { mappings = telescope_multiselect_mappings }
+        -- find_files = { mappings = telescope_multiselect_mappings },
+        -- grep_string = { mappings = telescope_multiselect_mappings }
+        quickfix             = picker_default_config,
+        tagstack             = picker_default_config,
+        jumplist             = picker_default_config,
+        lsp_references       = picker_default_config,
+        lsp_definitions      = picker_default_config,
+        lsp_type_definitions = picker_default_config,
+        lsp_implementations  = picker_default_config,
       },
       extensions = {
         bookmarks = {
@@ -243,35 +259,36 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>F',  builtin.live_grep, 'Live grep')
     map('n', '<leader>B',  builtin.buffers, 'Open buffers')
     map('n', '<leader>m',  builtin.oldfiles, 'Recently used files')
-    map('n', '<leader>th', telescope.extensions.frecency.frecency, 'Frecency')
+    map('n', '<leader>th', extensions.frecency.frecency, 'Frecency')
     map('n', '<leader>h',  builtin.help_tags, 'Help tags')
     map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
     map('n', '<leader>tH', builtin.highlights, 'Highlights')
+    map('n', '<leader>tc', builtin.commands, 'Commands')
     map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
-    map('n', '<leader>ts', builtin.lsp_document_symbols, 'LSP document symbols')
-    map('n', '<leader>tS', builtin.lsp_workspace_symbols, 'LSP workspace symbols')
-    map('n', '<leader>tw', builtin.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
+    map('n', '<leader>t/', builtin.search_history, 'Search history')
+    map('n', '<leader>tq', builtin.quickfix, 'Quickfix')
+    map('n', '<leader>tQ', builtin.quickfixhistory, 'Quickfix history')
     map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
     map('n', '<leader>tg', builtin.git_files, 'Find git files')
 
-    map('n', 'cd',         telescope.extensions.cder.cder, 'Change directory')
+    map('n', 'cd',         extensions.cder.cder, 'Change directory')
     map('n', 'cD',         function()
-      return telescope.extensions.cder.cder({
+      return extensions.cder.cder({
         dir_command = append(cder_dir_cmd, vim.env.HOME),
         prompt_title = 'Change Directory',
       })
     end, 'Change directory (from home directory)')
-    map('n', '<M-z>',      telescope.extensions.zoxide.list, 'Change directory with zoxide')
-    map('n', '<leader>tB', telescope.extensions.bookmarks.bookmarks, 'Bookmarks')
-    map('n', '<leader>s',  telescope.extensions.sessions_picker.sessions_picker, 'Sessions')
-    map('n', '<leader>tc', function() return telescope.extensions.cheat.fd({}) end, 'Cheat.sh')
+    map('n', '<M-z>',      extensions.zoxide.list, 'Change directory with zoxide')
+    map('n', '<leader>tB', extensions.bookmarks.bookmarks, 'Bookmarks')
+    map('n', '<leader>s',  extensions.sessions_picker.sessions_picker, 'Sessions')
+    map('n', '<leader>tC', function() return extensions.cheat.fd({}) end, 'Cheat.sh')
     map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
     map('n', '<leader>n',  telescope_config, 'Neovim config')
-    map('n', '<leader>tn', telescope.extensions.notify.notify, 'Notifications')
+    map('n', '<leader>tn', extensions.notify.notify, 'Notifications')
 
-    map('n', '<leader>td', telescope.extensions.dap.commands)
-    map('n', '<leader>tb', telescope.extensions.dap.list_breakpoints)
-    map('n', '<leader>tv', telescope.extensions.dap.variables)
-    map('n', '<leader>tf', telescope.extensions.dap.frames)
+    map('n', '<leader>td', extensions.dap.commands)
+    map('n', '<leader>tb', extensions.dap.list_breakpoints)
+    map('n', '<leader>tv', extensions.dap.variables)
+    map('n', '<leader>tf', extensions.dap.frames)
   end
 }
