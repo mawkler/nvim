@@ -8,7 +8,7 @@ return { 'sindrets/diffview.nvim',
     local actions = require('diffview.config').actions
 
     map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
-    map('n', '<leader>gH', '<cmd>DiffviewFileHistory<CR>')
+    map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')
 
     require('diffview').setup {
       enhanced_diff_hl = false,
@@ -30,6 +30,7 @@ return { 'sindrets/diffview.nvim',
           ['<C-t>'] = actions.goto_file_tab,
           ['~']     = actions.focus_files,
           ['`']     = actions.toggle_files,
+          ['gb']    = actions.open_commit_log,
         },
         file_panel = {
           ['<Space>']  = actions.select_entry,

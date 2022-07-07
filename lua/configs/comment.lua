@@ -78,5 +78,8 @@ return { 'numToStr/Comment.nvim',
     comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
     comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
     comment_map('x', '<leader><',    'uncomment_current_linewise_op')
+
+    -- Remove default gb mapping
+    vim.keymap.del('n', 'gb')
   end,
 }

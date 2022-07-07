@@ -8,6 +8,7 @@ return { 'camspiers/lens.vim', -- Automatic window resizing
       'fzf',
       'fugitiveblame',
       'NvimTree',
+      'DiffviewFiles',
       'DiffviewFileHistory',
       'dapui_scopes',
       'dap-repl',
