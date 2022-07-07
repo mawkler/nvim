@@ -102,8 +102,8 @@ return { 'nvim-telescope/telescope.nvim',
       '.',
     }
 
-    -- Filename section width
-    local picker_default_config = { fname_width = 60 }
+    -- Don't show line text, just the file name
+    local picker_default_config = { show_line = false }
 
     telescope.setup {
       defaults = {
