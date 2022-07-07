@@ -182,25 +182,6 @@ map('n', '<leader>W', function()
   print('Line wrap ' .. (vim.wo.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
 
--- Sets `bufhidden = delete` if buffer was jumped to
-local function quickfix_jump(command)
-  if vim.b.buffer_jumped_to then
-    bo.bufhidden = 'delete'
-  end
-
-  local successful, _ = pcall(vim.cmd, command)
-  if successful then
-    vim.b.buffer_jumped_to = true
-  end
-end
-
-map('n', ']q', function() return quickfix_jump('cnext') end, 'Next qf item')
-map('n', '[q', function() return quickfix_jump('cprev') end, 'Previous qf item')
-map('n', ']Q', '<cmd>cbelow<CR>')
-map('n', '[Q', '<cmd>cabove<CR>')
-map('n', ']l', '<cmd>lbelow<CR>')
-map('n', '[l', '<cmd>labove<CR>')
-
 map('n', '<Esc>', function()
   utils.close_floating_windows()
   if bo.modifiable then

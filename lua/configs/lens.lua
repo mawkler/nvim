@@ -5,6 +5,7 @@ return { 'camspiers/lens.vim', -- Automatic window resizing
   event = 'WinEnter',
   config = function()
     vim.g['lens#disabled_filetypes'] = {
+      'qf',
       'fzf',
       'fugitiveblame',
       'NvimTree',

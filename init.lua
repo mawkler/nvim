@@ -142,7 +142,8 @@ require('packer').startup { function()
     require('dim').setup()
   end }
   Use 'toggleterm'                              -- Toggleable terminal
-  Use 'bqf'
+  -- Use 'bqf'
+  Use 'qf'
   Use 'git'                                     -- Git wrapper
   use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},

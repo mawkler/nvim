@@ -231,17 +231,6 @@ augroup markdown_surround
   autocmd FileType markdown let b:surround_{char2nr('c')} = "```\n\r\n```"
 augroup END
 
-" -- togglelist.vim --
-let g:toggle_list_no_mappings = 1
-nmap <script> <silent> <leader>L :call ToggleLocationList()<CR>
-nmap <script> <silent> <leader>Q :call ToggleQuickfixList()<CR>
-augroup quickfix
-  autocmd!
-  autocmd FileType qf nmap <buffer><nowait> <Space> <CR><C-w>p
-  autocmd FileType qf nmap <buffer><nowait> <CR> <CR>
-  autocmd FileType qf xmap <buffer><nowait> <CR> <CR>
-augroup END
-
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
