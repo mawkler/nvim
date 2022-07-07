@@ -178,8 +178,8 @@ map('n', '<leader>N', function()
   print('Relative numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
 end, 'Toggle relative numbers')
 map('n', '<leader>W', function()
-  vim.o.wrap = not vim.o.wrap
-  print('Line wrap ' .. (vim.o.wrap and 'enabled' or 'disabled'))
+  vim.wo.wrap = not vim.wo.wrap
+  print('Line wrap ' .. (vim.wo.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
 
 -- Sets `bufhidden = delete` if buffer was jumped to
