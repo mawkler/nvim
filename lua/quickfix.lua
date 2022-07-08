@@ -52,12 +52,3 @@ function _G.qftf(info)
 end
 
 vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
-
--- Adapt fzf's delimiter in nvim-bqf
-require('bqf').setup {
-  filter = {
-    fzf = {
-      extra_opts = {'--bind', 'alt-a:toggle-all', '--delimiter', '│'}
-    }
-  }
-}

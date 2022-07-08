@@ -6,12 +6,18 @@ return { 'kevinhwang91/nvim-bqf',
   config = function()
     require('../quickfix') -- Better quickfix
     require('bqf').setup {
+      preview = {
+        auto_preview = false,
+      },
       func_map = {
-        prevfile  = '<C-k>',
-        nextfile  = '<C-j>',
-        fzffilter = '<C-p>',
+        fzffilter = '/',
         split     = '<C-s>',
-      }
+      },
+      filter = { -- Adapt fzf's delimiter in nvim-bqf
+        fzf = {
+          extra_opts = {'--bind', 'alt-a:toggle-all', '--delimiter', '│'}
+        }
+      },
     }
   end
 }
