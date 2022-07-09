@@ -27,7 +27,8 @@ return { 'folke/trouble.nvim',
         open_folds = {'l', 'zR', 'zr'},
         toggle_fold = {'zA', 'za'},
         previous = 'k',
-        next = 'j'
+        next = 'j',
+        cancel = nil,
       },
     }
     map('n', '<leader>E', '<cmd>TroubleToggle<CR>')

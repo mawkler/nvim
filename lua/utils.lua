@@ -56,7 +56,7 @@ end
 
 M.close_floating_windows = function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative == "win" then
+    if vim.api.nvim_win_get_config(win).relative == 'win' then
       vim.api.nvim_win_close(win, false)
     end
   end

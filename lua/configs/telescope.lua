@@ -124,11 +124,7 @@ return { 'nvim-telescope/telescope.nvim',
             ['<M-y>']  = 'open_qflist',
             ['<C-a>']  = function() feedkeys('<Home>') end,
             ['<C-e>']  = function() feedkeys('<End>') end,
-            ['<M-BS>'] = function()
-              print('foo')
-              feedkeys('<C-w>')
-            end,
-            ['<M-;>'] = function() print('foo') end,
+            ['<M-BS>'] = function() vim.api.nvim_input('<C-w>') end,
             ['<C-u>']  = false
           },
           n = {
@@ -251,11 +247,11 @@ return { 'nvim-telescope/telescope.nvim',
         end)
     end
 
-    map('n', '<C-p>',      function() return builtin.find_files({
-      hidden = true,
-    }) end, 'Find files')
-    map('n', '<leader>f',  grep_string, 'Grep string')
-    map('n', '<leader>/',  grep_string, 'Grep string')
+    map('n', '<C-p>', function()
+      return builtin.find_files({ hidden = true })
+    end, 'Find files')
+    map({'n', 'x'}, '<leader>/', grep_string, 'Grep string')
+
     map('n', '<leader>F',  builtin.live_grep, 'Live grep')
     map('n', '<leader>B',  builtin.buffers, 'Open buffers')
     map('n', '<leader>m',  builtin.oldfiles, 'Recently used files')
