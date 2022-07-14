@@ -36,8 +36,8 @@ M.visible_buffers = function()
 end
 
 local function lsp_server_has_references()
-  for _, client in pairs(vim.lsp.buf_get_clients()) do
-    if client.resolved_capabilities.find_references then
+  for _, client in pairs(vim.lsp.get_active_clients()) do
+    if client.server_capabilities then
       return true
     end
   end

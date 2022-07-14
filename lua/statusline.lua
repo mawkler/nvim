@@ -151,7 +151,7 @@ table.insert(active_left, {
   left_sep = ' ',
   riht_sep = ' ',
   hl = { fg = 'darkgray' },
-  enabled = function() return next(vim.lsp.buf_get_clients()) ~= nil end,
+  enabled = function() return next(vim.lsp.get_active_clients()) ~= nil end,
   icon = ' ',
   truncate_hide = true,
   priority = -1,
