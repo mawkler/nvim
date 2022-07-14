@@ -12,12 +12,10 @@ return { 'L3MON4D3/LuaSnip',
 
     luasnip.config.setup { history = true }
     luasnip.filetype_extend('all', {'global'})
-    require('luasnip/loaders/from_vscode').lazy_load {
-      paths = {
-        '~/.local/share/nvim/site/pack/packer/start/friendly-snippets/',
-        '~/.config/nvim/snippets'
-      }
-    }
+    require('luasnip.loaders.from_vscode').lazy_load() -- loads default paths
+    require('luasnip.loaders.from_vscode').load({
+      paths = { '~/.config/nvim/snippets' },
+    })
 
     local function clipboad_oneline_node()
       local clipboard, _ = fn.getreg('+'):gsub('\n', ' ')
