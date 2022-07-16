@@ -1,7 +1,7 @@
 --------------
 -- Surround --
 --------------
-return { 'tpope/vim-surround',
+return { 'kylechui/nvim-surround',
   keys = {
     {'n', 's'},
     {'n', 'S'},
@@ -10,53 +10,67 @@ return { 'tpope/vim-surround',
     {'x', 's'},
     {'x', 'S'},
   },
+  module = 'nvim-surround',
   setup = function()
-    local map = require('utils').map
+    local augroup = 'Surround'
+    local function filetype_surround(filetype, pairs)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = filetype,
+        callback = function()
+          require('nvim-surround').buffer_setup({
+            delimiters = { pairs = pairs }
+          })
+        end,
+        group = augroup,
+      })
+    end
 
-    -- Noun `r` means `]`
-    map({'o', 'x'}, 'ir', 'i]', { remap = true })
-    map({'o', 'x'}, 'ar', 'a]', { remap = true })
+    vim.api.nvim_create_augroup(augroup, {})
 
-    -- Noun `q` means `'`
-    map({'o', 'x'}, 'iQ',  'i"',  { remap = true })
-    map({'o', 'x'}, 'aQ',  'a"',  { remap = true })
-
-    -- Noun `A` means `
-    map({'o', 'x'}, 'iA',  'i`',  { remap = true })
-    map({'o', 'x'}, 'aA',  'a`',  { remap = true })
-  end,
-  config = function ()
-    local map = require('utils').map
-
-    map('x', 's', '<Plug>VSurround')
-    map('x', 'S', '<Plug>VgSurround')
-    map('n', 's', 'ys',  { remap = true })
-    map('n', 'S', 'ys$', { remap = true })
-
-    -- Surround noun `q` means `'`
-    map('n',        'csq', "cs'", { remap = true })
-    map('n',        'dsq', "ds'", { remap = true })
-    -- Surround noun `q` already means any quotes i.e. `/"/'
-    vim.cmd [[ let g:surround_{char2nr('q')} = "'\r'" ]]
-
-    -- Surround noun `Q` means `"`
-    map('n',        'csQ', 'cs"', { remap = true })
-    map('n',        'dsQ', 'ds"', { remap = true })
-    vim.cmd [[ let g:surround_{char2nr('Q')} = '"\r"' ]]
-
-    -- Surround noun `A` means `
-    map('n',        'csA', 'cs`', { remap = true })
-    map('n',        'dsA', 'ds`', { remap = true })
-    vim.cmd [[ let g:surround_{char2nr('A')} = "`\r`" ]]
-
-    -- `F` in Lua files surrounds text in an anonymous function
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'lua',
-      callback = function()
-        vim.cmd [[ let b:surround_{char2nr('F')} = 'function() return \r end' ]]
+    filetype_surround('lua', {
+      F = { 'function() return ', ' end' }
+    })
+    filetype_surround('markdown', {
+      c = { {'```'}, {'```'} }
+    })
+    filetype_surround('tex', {
+      c = function()
+        return {
+          '\\' .. vim.fn.input({ prompt = 'LaTex command: ' }) .. '{', '}'
+        }
       end,
-      group = 'FileTypeAutocmds',
+    })
+  end,
+  config = function()
+    local map = require('utils').map
+
+    require('nvim-surround').setup({
+      move_cursor = false,
+      keymaps = {
+        insert = 's',
+        insert_line = 'ss',
+        visual = 's',
+      },
+      delimiters = {
+        aliases = {
+          q = "'",
+          Q = '"',
+          A = '`',
+        },
+        pairs = {
+          b = { '(', ')' },
+          B = { '{', '}' },
+          s = { ')', ']', '}', '>', '"', "'", '`' },
+        },
+        separators = {
+          ['*'] = { '*', '*' }, -- Doesn't work yet
+        },
+        invalid_key_behavior = function(char)
+          return { char, char }
+        end,
+      },
     })
 
+    map('n', 'S', 's$', { remap = true })
   end
 }

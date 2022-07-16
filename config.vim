@@ -41,16 +41,6 @@ nmap gaa gaiL
 " -- For editing multiple files with `*` --
 command! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:servername . " --remote-silent <args>"
 
-" -- Targets.vim --
-let g:targets_aiAI = 'aIAi' " Swaps meaning of `I` and `i`
-augroup targets
-  autocmd!
-  " Resets ib/ab to Vim's default behaviour
-  autocmd User targets#mappings#user call targets#mappings#extend({
-        \ 'b': {'pair': [{'o':'(', 'c':')'}]}
-        \ })
-augroup end
-
 " Use <C-k>/<C-j> to move up/down in PUM selection
 inoremap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 inoremap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
