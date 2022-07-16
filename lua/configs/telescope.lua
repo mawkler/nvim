@@ -30,16 +30,6 @@ return { 'nvim-telescope/telescope.nvim',
     local action_state = require('telescope.actions.state')
     local conf = require('telescope.config').values
 
-    telescope.load_extension('zoxide')
-    telescope.load_extension('fzf')
-    telescope.load_extension('bookmarks')
-    telescope.load_extension('frecency')
-    telescope.load_extension('cheat')
-    telescope.load_extension('notify')
-    telescope.load_extension('sessions_picker')
-    telescope.load_extension('cder')
-    telescope.load_extension('dap')
-
     -- Allows editing multiple files with multi selection
     -- Workaround for https://github.com/nvim-telescope/telescope.nvim/issues/1048
     local multiopen = function(prompt_bufnr, open_cmd)
@@ -91,7 +81,7 @@ return { 'nvim-telescope/telescope.nvim',
       }
     }
 
-    local fd_ignore_file = fn.expand('$HOME/') .. '.agignore'
+    local fd_ignore_file = fn.expand('$HOME/') .. '.rgignore'
     local cder_dir_cmd = {
       'fd',
       '-t',
@@ -179,10 +169,20 @@ return { 'nvim-telescope/telescope.nvim',
             .. '--git-ignore '
             .. '--git '
             .. '--ignore-glob=.git',
-          dir_command = append(cder_dir_cmd),
+          dir_command = cder_dir_cmd,
         }
       }
     }
+
+    telescope.load_extension('zoxide')
+    telescope.load_extension('fzf')
+    telescope.load_extension('bookmarks')
+    telescope.load_extension('frecency')
+    telescope.load_extension('cheat')
+    telescope.load_extension('notify')
+    telescope.load_extension('sessions_picker')
+    telescope.load_extension('cder')
+    telescope.load_extension('dap')
 
     function _G.telescope_markdowns()
       builtin.find_files({
@@ -210,7 +210,7 @@ return { 'nvim-telescope/telescope.nvim',
     function _G.telescope_cd(dir)
       if dir == nil then dir = '.' end
       local opts = {cwd = dir}
-      local ignore_file = fn.expand('$HOME/') .. '.agignore'
+      local ignore_file = fn.expand('$HOME/') .. '.rgignore'
 
       pickers.new(opts, {
         prompt_title = 'Change Directory',
