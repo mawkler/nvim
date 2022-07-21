@@ -178,8 +178,6 @@ augroup latex
   autocmd!
   " `:` counts as a separator
   autocmd FileType latex,tex setlocal iskeyword-=:
-  " Add vim-surround noun `c`
-  autocmd FileType latex,tex let b:surround_{char2nr('c')} = "\\\1command\1{\r}"
   autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
   " Fixes issue with spell check only in comments
   autocmd FileType latex,tex syntax spell toplevel
@@ -214,12 +212,6 @@ call textobj#user#plugin('datetime', {
       \     'select': ['ad', 'id'],
       \   }
       \ })
-
-augroup markdown_surround
-  autocmd!
-  " Surround noun `c` turns target into markdown code block
-  autocmd FileType markdown let b:surround_{char2nr('c')} = "```\n\r\n```"
-augroup END
 
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1

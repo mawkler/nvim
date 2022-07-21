@@ -117,7 +117,7 @@ require('packer').startup { function()
   use { 'kana/vim-textobj-entire' }
   use { 'lervag/vimtex', ft = {'tex', 'latex'} }
   -- use { 'AndrewRadev/dsf.vim',--[[  keys = {{'n', 'dsf'}, {'n', 'dsF'}}, ]] opt = false }
-  use { 'michaeljsmith/vim-indent-object' }
+  Use 'indent_tools'
   Use 'targets'
   use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
   use { 'plasticboy/vim-markdown', ft = 'markdown' }
