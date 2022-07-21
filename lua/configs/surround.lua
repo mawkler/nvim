@@ -47,9 +47,10 @@ return { 'kylechui/nvim-surround',
     require('nvim-surround').setup({
       move_cursor = false,
       keymaps = {
-        insert = 's',
-        insert_line = 'ss',
+        normal = 's',
+        normal_cur = 'ss',
         visual = 's',
+        visual_line = 'S',
       },
       delimiters = {
         aliases = {
