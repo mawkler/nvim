@@ -1,7 +1,7 @@
 -------------
 -- Keymaps --
 -------------
-local bo, o, v, fn = vim.bo, vim.o, vim.v, vim.fn
+local bo, o, wo, v, fn = vim.bo, vim.o, vim.wo, vim.v, vim.fn
 local utils = require('utils')
 local map, feedkeys = utils.map, utils.feedkeys
 
@@ -27,9 +27,9 @@ map('n',        '<C-j>',         'i<CR><Esc>')
 map('n',        '<C-k>',         'O<Esc>')
 map('n',        'g<C-k>',        'DO<Esc>P_')
 map('n',        'gK',             'kjddkPJ<C-y>')
-map('n',        '<C-s>',         ':w<CR>')
-map({'i', 's'}, '<C-s>',         '<Esc>:w<CR>')
-map('v',        '<C-s>',         '<Esc>:w<CR>gv')
+map('n',        '<C-s>',         ':w<CR>', {silent = true})
+map({'i', 's'}, '<C-s>',         '<Esc>:w<CR>', {silent = true})
+map('v',        '<C-s>',         '<Esc>:w<CR>gv', {silent = true})
 map('s',        '<C-h>',         '<BS>')
 map('x',        'v',             '$h')
 map('n',        '<BS>',          'X')
@@ -88,16 +88,16 @@ map('n',        'g.',            '/\\V\\C<C-R>"<CR>cgn<C-a><Esc>')
 map('x',        'g.',            '.')
 
 map('n', '<leader>z', function()
-  o.spell = true
+  wo.spell = true
   feedkeys('1z=')
-  o.spell = false
+  wo.spell = false
 end)
 map('n', ']s', function()
-  o.spell = true
+  wo.spell = true
   feedkeys(']s')
 end)
 map('n', '[s', function()
-  o.spell = true
+  wo.spell = true
   feedkeys('[s')
 end)
 
