@@ -31,7 +31,7 @@ return { 'kylechui/nvim-surround',
       F = { 'function() return ', ' end' }
     })
     filetype_surround('markdown', {
-      c = { {'```'}, {'```'} }
+      c = { { '```', '' }, { '', '```' } },
     })
     filetype_surround('tex', {
       c = function()
