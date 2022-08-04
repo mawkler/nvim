@@ -17,7 +17,6 @@ return {
           Normal = {
             guifg = colors.fg_dark,
             guibg = nil,
-            gui = 'italic',
           },
         },
         margin = {
@@ -30,7 +29,7 @@ return {
         return {
           { icon, guifg = color },
           { ' ' },
-          { filename },
+          { filename, gui = 'italic' },
         }
       end
     })
