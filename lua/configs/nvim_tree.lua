@@ -48,6 +48,9 @@ return { 'kyazdani42/nvim-tree.lua',
               ignored   = '',
             }
           },
+          show = {
+            folder_arrow = false
+          },
           git_placement = 'signcolumn',
         }
       },
