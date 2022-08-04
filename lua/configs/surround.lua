@@ -4,15 +4,17 @@
 return { 'kylechui/nvim-surround',
   keys = {
     {'n', 's'},
-    {'n', 'S'},
     {'n', 'ds'},
     {'n', 'cs'},
     {'x', 's'},
-    {'x', 'S'},
   },
   module = 'nvim-surround',
   setup = function()
+    local map = require('utils').map
     local augroup = 'Surround'
+
+    map('n', 'S', 's$', { remap = true })
+
     local function filetype_surround(filetype, pairs)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetype,
@@ -42,8 +44,6 @@ return { 'kylechui/nvim-surround',
     })
   end,
   config = function()
-    local map = require('utils').map
-
     require('nvim-surround').setup({
       move_cursor = false,
       keymaps = {
@@ -71,7 +71,5 @@ return { 'kylechui/nvim-surround',
         end,
       },
     })
-
-    map('n', 'S', 's$', { remap = true })
   end
 }
