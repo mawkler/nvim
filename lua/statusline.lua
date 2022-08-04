@@ -288,7 +288,7 @@ table.insert(active_right, {
 
 -- Copilot
 table.insert(active_right, {
-  provider = ' ',
+  provider = 'ﮧ ',
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
   left_sep = left_sep,
   right_sep = right_sep,

@@ -9,7 +9,7 @@ return { 'feline-nvim/feline.nvim',
   },
   config = function()
     local colors = require('onedark.colors').setup()
-    require('../statusline').setup({
+    require('statusline').setup({
       theme = colors,
       modifications = {
         bg = colors.bg_sidebar,

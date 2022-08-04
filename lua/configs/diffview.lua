@@ -7,7 +7,7 @@ return { 'sindrets/diffview.nvim',
     local map = require('utils').map
     local actions = require('diffview.config').actions
 
-    map('n', '<leader>gD', '<cmd>DiffviewOpen<CR>')
+    map('n', '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>')
     map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')
 
     require('diffview').setup {

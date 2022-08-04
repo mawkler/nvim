@@ -177,8 +177,8 @@ map('n', '<leader><C-t>', function()
 end, 'Delete buffer and pop jump stack')
 map('n', '<leader>N', function()
   o.relativenumber = not o.relativenumber
-  print('Relative numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
-end, 'Toggle relative numbers')
+  print('Relative line numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
+end, 'Toggle relative line numbers')
 map('n', '<leader>W', function()
   vim.wo.wrap = not vim.wo.wrap
   print('Line wrap ' .. (vim.wo.wrap and 'enabled' or 'disabled'))

@@ -287,7 +287,7 @@ nnoremap <silent> <C-Space> :BufferPick<CR>
 nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
 nnoremap <silent> <Leader>bc :BufferClose<CR>
-nnoremap <silent> <Leader>bo :BufferCloseAllButCurrent<CR><CR>
+nnoremap <silent> <Leader>bo :BufferCloseAllButCurrent<CR>
 " Move to previous/next
 nnoremap <silent> <C-Tab>         :BufferNext<CR>
 nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
