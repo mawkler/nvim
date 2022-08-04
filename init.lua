@@ -58,6 +58,7 @@ require('packer').startup { function()
   Use 'formatter'                               -- Auto formatting on save
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework
+  Use 'incline'                                 -- Floating winbar
   Use 'fidget'                                  -- LSP progress indicator
   Use 'gitsigns'                                -- Git status in sign column
   Use 'lsp'                                     -- Built-in LSP
