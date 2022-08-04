@@ -59,6 +59,9 @@ return { 'ful1e5/onedark.nvim', config = function()
         TSStrong = { fg = c.orange0, style = style.Bold },
         -- TypeScript
         typescriptParens = { link = 'TSPunctBracket' },
+        -- Git commit
+        gitcommitOverflow = { link = 'Error' },
+        gitcommitSummary = { link = 'htmlBold' },
         -- QuickScope
         QuickScopePrimary = { fg = c.red0, style = style.Bold },
         QuickScopeSecondary = { fg = c.orange1, style = style.Bold },
