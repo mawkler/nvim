@@ -54,7 +54,7 @@ require('packer').startup { function()
   use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
   Use 'web_devicons'
   Use 'nvim_tree'                               -- File explorer
-  use { 'romgrk/barbar.nvim' }                  -- Sexiest buffer tabline
+  Use 'barbar'                                  -- Sexiest buffer tabline
   Use 'formatter'                               -- Auto formatting on save
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework

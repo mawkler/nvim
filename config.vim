@@ -267,57 +267,6 @@ nnoremap <silent> <Right> :CmdResizeRight<CR>
 nnoremap <silent> <Up>    :CmdResizeUp<CR>
 nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
-" -- barbar.nvim --
-let g:bufferline = get(g:, 'bufferline', {
-      \ 'closable': v:false,
-      \ 'no_name_title': '[No Name]',
-      \ 'insert_at_end': v:true,
-      \ 'exclude_name': ['[dap-repl]'],
-      \ 'exclude_ft': ['qf'],
-      \ })
-
-nmap <silent> <M-w>         :BufferClose<CR>
-nmap <silent> <M-W>         :BufferClose<CR>:wincmd c<CR>
-nmap <silent> <leader>bC    :BufferClose<CR>:wincmd c<CR>
-nmap <silent> <leader><M-w> :BufferClose!<CR>
-
-" Magic buffer-picking mode
-nnoremap <silent> <C-Space> :BufferPick<CR>
-" Sort automatically by...
-nnoremap <silent> <Leader>bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <Leader>bl :BufferOrderByLanguage<CR>
-nnoremap <silent> <Leader>bc :BufferClose<CR>
-nnoremap <silent> <Leader>bo :BufferCloseAllButCurrent<CR>
-" Move to previous/next
-nnoremap <silent> <C-Tab>         :BufferNext<CR>
-nnoremap <silent> <C-S-Tab>       :BufferPrevious<CR>
-nnoremap <silent> <M-l>           :BufferNext<CR>
-nnoremap <silent> <M-h>           :BufferPrevious<CR>
-nnoremap <silent> <Leader><Tab>   :BufferNext<CR>
-nnoremap <silent> <Leader><S-Tab> :BufferPrevious<CR>
-" Re-order to previous/next
-nnoremap <silent> <M-.> :BufferMoveNext<CR>
-nnoremap <silent> <M-,> :BufferMovePrevious<CR>
-" Goto buffer in position...
-nnoremap <silent> <M-1> :BufferGoto 1<CR>
-nnoremap <silent> <M-2> :BufferGoto 2<CR>
-nnoremap <silent> <M-3> :BufferGoto 3<CR>
-nnoremap <silent> <M-4> :BufferGoto 4<CR>
-nnoremap <silent> <M-5> :BufferGoto 5<CR>
-nnoremap <silent> <M-6> :BufferGoto 6<CR>
-nnoremap <silent> <M-7> :BufferGoto 7<CR>
-nnoremap <silent> <M-8> :BufferGoto 8<CR>
-nnoremap <silent> <M-9> :BufferLast<CR>
-nnoremap <silent> <Leader>1 :BufferGoto 1<CR>
-nnoremap <silent> <Leader>2 :BufferGoto 2<CR>
-nnoremap <silent> <Leader>3 :BufferGoto 3<CR>
-nnoremap <silent> <Leader>4 :BufferGoto 4<CR>
-nnoremap <silent> <Leader>5 :BufferGoto 5<CR>
-nnoremap <silent> <Leader>6 :BufferGoto 6<CR>
-nnoremap <silent> <Leader>7 :BufferGoto 7<CR>
-nnoremap <silent> <Leader>8 :BufferGoto 8<CR>
-nnoremap <silent> <Leader>9 :BufferLast<CR>
-
 " -- Scrollbar --
 let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['NvimTree']
