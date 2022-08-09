@@ -18,8 +18,8 @@ return { 'mbbill/undotree',
       callback = function()
         local opts = { buffer = true, nowait = true }
         map('n', '<Space>', '<Plug>UndotreeEnter',         opts)
-        map('n', '<C-j>',   '<plug>UndotreeNextState',     opts)
-        map('n', '<C-k>',   '<plug>UndotreePreviousState', opts)
+        map('n', '<C-k>',   '<plug>UndotreeNextState',     opts)
+        map('n', '<C-j>',   '<plug>UndotreePreviousState', opts)
       end,
       group = 'UndoTreeMaps'
     })
