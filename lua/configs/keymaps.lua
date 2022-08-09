@@ -193,6 +193,7 @@ map('n', '<Esc>', function()
   end
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
+map('n', '<C-l>', '<cmd>LuaSnipUnlinkCurrent<CR><C-l>')
 
 -- Packer
 map('n', '<leader>ku', '<cmd>PackerUpdate<CR>')
