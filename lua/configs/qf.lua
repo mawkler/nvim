@@ -7,9 +7,17 @@ return { 'ten3roberts/qf.nvim', -- Quickfix utilities
     local map, feedkeys = require('utils').map, require('utils').feedkeys
     require('../quickfix') -- Better quickfix UI
 
-    qf.setup {
-      pretty = false
-    }
+    qf.setup({
+      pretty = false,
+      l = {
+        wide = true,
+        min_height = 3,
+      },
+      c = {
+        wide = true,
+        min_height = 3,
+      },
+    })
 
     -- Sets `bufhidden = delete` if buffer was jumped to
     local function list_jump(command, list)
