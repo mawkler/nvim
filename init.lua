@@ -126,6 +126,7 @@ import('packer', function(packer) packer.startup { function()
     cmd = 'Bufferize',
   }
   Use 'vim_session'
+  Use 'possession'                              -- Session manager
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
   use { 'tvaintrob/bicep.vim', ft = 'bicep' }

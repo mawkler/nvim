@@ -144,6 +144,7 @@ return { 'nvim-telescope/telescope.nvim',
     telescope.load_extension('sessions_picker')
     telescope.load_extension('cder')
     telescope.load_extension('dap')
+    telescope.load_extension('possession')
 
     function _G.telescope_markdowns()
       builtin.find_files({
@@ -248,5 +249,9 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tb', extensions.dap.list_breakpoints)
     map('n', '<leader>tv', extensions.dap.variables)
     map('n', '<leader>tf', extensions.dap.frames)
+
+    map('n', '<leader>s', telescope.extensions.possession.list, {
+      desc = 'Sessions',
+    })
   end
 }
