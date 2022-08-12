@@ -14,8 +14,8 @@ return { 'romgrk/barbar.nvim',
     }
 
     map('n', '<M-w>',           '<cmd>BufferClose<CR>')
-    map('n', '<M-W>',           '<cmd>BufferClose<CR>:wincmd c<CR>')
-    map('n', '<leader>bC',      '<cmd>BufferClose<CR>:wincmd c<CR>')
+    map('n', '<M-W>',           '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
+    map('n', '<leader>bC',      '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
     map('n', '<leader><M-w>',   '<cmd>BufferClose!<CR>')
     -- Magic buffer-picking mode
     map('n', '<C-Space>',       '<cmd>BufferPick<CR>')
