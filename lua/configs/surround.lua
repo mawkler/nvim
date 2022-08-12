@@ -15,12 +15,12 @@ return { 'kylechui/nvim-surround',
 
     map('n', 'S', 's$', { remap = true })
 
-    local function filetype_surround(filetype, pairs)
+    local function filetype_surround(filetype, surrounds)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetype,
         callback = function()
           require('nvim-surround').buffer_setup({
-            delimiters = { pairs = pairs }
+            surrounds = surrounds
           })
         end,
         group = augroup,
@@ -29,19 +29,36 @@ return { 'kylechui/nvim-surround',
 
     vim.api.nvim_create_augroup(augroup, {})
 
-    filetype_surround('lua', {
-      F = { 'function() return ', ' end' }
-    })
-    filetype_surround('markdown', {
-      c = { { '```', '' }, { '', '```' } },
-    })
-    filetype_surround('tex', {
-      c = function()
-        return {
-          '\\' .. vim.fn.input({ prompt = 'LaTex command: ' }) .. '{', '}'
-        }
-      end,
-    })
+    -- filetype_surround('lua', {
+    --   -- F = { 'function() return ', ' end' }
+    --   add = function()
+    --     return { { 'function() return ' }, { ' end' } }
+    --   end,
+    --   -- find = function()
+
+    --   -- end,
+    --   -- delete = function()
+
+    --   -- end,
+    --   -- change = {
+    --   --   target = function()
+
+    --   --   end,
+    --   --   replacement = function()
+
+    --   --   end,
+    --   -- }
+    -- })
+    -- filetype_surround('markdown', {
+    --   c = { { '```', '' }, { '', '```' } },
+    -- })
+    -- filetype_surround('tex', {
+    --   c = function()
+    --     return {
+    --       '\\' .. vim.fn.input({ prompt = 'LaTex command: ' }) .. '{', '}'
+    --     }
+    --   end,
+    -- })
   end,
   config = function()
     require('nvim-surround').setup({
@@ -52,23 +69,10 @@ return { 'kylechui/nvim-surround',
         visual = 's',
         visual_line = 'S',
       },
-      delimiters = {
-        aliases = {
-          q = "'",
-          Q = '"',
-          A = '`',
-        },
-        pairs = {
-          b = { '(', ')' },
-          B = { '{', '}' },
-          s = { ')', ']', '}', '>', '"', "'", '`' },
-        },
-        separators = {
-          ['*'] = { '*', '*' }, -- Doesn't work yet
-        },
-        invalid_key_behavior = function(char)
-          return { char, char }
-        end,
+      aliases = {
+        q = "'",
+        Q = '"',
+        A = '`',
       },
     })
   end
