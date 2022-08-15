@@ -1,4 +1,4 @@
-if exists('g:goneovim') && !exists('g:font_set')
+if exists('g:goneovim') || exists('g:neovide') && !exists('g:font_set')
   set guifont=FiraCode\ Nerd\ Font:h11
   let g:font_set = v:true " Prevents goneovim from changing zoom level when reloading init.vim
 endif

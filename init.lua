@@ -43,9 +43,9 @@ require('packer').startup { function()
   use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
   Use 'startify'                                -- Nicer start screen
-  use { 'DanilaMihailov/beacon.nvim',           -- Flash the cursor location on jump
-    event = 'WinEnter',
-  }
+  -- use { 'DanilaMihailov/beacon.nvim',           -- Flash the cursor location on jump
+  --   event = 'WinEnter',
+  -- }
   Use 'indent_blankline'                        -- Indent markers
   use { 'coreyja/fzf.devicon.vim',
     requires = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
@@ -175,4 +175,5 @@ require('configs.keymaps')
 require('configs.autocmds')
 require('configs.commands')
 require('configs.diagnostics')
+require('configs.neovide')
 pcall(vim.cmd, 'source ~/.config/nvim/config.vim')
