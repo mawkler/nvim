@@ -195,6 +195,9 @@ end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<C-l>', '<cmd>LuaSnipUnlinkCurrent<CR><C-l>')
 
+map({'n', 'v'}, '<C-y>', '5<C-y>')
+map({'n', 'v'}, '<C-e>', '5<C-e>')
+
 -- Packer
 map('n', '<leader>ku', '<cmd>PackerUpdate<CR>')
 map('n', '<leader>kc', '<cmd>PackerCompile<CR>')
