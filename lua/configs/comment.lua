@@ -32,10 +32,10 @@ return { 'numToStr/Comment.nvim',
         if vim.bo.filetype == 'typescriptreact' then
           local c_utils = require('Comment.utils')
           local ts_context_utils = require('ts_context_commentstring.utils')
-          local type = ctx.ctype == c_utils.ctype.line and '__default' or '__multiline'
+          local type = ctx.ctype == c_utils.ctype.linewise and '__default' or '__multiline'
           local location
 
-          if ctx.ctype == c_utils.ctype.block then
+          if ctx.ctype == c_utils.ctype.blockwise then
             location = ts_context_utils.get_cursor_location()
           elseif ctx.cmotion == c_utils.cmotion.v or ctx.cmotion == c_utils.cmotion.V then
             location = ts_context_utils.get_visual_start_location()
@@ -65,7 +65,7 @@ return { 'numToStr/Comment.nvim',
     map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
     map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
     map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
-    map('n', 'cm',         '<Plug>(comment_toggle_current_linewise)')
+    map('n', 'cm',         '<Plug>(comment_toggle_linewise_current)')
     map('n', '<leader>cp', 'yycmp', {remap = true})
 
     comment_map('n', '<leader>c>',   'comment_linewise_op', true)
