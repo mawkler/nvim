@@ -2,18 +2,19 @@
 -- Lightspeed --
 ----------------
 return { 'ggandor/lightspeed.nvim',
+  keys = {'zj', 'zk', '<CR>', '<S-CR>'},
   config = function()
     local utils = require('utils')
     local map = utils.map
 
     vim.g.lightspeed_no_default_keymaps = true
     require('lightspeed').setup {
-      exit_after_idle_msecs = { labeled = 1000 },
+      exit_after_idle_msecs = { labeled = 1500 },
       ignore_case = true,
       labels = {},
       safe_labels = {
         'h', 'j', 'k', 'l', 'f', ';', "'", 'm', 'w', 'e', 'n', 'u', '/', ',',
-        'b', 't', '[', ']', '\\',
+        'b', 't', '[', ']', 'H', 'L', 'F', ':', '"',
       },
     }
 

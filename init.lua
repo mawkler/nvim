@@ -136,7 +136,7 @@ require('packer').startup { function()
     require('stabilize').setup()
   end }
   Use 'diffview'                                -- Git diff and file history
-  Use 'lightspeed'                              -- Moving cursor anywhere
+  Use 'leap'                                    -- Move cursor anywhere
   Use 'winshift'                                -- Improved window movement
   Use 'notify'                                  -- Floating notifications popups
   use { 'NarutoXY/dim.lua', config = function() -- Dim unused words

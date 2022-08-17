@@ -111,7 +111,13 @@ return { 'ful1e5/onedark.nvim', config = function()
         -- Grammarous
         GrammarousError = { style = style.Undercurl, sp = c.error },
         -- Scrollbar
-        Scrollbar = { fg = c.bg_visual }
+        Scrollbar = { fg = c.bg_visual },
+        -- Leap
+        LeapMatch = { fg = c.orange0, style = string.format('%s,%s', style.Bold, style.Underline) },
+        LeapLabelPrimary = { fg = c.green0, style = style.Bold },
+        LeapLabelSecondary = { fg = c.red0 },
+        LeapLabelSelected = { bg = c.bg_visual },
+        LeapBackdrop = { fg = c.fg_dark },
       }
     end
   }
