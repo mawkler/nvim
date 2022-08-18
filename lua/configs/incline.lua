@@ -13,6 +13,7 @@ return {
         only_win = true,
       },
       window = {
+        zindex = 1,
         winhighlight = {
           Normal = {
             guifg = colors.fg_dark,
