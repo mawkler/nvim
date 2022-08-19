@@ -27,59 +27,8 @@ return { 'nvim-telescope/telescope.nvim',
     local finders = require('telescope.finders')
     local actions = require('telescope.actions')
     local builtin = require('telescope.builtin')
-    local action_state = require('telescope.actions.state')
     local conf = require('telescope.config').values
-
-    -- Allows editing multiple files with multi selection
-    -- Workaround for https://github.com/nvim-telescope/telescope.nvim/issues/1048
-    local multiopen = function(prompt_bufnr, open_cmd)
-      local picker = action_state.get_current_picker(prompt_bufnr)
-      local num_selections = #picker:get_multi_selection()
-      if not num_selections or num_selections <= 1 then
-        actions.add_selection(prompt_bufnr)
-      end
-      actions.send_selected_to_qflist(prompt_bufnr)
-
-      local results = vim.fn.getqflist()
-
-      for _, result in ipairs(results) do
-        local current_file = vim.fn.bufname()
-        local next_file = vim.fn.bufname(result.bufnr)
-
-        if current_file == '' then
-          vim.api.nvim_command('edit' .. ' ' .. next_file)
-        else
-          vim.api.nvim_command(open_cmd .. ' ' .. next_file)
-        end
-      end
-
-      vim.api.nvim_command('cd .')
-    end
-
-    local function multi_selection_open(prompt_bufnr)
-      multiopen(prompt_bufnr, 'edit')
-    end
-
-    local function multi_selection_open_vsplit(prompt_bufnr)
-      multiopen(prompt_bufnr, 'vsplit')
-    end
-
-    local function multi_selection_open_split(prompt_bufnr)
-      multiopen(prompt_bufnr, 'split')
-    end
-
-    local function multi_selection_open_tab(prompt_bufnr)
-      multiopen(prompt_bufnr, 'tabedit')
-    end
-
-    local telescope_multiselect_mappings = {
-      i = {
-        ['<CR>'] = multi_selection_open,
-        ['<C-v>'] = multi_selection_open_vsplit,
-        ['<C-s>'] = multi_selection_open_split,
-        ['<C-t>'] = multi_selection_open_tab,
-      }
-    }
+    local action_state = require('telescope.actions.state')
 
     local fd_ignore_file = fn.expand('$HOME/') .. '.rgignore'
     local cder_dir_cmd = {
@@ -94,6 +43,8 @@ return { 'nvim-telescope/telescope.nvim',
 
     -- Don't show line text, just the file name
     local picker_default_config = { show_line = false }
+
+    local multiopen = require('configs.telescope_multiopen')
 
     telescope.setup {
       defaults = {
@@ -115,7 +66,12 @@ return { 'nvim-telescope/telescope.nvim',
             ['<C-a>']  = function() feedkeys('<Home>') end,
             ['<C-e>']  = function() feedkeys('<End>') end,
             ['<M-BS>'] = function() vim.api.nvim_input('<C-w>') end,
-            ['<C-u>']  = false
+            ['<C-u>']  = false,
+            ['<C-v>']  = multiopen.i['<C-v>'],
+            ['<C-s>']  = multiopen.i['<C-s>'],
+            ['<C-t>']  = multiopen.i['<C-t>'],
+            ['<CR>']   = multiopen.i['<CR>'],
+
           },
           n = {
             ['<C-q>'] = 'close',
