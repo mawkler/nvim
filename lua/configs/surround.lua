@@ -13,8 +13,6 @@ return { 'kylechui/nvim-surround',
     local map = require('utils').map
     local augroup = 'Surround'
 
-    map('n', 'S', 's$', { remap = true })
-
     local function filetype_surround(filetype, surrounds)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetype,
@@ -29,36 +27,33 @@ return { 'kylechui/nvim-surround',
 
     vim.api.nvim_create_augroup(augroup, {})
 
-    -- filetype_surround('lua', {
-    --   -- F = { 'function() return ', ' end' }
-    --   add = function()
-    --     return { { 'function() return ' }, { ' end' } }
-    --   end,
-    --   -- find = function()
+    map('n', 'S', 's$', { remap = true })
 
-    --   -- end,
-    --   -- delete = function()
+    filetype_surround('lua', {
+      F = { -- Anonymous function
+        add = function()
+          return { { 'function() return ' }, { ' end' } }
+        end,
 
-    --   -- end,
-    --   -- change = {
-    --   --   target = function()
-
-    --   --   end,
-    --   --   replacement = function()
-
-    --   --   end,
-    --   -- }
-    -- })
-    -- filetype_surround('markdown', {
-    --   c = { { '```', '' }, { '', '```' } },
-    -- })
-    -- filetype_surround('tex', {
-    --   c = function()
-    --     return {
-    --       '\\' .. vim.fn.input({ prompt = 'LaTex command: ' }) .. '{', '}'
-    --     }
-    --   end,
-    -- })
+      },
+    })
+    filetype_surround('markdown', {
+      c = { -- Code block
+        add = function()
+          return { { '```', ''}, { '', '```' } }
+        end
+      },
+    })
+    filetype_surround('tex', {
+      c = { -- LaTeX command
+        add = function()
+          return {
+            { '\\' .. vim.fn.input({ prompt = 'LaTex command: ' }) .. '{' },
+            { '}' }
+          }
+        end
+      },
+    })
   end,
   config = function()
     require('nvim-surround').setup({
