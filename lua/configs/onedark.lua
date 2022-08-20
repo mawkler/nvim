@@ -96,16 +96,18 @@ return { 'ful1e5/onedark.nvim', config = function()
         -- Fidget
         FidgetTitle = { fg = c.blue0, style = style.Bold },
         -- Barbar
+        BufferCurrentTarget  = { fg = c.blue0,        bg = c.bg0, style = style.Bold },
         BufferVisible        = { fg = c.fg0,          bg = barbar_bg_visible },
         BufferVisibleSign    = { fg = barbar_fg_gray, bg = barbar_bg_visible },
+        BufferVisibleMod     = { fg = c.warning,      bg = barbar_bg_visible },
+        BufferVisibleIndex   = { fg = barbar_fg_gray, bg = barbar_bg_visible },
+        BufferVisibleTarget  = { fg = c.blue0,        bg = barbar_bg_visible, style = style.Bold  },
         BufferTabpageFill    = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferTabpages       = { fg = c.blue0,        bg = barbar_bg, style = style.Bold },
-        BufferVisibleMod     = { fg = c.warning,      bg = barbar_bg },
-        BufferVisibleIndex   = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferInactive       = { fg = '#707070',      bg = barbar_bg },
         BufferInactiveSign   = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferInactiveMod    = { fg = c.warning,      bg = barbar_bg },
-        BufferInactiveTarget = { fg = 'red',          bg = barbar_bg },
+        BufferInactiveTarget = { fg = c.blue0,        bg = barbar_bg, style = style.Bold },
         BufferInactiveIndex  = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferModifiedIndex  = { fg = barbar_fg_gray, bg = barbar_bg },
         -- Grammarous
