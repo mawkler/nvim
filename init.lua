@@ -149,6 +149,7 @@ require('packer').startup { function()
   use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},
   }
+  Use('template_string')                        -- Automatic template string
 end, config = {
   profile = {
     enable = true,
