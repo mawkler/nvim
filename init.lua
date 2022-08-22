@@ -102,14 +102,12 @@ require('packer').startup { function()
   Use 'surround'
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
-  use { 'andymass/vim-matchup', keys = {'n', '%'} }    -- Ads additional `%` commands
+  use { 'andymass/vim-matchup', keys = {'n', '%'} } -- Ads additional `%` commands
   Use 'autopairs'
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
   use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
   use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
-  use { 'inkarkat/vim-ConflictMotions',
-    requires = {'inkarkat/vim-ingo-library', 'inkarkat/vim-CountJump'},
-  }
+  Use 'git_conflict'                            -- Git conflict mappings
   use { 'kana/vim-textobj-user' }
   use { 'kana/vim-textobj-function' }
   use { 'kana/vim-textobj-line' }

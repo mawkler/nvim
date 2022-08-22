@@ -331,10 +331,6 @@ nmap <leader>Gq <Plug>(grammarous-close-info-window)
 nmap <leader>Gr <Plug>(grammarous-remove-error)
 nmap <leader>GD <Plug>(grammarous-disable-rule)
 
-" -- ConflictMotions --
-nmap <leader>xb     :ConflictTake both<CR>
-nmap <leader>x<Esc> <Esc>
-
 if !exists('g:vscode')
   " -- Peekaboo --
   let g:peekaboo_delay = 300
