@@ -68,18 +68,6 @@ omap iL <Plug>(textobj-line-i)
 xmap X <Plug>(Exchange)
 nmap cX cx$
 
-" -- dsf.vim --
-let g:dsf_no_mappings = 1
-nmap dsf <Plug>DsfNextDelete
-nmap dsF <Plug>DsfDelete
-nmap csf <Plug>DsfNextChange
-nmap csF <Plug>DsfChange
-
-omap af <Plug>DsfTextObjectA
-xmap af <Plug>DsfTextObjectA
-omap if <Plug>DsfTextObjectI
-xmap if <Plug>DsfTextObjectI
-
 " -- Fzf --
 function FZF_files(dir)
   echohl Comment
@@ -240,10 +228,6 @@ augroup markdown
   autocmd FileType markdown omap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
   autocmd FileType markdown xmap <buffer> iC <plug>(textobj-markdown-Bchunk-i)
 augroup END
-
-" Fixes crash
-nmap ]f <Nop>
-nmap [f <Nop>
 
 let g:vim_markdown_strikethrough = 1
 

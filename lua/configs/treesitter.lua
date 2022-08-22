@@ -19,6 +19,7 @@ return { 'nvim-treesitter/nvim-treesitter',
         select = {
           enable = true,
           lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+          include_surrounding_whitespace = true,
           keymaps = {
             ['aF'] = '@function.outer',
             ['iF'] = '@function.inner',
