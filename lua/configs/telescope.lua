@@ -44,7 +44,8 @@ return { 'nvim-telescope/telescope.nvim',
     -- Don't show line text, just the file name
     local picker_default_config = { show_line = false }
 
-    local multiopen = require('configs.telescope_multiopen')
+    -- Mappings for opening multiple files from find_files, etc.
+    local multi_open_mappings = require('configs.telescope_multiopen')
 
     telescope.setup {
       defaults = {
@@ -67,11 +68,6 @@ return { 'nvim-telescope/telescope.nvim',
             ['<C-e>']  = function() feedkeys('<End>') end,
             ['<M-BS>'] = function() vim.api.nvim_input('<C-w>') end,
             ['<C-u>']  = false,
-            ['<C-v>']  = multiopen.i['<C-v>'],
-            ['<C-s>']  = multiopen.i['<C-s>'],
-            ['<C-t>']  = multiopen.i['<C-t>'],
-            ['<CR>']   = multiopen.i['<CR>'],
-
           },
           n = {
             ['<C-q>'] = 'close',
@@ -98,8 +94,8 @@ return { 'nvim-telescope/telescope.nvim',
         }
       },
       pickers = {
-        -- find_files = { mappings = telescope_multiselect_mappings },
-        -- grep_string = { mappings = telescope_multiselect_mappings }
+        find_files           = { mappings = multi_open_mappings },
+        oldfiles             = { mappings = multi_open_mappings },
         quickfix             = picker_default_config,
         tagstack             = picker_default_config,
         jumplist             = picker_default_config,
