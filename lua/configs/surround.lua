@@ -4,9 +4,12 @@
 return { 'kylechui/nvim-surround',
   keys = {
     {'n', 's'},
-    {'n', 'ds'},
-    {'n', 'cs'},
+    {'n', 'S'},
+    {'o', 's'},
     {'x', 's'},
+    {'x', 'S'},
+    {'n', 'ys'},
+    {'n', 'yS'},
   },
   module = 'nvim-surround',
   setup = function()
