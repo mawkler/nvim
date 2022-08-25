@@ -8,6 +8,7 @@ vim.g.copilot_filetypes = { TelescopePrompt = false, DressingInput = false }
 return {
   'github/copilot.vim',
   event = 'InsertEnter',
+  disable = true,
   config = function()
     local map = require('utils').map
 
