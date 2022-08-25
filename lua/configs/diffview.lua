@@ -3,14 +3,25 @@
 --------------
 return { 'sindrets/diffview.nvim',
   requires = 'nvim-lua/plenary.nvim',
-  config = function()
+  module_pattern = 'diffview%.',
+  cmd = {
+    'DiffviewOpen',
+    'DiffviewClose',
+    'DiffviewFocusFiles',
+    'DiffviewToggleFiles',
+    'DiffviewFileHistory',
+    'DiffviewFileRefresh',
+    'DiffviewFileLog',
+  },
+  setup = function()
     local map = require('utils').map
-    local actions = require('diffview.config').actions
-
     map('n', '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>')
     map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')
+  end,
+  config = function()
+    local actions = require('diffview.config').actions
 
-    require('diffview').setup {
+    require('diffview').setup({
       enhanced_diff_hl = false,
       file_panel = {
         win_config = {
@@ -62,7 +73,6 @@ return { 'sindrets/diffview.nvim',
           ['<CR>'] = actions.select_entry
         }
       }
-    }
-
+    })
   end
 }
