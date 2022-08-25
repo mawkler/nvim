@@ -4,7 +4,6 @@
 return { 'kylechui/nvim-surround',
   keys = {
     {'n', 's'},
-    {'n', 'S'},
     {'o', 's'},
     {'x', 's'},
     {'x', 'S'},
@@ -15,6 +14,8 @@ return { 'kylechui/nvim-surround',
   setup = function()
     local map = require('utils').map
     local augroup = 'Surround'
+
+    map('n', 'S', 's$', { remap = true, desc = 'Surround until end of line' })
 
     local function filetype_surround(filetype, surrounds)
       vim.api.nvim_create_autocmd('FileType', {
@@ -29,8 +30,6 @@ return { 'kylechui/nvim-surround',
     end
 
     vim.api.nvim_create_augroup(augroup, {})
-
-    map('n', 'S', 's$', { remap = true })
 
     filetype_surround('lua', {
       F = { -- Anonymous function
