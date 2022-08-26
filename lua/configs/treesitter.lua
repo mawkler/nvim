@@ -26,6 +26,11 @@ return { 'nvim-treesitter/nvim-treesitter',
             ['ac'] = '@class.outer',
             ['ic'] = '@class.inner',
           },
+          selection_modes = {
+            -- Make `aF` and `ac` line-wise
+            ['@function.outer'] = 'V',
+            ['@class.outer'] = 'V',
+          },
         },
         move = {
           enable = true,
