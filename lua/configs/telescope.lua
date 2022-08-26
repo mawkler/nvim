@@ -94,15 +94,17 @@ return { 'nvim-telescope/telescope.nvim',
         }
       },
       pickers = {
-        find_files           = { mappings = multi_open_mappings },
-        oldfiles             = { mappings = multi_open_mappings },
-        quickfix             = picker_default_config,
-        tagstack             = picker_default_config,
-        jumplist             = picker_default_config,
-        lsp_references       = picker_default_config,
-        lsp_definitions      = picker_default_config,
-        lsp_type_definitions = picker_default_config,
-        lsp_implementations  = picker_default_config,
+        find_files                = { mappings = multi_open_mappings },
+        oldfiles                  = { mappings = multi_open_mappings },
+        current_buffer_fuzzy_find = { sorting_strategy = 'ascending' },
+        quickfix                  = picker_default_config,
+        tagstack                  = picker_default_config,
+        jumplist                  = picker_default_config,
+        lsp_references            = picker_default_config,
+        lsp_definitions           = picker_default_config,
+        lsp_type_definitions      = picker_default_config,
+        lsp_implementations       = picker_default_config,
+
       },
       extensions = {
         bookmarks = {
@@ -214,6 +216,7 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tc', builtin.commands, 'Commands')
     map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
     map('n', '<leader>t/', builtin.search_history, 'Search history')
+    map('n', '<leader>t?', builtin.current_buffer_fuzzy_find, 'Fuzzy find in buffer')
     map('n', '<leader>tq', builtin.quickfix, 'Quickfix')
     map('n', '<leader>tQ', builtin.quickfixhistory, 'Quickfix history')
     map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
