@@ -23,5 +23,17 @@
       "Melker${3: Österberg}$0"
     ],
     "description": "Best regards"
+  },
+  "conceal": {
+    "prefix": "conceal",
+    "body": [
+      "<details>",
+      "<summary><b>${1:Click to expand}</b></summary>",
+      "",
+      "$2",
+      "",
+      "</details>"
+    ],
+    "description": "Conceal text inside a <details> tag"
   }
 }
