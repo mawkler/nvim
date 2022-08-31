@@ -72,7 +72,6 @@ require('packer').startup { function()
   Use 'cmp'
   use { 'melkster/friendly-snippets' }          -- Snippet collection
   Use 'treesitter'
-  use { 'nvim-treesitter/nvim-treesitter-textobjects' }
   use { 'JoosepAlviste/nvim-ts-context-commentstring' }
   use { 'nvim-treesitter/playground',
     cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
