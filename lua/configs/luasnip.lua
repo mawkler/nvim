@@ -26,9 +26,9 @@ return { 'L3MON4D3/LuaSnip',
       return sn(nil, i(1, clipboad_oneline_node()))
     end
 
-    local luasnip_use = function()
+    local plugin_repo_snippet = function()
       local repo, _ = clipboad_oneline_node():gsub('.*github.com/([^/]*/[^/]*).*', '%1', 1)
-      return sn(nil,  i(1, repo) )
+      return sn(nil, i(1, repo))
     end
 
     luasnip.add_snippets('markdown', {
@@ -49,7 +49,25 @@ return { 'L3MON4D3/LuaSnip',
         name = 'Add plugin',
         dscr = 'Add packer.nvim plugin from the clipboard'
       }, {
-          t "use '", d(1, luasnip_use), t "'",
+          t "use '", d(1, plugin_repo_snippet), t "'",
+        }),
+      s({
+        trig = 'plugin',
+        name = 'Add plugin config',
+        dscr = 'Add packer.nvim plugin from the clipboard'
+      }, {
+          t "return { '", d(1, plugin_repo_snippet), t "',",
+          t {
+            '',
+            '  config = function()',
+            '    ',
+          },
+          i(2),
+          t {
+            '',
+            '  end,',
+            '}'
+          }
         })
     })
 
