@@ -34,6 +34,7 @@ return { 'mfussenegger/nvim-dap',
     local dap_ui, di = require('dapui'), require('dap-install')
     local jester = require('jester')
     local map = require('utils').map
+    local plugin_setup = require('utils').plugin_setup
 
     sign_define('DapBreakpoint',          { text='', texthl='Error' })
     sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
@@ -79,7 +80,7 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
 
     -- DAP virtual text --
-    require('nvim-dap-virtual-text').setup()
+    plugin_setup('nvim-dap-virtual-text')
 
     -- DAP-UI --
     dap_ui.setup()

@@ -10,7 +10,7 @@ return { 'neovim/nvim-lspconfig',
     'folke/lua-dev.nvim'                    -- Lua signature help and completion
   },
   config = function()
-    local map = require('utils').map
+    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
@@ -18,7 +18,8 @@ return { 'neovim/nvim-lspconfig',
     -------------------
     -- LSP Installer --
     -------------------
-    require('nvim-lsp-installer').setup()
+    plugin_setup('nvim-lsp-installer')
+
     local lsp_server_dir = vim.fn.stdpath('data') .. '/lsp_servers/'
 
     -- Typescript --
@@ -44,8 +45,8 @@ return { 'neovim/nvim-lspconfig',
     })
 
     -- Lua --
-    lspconfig.sumneko_lua.setup(
-      require('lua-dev').setup({
+    import('lua-dev', function(luadev)
+      lspconfig.sumneko_lua.setup(luadev.setup({
         lspconfig = {
           settings = {
             Lua = {
@@ -55,8 +56,8 @@ return { 'neovim/nvim-lspconfig',
             }
           }
         }
-      })
-    )
+      }))
+    end)
 
     -- YAML --
     lspconfig.yamlls.setup({

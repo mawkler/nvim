@@ -19,6 +19,8 @@ return { 'nvim-telescope/telescope.nvim',
     local feedkeys = require('utils').feedkeys
     local map = require('utils').map
     local append = require('utils').append
+    local plugin_setup = require('utils').plugin_setup
+
     local fn, api = vim.fn, vim.api
 
     local telescope = require('telescope')
@@ -46,6 +48,11 @@ return { 'nvim-telescope/telescope.nvim',
 
     -- Mappings for opening multiple files from find_files, etc.
     local multi_open_mappings = require('configs.telescope_multiopen')
+
+    -- Zoxide
+    plugin_setup('telescope._extensions.zoxide.config', {
+      prompt_title = 'Zoxide',
+    })
 
     telescope.setup {
       defaults = {
@@ -124,7 +131,7 @@ return { 'nvim-telescope/telescope.nvim',
             .. '--git '
             .. '--ignore-glob=.git',
           dir_command = cder_dir_cmd,
-        }
+        },
       }
     }
 

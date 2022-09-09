@@ -4,9 +4,9 @@
 return { 'NTBBloodbath/rest.nvim',
   cmd = 'Http',
   config = function()
-    local map = require('utils').map
+    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
 
-    require('rest-nvim').setup()
+    plugin_setup('rest-nvim')
 
     local function http_request()
       if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 80 then

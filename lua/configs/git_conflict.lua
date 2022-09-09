@@ -4,8 +4,9 @@
 return { 'akinsho/git-conflict.nvim',
   tag = '*',
   config = function()
-    local map = require('utils').map
-    require('git-conflict').setup({
+    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
+
+    plugin_setup('git-conflict', {
       default_mappings = false,
       disable_diagnostics = true,
     })

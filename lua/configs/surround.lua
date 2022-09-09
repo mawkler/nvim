@@ -58,7 +58,9 @@ return { 'kylechui/nvim-surround',
     })
   end,
   config = function()
-    require('nvim-surround').setup({
+    local plugin_setup = require('utils').plugin_setup
+
+    plugin_setup('nvim-surround', ({
       move_cursor = false,
       keymaps = {
         normal = 's',
@@ -71,6 +73,6 @@ return { 'kylechui/nvim-surround',
         Q = '"',
         A = '`',
       },
-    })
+    }))
   end
 }

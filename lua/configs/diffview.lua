@@ -20,8 +20,9 @@ return { 'sindrets/diffview.nvim',
   end,
   config = function()
     local actions = require('diffview.config').actions
+    local plugin_setup = require('utils').plugin_setup
 
-    require('diffview').setup({
+    plugin_setup('diffview', ({
       enhanced_diff_hl = false,
       file_panel = {
         win_config = {
@@ -73,6 +74,6 @@ return { 'sindrets/diffview.nvim',
           ['<CR>'] = actions.select_entry
         }
       }
-    })
+    }))
   end
 }

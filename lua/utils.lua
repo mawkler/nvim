@@ -44,6 +44,7 @@ local function lsp_server_has_references()
   return false
 end
 
+-- Clear all highlighted LSP references in all windows
 M.clear_lsp_references = function()
   vim.cmd 'nohlsearch'
   if lsp_server_has_references() then
@@ -54,12 +55,18 @@ M.clear_lsp_references = function()
   end
 end
 
+-- Close every floating window
 M.close_floating_windows = function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative == 'win' then
       vim.api.nvim_win_close(win, false)
     end
   end
+end
+
+-- Require `plugin` and call `plugin.setup()`
+M.plugin_setup = function(plugin, setup)
+  import(plugin, function(module) module.setup(setup) end)
 end
 
 return M

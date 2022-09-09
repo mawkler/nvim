@@ -5,9 +5,9 @@ return { 'stevearc/dressing.nvim',
   config = function()
     local utils = require('utils')
     local map, feedkeys = utils.map, utils.feedkeys
+    local plugin_setup = utils.plugin_setup
 
-    local input = require('dressing.input')
-    require('dressing').setup {
+    plugin_setup('dressing',  {
       select = {
         telescope = require('telescope.themes').get_dropdown()
       },
@@ -16,12 +16,14 @@ return { 'stevearc/dressing.nvim',
         relative = 'editor',
         default_prompt = ' ', -- Doesn't seem to work
       }
-    }
+    })
 
     vim.api.nvim_create_augroup('Dressing', {})
     vim.api.nvim_create_autocmd('Filetype', {
       pattern = 'DressingInput',
       callback = function()
+        local input = require('dressing.input')
+
         if vim.g.grep_string_mode then
           -- Enter input window in select mode
           feedkeys('<Esc>V<C-g>', 'i')

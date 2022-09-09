@@ -338,6 +338,7 @@ table.insert(active_right, {
 -----------
 -- Setup --
 -----------
+local plugin_setup = require('utils').plugin_setup
 
 local function setup(config)
   if not config or not config.theme then
@@ -365,12 +366,12 @@ local function setup(config)
       NONE          = 'gray'
     }
 
-    require('feline').setup {
+    plugin_setup('feline', {
       theme = theme,
       components = components,
       vi_mode_colors = mode_colors,
       force_inactive = {}
-    }
+    })
   end
 end
 

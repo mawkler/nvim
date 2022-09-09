@@ -3,10 +3,13 @@
 -------------
 return { 'rcarriga/nvim-notify',
   config = function()
+    local plugin_setup = require('utils').plugin_setup
     local notify = require('notify')
-    require('notify').setup {
+
+    plugin_setup('notify',  {
       timeout = 2000,
-    }
+    })
+
     vim.notify = notify
 
     -- LSP window/showMessage

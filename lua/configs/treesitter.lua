@@ -5,9 +5,10 @@ return { 'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   requires = 'nvim-treesitter/nvim-treesitter-textobjects',
   config = function ()
-    local map = require('utils').map
+    local utils = require('utils')
+    local map, plugin_setup = utils.map, utils.plugin_setup
 
-    require('nvim-treesitter.configs').setup {
+    plugin_setup('nvim-treesitter.configs',  {
       ensure_installed = 'all',
       highlight = {
         enable = true,
@@ -72,7 +73,7 @@ return { 'nvim-treesitter/nvim-treesitter',
         disable_virtual_text = true,
         include_match_words = true
       },
-    }
+    })
 
     -- Prints the syntax highlighting values under cursor
     map('n', '<leader>H', '<cmd>TSHighlightCapturesUnderCursor<CR>')

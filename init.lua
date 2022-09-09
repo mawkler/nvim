@@ -2,10 +2,13 @@
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient')
 
-require('packer').startup { function()
-  -- `use` packer config for plugin that's in an external module
+-- Better `require`
+require('import')
+
+import('packer', function(packer) packer.startup { function()
+  -- Import plugin config from external module in lua/configs/
   function Use(module)
-    use(require(string.format('configs.%s', module)))
+    import(string.format('configs.%s', module), use)
   end
 
   use { 'wbthomason/packer.nvim' }
@@ -36,9 +39,10 @@ require('packer').startup { function()
   Use 'lens'
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
-  use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
-    cmd = {'CmdResizeUp', 'CmdResizeRight', 'CmdResizeDown', 'CmdResizeLeft'},
-  }
+  -- use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
+  --   cmd = {'CmdResizeUp', 'CmdResizeRight', 'CmdResizeDown', 'CmdResizeLeft'},
+  -- }
+  -- Use 'smart_splits'
   use { 'junegunn/vim-peekaboo' }               -- Register selection window
   use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
@@ -84,17 +88,18 @@ require('packer').startup { function()
   }
   use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
   use { 'ethanholz/nvim-lastplace',             -- Restore cursor position
-    config = function() require('nvim-lastplace').setup {} end
+    config = function() require('utils').plugin_setup('nvim-lastplace', {}) end
   }
   Use 'dial'                                    -- Enhanced increment/decrement
   Use 'comment'
   Use 'rest'                                    -- Sending HTTP requests
   Use 'dap'                                     -- UI for nvim-dap
+  Use 'overseer'                                -- Task runner
   -- use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   Use 'onedark'
   Use 'refactoring'
-  use { 'Darazaki/indent-o-matic',              -- Automatic indentation detection
-    config = function() require('indent-o-matic').setup {} end
+  use { 'Darazaki/indent-o-matic',              -- Automatic indent detection
+    config = function() require('utils').plugin_setup('indent-o-matic', {}) end
   }
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'miniyank'                                -- Cycle register history
@@ -126,15 +131,15 @@ require('packer').startup { function()
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
   use { 'tvaintrob/bicep.vim', ft = 'bicep' }
-  use { 'luukvbaal/stabilize.nvim', event = 'WinNew', config = function()
-    require('stabilize').setup()
-  end }
+  use { 'luukvbaal/stabilize.nvim', event = 'WinNew',
+    config = function() require('utils').plugin_setup('stabilize') end
+  }
   Use 'diffview'                                -- Git diff and file history
   Use 'leap'                                    -- Move cursor anywhere
   Use 'winshift'                                -- Improved window movement
   Use 'notify'                                  -- Floating notifications popups
   use { 'NarutoXY/dim.lua', config = function() -- Dim unused words
-    require('dim').setup()
+    require('utils').plugin_setup('dim')
   end }
   Use 'toggleterm'                              -- Toggleable terminal
   Use 'bqf'
@@ -144,6 +149,8 @@ require('packer').startup { function()
     cmd = {'Reload', 'Restart'},
   }
   Use('template_string')                        -- Automatic template string
+  use 'miversen33/import.nvim'                  -- A better Lua 'require()'
+  use { 'chrisbra/csv.vim', ft = 'csv' }        -- CSV highlighting, etc.
 end, config = {
   profile = {
     enable = true,
@@ -154,7 +161,7 @@ end, config = {
       toggle_info = '<Space>',
     },
   }
-}}
+}} end)
 
 if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
   vim.api.nvim_create_augroup('Packer', {})
@@ -165,10 +172,10 @@ if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
 end
 
 -- Other configs
-require('configs.options')
-require('configs.keymaps')
-require('configs.autocmds')
-require('configs.commands')
-require('configs.diagnostics')
-require('configs.neovide')
+import('configs.options')
+import('configs.keymaps')
+import('configs.autocmds')
+import('configs.commands')
+import('configs.diagnostics')
+import('configs.neovide')
 pcall(vim.cmd, 'source ~/.config/nvim/config.vim')

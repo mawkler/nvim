@@ -5,9 +5,9 @@ return { 'folke/trouble.nvim',
   cmd = 'TroubleToggle',
   keys = '<leader>E',
   config = function()
-    local map = require('utils').map
+    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
 
-    require('trouble').setup {
+    plugin_setup('trouble',  {
       auto_preview = false,
       use_diagnostic_signs = true,
       auto_close = true,
@@ -30,7 +30,7 @@ return { 'folke/trouble.nvim',
         next = 'j',
         cancel = nil,
       },
-    }
+    })
     map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
   end
 }

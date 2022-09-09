@@ -6,8 +6,9 @@ return {
   requires = { 'ful1e5/onedark.nvim', 'kyazdani42/nvim-web-devicons' },
   config = function()
     local colors = require('onedark').get_colors()
+    local plugin_setup = require('utils').plugin_setup
 
-    require('incline').setup({
+    plugin_setup('incline', ({
       hide = {
         focused_win = true,
         only_win = true,
@@ -33,6 +34,6 @@ return {
           { filename, gui = 'italic' },
         }
       end
-    })
+    }))
   end
 }

@@ -5,12 +5,13 @@ return { 'ful1e5/onedark.nvim', config = function()
   local colors = require('onedark.colors').setup()
   local style = require('onedark.types').od.HighlightStyle
   local onedark_utils = require('onedark.util')
+  local plugin_setup = require('utils').plugin_setup
 
   local barbar_bg = '#1d2026'
   local barbar_bg_visible = '#23262d'
   local barbar_fg_gray = '#3b4048'
 
-  require('onedark').setup {
+  plugin_setup('onedark', ({
     hide_end_of_buffer = false,
     dev = true,
     colors = {
@@ -122,7 +123,7 @@ return { 'ful1e5/onedark.nvim', config = function()
         LeapBackdrop = { fg = c.fg_dark },
       }
     end
-  }
+  }))
 
   -- Use different highlights for special keys in cmdline vs other windows
   vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'

@@ -4,9 +4,10 @@
 return { 'ggandor/leap.nvim',
   keys = { 'zj', 'zk', '<CR>' },
   config = function()
-    local utils, map = require('utils'), require('utils').map
+    local utils = require('utils')
+    local map, plugin_setup = utils.map, utils.plugin_setup
 
-    require('leap').setup({
+    plugin_setup('leap', {
       case_sensitive = false,
       safe_labels = {
         'h', 'j', 'k', 'l', 'f', ';', "'", 'm', 'w', 'e', 'n', 'u', '/', ',',
