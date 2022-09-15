@@ -59,7 +59,7 @@ return { 'ten3roberts/qf.nvim', -- Quickfix utilities
           map('n', '<C-k>', quickfix_step('above'), { buffer = true })
 
           map('n',        '<Space>', '<CR><C-w>p', { buffer = true })
-          map({'n', 'x'}, '<CR>',    '<CR>', { buffer = true })
+          map({'n', 'x'}, '<CR>',    '<CR>',       { buffer = true })
         end,
         group = 'Quickfix'
       })
