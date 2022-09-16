@@ -40,10 +40,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'lens'
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
-  -- use { 'breuckelen/vim-resize',                -- Resizing with arrow keys
-  --   cmd = {'CmdResizeUp', 'CmdResizeRight', 'CmdResizeDown', 'CmdResizeLeft'},
-  -- }
-  -- Use 'smart_splits'
+  Use 'smart_splits'                            -- Better resizing mappings
   use { 'junegunn/vim-peekaboo' }               -- Register selection window
   use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
