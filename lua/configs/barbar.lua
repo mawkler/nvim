@@ -1,17 +1,17 @@
 ------------
 -- Barbar --
 ------------
+vim.g.bufferline = {
+  closable = false,
+  no_name_title = '[No Name]',
+  insert_at_end = true,
+  exclude_name = { '[dap-repl]' },
+  exclude_ft = { 'qf' },
+}
+
 return { 'romgrk/barbar.nvim',
   config = function()
     local map = require('utils').map
-
-    vim.g.bufferline = {
-      closable = false,
-      no_name_title = '[No Name]',
-      insert_at_end = true,
-      exclude_name = {'[dap-repl]'},
-      exclude_ft = {'qf'},
-    }
 
     map('n', '<M-w>',           '<cmd>BufferClose<CR>')
     map('n', '<M-W>',           '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
