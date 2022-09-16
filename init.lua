@@ -11,7 +11,8 @@ import('packer', function(packer) packer.startup { function()
     import(string.format('configs.%s', module), use)
   end
 
-  use { 'wbthomason/packer.nvim' }
+  Use 'import'                                  -- A better Lua 'require()'
+  use { 'wbthomason/packer.nvim' }              -- Plugin manager
   use { 'tpope/vim-fugitive',                   -- :Git commands
     requires = 'tpope/vim-dispatch',            -- Asynchronous `:Gpush`, etc.
     cmd = {'G', 'Git', 'Gvdiffsplit'},
@@ -148,8 +149,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'famiu/nvim-reload',                    -- Reloads Neovim config
     cmd = {'Reload', 'Restart'},
   }
-  Use('template_string')                        -- Automatic template string
-  use 'miversen33/import.nvim'                  -- A better Lua 'require()'
+  Use 'template_string'                         -- Automatic template string
   use { 'chrisbra/csv.vim', ft = 'csv' }        -- CSV highlighting, etc.
 end, config = {
   profile = {
