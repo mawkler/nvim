@@ -11,7 +11,7 @@ import('packer', function(packer) packer.startup { function()
     import(string.format('configs.%s', module), use)
   end
 
-  Use 'import'                                  -- A better Lua 'require()'
+  use { 'miversen33/import.nvim' }              -- A better Lua 'require()'
   use { 'wbthomason/packer.nvim' }              -- Plugin manager
   use { 'tpope/vim-fugitive',                   -- :Git commands
     requires = 'tpope/vim-dispatch',            -- Asynchronous `:Gpush`, etc.
