@@ -33,7 +33,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
   use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
   use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
-    keys = {{'o', 'iv'}, {'o', 'av'}},
+    keys = {{'o', 'iv'}, {'x', 'iv'}, {'o', 'av'}, {'x', 'av'}},
   }
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
   use { 'meain/vim-printer', keys = {'n', 'gp'} }
