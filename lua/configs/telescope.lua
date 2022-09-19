@@ -94,8 +94,8 @@ return { 'nvim-telescope/telescope.nvim',
         no_ignore = true,
         file_ignore_patterns = {
           '%.git/', 'node_modules/', '%.npm/', '__pycache__/', '%[Cc]ache/',
-          '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/', '%.py[c]',
-          '%.sw.?', '~$', '%.tags', '%.gemtags', '%.csv$', '%.tsv$', '%.tmp',
+          '%.dropbox/', '%.dropbox_trashed/', '%.local/share/Trash/',
+          '%.py[c]', '%.sw.?', '~$', '%.tags', '%.gemtags', '%.tmp',
           '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
           '%.class$', '%.pdb$', '%.dll$'
         }
