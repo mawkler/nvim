@@ -10,13 +10,15 @@ return { 'ggandor/leap.nvim',
     plugin_setup('leap', {
       case_sensitive = false,
       safe_labels = {
-        'h', 'j', 'k', 'l', 'f', ';', "'", 'm', 'w', 'e', 'n', 'u', '/', ',',
-        'b', 't', '[', ']', 'H', 'L', 'F', ':', '"',
+        'h', 'j', 'k', 'l', 'f', "'", 'm', 'w', 'e', 'n', 'u', '/', 'b', 't',
+        '[', ']', 'H', 'L', 'F', ':', '"',
       },
     })
 
     map({'n', 'x', 'o'}, 'zj',   '<Plug>(leap-forward)',      'Leap downwards')
     map({'n', 'x', 'o'}, 'zk',   '<Plug>(leap-backward)',     'Leap upwards')
+    map({'n', 'x', 'o'}, 'zJ',   '<Plug>(leap-forward-x)',    'Leap downwards (inclusive)')
+    map({'n', 'x', 'o'}, 'zK',   '<Plug>(leap-backward-x)',   'Leap upwards (inclusive)')
     map({'n', 'x'},      '<CR>', '<Plug>(leap-cross-window)', 'Leap to any window')
 
     vim.api.nvim_create_augroup('Leap', {})
