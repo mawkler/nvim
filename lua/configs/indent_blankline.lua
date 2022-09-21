@@ -12,6 +12,7 @@ return { 'lukas-reineke/indent-blankline.nvim',
       filetype_exclude = {
         'markdown',
         'startify',
+        'alpha',
         'sagahover',
         'NvimTree',
         'lsp-installer',

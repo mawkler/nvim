@@ -17,7 +17,7 @@ return { 'ful1e5/onedark.nvim', config = function()
     colors = {
       bg_search = colors.bg_visual,
       hint = colors.dev_icons.gray,
-      bg_float = colors.bg_highlight,
+      -- bg_float = colors.bg_highlight,
       git = {
         add = colors.green0,
         change = colors.orange1,
@@ -121,6 +121,8 @@ return { 'ful1e5/onedark.nvim', config = function()
         LeapLabelSecondary = { fg = c.red0 },
         LeapLabelSelected = { bg = c.bg_visual },
         LeapBackdrop = { fg = c.fg_dark },
+        -- Alpha
+        AlphaHeader = { fg = c.green0, style = style.Bold }
       }
     end
   }))

@@ -44,7 +44,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'junegunn/vim-peekaboo' }               -- Register selection window
   use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
-  Use 'startify'                                -- Nicer start screen
+  Use 'alpha'                                   -- Nicer start screen
   Use 'beacon'                                  -- Flash cursor jump
   Use 'indent_blankline'                        -- Indent markers
   use { 'coreyja/fzf.devicon.vim',
@@ -125,7 +125,6 @@ import('packer', function(packer) packer.startup { function()
   use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
     cmd = 'Bufferize',
   }
-  Use 'vim_session'
   Use 'possession'                              -- Session manager
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
