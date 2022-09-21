@@ -7,6 +7,13 @@ return { 'jedrzejboczar/possession.nvim',
   config = function()
     local plugin_setup = require('utils').plugin_setup
 
-    plugin_setup('possession')
+    plugin_setup('possession', {
+      silent = true,
+      autosave = {
+        current = true,
+        tmp = true,
+        tmp_name = 'default',
+      },
+    })
   end
 }
