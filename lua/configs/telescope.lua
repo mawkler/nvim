@@ -11,7 +11,6 @@ return { 'nvim-telescope/telescope.nvim',
     { 'nvim-telescope/telescope-cheat.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' },
-    { 'JoseConseco/telescope_sessions_picker.nvim' },
     { 'Zane-/cder.nvim' },
     { 'nvim-telescope/telescope-dap.nvim' },
   },
@@ -141,7 +140,6 @@ return { 'nvim-telescope/telescope.nvim',
     telescope.load_extension('frecency')
     telescope.load_extension('cheat')
     telescope.load_extension('notify')
-    telescope.load_extension('sessions_picker')
     telescope.load_extension('cder')
     telescope.load_extension('dap')
     telescope.load_extension('possession')
@@ -239,7 +237,6 @@ return { 'nvim-telescope/telescope.nvim',
     end, 'Change directory (from home directory)')
     map('n', '<M-z>',      extensions.zoxide.list, 'Change directory with zoxide')
     map('n', '<leader>tB', extensions.bookmarks.bookmarks, 'Bookmarks')
-    map('n', '<leader>s',  extensions.sessions_picker.sessions_picker, 'Sessions')
     map('n', '<leader>tC', function() return extensions.cheat.fd({}) end, 'Cheat.sh')
     map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
     map('n', '<leader>n',  telescope_config, 'Neovim config')
