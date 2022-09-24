@@ -147,7 +147,7 @@ import('packer', function(packer) packer.startup { function()
     cmd = {'Reload', 'Restart'},
   }
   Use 'template_string'                         -- Automatic template string
-  use { 'chrisbra/csv.vim', ft = 'csv' }        -- CSV highlighting, etc.
+  Use 'csv'                                     -- CSV highlighting, etc.
 end, config = {
   profile = {
     enable = true,
