@@ -2,7 +2,17 @@
 -- Smart splits --
 ------------------
 return { 'mrjones2014/smart-splits.nvim',
-  keys = { '<M-S-h>', '<M-S-j>', '<M-S-k>', '<M-S-l>', '<C-w>z' },
+  keys = {
+    '<M-S-h>',
+    '<M-S-j>',
+    '<M-S-k>',
+    '<M-S-l>',
+    '<Left>',
+    '<Down>',
+    '<Up>',
+    '<Right>',
+    '<C-w>z',
+  },
   config = function() import('smart-splits', function(smart_splits)
     local map = require('utils').map
 
@@ -19,6 +29,10 @@ return { 'mrjones2014/smart-splits.nvim',
     map('n', '<M-S-j>', resize('down'),                 'Resize down')
     map('n', '<M-S-k>', resize('up'),                   'Resize up')
     map('n', '<M-S-l>', resize('right'),                'Resize right')
+    map('n', '<Left>',  resize('left'),                 'Resize left')
+    map('n', '<Down>',  resize('down'),                 'Resize down')
+    map('n', '<Up>',    resize('up'),                   'Resize up')
+    map('n', '<Right>', resize('right'),                'Resize right')
     map('n', '<C-w>z',  smart_splits.start_resize_mode, 'Enter resize mode')
   end)
   end,
