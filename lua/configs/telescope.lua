@@ -70,6 +70,7 @@ return { 'nvim-telescope/telescope.nvim',
             ['<M-l>']  = 'smart_send_to_loclist',
             ['<M-L>']  = 'smart_add_to_loclist',
             ['<M-y>']  = 'open_qflist',
+            ['<C-s>'] =  'select_horizontal',
             ['<C-a>']  = function() feedkeys('<Home>') end,
             ['<C-e>']  = function() feedkeys('<End>') end,
             ['<M-BS>'] = function() vim.api.nvim_input('<C-w>') end,
@@ -246,9 +247,5 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tb', extensions.dap.list_breakpoints)
     map('n', '<leader>tv', extensions.dap.variables)
     map('n', '<leader>tf', extensions.dap.frames)
-
-    map('n', '<leader>s', telescope.extensions.possession.list, {
-      desc = 'Sessions',
-    })
   end
 }
