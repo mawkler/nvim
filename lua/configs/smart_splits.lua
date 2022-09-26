@@ -3,15 +3,15 @@
 ------------------
 return { 'mrjones2014/smart-splits.nvim',
   keys = {
-    '<M-S-h>',
-    '<M-S-j>',
-    '<M-S-k>',
-    '<M-S-l>',
-    '<Left>',
-    '<Down>',
-    '<Up>',
-    '<Right>',
-    '<C-w>z',
+    {'n', '<M-S-h>' },
+    {'n', '<M-S-j>' },
+    {'n', '<M-S-k>' },
+    {'n', '<M-S-l>' },
+    {'n', '<Left>' },
+    {'n', '<Down>' },
+    {'n', '<Up>' },
+    {'n', '<Right>'},
+    {'n', '<C-w>z' },
   },
   config = function() import('smart-splits', function(smart_splits)
     local map = require('utils').map
