@@ -3,31 +3,12 @@
 -----------
 return { 'goolord/alpha-nvim',
   requires = { 'kyazdani42/nvim-web-devicons' },
+  event = 'VimEnter',
   config = function ()
     import('alpha', function(alpha)
       local dashboard = require('alpha.themes.dashboard')
       local section = dashboard.section
       local fn = vim.fn
-
-      local function footer()
-        local plugin_count = #vim.tbl_keys(packer_plugins)
-        local version = vim.version()
-        local date = os.date('%d-%m-%Y')
-        local version_string = string.format(
-          'v%s.%d.%d',
-          version.major,
-          version.minor,
-          version.patch
-        )
-
-        return string.format(
-          ' %d plugins  |   %s  |   %s',
-          plugin_count,
-          version_string,
-          date
-        )
-      end
-
 
       -- Header
       section.header.opts.hl = 'AlphaHeader'
@@ -52,12 +33,44 @@ return { 'goolord/alpha-nvim',
       }
 
       -- Footer
-      section.footer.val = footer()
+      local Footer = { items = {} }
+
+      function Footer:add(icon, item, condition)
+        if condition == nil or condition then
+          table.insert(self.items, string.format('%s %s', icon, tostring(item)))
+        end
+      end
+
+      function Footer:create()
+        return table.concat(self.items, '  |  ')
+      end
+
+      local plugin_count = #vim.tbl_keys(packer_plugins)
+      local version = vim.version()
+      local date = os.date('%d-%m-%Y')
+      local version_string = string.format(
+        'v%s.%d.%d',
+        version.major,
+        version.minor,
+        version.patch
+      )
+      local import_failure_count = require('import').get_failure_count()
+
+      Footer:add(
+        '',
+        tostring(import_failure_count) .. ' import(s) failed',
+        import_failure_count > 0
+      )
+      Footer:add('', plugin_count .. ' plugins')
+      Footer:add('', version_string)
+      Footer:add('', date)
+
+      section.footer.val = Footer:create()
       section.footer.opts.hl = 'NonText'
 
       -- Layout
       local topMarginRatio = 0.2
-      local headerPadding = fn.max({2, fn.floor(fn.winheight(0) * topMarginRatio)})
+      local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * topMarginRatio) })
 
       dashboard.config.layout = {
         { type = 'padding', val = headerPadding },
