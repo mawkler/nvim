@@ -3,6 +3,12 @@
 ----------
 return { 'ggandor/leap.nvim',
   keys = { 'zj', 'zk', '<CR>' },
+  setup = function()
+    local map = require('utils').map
+    -- Move default zj/zk bindings to ]z/[z
+    map('n', ']z', 'zj', 'Jump to next fold')
+    map('n', '[z', 'zk', 'Jump to previous fold')
+  end,
   config = function()
     local utils = require('utils')
     local map, plugin_setup = utils.map, utils.plugin_setup
