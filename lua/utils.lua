@@ -27,12 +27,10 @@ M.append = function(tbl, element)
   return new_table
 end
 
+--- Gets the buffer number of every visible buffer
+--- @return integer[]
 M.visible_buffers = function()
-  local bufs = {}
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    bufs[vim.api.nvim_win_get_buf(win)] = true
-  end
-  return vim.tbl_keys(bufs)
+  return vim.tbl_map(vim.api.nvim_win_get_buf, vim.api.nvim_list_wins())
 end
 
 local function lsp_server_has_references()
