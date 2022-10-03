@@ -10,6 +10,7 @@ opt.shortmess:append('A')  -- Ignores swapfiles when opening file
 opt.shortmess:append('s')  -- Disable 'Search hit BOTTOM, continuing at TOP'
 opt.shortmess:append('FW') -- Disable message after editing/writing file
 opt.spelllang = {'en','sv'}
+opt.spelloptions:append('camel')
 
 -- Windows --
 opt.termguicolors = true  -- Use GUI colors in terminal as well
