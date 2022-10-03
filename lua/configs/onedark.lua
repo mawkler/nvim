@@ -127,6 +127,9 @@ return { 'ful1e5/onedark.nvim', config = function()
     end
   }))
 
+  -- NOTE: this disables updating highlight groups for some reason. Try to enable
+  -- and see if numbermode.lua works when
+  -- https://github.com/neovim/neovim/issues/20069 gets fixed
   -- Use different highlights for special keys in cmdline vs other windows
-  vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
+  -- vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 end }
