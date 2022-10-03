@@ -11,7 +11,7 @@ return { 'sindrets/diffview.nvim',
     'DiffviewToggleFiles',
     'DiffviewFileHistory',
     'DiffviewFileRefresh',
-    'DiffviewFileLog',
+    'DiffviewLog',
   },
   setup = function()
     local map = require('utils').map
