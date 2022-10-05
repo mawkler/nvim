@@ -95,6 +95,11 @@ return { 'neovim/nvim-lspconfig',
     -- Python --
     lspconfig.pylsp.setup {}
 
+    -- LTeX --
+    lspconfig.ltex.setup {
+      autostart = false,
+    }
+
     ------------
     -- Config --
     ------------
