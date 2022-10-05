@@ -37,7 +37,7 @@ return { 'ful1e5/onedark.nvim', config = function()
         IncSearch = { bg = c.blue0 },
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
         MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
-        CursorLineNr = { fg = c.blue0, bg = c.bg_highlight, style = style.Bold },
+        CursorLineNr = { fg = c.green0, bg = c.bg_highlight, style = style.Bold },
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
         -- Quickfix

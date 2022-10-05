@@ -148,6 +148,7 @@ import('packer', function(packer) packer.startup { function()
   }
   Use 'template_string'                         -- Automatic template string
   Use 'csv'                                     -- CSV highlighting, etc.
+  Use 'modicator'                               -- Line number mode indicator
 end, config = {
   profile = {
     enable = true,
