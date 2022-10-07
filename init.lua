@@ -129,9 +129,6 @@ import('packer', function(packer) packer.startup { function()
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
   use { 'tvaintrob/bicep.vim', ft = 'bicep' }
-  use { 'luukvbaal/stabilize.nvim', event = 'WinNew',
-    config = function() require('utils').plugin_setup('stabilize') end
-  }
   Use 'diffview'                                -- Git diff and file history
   Use 'leap'                                    -- Move cursor anywhere
   Use 'winshift'                                -- Improved window movement
@@ -150,9 +147,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'csv'                                     -- CSV highlighting, etc.
   Use 'modicator'                               -- Line number mode indicator
 end, config = {
-  profile = {
-    enable = true,
-  },
+  profile = { enable = false, },
   display = {
     keybindings = {
       quit = '<Esc>',

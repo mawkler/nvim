@@ -17,6 +17,7 @@ opt.termguicolors = true  -- Use GUI colors in terminal as well
 opt.winblend      = 5     -- Transparent floating windows
 opt.pumblend      = 5     -- Transparent popup-menu
 opt.splitright    = true  -- Open vertical windows to the right instead of left
+opt.splitkeep     = 'screen'
 opt.lazyredraw    = true
 opt.updatetime    = 500
 opt.viewoptions   = { 'cursor', 'folds', 'slash', 'unix' }
