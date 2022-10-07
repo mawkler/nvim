@@ -7,10 +7,10 @@ local components = { active = { {}, {}, {} } }
 
 local modes = {
   ['n']    = 'NORMAL',
-  ['no']   = 'OP',
-  ['nov']  = 'OP',
-  ['noV']  = 'OP',
-  ['no'] = 'OP',
+  ['no']   = 'OP    ',
+  ['nov']  = 'OP    ',
+  ['noV']  = 'OP    ',
+  ['no'] = 'OP    ',
   ['niI']  = 'NORMAL',
   ['niR']  = 'NORMAL',
   ['niV']  = 'NORMAL',
@@ -43,11 +43,6 @@ local left_sep  = { str = ' ',   hl = { fg = 'line_bg', bg = 'bg0' } }
 local right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'bg0' } }
 
 -- Help functions
-
-local function GetHiVal(name, layer)
-  layer = layer or 'fg'
-  return fn.synIDattr(fn.synIDtrans(fn.hlID(name)), layer .. '#')
-end
 
 local function has_file_type()
   local f_type = vim.bo.filetype
@@ -338,9 +333,28 @@ table.insert(active_right, {
 -----------
 -- Setup --
 -----------
-local plugin_setup = require('utils').plugin_setup
-
 local function setup(config)
+  local plugin_setup = require('utils').plugin_setup
+  local colors = require('utils.colors').modes
+
+  local mode_colors = {
+    NORMAL        = colors.normal,
+    OP            = colors.normal,
+    INSERT        = colors.insert,
+    COMMAND       = colors.command,
+    VISUAL        = colors.visual,
+    LINES         = colors.visual,
+    BLOCK         = colors.visual,
+    REPLACE       = colors.replace,
+    TERM          = colors.term,
+    ['V-REPLACE'] = 'magenta',
+    ENTER         = 'orange',
+    MORE          = 'orange',
+    SELECT        = 'cyan',
+    SHELL         = 'green',
+    NONE          = 'gray',
+  }
+
   if not config or not config.theme then
     error('No config and/or theme provided')
   else
@@ -348,23 +362,6 @@ local function setup(config)
     if config.modifications then
       theme = vim.tbl_extend('force', theme, config.modifications)
     end
-    local mode_colors = {
-      NORMAL        = 'green',
-      OP            = 'green',
-      INSERT        = 'blue',
-      COMMAND       = 'red2',
-      VISUAL        = 'purple',
-      LINES         = 'purple',
-      BLOCK         = 'purple',
-      REPLACE       = 'red',
-      ['V-REPLACE'] = 'magenta',
-      ENTER         = 'orange',
-      MORE          = 'orange',
-      SELECT        = 'cyan',
-      SHELL         = 'green',
-      TERM          = 'green',
-      NONE          = 'gray'
-    }
 
     plugin_setup('feline', {
       theme = theme,
