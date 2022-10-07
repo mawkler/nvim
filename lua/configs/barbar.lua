@@ -23,7 +23,7 @@ return { 'romgrk/barbar.nvim',
     map('n', '<leader>bd',      '<cmd>BufferOrderByDirectory<CR>')
     map('n', '<leader>bl',      '<cmd>BufferOrderByLanguage<CR>')
     map('n', '<leader>bc',      '<cmd>BufferClose<CR>')
-    map('n', '<leader>bo',      '<cmd>BufferCloseAllButCurrent<CR>')
+    map('n', '<leader>bo',      '<cmd>BufferCloseAllButVisible<CR>')
     -- Move to previous/next
     map('n', '<C-Tab>',         '<cmd>BufferNext<CR>')
     map('n', '<C-S-Tab>',       '<cmd>BufferPrevious<CR>')
