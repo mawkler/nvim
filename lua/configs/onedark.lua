@@ -11,6 +11,8 @@ return { 'ful1e5/onedark.nvim', config = function()
   local barbar_bg_visible = '#23262d'
   local barbar_fg_gray = '#3b4048'
 
+  local cursorline_bg = '#2f343d'
+
   plugin_setup('onedark', ({
     hide_end_of_buffer = false,
     dev = true,
@@ -37,7 +39,8 @@ return { 'ful1e5/onedark.nvim', config = function()
         IncSearch = { bg = c.blue0 },
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
         MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
-        CursorLineNr = { fg = c.green0, bg = c.bg_highlight, style = style.Bold },
+        CursorLine = { bg = cursorline_bg },
+        CursorLineNr = { fg = c.green0, bg = cursorline_bg, style = style.Bold },
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
         -- Quickfix
