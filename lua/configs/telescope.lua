@@ -79,6 +79,7 @@ return { 'nvim-telescope/telescope.nvim',
           n = {
             ['<C-q>'] = 'close',
             ['<C-c>'] = 'close',
+            ['<C-s>'] =  'select_horizontal',
           }
         },
         layout_config = {
