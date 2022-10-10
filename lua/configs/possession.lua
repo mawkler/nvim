@@ -6,6 +6,7 @@ return { 'jedrzejboczar/possession.nvim',
   config = function()
     local plugin_setup = require('utils').plugin_setup
     local map = require('utils').map
+    local telescope, themes = require('telescope'), require('telescope.themes')
 
     plugin_setup('possession', {
       silent = true,
@@ -25,8 +26,12 @@ return { 'jedrzejboczar/possession.nvim',
       }
     })
 
-    map('n', '<leader>s', function()
-      require('telescope').extensions.possession.list()
-    end, { desc = 'Sessions' })
+    local function list_sessions()
+      telescope.extensions.possession.list(themes.get_dropdown({
+        previewer = false,
+      }))
+    end
+
+    map('n', '<leader>s', list_sessions, { desc = 'Sessions' })
   end
 }
