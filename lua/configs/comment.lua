@@ -52,12 +52,8 @@ return { 'numToStr/Comment.nvim',
     local comment_api = require('Comment.api')
     local function comment_map(modes, lhs, command, operator_pending)
       map(modes, lhs, function()
-        comment_api.call(command)
-        if not operator_pending then
-          feedkeys('g@$')
-        else
-          feedkeys('g@')
-        end
+        local operator = operator_pending and 'g@' or 'g@$'
+        comment_api.call(command, operator)
       end, command)
     end
 
@@ -66,7 +62,7 @@ return { 'numToStr/Comment.nvim',
     map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
     map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
     map('n', 'cm',         '<Plug>(comment_toggle_linewise_current)')
-    map('n', '<leader>cp', 'yycmp', {remap = true})
+    map('n', '<leader>cp', 'yycmp', { remap = true })
 
     comment_map('n', '<leader>c>',   'comment_linewise_op', true)
     comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
