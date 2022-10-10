@@ -1,6 +1,7 @@
 ------------------
 -- Git conflict --
 ------------------
+-- TODO: Replace with diffview conflict mappings
 return { 'akinsho/git-conflict.nvim',
   tag = '*',
   config = function()
