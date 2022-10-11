@@ -15,6 +15,10 @@ return { 'ggandor/leap.nvim',
 
     plugin_setup('leap', {
       case_sensitive = false,
+      substitute_chars = {
+        ['\r'] = '¬', -- This one doesn't seem to work
+        [' '] = '·',
+      },
       safe_labels = {
         'h', 'j', 'k', 'l', 'f', "'", 'm', 'w', 'e', 'n', 'u', '/', 'b', 't',
         '[', ']', 'H', 'L', 'F', ':', '"',
