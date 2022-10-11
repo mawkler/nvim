@@ -96,9 +96,7 @@ import('packer', function(packer) packer.startup { function()
   -- use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   Use 'onedark'
   Use 'refactoring'
-  use { 'Darazaki/indent-o-matic',              -- Automatic indent detection
-    config = function() require('utils').plugin_setup('indent-o-matic', {}) end
-  }
+  Use 'guess_indent'
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'miniyank'                                -- Cycle register history
   Use 'surround'
