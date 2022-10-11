@@ -70,6 +70,8 @@ return { 'kyazdani42/nvim-tree.lua',
             { key = '<Tab>', cb = callback('preview') },
             { key = '<C-s>', cb = callback('split') },
             { key = 'gh',    cb = callback('show_file_info') },
+            { key = ']g',    cb = callback('next_git_item') },
+            { key = '[g',    cb = callback('prev_git_item') },
             { key = '<C-e>', cb = '' },
           }
         }

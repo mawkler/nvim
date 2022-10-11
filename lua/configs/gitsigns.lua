@@ -27,21 +27,25 @@ return { 'lewis6991/gitsigns.nvim',
           ignore_whitespace = true,
         }) end, 'Git blame line')
 
-        -- Next/previous hunk
-        map('n', ']c', function()
+        local function next_hunk()
           if vim.o.diff then
             feedkeys(']c', 'n')
           else
             gitsigns.next_hunk()
           end
-        end, 'Next git hunk')
-        map('n', '[c', function()
+        end
+
+        local function prev_hunk()
           if vim.o.diff then
             feedkeys('[c', 'n')
           else
             gitsigns.prev_hunk()
           end
-        end, 'Previous git hunk')
+        end
+
+        -- Next/previous hunk
+        map('n', ']g', next_hunk, 'Next git hunk')
+        map('n', '[g', prev_hunk, 'Previous git hunk')
 
         -- Text objects
         map({'o', 'x'}, 'ih', gitsigns.select_hunk)
