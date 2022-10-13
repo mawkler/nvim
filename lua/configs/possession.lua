@@ -8,6 +8,8 @@ return { 'jedrzejboczar/possession.nvim',
     local map = require('utils').map
     local telescope, themes = require('telescope'), require('telescope.themes')
 
+    local delete_hidden_filetypes = { 'toggleterm' }
+
     plugin_setup('possession', {
       silent = true,
       autosave = {
@@ -23,7 +25,15 @@ return { 'jedrzejboczar/possession.nvim',
         show = 'SessionShow',
         list = 'SessionList',
         migrate = 'SessionMigrate',
-      }
+      },
+      plugins = {
+        delete_hidden_buffers = {
+          force = function(buf)
+            local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
+            return vim.tbl_contains(delete_hidden_filetypes, filetype)
+          end
+        },
+      },
     })
 
     local function list_sessions()
