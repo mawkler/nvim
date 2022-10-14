@@ -7,7 +7,7 @@ return { 'neovim/nvim-lspconfig',
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
-    'folke/lua-dev.nvim'                    -- Lua signature help and completion
+    'folke/neodev.nvim'                     -- Lua signature help and completion
   },
   config = function()
     local map, plugin_setup = require('utils').map, require('utils').plugin_setup
@@ -45,13 +45,13 @@ return { 'neovim/nvim-lspconfig',
     })
 
     -- Lua --
-    import('lua-dev', function(luadev)
+    import('neodev', function(luadev)
       lspconfig.sumneko_lua.setup(luadev.setup({
         lspconfig = {
           settings = {
             Lua = {
               diagnostics = {
-                globals = {'use', 'packer_plugins'},
+                globals = { 'use', 'packer_plugins' },
               }
             }
           }
