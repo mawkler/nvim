@@ -15,7 +15,7 @@ return { 'TimUntersberger/neogit',
     map('n', '<leader>gP', '<cmd>Neogit push<CR>')
     map('n', '<leader>gr', '<cmd>Neogit rebase<CR>')
     map('n', '<leader>gl', '<cmd>Neogit log<CR>')
-    map('n', '<leader>gB', '<cmd>Git blame<CR>', 'Git blame every line')
+    map('n', 'gB',         '<cmd>Git blame<CR>', 'Git blame every line')
   end,
   config = function()
     local map = require('utils').map

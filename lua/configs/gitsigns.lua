@@ -15,17 +15,22 @@ return { 'lewis6991/gitsigns.nvim',
       },
       attach_to_untracked = false,
       on_attach = function()
+
+        local function git_blame()
+          gitsigns.blame_line({
+            full = true,
+            ignore_whitespace = true,
+          })
+        end
+
         map({'n', 'x'}, '<leader>ghs', gitsigns.stage_hunk, 'Stage git hunk')
         map({'n', 'x'}, '<leader>ghr', gitsigns.reset_hunk, 'Reset git hunk')
 
-        map('n', '<leader>ghS', gitsigns.stage_buffer, 'Stage entire buffer')
-        map('n', '<leader>ghR', gitsigns.reset_buffer, 'Reset entire buffer')
+        map('n', '<leader>ghS', gitsigns.stage_buffer,    'Stage entire buffer')
+        map('n', '<leader>ghR', gitsigns.reset_buffer,    'Reset entire buffer')
         map('n', '<leader>ghu', gitsigns.undo_stage_hunk, 'Undo git hunk stage')
-        map('n', '<leader>ghp', gitsigns.preview_hunk, 'Preview git hunk')
-        map('n', '<leader>gb',  function() return gitsigns.blame_line({
-          full = true,
-          ignore_whitespace = true,
-        }) end, 'Git blame line')
+        map('n', '<leader>ghp', gitsigns.preview_hunk,    'Preview git hunk')
+        map('n', 'gb',          git_blame,                'Git blame line')
 
         local function next_hunk()
           if vim.o.diff then
