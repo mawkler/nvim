@@ -138,9 +138,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'bqf'
   Use 'qf'
   Use 'git'                                     -- Git wrapper
-  use { 'famiu/nvim-reload',                    -- Reloads Neovim config
-    cmd = {'Reload', 'Restart'},
-  }
+  Use 'reloader'                                -- Hot reload Neovim config
   Use 'template_string'                         -- Automatic template string
   Use 'csv'                                     -- CSV highlighting, etc.
   Use 'modicator'                               -- Line number mode indicator
