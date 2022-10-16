@@ -23,6 +23,7 @@ return { 'nvim-telescope/telescope.nvim',
     local fn, api = vim.fn, vim.api
 
     local telescope = require('telescope')
+    local themes = require('telescope.themes')
     local extensions = telescope.extensions
     local pickers = require('telescope.pickers')
     local finders = require('telescope.finders')
@@ -43,7 +44,14 @@ return { 'nvim-telescope/telescope.nvim',
     }
 
     -- Don't show line text, just the file name
-    local picker_default_config = { show_line = false }
+    local horizontal_picker = { show_line = false }
+
+    local dropdown_picker = themes.get_dropdown({
+      show_line = false,
+      layout_config = {
+        mirror = true,
+      }
+    })
 
     -- Mappings for opening multiple files from find_files, etc.
     local multi_open_mappings = require('configs.telescope_multiopen')
@@ -88,6 +96,7 @@ return { 'nvim-telescope/telescope.nvim',
             preview_width = 80
           }
         },
+        dynamic_preview_title = true,
         selection_caret = '▶ ',
         multi_icon = '',
         path_display = { 'truncate' },
@@ -105,14 +114,15 @@ return { 'nvim-telescope/telescope.nvim',
         find_files                = { mappings = multi_open_mappings },
         oldfiles                  = { mappings = multi_open_mappings },
         current_buffer_fuzzy_find = { sorting_strategy = 'ascending' },
-        quickfix                  = picker_default_config,
-        tagstack                  = picker_default_config,
-        jumplist                  = picker_default_config,
-        lsp_references            = picker_default_config,
-        lsp_definitions           = picker_default_config,
-        lsp_type_definitions      = picker_default_config,
-        lsp_implementations       = picker_default_config,
-
+        quickfix                  = horizontal_picker,
+        tagstack                  = horizontal_picker,
+        jumplist                  = horizontal_picker,
+        lsp_references            = horizontal_picker,
+        lsp_definitions           = dropdown_picker,
+        lsp_type_definitions      = dropdown_picker,
+        lsp_implementations       = dropdown_picker,
+        buffers                   = dropdown_picker,
+        spell_suggest             = dropdown_picker,
       },
       extensions = {
         bookmarks = {
