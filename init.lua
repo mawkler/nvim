@@ -28,7 +28,6 @@ import('packer', function(packer) packer.startup { function()
   }
   use { 'kana/vim-textobj-syntax' }
   use { 'haya14busa/vim-textobj-function-syntax' }
-  use { 'PeterRincker/vim-argumentative' }      -- Adds mappings for swapping arguments
   use { 'AndrewRadev/splitjoin.vim', keys = {'n', 'gS', 'gJ'} }
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
   use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.

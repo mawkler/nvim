@@ -13,6 +13,7 @@ return {
           q = { quote = {{ d = "'" }} },
           Q = { quote = {{ d = '"' }} },
           A = { quote = {{ d = '`' }} },
+          a = {},
         })
       end,
       group = 'Targets',
