@@ -85,11 +85,6 @@ map('v',        'gdn',           '//Ndgn')
 map('n',        'g.',            '/\\V\\C<C-R>"<CR>cgn<C-a><Esc>')
 map('x',        'g.',            '.')
 
-map('n', '<leader>z', function()
-  wo.spell = true
-  feedkeys('1z=')
-  wo.spell = false
-end)
 map('n', ']s', function()
   wo.spell = true
   feedkeys(']s')

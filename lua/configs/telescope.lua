@@ -229,6 +229,7 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tQ', builtin.quickfixhistory, 'Quickfix history')
     map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
     map('n', '<leader>tg', builtin.git_files, 'Find git files')
+    map('n', '<leader>z',  builtin.spell_suggest, 'Spell suggestions')
 
     map('n', 'cd',         extensions.cder.cder, 'Change directory')
     map('n', 'cD',         function()
