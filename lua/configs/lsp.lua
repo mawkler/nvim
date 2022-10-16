@@ -45,19 +45,21 @@ return { 'neovim/nvim-lspconfig',
     })
 
     -- Lua --
-    import('neodev', function(luadev)
-      lspconfig.sumneko_lua.setup(luadev.setup({
-        lspconfig = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { 'use', 'packer_plugins' },
-              }
-            }
-          }
+    require('neodev').setup()
+
+    lspconfig.sumneko_lua.setup({
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'use', 'packer_plugins' },
+          },
+          completion = {
+            callSnippet = 'Replace',
+            autoRequire = true,
+          },
         }
-      }))
-    end)
+      }
+    })
 
     -- YAML --
     lspconfig.yamlls.setup({
