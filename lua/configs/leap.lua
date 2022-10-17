@@ -26,7 +26,9 @@ return { 'ggandor/leap.nvim',
     })
 
     map({'n', 'x', 'o'}, 'zj',   '<Plug>(leap-forward)',      'Leap downwards')
+    map({'n', 'x', 'o'}, 'zl',   '<Plug>(leap-forward)',      'Leap downwards')
     map({'n', 'x', 'o'}, 'zk',   '<Plug>(leap-backward)',     'Leap upwards')
+    map({'n', 'x', 'o'}, 'zh',   '<Plug>(leap-backward)',     'Leap upwards')
     map({'n', 'x', 'o'}, 'zJ',   '<Plug>(leap-forward-x)',    'Leap downwards (inclusive)')
     map({'n', 'x', 'o'}, 'zK',   '<Plug>(leap-backward-x)',   'Leap upwards (inclusive)')
     map({'n', 'x'},      '<CR>', '<Plug>(leap-cross-window)', 'Leap to any window')
