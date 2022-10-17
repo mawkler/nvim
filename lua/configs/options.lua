@@ -1,7 +1,7 @@
 -------------
 -- Options --
 -------------
-local opt = vim.opt
+local opt, exists = vim.opt, vim.fn.exists
 
 -- General --
 opt.showmode  = false      -- Don't write out `--INSERT--`, etc.
@@ -9,7 +9,7 @@ opt.linebreak = true       -- Don't break lines in the middle of a word
 opt.shortmess:append('A')  -- Ignores swapfiles when opening file
 opt.shortmess:append('s')  -- Disable 'Search hit BOTTOM, continuing at TOP'
 opt.shortmess:append('FW') -- Disable message after editing/writing file
-opt.spelllang = {'en','sv'}
+opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
 
 -- Windows --
@@ -17,7 +17,9 @@ opt.termguicolors = true  -- Use GUI colors in terminal as well
 opt.winblend      = 5     -- Transparent floating windows
 opt.pumblend      = 5     -- Transparent popup-menu
 opt.splitright    = true  -- Open vertical windows to the right instead of left
-opt.splitkeep     = vim.fn.exists('g:neovide') == 1 and 'cursor' or 'screen'
+if exists('&splitkeep') == 1 then
+  opt.splitkeep = exists('g:neovide') == 1 and 'cursor' or 'screen'
+end
 opt.lazyredraw    = true
 opt.updatetime    = 500
 opt.viewoptions   = { 'cursor', 'folds', 'slash', 'unix' }
