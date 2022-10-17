@@ -130,6 +130,8 @@ return { 'ful1e5/onedark.nvim', config = function()
     end
   }))
 
+  require('utils.ts_migrate').migrate()
+
   -- NOTE: this disables updating highlight groups for some reason. Try to enable
   -- and see if numbermode.lua works when
   -- https://github.com/neovim/neovim/issues/20069 gets fixed
