@@ -79,11 +79,14 @@ return { 'neovim/nvim-lspconfig',
     })
 
     -- Json --
-    lspconfig.jsonls.setup({
-      json = {
-        schemas = require('schemastore').json.schemas()
-      }
-    })
+    lspconfig.jsonls.setup {
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      },
+    }
 
     -- Bicep --
     lspconfig.bicep.setup({
