@@ -141,6 +141,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'template_string'                         -- Automatic template string
   Use 'csv'                                     -- CSV highlighting, etc.
   Use 'modicator'                               -- Line number mode indicator
+  use { 'jghauser/mkdir.nvim' }                 -- Create missing folders on :w
 end, config = {
   profile = { enable = false, },
   display = {
