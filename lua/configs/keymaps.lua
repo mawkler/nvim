@@ -85,14 +85,21 @@ map('v',        'gdn',           '//Ndgn')
 map('n',        'g.',            '/\\V\\C<C-R>"<CR>cgn<C-a><Esc>')
 map('x',        'g.',            '.')
 
-map('n', ']s', function()
-  wo.spell = true
-  feedkeys(']s')
-end)
-map('n', '[s', function()
-  wo.spell = true
-  feedkeys('[s')
-end)
+local function spell_jump(command)
+  return function()
+    local spell = wo.spell
+    wo.spell = true
+    feedkeys(vim.v.count1 .. command)
+
+    -- Ensure that this code runs after `feedkeys()`
+    vim.schedule(function()
+      wo.spell = spell
+    end)
+  end
+end
+
+map('n', ']s', spell_jump(']s'), 'Jump to next spelling error')
+map('n', '[s', spell_jump('[s'), 'Jump to previous spelling error')
 
 -- ;/, always seach forwards/backwards, respectively
 map({'n', 'x'}, ';', function()
