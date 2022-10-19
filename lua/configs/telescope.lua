@@ -48,10 +48,10 @@ return { 'nvim-telescope/telescope.nvim',
 
     local dropdown_picker = themes.get_dropdown({
       show_line = false,
-      layout_config = {
-        mirror = true,
-      }
+      layout_config = { mirror = true },
     })
+
+    local cursor_picker = themes.get_cursor({ show_line = false })
 
     -- Mappings for opening multiple files from find_files, etc.
     local multi_open_mappings = require('configs.telescope_multiopen')
@@ -122,7 +122,7 @@ return { 'nvim-telescope/telescope.nvim',
         lsp_type_definitions      = dropdown_picker,
         lsp_implementations       = dropdown_picker,
         buffers                   = dropdown_picker,
-        spell_suggest             = dropdown_picker,
+        spell_suggest             = cursor_picker,
       },
       extensions = {
         bookmarks = {
