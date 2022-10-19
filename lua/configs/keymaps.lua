@@ -101,21 +101,19 @@ end
 map('n', ']s', spell_jump(']s'), 'Jump to next spelling error')
 map('n', '[s', spell_jump('[s'), 'Jump to previous spelling error')
 
+local function char_search(forward, backward)
+  return function()
+    if fn.getcharsearch().forward == 1 then
+      feedkeys(forward)
+    else
+      feedkeys(backward)
+    end
+  end
+end
+
 -- ;/, always seach forwards/backwards, respectively
-map({'n', 'x'}, ';', function()
-  if fn.getcharsearch().forward == 1 then
-    feedkeys(';')
-  else
-    feedkeys(',')
-  end
-end)
-map({'n', 'x'}, ',', function()
-  if fn.getcharsearch().forward == 1 then
-    feedkeys(',')
-  else
-    feedkeys(';')
-  end
-end)
+map({'n', 'x'}, ';', char_search(';', ','))
+map({'n', 'x'}, ',', char_search(',', ';'))
 
 map('n', '<leader>K',        ':vertical Man <C-R><C-W><CR>')
 map('x', '<leader>K',        'y:vertical Man <C-R>"<CR>')
