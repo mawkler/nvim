@@ -160,6 +160,7 @@ return { 'neovim/nvim-lspconfig',
     end
 
     map('n', 'gd',         telescope.lsp_definitions, 'vim.lsp.buf.definition')
+    map('n', 'gD',         telescope.lsp_type_definitions, 'vim.lsp.buf.type_definition')
     map('n', 'gi',         telescope.lsp_implementations, 'vim.lsp.buf.implementation')
     map('n', 'gd',         telescope.lsp_definitions, 'LSP definitions')
     map('n', 'gi',         telescope.lsp_implementations, 'LSP implementations')
@@ -168,7 +169,6 @@ return { 'neovim/nvim-lspconfig',
     map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
     map('n', 'gr',         lsp_references, 'LSP references')
 
-    map('n',        'gD',        lsp.buf.type_definition, 'vim.lsp.buf.type_definition')
     map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
     map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
     map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
