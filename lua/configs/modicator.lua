@@ -4,7 +4,7 @@
 return { 'melkster/modicator.nvim',
   after = 'onedark.nvim',
   config = function()
-    local colors = require('utils.colors').modes
+    local colors = require('configs.colorscheme').modes
 
     require('modicator').setup({
       highlights = {

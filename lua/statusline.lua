@@ -335,7 +335,7 @@ table.insert(active_right, {
 -----------
 local function setup(config)
   local plugin_setup = require('utils').plugin_setup
-  local colors = require('utils.colors').modes
+  local colors = require('configs.colorscheme').modes
 
   local mode_colors = {
     NORMAL        = colors.normal,

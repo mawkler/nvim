@@ -10,8 +10,8 @@ return { 'feline-nvim/feline.nvim',
   config = function()
       -- TODO: refactor this to do both imports on same line once
       -- https://github.com/miversen33/import.nvim/issues/11 gets merged
-    import('onedark.colors', function(onedark_colors)
-      local colors = onedark_colors.setup()
+    import('configs.colorscheme', function(colorscheme)
+      local colors = colorscheme.colors
       local plugin_setup = require('utils').plugin_setup
 
       plugin_setup('statusline', {
