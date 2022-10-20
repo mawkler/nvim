@@ -89,12 +89,8 @@ local function spell_jump(command)
   return function()
     local spell = wo.spell
     wo.spell = true
-    feedkeys(vim.v.count1 .. command)
-
-    -- Ensure that this code runs after `feedkeys()`
-    vim.schedule(function()
-      wo.spell = spell
-    end)
+    feedkeys(vim.v.count1 .. command, 'xn')
+    wo.spell = spell
   end
 end
 
