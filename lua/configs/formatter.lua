@@ -19,6 +19,10 @@ return { 'mhartington/formatter.nvim',
       end
     }
 
+    local lsp_format = function()
+      vim.lsp.buf.format({ async = false })
+    end
+
     require('formatter').setup {
       logging = false,
       filetype = {
@@ -28,6 +32,7 @@ return { 'mhartington/formatter.nvim',
         html = prettier_config,
         yaml = prettier_config,
         json = prettier_config,
+        lua = lsp_format,
         markdown = {
           function()
             return {
@@ -58,7 +63,7 @@ return { 'mhartington/formatter.nvim',
     end, 'Toggle autoformatting on write')
 
     vim.api.nvim_create_augroup('AutoFormatting', {})
-    vim.api.nvim_create_autocmd('BufWritePost', {
+    vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = {
         '*.js',
         '*.json',
@@ -69,6 +74,8 @@ return { 'mhartington/formatter.nvim',
         '*.yml',
         '*.yaml',
         '*.html',
+        -- '*.lua', -- Disabled until
+        -- https://github.com/CppCXY/EmmyLuaCodeStyle/issues/69 gets fixed
       },
       callback = function()
         if b.format_on_write ~= false then
