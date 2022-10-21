@@ -21,6 +21,12 @@ api.nvim_create_user_command(
 )
 
 api.nvim_create_user_command(
+  'TCDHere',
+  'tcd %:p:h',
+  { desc = "Change tab page's working directory to current file's" }
+)
+
+api.nvim_create_user_command(
   'YankPath',
   function()
     yank_file_path('%')
