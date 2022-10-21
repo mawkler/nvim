@@ -31,7 +31,11 @@ return { 'jedrzejboczar/possession.nvim',
           force = function(buf)
             local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
             return vim.tbl_contains(delete_hidden_filetypes, filetype)
-          end
+          end,
+          hooks = {
+            'before_load',
+            not vim.o.sessionoptions:match('buffer') and 'before_save',
+          },
         },
       },
     })
