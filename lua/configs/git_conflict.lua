@@ -2,7 +2,7 @@
 -- Git conflict --
 ------------------
 return { 'akinsho/git-conflict.nvim',
-  tag = '*',
+  tag = '*', -- `main` is unstable
   config = function()
     local map, plugin_setup = require('utils').map, require('utils').plugin_setup
 
