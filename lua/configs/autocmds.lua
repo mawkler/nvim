@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'help',
   callback = function()
     bo.bufhidden = 'unload'
-    vim.cmd 'wincmd L'
+    vim.cmd.wincmd('L')
     vim.cmd 'vertical resize 81'
   end,
   group = 'FileTypeAutocmds',
@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd('FileType', {
     wo.spell = true
     api.nvim_win_set_cursor(0, {1, 0})
     if fn.getline(1) == '' then
-      vim.cmd 'startinsert!'
+      vim.cmd('startinsert!')
     end
   end,
   group = 'FileTypeAutocmds',

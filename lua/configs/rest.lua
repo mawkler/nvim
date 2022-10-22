@@ -10,11 +10,13 @@ return { 'NTBBloodbath/rest.nvim',
 
     local function http_request()
       if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 80 then
-        vim.cmd('wincmd s')
+        vim.cmd.wincmd('s')
       else
-        vim.cmd('wincmd v')
+        vim.cmd.wincmd('v')
       end
-      vim.cmd('edit ~/.config/nvim/http | set filetype=http | set buftype=')
+      vim.cmd.edit('~/.config/nvim/http')
+      vim.o.filetype = 'http'
+      vim.o.buftype = ''
     end
 
     vim.api.nvim_create_user_command('Http', http_request, {

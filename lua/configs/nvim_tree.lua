@@ -99,6 +99,8 @@ return { 'kyazdani42/nvim-tree.lua',
     map('n', '<leader>`', nvim_tree.toggle, 'Toggle file tree')
     map('n', '<leader>~', function() return nvim_tree.find_file(true) end, 'Show current file in file tree')
 
-    vim.cmd 'hi! link NvimTreeIndentMarker IndentBlanklineChar'
+    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', {
+      link = 'IndentBlanklineChar',
+    })
   end
 }

@@ -44,7 +44,7 @@ end
 
 -- Clear all highlighted LSP references in all windows
 M.clear_lsp_references = function()
-  vim.cmd 'nohlsearch'
+  vim.cmd('nohlsearch')
   if lsp_server_has_references() then
     vim.lsp.buf.clear_references()
     for _, buffer in pairs(M.visible_buffers()) do

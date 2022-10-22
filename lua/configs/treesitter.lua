@@ -121,6 +121,6 @@ return { 'nvim-treesitter/nvim-treesitter',
     map('n', '<leader>H', '<cmd>TSHighlightCapturesUnderCursor<CR>')
 
     -- Disable treesitter from highlighting errors (LSP does that anyway)
-    vim.cmd 'highlight! link TSError Normal'
+    vim.api.nvim_set_hl(0, 'TSError', { link = 'Normal' })
   end
 }

@@ -59,7 +59,7 @@ return { 'lewis6991/gitsigns.nvim',
     }) end)
 
     -- Workaround for bug where change highlight switches for some reason
-    vim.cmd 'hi! link GitGutterChange DiffChange'
+    vim.api.nvim_set_hl(0, 'GitGutterChange', { link = 'DiffChange' })
     vim.opt.diffopt:append { 'algorithm:patience' } -- Use patience diff algorithm
   end,
 }
