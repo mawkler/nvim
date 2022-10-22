@@ -204,6 +204,7 @@ call textobj#user#plugin('datetime', {
 " -- Markdown --
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
+let g:vim_markdown_auto_insert_bullets = 0
 " Disables vim-markdown's default `ge` mapping
 map <F13> <Plug>Markdown_EditUrlUnderCursor
 " Disables vim-markdown's default `]c` mapping
@@ -230,11 +231,6 @@ augroup markdown
 augroup END
 
 let g:vim_markdown_strikethrough = 1
-
-" -- bullets --
-map <silent> <leader>X :ToggleCheckbox<CR>
-let g:bullets_nested_checkboxes = 0 " Don't toggle parent and child boxes automatically
-let g:bullets_checkbox_markers  = ' x'
 
 " -- Thesaurus --
 let g:tq_map_keys = 0

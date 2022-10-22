@@ -30,7 +30,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'haya14busa/vim-textobj-function-syntax' }
   use { 'AndrewRadev/splitjoin.vim', keys = {'n', 'gS', 'gJ'} }
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
-  use { 'dkarter/bullets.vim', ft = 'markdown' }-- Autocomplete markdown lists, etc.
+  Use 'autolist'                                -- Autocomplete lists
   use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
     keys = {{'o', 'iv'}, {'x', 'iv'}, {'o', 'av'}, {'x', 'av'}},
   }
