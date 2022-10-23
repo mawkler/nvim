@@ -64,10 +64,6 @@ omap aL <Plug>(textobj-line-a)
 xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
-" -- exchange.vim --
-xmap X <Plug>(Exchange)
-nmap cX cx$
-
 " -- Fzf --
 function FZF_files(dir)
   echohl Comment

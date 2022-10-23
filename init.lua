@@ -117,7 +117,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
   use { 'plasticboy/vim-markdown', ft = 'markdown' }
   use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
-  use { 'tommcdo/vim-exchange' }                -- Swapping two text objects
+  Use 'substitute'                              -- Replace/exchange operators
   Use 'highlighturl'
   use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
     cmd = 'Bufferize',
