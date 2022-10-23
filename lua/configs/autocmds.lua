@@ -9,14 +9,6 @@ local fn, api = vim.fn, vim.api
 vim.api.nvim_create_augroup('GeneralAutocmds', {})
 vim.api.nvim_create_augroup('FileTypeAutocmds', {})
 
--- Highlight text object on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350 })
-  end,
-  group = 'GeneralAutocmds',
-})
-
 -- TypeScript specific --
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'typescript',

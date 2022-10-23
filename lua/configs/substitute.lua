@@ -1,8 +1,7 @@
 ----------------
 -- Substitute --
 ----------------
-return {
-  'gbprod/substitute.nvim',
+return { 'gbprod/substitute.nvim',
   setup = function()
     local map = require('utils').map
     local substitute = require('substitute')
@@ -13,12 +12,21 @@ return {
     map('n', 'sU',  substitute.eol,      { desc = 'Substitute eol' })
     map('x', 'su',  substitute.visual,   { desc = 'Substitute visual' })
 
-    map("n", "sx",  exchange.operator, { desc = 'Exchange operator' })
-    map("n", "sxx", exchange.line,     { desc = 'Exchange line' })
-    map("x", "X",   exchange.visual,   { desc = 'Exchange visual' })
-    map("n", "sxc", exchange.cancel,   { desc = 'Exchange cancel' })
+    map('n', 'sx',  exchange.operator, { desc = 'Exchange operator' })
+    map('n', 'sxx', exchange.line,     { desc = 'Exchange line' })
+    map('x', 'X',   exchange.visual,   { desc = 'Exchange visual' })
+    map('n', 'sxc', exchange.cancel,   { desc = 'Exchange cancel' })
   end,
   config = function()
-    require('substitute').setup()
+    require('substitute').setup({
+      on_substitute = function(event)
+        require('yanky').init_ring(
+          'p',
+          event.register,
+          event.count,
+          event.vmode:match('[vV]')
+        )
+      end,
+    })
   end
 }

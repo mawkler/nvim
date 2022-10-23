@@ -10,7 +10,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 map('n', '<S-Space>', '<Space>')
 
-map('n',        'yp',            'yyp')
+map('n',        'dp',            'yyp')
 map({'n', 'v'}, '<leader>y',     '"+y')
 map('n',        '<leader>Y',     '"+y$')
 map('n',        '<leader>D',     '"+D')

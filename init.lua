@@ -97,7 +97,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'refactoring'
   Use 'guess_indent'
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
-  Use 'miniyank'                                -- Cycle register history
+  Use 'yanky'                                   -- Cycle register history, etc.
   Use 'surround'
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
