@@ -119,9 +119,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'coachshea/vim-textobj-markdown', ft = 'markdown' }
   Use 'substitute'                              -- Replace/exchange operators
   Use 'highlighturl'
-  use { 'AndrewRadev/bufferize.vim',            -- Send command output to buffer
-    cmd = 'Bufferize',
-  }
+  Use 'messages'                                -- Floating :messages window
   Use 'possession'                              -- Session manager
   use { 'rhysd/vim-grammarous' }                -- LanguageTool grammar checking
   Use 'copilot'                                 -- GitHub Copilot
