@@ -117,17 +117,21 @@ map({'n', 'v'}, 'g)',        'w)ge')
 map({'n', 'v'}, 'g(',        '(ge')
 map('o',        'g)',        ':silent normal vg)h<CR>')
 map('o',        'g(',        ':silent normal vg(oh<CR>')
-map({'n', 'v'}, '<leader>S', ':setlocal spell!<CR>')
+map({'n', 'v'}, 'sp',        ':setlocal spell!<CR>')
 map('n',        '<C-W>N',    ':tabe<CR>')
 
 -- Adds previous cursor location to jumplist if count is > 5
 local function move_vertically(direction)
-  local mark = v.count > 5 and "m'" or ""
-  feedkeys(mark .. v.count1 .. direction)
+  return function()
+    local mark = v.count > 5 and "m'" or ""
+    feedkeys(mark .. v.count1 .. direction)
+  end
 end
 
-map('n', 'k', function() move_vertically('k') end, 'k')
-map('n', 'j', function() move_vertically('j') end, 'j')
+map('n', 'k', move_vertically('k'), 'k')
+map('n', 'j', move_vertically('j'), 'j')
+map('n', '-', move_vertically('-'), 'k')
+map('n', '+', move_vertically('+'), 'j')
 
 -- Sets the font size
 local function zoom_set(font_size)
@@ -173,11 +177,11 @@ map('n', '<leader><C-t>', function()
 end, 'Delete buffer and pop jump stack')
 map('n', '<leader>N', function()
   o.relativenumber = not o.relativenumber
-  print('Relative line numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
+  vim.notify('Relative line numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
 end, 'Toggle relative line numbers')
 map('n', '<leader>W', function()
   vim.wo.wrap = not vim.wo.wrap
-  print('Line wrap ' .. (vim.wo.wrap and 'enabled' or 'disabled'))
+  vim.notify('Line wrap ' .. (vim.wo.wrap and 'enabled' or 'disabled'))
 end, 'Toggle line wrap')
 
 map('n', '<Esc>', function()
