@@ -63,7 +63,7 @@ return { 'mhartington/formatter.nvim',
     end, 'Toggle autoformatting on write')
 
     vim.api.nvim_create_augroup('AutoFormatting', {})
-    vim.api.nvim_create_autocmd('BufWritePre', {
+    vim.api.nvim_create_autocmd('BufWritePost', {
       pattern = {
         '*.js',
         '*.json',
