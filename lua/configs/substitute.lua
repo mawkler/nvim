@@ -2,7 +2,17 @@
 -- Substitute --
 ----------------
 return { 'gbprod/substitute.nvim',
-  setup = function()
+  keys = {
+    { 'n', 'su' },
+    { 'x', 'su' },
+    { 'n', 'sU' },
+    { 'x', '<leader>su' },
+    { 'n', 'sx' },
+    { 'x', 'X' },
+  },
+  requires = 'gbprod/yanky.nvim',
+  after = 'yanky.nvim', -- Doesn't work for some reason
+  config = function()
     local map = require('utils').map
     local substitute = require('substitute')
     local exchange = require('substitute.exchange')
@@ -24,11 +34,14 @@ return { 'gbprod/substitute.nvim',
     map('n', 'sx',         exchange.operator,    'Exchange operator')
     map('n', 'sxx',        exchange.line,        'Exchange line')
     map('x', 'X',          exchange.visual,      'Exchange visual')
-    map('n', 'sxc',        exchange.cancel,      'Exchange cancel')
+    map('n', 'sxc',        exchange.cancel,      "Exchange cancel")
 
-  end,
-  config = function()
-    require('substitute').setup({
+    -- Make sure Yanky is loaded
+    if not packer_plugins['yanky.nvim'].loaded then
+      vim.cmd 'PackerLoad yanky.nvim'
+    end
+
+    substitute.setup({
       on_substitute = function(event)
         require('yanky').init_ring(
           'p',

@@ -2,7 +2,26 @@
 -- Yanky --
 -----------
 return { 'gbprod/yanky.nvim',
-  setup = function()
+  keys = {
+    { 'n', 'y' },
+    { 'n', 'Y' },
+    { 'x', 'y' },
+    { 'n', 'p' },
+    { 'x', 'p' },
+    { 'n', 'P' },
+    { 'x', 'P' },
+    { 'n', '<M-p>' },
+    { 'n', '<M-P>' },
+    { 'n', ']p' },
+    { 'n', '[p' },
+    { 'n', ']P' },
+    { 'n', '[P' },
+    { 'n', '=p' },
+    { 'n', '=P' },
+  },
+  cmd = { 'YankyRingHistory', 'YankyClearHistory' },
+  config = function()
+    local plugin_setup = require('utils').plugin_setup
     local map = require('utils').map
 
     map({'n', 'x'}, 'y', '<Plug>(YankyYank)')
@@ -19,15 +38,14 @@ return { 'gbprod/yanky.nvim',
 
     map('n', '=p', '<Plug>(YankyPutAfterFilter)')
     map('n', '=P', '<Plug>(YankyPutBeforeFilter)')
-  end,
-  config = function()
+
     vim.api.nvim_set_hl(0, 'YankyPut',    { link = 'IncSearch' })
     vim.api.nvim_set_hl(0, 'YankyYanked', { link = 'IncSearch' })
 
-    require('yanky').setup({
-      highlight = {
-        timer = 150,
-      },
+    require('telescope').load_extension('yank_history')
+
+    plugin_setup('yanky', {
+      highlight = { timer = 150 },
     })
   end
 }
