@@ -4,8 +4,9 @@
 return { 'gbprod/yanky.nvim',
   keys = {
     { 'n', 'y' },
-    { 'n', 'Y' },
     { 'x', 'y' },
+    { 'n', 'Y' },
+    { 'x', 'Y' },
     { 'n', 'p' },
     { 'x', 'p' },
     { 'n', 'P' },
@@ -20,6 +21,18 @@ return { 'gbprod/yanky.nvim',
     { 'n', '=P' },
   },
   cmd = { 'YankyRingHistory', 'YankyClearHistory' },
+  setup = function()
+    local map = require('utils').map
+    map('n', 'dp',        'yyp')
+    map('n', 'cy',        '"+y')
+    map('x', 'Y',         '"+y')
+    map('n', 'cY',        '"+y$')
+    map('n', 'cp',        '"+p',    { remap = true })
+    map('s', '<leader>p', '<C-r>+', { remap = true })
+    map('n', 'cP',        '"+P',    { remap = true })
+    map('n', 'Y',         'y$',     { remap = true })
+    map('!', '<M-v>',     '<C-r>+')
+  end,
   config = function()
     local plugin_setup = require('utils').plugin_setup
     local map = require('utils').map

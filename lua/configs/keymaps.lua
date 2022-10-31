@@ -10,13 +10,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 map('n', '<S-Space>', '<Space>')
 
-map('n',        'dp',            'yyp')
-map('n',        'cy',            '"+y')
-map('n',        'cY',            '"+y$')
-map('n',        'cp',            '"+p',    { remap = true })
-map('s',        '<leader>p',     '<C-r>+', { remap = true })
-map('n',        'cP',            '"+P',    { remap = true })
-map('!',        '<M-v>',         '<C-r>+')
 map({'n', 'v'}, '<C-q>',         ':qa<CR>')
 map('n',        '<C-j>',         'o<Esc>')
 map('n',        '<C-j>',         'i<CR><Esc>')
