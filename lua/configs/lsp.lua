@@ -159,40 +159,45 @@ return { 'neovim/nvim-lspconfig',
     local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
     local with_border = {float = { border = 'single' }}
 
+    local function diagnostic_goto(direction, opts)
+      return function()
+        diagnostic['goto_' .. direction](opts)
+      end
+    end
+
     local function lsp_references()
       require('utils').clear_lsp_references()
       vim.lsp.buf.document_highlight()
-      require('telescope.builtin').lsp_references({
-        include_declaration = false,
-        -- fname_width = 60,
-      })
+      telescope.lsp_references({ include_declaration = false })
     end
 
-    map('n', 'gd',         telescope.lsp_definitions, 'vim.lsp.buf.definition')
-    map('n', 'gD',         telescope.lsp_type_definitions, 'vim.lsp.buf.type_definition')
-    map('n', 'gi',         telescope.lsp_implementations, 'vim.lsp.buf.implementation')
-    map('n', 'gd',         telescope.lsp_definitions, 'LSP definitions')
-    map('n', 'gi',         telescope.lsp_implementations, 'LSP implementations')
-    map('n', '<leader>ts', telescope.lsp_document_symbols, 'LSP document symbols')
-    map('n', '<leader>tS', telescope.lsp_workspace_symbols, 'LSP workspace symbols')
+    map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
+    map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
+    map('n', 'gi',         telescope.lsp_implementations,           'LSP implementations')
+    map('n', '<leader>ts', telescope.lsp_document_symbols,          'LSP document symbols')
+    map('n', '<leader>tS', telescope.lsp_workspace_symbols,         'LSP workspace symbols')
     map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
-    map('n', 'gr',         lsp_references, 'LSP references')
+    map('n', 'gr',         lsp_references,                          'LSP references')
 
-    map('n',        'gh',        lsp.buf.hover, 'vim.lsp.buf.hover')
-    map('n',        'gs',        lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
-    map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'vim.lsp.buf.signature_help')
-    map({'n', 'x'}, '<leader>r', vim.lsp.buf.rename, 'vim.lsp.buf.rename')
-    map({'n', 'x'}, '<leader>a', lsp.buf.code_action, 'vim.lsp.buf.code_action')
-    map('n',        '<leader>e', function() return diagnostic.open_float({border = 'single'}) end, 'Diagnostic open float')
-    map({'n', 'x'}, ']e',        function() return diagnostic.goto_next(error_opts) end, 'Next error')
-    map({'n', 'x'}, '[e',        function() return diagnostic.goto_prev(error_opts) end, 'Previous error')
-    map({'n', 'x'}, '[h',        function() return diagnostic.goto_prev(info_opts) end, 'Previous info')
-    map({'n', 'x'}, ']h',        function() return diagnostic.goto_next(info_opts) end, 'Next info')
-    map({'n', 'x'}, ']d',        function() return diagnostic.goto_next(with_border) end, 'Next diagnostic')
-    map({'n', 'x'}, '[d',        function() return diagnostic.goto_prev(with_border) end, 'Previous diagnostic')
-    map('n',        '<C-w>gd',   '<C-w>vgd', {desc = 'LSP go to definition in window split', remap = true})
-    map('n',        '<C-w>gi',   '<C-w>vgi', {desc = 'LSP go to implementaiton in window split', remap = true})
-    map('n',        '<C-w>gD',   '<C-w>vgD', {desc = 'LSP go to type definition in window split', remap = true})
+    map('n',        'gh',        lsp.buf.hover,          'LSP hover')
+    map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
+    map({'i'; 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
+    map({'n'; 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
+    map({'n'; 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
+
+    map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
+    map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
+    map({'n', 'x'}, '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
+    map({'n', 'x'}, ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
+    map({'n', 'x'}, ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
+    map({'n', 'x'}, '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
+    map('n',        '<leader>e', function()
+      diagnostic.open_float({ border = 'single' })
+    end, 'Diagnostic open float')
+
+    map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
+    map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementaiton in window split',  remap = true })
+    map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
   end
 }
