@@ -310,8 +310,4 @@ nmap <leader>GD <Plug>(grammarous-disable-rule)
 if !exists('g:vscode')
   " -- Peekaboo --
   let g:peekaboo_delay = 300
-
-  " -- Matchup --
-  let g:matchup_matchparen_offscreen = {} " Disable displaying off-screen matches
-  let g:matchup_delim_nomids = 1 " Don't include words like `return`
 endif

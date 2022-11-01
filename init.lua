@@ -101,7 +101,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'surround'
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
-  use { 'andymass/vim-matchup', keys = {'n', '%'} } -- Ads additional `%` commands
+  Use 'matchup'                                 -- Adds additional `%` commands
   Use 'autopairs'
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
   use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
