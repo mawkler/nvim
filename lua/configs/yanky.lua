@@ -3,39 +3,22 @@
 -----------
 return { 'gbprod/yanky.nvim',
   keys = {
-    { 'n', 'y' },
-    { 'x', 'y' },
-    { 'n', 'Y' },
-    { 'x', 'Y' },
-    { 'n', 'p' },
-    { 'x', 'p' },
-    { 'n', 'P' },
-    { 'x', 'P' },
-    { 'n', '<M-p>' },
-    { 'n', '<M-P>' },
-    { 'n', ']p' },
-    { 'n', '[p' },
-    { 'n', ']P' },
-    { 'n', '[P' },
-    { 'n', '=p' },
-    { 'n', '=P' },
+    '<Plug>(YankyYank)',
+    '<Plug>(YankyPutAfter)',
+    '<Plug>(YankyPutBefore)',
+    '<Plug>(YankyCycleForward)',
+    '<Plug>(YankyCycleBackward)',
+    '<Plug>(YankyPutIndentAfterLinewise)',
+    '<Plug>(YankyPutIndentBeforeLinewise)',
+    '<Plug>(YankyPutIndentAfterLinewise)',
+    '<Plug>(YankyPutIndentBeforeLinewise)',
+    '<Plug>(YankyPutAfterFilter)',
+    '<Plug>(YankyPutBeforeFilter)',
   },
   cmd = { 'YankyRingHistory', 'YankyClearHistory' },
   setup = function()
     local map = require('utils').map
-    map('n', 'dp',        'yyp')
-    map('n', 'cy',        '"+y')
-    map('x', 'Y',         '"+y')
-    map('n', 'cY',        '"+y$')
-    map('n', 'cp',        '"+p',    { remap = true })
-    map('s', '<leader>p', '<C-r>+', { remap = true })
-    map('n', 'cP',        '"+P',    { remap = true })
-    map('n', 'Y',         'y$',     { remap = true })
-    map('!', '<M-v>',     '<C-r>+')
-  end,
-  config = function()
-    local plugin_setup = require('utils').plugin_setup
-    local map = require('utils').map
+    local remap = { remap = true }
 
     map({'n', 'x'}, 'y', '<Plug>(YankyYank)')
     map({'n', 'x'}, 'p', '<Plug>(YankyPutAfter)')
@@ -52,6 +35,20 @@ return { 'gbprod/yanky.nvim',
     map('n', '=p', '<Plug>(YankyPutAfterFilter)')
     map('n', '=P', '<Plug>(YankyPutBeforeFilter)')
 
+    map({'n', 'x'}, '<leader>y', '<cmd>YankyRingHistory<CR>')
+
+    map('n', 'dp',        'yyp',    remap)
+    map('n', 'cy',        '"+y',    remap)
+    map('x', 'Y',         '"+y',    remap)
+    map('n', 'cY',        '"+y$',   remap)
+    map('n', 'cp',        '"+p',    remap)
+    map('s', '<leader>p', '<C-r>+', remap)
+    map('n', 'cP',        '"+P',    remap)
+    map('n', 'Y',         'y$',     remap)
+    map('!', '<M-v>',     '<C-r>+', remap)
+  end,
+  config = function()
+    local plugin_setup = require('utils').plugin_setup
     vim.api.nvim_set_hl(0, 'YankyPut',    { link = 'IncSearch' })
     vim.api.nvim_set_hl(0, 'YankyYanked', { link = 'IncSearch' })
 
