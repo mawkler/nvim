@@ -3,6 +3,17 @@
 ----------------
 return { 'jedrzejboczar/possession.nvim',
   requires = { 'nvim-lua/plenary.nvim' },
+  event = 'VimLeavePre',
+  keys = '<leader>s',
+  cmd = {
+    'SessionSave',
+    'SessionLoad',
+    'SessionClose',
+    'SessionDelete',
+    'SessionShow',
+    'SessionList',
+    'SessionMigrate',
+  },
   config = function()
     local plugin_setup = require('utils').plugin_setup
     local map = require('utils').map
@@ -39,6 +50,8 @@ return { 'jedrzejboczar/possession.nvim',
         },
       },
     })
+
+    telescope.load_extension('possession')
 
     local function list_sessions()
       telescope.extensions.possession.list(themes.get_dropdown({

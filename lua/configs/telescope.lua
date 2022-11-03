@@ -153,7 +153,6 @@ return { 'nvim-telescope/telescope.nvim',
     telescope.load_extension('notify')
     telescope.load_extension('cder')
     telescope.load_extension('dap')
-    telescope.load_extension('possession')
 
     function _G.telescope_markdowns()
       builtin.find_files({
