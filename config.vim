@@ -45,18 +45,6 @@ command! -complete=file -nargs=* Edit silent! exec "!vim --servername " . v:serv
 inoremap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-o>O"
 inoremap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 
-if !$NVIM_MINIMAL
-  " Git-timelapse
-  nmap <leader>gt :call TimeLapse() <cr>
-endif
-
-" -- textobj-function --
-let g:textobj_function_no_default_key_mappings = 1
-xmap aF <Plug>(textobj-function-A)
-omap aF <Plug>(textobj-function-A)
-xmap iF <Plug>(textobj-function-i)
-omap iF <Plug>(textobj-function-i)
-
 " -- vim-textobj-line --
 let g:textobj_line_no_default_key_mappings = 1
 xmap aL <Plug>(textobj-line-a)
@@ -234,14 +222,6 @@ nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
 
 " Looks up the provided word(s) in a thesaurus
 command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
-
-" -- vim-resize --
-let g:vim_resize_disable_auto_mappings = 1
-let g:resize_count = 3
-nnoremap <silent> <Left>  :CmdResizeLeft<CR>
-nnoremap <silent> <Right> :CmdResizeRight<CR>
-nnoremap <silent> <Up>    :CmdResizeUp<CR>
-nnoremap <silent> <Down>  :CmdResizeDown<CR>
 
 " -- Scrollbar --
 let g:scrollbar_right_offset = 0
