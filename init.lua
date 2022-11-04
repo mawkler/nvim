@@ -84,9 +84,7 @@ import('packer', function(packer) packer.startup { function()
     module_pattern = 'nui.*',
   }
   use { 'milisims/nvim-luaref' }                -- Vim :help reference for lua
-  use { 'ethanholz/nvim-lastplace',             -- Restore cursor position
-    config = function() require('utils').plugin_setup('nvim-lastplace', {}) end
-  }
+  Use 'lastplace'                               -- Restore cursor position
   Use 'dial'                                    -- Enhanced increment/decrement
   Use 'comment'
   Use 'rest'                                    -- Sending HTTP requests
