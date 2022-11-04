@@ -41,7 +41,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'undotree'
   Use 'smart_splits'                            -- Better resizing mappings
   use { 'junegunn/vim-peekaboo' }               -- Register selection window
-  use { 'RishabhRD/nvim-cheat.sh', requires = 'RishabhRD/popfix' }
+  Use 'cheat'                                   -- cheat.sh
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
   Use 'alpha'                                   -- Nicer start screen
   Use 'beacon'                                  -- Flash cursor jump
