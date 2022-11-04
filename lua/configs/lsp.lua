@@ -35,12 +35,28 @@ return { 'neovim/nvim-lspconfig',
         })
         ts_utils.setup_client(client)
 
+        local function spread(char)
+          return function()
+            require('utils').feedkeys('siw' .. char .. 'a...<Esc>2%i, ', 'm')
+          end
+        end
+
         local opts = { buffer = true }
         map('n', '<leader>lo', '<cmd>TSLspOrganize<CR>', opts)
         map('n', '<leader>lr', '<cmd>TSLspRenameFile<CR>', opts)
         map('n', '<leader>li', '<cmd>TSLspImportAll<CR>', opts)
         map('n', '<leader>lI', '<cmd>TSLspImportCurrent<CR>', opts)
         map('n', '<leader>lh', '<cmd>TSLspToggleInlayHints<CR>', opts)
+        map('n', '<leader>ls', spread('{'), {
+          buffer = true,
+          remap = true,
+          desc = 'Spread object under cursor'
+        })
+        map('n', '<leader>lS', spread('['), {
+          buffer = true,
+          remap = true,
+          desc = 'Spread array under cursor'
+        })
       end,
     })
 
