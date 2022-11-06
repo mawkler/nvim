@@ -2,6 +2,7 @@
 -- Dressing --
 --------------
 return { 'stevearc/dressing.nvim',
+  event = 'CursorMoved',
   config = function()
     local utils = require('utils')
     local map, feedkeys = utils.map, utils.feedkeys

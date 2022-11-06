@@ -4,6 +4,7 @@
 return {
   'b0o/incline.nvim',
   requires = { 'ful1e5/onedark.nvim', 'kyazdani42/nvim-web-devicons' },
+  event = 'WinNew',
   config = function()
     local colors = require('onedark').get_colors()
     local plugin_setup = require('utils').plugin_setup

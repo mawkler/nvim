@@ -27,15 +27,14 @@ import('packer', function(packer) packer.startup { function()
     event = 'ModeChanged *:[vV]',
   }
   use { 'kana/vim-textobj-syntax' }
-  use { 'haya14busa/vim-textobj-function-syntax' }
-  use { 'AndrewRadev/splitjoin.vim', keys = {'n', 'gS', 'gJ'} }
+  use { 'AndrewRadev/splitjoin.vim', keys = {'gS', 'gJ'} }
   use { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' }
   Use 'autolist'                                -- Autocomplete lists
   use { 'Julian/vim-textobj-variable-segment',  -- camelCase and snake_case text objects
     keys = {{'o', 'iv'}, {'x', 'iv'}, {'o', 'av'}, {'x', 'av'}},
   }
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
-  use { 'meain/vim-printer', keys = {'n', 'gp'} }
+  use { 'meain/vim-printer', keys = 'gp' }
   Use 'lens'
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
@@ -102,7 +101,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'matchup'                                 -- Adds additional `%` commands
   Use 'autopairs'
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
-  use { 'vim-scripts/capslock.vim' }            -- Adds caps lock mapping to insert mode
+  use { 'vim-scripts/capslock.vim', event = 'InsertEnter' }
   use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
   Use 'git_conflict'                            -- Git conflict mappings
   use { 'kana/vim-textobj-user' }
