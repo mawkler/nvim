@@ -7,7 +7,9 @@ return { 'gaoDean/autolist.nvim',
     local map = require('utils').map
     local autolist = require('autolist')
 
-    autolist.setup()
+    autolist.setup({
+      colon = { indent_raw = false },
+    })
 
     map('n', '<leader>x', autolist.invert)
   end
