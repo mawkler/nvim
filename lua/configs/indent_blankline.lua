@@ -15,7 +15,7 @@ return { 'lukas-reineke/indent-blankline.nvim',
         'alpha',
         'sagahover',
         'NvimTree',
-        'lsp-installer',
+        'mason',
         'toggleterm',
         'packer',
       }

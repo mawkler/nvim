@@ -59,6 +59,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'incline'                                 -- Floating winbar
   Use 'fidget'                                  -- LSP progress indicator
   Use 'gitsigns'                                -- Git status in sign column
+  Use 'mason'                                   -- LSP/DAP/etc. package manager
   Use 'lsp'                                     -- Built-in LSP
   Use 'luasnip'                                 -- Snippet engine
   use { 'saadparwaiz1/cmp_luasnip',            after = 'nvim-cmp' }

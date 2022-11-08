@@ -3,26 +3,27 @@
 ---------------
 return { 'neovim/nvim-lspconfig',
   requires = {
-    'williamboman/nvim-lsp-installer',      -- LspInstall commands
+    'williamboman/mason.nvim',              -- For installing LSP servers
+    'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
     'folke/neodev.nvim'                     -- Lua signature help and completion
   },
   config = function()
-    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
+    local map = require('utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
+    local path = require('mason-core.path')
 
-    -------------------
-    -- LSP Installer --
-    -------------------
-    plugin_setup('nvim-lsp-installer')
+    local servers_path = path.concat({
+      vim.fn.stdpath('data'),
+      'mason',
+      'packages',
+    })
 
-    local lsp_server_dir = vim.fn.stdpath('data') .. '/lsp_servers/'
-
-    -- Typescript --
+    -- TypeScript --
     lspconfig.tsserver.setup({
       init_options = require('nvim-lsp-ts-utils').init_options,
       on_attach = function(client)
@@ -86,6 +87,9 @@ return { 'neovim/nvim-lspconfig',
       }
     })
 
+    -- Vim --
+    lspconfig.vimls.setup({})
+
     -- YAML --
     lspconfig.yamlls.setup({
       settings = {
@@ -115,7 +119,15 @@ return { 'neovim/nvim-lspconfig',
 
     -- Bicep --
     lspconfig.bicep.setup({
-      cmd = { 'dotnet', lsp_server_dir .. 'bicep/Bicep.LangServer.dll' }
+      cmd = {
+        'dotnet',
+        path.concat({
+          servers_path,
+          'bicep-lsp',
+          'bicepLanguageServer',
+          'Bicep.LangServer.dll',
+        })
+      }
     })
 
     -- HTML --
