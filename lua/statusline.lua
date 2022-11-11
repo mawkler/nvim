@@ -7,10 +7,10 @@ local components = { active = { {}, {}, {} } }
 
 local modes = {
   ['n']    = 'NORMAL',
-  ['no']   = 'OP    ',
-  ['nov']  = 'OP    ',
-  ['noV']  = 'OP    ',
-  ['no'] = 'OP    ',
+  ['no']   = '  OP  ',
+  ['nov']  = '  OP  ',
+  ['noV']  = '  OP  ',
+  ['no'] = '  OP  ',
   ['niI']  = 'NORMAL',
   ['niR']  = 'NORMAL',
   ['niV']  = 'NORMAL',
@@ -31,12 +31,12 @@ local modes = {
   ['cv']   = 'COMMAND',
   ['ce']   = 'COMMAND',
   ['r']    = 'ENTER ',
-  ['rm']   = 'MORE  ',
+  ['rm']   = ' MORE ',
   ['r?']   = 'CONFIRM',
   ['!']    = 'SHELL ',
-  ['t']    = 'TERM  ',
-  ['nt']   = 'TERM  ',
-  ['null'] = 'NONE  ',
+  ['t']    = ' TERM ',
+  ['nt']   = ' TERM ',
+  ['null'] = ' NONE ',
 }
 
 local left_sep  = { str = ' ',   hl = { fg = 'line_bg', bg = 'bg0' } }
@@ -140,7 +140,7 @@ table.insert(active_left, {
   hl = { fg = 'bg', bg = 'bg0' },
 })
 
--- LSP client
+-- LSP server
 table.insert(active_left, {
   provider = 'lsp_client_names',
   left_sep = ' ',
