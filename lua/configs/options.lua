@@ -8,6 +8,7 @@ o.showmode  = false        -- Don't write out `--INSERT--`, etc.
 o.linebreak = true         -- Don't break lines in the middle of a word
 opt.shortmess:append('A')  -- Ignores swapfiles when opening file
 opt.shortmess:append('s')  -- Disable 'Search hit BOTTOM, continuing at TOP'
+opt.shortmess:append('cS') -- Disable "[1/5]", "Pattern not found", etc.
 opt.shortmess:append('FW') -- Disable message after editing/writing file
 opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
@@ -34,6 +35,7 @@ o.shada      = "!,'1000,<50,s10,h"
 o.wildignorecase = true -- Case insensitive file/directory completion
 opt.path:append('**')   -- Lets `find` search recursively into subfolders
 o.cedit = '<C-y>'       -- Enter Command-line Mode from command-mode
+o.cmdheight = 0         -- Don't show command-line by default
 
 -- Searching --
 o.ignorecase = true -- Case insensitive searching

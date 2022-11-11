@@ -144,6 +144,23 @@ table.insert(active_left, {
   priority = 9
 })
 
+-- Search count
+table.insert(active_left, {
+  provider = function()
+    if vim.v.hlsearch == 0 then return '' end
+    local res = vim.fn.searchcount({ maxcount = 999, timeout = 250 })
+    if res.total == 0 then return 'not found' end
+    return string.format('%d/%d', res.current, math.min(res.total, res.maxcount))
+  end,
+  icon = {
+    str = ' ',
+    hl = function() return { fg = mode.get_mode_color() } end,
+  },
+  hl = { bg = 'line_bg' },
+  left_sep = left_sect.left_sep,
+  right_sep = left_sect.right_sep,
+})
+
 -- Macro recording
 table.insert(active_left, {
   provider = function() return vim.fn.reg_recording() end,
