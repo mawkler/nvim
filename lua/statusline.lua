@@ -39,8 +39,17 @@ local modes = {
   ['null'] = ' NONE ',
 }
 
-local left_sep  = { str = ' ',   hl = { fg = 'line_bg', bg = 'bg0' } }
-local right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'bg0' } }
+-- Separators
+
+local separator_hl = { fg = 'line_bg', bg = 'bg0' }
+local left_sect = {
+  left_sep = { str = ' ', hl = separator_hl },
+  right_sep = { str = '', hl = separator_hl },
+}
+local right_sect = {
+  left_sep  = { str = ' ', hl = separator_hl },
+  right_sep = { str = '',  hl = separator_hl },
+}
 
 -- Help functions
 
@@ -133,6 +142,19 @@ table.insert(active_left, {
   icon = ' ',
   truncate_hide = true,
   priority = 9
+})
+
+-- Macro recording
+table.insert(active_left, {
+  provider = function() return vim.fn.reg_recording() end,
+  enabled = function() return vim.o.cmdheight == 0 end,
+  icon = {
+    str = ' ',
+    hl = function() return { fg = mode.get_mode_color() } end,
+  },
+  hl = { bg = 'line_bg' },
+  left_sep = left_sect.left_sep,
+  right_sep = left_sect.right_sep,
 })
 
 table.insert(active_left, {
@@ -246,8 +268,8 @@ table.insert(active_right, {
 -- Filetype
 table.insert(active_right, {
   provider = function() return ' ' .. bo.filetype end,
-  left_sep = left_sep,
-  right_sep = right_sep,
+  left_sep = right_sect.left_sep,
+  right_sep = right_sect.right_sep,
   hl = { bg = 'line_bg' },
   enabled = has_file_type,
   icon = function()
@@ -265,8 +287,8 @@ table.insert(active_right, {
 table.insert(active_right, {
   provider = file_osinfo,
   hl = { bg = 'line_bg' },
-  left_sep = left_sep,
-  right_sep = right_sep,
+  left_sep = right_sect.left_sep,
+  right_sep = right_sect.right_sep,
   truncate_hide = true,
   priority = -1
 })
@@ -275,8 +297,8 @@ table.insert(active_right, {
 table.insert(active_right, {
   provider = 'file_encoding',
   hl = { bg = 'line_bg' },
-  left_sep = left_sep,
-  right_sep = right_sep,
+  left_sep = right_sect.left_sep,
+  right_sep = right_sect.right_sep,
   truncate_hide = true,
   priority = -1
 })
@@ -285,8 +307,8 @@ table.insert(active_right, {
 table.insert(active_right, {
   provider = 'ﮧ ',
   hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
-  left_sep = left_sep,
-  right_sep = right_sep,
+  left_sep = right_sect.left_sep,
+  right_sep = right_sect.right_sep,
   enabled = function()
     return fn.exists('*copilot#Enabled') == 1 and call('copilot#Enabled') == 1
   end,
@@ -297,8 +319,8 @@ table.insert(active_right, {
 table.insert(active_right, {
   provider = function() return fn.strftime('%H:%M') end,
   hl = { bg = 'line_bg' },
-  left_sep = left_sep,
-  right_sep = right_sep,
+  left_sep = right_sect.left_sep,
+  right_sep = right_sect.right_sep,
   icon = function() return {
     str = ' ',
     hl = {
