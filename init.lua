@@ -139,6 +139,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'modicator'                               -- Line number mode indicator
   use { 'jghauser/mkdir.nvim' }                 -- Create missing folders on :w
   Use 'unception'                               -- Open files in Neovim from terminal
+  Use 'git_worktree'                            -- Manage git worktrees
 end, config = {
   profile = { enable = false, },
   display = {
