@@ -65,7 +65,7 @@ return { 'L3MON4D3/LuaSnip',
           i(2),
           t {
             '',
-            '  end,',
+            '  end',
             '}'
           }
         })
