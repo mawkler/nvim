@@ -37,7 +37,7 @@ return { 'gbprod/yanky.nvim',
 
     map({'n', 'x'}, '<leader>y', '<cmd>YankyRingHistory<CR>')
 
-    map('n', 'dp',        'yyp',    remap)
+    map('n', 'dp',        '"_yyp',  remap)
     map('n', 'cy',        '"+y',    remap)
     map('x', 'Y',         '"+y',    remap)
     map('n', 'cY',        '"+y$',   remap)
