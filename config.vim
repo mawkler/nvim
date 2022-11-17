@@ -55,7 +55,9 @@ omap iL <Plug>(textobj-line-i)
 " -- Fzf --
 function FZF_files(dir)
   echohl Comment
-  echo 'Directory: ' . fnamemodify(a:dir, ':~')
+  if &cmdheight > 0 |
+    echo 'Directory: ' . fnamemodify(a:dir, ':~')
+  endif
   echohl None
   exe 'FilesWithDevicons ' .. a:dir
 endf
