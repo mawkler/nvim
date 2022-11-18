@@ -4,7 +4,6 @@
 return { 'mfussenegger/nvim-dap',
   requires = {
     'rcarriga/nvim-dap-ui',             -- UI for nvim-dap
-    'ravenxrz/DAPInstall.nvim',         -- Installing/uninstalling debuggers - temporary branch while dap-buddy is re-written
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
   },
@@ -26,24 +25,22 @@ return { 'mfussenegger/nvim-dap',
   --   -- '<leader>dj',
   --   -- '<leader>dJ',
   -- },
-  -- cmd = { 'DIInstall', 'DIUninstall', 'DIList' },
   -- module_pattern = { 'dap.*', 'jester.*' },
   config = function()
     local sign_define = vim.fn.sign_define
     local dap, widgets = require('dap'), require('dap.ui.widgets')
-    local dap_ui, di = require('dapui'), require('dap-install')
+    local dap_ui = require('dapui')
     local jester = require('jester')
     local map = require('utils').map
     local plugin_setup = require('utils').plugin_setup
+
+    local install_location = vim.fn.stdpath('data') .. '/mason/packages'
 
     sign_define('DapBreakpoint',          { text='', texthl='Error' })
     sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
     sign_define('DapLogPoint',            { text='', texthl='Directory' })
     sign_define('DapStopped',             { text='ﰲ', texthl='TSConstant' })
     sign_define('DapBreakpointRejected',  { text='', texthl='Error' })
-
-    -- DAPInstall --
-    di.config('jsnode')
 
     -- Mappings --
     -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
@@ -87,10 +84,7 @@ return { 'mfussenegger/nvim-dap',
 
     dap.adapters.node2 = {
       type = 'executable',
-      command = 'node',
-      args = {
-        vim.fn.stdpath('data') .. '/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js',
-      },
+      command = install_location .. '/node-debug2-adapter/node-debug2-adapter',
     }
 
     dap.configurations.typescript = {
@@ -131,6 +125,5 @@ return { 'mfussenegger/nvim-dap',
 
     -- Loads .vscode/launch.json files if available
     require('dap.ext.vscode').load_launchjs(nil, { node = {'typescript'} })
-
   end,
 }
