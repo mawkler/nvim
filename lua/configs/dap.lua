@@ -6,6 +6,7 @@ return { 'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',             -- UI for nvim-dap
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
+    'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
   },
   -- TODO: fix lazy loading
   -- keys = {
@@ -47,7 +48,7 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<leader>dd', function()
       dap.continue()
       dap_ui.open()
-    end)
+    end, 'Toggle DAP UI')
     map('n', '<leader>dB', function()
       vim.ui.input({ prompt = 'Breakpoint condition: ' }, function(condition)
         dap.set_breakpoint(condition)
@@ -82,46 +83,51 @@ return { 'mfussenegger/nvim-dap',
     -- DAP-UI --
     dap_ui.setup()
 
-    dap.adapters.node2 = {
-      type = 'executable',
-      command = install_location .. '/node-debug2-adapter/node-debug2-adapter',
-    }
+    require('dap-vscode-js').setup({
+      debugger_path = install_location .. '/js-debug-adapter',
+      debugger_cmd = { 'js-debug-adapter' },
+      adapters = {
+        'pwa-node',
+        'pwa-chrome',
+        'pwa-msedge',
+        'node-terminal',
+        'pwa-extensionHost',
+      },
+    })
 
-    dap.configurations.typescript = {
-      {
-        name = 'ts-node (Node2 with ts-node)',
-        type = 'node2',
-        request = 'launch',
-        cwd = vim.loop.cwd(),
-        runtimeArgs = { '-r', 'ts-node/register' },
-        runtimeExecutable = 'node',
-        args = {'--inspect', '${file}'},
-        sourceMaps = true,
-        skipFiles = { '<node_internals>/**', 'node_modules/**' },
-      },
-      {
-        name = 'Jest (Node2 with ts-node)',
-        type = 'node2',
-        request = 'launch',
-        cwd = vim.loop.cwd(),
-        runtimeArgs = {'--inspect-brk', '${workspaceFolder}/node_modules/.bin/jest'},
-        runtimeExecutable = 'node',
-        args = {'${file}', '--runInBand', '--coverage', 'false'},
-        sourceMaps = true,
-        port = 9229,
-        skipFiles = { '<node_internals>/**', 'node_modules/**' },
-      },
-      {
-        name = 'op host start',
-        type = 'node2',
-        request = 'launch',
-        cwd = vim.loop.cwd(),
-        runtimeArgs = { '-r', 'ts-node/register' },
-        args = {'--inspect', '${file}'},
-        sourceMaps = true,
-        skipFiles = { '<node_internals>/**', 'node_modules/**' },
+    for _, language in ipairs({ 'typescript', 'javascript' }) do
+      require('dap').configurations[language] = {
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Debug Jest Tests beep boop',
+          runtimeExecutable = 'node',
+          runtimeArgs = {
+            './node_modules/jest/bin/jest.js',
+            '--runInBand',
+          },
+          rootPath = '${workspaceFolder}',
+          cwd = '${workspaceFolder}',
+          console = 'integratedTerminal',
+          internalConsoleOptions = 'neverOpen',
+        },
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          cwd = '${workspaceFolder}',
+        },
+        {
+          type = 'pwa-node',
+          request = 'attach',
+          name = 'Attach',
+          processId = require'dap.utils'.pick_process,
+          cwd = '${workspaceFolder}',
+        }
+
       }
-    }
+    end
 
     -- Loads .vscode/launch.json files if available
     require('dap.ext.vscode').load_launchjs(nil, { node = {'typescript'} })
