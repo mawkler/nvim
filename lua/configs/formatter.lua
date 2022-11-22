@@ -53,7 +53,16 @@ return { 'mhartington/formatter.nvim',
               stdin = false
             }
           end
-        }
+        },
+        bicep = {
+          function()
+            return {
+              exe = 'bicep format',
+              args = { '--stdout', api.nvim_buf_get_name(0) },
+              stdin = true,
+            }
+          end
+        },
       }
     }
 
@@ -74,6 +83,7 @@ return { 'mhartington/formatter.nvim',
         '*.yml',
         '*.yaml',
         '*.html',
+        '*.bicep',
         -- '*.lua', -- Disabled until
         -- https://github.com/CppCXY/EmmyLuaCodeStyle/issues/69 gets fixed
       },
