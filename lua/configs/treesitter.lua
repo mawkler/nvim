@@ -23,7 +23,7 @@ return { 'nvim-treesitter/nvim-treesitter',
       ensure_installed = 'all',
       highlight = {
         enable = true,
-        disable = {'latex', 'vim', 'help'},
+        disable = {'latex', 'vim', 'gitcommit'},
       },
       indent = {
         enable = true,
