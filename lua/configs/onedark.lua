@@ -40,6 +40,7 @@ return { 'ful1e5/onedark.nvim', config = function()
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
         MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
         CursorLine = { bg = cursorline_bg },
+        CursorColumn = { link = 'CursorLine' },
         CursorLineNr = { fg = c.green0, bg = cursorline_bg, style = style.Bold },
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
@@ -97,6 +98,7 @@ return { 'ful1e5/onedark.nvim', config = function()
         NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
         -- Gitsigns
         GitSignsDeleteLn = { link = 'GitSignsDeleteVirtLn' },
+        GitSignsAdd = { fg = colors.green0 },
         -- Fidget
         FidgetTitle = { fg = c.blue0, style = style.Bold },
         -- Barbar
@@ -117,7 +119,7 @@ return { 'ful1e5/onedark.nvim', config = function()
         -- Grammarous
         GrammarousError = { style = style.Undercurl, sp = c.error },
         -- Scrollbar
-        Scrollbar = { fg = c.bg_visual },
+        Scrollbar = { fg = c.bg_visual, bg = c.bg_visual },
         -- Leap
         LeapMatch = { fg = c.orange0, style = string.format('%s,%s', style.Bold, style.Underline) },
         LeapLabelPrimary = { fg = c.green0, style = style.Bold },

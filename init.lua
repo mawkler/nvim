@@ -49,7 +49,7 @@ import('packer', function(packer) packer.startup { function()
     requires = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
     cmd = 'FilesWithDevicons',
   }
-  use { 'Xuyuanp/scrollbar.nvim', event = 'WinScrolled' }
+  Use 'scrollbar'
   Use 'web_devicons'
   Use 'nvim_tree'                               -- File explorer
   Use 'barbar'                                  -- Sexiest buffer tabline
