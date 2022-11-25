@@ -12,9 +12,8 @@ return { 'feline-nvim/feline.nvim',
       -- https://github.com/miversen33/import.nvim/issues/11 gets merged
     import('configs.colorscheme', function(colorscheme)
       local colors = colorscheme.colors
-      local plugin_setup = require('utils').plugin_setup
 
-      plugin_setup('statusline', {
+      require('statusline').setup({
         theme = colors,
         modifications = {
           bg = colors.bg_sidebar,

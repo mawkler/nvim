@@ -6,9 +6,8 @@ return { 'stevearc/dressing.nvim',
   config = function()
     local utils = require('utils')
     local map, feedkeys = utils.map, utils.feedkeys
-    local plugin_setup = utils.plugin_setup
 
-    plugin_setup('dressing',  {
+    require('dressing').setup({
       select = {
         telescope = require('telescope.themes').get_dropdown()
       },

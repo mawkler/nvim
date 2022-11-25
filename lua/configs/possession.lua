@@ -15,13 +15,12 @@ return { 'jedrzejboczar/possession.nvim',
     'SessionMigrate',
   },
   config = function()
-    local plugin_setup = require('utils').plugin_setup
     local map = require('utils').map
     local telescope, themes = require('telescope'), require('telescope.themes')
 
     local delete_hidden_filetypes = { 'toggleterm' }
 
-    plugin_setup('possession', {
+    require('possession').setup({
       silent = true,
       autosave = {
         current = true,

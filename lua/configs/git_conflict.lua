@@ -4,9 +4,9 @@
 return { 'akinsho/git-conflict.nvim',
   tag = '*', -- `main` is unstable
   config = function()
-    local map, plugin_setup = require('utils').map, require('utils').plugin_setup
+    local map = require('utils').map
 
-    plugin_setup('git-conflict', {
+    require('git-conflict').setup({
       default_mappings = false,
       disable_diagnostics = true,
     })

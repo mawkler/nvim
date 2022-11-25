@@ -33,7 +33,6 @@ return { 'mfussenegger/nvim-dap',
     local dap_ui = require('dapui')
     local jester = require('jester')
     local map = require('utils').map
-    local plugin_setup = require('utils').plugin_setup
 
     local install_location = vim.fn.stdpath('data') .. '/mason/packages'
 
@@ -78,7 +77,7 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
 
     -- DAP virtual text --
-    plugin_setup('nvim-dap-virtual-text')
+    require('nvim-dap-virtual-text').setup()
 
     -- DAP-UI --
     dap_ui.setup()

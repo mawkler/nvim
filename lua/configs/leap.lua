@@ -11,9 +11,9 @@ return { 'ggandor/leap.nvim',
   end,
   config = function()
     local utils = require('utils')
-    local map, plugin_setup = utils.map, utils.plugin_setup
+    local map = utils.map
 
-    plugin_setup('leap', {
+    require('leap').setup({
       case_sensitive = false,
       substitute_chars = {
         ['\r'] = '¬', -- This one doesn't seem to work

@@ -5,7 +5,6 @@ return { 'ful1e5/onedark.nvim', config = function()
   local colors = require('onedark.colors').setup()
   local style = require('onedark.types').od.HighlightStyle
   local onedark_utils = require('onedark.util')
-  local plugin_setup = require('utils').plugin_setup
 
   local barbar_bg = '#1d2026'
   local barbar_bg_visible = '#23262d'
@@ -13,7 +12,7 @@ return { 'ful1e5/onedark.nvim', config = function()
 
   local cursorline_bg = '#2f343d'
 
-  plugin_setup('onedark', ({
+  require('onedark').setup({
     hide_end_of_buffer = false,
     dev = true,
     colors = {
@@ -133,12 +132,12 @@ return { 'ful1e5/onedark.nvim', config = function()
         AlphaHeader = { fg = c.green0, style = style.Bold }
       }
     end
-  }))
+  })
 
   require('utils.ts_migrate').migrate()
 
   -- NOTE: this disables updating highlight groups for some reason. Try to enable
-  -- and see if numbermode.lua works when
+  -- and see if modicator.nvim works when
   -- https://github.com/neovim/neovim/issues/20069 gets fixed
   -- Use different highlights for special keys in cmdline vs other windows
   -- vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'

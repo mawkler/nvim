@@ -3,12 +3,9 @@
 -------------
 return { 'rcarriga/nvim-notify',
   config = function()
-    local plugin_setup = require('utils').plugin_setup
     local notify = require('notify')
 
-    plugin_setup('notify',  {
-      timeout = 2000,
-    })
+    require('notify').setup( { timeout = 2000 })
 
     vim.notify = notify
 

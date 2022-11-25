@@ -373,7 +373,6 @@ table.insert(active_right, {
 -- Setup --
 -----------
 local function setup(config)
-  local plugin_setup = require('utils').plugin_setup
   local colors = require('configs.colorscheme').modes
 
   local mode_colors = {
@@ -402,7 +401,7 @@ local function setup(config)
       theme = vim.tbl_extend('force', theme, config.modifications)
     end
 
-    plugin_setup('feline', {
+    require('feline').setup({
       theme = theme,
       components = components,
       vi_mode_colors = mode_colors,

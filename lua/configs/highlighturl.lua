@@ -5,7 +5,7 @@ return { 'itchyny/vim-highlighturl',
   setup = function()
     local autocmd = vim.api.nvim_create_autocmd
     local augroup = vim.api.nvim_create_augroup
-    local colors = require('onedark').get_colors()
+    local colors = require('configs.colorscheme').colors
 
     vim.g.highlighturl_guifg = colors.blue0
 

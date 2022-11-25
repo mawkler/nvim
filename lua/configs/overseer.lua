@@ -3,9 +3,7 @@
 --------------
 return { 'stevearc/overseer.nvim',
   config = function()
-    local plugin_setup = require('utils').plugin_setup
-
-    plugin_setup('overseer', ({
+    require('overseer').setup(({
       -- Template modules to load
       templates = { 'builtin' },
     }))

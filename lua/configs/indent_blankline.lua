@@ -3,9 +3,8 @@
 ----------------------
 return { 'lukas-reineke/indent-blankline.nvim',
   config = function()
-    local plugin_setup = require('utils').plugin_setup
 
-    plugin_setup('indent_blankline',  {
+    require('indent_blankline').setup( {
       char = '▏',
       show_first_indent_level = false,
       buftype_exclude = {'fzf', 'help'},

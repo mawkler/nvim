@@ -48,13 +48,12 @@ return { 'gbprod/yanky.nvim',
     map('!', '<M-v>',     '<C-r>+', remap)
   end,
   config = function()
-    local plugin_setup = require('utils').plugin_setup
     vim.api.nvim_set_hl(0, 'YankyPut',    { link = 'IncSearch' })
     vim.api.nvim_set_hl(0, 'YankyYanked', { link = 'IncSearch' })
 
     require('telescope').load_extension('yank_history')
 
-    plugin_setup('yanky', {
+    require('yanky').setup({
       highlight = { timer = 150 },
     })
   end

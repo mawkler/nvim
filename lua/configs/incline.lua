@@ -6,10 +6,9 @@ return {
   requires = { 'ful1e5/onedark.nvim', 'kyazdani42/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
-    local colors = require('onedark').get_colors()
-    local plugin_setup = require('utils').plugin_setup
+    local colors = require('configs.colorscheme').colors
 
-    plugin_setup('incline', ({
+    require('incline').setup(({
       hide = {
         focused_win = true,
         only_win = true,

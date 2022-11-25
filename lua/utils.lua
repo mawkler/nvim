@@ -62,9 +62,4 @@ M.close_floating_windows = function()
   end
 end
 
--- Require `plugin` and call `plugin.setup()`
-M.plugin_setup = function(plugin, setup)
-  import(plugin, function(module) module.setup(setup) end)
-end
-
 return M

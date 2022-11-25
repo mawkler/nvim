@@ -5,8 +5,7 @@ return { 'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   requires = 'nvim-treesitter/nvim-treesitter-textobjects',
   config = function ()
-    local utils = require('utils')
-    local map, plugin_setup = utils.map, utils.plugin_setup
+    local map = require('utils').map
 
     local include_surrounding_whitespace = function(selection)
       local queries = {
@@ -19,7 +18,7 @@ return { 'nvim-treesitter/nvim-treesitter',
       return vim.tbl_contains(queries, selection.query_string)
     end
 
-    plugin_setup('nvim-treesitter.configs', {
+    require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',
       highlight = {
         enable = true,

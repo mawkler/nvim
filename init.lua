@@ -127,7 +127,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'winshift'                                -- Improved window movement
   Use 'notify'                                  -- Floating notifications popups
   use { 'NarutoXY/dim.lua', config = function() -- Dim unused words
-    require('utils').plugin_setup('dim')
+    require('dim').setup()
   end }
   Use 'toggleterm'                              -- Toggleable terminal
   Use 'bqf'

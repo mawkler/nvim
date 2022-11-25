@@ -17,7 +17,6 @@ return { 'nvim-telescope/telescope.nvim',
     local feedkeys = require('utils').feedkeys
     local map = require('utils').map
     local append = require('utils').append
-    local plugin_setup = require('utils').plugin_setup
 
     local fn, api = vim.fn, vim.api
 
@@ -56,7 +55,7 @@ return { 'nvim-telescope/telescope.nvim',
     local multi_open_mappings = require('configs.telescope_multiopen')
 
     -- Zoxide
-    plugin_setup('telescope._extensions.zoxide.config', {
+    require('telescope._extensions.zoxide.config').setup({
       prompt_title = 'Zoxide',
     })
 
