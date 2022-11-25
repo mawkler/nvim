@@ -70,6 +70,9 @@ return { 'ful1e5/onedark.nvim', config = function()
         -- QuickScope
         QuickScopePrimary = { fg = c.red0, style = style.Bold },
         QuickScopeSecondary = { fg = c.orange1, style = style.Bold },
+        -- Eyeliner
+        EyelinerPrimary = { fg = c.red0, style = style.Bold },
+        EyelinerSecondary = { fg = c.orange1, style = style.Bold },
         -- NvimTree
         NvimTreeFolderName = { fg = c.blue0 },
         NvimTreeOpenedFolderName = { fg = c.blue0, style = style.Bold },
