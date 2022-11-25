@@ -7,7 +7,10 @@ vim.g.bufferline = {
   insert_at_end = true,
   exclude_name = { '[dap-repl]' },
   exclude_ft = { 'qf' },
-  maximum_length = 60
+  maximum_length = 60,
+  hide = {
+    extensions = true,
+  },
 }
 
 return { 'romgrk/barbar.nvim',
