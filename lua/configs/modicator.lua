@@ -2,7 +2,7 @@
 -- Modicator --
 ---------------
 return { 'melkster/modicator.nvim',
-  after = 'onedark.nvim',
+  event = 'ModeChanged',
   config = function()
     local colors = require('configs.colorscheme').modes
 
