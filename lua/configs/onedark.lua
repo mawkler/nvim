@@ -43,24 +43,24 @@ return { 'ful1e5/onedark.nvim', config = function()
         CursorLineNr = { fg = c.green0, bg = cursorline_bg, style = style.Bold },
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
+        Todo = { link = '@text.warning' },
         -- Quickfix
         qfLineNr = { fg = c.fg_gutter },
         -- Treesitter
-        TSTagDelimiter = { link = 'TSPunctBracket'},
-        TSNote = { fg = c.info, style = style.Bold },
-        TSWarning = { fg = c.warning, style = style.Bold },
-        TSDanger = { fg = c.error, style = style.Bold },
-        Todo = { link = 'TSWarning' },
-        TSPunctSpecial = { fg = c.red0 },
+        ['@tag.delimiter'] = { link = 'TSPunctBracket'},
+        ['@text.note'] = { fg = c.info, style = style.Bold },
+        ['@text.warning'] = { fg = c.warning, style = style.Bold },
+        ['@text.danger'] = { fg = c.error, style = style.Bold },
+        -- Markdown (Treesitter)
+        ['@text.literal'] = { fg = c.green0 },
+        ['@text.emphasis'] = { fg = c.purple0, style = style.Italic },
+        ['@text.strong'] = { fg = c.orange0, style = style.Bold },
+        ['@punctuation.special'] = { fg = c.red0 },
         -- Markdown/html
         mkdLink = { fg = c.blue0, style = style.Underline },
         htmlBold = { fg = c.orange0, style = style.Bold },
         htmlItalic = { fg = c.purple0, style = style.Italic },
         mkdHeading = { link = 'Title' },
-        -- Markdown (Treesitter)
-        TSLiteral = { fg = c.green0 },
-        TSEmphasis = { fg = c.purple0, style = style.Italic },
-        TSStrong = { fg = c.orange0, style = style.Bold },
         -- TypeScript
         typescriptParens = { link = 'TSPunctBracket' },
         -- Git commit
