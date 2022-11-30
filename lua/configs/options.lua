@@ -14,7 +14,7 @@ opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
 
 -- Windows --
-opt.termguicolors = true  -- Use GUI colors in terminal as well
+o.termguicolors   = true  -- Use GUI colors in terminal as well
 o.winblend        = 5     -- Transparent floating windows
 o.pumblend        = 5     -- Transparent popup-menu
 o.splitright      = true  -- Open vertical windows to the right instead of left
@@ -44,7 +44,7 @@ o.smartcase  = true -- Except for when searching in CAPS
 -- Lines and cursor --
 o.number         = true
 o.relativenumber = true
-opt.cursorline   = true   -- Cursor highlighting
+o.cursorline     = true   -- Cursor highlighting
 o.scrolloff      = 10     -- Cursor margin
 o.conceallevel   = 2      -- Hide concealed characters completely
 o.concealcursor  = 'nic'  -- Conceal characters on the cursor line
@@ -52,7 +52,7 @@ o.breakindent    = true   -- Respect indent when line wrapping
 opt.cpoptions:remove('_') -- Makes cw/cW include trailing whitespace
 
 -- Indent characters --
-opt.expandtab = true     -- Use spaces for indentation
+o.expandtab   = true     -- Use spaces for indentation
 o.shiftwidth  = 2        -- Width of indentation
 o.tabstop     = 4        -- Width of <Tab> characters
 o.shiftround  = true     -- Round indent to multiple of shiftwdith
