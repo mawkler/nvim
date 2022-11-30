@@ -1,9 +1,6 @@
--- Should be loaded before any other plugin
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
-require('impatient')
-
--- Better `require`
-require('import')
+require('impatient') -- Should be loaded before any other plugin
+require('import') -- Better `require`
 
 -- General config
 import('configs.options')
