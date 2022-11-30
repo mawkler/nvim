@@ -1,4 +1,4 @@
-local colors = require('onedark.colors').setup()
+local colors = require('onedark').get_colors()
 
 return {
   colors = colors,
@@ -11,4 +11,6 @@ return {
     replace = colors.red2,
     term    = colors.green0,
   },
+   -- Names of all colorschemes, to be used by Packer's `after`
+  colorscheme_names = { 'onedark.nvim' }
 }

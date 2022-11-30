@@ -5,7 +5,6 @@ return { 'feline-nvim/feline.nvim',
   requires = {
     'SmiteshP/nvim-gps',
     'nvim-lua/lsp-status.nvim',
-    'ful1e5/onedark.nvim'
   },
   config = function()
       -- TODO: refactor this to do both imports on same line once

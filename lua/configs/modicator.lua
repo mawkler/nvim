@@ -2,7 +2,7 @@
 -- Modicator --
 ---------------
 return { 'melkster/modicator.nvim',
-  event = 'ModeChanged',
+  after = require('configs.colorscheme').colorscheme_names,
   config = function()
     local colors = require('configs.colorscheme').modes
 

@@ -5,6 +5,15 @@ require('impatient')
 -- Better `require`
 require('import')
 
+-- General config
+import('configs.options')
+import('configs.keymaps')
+import('configs.autocmds')
+import('configs.commands')
+import('configs.diagnostics')
+import('configs.neovide')
+vim.cmd.source('~/.config/nvim/config.vim')
+
 import('packer', function(packer) packer.startup { function()
   -- Import plugin config from external module in lua/configs/
   function Use(module)
@@ -157,12 +166,3 @@ if vim.fn.getenv('NVIM_AUTOCOMPILE') == 'true' then
     group = 'Packer',
   })
 end
-
--- Other configs
-import('configs.options')
-import('configs.keymaps')
-import('configs.autocmds')
-import('configs.commands')
-import('configs.diagnostics')
-import('configs.neovide')
-pcall(vim.cmd.source('~/.config/nvim/config.vim'))

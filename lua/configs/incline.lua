@@ -1,9 +1,8 @@
 -------------
 -- Incline --
 -------------
-return {
-  'b0o/incline.nvim',
-  requires = { 'ful1e5/onedark.nvim', 'kyazdani42/nvim-web-devicons' },
+return { 'b0o/incline.nvim',
+  requires = { 'kyazdani42/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
     local colors = require('configs.colorscheme').colors
@@ -21,9 +20,7 @@ return {
             guibg = nil,
           },
         },
-        margin = {
-          vertical = 0,
-        }
+        margin = { vertical = 0 },
       },
       render = function(props)
         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')

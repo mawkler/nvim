@@ -1,7 +1,7 @@
 -------------
 -- Onedark --
 -------------
-return { 'ful1e5/onedark.nvim', config = function()
+return { 'melkster/onedark.nvim', config = function()
   local colors = require('onedark.colors').setup()
   local style = require('onedark.types').od.HighlightStyle
   local onedark_utils = require('onedark.util')
@@ -133,8 +133,6 @@ return { 'ful1e5/onedark.nvim', config = function()
       }
     end
   })
-
-  require('utils.ts_migrate').migrate()
 
   -- NOTE: this disables updating highlight groups for some reason. Try to enable
   -- and see if modicator.nvim works when
