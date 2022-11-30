@@ -7,6 +7,7 @@ return { 'melkster/modicator.nvim',
     local colors = require('configs.colorscheme').modes
 
     require('modicator').setup({
+      show_warnings = false,
       highlights = {
         modes = {
           ['i']  = colors.insert,
