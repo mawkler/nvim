@@ -2,6 +2,7 @@
 -- Notify --
 -------------
 return { 'rcarriga/nvim-notify',
+  after = require('configs.colorscheme').colorscheme_names,
   config = function()
     local notify = require('notify')
 
