@@ -8,7 +8,8 @@ return { 'neovim/nvim-lspconfig',
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
-    'folke/neodev.nvim'                     -- Lua signature help and completion
+    'folke/neodev.nvim',                    -- Lua signature help and completion
+    { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
   },
   config = function()
     local map = require('utils').map

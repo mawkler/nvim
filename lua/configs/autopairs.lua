@@ -1,8 +1,9 @@
 ---------------
 -- Autopairs --
 ---------------
-return { 'windwp/nvim-autopairs',                -- Auto-close brackets, etc.
-  event = 'InsertEnter' ,
+return { 'windwp/nvim-autopairs',
+  requires = 'hrsh7th/nvim-cmp',
+  after = 'nvim-cmp',
   config = function()
     local rule = require('nvim-autopairs.rule')
     local autopairs = require('nvim-autopairs')

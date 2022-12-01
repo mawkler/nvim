@@ -3,15 +3,16 @@
 ---------------
 return { 'nvim-telescope/telescope.nvim',
   requires =  {
-    {'nvim-lua/popup.nvim', module_pattern = 'popup%..*'},
-    {'nvim-lua/plenary.nvim'},
+    { 'nvim-lua/plenary.nvim' },
+    { 'nvim-lua/popup.nvim', module_pattern = 'popup%..*' },
     { 'jvgrootveld/telescope-zoxide' },
     { 'dhruvmanila/telescope-bookmarks.nvim' },
     { 'nvim-telescope/telescope-cheat.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' },
-    { 'Zane-/cder.nvim' },
     { 'nvim-telescope/telescope-dap.nvim' },
+    { 'Zane-/cder.nvim' },
+    { 'rcarriga/nvim-notify' },
   },
   config = function()
     local feedkeys = require('utils').feedkeys

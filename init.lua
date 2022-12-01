@@ -106,7 +106,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
   Use 'quick_scope'
   Use 'matchup'                                 -- Adds additional `%` commands
-  Use 'autopairs'
+  Use 'autopairs'                               -- Auto-close brackets, etc.
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
   use { 'vim-scripts/capslock.vim', event = 'InsertEnter' }
   use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
