@@ -45,7 +45,16 @@ return { 'goolord/alpha-nvim',
         return table.concat(self.items, '  |  ')
       end
 
-      local plugin_count = #vim.tbl_keys(packer_plugins)
+      local loaded_plugins_count = #vim.tbl_filter(function(plugin)
+        return plugin.loaded
+      end, packer_plugins)
+      local total_plugins_count = #vim.tbl_keys(packer_plugins)
+      local loaded_plugins = string.format(
+        '%d/%d plugins',
+        loaded_plugins_count,
+        total_plugins_count
+      )
+
       local version = vim.version()
       local date = os.date('%d-%m-%Y')
       local version_string = string.format(
@@ -61,7 +70,7 @@ return { 'goolord/alpha-nvim',
         tostring(import_failure_count) .. ' import(s) failed',
         import_failure_count > 0
       )
-      Footer:add('', plugin_count .. ' plugins')
+      Footer:add('', loaded_plugins)
       Footer:add('', version_string)
       Footer:add('', date)
 
