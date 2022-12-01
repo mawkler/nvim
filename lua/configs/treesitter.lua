@@ -81,14 +81,14 @@ return { 'nvim-treesitter/nvim-treesitter',
             [']['] = '@class.outer',
             [']A'] = '@parameter.outer',
             [']I'] = '@conditional.outer',
-            [']k'] = '@block.outer',
+            [']K'] = '@block.outer',
           },
           goto_previous_end = {
             ['[F'] = '@function.outer',
             ['[]'] = '@class.outer',
             ['[A'] = '@parameter.outer',
             ['[I'] = '@conditional.outer',
-            ['[k'] = '@block.outer',
+            ['[K'] = '@block.outer',
           }
         },
         swap = {
