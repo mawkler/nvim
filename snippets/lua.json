@@ -1,0 +1,18 @@
+{
+  "autocmd": {
+    "prefix": "autocmd",
+    "body": [
+      "vim.api.nvim_create_autocmd('${1:Event}', {",
+      "\tpattern = '${2:pattern}',",
+      "\tcallback = function() $3 end,",
+      "\tgroup = '${4:Group}',",
+      "})"
+    ],
+    "description": "Neovim autocmd"
+  },
+  "augroup": {
+    "prefix": "augroup",
+    "body": ["vim.api.nvim_create_augroup('${1:Group}', {})"],
+    "description": "Neovim augroup"
+  }
+}

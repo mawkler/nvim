@@ -29,6 +29,12 @@
           "vim"
         ],
         "path": "./vim.json"
+      },
+      {
+        "language": [
+          "lua"
+        ],
+        "path": "./lua.json"
       }
     ]
   }
