@@ -22,6 +22,7 @@ return { 'windwp/nvim-autopairs',
     autopairs.add_rules {
       rule('$', '$', 'tex'),
       rule('*', '*', 'markdown'),
+      rule('|', '|', 'rust'),
     }
   end
 }
