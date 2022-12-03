@@ -12,7 +12,7 @@ return { 'numToStr/Comment.nvim',
     {'n', 'cm'},
   },
   config = function()
-    local map, feedkeys = require('utils').map, require('utils').feedkeys
+    local map = require('utils').map
 
     require('Comment').setup {
       toggler = {
