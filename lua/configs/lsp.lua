@@ -65,7 +65,7 @@ return { 'neovim/nvim-lspconfig',
     -- Lua --
     require('neodev').setup()
 
-    lspconfig.sumneko_lua.setup({
+    local lua_config = {
       settings = {
         Lua = {
           diagnostics = {
@@ -86,10 +86,10 @@ return { 'neovim/nvim-lspconfig',
           },
         }
       }
-    })
+    }
 
     -- YAML --
-    lspconfig.yamlls.setup({
+    local yaml_config = {
       settings = {
         yaml = {
           schemaStore = {
@@ -98,25 +98,25 @@ return { 'neovim/nvim-lspconfig',
           }
         }
       }
-    })
+    }
 
     -- Zsh/Bash --
-    lspconfig.bashls.setup({
+    local bash_config = {
       filetypes = {'sh', 'zsh'}
-    })
+    }
 
     -- Json --
-    lspconfig.jsonls.setup({
+    local json_config = {
       settings = {
         json = {
           schemas = require('schemastore').json.schemas(),
           validate = { enable = true },
         },
       },
-    })
+    }
 
     -- Bicep --
-    lspconfig.bicep.setup({
+    local bicep_config = {
       cmd = {
         'dotnet',
         path.concat({
@@ -126,16 +126,29 @@ return { 'neovim/nvim-lspconfig',
           'Bicep.LangServer.dll',
         })
       }
-    })
+    }
 
-    -- Fallback setup for any other language
+    -- LTeX --
+    local ltex_config = {
+      autostart = false,
+    }
+
+    local function setup(server_name, options)
+      options = options or {}
+      return function() lspconfig[server_name].setup(options) end
+    end
+
     require('mason-lspconfig').setup_handlers({
       function(server_name)
+        -- Fallback setup for any other language
         lspconfig[server_name].setup({})
       end,
-      ltex = function()
-        lspconfig['ltex'].setup({ autostart = false })
-      end
+      sumneko_lua = setup('sumneko_lua', lua_config),
+      yamlls = setup('yamlls', yaml_config),
+      bashls = setup('bashls', bash_config),
+      jsonls = setup('jsonls', json_config),
+      bicep = setup('bicep', bicep_config),
+      ltex = setup('ltex', ltex_config),
     })
 
     ------------
@@ -223,5 +236,6 @@ return { 'neovim/nvim-lspconfig',
     map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementaiton in window split',  remap = true })
     map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
+    map('n', '<leader>ll', lsp.start, { desc = 'Start LSP server' })
   end
 }
