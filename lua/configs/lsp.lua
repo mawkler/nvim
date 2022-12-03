@@ -88,9 +88,6 @@ return { 'neovim/nvim-lspconfig',
       }
     })
 
-    -- Vim --
-    lspconfig.vimls.setup({})
-
     -- YAML --
     lspconfig.yamlls.setup({
       settings = {
@@ -109,14 +106,14 @@ return { 'neovim/nvim-lspconfig',
     })
 
     -- Json --
-    lspconfig.jsonls.setup {
+    lspconfig.jsonls.setup({
       settings = {
         json = {
           schemas = require('schemastore').json.schemas(),
           validate = { enable = true },
         },
       },
-    }
+    })
 
     -- Bicep --
     lspconfig.bicep.setup({
@@ -131,17 +128,15 @@ return { 'neovim/nvim-lspconfig',
       }
     })
 
-    -- HTML --
-    lspconfig.html.setup {}
-
-
-    -- Python --
-    lspconfig.pylsp.setup {}
-
-    -- LTeX --
-    lspconfig.ltex.setup {
-      autostart = false,
-    }
+    -- Fallback setup for any other language
+    require('mason-lspconfig').setup_handlers({
+      function(server_name)
+        lspconfig[server_name].setup({})
+      end,
+      ltex = function()
+        lspconfig['ltex'].setup({ autostart = false })
+      end
+    })
 
     ------------
     -- Config --
