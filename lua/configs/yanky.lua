@@ -45,8 +45,8 @@ return { 'gbprod/yanky.nvim',
     map('s', '<leader>p', '<C-r>+',          remap)
     map('n', 'cP',        '"+P',             remap)
     map('n', 'Y',         'y$',              remap)
-    map('!', '<M-S-p>',   '<C-r>+',          remap)
     map('!', '<M-p>',     '<C-r><C-o>"',     remap)
+    map('!', '<M-S-p>',   '<C-r><C-o>+',     remap)
     map('s', '<M-p>',     '<C-g>pgv<C-g>',   remap)
     map('s', '<M-S-p>',   '<C-g>"+pgv<C-g>', remap)
   end,
