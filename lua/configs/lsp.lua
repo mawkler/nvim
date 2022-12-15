@@ -7,7 +7,7 @@ return { 'neovim/nvim-lspconfig',
     'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'onsails/lspkind-nvim',                 -- Completion icons
-    'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
+    'jose-elias-alvarez/typescript.nvim',   -- TypeScript utilities
     'folke/neodev.nvim',                    -- Lua signature help and completion
     'simrat39/rust-tools.nvim',             -- Rust tools
     { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
@@ -19,19 +19,12 @@ return { 'neovim/nvim-lspconfig',
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
     local rust_tools = require('rust-tools')
+    local typescript = require('typescript')
 
     -- TypeScript --
-    local typescript_config = lspconfig.tsserver.setup({
-      init_options = require('nvim-lsp-ts-utils').init_options,
-      on_attach = function(client)
-        local ts_utils = require('nvim-lsp-ts-utils')
-        ts_utils.setup({
-          update_imports_on_move = true,
-          require_confirmation_on_move = true,
-          auto_inlay_hints = false,
-          inlay_hints_highlight = 'NvimLspTSUtilsInlineHint'
-        })
-        ts_utils.setup_client(client)
+    local typescript_config = {
+      on_attach = function()
+        local actions = typescript.actions
 
         local function spread(char)
           return function()
@@ -39,12 +32,24 @@ return { 'neovim/nvim-lspconfig',
           end
         end
 
+        local function rename_file()
+          local workspace_path = vim.lsp.buf.list_workspace_folders()[1]
+          local file_path = vim.fn.expand('%:' .. workspace_path .. ':.')
+          vim.ui.input({ prompt = 'Rename file', default = file_path },
+            function(target)
+              if target ~= nil then
+                typescript.renameFile(file_path, target)
+              end
+            end
+          )
+        end
+
         local opts = { buffer = true }
-        map('n', '<leader>lo', '<cmd>TSLspOrganize<CR>', opts)
-        map('n', '<leader>lr', '<cmd>TSLspRenameFile<CR>', opts)
-        map('n', '<leader>li', '<cmd>TSLspImportAll<CR>', opts)
-        map('n', '<leader>lI', '<cmd>TSLspImportCurrent<CR>', opts)
-        map('n', '<leader>lh', '<cmd>TSLspToggleInlayHints<CR>', opts)
+        map('n', '<leader>lo', actions.organizeImports, opts)
+        map('n', '<leader>li', actions.addMissingImports, opts)
+        map('n', '<leader>lf', actions.fixAll, opts)
+        map('n', '<leader>lu', actions.removeUnused, opts)
+        map('n', '<leader>lr', rename_file, opts)
         map('n', '<leader>ls', spread('{'), {
           buffer = true,
           remap = true,
@@ -56,7 +61,7 @@ return { 'neovim/nvim-lspconfig',
           desc = 'Spread array under cursor'
         })
       end,
-    })
+    }
 
     -- Lua --
     require('neodev').setup()
@@ -161,7 +166,14 @@ return { 'neovim/nvim-lspconfig',
       jsonls = setup('jsonls', json_config),
       bicep = setup('bicep', bicep_config),
       ltex = setup('ltex', ltex_config),
-      rust_analyzer = function() return rust_tools.setup(rust) end,
+      rust_analyzer = function()
+        return rust_tools.setup(rust)
+      end,
+      tsserver = function ()
+        typescript.setup({
+          server = typescript_config
+        })
+      end
     })
 
     ------------
