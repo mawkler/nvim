@@ -7,40 +7,47 @@ return { 'mfussenegger/nvim-dap',
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
+    'jay-babu/mason-nvim-dap.nvim',     -- Automatic DAP configuration
+    'williamboman/mason.nvim',
   },
+  after = 'mason.nvim',
   -- TODO: fix lazy loading
   -- keys = {
-  --   -- '<F10>',
-  --   -- '<F11>',
-  --   -- '<S-F11>',
-  --   -- '<F9>',
-  --   -- '<leader>s',
-  --   -- '<leader>di',
-  --   -- '<leader>do',
-  --   -- '<leader>db',
-  --   -- '<leader>dB',
-  --   -- '<leader>dr',
-  --   -- '<leader>dl',
-  --   -- '<leader>de',
-  --   -- '<leader>dt',
-  --   -- '<leader>dj',
-  --   -- '<leader>dJ',
+  --   '<F10>',
+  --   '<F11>',
+  --   '<S-F11>',
+  --   '<F9>',
+  --   '<leader>s',
+  --   '<leader>di',
+  --   '<leader>do',
+  --   '<leader>db',
+  --   '<leader>dB',
+  --   '<leader>dr',
+  --   '<leader>dl',
+  --   '<leader>de',
+  --   '<leader>dt',
+  --   '<leader>dj',
+  --   '<leader>dJ',
   -- },
   -- module_pattern = { 'dap.*', 'jester.*' },
   config = function()
-    local sign_define = vim.fn.sign_define
     local dap, widgets = require('dap'), require('dap.ui.widgets')
     local dap_ui = require('dapui')
     local jester = require('jester')
+    local mason_dap = require('mason-nvim-dap')
     local map = require('utils').map
-
-    local install_location = vim.fn.stdpath('data') .. '/mason/packages'
+    local fn, sign_define = vim.fn, vim.fn.sign_define
+    local get_install_path = require('utils').get_install_path
 
     sign_define('DapBreakpoint',          { text='', texthl='Error' })
     sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
     sign_define('DapLogPoint',            { text='', texthl='Directory' })
     sign_define('DapStopped',             { text='ﰲ', texthl='TSConstant' })
     sign_define('DapBreakpointRejected',  { text='', texthl='Error' })
+
+    -- Automatically set up installed DAP adapters
+    mason_dap.setup({ automatic_setup = true })
+    mason_dap.setup_handlers()
 
     -- Mappings --
     -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
@@ -82,8 +89,43 @@ return { 'mfussenegger/nvim-dap',
     -- DAP-UI --
     dap_ui.setup()
 
+    -- Rust/C++/C --
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = "${port}",
+      executable = {
+        command = get_install_path('codelldb') .. '/codelldb',
+        args = {"--port", "${port}"},
+      }
+    }
+
+    dap.configurations.rust = {
+      -- {
+      --   name = 'Launch current file',
+      --   type = 'codelldb',
+      --   request = 'launch',
+      --   program = function() return vim.api.nvim_buf_get_name(0) end, -- TODO: find debug binary
+      --   cwd = '${workspaceFolder}',
+      --   stopOnEntry = false,
+      -- },
+      {
+        name = 'Launch file...',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+      },
+    }
+    dap.configurations.cpp = dap.configurations.rust
+    dap.configurations.c = dap.configurations.rust
+
+
+    -- TypeScript/JavaScript --
     require('dap-vscode-js').setup({
-      debugger_path = install_location .. '/js-debug-adapter',
+      debugger_path = get_install_path('js-debug-adapter'),
       debugger_cmd = { 'js-debug-adapter' },
       adapters = {
         'pwa-node',

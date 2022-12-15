@@ -62,4 +62,9 @@ M.close_floating_windows = function()
   end
 end
 
+-- Get Mason package install path
+ M.get_install_path = function(package)
+  return require('mason-registry').get_package(package):get_install_path()
+end
+
 return M

@@ -13,6 +13,7 @@ return { 'nvim-telescope/telescope.nvim',
     { 'nvim-telescope/telescope-dap.nvim' },
     { 'Zane-/cder.nvim' },
     { 'rcarriga/nvim-notify' },
+    { 'mfussenegger/nvim-dap' },
   },
   config = function()
     local feedkeys = require('utils').feedkeys

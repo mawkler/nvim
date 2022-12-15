@@ -9,6 +9,7 @@ return { 'neovim/nvim-lspconfig',
     'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/nvim-lsp-ts-utils', -- TypeScript utilities
     'folke/neodev.nvim',                    -- Lua signature help and completion
+    'simrat39/rust-tools.nvim',             -- Rust tools
     { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
   },
   config = function()
@@ -17,15 +18,10 @@ return { 'neovim/nvim-lspconfig',
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
-
-    local servers_path = path.concat({
-      vim.fn.stdpath('data'),
-      'mason',
-      'packages',
-    })
+    local rust_tools = require('rust-tools')
 
     -- TypeScript --
-    lspconfig.tsserver.setup({
+    local typescript_config = lspconfig.tsserver.setup({
       init_options = require('nvim-lsp-ts-utils').init_options,
       on_attach = function(client)
         local ts_utils = require('nvim-lsp-ts-utils')
@@ -88,6 +84,23 @@ return { 'neovim/nvim-lspconfig',
       }
     }
 
+    -- Rust --
+    local rust = {
+      inlay_hints = {
+        -- whether to align to the length of the longest line in the file
+        max_len_align = true,
+        highlight = 'InlineHint',
+      },
+      server = {
+        on_attach = function(_, bufnr)
+          map('n', '<Leader>a', rust_tools.code_action_group.code_action_group, {
+            buffer = bufnr,
+            desc = 'LSP action (rust-tools)',
+          })
+        end,
+      },
+    }
+
     -- YAML --
     local yaml_config = {
       settings = {
@@ -120,8 +133,7 @@ return { 'neovim/nvim-lspconfig',
       cmd = {
         'dotnet',
         path.concat({
-          servers_path,
-          'bicep-lsp',
+          require('utils').get_install_path('bicep-lsp'),
           'bicepLanguageServer',
           'Bicep.LangServer.dll',
         })
@@ -149,6 +161,7 @@ return { 'neovim/nvim-lspconfig',
       jsonls = setup('jsonls', json_config),
       bicep = setup('bicep', bicep_config),
       ltex = setup('ltex', ltex_config),
+      rust_analyzer = function() return rust_tools.setup(rust) end,
     })
 
     ------------
