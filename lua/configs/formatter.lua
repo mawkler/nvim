@@ -33,6 +33,7 @@ return { 'mhartington/formatter.nvim',
         yaml = prettier_config,
         json = prettier_config,
         lua = lsp_format,
+        rust = lsp_format,
         markdown = {
           function()
             return {
@@ -86,6 +87,7 @@ return { 'mhartington/formatter.nvim',
         '*.bicep',
         -- '*.lua', -- Disabled until
         -- https://github.com/CppCXY/EmmyLuaCodeStyle/issues/69 gets fixed
+        '*.rs'
       },
       callback = function()
         if b.format_on_write ~= false then
