@@ -19,7 +19,7 @@ return { 'lewis6991/gitsigns.nvim',
 
         local function git_blame()
           gitsigns.blame_line({
-            -- full = true, -- This causes a weird issue
+            full = true,
             ignore_whitespace = true,
           })
         end

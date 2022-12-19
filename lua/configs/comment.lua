@@ -14,7 +14,10 @@ return { 'numToStr/Comment.nvim',
   config = function()
     local map = require('utils').map
 
-    require('Comment').setup {
+    require('Comment').setup({
+      mappings = {
+        basic = false,
+      },
       toggler = {
         line = '<leader>cc',
         block = '<leader>cbb'
@@ -47,7 +50,7 @@ return { 'numToStr/Comment.nvim',
           })
         end
       end
-    }
+    })
 
     local comment_api = require('Comment.api')
     local function comment_map(modes, lhs, command, operator_pending)
@@ -57,6 +60,7 @@ return { 'numToStr/Comment.nvim',
       end, command)
     end
 
+    map('n', '<leader>c',  '<Plug>(comment_toggle_linewise)')
     map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
     map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
     map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
@@ -74,8 +78,5 @@ return { 'numToStr/Comment.nvim',
     comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
     comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
     comment_map('x', '<leader><',    'uncomment_current_linewise_op')
-
-    -- Remove default gb mapping
-    vim.keymap.del('n', 'gb')
   end,
 }
