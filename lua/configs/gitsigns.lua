@@ -4,8 +4,9 @@
 return { 'lewis6991/gitsigns.nvim',
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys
+    local gitsigns = require('gitsigns')
 
-    import('gitsigns', function(gitsigns) gitsigns.setup({
+    gitsigns.setup({
       signs = {
         add          = {text = '│', hl = 'String'},
         change       = {text = '│', hl = 'Boolean'},
@@ -18,7 +19,7 @@ return { 'lewis6991/gitsigns.nvim',
 
         local function git_blame()
           gitsigns.blame_line({
-            full = true,
+            -- full = true, -- This causes a weird issue
             ignore_whitespace = true,
           })
         end
@@ -56,7 +57,7 @@ return { 'lewis6991/gitsigns.nvim',
         map({'o', 'x'}, 'ih', gitsigns.select_hunk)
         map({'o', 'x'}, 'ah', gitsigns.select_hunk)
       end,
-    }) end)
+    })
 
     -- Workaround for bug where change highlight switches for some reason
     vim.api.nvim_set_hl(0, 'GitGutterChange', { link = 'DiffChange' })
