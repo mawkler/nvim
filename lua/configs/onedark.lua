@@ -44,6 +44,8 @@ return { 'melkster/onedark.nvim', config = function()
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
         Todo = { link = '@text.warning' },
+        -- Custom highlights
+        InlineHint = { fg = c.bg_visual },
         -- Quickfix
         qfLineNr = { fg = c.fg_gutter },
         -- Treesitter
@@ -96,8 +98,6 @@ return { 'melkster/onedark.nvim', config = function()
         CmpItemAbbrMatchFuzzy = { fg = c.fg0, style = style.Bold },
         CmpItemKindSnippetDefault = { fg = c.blue0 },
         CmpItemKindTextDefault = { link = 'Normal' },
-        -- nvim-lsp-ts-utils
-        NvimLspTSUtilsInlineHint = { fg = c.bg_visual }, -- this gets set too late, i.e. after nvim-lsp-ts-utils is loaded. Can be fixed with packer.nvim's `after`
         -- Gitsigns
         GitSignsDeleteLn = { link = 'GitSignsDeleteVirtLn' },
         GitSignsAdd = { fg = colors.green0 },
@@ -129,7 +129,7 @@ return { 'melkster/onedark.nvim', config = function()
         LeapLabelSelected = { bg = c.bg_visual },
         LeapBackdrop = { fg = c.fg_dark },
         -- Alpha
-        AlphaHeader = { fg = c.green0, style = style.Bold }
+        AlphaHeader = { fg = c.green0, style = style.Bold },
       }
     end
   })

@@ -11,6 +11,6 @@ return {
     replace = colors.red2,
     term    = colors.green0,
   },
-   -- Names of all colorschemes, to be used by Packer's `after`
+   -- Names of all colorschemes, to be used by Packer's `after`/`wants`
   colorscheme_names = { 'onedark.nvim' }
 }

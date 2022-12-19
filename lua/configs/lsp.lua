@@ -91,10 +91,11 @@ return { 'neovim/nvim-lspconfig',
 
     -- Rust --
     local rust = {
-      inlay_hints = {
-        -- whether to align to the length of the longest line in the file
-        max_len_align = true,
-        highlight = 'InlineHint',
+      tools = {
+        inlay_hints = {
+          max_len_align = true,
+          highlight = 'InlineHint',
+        },
       },
       server = {
         on_attach = function(_, bufnr)
