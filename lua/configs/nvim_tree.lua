@@ -14,8 +14,8 @@ return { 'kyazdani42/nvim-tree.lua',
   config = function()
     local map = require('utils').map
 
+    local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
     local callback = require('nvim-tree.config').nvim_tree_callback
-    local nvim_tree = require('nvim-tree')
 
     nvim_tree.setup {
       diagnostics = {
@@ -96,8 +96,8 @@ return { 'kyazdani42/nvim-tree.lua',
     remove_highlight('NvimTreeFileNew')
     remove_highlight('NvimTreeFileDeleted')
 
-    map('n', '<leader>`', nvim_tree.toggle, 'Toggle file tree')
-    map('n', '<leader>~', function() return nvim_tree.find_file(true) end, 'Show current file in file tree')
+    map('n', '<leader>`', api.tree.toggle, 'Toggle file tree')
+    map('n', '<leader>~', vim.cmd.NvimTreeFindFile, 'Show current file in file tree')
 
     vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', {
       link = 'IndentBlanklineChar',
