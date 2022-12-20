@@ -94,8 +94,8 @@ return { 'L3MON4D3/LuaSnip',
       end
     end
 
-    map({'i', 's'}, '<M-S-l>',   right_or_snip_next,   '<Right> or next snippet')
-    map({'i', 's'}, '<M-S-h>',   left_or_snip_prev,    '<Left> or previous snippet')
-    map({'i', 's'}, '<M-space>', toggle_active_choice, 'Toggle active snippet choice')
+    map({'i', 's'}, '<M-S-l>', right_or_snip_next,   '<Right> or next snippet')
+    map({'i', 's'}, '<M-S-h>', left_or_snip_prev,    '<Left> or previous snippet')
+    map({'i', 's'}, '<M-;>',   toggle_active_choice, 'Toggle active snippet choice')
   end
 }
