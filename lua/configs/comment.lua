@@ -61,6 +61,7 @@ return { 'numToStr/Comment.nvim',
     end
 
     map('n', '<leader>c',  '<Plug>(comment_toggle_linewise)')
+    map('x', '<leader>c',  '<Plug>(comment_toggle_linewise_visual)')
     map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
     map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
     map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
