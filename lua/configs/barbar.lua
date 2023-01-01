@@ -21,10 +21,11 @@ return { 'romgrk/barbar.nvim',
     map('n', '<M-W>',           '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
     map('n', '<leader>bC',      '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
     map('n', '<leader><M-w>',   '<cmd>BufferClose!<CR>')
-    -- Magic buffer-picking mode
+    -- Buffer-picking mode
     map('n', '<C-Space>',       '<cmd>BufferPick<CR>')
+    map('n', '<leader>bd',      '<cmd>BufferPickDelete<CR>')
     -- Sort automatically by...
-    map('n', '<leader>bd',      '<cmd>BufferOrderByDirectory<CR>')
+    map('n', '<leader>bD',      '<cmd>BufferOrderByDirectory<CR>')
     map('n', '<leader>bl',      '<cmd>BufferOrderByLanguage<CR>')
     map('n', '<leader>bc',      '<cmd>BufferClose<CR>')
     map('n', '<leader>bo',      '<cmd>BufferCloseAllButVisible<CR>')
