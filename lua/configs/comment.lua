@@ -52,6 +52,9 @@ return { 'numToStr/Comment.nvim',
       end
     })
 
+    -- Custom comment strings
+    require('Comment.ft').http = '# %s'
+
     local comment_api = require('Comment.api')
     local function comment_map(modes, lhs, command, operator_pending)
       map(modes, lhs, function()
