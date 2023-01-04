@@ -3,6 +3,17 @@
 ---------------
 return { 'NTBBloodbath/rest.nvim',
   cmd = 'Http',
+  ft = 'http',
+  setup = function()
+    vim.api.nvim_create_augroup('RestNvim', {})
+    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+      pattern = '*.http',
+      callback = function()
+        vim.o.filetype = 'http'
+      end,
+      group = 'RestNvim'
+    })
+  end,
   config = function()
     local map = require('utils').map
 
@@ -17,22 +28,22 @@ return { 'NTBBloodbath/rest.nvim',
       vim.cmd.edit('~/.config/nvim/http')
       vim.o.filetype = 'http'
       vim.o.buftype = ''
+
+      map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', {
+        buffer = true,
+      })
     end
 
     vim.api.nvim_create_user_command('Http', http_request, {
       desc = 'Send HTTP request',
     })
 
-    vim.api.nvim_create_augroup('RestNvim', {})
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'http',
       callback = function()
         vim.o.wrap = false
 
-        map('n', '<CR>',  '<Plug>RestNvim:w<CR>', { buffer = true })
-        map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', {
-          buffer = true,
-        })
+        map('n', '<CR>',  '<cmd>w<CR><Plug>RestNvim', { buffer = true })
       end,
       group = 'RestNvim'
     })
