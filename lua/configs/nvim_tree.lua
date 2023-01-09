@@ -103,7 +103,7 @@ return { 'kyazdani42/nvim-tree.lua',
       link = 'IndentBlanklineChar',
     })
 
-    vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
+    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       pattern = 'NvimTree*',
       callback = function()
         local def = vim.api.nvim_get_hl_by_name('Cursor', true)
