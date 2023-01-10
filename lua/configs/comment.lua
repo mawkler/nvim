@@ -13,6 +13,7 @@ return { 'numToStr/Comment.nvim',
   },
   config = function()
     local map = require('utils').map
+    local filetype = require('Comment.ft')
 
     require('Comment').setup({
       mappings = {
@@ -53,7 +54,8 @@ return { 'numToStr/Comment.nvim',
     })
 
     -- Custom comment strings
-    require('Comment.ft').http = '# %s'
+    filetype.http = '# %s'
+    filetype.bicep = '// %s'
 
     local comment_api = require('Comment.api')
     local function comment_map(modes, lhs, command, operator_pending)
