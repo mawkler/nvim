@@ -8,11 +8,11 @@ return { 'lewis6991/gitsigns.nvim',
 
     gitsigns.setup({
       signs = {
-        add          = {text = '│', hl = 'String'},
-        change       = {text = '│', hl = 'Boolean'},
-        changedelete = {text = '│', hl = 'Boolean'},
-        delete       = {text = '▁', hl = 'Error'},
-        topdelete    = {text = '▔', hl = 'Error'},
+        add          = {text = '│'},
+        change       = {text = '│'},
+        changedelete = {text = '│'},
+        delete       = {text = '▁'},
+        topdelete    = {text = '▔'},
       },
       attach_to_untracked = false,
       on_attach = function()
