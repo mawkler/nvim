@@ -8,6 +8,7 @@ return { 'mfussenegger/nvim-dap',
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
     'jay-babu/mason-nvim-dap.nvim',     -- Automatic DAP configuration
+    'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
     'williamboman/mason.nvim',
   },
   after = 'mason.nvim',
@@ -38,6 +39,7 @@ return { 'mfussenegger/nvim-dap',
     local map = require('utils').map
     local fn, sign_define = vim.fn, vim.fn.sign_define
     local get_install_path = require('utils').get_install_path
+    local breakpoint = require('goto-breakpoints')
 
     sign_define('DapBreakpoint',          { text='', texthl='Error' })
     sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
@@ -172,5 +174,8 @@ return { 'mfussenegger/nvim-dap',
 
     -- Loads .vscode/launch.json files if available
     require('dap.ext.vscode').load_launchjs(nil, { node = {'typescript'} })
+
+    map('n', ']b', breakpoint.next, 'Go to next breakpoint')
+    map('n', '[b', breakpoint.prev, 'Go to previous breakpoint')
   end,
 }
