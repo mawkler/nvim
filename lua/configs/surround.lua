@@ -56,6 +56,15 @@ return { 'kylechui/nvim-surround',
         end
       },
     })
+    filetype_surround({ 'rust', 'typescript' }, {
+      T = { -- Type
+        add = function()
+          return {
+            { vim.fn.input({ prompt = 'Type name: ' }) .. '<' }, { '>' }
+          }
+        end
+      },
+    })
   end,
   config = function()
     require('nvim-surround').setup({
