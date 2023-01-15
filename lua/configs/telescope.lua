@@ -54,7 +54,7 @@ return { 'nvim-telescope/telescope.nvim',
     local cursor_picker = themes.get_cursor({ show_line = false })
 
     -- Mappings for opening multiple files from find_files, etc.
-    local multi_open_mappings = require('configs.telescope_multiopen')
+    local multi_open_mappings = require('configs.telescope-multiopen')
 
     -- Zoxide
     require('telescope._extensions.zoxide.config').setup({

@@ -44,22 +44,22 @@ import('packer', function(packer) packer.startup { function()
   Use 'lens'
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
-  Use 'smart_splits'                            -- Better resizing mappings
+  Use 'smart-splits'                            -- Better resizing mappings
   use { 'junegunn/vim-peekaboo' }               -- Register selection window
   Use 'cheat'                                   -- cheat.sh
   use { 'RRethy/vim-hexokinase', run = 'make' } -- Displays colour values
   Use 'alpha'                                   -- Nicer start screen
   Use 'beacon'                                  -- Flash cursor jump
-  Use 'indent_blankline'                        -- Indent markers
+  Use 'indent-blankline'                        -- Indent markers
   use { 'coreyja/fzf.devicon.vim',
     requires = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
     cmd = 'FilesWithDevicons',
   }
   Use 'scrollbar'
-  Use 'web_devicons'
-  Use 'nvim_tree'                               -- File explorer
+  Use 'web-devicons'
+  Use 'nvim-tree'                               -- File explorer
   Use 'barbar'                                  -- Sexiest buffer tabline
-  Use 'null_ls'                                 -- Autoformatting, etc.
+  Use 'null-ls'                                 -- Autoformatting, etc.
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework
   Use 'incline'                                 -- Floating winbar
@@ -75,7 +75,7 @@ import('packer', function(packer) packer.startup { function()
   use { 'hrsh7th/cmp-cmdline',                 after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lua',                after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
-  Use 'cmp_tabnine'
+  Use 'cmp-tabnine'
   Use 'cmp'
   use { 'melkster/friendly-snippets' }          -- Snippet collection
   Use 'treesitter'
@@ -99,24 +99,24 @@ import('packer', function(packer) packer.startup { function()
   -- use { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   Use 'onedark'
   Use 'refactoring'
-  Use 'guess_indent'
+  Use 'guess-indent'
   use { 'lewis6991/impatient.nvim' }            -- Improve startup time for Neovim
   Use 'yanky'                                   -- Cycle register history, etc.
   Use 'surround'
   use { 'tpope/vim-repeat', fn = 'repeat#set' }
-  Use 'quick_scope'
+  Use 'quick-scope'
   Use 'matchup'                                 -- Adds additional `%` commands
   Use 'autopairs'                               -- Auto-close brackets, etc.
   use { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} }
   use { 'vim-scripts/capslock.vim', event = 'InsertEnter' }
   use { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' }
-  Use 'git_conflict'                            -- Git conflict mappings
+  Use 'git-conflict'                            -- Git conflict mappings
   use { 'kana/vim-textobj-user' }
   use { 'kana/vim-textobj-function' }
   use { 'kana/vim-textobj-line' }
   use { 'kana/vim-textobj-entire' }
   use { 'lervag/vimtex', ft = {'tex', 'latex'} }
-  Use 'indent_tools'
+  Use 'indent-tools'
   Use 'targets'
   use { 'romainl/vim-cool' }                    -- Better search highlighting behaviour
   use { 'plasticboy/vim-markdown', ft = 'markdown' }
@@ -140,12 +140,12 @@ import('packer', function(packer) packer.startup { function()
   Use 'qf'
   Use 'git'                                     -- Git wrapper
   Use 'reloader'                                -- Hot reload Neovim config
-  Use 'template_string'                         -- Automatic template string
+  Use 'template-string'                         -- Automatic template string
   Use 'csv'                                     -- CSV highlighting, etc.
   Use 'modicator'                               -- Line number mode indicator
   use { 'jghauser/mkdir.nvim' }                 -- Create missing folders on :w
   Use 'unception'                               -- Open files in Neovim from terminal
-  Use 'git_worktree'                            -- Manage git worktrees
+  Use 'git-worktree'                            -- Manage git worktrees
 end, config = {
   profile = { enable = false, },
   display = {

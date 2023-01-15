@@ -293,7 +293,6 @@ return { 'neovim/nvim-lspconfig',
       group = augroup,
       desc = 'Default LSP on_attach',
       callback = function(event)
-        vim.pretty_print(event)
         local bufnr = event.buf
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
