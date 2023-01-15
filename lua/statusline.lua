@@ -179,14 +179,27 @@ table.insert(active_left, {
   hl = { fg = 'bg', bg = 'bg0' },
 })
 
+local function lsp_servers()
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  local client_names = vim.tbl_map(function(client)
+    return client.name
+  end, clients)
+
+  return table.concat(client_names, ' | ')
+end
+
 -- LSP server
 table.insert(active_left, {
-  provider = 'lsp_client_names',
+  provider = lsp_servers,
   left_sep = ' ',
   riht_sep = ' ',
   hl = { fg = 'darkgray' },
   enabled = function() return next(vim.lsp.get_active_clients()) ~= nil end,
-  icon = ' ',
+  icon = function() return {
+    str = ' ',
+    hl = { fg = mode.get_mode_color() }
+  }
+  end,
   truncate_hide = true,
   priority = -1,
 })
@@ -307,7 +320,7 @@ table.insert(active_right, {
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
   truncate_hide = true,
-  priority = -1
+  priority = -1,
 })
 
 -- File encoding
@@ -317,7 +330,10 @@ table.insert(active_right, {
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
   truncate_hide = true,
-  priority = -1
+  priority = -1,
+  enabled = function()
+    return bo.fenc ~= 'utf-8'
+  end,
 })
 
 -- Copilot
@@ -327,7 +343,7 @@ table.insert(active_right, {
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
   enabled = function()
-    return fn.exists('*copilot#Enabled') == 1 and call('copilot#Enabled') == 1
+    return fn.exists('*copilot#Enabled') == 1 and fn['copilot#Enabled']() == 1
   end,
   truncate_hide = true
 })
