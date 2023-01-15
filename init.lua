@@ -59,7 +59,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'web_devicons'
   Use 'nvim_tree'                               -- File explorer
   Use 'barbar'                                  -- Sexiest buffer tabline
-  Use 'formatter'                               -- Auto formatting on save
+  Use 'null_ls'                                 -- Autoformatting, etc.
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework
   Use 'incline'                                 -- Floating winbar

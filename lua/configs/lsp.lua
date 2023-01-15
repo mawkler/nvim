@@ -13,13 +13,20 @@ return { 'neovim/nvim-lspconfig',
     { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
   },
   config = function()
-    local map = require('utils').map
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
     local rust_tools = require('rust-tools')
     local typescript = require('typescript')
+
+    local map = function(modes, lhs, rhs, opts)
+      if type(opts) == 'string' then
+        opts = { desc = opts }
+      end
+      opts = vim.tbl_extend('keep', opts, { buffer = true })
+      return require('utils').map(modes, lhs, rhs, opts)
+    end
 
     -- TypeScript --
     local typescript_config = {
@@ -44,19 +51,16 @@ return { 'neovim/nvim-lspconfig',
           )
         end
 
-        local opts = { buffer = true }
-        map('n', '<leader>lo', actions.organizeImports, opts)
-        map('n', '<leader>li', actions.addMissingImports, opts)
-        map('n', '<leader>lf', actions.fixAll, opts)
-        map('n', '<leader>lu', actions.removeUnused, opts)
-        map('n', '<leader>lr', rename_file, opts)
+        map('n', '<leader>lo', actions.organizeImports, 'LSP Organize imports')
+        map('n', '<leader>li', actions.addMissingImports, 'LSP add missing imports')
+        map('n', '<leader>lf', actions.fixAll, 'LSP fix all errors')
+        map('n', '<leader>lu', actions.removeUnused, 'LSP remove unused')
+        map('n', '<leader>lr', rename_file, 'LSP rename file')
         map('n', '<leader>ls', spread('{'), {
-          buffer = true,
           remap = true,
           desc = 'Spread object under cursor'
         })
         map('n', '<leader>lS', spread('['), {
-          buffer = true,
           remap = true,
           desc = 'Spread array under cursor'
         })
@@ -90,7 +94,7 @@ return { 'neovim/nvim-lspconfig',
     }
 
     -- Rust --
-    local rust = {
+    local rust_config = {
       tools = {
         inlay_hints = {
           max_len_align = true,
@@ -98,9 +102,8 @@ return { 'neovim/nvim-lspconfig',
         },
       },
       server = {
-        on_attach = function(_, bufnr)
+        on_attach = function()
           map('n', '<Leader>a', rust_tools.code_action_group.code_action_group, {
-            buffer = bufnr,
             desc = 'LSP action (rust-tools)',
           })
         end,
@@ -151,9 +154,13 @@ return { 'neovim/nvim-lspconfig',
       autostart = false,
     }
 
+    -----------
+    -- Setup --
+    -----------
     local function setup(server_name, options)
-      options = options or {}
-      return function() lspconfig[server_name].setup(options) end
+      return function()
+        lspconfig[server_name].setup(options or {})
+      end
     end
 
     require('mason-lspconfig').setup_handlers({
@@ -168,7 +175,7 @@ return { 'neovim/nvim-lspconfig',
       bicep = setup('bicep', bicep_config),
       ltex = setup('ltex', ltex_config),
       rust_analyzer = function()
-        return rust_tools.setup(rust)
+        return rust_tools.setup(rust_config)
       end,
       tsserver = function ()
         typescript.setup({
@@ -234,34 +241,57 @@ return { 'neovim/nvim-lspconfig',
       telescope.lsp_references({ include_declaration = false })
     end
 
-    map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
-    map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
-    map('n', 'gi',         telescope.lsp_implementations,           'LSP implementations')
-    map('n', '<leader>ts', telescope.lsp_document_symbols,          'LSP document symbols')
-    map('n', '<leader>tS', telescope.lsp_workspace_symbols,         'LSP workspace symbols')
-    map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
-    map('n', 'gr',         lsp_references,                          'LSP references')
+    local function attach_keymaps()
+      map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
+      map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
+      map('n', 'gi',         telescope.lsp_implementations,           'LSP implementations')
+      map('n', '<leader>ts', telescope.lsp_document_symbols,          'LSP document symbols')
+      map('n', '<leader>tS', telescope.lsp_workspace_symbols,         'LSP workspace symbols')
+      map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
+      map('n', 'gr',         lsp_references,                          'LSP references')
 
-    map('n',        'gh',        lsp.buf.hover,          'LSP hover')
-    map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
-    map({'i'; 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
-    map({'n'; 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
-    map({'n'; 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
+      map('n',        'gh',        lsp.buf.hover,          'LSP hover')
+      map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
+      map({'i'; 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
+      map({'n'; 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
+      map({'n'; 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
 
-    map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
-    map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
-    map({'n', 'x'}, '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
-    map({'n', 'x'}, ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
-    map({'n', 'x'}, ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
-    map({'n', 'x'}, '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
-    map('n',        '<leader>e', function()
-      diagnostic.open_float({ border = 'single' })
-    end, 'Diagnostic open float')
+      map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
+      map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
+      map({'n', 'x'}, '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
+      map({'n', 'x'}, ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
+      map({'n', 'x'}, ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
+      map({'n', 'x'}, '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
+      map('n',        '<leader>e', function()
+        diagnostic.open_float({ border = 'single' })
+      end, 'Diagnostic open float')
 
-    map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
-    map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementaiton in window split',  remap = true })
-    map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
+      map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
+      map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementaiton in window split',  remap = true })
+      map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
-    map('n', '<leader>ll', lsp.start, { desc = 'Start LSP server' })
+      map('n', '<leader>ll', lsp.start, { desc = 'Start LSP server' })
+    end
+
+    local format_on_write_blacklist = { 'lua' }
+
+    local augroup = vim.api.nvim_create_augroup('LSP', { clear = true })
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = augroup,
+      desc = 'Default on_attach',
+      callback = function(event)
+        local bufnr = event.buf
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+
+        -- Keymaps
+        attach_keymaps()
+
+        -- Autoformatting
+        if not vim.tbl_contains(format_on_write_blacklist, filetype) then
+          require('utils.formatting').format_on_write(client, bufnr)
+        end
+      end
+    })
   end
 }
