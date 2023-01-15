@@ -241,6 +241,15 @@ return { 'neovim/nvim-lspconfig',
       telescope.lsp_references({ include_declaration = false })
     end
 
+    local function attach_codelens(bufnr)
+      vim.api.nvim_create_augroup('Lsp', {})
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+        group = 'Lsp',
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+
     local function attach_keymaps()
       map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
       map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
@@ -255,6 +264,7 @@ return { 'neovim/nvim-lspconfig',
       map({'i'; 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
       map({'n'; 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
       map({'n'; 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
+      map({'n'; 'x'}, '<leader>A', lsp.codelens.run,       'LSP code lens')
 
       map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
       map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
@@ -275,11 +285,15 @@ return { 'neovim/nvim-lspconfig',
 
     local format_on_write_blacklist = { 'lua' }
 
+    ---------------------------
+    -- Default LSP on_attach --
+    ---------------------------
     local augroup = vim.api.nvim_create_augroup('LSP', { clear = true })
     vim.api.nvim_create_autocmd('LspAttach', {
       group = augroup,
-      desc = 'Default on_attach',
+      desc = 'Default LSP on_attach',
       callback = function(event)
+        vim.pretty_print(event)
         local bufnr = event.buf
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
@@ -290,6 +304,11 @@ return { 'neovim/nvim-lspconfig',
         -- Autoformatting
         if not vim.tbl_contains(format_on_write_blacklist, filetype) then
           require('utils.formatting').format_on_write(client, bufnr)
+        end
+
+        -- Code lens
+        if client.server_capabilities.codeLensProvider then
+          attach_codelens(bufnr)
         end
       end
     })

@@ -29,7 +29,7 @@ opt.viewoptions = { 'cursor', 'folds', 'slash', 'unix' }
 o.undofile   = true
 o.fileformat = 'unix'
 o.encoding   = 'utf-8'
-o.shada      = "!,'1000,<50,s10,h"
+o.shada      = "!,'2000,<50,s10,h"
 
 -- Command line mode --
 o.wildignorecase = true -- Case insensitive file/directory completion
