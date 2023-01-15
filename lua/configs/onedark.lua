@@ -46,10 +46,12 @@ return { 'melkster/onedark.nvim', config = function()
         Todo = { link = '@text.warning' },
         -- Custom highlights
         InlineHint = { fg = c.bg_visual },
+        LspCodeLens = { link = 'InlineHint' },
+        LspCodeLensSeparator = { link = 'LspCodeLens' },
         -- Quickfix
         qfLineNr = { fg = c.fg_gutter },
         -- Treesitter
-        ['@tag.delimiter'] = { link = 'TSPunctBracket'},
+        ['@tag.delimiter'] = { link = 'TSPunctBracket' },
         ['@text.note'] = { fg = c.info, style = style.Bold },
         ['@text.warning'] = { fg = c.warning, style = style.Bold },
         ['@text.danger'] = { fg = c.error, style = style.Bold },
