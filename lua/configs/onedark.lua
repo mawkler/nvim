@@ -12,6 +12,8 @@ return { 'melkster/onedark.nvim', config = function()
 
   local cursorline_bg = '#2f343d'
 
+  local treesitter_context_bg = '#252933'
+
   require('onedark').setup({
     hide_end_of_buffer = false,
     dev = true,
@@ -132,6 +134,9 @@ return { 'melkster/onedark.nvim', config = function()
         LeapBackdrop = { fg = c.fg_dark },
         -- Alpha
         AlphaHeader = { fg = c.green0, style = style.Bold },
+        -- Treesitter context
+        TreesitterContext = { bg = treesitter_context_bg },
+        TreesitterContextLineNumber = { fg = c.fg_gutter, bg = treesitter_context_bg },
       }
     end
   })
