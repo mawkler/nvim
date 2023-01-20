@@ -210,16 +210,9 @@ return { 'neovim/nvim-lspconfig',
     -------------
     -- LSPKind --
     -------------
-    require('lspkind').init {
-      symbol_map = {
-        Class     = '',
-        Interface = '',
-        Module    = '',
-        Enum      = '',
-        Text      = '',
-        Struct    = ''
-      }
-    }
+    require('lspkind').init({
+      symbol_map = require('utils.icons').icons
+    })
 
     -------------
     -- Keymaps --
