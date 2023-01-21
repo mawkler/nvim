@@ -6,7 +6,6 @@ return { 'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',              -- For installing LSP servers
     'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
-    'onsails/lspkind-nvim',                 -- Completion icons
     'jose-elias-alvarez/typescript.nvim',   -- TypeScript utilities
     'folke/neodev.nvim',                    -- Lua signature help and completion
     'simrat39/rust-tools.nvim',             -- Rust tools
@@ -205,13 +204,6 @@ return { 'neovim/nvim-lspconfig',
     capabilities.textDocument.completion.completionItem.snippetSupport = true
     util.default_config = vim.tbl_extend('force', util.default_config, {
       capabilities = { my_capabilities = capabilities, }
-    })
-
-    -------------
-    -- LSPKind --
-    -------------
-    require('lspkind').init({
-      symbol_map = require('utils.icons').icons
     })
 
     -------------

@@ -98,10 +98,9 @@ return { 'melkster/onedark.nvim', config = function()
         DiagnosticUnderlineHint = { style = style.Underline, sp = c.hint },
         DiagnosticUnderlineInfo = { style = style.Underline, sp = c.info },
         -- nvim-cmp
-        CmpItemAbbrDeprecatedDefault = { fg = onedark_utils.darken(c.fg0, 0.8) },
-        CmpItemAbbrMatchFuzzy = { fg = c.fg0, style = style.Bold },
-        CmpItemKindSnippetDefault = { fg = c.blue0 },
-        CmpItemKindTextDefault = { link = 'Normal' },
+        CmpItemAbbrMatch      = { fg = c.blue0, style = style.Bold },
+        CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
+        PmenuSel              = { fg = c.bg1, bg = c.blue0 },
         -- Gitsigns
         GitSignsDeleteLn = { link = 'GitSignsDeleteVirtLn' },
         GitSignsAdd = { fg = colors.green0 },

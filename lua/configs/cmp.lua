@@ -1,8 +1,8 @@
 ---------
 -- Cmp --
 ---------
-return {
-  'hrsh7th/nvim-cmp',
+return { 'hrsh7th/nvim-cmp',
+  requires = 'onsails/lspkind-nvim', -- Completion menu icons
   event = {'InsertEnter', 'CmdlineEnter'},
   config = function()
     local visible_buffers = require('utils').visible_buffers
@@ -11,6 +11,7 @@ return {
     local luasnip = require('luasnip')
     local cmp_disabled = nvim_cmp.config.disable
     local cmp_insert = { behavior = nvim_cmp.SelectBehavior.Insert }
+    local lspkind = require('lspkind')
 
     vim.opt.completeopt = 'menuone,noselect'
 
@@ -79,6 +80,25 @@ return {
       }
     }
 
+    -- LSPKind
+    lspkind.init({
+      symbol_map = require('utils.icons').icons
+    })
+
+     -- Places icon to the left, with margin
+    local function cmp_formatting()
+      return function(entry, vim_item)
+        local format_opts = { mode = 'symbol_text', maxwidth = 50 }
+        local kind = lspkind.cmp_format(format_opts)(entry, vim_item)
+        local strings = vim.split(kind.kind, '%s', { trimempty = true })
+
+        kind.kind = strings[1] or ''
+        kind.menu = '  ' .. (strings[2] or '')
+
+        return kind
+      end
+    end
+
     nvim_cmp.setup({
       snippet = {
         expand = function(args)
@@ -100,8 +120,15 @@ return {
         ['<C-p>'] = cmp_disabled,
       },
       sources = nvim_cmp.config.sources(sources),
+      window = {
+        completion = {
+          col_offset = -2, -- To fit lspkind icon
+          side_padding = 1, -- One character margin
+        },
+      },
       formatting = {
-        format = require('lspkind').cmp_format()
+        fields = { 'kind', 'abbr', 'menu' },
+        format = cmp_formatting(),
       },
       completion = {
         completeopt = 'menu,menuone,noinsert',
