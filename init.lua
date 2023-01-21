@@ -41,7 +41,7 @@ import('packer', function(packer) packer.startup { function()
   }
   use { 'wsdjeg/vim-fetch' }                    -- Line and column position when opening file
   use { 'meain/vim-printer', keys = 'gp' }
-  Use 'lens'
+  Use 'windows'                                 -- Automatic window resizing
   use { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' }
   Use 'undotree'
   Use 'smart-splits'                            -- Better resizing mappings
@@ -62,7 +62,7 @@ import('packer', function(packer) packer.startup { function()
   Use 'null-ls'                                 -- Autoformatting, etc.
   Use 'neoscroll'                               -- Smooth scrolling animations
   Use 'feline'                                  -- Statusline framework
-  Use 'incline'                                 -- Floating winbar
+  Use 'barbecue'                                -- Treesitter breadcrumbs
   Use 'fidget'                                  -- LSP progress indicator
   Use 'gitsigns'                                -- Git status in sign column
   Use 'mason'                                   -- LSP/DAP/etc. package manager
