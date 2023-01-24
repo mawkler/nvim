@@ -10,7 +10,7 @@ return { 'feline-nvim/feline.nvim',
   config = function()
       -- TODO: refactor this to do both imports on same line once
       -- https://github.com/miversen33/import.nvim/issues/11 gets merged
-    import('configs.colorscheme', function(colorscheme)
+    import('utils.colorscheme', function(colorscheme)
       local colors = colorscheme.colors
 
       require('statusline').setup({
