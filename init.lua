@@ -136,6 +136,7 @@ import('packer', function(packer) packer.startup { function()
     require('dim').setup()
   end }
   Use 'toggleterm'                              -- Toggleable terminal
+  Use 'term-edit'                               -- Better editing in :terminal
   Use 'bqf'
   Use 'qf'
   Use 'git'                                     -- Git wrapper
