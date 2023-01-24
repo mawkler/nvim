@@ -7,6 +7,9 @@ return { 'anuvyklack/windows.nvim',
   config = function()
     require('windows').setup({
       animation = { enable = false },
+      ignore = {
+        buftype = { 'quickfix', 'help' },
+      }
     })
 
     local map = require('utils').map
