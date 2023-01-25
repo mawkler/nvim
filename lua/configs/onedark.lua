@@ -79,6 +79,7 @@ return { 'melkster/onedark.nvim', config = function()
         EyelinerPrimary = { fg = c.red0, style = style.Bold },
         EyelinerSecondary = { fg = c.orange1, style = style.Bold },
         -- NvimTree
+        NvimTreeFolderIcon = { fg = '#8094b4' },
         NvimTreeFolderName = { fg = c.blue0 },
         NvimTreeOpenedFolderName = { fg = c.blue0, style = style.Bold },
         NvimTreeOpenedFile = { style = style.Bold },
@@ -98,9 +99,11 @@ return { 'melkster/onedark.nvim', config = function()
         DiagnosticUnderlineHint = { style = style.Underline, sp = c.hint },
         DiagnosticUnderlineInfo = { style = style.Underline, sp = c.info },
         -- nvim-cmp
+        PmenuSel              = { fg = c.bg1, bg = c.blue0 },
         CmpItemAbbrMatch      = { fg = c.blue0, style = style.Bold },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
-        PmenuSel              = { fg = c.bg1, bg = c.blue0 },
+        CmpItemKindFile       = { link = 'NvimTreeFolderIcon' },
+        CmpItemKindFolder     = { link = 'CmpItemKindFile' },
         -- Gitsigns
         GitSignsDeleteLn = { link = 'GitSignsDeleteVirtLn' },
         GitSignsAdd = { fg = colors.green0 },
