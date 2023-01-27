@@ -234,6 +234,7 @@ return { 'nvim-telescope/telescope.nvim',
     map('n', '<leader>tc', builtin.commands, 'Commands')
     map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
     map('n', '<leader>t/', builtin.search_history, 'Search history')
+    map('n', '<leader>tD', builtin.diagnostics, 'Diagnostics')
     map('n', '<leader>t?', builtin.current_buffer_fuzzy_find, 'Fuzzy find in buffer')
     map('n', '<leader>tq', builtin.quickfix, 'Quickfix')
     map('n', '<leader>tQ', builtin.quickfixhistory, 'Quickfix history')
