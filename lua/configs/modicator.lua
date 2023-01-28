@@ -6,20 +6,26 @@ return { 'melkster/modicator.nvim',
   event = 'ModeChanged',
   config = function()
     local colors = require('utils.colorscheme').modes
+    local get_bg = require('modicator').get_highlight_bg
+
+    local visual_hl = {
+      foreground = colors.visual,
+      background = get_bg('Normal') -- Removes background
+    }
 
     require('modicator').setup({
       show_warnings = false,
       highlights = {
         defaults = { bold = true },
         modes = {
-          ['i']  = { color = colors.insert },
-          ['v']  = { color = colors.visual },
-          ['V']  = { color = colors.visual },
-          [''] = { color = colors.visual },
-          ['s']  = { color = colors.select },
-          ['S']  = { color = colors.select },
-          ['R']  = { color = colors.replace },
-          ['c']  = { color = colors.command },
+          ['i']  = { foreground = colors.insert },
+          ['s']  = { foreground = colors.select },
+          ['S']  = { foreground = colors.select },
+          ['R']  = { foreground = colors.replace },
+          ['c']  = { foreground = colors.command },
+          ['v']  = visual_hl,
+          ['V']  = visual_hl,
+          [''] = visual_hl,
         }
       }
     })
