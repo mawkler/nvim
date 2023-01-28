@@ -10,15 +10,16 @@ return { 'melkster/modicator.nvim',
     require('modicator').setup({
       show_warnings = false,
       highlights = {
+        defaults = { bold = true },
         modes = {
-          ['i']  = colors.insert,
-          ['v']  = colors.visual,
-          ['V']  = colors.visual,
-          [''] = colors.visual,
-          ['s']  = colors.select,
-          ['S']  = colors.select,
-          ['R']  = colors.replace,
-          ['c']  = colors.command,
+          ['i']  = { color = colors.insert },
+          ['v']  = { color = colors.visual },
+          ['V']  = { color = colors.visual },
+          [''] = { color = colors.visual },
+          ['s']  = { color = colors.select },
+          ['S']  = { color = colors.select },
+          ['R']  = { color = colors.replace },
+          ['c']  = { color = colors.command },
         }
       }
     })
