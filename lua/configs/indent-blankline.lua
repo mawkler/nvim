@@ -10,7 +10,6 @@ return { 'lukas-reineke/indent-blankline.nvim',
       buftype_exclude = {'fzf', 'help'},
       filetype_exclude = {
         'markdown',
-        'startify',
         'alpha',
         'sagahover',
         'NvimTree',
