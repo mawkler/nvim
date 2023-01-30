@@ -2,7 +2,7 @@
 -- Incline --
 -------------
 return { 'b0o/incline.nvim',
-  requires = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = { 'kyazdani42/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
     local colors = require('utils.colorscheme').colors

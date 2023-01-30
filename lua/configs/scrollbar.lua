@@ -1,5 +1,4 @@
 return { 'petertriho/nvim-scrollbar',
-  after = 'gitsigns.nvim',
   config = function()
     local diagnostics = {
       text = { '─', '═' },

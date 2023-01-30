@@ -21,13 +21,16 @@ map('n', '<C-M-K>', winshift('up'))
 map('n', '<C-M-L>', winshift('right'))
 
 return { 'sindrets/winshift.nvim',
-  module = 'winshift',
   config = function()
     require('winshift').setup {
-      window_picker_ignore = {
-        filetype = { 'NvimTree' },
-        buftype = { 'terminal', 'quickfix' }
-      }
+      window_picker = function()
+        return require('winshift.lib').pick_window({
+          filter_rules = {
+            filetype = { 'NvimTree' },
+            buftype = { 'terminal', 'quickfix' }
+          },
+        })
+      end,
     }
   end
 }

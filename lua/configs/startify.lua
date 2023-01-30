@@ -2,7 +2,8 @@
 -- Startify --
 --------------
 return { 'mhinz/vim-startify',
-  requires = 'kyazdani42/nvim-web-devicons',
+  lazy = false,
+  dependencies = 'kyazdani42/nvim-web-devicons',
   config = function()
     local g = vim.g
 

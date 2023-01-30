@@ -2,7 +2,7 @@
 -- Cmp --
 ---------
 return { 'hrsh7th/nvim-cmp',
-  requires = 'onsails/lspkind-nvim', -- Completion menu icons
+  dependencies = { 'onsails/lspkind-nvim' }, -- Completion menu icons
   event = {'InsertEnter', 'CmdlineEnter'},
   config = function()
     local visible_buffers = require('utils').visible_buffers

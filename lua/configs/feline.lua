@@ -2,7 +2,7 @@
 -- Feline --
 ------------
 return { 'feline-nvim/feline.nvim',
-  requires = {
+  dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'SmiteshP/nvim-gps',
     'nvim-lua/lsp-status.nvim',

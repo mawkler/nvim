@@ -10,8 +10,7 @@ return { 'kylechui/nvim-surround',
     {'n', 'ys'},
     {'n', 'yS'},
   },
-  module = 'nvim-surround',
-  setup = function()
+  init = function()
     local map = require('utils').map
     local augroup = 'Surround'
 

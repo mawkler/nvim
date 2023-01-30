@@ -16,7 +16,7 @@ return { 'gbprod/yanky.nvim',
     '<Plug>(YankyPutBeforeFilter)',
   },
   cmd = { 'YankyRingHistory', 'YankyClearHistory' },
-  setup = function()
+  init = function()
     local map = require('utils').map
     local remap = { remap = true }
 

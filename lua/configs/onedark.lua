@@ -1,17 +1,14 @@
 -------------
 -- Onedark --
 -------------
-return { 'melkster/onedark.nvim', config = function()
+return { 'mawkler/onedark.nvim', priority = 1001, config = function()
   local colors = require('onedark.colors').setup()
   local style = require('onedark.types').od.HighlightStyle
-  local onedark_utils = require('onedark.util')
 
   local barbar_bg = '#1d2026'
   local barbar_bg_visible = '#23262d'
   local barbar_fg_gray = '#3b4048'
-
   local cursorline_bg = '#2f343d'
-
   local treesitter_context_bg = '#252933'
 
   require('onedark').setup({

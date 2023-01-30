@@ -2,12 +2,11 @@
 -- Barbecue --
 --------------
 return { 'utilyre/barbecue.nvim',
-  requires = {
+  dependencies = {
     'neovim/nvim-lspconfig',
     'SmiteshP/nvim-navic',
-    'nvim-tree/nvim-web-devicons',
+    'kyazdani42/nvim-web-devicons',
   },
-  after = 'nvim-web-devicons',
   config = function()
     local colors = require('utils.colorscheme').colors
     local get_highlight_fg = require('utils.colorscheme').get_highlight_fg

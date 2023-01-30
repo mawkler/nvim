@@ -8,7 +8,7 @@ return { 'unblevable/quick-scope',
     {'n', 't'},
     {'n', 'T'},
   },
-  setup = function()
+  init = function()
     vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
 
     vim.cmd [[

@@ -2,8 +2,7 @@
 -- Autopairs --
 ---------------
 return { 'windwp/nvim-autopairs',
-  requires = 'hrsh7th/nvim-cmp',
-  after = 'nvim-cmp',
+  dependencies = 'hrsh7th/nvim-cmp',
   config = function()
     local rule = require('nvim-autopairs.rule')
     local autopairs = require('nvim-autopairs')

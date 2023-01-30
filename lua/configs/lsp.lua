@@ -2,14 +2,14 @@
 -- LSP stuff --
 ---------------
 return { 'neovim/nvim-lspconfig',
-  requires = {
+  dependencies = {
     'williamboman/mason.nvim',              -- For installing LSP servers
     'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                 -- YAML/JSON schemas
     'jose-elias-alvarez/typescript.nvim',   -- TypeScript utilities
     'folke/neodev.nvim',                    -- Lua signature help and completion
     'simrat39/rust-tools.nvim',             -- Rust tools
-    { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
+    { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
   config = function()
     local lsp, diagnostic = vim.lsp, vim.diagnostic

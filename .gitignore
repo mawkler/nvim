@@ -2,8 +2,13 @@ spell/
 sessions/
 packages/
 
-http
 plugin/work.lua
-plugin/packer_compiled.lua
 
+# rest.nvim
+http
+
+# sumneku-lua
 .luarc.json
+
+# lazy.nvim
+lazy-lock.json

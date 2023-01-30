@@ -2,8 +2,7 @@
 -- Nvim-tree --
 ---------------
 return { 'kyazdani42/nvim-tree.lua',
-  after = 'nvim-web-devicons',
-  module_pattern = 'nvim-tree.*',
+  dependencies = 'kyazdani42/nvim-web-devicons',
   keys = {'<leader>`', '<leader>`', '<leader>~', {'n', 'gf'}},
   cmd = {
     'NvimTreeOpen',

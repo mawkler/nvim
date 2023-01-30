@@ -3,7 +3,7 @@
 --------------
 return { 'AckslD/messages.nvim',
   cmd = 'Messages',
-  setup = function()
+  init = function()
     local map = require('utils').map
     map('n', 'gm', '<cmd>Messages<CR>', 'Show messages in a floating window')
   end,

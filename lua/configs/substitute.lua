@@ -11,8 +11,7 @@ return { 'gbprod/substitute.nvim',
     { 'n', 'sx' },
     { 'x', 'X' },
   },
-  requires = 'gbprod/yanky.nvim',
-  after = 'yanky.nvim', -- Doesn't work for some reason
+  dependencies = 'gbprod/yanky.nvim',
   config = function()
     local map = require('utils').map
     local substitute = require('substitute')

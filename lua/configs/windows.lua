@@ -3,7 +3,7 @@
 -------------
 return { 'anuvyklack/windows.nvim',
   event = 'WinEnter',
-  requires = 'anuvyklack/middleclass',
+  dependencies = 'anuvyklack/middleclass',
   config = function()
     require('windows').setup({
       animation = { enable = false },

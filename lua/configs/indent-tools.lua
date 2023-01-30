@@ -3,7 +3,7 @@
 ------------------
 return {
   'arsham/indent-tools.nvim',
-  requires = 'arsham/arshlib.nvim',
+  dependencies = 'arsham/arshlib.nvim',
   keys = {{ 'x', 'iI' }, { 'o', 'iI' }},
   config = function()
     require('indent-tools').config({

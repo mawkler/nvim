@@ -8,6 +8,6 @@ return { 'RishabhRD/nvim-cheat.sh',
     'CheatList',
     'CheatListWithoutComments',
   },
-  requires = 'RishabhRD/popfix',
+  dependencies = 'RishabhRD/popfix',
 }
 

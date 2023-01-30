@@ -2,14 +2,14 @@
 -- Telescope --
 ---------------
 return { 'nvim-telescope/telescope.nvim',
-  requires =  {
+  dependencies =  {
     { 'nvim-lua/plenary.nvim' },
-    { 'nvim-lua/popup.nvim', module_pattern = 'popup%..*' },
+    { 'nvim-lua/popup.nvim' },
     { 'jvgrootveld/telescope-zoxide' },
     { 'dhruvmanila/telescope-bookmarks.nvim' },
     { 'nvim-telescope/telescope-cheat.nvim' },
-    { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-    { 'nvim-telescope/telescope-frecency.nvim', requires = 'tami5/sqlite.lua' },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    { 'nvim-telescope/telescope-frecency.nvim', dependencies = 'tami5/sqlite.lua' },
     { 'nvim-telescope/telescope-dap.nvim' },
     { 'Zane-/cder.nvim' },
     { 'rcarriga/nvim-notify' },

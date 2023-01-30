@@ -2,7 +2,7 @@
 -- Alpha --
 -----------
 return { 'goolord/alpha-nvim',
-  requires = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = { 'kyazdani42/nvim-web-devicons' },
   event = 'VimEnter',
   config = function ()
     import('alpha', function(alpha)

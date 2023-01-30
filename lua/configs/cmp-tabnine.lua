@@ -2,8 +2,8 @@
 -- Tabnine --
 -------------
 return { 'tzachar/cmp-tabnine',
-  run = './install.sh',
-  after = 'nvim-cmp',
+  build = './install.sh',
+  dependencies = 'hrsh7th/nvim-cmp',
   config = function()
     local tabnine = require('cmp_tabnine.config')
     tabnine:setup {

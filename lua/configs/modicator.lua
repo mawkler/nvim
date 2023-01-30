@@ -2,7 +2,7 @@
 -- Modicator --
 ---------------
 return { 'mawkler/modicator.nvim',
-  wants = require('utils.colorscheme').colorscheme_names,
+  -- wants = require('utils.colorscheme').colorscheme_names,
   event = 'ModeChanged',
   config = function()
     local colors = require('utils.colorscheme').modes
@@ -26,8 +26,8 @@ return { 'mawkler/modicator.nvim',
           ['v']  = visual_hl,
           ['V']  = visual_hl,
           [''] = visual_hl,
-        }
-      }
+        },
+      },
     })
   end
 }

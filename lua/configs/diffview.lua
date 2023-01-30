@@ -2,8 +2,7 @@
 -- Diffview --
 --------------
 return { 'sindrets/diffview.nvim',
-  requires = 'nvim-lua/plenary.nvim',
-  module_pattern = 'diffview%.',
+  dependencies = 'nvim-lua/plenary.nvim',
   cmd = {
     'DiffviewOpen',
     'DiffviewClose',
@@ -13,7 +12,7 @@ return { 'sindrets/diffview.nvim',
     'DiffviewFileRefresh',
     'DiffviewLog',
   },
-  setup = function()
+  init = function()
     local map = require('utils').map
     map('n', '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>')
     map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')

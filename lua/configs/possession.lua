@@ -2,7 +2,7 @@
 -- Possession --
 ----------------
 return { 'jedrzejboczar/possession.nvim',
-  requires = { 'nvim-lua/plenary.nvim' },
+  dependencies = { 'nvim-lua/plenary.nvim' },
   event = 'VimLeavePre',
   keys = '<leader>s',
   cmd = {

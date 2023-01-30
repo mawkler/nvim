@@ -7,7 +7,7 @@
 1. Install [Neovim](https://github.com/neovim/neovim/releases/)
 2. ```sh
    # Clone this repository to ~/.config/nvim/
-   git clone https://github.com/melkster/nvim/ ~/.config/nvim/
+   git clone https://github.com/mawkler/nvim/ ~/.config/nvim/
    # Install packer.nvim
    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -17,4 +17,4 @@
    pip install --user neovim
    ```
 
-My other dotfiles are available [here](https://github.com/melkster/dotfiles).
+My other dotfiles are available [here](https://github.com/mawkler/dotfiles).

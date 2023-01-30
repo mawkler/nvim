@@ -2,7 +2,7 @@
 -- DAP --
 ---------
 return { 'mfussenegger/nvim-dap',
-  requires = {
+  dependencies = {
     'rcarriga/nvim-dap-ui',             -- UI for nvim-dap
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
@@ -11,7 +11,6 @@ return { 'mfussenegger/nvim-dap',
     'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
     'williamboman/mason.nvim',
   },
-  after = 'mason.nvim',
   -- TODO: fix lazy loading
   -- keys = {
   --   '<F10>',
@@ -30,7 +29,6 @@ return { 'mfussenegger/nvim-dap',
   --   '<leader>dj',
   --   '<leader>dJ',
   -- },
-  -- module_pattern = { 'dap.*', 'jester.*' },
   config = function()
     local dap, widgets = require('dap'), require('dap.ui.widgets')
     local dap_ui = require('dapui')

@@ -8,7 +8,7 @@ return { 'monaqa/dial.nvim',
     '<Plug>(dial-increment-additional)',
     '<Plug>(dial-decrement-additional)',
   },
-  setup = function()
+  init = function()
     local map = require('utils').map
 
     map({'n', 'x'}, '<C-a>',  '<Plug>(dial-increment)')

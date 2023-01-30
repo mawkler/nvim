@@ -3,7 +3,7 @@
 ---------
 return { 'chrisbra/csv.vim',
   ft = 'csv',
-  setup = function()
+  init = function()
     vim.g.csv_default_delim = '\t'
     local disabled_mappings = {'e', 'l', 'h'}
 
