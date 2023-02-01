@@ -3,39 +3,21 @@
 -----------
 return { 'gbprod/yanky.nvim',
   keys = {
-    '<Plug>(YankyYank)',
-    '<Plug>(YankyPutAfter)',
-    '<Plug>(YankyPutBefore)',
-    '<Plug>(YankyCycleForward)',
-    '<Plug>(YankyCycleBackward)',
-    '<Plug>(YankyPutIndentAfterLinewise)',
-    '<Plug>(YankyPutIndentBeforeLinewise)',
-    '<Plug>(YankyPutIndentAfterLinewise)',
-    '<Plug>(YankyPutIndentBeforeLinewise)',
-    '<Plug>(YankyPutAfterFilter)',
-    '<Plug>(YankyPutBeforeFilter)',
+    { 'y', '<Plug>(YankyYank)', mode = {'n', 'x'} },
+    { 'p', '<Plug>(YankyPutAfter)', mode = {'n', 'x'} },
+    { 'P', '<Plug>(YankyPutBefore)', mode = {'n', 'x'} },
+    { '<M-p>', '<Plug>(YankyCycleForward)', mode = 'n' },
+    { '<M-P>', '<Plug>(YankyCycleBackward)', mode = 'n' },
+    { ']p', '<Plug>(YankyPutIndentAfterLinewise)', mode = 'n' },
+    { '[p', '<Plug>(YankyPutIndentBeforeLinewise)', mode = 'n' },
+    { '=p', '<Plug>(YankyPutAfterFilter)', mode = 'n' },
+    { '=P', '<Plug>(YankyPutBeforeFilter)', mode = 'n' },
+    { '<leader>y', '<cmd>YankyRingHistory<CR>', mode = {'n', 'x'} },
   },
   cmd = { 'YankyRingHistory', 'YankyClearHistory' },
   init = function()
     local map = require('utils').map
     local remap = { remap = true }
-
-    map({'n', 'x'}, 'y', '<Plug>(YankyYank)')
-    map({'n', 'x'}, 'p', '<Plug>(YankyPutAfter)')
-    map({'n', 'x'}, 'P', '<Plug>(YankyPutBefore)')
-
-    map('n', '<M-p>', '<Plug>(YankyCycleForward)')
-    map('n', '<M-P>', '<Plug>(YankyCycleBackward)')
-
-    map('n', ']p', '<Plug>(YankyPutIndentAfterLinewise)')
-    map('n', '[p', '<Plug>(YankyPutIndentBeforeLinewise)')
-    map('n', ']P', '<Plug>(YankyPutIndentAfterLinewise)')
-    map('n', '[P', '<Plug>(YankyPutIndentBeforeLinewise)')
-
-    map('n', '=p', '<Plug>(YankyPutAfterFilter)')
-    map('n', '=P', '<Plug>(YankyPutBeforeFilter)')
-
-    map({'n', 'x'}, '<leader>y', '<cmd>YankyRingHistory<CR>')
 
     map('n', 'dp',        'yyp',             remap)
     map('n', 'cy',        '"+y',             remap)

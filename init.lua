@@ -51,7 +51,7 @@ import('lazy', function(lazy) lazy.setup({
   { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' },
   use 'autolist',                                -- Autocomplete lists
   { 'Julian/vim-textobj-variable-segment',       -- camelCase and snake_case text objects
-    keys = {{'o', 'iv'}, {'x', 'iv'}, {'o', 'av'}, {'x', 'av'}},
+    keys = {{'iv', mode = { 'o', 'x' }}, {'av', mode = {'o', 'x'}}},
   },
   { 'wsdjeg/vim-fetch' },                        -- Line and column position when opening file
   { 'meain/vim-printer', keys = 'gp' },

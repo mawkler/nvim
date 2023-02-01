@@ -3,13 +3,17 @@
 ------------------
 return { 'numToStr/Comment.nvim',
   keys = {
-    {'n', '<leader>c'},
-    {'x', '<leader>c'},
-    {'n', '<leader>C'},
-    {'x', '<leader><'},
-    {'x', '<leader>>'},
-    {'x', '<leader>b'},
-    {'n', 'cm'},
+    { 'cm',         '<Plug>(comment_toggle_linewise_current)', mode = 'n' },
+    { '<leader>c',  '<Plug>(comment_toggle_linewise)', mode = 'n' },
+    { '<leader>c',  '<Plug>(comment_toggle_linewise_visual)', mode = 'x' },
+    { '<leader>C',  '<Plug>(comment_toggle_linewise)$' },
+    { '<leader>cB', '<Plug>(comment_toggle_blockwise)$', mode = 'n' },
+    { '<leader>cb', '<Plug>(comment_toggle_blockwise)', mode = 'n' },
+    { '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)', mode = 'x' },
+    { '<leader>cc', '<Plug>(comment_toggle_linewise)', mode = 'n' },
+    { '<leader>cp', 'yycmp', { remap = true }, mode = 'n' },
+    { '<leader><', mode = 'x' },
+    { '<leader>>', mode = 'x' },
   },
   config = function()
     local map = require('utils').map
@@ -64,16 +68,6 @@ return { 'numToStr/Comment.nvim',
         comment_api.call(command, operator)
       end, command)
     end
-
-    map('n', '<leader>c',  '<Plug>(comment_toggle_linewise)')
-    map('x', '<leader>c',  '<Plug>(comment_toggle_linewise_visual)')
-    map('n', '<leader>C',  '<Plug>(comment_toggle_linewise)$')
-    map('n', '<leader>cB', '<Plug>(comment_toggle_blockwise)$')
-    map('n', '<leader>cb', '<Plug>(comment_toggle_blockwise)')
-    map('x', '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)')
-    map('n', 'cm',         '<Plug>(comment_toggle_linewise_current)')
-    map('n', '<leader>cc', '<Plug>(comment_toggle_linewise)')
-    map('n', '<leader>cp', 'yycmp', { remap = true })
 
     comment_map('n', '<leader>c>',   'comment_linewise_op', true)
     comment_map('n', '<leader>c>>',  'comment_current_linewise_op')

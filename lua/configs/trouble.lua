@@ -3,10 +3,10 @@
 -------------
 return { 'folke/trouble.nvim',
   cmd = 'TroubleToggle',
-  keys = '<leader>E',
+  keys = {
+    { '<leader>E', '<cmd>TroubleToggle<CR>', mode = 'n' }
+  },
   config = function()
-    local map = require('utils').map
-
     require('trouble').setup({
       auto_preview = false,
       use_diagnostic_signs = true,
@@ -31,6 +31,5 @@ return { 'folke/trouble.nvim',
         cancel = nil,
       },
     })
-    map('n', '<leader>E', '<cmd>TroubleToggle<CR>')
   end
 }

@@ -1,22 +1,21 @@
 ----------------
 -- Substitute --
 ----------------
+
+local map = require('utils').map
+local substitute = require('substitute')
+local exchange = require('substitute.exchange')
+
 return { 'gbprod/substitute.nvim',
   keys = {
-    { 'n', 'su' },
-    { 'x', 'su' },
-    { 'n', 'sU' },
-    { 'x', 'sU' },
-    { 'x', '<leader>su' },
-    { 'n', 'sx' },
-    { 'x', 'X' },
+    { 'su',         mode = { 'n', 'x' } },
+    { 'sU',         mode = { 'n', 'x' } },
+    { '<leader>su', mode = 'x' },
+    { 'X',          mode = 'x' },
+    { 'sx' },
   },
   dependencies = 'gbprod/yanky.nvim',
   config = function()
-    local map = require('utils').map
-    local substitute = require('substitute')
-    local exchange = require('substitute.exchange')
-
     local function sub_clipboard(action)
       return function()
         substitute[action]({ register = '+' })
@@ -39,11 +38,6 @@ return { 'gbprod/substitute.nvim',
     map('n', 'sxx',  exchange.line,             'Exchange line')
     map('x', 'sx',   exchange.visual,           'Exchange visual')
     map('n', 'sxc',  exchange.cancel,           'Exchange cancel')
-
-    -- Make sure Yanky is loaded
-    if not packer_plugins['yanky.nvim'].loaded then
-      vim.cmd 'PackerLoad yanky.nvim'
-    end
 
     substitute.setup({
       on_substitute = require('yanky.integration').substitute(),

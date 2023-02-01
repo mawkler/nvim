@@ -5,18 +5,17 @@ vim.opt.fillchars = { diff = ' ' }
 
 return { 'TimUntersberger/neogit',
   cmd = 'Neogit',
-  keys = { '<leader>gC', '<leader>gs', '<leader>gd'  },
-  init = function()
-    -- Since Packer doesn't allow references to variables outside the setup table
-    -- for some reason, we have to use two different map()s
-    local map = require('utils').map
-    map('n', '<leader>gc', '<cmd>Neogit commit<CR>')
-    map('n', '<leader>gp', '<cmd>Neogit pull<CR>')
-    map('n', '<leader>gP', '<cmd>Neogit push<CR>')
-    map('n', '<leader>gr', '<cmd>Neogit rebase<CR>')
-    map('n', '<leader>gl', '<cmd>Neogit log<CR>')
-    map('n', 'gB',         '<cmd>Git blame<CR>', 'Git blame every line')
-  end,
+  keys = {
+    '<leader>gC',
+    '<leader>gs',
+    '<leader>gd',
+    { '<leader>gc', '<cmd>Neogit commit<CR>', desc = 'Git commit' },
+    { '<leader>gp', '<cmd>Neogit pull<CR>',   desc = 'Git pull' },
+    { '<leader>gP', '<cmd>Neogit push<CR>',   desc = 'Git push' },
+    { '<leader>gr', '<cmd>Neogit rebase<CR>', desc = 'Git rebase' },
+    { '<leader>gl', '<cmd>Neogit log<CR>',    desc = 'Git log' },
+    { 'gB',         '<cmd>Git blame<CR>',     desc = 'Git blame every line' },
+  },
   config = function()
     local map = require('utils').map
     local cmd, call = vim.cmd, vim.call
@@ -42,7 +41,7 @@ return { 'TimUntersberger/neogit',
     }) end, 'Neogit status')
 
     -- TODO: replace with Neogit or Diffview diff once feature is available
-    map('n', '<leader>gd', function() call('GitDiff') end, 'Git diff current file')
+    map('n', '<leader>gd', function() vim.fn.GitDiff() end, 'Git diff current file')
     cmd [[
       function! GitDiff() abort
         let tmp = g:bufferline.insert_at_end

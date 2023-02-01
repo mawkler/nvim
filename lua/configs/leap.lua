@@ -2,7 +2,7 @@
 -- Leap --
 ----------
 return { 'ggandor/leap.nvim',
-  keys = { 'zj', 'zk', 'zl', 'zh', '<CR>' },
+  keys = { 'zj', 'zk', 'zl', 'zh', 'zJ', 'zK', '<CR>' },
   init = function()
     local map = require('utils').map
     -- Move default zj/zk bindings to ]z/[z

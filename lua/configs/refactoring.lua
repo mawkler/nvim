@@ -3,9 +3,9 @@
 ----------------------
 return { 'ThePrimeagen/refactoring.nvim',
   keys = {
-    {'x', '<leader>R'},
-    {'x', 'gRe'},
-    {'x', 'gRf'},
+    { '<leader>R', mode = 'x' },
+    { 'gRe',       mode = 'x' },
+    { 'gRf',       mode = 'x' },
   },
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys

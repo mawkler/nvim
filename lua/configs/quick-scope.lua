@@ -2,12 +2,7 @@
 -- Quick-scope --
 -----------------
 return { 'unblevable/quick-scope',
-  keys = {
-    {'n', 'f'},
-    {'n', 'F'},
-    {'n', 't'},
-    {'n', 'T'},
-  },
+  keys = { 'f', 'F', 't', 'T' },
   init = function()
     vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
 
