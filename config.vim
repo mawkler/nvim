@@ -218,13 +218,6 @@ augroup END
 
 let g:vim_markdown_strikethrough = 1
 
-" -- Thesaurus --
-let g:tq_map_keys = 0
-nnoremap <silent> <leader>T :ThesaurusQueryLookupCurrentWord<CR>
-
-" Looks up the provided word(s) in a thesaurus
-command! -nargs=+ -bar Thesaurus call thesaurusPy2Vim#Thesaurus_LookWord('<args>')
-
 " -- Scrollbar --
 let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['NvimTree']
