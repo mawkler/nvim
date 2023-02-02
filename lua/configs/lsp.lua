@@ -151,6 +151,16 @@ return { 'neovim/nvim-lspconfig',
     -- LTeX --
     local ltex_config = {
       autostart = false,
+      settings = {
+        ltex = {
+          language = 'auto',
+          diagnosticSeverity = 'hint',
+          sentenceCacheSize = 2000,
+          additionalRules = {
+            motherTongue = 'sv',
+          },
+        },
+      },
     }
 
     -----------
