@@ -36,7 +36,7 @@ return { 'gbprod/substitute.nvim',
     map('x', 'sU',   sub_clipboard_visual,      'Substitute (clipboard)')
     map('n', 'sx',   exchange.operator,         'Exchange operator')
     map('n', 'sxx',  exchange.line,             'Exchange line')
-    map('x', 'sx',   exchange.visual,           'Exchange visual')
+    map('x', 'X',    exchange.visual,           'Exchange visual')
     map('n', 'sxc',  exchange.cancel,           'Exchange cancel')
 
     substitute.setup({
