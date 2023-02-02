@@ -2,6 +2,7 @@
 -- Leap --
 ----------
 return { 'ggandor/leap.nvim',
+  dependencies = 'tpope/vim-repeat',
   keys = { 'zj', 'zk', 'zl', 'zh', 'zJ', 'zK', '<CR>' },
   init = function()
     local map = require('utils').map

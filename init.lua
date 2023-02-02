@@ -39,16 +39,25 @@ import('lazy', function(lazy) lazy.setup({
   },
   use 'eunuch',
   { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} },
-  { 'inkarkat/vim-visualrepeat', dependencies = 'inkarkat/vim-ingo-library' },
-  { 'milkypostman/vim-togglelist',               -- Mapping to toggle QuickFix window
-    fn = 'ToggleQuickfixList',
+  { 'inkarkat/vim-visualrepeat',
+    dependencies = { 'inkarkat/vim-ingo-library', 'tpope/vim-repeat' },
+    event = 'ModeChanged *:[vV]',
+  },
+  { 'milkypostman/vim-togglelist',               -- Toggle quickfix window
+    event = 'QuickFixCmdPre',
   },
   { 'kana/vim-niceblock',                        -- Improves visual mode
     event = 'ModeChanged *:[vV]',
   },
   { 'kana/vim-textobj-syntax' },
-  { 'AndrewRadev/splitjoin.vim', keys = {'gS', 'gJ'} },
-  { 'junegunn/vim-easy-align', keys = '<Plug>(EasyAlign)' },
+  { 'AndrewRadev/splitjoin.vim',                 -- Multiline split expressions
+    dependencies = 'tpope/vim-repeat',
+    keys = {'gS', 'gJ'},
+  },
+  { 'junegunn/vim-easy-align',                   -- Align characters vertically
+    dependencies = 'tpope/vim-repeat',
+    keys = '<Plug>(EasyAlign)'
+  },
   use 'autolist',                                -- Autocomplete lists
   { 'Julian/vim-textobj-variable-segment',       -- camelCase and snake_case text objects
     keys = {{'iv', mode = { 'o', 'x' }}, {'av', mode = {'o', 'x'}}},
@@ -56,7 +65,6 @@ import('lazy', function(lazy) lazy.setup({
   { 'wsdjeg/vim-fetch' },                        -- Line and column position when opening file
   { 'meain/vim-printer', keys = 'gp' },
   use 'windows',                                 -- Automatic window resizing
-  { 'Ron89/thesaurus_query.vim', cmd = 'ThesaurusQueryLookupCurrentWord' },
   use 'undotree',
   use 'smart-splits',                            -- Better resizing mappings
   { 'junegunn/vim-peekaboo' },                   -- Register selection window
@@ -67,7 +75,7 @@ import('lazy', function(lazy) lazy.setup({
   use 'indent-blankline',                        -- Indent markers
   { 'coreyja/fzf.devicon.vim',
     dependencies = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
-    cmd = 'FilesWithDevicons',
+    cmd = {'FilesWithDevicons', 'Ag', 'Rg'},
   },
   use 'scrollbar',
   use 'web-devicons',
@@ -82,13 +90,6 @@ import('lazy', function(lazy) lazy.setup({
   use 'mason',                                   -- LSP/DAP/etc. package manager
   use 'lsp',                                     -- Built-in LSP
   use 'luasnip',                                 -- Snippet engine
-  { 'saadparwaiz1/cmp_luasnip',            dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp',                dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-buffer',                  dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-path',                    dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-cmdline',                 dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lua',                dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help', dependencies = 'hrsh7th/nvim-cmp' },
   use 'cmp-tabnine',
   use 'cmp',
   { 'mawkler/friendly-snippets' },               -- Snippet collection
@@ -106,7 +107,8 @@ import('lazy', function(lazy) lazy.setup({
   use 'dial',                                    -- Enhanced increment/decrement
   use 'comment',
   use 'rest',                                    -- Sending HTTP requests
-  use 'dap',                                     -- UI for nvim-dap
+  use 'dap',                                     -- Debugger
+  use 'dap-ui',                                  -- UI for nvim-dap
   use 'overseer',                                -- Task runner
   -- { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   use 'onedark',
@@ -115,21 +117,18 @@ import('lazy', function(lazy) lazy.setup({
   { 'lewis6991/impatient.nvim' },                -- Improve startup time for Neovim
   use 'yanky',                                   -- Cycle register history, etc.
   use 'surround',
-  { 'tpope/vim-repeat', fn = 'repeat#set' },
   use 'quick-scope',
   use 'matchup',                                 -- Adds additional `%` commands
   use 'autopairs',                               -- Auto-close brackets, etc.
-  { 'junegunn/fzf.vim', cmd = {'Ag', 'Rg'} },
   { 'vim-scripts/capslock.vim', event = 'InsertEnter' },
   { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' },
   use 'git-conflict',                            -- Git conflict mappings
   { 'kana/vim-textobj-user' },
-  { 'kana/vim-textobj-function' },
   { 'kana/vim-textobj-line' },
   { 'kana/vim-textobj-entire' },
   { 'lervag/vimtex', ft = {'tex', 'latex'} },
   use 'indent-tools',
-  use 'targets',
+  use 'targets',                                 -- Adds 'next' text object, etc.
   { 'romainl/vim-cool' },                        -- Better search highlighting behaviour
   { 'plasticboy/vim-markdown', ft = 'markdown' },
   { 'coachshea/vim-textobj-markdown', ft = 'markdown' },
@@ -148,13 +147,15 @@ import('lazy', function(lazy) lazy.setup({
   use 'toggleterm',                              -- Toggleable terminal
   use 'term-edit',                               -- Better editing in :terminal
   use 'bqf',                                     -- Better quickfix
-  use 'qf',
+  use 'qf',                                      -- Quickfix utilities
   use 'git',                                     -- Git wrapper
   use 'reloader',                                -- Hot reload Neovim config
   use 'template-string',                         -- Automatic template string
   use 'csv',                                     -- CSV highlighting, etc.
   use 'modicator',                               -- Line number mode indicator
-  { 'jghauser/mkdir.nvim' },                     -- Create missing folders on :w
+  { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
+    event = 'CmdlineEnter'
+  },
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
 

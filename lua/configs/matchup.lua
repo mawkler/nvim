@@ -2,6 +2,7 @@
 -- Matchup --
 -------------
 return { 'andymass/vim-matchup',
+  dependencies = 'tpope/vim-repeat',
   event = 'CursorMoved',
   init = function()
     vim.g.matchup_matchparen_offscreen = {} -- Dont' display off-screen matches

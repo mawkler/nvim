@@ -1,7 +1,41 @@
 --------------
 -- Quickfix --
 --------------
-return { 'ten3roberts/qf.nvim', -- Quickfix utilities
+
+-- Sets `bufhidden = delete` if buffer was jumped to
+local function list_jump(command, list)
+  return function ()
+    local qf = require('qf')
+    if vim.b.buffer_jumped_to then
+      vim.bo.bufhidden = 'delete'
+    end
+
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local successful, _ = pcall(qf[command], list, false)
+    if successful then
+      vim.b.buffer_jumped_to = true
+    end
+  end
+end
+
+local function toggle(list)
+  return function()
+    require('qf').toggle(list, false)
+  end
+end
+
+return { 'ten3roberts/qf.nvim',
+  event = 'QuickFixCmdPre',
+  keys = {
+    { ']q',        list_jump('below', 'c'), mode = 'n', desc = 'Next quickfix item' },
+    { '[q',        list_jump('above', 'c'), mode = 'n', desc = 'Previous quickfix item' },
+    { ']l',        list_jump('below', 'l'), mode = 'n', desc = 'Next location list item' },
+    { '[l',        list_jump('above', 'l'), mode = 'n', desc = 'Previous location list item' },
+    { ']Q',        '<cmd>cnext<CR>',        mode = 'n', desc = 'Next quickfix item' },
+    { '[Q',        '<cmd>cprev<CR>',        mode = 'n', desc = 'Previous quickfix item' },
+    { '<leader>Q', toggle('c'),             mode = 'n', desc = 'Toggle quickfix' },
+    { '<leader>L', toggle('l'),             mode = 'n', desc = 'Toggle location list' },
+  },
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys
     require('quickfix') -- Better quickfix UI
@@ -19,37 +53,12 @@ return { 'ten3roberts/qf.nvim', -- Quickfix utilities
         },
       })
 
-      -- Sets `bufhidden = delete` if buffer was jumped to
-      local function list_jump(command, list)
-        return function ()
-          if vim.b.buffer_jumped_to then
-            vim.bo.bufhidden = 'delete'
-          end
-
-          local successful, _ = pcall(command, list, false)
-          if successful then
-            vim.b.buffer_jumped_to = true
-          end
-        end
-      end
-
       local function quickfix_step(direction)
         return function()
           qf[direction]('visible')
           feedkeys('<CR><C-w>p')
         end
       end
-
-      map('n', ']q', list_jump(qf.below, 'c'), 'Next quickfix item')
-      map('n', '[q', list_jump(qf.above, 'c'), 'Previous quickfix item')
-      map('n', ']l', list_jump(qf.below, 'l'), 'Next location list item')
-      map('n', '[l', list_jump(qf.above, 'l'), 'Previous location list item')
-
-      map('n', ']Q', '<cmd>cnext<CR>', 'Next quickfix item')
-      map('n', '[Q', '<cmd>cprev<CR>', 'Previous quickfix item')
-
-      map('n', '<leader>Q', function() qf.toggle('c', false) end, 'Toggle quickfix')
-      map('n', '<leader>L', function() qf.toggle('l', false) end, 'Toggle location list')
 
       vim.api.nvim_create_augroup('Quickfix', {})
       vim.api.nvim_create_autocmd('FileType', {

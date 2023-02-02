@@ -2,8 +2,17 @@
 -- Cmp --
 ---------
 return { 'hrsh7th/nvim-cmp',
-  dependencies = { 'onsails/lspkind-nvim' }, -- Completion menu icons
-  event = {'InsertEnter', 'CmdlineEnter'},
+  dependencies = {
+    'onsails/lspkind-nvim',                -- Completion menu icons
+    'saadparwaiz1/cmp_luasnip' ,           -- Snippets
+    'hrsh7th/cmp-nvim-lsp',                -- LSP completion
+    'hrsh7th/cmp-buffer',                  -- Buffer completion
+    'hrsh7th/cmp-path',                    -- Path completion
+    'hrsh7th/cmp-cmdline',                 -- Command-line completion
+    'hrsh7th/cmp-nvim-lua',                -- Nvim builtins completion
+    'hrsh7th/cmp-nvim-lsp-signature-help', -- Signature
+  },
+  event = { 'InsertEnter', 'CmdlineEnter' },
   config = function()
     local visible_buffers = require('utils').visible_buffers
 
@@ -85,7 +94,7 @@ return { 'hrsh7th/nvim-cmp',
       symbol_map = require('utils.icons').icons
     })
 
-     -- Places icon to the left, with margin
+    -- Places icon to the left, with margin
     local function cmp_formatting()
       return function(entry, vim_item)
         local format_opts = { mode = 'symbol_text', maxwidth = 50 }

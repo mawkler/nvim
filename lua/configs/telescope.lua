@@ -153,7 +153,6 @@ return { 'nvim-telescope/telescope.nvim',
     telescope.load_extension('cheat')
     telescope.load_extension('notify')
     telescope.load_extension('cder')
-    telescope.load_extension('dap')
     telescope.load_extension('git_worktree')
 
     function _G.telescope_markdowns()
@@ -219,6 +218,7 @@ return { 'nvim-telescope/telescope.nvim',
         end)
     end
 
+    -- TODO: lazy load mappings with lazy.nvim
     map('n', '<C-p>', function()
       return builtin.find_files({ hidden = true })
     end, 'Find files')

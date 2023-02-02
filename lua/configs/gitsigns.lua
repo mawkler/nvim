@@ -2,6 +2,7 @@
 -- Gitsigns --
 --------------
 return { 'lewis6991/gitsigns.nvim',
+  dependencies = 'tpope/vim-repeat',
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys
     local gitsigns = require('gitsigns')
@@ -15,6 +16,7 @@ return { 'lewis6991/gitsigns.nvim',
         topdelete    = {text = '▔'},
       },
       attach_to_untracked = false,
+      trouble = false,
       on_attach = function()
 
         local function git_blame()

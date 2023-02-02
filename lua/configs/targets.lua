@@ -1,7 +1,8 @@
 vim.g.targets_aiAI = 'aIAi' -- Swaps meaning of `I` and `i`
 
 return {
-  'wellle/targets.vim', -- Adds arguments, etc. as text objects
+  'wellle/targets.vim',
+  dependencies = 'tpope/vim-repeat',
   config = function()
     vim.api.nvim_create_augroup('Targets', {})
     vim.api.nvim_create_autocmd('User', {

@@ -14,6 +14,7 @@ vim.g.bufferline = {
 }
 
 return { 'romgrk/barbar.nvim',
+  event = 'BufAdd',
   config = function()
     local map = require('utils').map
 

@@ -7,6 +7,7 @@ return { 'utilyre/barbecue.nvim',
     'SmiteshP/nvim-navic',
     'kyazdani42/nvim-web-devicons',
   },
+  -- event = 'LspAttach', -- Throws error when null-ls attaches for some reason
   config = function()
     local colors = require('utils.colorscheme').colors
     local get_highlight_fg = require('utils.colorscheme').get_highlight_fg

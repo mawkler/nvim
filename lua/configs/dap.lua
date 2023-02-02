@@ -3,7 +3,6 @@
 ---------
 return { 'mfussenegger/nvim-dap',
   dependencies = {
-    'rcarriga/nvim-dap-ui',             -- UI for nvim-dap
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
@@ -30,8 +29,7 @@ return { 'mfussenegger/nvim-dap',
   --   '<leader>dJ',
   -- },
   config = function()
-    local dap, widgets = require('dap'), require('dap.ui.widgets')
-    local dap_ui = require('dapui')
+    local dap = require('dap')
     local jester = require('jester')
     local mason_dap = require('mason-nvim-dap')
     local map = require('utils').map
@@ -51,10 +49,6 @@ return { 'mfussenegger/nvim-dap',
 
     -- Mappings --
     -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
-    map('n', '<leader>dd', function()
-      dap.continue()
-      dap_ui.open()
-    end, 'Toggle DAP UI')
     map('n', '<leader>dB', function()
       vim.ui.input({ prompt = 'Breakpoint condition: ' }, function(condition)
         dap.set_breakpoint(condition)
@@ -69,11 +63,6 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<leader>dl', dap.run_last,          'DAP run last session')
     map('n', '<leader>dr', dap.restart,           'DAP restart session')
     map('n', '<leader>dq', dap.terminate,         'DAP terminate session')
-    map('n', '<leader>dh', widgets.hover,         'DAP hover')
-
-    -- DAP-UI
-    map({'n', 'x'}, '<leader>de', dap_ui.eval,   'DAP evaluate expression')
-    map('n',        '<leader>dt', dap_ui.toggle, 'DAP toggle UI')
 
     -- Jester
     map('n', '<leader>djt', jester.debug,      'DAP Jester debug test')
@@ -85,9 +74,6 @@ return { 'mfussenegger/nvim-dap',
 
     -- DAP virtual text --
     require('nvim-dap-virtual-text').setup()
-
-    -- DAP-UI --
-    dap_ui.setup()
 
     -- Rust/C++/C --
     dap.adapters.codelldb = {
@@ -163,7 +149,7 @@ return { 'mfussenegger/nvim-dap',
           type = 'pwa-node',
           request = 'attach',
           name = 'Attach',
-          processId = require'dap.utils'.pick_process,
+          processId = require('dap.utils').pick_process,
           cwd = '${workspaceFolder}',
         }
 
