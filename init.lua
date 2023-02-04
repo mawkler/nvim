@@ -73,12 +73,9 @@ import('lazy', function(lazy) lazy.setup({
   use 'alpha',                                   -- Nicer start screen
   use 'beacon',                                  -- Flash cursor jump
   use 'indent-blankline',                        -- Indent markers
-  { 'coreyja/fzf.devicon.vim',
-    dependencies = {'junegunn/fzf.vim', 'kyazdani42/nvim-web-devicons'},
-    cmd = {'FilesWithDevicons', 'Ag', 'Rg'},
-  },
-  use 'scrollbar',
-  use 'web-devicons',
+  use 'fzf',                                     -- Fuzzy finder
+  use 'scrollbar',                               -- Scrollbar
+  use 'web-devicons',                            -- Icons
   use 'nvim-tree',                               -- File explorer
   use 'barbar',                                  -- Sexiest buffer tabline
   use 'null-ls',                                 -- Autoformatting, etc.
@@ -90,8 +87,8 @@ import('lazy', function(lazy) lazy.setup({
   use 'mason',                                   -- LSP/DAP/etc. package manager
   use 'lsp',                                     -- Built-in LSP
   use 'luasnip',                                 -- Snippet engine
-  use 'cmp-tabnine',
-  use 'cmp',
+  use 'cmp-tabnine',                             -- Tabnine autocompletion
+  use 'cmp',                                     -- Autocompletion
   { 'mawkler/friendly-snippets' },               -- Snippet collection
   use 'treesitter',
   { 'JoosepAlviste/nvim-ts-context-commentstring' },

@@ -52,58 +52,6 @@ omap aL <Plug>(textobj-line-a)
 xmap iL <Plug>(textobj-line-i)
 omap iL <Plug>(textobj-line-i)
 
-" -- Fzf --
-function FZF_files(dir)
-  echohl Comment
-  if &cmdheight > 0 |
-    echo 'Directory: ' . fnamemodify(a:dir, ':~')
-  endif
-  echohl None
-  exe 'FilesWithDevicons ' .. a:dir
-endf
-
-let g:fzf_layout = {
-      \ 'window': {
-      \   'width': 0.9,
-      \   'height': 0.8,
-      \   'highlight': 'SpecialKey',
-      \   'border': 'rounded'
-      \ }}
-" TODO: Check if we're in a git repo, if we are, use telescope
-nmap <silent> <leader><C-p> :call FZF_files('~')<CR>
-let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --ignore-file-case-insensitive --ignore-file=$HOME/.config/nvim/.ignore-nvim'
-let $FZF_DEFAULT_OPTS = '
-      \ --multi
-      \ --prompt ">>> "
-      \ --pointer="▶"
-      \ --info=inline
-      \ --history=' . $HOME . '/.fzf_history
-      \ --history-size=10000
-      \ '
-
-augroup fzf
-  autocmd!
-  autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
-augroup END
-
-let g:fzf_mru_case_sensitive = 0
-let g:fzf_colors = {
-      \ "fg":      ["fg", "Normal"],
-      \ "fg+":     ["fg", "Question", "CursorColumn", "Normal"],
-      \ "bg":      ["bg", "Normal"],
-      \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
-      \ "hl":      ["fg", "ErrorMsg"],
-      \ "hl+":     ["fg", "ErrorMsg"],
-      \ "gutter":  ["bg", "Normal"],
-      \ "pointer": ["fg", "Question"],
-      \ "marker":  ["fg", "Title"],
-      \ "border":  ["fg", "VisualNC"],
-      \ "header":  ["fg", "WildMenu"],
-      \ "info":    ["fg", "ErrorMsg"],
-      \ "spinner": ["fg", "Question"],
-      \ "prompt":  ["fg", "Question"]
-      \ }
-
 " -- vim-printer --
 let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
