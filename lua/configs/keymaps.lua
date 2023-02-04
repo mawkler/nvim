@@ -193,6 +193,7 @@ map({'n', 'x'}, '<C-e>', '5<C-e>')
 map('n', '<leader>zz', '<cmd>Lazy<CR>')
 map('n', '<leader>zi', '<cmd>Lazy install<CR>')
 map('n', '<leader>zu', '<cmd>Lazy update<CR>')
+map('n', '<leader>zc', '<cmd>Lazy clean<CR>')
 map('n', '<leader>zp', '<cmd>Lazy profile<CR>')
 
 vim.api.nvim_create_augroup('CmdWinMaps', {})

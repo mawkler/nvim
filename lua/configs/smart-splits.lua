@@ -13,7 +13,8 @@ return { 'mrjones2014/smart-splits.nvim',
     '<Right>',
     '<C-w>z',
   },
-  config = function() import('smart-splits', function(smart_splits)
+  config = function()
+    local smart_splits = require('smart-splits')
     local map = require('utils').map
 
     smart_splits.setup({})
@@ -34,6 +35,5 @@ return { 'mrjones2014/smart-splits.nvim',
     map('n', '<Up>',    resize('up'),                   'Resize up')
     map('n', '<Right>', resize('right'),                'Resize right')
     map('n', '<C-w>z',  smart_splits.start_resize_mode, 'Enter resize mode')
-  end)
   end,
 }

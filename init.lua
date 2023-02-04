@@ -1,6 +1,5 @@
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient') -- Should be loaded before any other plugin
-require('import') -- Better `require`
 
 -- Lazy
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -17,12 +16,12 @@ end
 vim.opt.rtp:prepend(lazy_path)
 
 -- General config
-import('configs.options')
-import('configs.keymaps')
-import('configs.autocmds')
-import('configs.commands')
-import('configs.diagnostics')
-import('configs.neovide')
+require('configs.options')
+require('configs.keymaps')
+require('configs.autocmds')
+require('configs.commands')
+require('configs.diagnostics')
+require('configs.neovide')
 vim.cmd.source('~/.config/nvim/config.vim')
 
 --- Import plugin config from external module in `lua/configs/`
@@ -30,8 +29,7 @@ local function use(module)
   return require(string.format('configs.%s', module))
 end
 
-import('lazy', function(lazy) lazy.setup({
-  { 'miversen33/import.nvim' },                   -- A better Lua 'require()'
+require('lazy').setup({
   'folke/lazy.nvim',                              -- Package manager
   { 'tpope/vim-fugitive',                         -- :Git commands
     dependencies = 'tpope/vim-dispatch',          -- Asynchronous `:Gpush`, etc.
@@ -165,4 +163,4 @@ import('lazy', function(lazy) lazy.setup({
   --     },
   --   }
   -- }
-}) end)
+})

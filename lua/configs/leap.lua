@@ -1,9 +1,20 @@
 ----------
 -- Leap --
 ----------
+
+local mode = {'n', 'x', 'o'}
+
 return { 'ggandor/leap.nvim',
   dependencies = 'tpope/vim-repeat',
-  keys = { 'zj', 'zk', 'zl', 'zh', 'zJ', 'zK', '<CR>' },
+  keys = {
+    { 'zj',   '<Plug>(leap-forward)',      mode = mode,       desc = 'Leap downwards' },
+    { 'zl',   '<Plug>(leap-forward)',      mode = mode,       desc = 'Leap downwards' },
+    { 'zk',   '<Plug>(leap-backward)',     mode = mode,       desc = 'Leap upwards' },
+    { 'zh',   '<Plug>(leap-backward)',     mode = mode,       desc = 'Leap upwards' },
+    { 'zJ',   '<Plug>(leap-forward-x)',    mode = mode,       desc = 'Leap downwards (inclusive)' },
+    { 'zK',   '<Plug>(leap-backward-x)',   mode = mode,       desc = 'Leap upwards (inclusive)' },
+    { '<CR>', '<Plug>(leap-cross-window)', mode = mode, desc = 'Leap to any window' },
+  },
   init = function()
     local map = require('utils').map
     -- Move default zj/zk bindings to ]z/[z
@@ -12,8 +23,6 @@ return { 'ggandor/leap.nvim',
   end,
   config = function()
     local utils = require('utils')
-    local map = utils.map
-
     require('leap').setup({
       case_sensitive = false,
       substitute_chars = {
@@ -25,14 +34,6 @@ return { 'ggandor/leap.nvim',
         '[', ']', 'H', 'L', 'F', ':', '"',
       },
     })
-
-    map({'n', 'x', 'o'}, 'zj',   '<Plug>(leap-forward)',      'Leap downwards')
-    map({'n', 'x', 'o'}, 'zl',   '<Plug>(leap-forward)',      'Leap downwards')
-    map({'n', 'x', 'o'}, 'zk',   '<Plug>(leap-backward)',     'Leap upwards')
-    map({'n', 'x', 'o'}, 'zh',   '<Plug>(leap-backward)',     'Leap upwards')
-    map({'n', 'x', 'o'}, 'zJ',   '<Plug>(leap-forward-x)',    'Leap downwards (inclusive)')
-    map({'n', 'x', 'o'}, 'zK',   '<Plug>(leap-backward-x)',   'Leap upwards (inclusive)')
-    map({'n', 'x'},      '<CR>', '<Plug>(leap-cross-window)', 'Leap to any window')
 
     vim.api.nvim_create_augroup('Leap', {})
     vim.api.nvim_create_autocmd('User', {

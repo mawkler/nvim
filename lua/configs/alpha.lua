@@ -65,13 +65,7 @@ return { 'goolord/alpha-nvim',
       version.minor,
       version.patch
     )
-    local import_failure_count = require('import').get_failure_count()
 
-    Footer:add(
-      '',
-      tostring(import_failure_count) .. ' import(s) failed',
-      import_failure_count > 0
-    )
     Footer:add('', loaded_plugins)
     Footer:add('', version_string)
     Footer:add('', date)
