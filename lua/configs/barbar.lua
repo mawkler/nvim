@@ -1,6 +1,8 @@
 ------------
 -- Barbar --
 ------------
+local map = require('utils').map
+
 vim.g.bufferline = {
   closable = false,
   no_name_title = '[No Name]',
@@ -15,9 +17,11 @@ vim.g.bufferline = {
 
 return { 'romgrk/barbar.nvim',
   event = 'BufAdd',
+  init = function()
+    -- Fallback if Barbar hasn't been loaded yet
+    map('n', '<leader><M-w>', '<cmd>bdelete!<CR>')
+  end,
   config = function()
-    local map = require('utils').map
-
     map('n', '<M-w>',           '<cmd>BufferClose<CR>')
     map('n', '<M-W>',           '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
     map('n', '<leader>bC',      '<cmd>BufferClose<CR><cmd>wincmd c<CR>')

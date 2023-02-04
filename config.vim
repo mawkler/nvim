@@ -56,63 +56,6 @@ omap iL <Plug>(textobj-line-i)
 let g:vim_printer_print_below_keybinding = 'gp'
 let g:vim_printer_print_above_keybinding = 'gP'
 
-" -- LaTeX and Vimtex --
-let g:tex_indent_items = 0      " Disables indent before new `\item`
-let g:vimtex_indent_enabled = 0 " Disables indent before new `\item` by VimTex
-let g:tex_comment_nospell = 1
-let g:vimtex_view_method = 'zathura' " Zathura automatically reloads documents
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_complete_bib = {'simple': 1}
-let g:vimtex_toc_config = {
-      \ 'layer_status': { 'label': 0 }
-      \ }
-
-" Disable custom warnings based on regexp
-let g:vimtex_quickfix_ignore_filters = [
-      \ 'Underfull \\hbox',
-      \ ]
-" Disables default mappings that start with `t`
-let g:vimtex_mappings_disable = {
-      \ 'x': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
-      \ 'n': ['tsf', 'tsc', 'tse', 'tsd', 'tsD'],
-      \ }
-let g:vimtex_toc_config = {
-      \ 'todo_sorted': 1,
-      \ 'split_width': 30,
-      \ 'name': 'Table of contents (vimtex)',
-      \ 'hotkeys_leader': '',
-      \ 'show_numbers': 1,
-      \ 'hotkeys_enabled': 1,
-      \ 'hotkeys': 'acdeilmopuvwx',
-      \ 'show_help': 0,
-      \ 'layer_status': { 'label': 0, 'todo': 0},
-      \ }
-let g:vimtex_syntax_conceal = {'sections': 1}
-let g:vimtex_syntax_conceal_cites = {
-      \ 'type': 'icon',
-      \ 'icon': '龎',
-      \}
-let g:vimtex_syntax_custom_cmds = [
-      \ {'name': 'texttt', 'conceal': v:true},
-      \]
-
-augroup latex
-  autocmd!
-  " `:` counts as a separator
-  autocmd FileType latex,tex setlocal iskeyword-=:
-  autocmd FileType latex,tex nmap <buffer> <silent> <leader>t <Plug>(vimtex-toc-open)
-  " Fixes issue with spell check only in comments
-  autocmd FileType latex,tex syntax spell toplevel
-  autocmd ColorScheme * call s:texHighlight()
-augroup END
-
-function! s:texHighlight() abort
-  " Special highlight for \texttt{}
-  " highlight link texCTextttArg String
-  " highlight link texPartArgTitle DiffDelete
-endf
-call s:texHighlight()
-
 " -- textobj-entire --
 let g:textobj_entire_no_default_key_mappings = 1
 " Allow `ie` and `ae` in all file types except `tex` files

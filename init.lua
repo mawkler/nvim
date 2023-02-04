@@ -121,8 +121,8 @@ require('lazy').setup({
   { 'kana/vim-textobj-user' },
   { 'kana/vim-textobj-line' },
   { 'kana/vim-textobj-entire' },
-  { 'lervag/vimtex', ft = {'tex', 'latex'} },
-  use 'indent-tools',
+  use 'vimtex',                                  -- LaTeX utilities
+  use 'indent-tools',                            -- Indent text objects
   use 'targets',                                 -- Adds 'next' text object, etc.
   { 'romainl/vim-cool' },                        -- Better search highlighting behaviour
   { 'plasticboy/vim-markdown', ft = 'markdown' },
