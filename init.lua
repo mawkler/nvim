@@ -1,21 +1,7 @@
 -- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
 require('impatient') -- Should be loaded before any other plugin
 
--- Lazy
-local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazy_path) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--branch=stable",
-    "https://github.com/folke/lazy.nvim.git",
-    lazy_path,
-  })
-end
-vim.opt.rtp:prepend(lazy_path)
-
--- General config
+-- General configs
 require('configs.options')
 require('configs.keymaps')
 require('configs.autocmds')
@@ -24,12 +10,15 @@ require('configs.diagnostics')
 require('configs.neovide')
 vim.cmd.source('~/.config/nvim/config.vim')
 
+-- Lazy
+require('utils.lazy')
+
 --- Import plugin config from external module in `lua/configs/`
 local function use(module)
   return require(string.format('configs.%s', module))
 end
 
-require('lazy').setup({
+local plugins = {
   'folke/lazy.nvim',                              -- Package manager
   { 'tpope/vim-fugitive',                         -- :Git commands
     dependencies = 'tpope/vim-dispatch',          -- Asynchronous `:Gpush`, etc.
@@ -153,14 +142,11 @@ require('lazy').setup({
   },
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
+}
 
-  -- , config = {
-  --   profile = { enable = false, },
-  --   display = {
-  --     keybindings = {
-  --       quit = '<Esc>',
-  --       toggle_info = '<Space>',
-  --     },
-  --   }
-  -- }
+require('lazy').setup({
+  spec = plugins,
+  install = {
+    colorscheme = { 'onedark' },
+  },
 })
