@@ -39,3 +39,23 @@ api.nvim_create_user_command(
   function() yank_file_path('%:~') end,
   { desc = "Yank current file's absolute path" }
 )
+
+api.nvim_create_user_command(
+  'Trash',
+  function(command)
+    local file = command.args or '%'
+    vim.cmd('silent !trash ' .. file)
+
+    if file == '%' then
+      vim.cmd('BufferClose')
+    end
+  end,
+  {
+    bar = true,
+    bang = true,
+    nargs = '?',
+    complete = 'file',
+    desc = 'Put current file in trashcan using trash-cli',
+  }
+)
+

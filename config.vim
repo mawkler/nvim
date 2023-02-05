@@ -16,13 +16,6 @@ function MarkdownGf()
 endf
 nnoremap gf :call MarkdownGf()<CR>
 
-" Puts current file in trashcan using trash-cli
-command! -bar -bang -nargs=? -complete=file Trash
-      \ let s:file = fnamemodify(bufname(<q-args>),':p') |
-      \ execute 'BufferClose<bang>' |
-      \ execute 'silent !trash ' . s:file |
-      \ unlet s:file
-
 " Gets the highlight value of highlight group `name`
 " Set `layer` to either 'fg' or 'bg'
 function GetHiVal(name, layer)
