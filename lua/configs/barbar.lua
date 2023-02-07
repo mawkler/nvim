@@ -15,8 +15,12 @@ vim.g.bufferline = {
   },
 }
 
-return { 'romgrk/barbar.nvim',
+return {
+  'romgrk/barbar.nvim',
   event = 'BufAdd',
+  keys = {
+    { '<leader>wn', '<cmd>tab split<CR>' }
+  },
   init = function()
     -- Fallback if Barbar hasn't been loaded yet
     map('n', '<leader><M-w>', '<cmd>bdelete!<CR>')
