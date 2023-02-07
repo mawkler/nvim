@@ -1,11 +1,4 @@
 {
-  "date": {
-    "prefix": ["date", "today"],
-    "body": [
-      "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE"
-    ],
-    "description": "Current date"
-  },
   "mvh": {
     "prefix": "mvh",
     "body": [
