@@ -73,7 +73,7 @@ return { 'neovim/nvim-lspconfig',
       settings = {
         Lua = {
           diagnostics = {
-            globals = { 'use', 'packer_plugins', 'import' },
+            globals = { 'vim' },
           },
           completion = {
             callSnippet = 'Replace',
