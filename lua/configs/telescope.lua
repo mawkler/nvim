@@ -57,9 +57,7 @@ return { 'nvim-telescope/telescope.nvim',
     local multi_open_mappings = require('configs.telescope-multiopen')
 
     -- Zoxide
-    require('telescope._extensions.zoxide.config').setup({
-      prompt_title = 'Zoxide',
-    })
+    require('telescope._extensions.zoxide.config').setup({})
 
     telescope.setup {
       defaults = {
@@ -143,6 +141,10 @@ return { 'nvim-telescope/telescope.nvim',
             .. '--ignore-glob=.git',
           dir_command = cder_dir_cmd,
         },
+        zoxide = {
+          prompt_title = 'Zoxide',
+          verbose = false,
+        }
       }
     }
 
