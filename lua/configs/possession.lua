@@ -1,10 +1,20 @@
 ----------------
 -- Possession --
 ----------------
+
+local function list_sessions()
+  local telescope, themes = require('telescope'), require('telescope.themes')
+  telescope.extensions.possession.list(themes.get_dropdown({
+    previewer = false,
+  }))
+end
+
 return { 'jedrzejboczar/possession.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
   event = 'VimLeavePre',
-  keys = '<leader>s',
+  keys = {
+    { '<leader>s', list_sessions, { desc = 'Open session' } },
+  },
   cmd = {
     'SessionSave',
     'SessionLoad',
@@ -15,9 +25,7 @@ return { 'jedrzejboczar/possession.nvim',
     'SessionMigrate',
   },
   config = function()
-    local map = require('utils').map
-    local telescope, themes = require('telescope'), require('telescope.themes')
-
+    local telescope = require('telescope')
     local delete_hidden_filetypes = { 'toggleterm' }
 
     require('possession').setup({
@@ -51,13 +59,5 @@ return { 'jedrzejboczar/possession.nvim',
     })
 
     telescope.load_extension('possession')
-
-    local function list_sessions()
-      telescope.extensions.possession.list(themes.get_dropdown({
-        previewer = false,
-      }))
-    end
-
-    map('n', '<leader>s', list_sessions, { desc = 'Sessions' })
   end
 }
