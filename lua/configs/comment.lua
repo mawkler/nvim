@@ -11,9 +11,9 @@ return { 'numToStr/Comment.nvim',
     { '<leader>cb', '<Plug>(comment_toggle_blockwise)' },
     { '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)', mode = 'x' },
     { '<leader>cc', '<Plug>(comment_toggle_linewise)' },
-    { '<leader>cp', 'yycmp', { remap = true }  },
     { '<leader><', mode = 'x' },
     { '<leader>>', mode = 'x' },
+    '<leader>cp',
   },
   config = function()
     local map = require('utils').map
@@ -79,5 +79,12 @@ return { 'numToStr/Comment.nvim',
     comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
     comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
     comment_map('x', '<leader><',    'uncomment_current_linewise_op')
+
+
+    -- For some reason, putting this in lazy's `keys` doesn't work. I'm
+    -- guessing that Lazy doesn't get the `remap` right
+    map('n', '<leader>cp', 'yycmp', {
+      remap = true, desc = 'Comment and duplicate line'
+    })
   end,
 }
