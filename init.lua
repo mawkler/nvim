@@ -112,7 +112,7 @@ local plugins = {
   { 'kana/vim-textobj-entire' },
   use 'vimtex',                                  -- LaTeX utilities
   use 'indent-tools',                            -- Indent text objects
-  use 'targets',                                 -- Adds 'next' text object, etc.
+  use 'ai',                                      -- next/previous text objects
   { 'romainl/vim-cool' },                        -- Better search highlighting behaviour
   { 'plasticboy/vim-markdown', ft = 'markdown' },
   { 'coachshea/vim-textobj-markdown', ft = 'markdown' },

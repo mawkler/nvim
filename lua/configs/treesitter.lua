@@ -32,24 +32,7 @@ return { 'nvim-treesitter/nvim-treesitter',
           enable = true,
           lookahead = true, -- Automatically jump forward to textobject
           include_surrounding_whitespace = include_surrounding_whitespace,
-          keymaps = {
-            ['aF'] = '@function.outer',
-            ['iF'] = '@function.inner',
-            ['aC'] = '@class.outer',
-            ['iC'] = '@class.inner',
-            ['af'] = '@call.outer',
-            ['if'] = '@call.inner',
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['ac'] = '@comment.outer',
-            ['ic'] = '@comment.outer', -- `@comment.innner` is not implemented
-            ['ai'] = '@conditional.outer',
-            ['ii'] = '@conditional.inner',
-            ['ao'] = '@loop.outer',
-            ['io'] = '@loop.inner',
-            ['ak'] = '@block.outer',
-            ['ik'] = '@block.inner',
-          },
+          keymaps = require('configs.treesitter.config').get_keymaps(),
           selection_modes = {
             -- Make `aF` and `aC` line-wise
             ['@function.outer'] = 'V',
