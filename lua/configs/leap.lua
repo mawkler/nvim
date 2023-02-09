@@ -7,12 +7,12 @@ local mode = {'n', 'x', 'o'}
 return { 'ggandor/leap.nvim',
   dependencies = 'tpope/vim-repeat',
   keys = {
-    { 'zj',   '<Plug>(leap-forward)',      mode = mode,       desc = 'Leap downwards' },
-    { 'zl',   '<Plug>(leap-forward)',      mode = mode,       desc = 'Leap downwards' },
-    { 'zk',   '<Plug>(leap-backward)',     mode = mode,       desc = 'Leap upwards' },
-    { 'zh',   '<Plug>(leap-backward)',     mode = mode,       desc = 'Leap upwards' },
-    { 'zJ',   '<Plug>(leap-forward-x)',    mode = mode,       desc = 'Leap downwards (inclusive)' },
-    { 'zK',   '<Plug>(leap-backward-x)',   mode = mode,       desc = 'Leap upwards (inclusive)' },
+    { 'zj',   '<Plug>(leap-forward)',      mode = mode, desc = 'Leap downwards' },
+    { 'zl',   '<Plug>(leap-forward)',      mode = mode, desc = 'Leap downwards' },
+    { 'zk',   '<Plug>(leap-backward)',     mode = mode, desc = 'Leap upwards' },
+    { 'zh',   '<Plug>(leap-backward)',     mode = mode, desc = 'Leap upwards' },
+    { 'zJ',   '<Plug>(leap-forward-x)',    mode = mode, desc = 'Leap downwards (inclusive)' },
+    { 'zK',   '<Plug>(leap-backward-x)',   mode = mode, desc = 'Leap upwards (inclusive)' },
     { '<CR>', '<Plug>(leap-cross-window)', mode = mode, desc = 'Leap to any window' },
   },
   init = function()
