@@ -174,8 +174,9 @@ map('n', '<Esc>', function()
   utils.close_floating_windows()
   if bo.modifiable then
     utils.clear_lsp_references()
-  else
-    return feedkeys('<C-w>c')
+  else if #vim.api.nvim_list_wins() > 1 then
+      return feedkeys('<C-w>c')
+    end
   end
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
