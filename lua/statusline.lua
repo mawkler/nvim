@@ -1,6 +1,5 @@
-local bo, fn, call = vim.bo, vim.fn, vim.call
+local bo, fn = vim.bo, vim.fn
 local mode = require('feline.providers.vi_mode')
-local gps = require('nvim-gps')
 local luasnip = require('luasnip')
 
 local components = { active = { {}, {}, {} } }
@@ -227,20 +226,6 @@ table.insert(active_left, {
 --------------------
 -- Middle section --
 --------------------
-
--- GPS
-gps.setup({ separator = '  ' })
-
-table.insert(active_mid, {
-  provider = gps.get_location,
-  short_provider = function() return gps.get_location({ depth = 1 }) end,
-  hl = { fg = 'darkgray' },
-  enabled = function()
-    return gps.is_available() and not luasnip.in_snippet()
-  end,
-  truncate_hide = true,
-  priority = -1
-})
 
 -- Snippet indicator
 table.insert(active_mid, {

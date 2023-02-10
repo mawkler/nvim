@@ -4,7 +4,6 @@
 return { 'feline-nvim/feline.nvim',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
-    'SmiteshP/nvim-gps',
     'nvim-lua/lsp-status.nvim',
   },
   config = function()
