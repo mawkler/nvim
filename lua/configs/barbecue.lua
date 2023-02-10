@@ -8,6 +8,8 @@ return { 'utilyre/barbecue.nvim',
     'kyazdani42/nvim-web-devicons',
   },
   -- event = 'LspAttach', -- Throws error when null-ls attaches for some reason
+  -- Temporary fix for https://github.com/utilyre/barbecue.nvim/issues/61
+  branch = 'fix/E36',
   config = function()
     local colors = require('utils.colorscheme').colors
     local get_highlight_fg = require('utils.colorscheme').get_highlight_fg
