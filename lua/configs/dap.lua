@@ -8,7 +8,7 @@ return { 'mfussenegger/nvim-dap',
     'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
     'jay-babu/mason-nvim-dap.nvim',     -- Automatic DAP configuration
     'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
-    'williamboman/mason.nvim',
+    'williamboman/mason.nvim',          -- Manage DAP adapters
   },
   -- TODO: fix lazy loading
   -- keys = {
@@ -72,6 +72,10 @@ return { 'mfussenegger/nvim-dap',
     map('n', '<leader>djF', jester.run_file,   'DAP Jester run file')
     map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
 
+    -- Go to breakpoints
+    map('n', ']b', breakpoint.next, 'Go to next breakpoint')
+    map('n', '[b', breakpoint.prev, 'Go to previous breakpoint')
+
     -- DAP virtual text --
     require('nvim-dap-virtual-text').setup()
 
@@ -125,41 +129,32 @@ return { 'mfussenegger/nvim-dap',
     for _, language in ipairs({ 'typescript', 'javascript' }) do
       require('dap').configurations[language] = {
         {
+          name = 'Debug Jest Unit Tests (default)',
           type = 'pwa-node',
           request = 'launch',
-          name = 'Debug Jest Tests beep boop',
-          runtimeExecutable = 'node',
           runtimeArgs = {
             './node_modules/jest/bin/jest.js',
             '--runInBand',
           },
-          rootPath = '${workspaceFolder}',
           cwd = '${workspaceFolder}',
           console = 'integratedTerminal',
           internalConsoleOptions = 'neverOpen',
         },
         {
-          type = 'pwa-node',
-          request = 'launch',
-          name = 'Launch file',
-          program = '${file}',
-          cwd = '${workspaceFolder}',
-        },
-        {
+          name = 'Attach to running process (default)',
           type = 'pwa-node',
           request = 'attach',
-          name = 'Attach',
           processId = require('dap.utils').pick_process,
           cwd = '${workspaceFolder}',
         }
-
       }
     end
 
     -- Loads .vscode/launch.json files if available
-    require('dap.ext.vscode').load_launchjs(nil, { node = {'typescript'} })
+    require('dap.ext.vscode').load_launchjs(nil, {
+      ['pwa-node'] = { 'typescript' },
+      ['node'] = { 'typescript' },
+    })
 
-    map('n', ']b', breakpoint.next, 'Go to next breakpoint')
-    map('n', '[b', breakpoint.prev, 'Go to previous breakpoint')
   end,
 }
