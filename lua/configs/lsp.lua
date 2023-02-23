@@ -256,10 +256,10 @@ return { 'neovim/nvim-lspconfig',
 
       map('n',        'gh',        lsp.buf.hover,          'LSP hover')
       map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
-      map({'i'; 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
-      map({'n'; 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
-      map({'n'; 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
-      map({'n'; 'x'}, '<leader>A', lsp.codelens.run,       'LSP code lens')
+      map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
+      map({'n', 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
+      map({'n', 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
+      map({'n', 'x'}, '<leader>A', lsp.codelens.run,       'LSP code lens')
 
       map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
       map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')

@@ -19,6 +19,6 @@ return {
     term    = colors.green0,
   },
   -- Names of all colorschemes, to be used by Packer's `after`/`wants`
-  colorscheme_names = { 'onedark.nvim' },
+  colorscheme_names = { 'mawkler/onedark.nvim' },
   get_highlight_fg = get_highlight_fg
 }

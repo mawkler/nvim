@@ -1,5 +1,4 @@
--- Remove once https://github.com/neovim/neovim/pull/15436 gets merged
-require('impatient') -- Should be loaded before any other plugin
+local use = require('utils').use
 
 -- General configs
 require('configs.options')
@@ -8,15 +7,9 @@ require('configs.autocmds')
 require('configs.commands')
 require('configs.diagnostics')
 require('configs.neovide')
-vim.cmd.source('~/.config/nvim/config.vim')
 
 -- Lazy
 require('utils.lazy')
-
---- Import plugin config from external module in `lua/configs/`
-local function use(module)
-  return require(string.format('configs.%s', module))
-end
 
 local plugins = {
   'folke/lazy.nvim',                              -- Package manager
@@ -92,13 +85,12 @@ local plugins = {
   use 'comment',
   use 'rest',                                    -- Sending HTTP requests
   use 'dap',                                     -- Debugger
-  use 'dap-ui',                                  -- UI for nvim-dap
+  -- use 'dap-ui',                                  -- UI for nvim-dap
   use 'overseer',                                -- Task runner
   -- { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   use 'onedark',
   use 'refactoring',
   use 'guess-indent',
-  { 'lewis6991/impatient.nvim' },                -- Improve startup time for Neovim
   use 'yanky',                                   -- Cycle register history, etc.
   use 'surround',
   use 'quick-scope',
@@ -150,3 +142,5 @@ require('lazy').setup({
     colorscheme = { 'onedark' },
   },
 })
+
+vim.cmd.source('~/.config/nvim/config.vim')

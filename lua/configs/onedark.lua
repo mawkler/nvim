@@ -1,7 +1,7 @@
 -------------
 -- Onedark --
 -------------
-return { 'mawkler/onedark.nvim', priority = 1001, config = function()
+return { 'mawkler/onedark.nvim', priority = 999, config = function()
   local colors = require('onedark.colors').setup()
   local style = require('onedark.types').od.HighlightStyle
 

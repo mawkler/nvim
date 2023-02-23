@@ -2,8 +2,8 @@
 -- Treesitter --
 ----------------
 return { 'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',
   dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
+  build = ':TSUpdate',
   config = function ()
     local map = require('utils').map
 

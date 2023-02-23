@@ -2,7 +2,7 @@
 -- HighlightURL --
 ------------------
 return { 'itchyny/vim-highlighturl',
-  init = function()
+  config = function()
     local autocmd = vim.api.nvim_create_autocmd
     local augroup = vim.api.nvim_create_augroup
     local colors = require('utils.colorscheme').colors

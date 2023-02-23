@@ -2,10 +2,6 @@
 -- Substitute --
 ----------------
 
-local map = require('utils').map
-local substitute = require('substitute')
-local exchange = require('substitute.exchange')
-
 return { 'gbprod/substitute.nvim',
   keys = {
     { 'su',         mode = { 'n', 'x' } },
@@ -16,6 +12,10 @@ return { 'gbprod/substitute.nvim',
   },
   dependencies = 'gbprod/yanky.nvim',
   config = function()
+    local map = require('utils').map
+    local substitute = require('substitute')
+    local exchange = require('substitute.exchange')
+
     local function sub_clipboard(action)
       return function()
         substitute[action]({ register = '+' })

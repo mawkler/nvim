@@ -1,4 +1,5 @@
 return { 'ThePrimeagen/git-worktree.nvim',
+  dependencies = 'nvim-telescope/telescope.nvim',
   config = function()
     local map = require('utils').map
     local telescope_worktree = require('telescope').extensions.git_worktree

@@ -2,7 +2,7 @@
 -- Unception --
 ---------------
 return { 'samjwill/nvim-unception',
-  -- after = 'akinsho/toggleterm.nvim',
+  dependencies = 'akinsho/toggleterm.nvim',
   config = function()
     vim.api.nvim_create_autocmd(
       'User',

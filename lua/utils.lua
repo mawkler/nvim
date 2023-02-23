@@ -42,7 +42,7 @@ local function lsp_server_has_references()
   return false
 end
 
--- Clear all highlighted LSP references in all windows
+--- Clear all highlighted LSP references in all windows
 M.clear_lsp_references = function()
   vim.cmd('nohlsearch')
   if lsp_server_has_references() then
@@ -53,7 +53,7 @@ M.clear_lsp_references = function()
   end
 end
 
--- Close every floating window
+--- Close every floating window
 M.close_floating_windows = function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative == 'win' then
@@ -62,9 +62,21 @@ M.close_floating_windows = function()
   end
 end
 
--- Get Mason package install path
+--- Get Mason package install path
  M.get_install_path = function(package)
   return require('mason-registry').get_package(package):get_install_path()
+end
+
+
+--- Import plugin config from external module in `lua/configs/`
+M.use = function(module)
+  local ok, m = pcall(require, string.format('configs.%s', module))
+  if ok then
+    return m
+  else
+    vim.notify(string.format('Failed to import module %s', module))
+    return {}
+  end
 end
 
 return M
