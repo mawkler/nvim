@@ -69,7 +69,6 @@ local plugins = {
   use 'luasnip',                                 -- Snippet engine
   use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
-  { 'mawkler/friendly-snippets' },               -- Snippet collection
   use 'treesitter',
   { 'JoosepAlviste/nvim-ts-context-commentstring' },
   { 'nvim-treesitter/playground',
