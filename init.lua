@@ -29,7 +29,6 @@ local plugins = {
   { 'kana/vim-niceblock',                        -- Improves visual mode
     event = 'ModeChanged *:[vV]',
   },
-  { 'kana/vim-textobj-syntax' },
   { 'AndrewRadev/splitjoin.vim',                 -- Multiline split expressions
     dependencies = 'tpope/vim-repeat',
     keys = {'gS', 'gJ'},
@@ -39,9 +38,6 @@ local plugins = {
     keys = '<Plug>(EasyAlign)'
   },
   use 'autolist',                                -- Autocomplete lists
-  { 'Julian/vim-textobj-variable-segment',       -- camelCase and snake_case text objects
-    keys = {{'iv', mode = { 'o', 'x' }}, {'av', mode = {'o', 'x'}}},
-  },
   { 'wsdjeg/vim-fetch' },                        -- Line and column position when opening file
   { 'meain/vim-printer', keys = 'gp' },
   use 'windows',                                 -- Automatic window resizing
@@ -98,15 +94,16 @@ local plugins = {
   { 'vim-scripts/capslock.vim', event = 'InsertEnter' },
   { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' },
   use 'git-conflict',                            -- Git conflict mappings
-  { 'kana/vim-textobj-user' },
-  { 'kana/vim-textobj-line' },
-  { 'kana/vim-textobj-entire' },
+  use 'vim-textobj',                             -- Custom text objects
   use 'vimtex',                                  -- LaTeX utilities
   use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
-  { 'romainl/vim-cool' },                        -- Better search highlighting behaviour
-  { 'plasticboy/vim-markdown', ft = 'markdown' },
-  { 'coachshea/vim-textobj-markdown', ft = 'markdown' },
+  { 'romainl/vim-cool' },                        -- Better search highlighting
+  { 'plasticboy/vim-markdown', ft = 'markdown' },-- Markdown utilities
+  { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
+    dependencies = 'kana/vim-textobj-user',
+    ft = 'markdown'
+  },
   use 'substitute',                              -- Replace/exchange operators
   use 'highlighturl',
   use 'messages',                                -- Floating :messages window
