@@ -7,14 +7,13 @@ return { 'nvim-treesitter/nvim-treesitter',
   config = function ()
     local map = require('utils').map
 
-    local include_surrounding_whitespace = function(selection)
+    local function include_surrounding_whitespace(selection)
       local queries = {
         '@function.outer',
         '@class.outer',
         '@parameter.outer',
         '@block.outer',
       }
-
       return vim.tbl_contains(queries, selection.query_string)
     end
 
@@ -24,9 +23,7 @@ return { 'nvim-treesitter/nvim-treesitter',
         enable = true,
         disable = {'latex', 'vim', 'gitcommit'},
       },
-      indent = {
-        enable = true,
-      },
+      indent = { enable = true },
       textobjects = {
         select = {
           enable = true,
