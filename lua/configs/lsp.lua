@@ -177,12 +177,13 @@ return { 'neovim/nvim-lspconfig',
         -- Fallback setup for any other language
         lspconfig[server_name].setup({})
       end,
-      sumneko_lua = setup('sumneko_lua', lua_config),
+      lua_ls = setup('lua_ls', lua_config),
       yamlls = setup('yamlls', yaml_config),
       bashls = setup('bashls', bash_config),
       jsonls = setup('jsonls', json_config),
       bicep = setup('bicep', bicep_config),
       ltex = setup('ltex', ltex_config),
+      eslint = setup('eslint', eslint_config),
       rust_analyzer = function()
         return rust_tools.setup(rust_config)
       end,
@@ -219,7 +220,7 @@ return { 'neovim/nvim-lspconfig',
     -------------
     -- Keymaps --
     -------------
-    local INFO = vim.diagnostic.severity.INFO
+    local INFO = diagnostic.severity.INFO
     local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
     local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
     local with_border = {float = { border = 'single' }}

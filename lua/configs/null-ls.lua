@@ -15,7 +15,6 @@ return { 'jose-elias-alvarez/null-ls.nvim',
       builtins.formatting.prettierd,
       builtins.hover.dictionary,
       -- builtins.diagnostics.eslint_d,
-      -- builtins.formatting.eslint_d,
       -- builtins.code_actions.eslint_d,
     }
 

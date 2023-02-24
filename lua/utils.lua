@@ -74,7 +74,7 @@ M.use = function(module)
   if ok then
     return m
   else
-    vim.notify(string.format('Failed to import module %s', module))
+    vim.notify(string.format('Failed to import Lazy config module %s: %s', module, m))
     return {}
   end
 end

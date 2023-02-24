@@ -8,11 +8,14 @@ return { 'williamboman/mason.nvim',
 
     require('mason-lspconfig').setup({
       ensure_installed = {
-        'sumneko_lua',
-        'vimls',
-        'bashls',
-        'pylsp',
-        'tsserver',
+        'lua_ls',        -- Lua
+        'rust_analyzer', -- Rust
+        'tsserver',      -- TypeScript
+        'vimls',         -- Vim
+        'bashls',        -- Bash/Zsh
+        'pylsp',         -- Python
+        'lemminx',       -- XML
+        'jsonls',        -- JSON
       },
     })
   end
