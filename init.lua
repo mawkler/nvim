@@ -80,7 +80,7 @@ local plugins = {
   use 'comment',
   use 'rest',                                    -- Sending HTTP requests
   use 'dap',                                     -- Debugger
-  -- use 'dap-ui',                                  -- UI for nvim-dap
+  use 'dap-ui',                                  -- UI for nvim-dap
   use 'overseer',                                -- Task runner
   -- { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   use 'onedark',

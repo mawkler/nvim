@@ -1,23 +1,16 @@
 ------------
 -- Dap UI --
 ------------
-local ui = require('dapui')
-local dap, widgets = require('dap'), require('dap.ui.widgets')
+local function eval() return require('dapui').eval() end
+local function toggle() return require('dapui').toggle() end
+local function hover() return require('dap.ui.widgets').hover() end
 
-return { 'rcarriga/nvim-dap-ui',
+return {
+  'rcarriga/nvim-dap-ui',
   keys = {
-    {
-      '<leader>dd', function()
-        dap.continue()
-        ui.open()
-      end, mode = 'n', desc = 'Toggle DAP UI'
-    },
-    { '<leader>de', ui.eval,       mode = {'n', 'x'}, desc = 'DAP evaluate expression' },
-    { '<leader>dt', ui.toggle,     mode = 'n',        desc = 'DAP toggle UI' },
-    { '<leader>dh', widgets.hover, mode = 'n',        desc = 'DAP hover' },
+    { '<leader>dt', toggle,                    desc = 'DAP toggle UI' },
+    { '<leader>dh', hover,                     desc = 'DAP hover' },
+    { '<leader>de', eval,   mode = {'n', 'x'}, desc = 'DAP evaluate expression' },
   },
-  config = function()
-    ui.setup()
-
-  end
+  config = true
 }
