@@ -113,7 +113,7 @@ return { 'kyazdani42/nvim-tree.lua',
       end,
     })
 
-    vim.api.nvim_create_autocmd({ 'BufLeave', 'WinClosed' }, {
+    vim.api.nvim_create_autocmd({ 'BufLeave', 'WinClosed', 'WinLeave' }, {
       pattern = 'NvimTree*',
       callback = function()
         local def = vim.api.nvim_get_hl_by_name('Cursor', true)
