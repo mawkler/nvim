@@ -15,7 +15,7 @@ return { 'lukas-reineke/indent-blankline.nvim',
         'NvimTree',
         'mason',
         'toggleterm',
-        'packer',
+        'lazy',
       }
     })
   end
