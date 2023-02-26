@@ -9,6 +9,7 @@ config.query_keymaps = {
   i = '@conditional',
   o = '@loop',
   k = '@block',
+  R = '@return',
 }
 
 config.get_keymaps = function()
