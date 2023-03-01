@@ -45,7 +45,7 @@ local plugins = {
   use 'smart-splits',                            -- Better resizing mappings
   { 'junegunn/vim-peekaboo' },                   -- Register selection window
   use 'cheat',                                   -- cheat.sh
-  { 'RRethy/vim-hexokinase', build = 'make' },   -- Displays colour values
+  use 'nvim-colorizer',                          -- Display colour values
   use 'alpha',                                   -- Nicer start screen
   use 'beacon',                                  -- Flash cursor jump
   use 'indent-blankline',                        -- Indent markers
