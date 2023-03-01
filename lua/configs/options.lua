@@ -12,6 +12,7 @@ opt.shortmess:append('cS') -- Disable "[1/5]", "Pattern not found", etc.
 opt.shortmess:append('FW') -- Disable message after editing/writing file
 opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
+opt.sessionoptions:append('globals') -- Store global variables in sessions
 
 -- Windows --
 o.termguicolors   = true  -- Use GUI colors in terminal as well
