@@ -78,8 +78,6 @@ return { 'kyazdani42/nvim-tree.lua',
         -- Recommended defaults
         map('<C-t>', node.open.tab,                  'Open: New Tab')
         map('<C-v>', node.open.vertical,             'Open: Vertical Split')
-        map('>',     node.navigate.sibling.next,     'Next Sibling')
-        map('<',     node.navigate.sibling.prev,     'Previous Sibling')
         map('.',     node.run.cmd,                   'Run Command')
         map(']e',    node.navigate.diagnostics.next, 'Next Diagnostic')
         map('[e',    node.navigate.diagnostics.prev, 'Prev Diagnostic')
