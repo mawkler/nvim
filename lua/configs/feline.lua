@@ -1,7 +1,7 @@
 ------------
 -- Feline --
 ------------
-return { 'feline-nvim/feline.nvim',
+return { 'freddiehaddad/feline.nvim',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-lua/lsp-status.nvim',
