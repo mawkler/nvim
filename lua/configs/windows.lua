@@ -9,6 +9,7 @@ return { 'anuvyklack/windows.nvim',
       animation = { enable = false },
       ignore = {
         buftype = { 'quickfix', 'help' },
+        filetype = { 'toggleterm' },
       }
     })
 

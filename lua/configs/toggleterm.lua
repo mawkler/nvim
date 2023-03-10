@@ -15,9 +15,13 @@ return { 'akinsho/toggleterm.nvim',
     local map = utils.map
     local api = vim.api
 
-    toggleterm.setup {
+    toggleterm.setup({
       open_mapping = '<C-CR>',
-      direction = 'float',
+      direction = 'vertical',
+      insert_mappings = false,
+      persist_mode = true,
+      auto_scroll = false,
+      shading_factor = -10,
       float_opts = {
         border = 'curved',
         winblend = 4,
@@ -26,7 +30,10 @@ return { 'akinsho/toggleterm.nvim',
           border = 'TelescopeBorder',
         },
       },
-    }
+      size = function()
+        return vim.o.columns * 0.5
+      end,
+    })
 
     local function go_to_file(command)
       return function()
@@ -51,6 +58,7 @@ return { 'akinsho/toggleterm.nvim',
           desc = 'Close toggleterm and go to file (and line number)',
           buffer = true,
         })
+        map('t', '<C-w>', [[<C-\><C-n><C-w>]], { buffer = true })
       end,
       group = 'ToggleTerm'
     })
