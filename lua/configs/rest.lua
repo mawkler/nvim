@@ -34,7 +34,7 @@ return { 'NTBBloodbath/rest.nvim',
       callback = function()
         vim.o.wrap = false
 
-        map('n', '<CR>',  '<cmd>w<CR><Plug>RestNvim', { buffer = true })
+        map('n', '<CR>', '<cmd>w<CR><Plug>RestNvim', { buffer = true, silent = true })
       end,
       group = 'RestNvim'
     })

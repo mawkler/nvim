@@ -13,7 +13,7 @@ return { 'neovim/nvim-lspconfig',
   },
   config = function()
     local lsp, diagnostic = vim.lsp, vim.diagnostic
-    local lspconfig = require('lspconfig')
+    local lspconfig, util = require('lspconfig'), require('lspconfig.util')
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
     local rust_tools = require('rust-tools')
@@ -62,6 +62,15 @@ return { 'neovim/nvim-lspconfig',
         map('n', '<leader>lS', spread('['), {
           remap = true,
           desc = 'Spread array under cursor'
+        })
+      end,
+    }
+
+    local eslint_config = {
+      on_attach = function(_, bufnr)
+        vim.api.nvim_create_autocmd('BufWritePre', {
+          buffer = bufnr,
+          command = 'EslintFixAll',
         })
       end,
     }
@@ -210,7 +219,6 @@ return { 'neovim/nvim-lspconfig',
     )
 
     -- Enable LSP snippets by default
-    local util = require('lspconfig.util')
     local capabilities = lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
     util.default_config = vim.tbl_extend('force', util.default_config, {
