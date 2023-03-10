@@ -21,6 +21,7 @@ return {
   keys = {
     { '<leader>wn', '<cmd>tab split<CR>' }
   },
+  cmd = { 'BufferClose' },
   init = function()
     -- Fallback if Barbar hasn't been loaded yet
     map('n', '<leader><M-w>', '<cmd>bdelete!<CR>')

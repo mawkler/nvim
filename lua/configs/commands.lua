@@ -43,7 +43,7 @@ api.nvim_create_user_command(
 api.nvim_create_user_command(
   'Trash',
   function(command)
-    local file = command.args or '%'
+    local file = command.args and command.args ~= '' or '%'
     vim.cmd('silent !trash ' .. file)
 
     if file == '%' then
