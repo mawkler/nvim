@@ -46,9 +46,8 @@ return {
       q = pair("'"),
       Q = pair('"'),
       A = pair('`'),
-      -- `@comment.inner` doesn't exist yet
-      c = gen_spec.treesitter({ a = '@comment.outer', i = '@comment.outer' }),
-      e = entire_buffer()
+      c = gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+      e = entire_buffer,
     })
 
     require('mini.ai').setup({
