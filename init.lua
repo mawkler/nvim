@@ -39,7 +39,7 @@ local plugins = {
   },
   use 'autolist',                                -- Autocomplete lists
   { 'wsdjeg/vim-fetch' },                        -- Line and column position when opening file
-  { 'meain/vim-printer', keys = 'gp' },
+  use 'printer',                                 -- Print text-object
   use 'windows',                                 -- Automatic window resizing
   use 'undotree',
   use 'smart-splits',                            -- Better resizing mappings
