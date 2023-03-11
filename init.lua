@@ -12,9 +12,9 @@ require('configs.neovide')
 require('utils.lazy')
 
 local plugins = {
-  'folke/lazy.nvim',                              -- Package manager
-  { 'tpope/vim-fugitive',                         -- :Git commands
-    dependencies = 'tpope/vim-dispatch',          -- Asynchronous `:Gpush`, etc.
+  'folke/lazy.nvim',                             -- Package manager
+  { 'tpope/vim-fugitive',                        -- :Git commands
+    dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
     cmd = {'G', 'Git', 'Gvdiffsplit'},
   },
   use 'eunuch',
@@ -29,10 +29,7 @@ local plugins = {
   { 'kana/vim-niceblock',                        -- Improves visual mode
     event = 'ModeChanged *:[vV]',
   },
-  { 'AndrewRadev/splitjoin.vim',                 -- Multiline split expressions
-    dependencies = 'tpope/vim-repeat',
-    keys = {'gS', 'gJ'},
-  },
+  use 'treesj',                                  -- Multiline split
   { 'junegunn/vim-easy-align',                   -- Align characters vertically
     dependencies = 'tpope/vim-repeat',
     keys = '<Plug>(EasyAlign)'
