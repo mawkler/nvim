@@ -7,6 +7,9 @@ local function get_highlight_fg(group)
   return vim.api.nvim_get_hl_by_name(group, true).foreground
 end
 
+-- Use different highlights for special keys in cmdline vs other windows
+vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
+
 return {
   colors = colors,
   modes = {

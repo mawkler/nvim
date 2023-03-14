@@ -139,10 +139,4 @@ return { 'mawkler/onedark.nvim', priority = 999, config = function()
       }
     end
   })
-
-  -- NOTE: this disables updating highlight groups for some reason. Try to enable
-  -- and see if modicator.nvim works when
-  -- https://github.com/neovim/neovim/issues/20069 gets fixed
-  -- Use different highlights for special keys in cmdline vs other windows
-  -- vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 end }
