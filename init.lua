@@ -127,7 +127,8 @@ local plugins = {
   },
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
-  use 'tsnode-marker'                            -- Highlight code fence context
+  use 'tsnode-marker',                           -- Highlight code fence context
+  use 'octo',                                    -- GitHub client
 }
 
 require('lazy').setup({
