@@ -41,6 +41,7 @@ return { 'gbprod/substitute.nvim',
 
     substitute.setup({
       on_substitute = require('yanky.integration').substitute(),
+      highlight_substituted_text = { timer = 150 },
     })
   end
 }
