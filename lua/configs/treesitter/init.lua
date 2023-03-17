@@ -99,7 +99,7 @@ return { 'nvim-treesitter/nvim-treesitter',
     })
 
     -- Prints the syntax highlighting values under cursor
-    map('n', '<leader>H', '<cmd>TSHighlightCapturesUnderCursor<CR>')
+    map('n', '<leader>H', '<cmd>Inspect<CR>')
 
     -- Disable treesitter from highlighting errors (LSP does that anyway)
     vim.api.nvim_set_hl(0, 'TSError', { link = 'Normal' })

@@ -7,6 +7,10 @@ local function get_highlight_fg(group)
   return vim.api.nvim_get_hl_by_name(group, true).foreground
 end
 
+-- Disable `@lsp.type.variable` because it overrides Treesitter's highlights
+-- for "builtins" such as `vim`
+vim.api.nvim_set_hl(0, '@lsp.type.variable', {})
+
 -- Use different highlights for special keys in cmdline vs other windows
 vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 

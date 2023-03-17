@@ -15,7 +15,7 @@ local plugins = {
   'folke/lazy.nvim',                             -- Package manager
   { 'tpope/vim-fugitive',                        -- :Git commands
     dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
-    cmd = {'G', 'Git', 'Gvdiffsplit'},
+    cmd = { 'G', 'Git', 'Gvdiffsplit' },
   },
   use 'eunuch',
   { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} },
