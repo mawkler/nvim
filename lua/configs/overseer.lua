@@ -9,6 +9,14 @@ return { 'stevearc/overseer.nvim',
     overseer.setup(({
       -- Template modules to load
       templates = { 'builtin' },
+      task_list = {
+        bindings = {
+          ['{'] = 'DecreaseWidth',
+          ['}'] = 'IncreaseWidth',
+          ['['] = 'PrevTask',
+          [']'] = 'NextTask',
+        },
+      },
     }))
 
     map('n', '<leader>o', overseer.open, 'Overseer')
