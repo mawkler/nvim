@@ -60,6 +60,13 @@ return { 'kylechui/nvim-surround',
         end
       },
     })
+    filetype_surround({ 'typescript' }, {
+      s = { -- String interpolation
+        add = function()
+          return { { '${' }, { '}' } }
+        end
+      },
+    })
   end,
   config = function()
     require('nvim-surround').setup({
