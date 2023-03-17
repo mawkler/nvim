@@ -26,7 +26,7 @@ return { 'jedrzejboczar/possession.nvim',
   },
   config = function()
     local telescope = require('telescope')
-    local delete_hidden_filetypes = { 'toggleterm' }
+    local delete_hidden_filetypes = { 'toggleterm', 'undotree' }
 
     require('possession').setup({
       silent = true,
