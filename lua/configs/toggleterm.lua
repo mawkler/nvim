@@ -20,7 +20,6 @@ return { 'akinsho/toggleterm.nvim',
       direction = 'vertical',
       insert_mappings = false,
       persist_mode = true,
-      auto_scroll = false,
       shading_factor = -10,
       float_opts = {
         border = 'curved',
@@ -46,10 +45,12 @@ return { 'akinsho/toggleterm.nvim',
       end
     end
 
-    api.nvim_create_augroup('ToggleTerm', {})
+    local augroup = api.nvim_create_augroup('ToggleTerm', {})
     api.nvim_create_autocmd('TermOpen', {
       pattern = 'term://*toggleterm#*',
       callback = function()
+        vim.o.cursorline = false
+
         map('n', 'gf', go_to_file('gf'), {
           desc = 'Close toggleterm and go to file',
           buffer = true,
@@ -60,7 +61,7 @@ return { 'akinsho/toggleterm.nvim',
         })
         map('t', '<C-w>', [[<C-\><C-n><C-w>]], { buffer = true })
       end,
-      group = 'ToggleTerm'
+      group = augroup
     })
   end
 }
