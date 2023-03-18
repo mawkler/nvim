@@ -257,7 +257,7 @@ table.insert(active_right, {
 
 table.insert(active_right, {
   provider = 'git_diff_removed',
-  hl = { fg = 'red' },
+  hl = { fg = 'git_remove' },
   right_sep = '',
   truncate_hide = true
 })
@@ -385,29 +385,35 @@ table.insert(active_right, {
 -- hint:         hint color
 -- snippet:      snippet icon color
 -- git_add:      git add color
+-- git_change:   git change color
+-- git_remove:   git remove color
 -- shell_mode:   shell mode color
 -- enter_mode:   enter mode color
 -- more_mode:    more mode color
 -- select_mode:  select mode color
+-- normal_mode:  normal mode color
+-- insert_mode:  insert mode color
+-- command_mode: command mode color
+-- visual_mode:  visual mode color
+-- replace_mode: replace mode color
+-- term_mode:    term mode color
 local function setup(config)
-  local mode_colors = require('utils.colorscheme').modes
-
-  local vi_mode_colors = {
-    NORMAL        = mode_colors.normal,
-    OP            = mode_colors.normal,
-    INSERT        = mode_colors.insert,
-    COMMAND       = mode_colors.command,
-    VISUAL        = mode_colors.visual,
-    LINES         = mode_colors.visual,
-    BLOCK         = mode_colors.visual,
-    REPLACE       = mode_colors.replace,
-    TERM          = mode_colors.term,
-    ['V-REPLACE'] = mode_colors.replace,
-    ENTER         = 'enter_mode',
-    MORE          = 'more_mode',
-    SELECT        = 'select_mode',
-    SHELL         = 'shell_mode',
-    NONE          = 'gray',
+  local mode_colors = {
+    NORMAL        = config.theme.mode.normal,
+    OP            = config.theme.mode.normal,
+    INSERT        = config.theme.mode.insert,
+    COMMAND       = config.theme.mode.command,
+    VISUAL        = config.theme.mode.visual,
+    LINES         = config.theme.mode.visual,
+    BLOCK         = config.theme.mode.visual,
+    REPLACE       = config.theme.mode.replace,
+    TERM          = config.theme.mode.term,
+    ['V-REPLACE'] = config.theme.mode.replace,
+    ENTER         = 'skyblue',
+    MORE          = 'skyblue',
+    SELECT        = 'skyblue',
+    SHELL         = 'skyblue',
+    NONE          = 'skyblue',
   }
 
   if not config or not config.theme then
@@ -417,7 +423,7 @@ local function setup(config)
     require('feline').setup({
       theme = config.theme,
       components = components,
-      vi_mode_colors = vi_mode_colors,
+      vi_mode_colors = mode_colors,
       force_inactive = {}
     })
   end
