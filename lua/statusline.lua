@@ -1,5 +1,5 @@
 local bo, fn = vim.bo, vim.fn
-local mode = require('feline.providers.vi_mode')
+local mode_color = require('feline.providers.vi_mode').get_mode_color
 local luasnip = require('luasnip')
 
 local components = { active = { {}, {}, {} } }
@@ -40,7 +40,7 @@ local modes = {
 
 -- Separators
 
-local separator_hl = { fg = 'line_bg', bg = 'bg0' }
+local separator_hl = { fg = 'line_bg', bg = 'separator_bg' }
 local left_sect = {
   left_sep = { str = ' ', hl = separator_hl },
   right_sep = { str = '', hl = separator_hl },
@@ -117,7 +117,7 @@ table.insert(active_left, {
     return ' ' .. modes[vim.api.nvim_get_mode().mode] .. ' '
   end,
   hl = function()
-    return { fg = 'bg', bg = mode.get_mode_color(), style = 'bold' }
+    return { fg = 'middle_bg', bg = mode_color(), style = 'bold' }
   end,
   priority = 10,
 })
@@ -135,9 +135,9 @@ table.insert(active_left, {
 table.insert(active_left, {
   provider = get_working_dir,
   short_provider = function () return get_working_dir(true) end,
-  hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
+  hl = function() return { fg = mode_color(), bg = 'line_bg' } end,
   left_sep = '█',
-  right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'bg0' } },
+  right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'separator_bg' } },
   icon = ' ',
   truncate_hide = true,
   priority = 9
@@ -153,7 +153,7 @@ table.insert(active_left, {
   end,
   icon = {
     str = ' ',
-    hl = function() return { fg = mode.get_mode_color() } end,
+    hl = function() return { fg = mode_color() } end,
   },
   hl = { bg = 'line_bg' },
   left_sep = left_sect.left_sep,
@@ -166,7 +166,7 @@ table.insert(active_left, {
   enabled = function() return vim.o.cmdheight == 0 end,
   icon = {
     str = ' ',
-    hl = function() return { fg = mode.get_mode_color() } end,
+    hl = function() return { fg = mode_color() } end,
   },
   hl = { bg = 'line_bg' },
   left_sep = left_sect.left_sep,
@@ -175,7 +175,7 @@ table.insert(active_left, {
 
 table.insert(active_left, {
   provider = ' ',
-  hl = { fg = 'bg', bg = 'bg0' },
+  hl = { fg = 'middle_bg', bg = 'separator_bg' },
 })
 
 local function lsp_servers()
@@ -192,11 +192,11 @@ table.insert(active_left, {
   provider = lsp_servers,
   left_sep = ' ',
   riht_sep = ' ',
-  hl = { fg = 'darkgray' },
+  hl = { fg = 'dark_text' },
   enabled = function() return next(vim.lsp.get_active_clients()) ~= nil end,
   icon = function() return {
     str = ' ',
-    hl = { fg = mode.get_mode_color() }
+    hl = { fg = mode_color() }
   }
   end,
   truncate_hide = true,
@@ -230,11 +230,11 @@ table.insert(active_left, {
 -- Snippet indicator
 table.insert(active_mid, {
   provider = 'snippet',
-  hl = { fg = 'darkgray' },
+  hl = { fg = 'dark_text' },
   enabled = luasnip.in_snippet,
   icon = {
     str =' ',
-    hl = { fg = 'blue' }
+    hl = { fg = 'snippet' }
   },
 })
 
@@ -244,14 +244,14 @@ table.insert(active_mid, {
 
 table.insert(active_right, {
   provider = 'git_diff_added',
-  hl = { fg = 'green' },
+  hl = { fg = 'git_add' },
   truncate_hide = true
 })
 
 table.insert(active_right, {
   provider = 'git_diff_changed',
   icon = '  ',
-  hl = { fg = 'orange' },
+  hl = { fg = 'git_change' },
   truncate_hide = true
 })
 
@@ -277,7 +277,7 @@ table.insert(active_right, {
 
 table.insert(active_right, {
   provider = '',
-  hl = { fg = 'bg', bg = 'bg0' },
+  hl = { fg = 'middle_bg', bg = 'separator_bg' },
 })
 
 -- Filetype
@@ -324,7 +324,7 @@ table.insert(active_right, {
 -- Copilot
 table.insert(active_right, {
   provider = 'ﮧ ',
-  hl = function() return { fg = mode.get_mode_color(), bg = 'line_bg' } end,
+  hl = function() return { fg = mode_color(), bg = 'line_bg' } end,
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
   enabled = function()
@@ -342,7 +342,7 @@ table.insert(active_right, {
   icon = function() return {
     str = ' ',
     hl = {
-      fg = mode.get_mode_color(),
+      fg = mode_color(),
       bg = 'line_bg'
     }
   } end,
@@ -358,13 +358,13 @@ table.insert(active_right, {
     return string.format('%d:%-d', fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
-    return { str = ' ', hl = { fg = mode.get_mode_color(), bg = 'bg0' } }
+    return { str = ' ', hl = { fg = mode_color(), bg = 'separator_bg' } }
   end,
   right_sep = function()
-    return { str = '█', hl = { fg = mode.get_mode_color(), bg = 'bg0' } }
+    return { str = '█', hl = { fg = mode_color(), bg = 'separator_bg' } }
   end,
   hl = function()
-    return { fg = 'line_bg', bg = mode.get_mode_color(), style = 'bold' }
+    return { fg = 'line_bg', bg = mode_color(), style = 'bold' }
   end,
   icon = ' ',
   priority = 9,
@@ -373,39 +373,51 @@ table.insert(active_right, {
 -----------
 -- Setup --
 -----------
-local function setup(config)
-  local colors = require('utils.colorscheme').modes
 
-  local mode_colors = {
-    NORMAL        = colors.normal,
-    OP            = colors.normal,
-    INSERT        = colors.insert,
-    COMMAND       = colors.command,
-    VISUAL        = colors.visual,
-    LINES         = colors.visual,
-    BLOCK         = colors.visual,
-    REPLACE       = colors.replace,
-    TERM          = colors.term,
-    ['V-REPLACE'] = 'magenta',
-    ENTER         = 'orange',
-    MORE          = 'orange',
-    SELECT        = 'cyan',
-    SHELL         = 'green',
+-- fg:           text foreground on regular components
+-- line_bg:      background of regular statusline components
+-- middle_bg:    background of middle section
+-- separator_bg: space between components (bg of Normal)
+-- dark_text:    text on dark background
+-- error:        error color
+-- warning:      warning color
+-- info:         info color
+-- hint:         hint color
+-- snippet:      snippet icon color
+-- git_add:      git add color
+-- shell_mode:   shell mode color
+-- enter_mode:   enter mode color
+-- more_mode:    more mode color
+-- select_mode:  select mode color
+local function setup(config)
+  local mode_colors = require('utils.colorscheme').modes
+
+  local vi_mode_colors = {
+    NORMAL        = mode_colors.normal,
+    OP            = mode_colors.normal,
+    INSERT        = mode_colors.insert,
+    COMMAND       = mode_colors.command,
+    VISUAL        = mode_colors.visual,
+    LINES         = mode_colors.visual,
+    BLOCK         = mode_colors.visual,
+    REPLACE       = mode_colors.replace,
+    TERM          = mode_colors.term,
+    ['V-REPLACE'] = mode_colors.replace,
+    ENTER         = 'enter_mode',
+    MORE          = 'more_mode',
+    SELECT        = 'select_mode',
+    SHELL         = 'shell_mode',
     NONE          = 'gray',
   }
 
   if not config or not config.theme then
-    error('No config and/or theme provided')
+    error('Statusline: no theme provided')
   else
-    local theme = config.theme
-    if config.modifications then
-      theme = vim.tbl_extend('force', theme, config.modifications)
-    end
-
+    config.theme.bg = config.theme.middle_bg
     require('feline').setup({
-      theme = theme,
+      theme = config.theme,
       components = components,
-      vi_mode_colors = mode_colors,
+      vi_mode_colors = vi_mode_colors,
       force_inactive = {}
     })
   end
