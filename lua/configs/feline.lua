@@ -9,7 +9,7 @@ return {
   },
   config = function()
     local colors = require('utils.colorscheme').colors
-    local modes = require('utils.colorscheme').modes
+    local get_mode_color = require('utils.colorscheme').get_mode_color
 
     local onedark_theme = {
       fg = '#c8ccd4',
@@ -27,12 +27,12 @@ return {
       error = colors.error,
       info = colors.info,
       mode = {
-        normal = modes.normal,
-        insert = modes.insert,
-        command = modes.command,
-        visual = modes.visual,
-        replace = modes.replace,
-        term = modes.term,
+        normal = get_mode_color('normal'),
+        insert = get_mode_color('insert'),
+        command = get_mode_color('command'),
+        visual = get_mode_color('visual'),
+        replace = get_mode_color('replace'),
+        term = get_mode_color('term'),
       },
     }
 

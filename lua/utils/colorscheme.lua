@@ -7,12 +7,26 @@ local function get_highlight_fg(group)
   return vim.api.nvim_get_hl_by_name(group, true).foreground
 end
 
--- Disable `@lsp.type.variable` because it overrides Treesitter's highlights
--- for "builtins" such as `vim`
+--- Disable `@lsp.type.variable` because it overrides Treesitter's highlights
+--- for "builtins" such as `vim`
 vim.api.nvim_set_hl(0, '@lsp.type.variable', {})
 
 -- Use different highlights for special keys in cmdline vs other windows
 vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
+
+local function hex_from_decimal(decimal)
+  local hex = string.format('%x', decimal)
+  return '#' .. hex
+end
+
+--- Assumes that a highlight group for `mode` exists, e.g. NormalMode,
+--- VisualMode, InsertMode, etc.
+--- @param mode string
+--- @return string
+local function get_mode_color(mode)
+  local color = get_highlight_fg(mode .. 'mode')
+  return hex_from_decimal(color)
+end
 
 return {
   colors = colors,
@@ -25,7 +39,6 @@ return {
     replace = colors.red2,
     term    = colors.green0,
   },
-  -- Names of all colorschemes, to be used by Packer's `after`/`wants`
-  colorscheme_names = { 'mawkler/onedark.nvim' },
-  get_highlight_fg = get_highlight_fg
+  get_highlight_fg = get_highlight_fg,
+  get_mode_color = get_mode_color,
 }

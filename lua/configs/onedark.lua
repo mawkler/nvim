@@ -43,6 +43,14 @@ return { 'mawkler/onedark.nvim', priority = 999, config = function()
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
         Todo = { link = '@text.warning' },
+        -- Modes
+        NormalMode  = { fg = c.green0 },
+        InsertMode  = { fg = c.blue0 },
+        VisualMode  = { fg = c.purple0 },
+        CommandMode = { fg = c.red0 },
+        SelectMode  = { fg = c.cyan0 },
+        ReplaceMode = { fg = c.red2 },
+        TermMode    = { fg = c.green0 },
         -- Custom highlights
         InlineHint = { fg = c.bg_visual },
         LspCodeLens = { link = 'InlineHint' },
