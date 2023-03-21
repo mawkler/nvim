@@ -39,9 +39,7 @@ return { 'L3MON4D3/LuaSnip',
         dscr = 'Hyperlink with the content in the clipboard'
       }, {
           t '[', i(1, 'text'), t ']',
-          t '(',
-          d(2, luasnip_clipboard),
-          t ') ',
+          t '(', d(2, luasnip_clipboard), t ') ',
         })
     })
     luasnip.add_snippets('lua', {
@@ -57,16 +55,20 @@ return { 'L3MON4D3/LuaSnip',
         name = 'Add plugin config',
         dscr = 'Add packer.nvim plugin from the clipboard'
       }, {
-          t "return { '", d(1, plugin_repo_snippet), t "',",
+          t {
+            "return {",
+            "\t'",
+          },
+          d(1, plugin_repo_snippet), t "',",
           t {
             '',
-            '  config = function()',
-            '    ',
+            '\tconfig = function()',
+            '\t\t',
           },
           i(2),
           t {
             '',
-            '  end',
+            '\tend',
             '}'
           }
         })
