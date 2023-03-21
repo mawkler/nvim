@@ -20,6 +20,15 @@ return {
           pattern = '/(.*)/function.json$',
           target = '/%1/index.ts',
         },
+        -- Jest tests
+        {
+          pattern = '(.*)/(.*).ts$',
+          target = '%1/__{test,tests}__/%2.test.ts',
+        },
+        {
+          pattern = '(.*)/__tests?__/(.*).test.ts$',
+          target = '%1/%2.ts',
+        },
         -- init.lua from any plugin configuration
         {
           pattern = '/lua/configs/.*.lua$',
