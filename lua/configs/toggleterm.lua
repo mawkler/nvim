@@ -1,7 +1,8 @@
 ----------------
 -- Toggleterm --
 ----------------
-return { 'akinsho/toggleterm.nvim',
+return {
+  'akinsho/toggleterm.nvim',
   keys = '<C-CR>',
   cmd = {
     'ToggleTerm',

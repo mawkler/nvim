@@ -1,7 +1,8 @@
 ---------
 -- CSV --
 ---------
-return { 'chrisbra/csv.vim',
+return {
+  'chrisbra/csv.vim',
   ft = 'csv',
   init = function()
     vim.g.csv_default_delim = '\t'

@@ -1,7 +1,8 @@
 ---------------
 -- Dial.nvim --
 ---------------
-return { 'monaqa/dial.nvim',
+return {
+  'monaqa/dial.nvim',
   keys = {
     { '<C-a>',  '<Plug>(dial-increment)', mode = { 'n',  'x' } },
     { '<C-x>',  '<Plug>(dial-decrement)', mode = { 'n',  'x' } },

@@ -1,7 +1,8 @@
 -------------------------------
 -- Template string converter --
 -------------------------------
-return { 'axelvc/template-string.nvim',
+return {
+  'axelvc/template-string.nvim',
   ft = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
   config = function()
     require('template-string').setup(({

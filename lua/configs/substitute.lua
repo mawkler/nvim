@@ -2,7 +2,8 @@
 -- Substitute --
 ----------------
 
-return { 'gbprod/substitute.nvim',
+return {
+  'gbprod/substitute.nvim',
   keys = {
     { 'su',         mode = { 'n', 'x' } },
     { 'sU',         mode = { 'n', 'x' } },

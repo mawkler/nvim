@@ -1,7 +1,8 @@
 ------------------
 -- Comment.nvim --
 ------------------
-return { 'numToStr/Comment.nvim',
+return {
+  'numToStr/Comment.nvim',
   keys = {
     { 'cm',         '<Plug>(comment_toggle_linewise_current)' },
     { '<leader>c',  '<Plug>(comment_toggle_linewise)' },

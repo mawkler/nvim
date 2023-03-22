@@ -1,7 +1,8 @@
 --------------
 -- Autolist --
 --------------
-return { 'gaoDean/autolist.nvim',
+return {
+  'gaoDean/autolist.nvim',
   ft = { 'markdown', 'text', 'latex' },
   config = function()
     local autolist = require('autolist')

@@ -1,7 +1,8 @@
 ---------------
 -- LSP stuff --
 ---------------
-return { 'neovim/nvim-lspconfig',
+return {
+  'neovim/nvim-lspconfig',
   dependencies = {
     'williamboman/mason.nvim',              -- For installing LSP servers
     'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig

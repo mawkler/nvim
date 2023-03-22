@@ -1,7 +1,8 @@
 ---------------
 -- Unception --
 ---------------
-return { 'samjwill/nvim-unception',
+return {
+  'samjwill/nvim-unception',
   dependencies = 'akinsho/toggleterm.nvim',
   config = function()
     vim.api.nvim_create_autocmd(

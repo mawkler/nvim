@@ -1,7 +1,8 @@
 ------------------
 -- Smart splits --
 ------------------
-return { 'mrjones2014/smart-splits.nvim',
+return {
+  'mrjones2014/smart-splits.nvim',
   keys = {
     '<M-S-h>',
     '<M-S-j>' ,

@@ -1,7 +1,8 @@
 --------------
 -- Cheat.sh --
 --------------
-return { 'RishabhRD/nvim-cheat.sh',
+return {
+  'RishabhRD/nvim-cheat.sh',
   cmd = {
     'Cheat',
     'CheatWithoutComments',

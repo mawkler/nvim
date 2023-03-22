@@ -20,7 +20,8 @@ map('n', '<C-M-J>', winshift('down'),  'Move window border down')
 map('n', '<C-M-K>', winshift('up'),    'Move window border up')
 map('n', '<C-M-L>', winshift('right'), 'Move window border to the right')
 
-return { 'sindrets/winshift.nvim',
+return {
+  'sindrets/winshift.nvim',
   lazy = true,
   config = function()
     require('winshift').setup {

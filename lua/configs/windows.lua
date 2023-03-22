@@ -1,7 +1,8 @@
 -------------
 -- Windows --
 -------------
-return { 'anuvyklack/windows.nvim',
+return {
+  'anuvyklack/windows.nvim',
   event = 'WinEnter',
   dependencies = 'anuvyklack/middleclass',
   config = function()

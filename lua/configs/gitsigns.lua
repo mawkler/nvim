@@ -1,7 +1,8 @@
 --------------
 -- Gitsigns --
 --------------
-return { 'lewis6991/gitsigns.nvim',
+return {
+  'lewis6991/gitsigns.nvim',
   dependencies = 'tpope/vim-repeat',
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys

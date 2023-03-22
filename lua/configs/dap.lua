@@ -1,7 +1,8 @@
 ---------
 -- DAP --
 ---------
-return { 'mfussenegger/nvim-dap',
+return {
+  'mfussenegger/nvim-dap',
   dependencies = {
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text

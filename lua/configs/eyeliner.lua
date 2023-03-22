@@ -1,7 +1,8 @@
 --------------
 -- Eyeliner --
 --------------
-return { 'jinh0/eyeliner.nvim',
+return {
+  'jinh0/eyeliner.nvim',
   -- keys = { 'f', 'F', 't', 'T' },
   config = function()
     require'eyeliner'.setup({

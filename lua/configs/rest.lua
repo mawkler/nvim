@@ -1,7 +1,8 @@
 ---------------
 -- Rest.nvim --
 ---------------
-return { 'NTBBloodbath/rest.nvim',
+return {
+  'NTBBloodbath/rest.nvim',
   cmd = 'Http',
   ft = 'http',
   config = function()

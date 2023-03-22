@@ -1,7 +1,8 @@
 ---------------
 -- Neoscroll --
 ---------------
-return { 'karb94/neoscroll.nvim',
+return {
+  'karb94/neoscroll.nvim',
   event = 'WinScrolled',
   cond = function() return not vim.g.neovide end,
   config = function()

@@ -1,7 +1,8 @@
 --------------
 -- Barbecue --
 --------------
-return { 'utilyre/barbecue.nvim',
+return {
+  'utilyre/barbecue.nvim',
   dependencies = {
     'neovim/nvim-lspconfig',
     'SmiteshP/nvim-navic',

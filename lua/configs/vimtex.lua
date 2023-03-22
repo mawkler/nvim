@@ -1,7 +1,8 @@
 ------------
 -- Vimtex --
 ------------
-return { 'lervag/vimtex',
+return {
+  'lervag/vimtex',
   ft = {'tex', 'latex'},
   init = function()
     local g = vim.g

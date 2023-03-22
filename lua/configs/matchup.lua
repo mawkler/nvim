@@ -1,7 +1,8 @@
 -------------
 -- Matchup --
 -------------
-return { 'andymass/vim-matchup',
+return {
+  'andymass/vim-matchup',
   dependencies = 'tpope/vim-repeat',
   event = 'CursorMoved',
   init = function()

@@ -1,7 +1,8 @@
 ---------
 -- Bqf --
 ---------
-return { 'kevinhwang91/nvim-bqf',
+return {
+  'kevinhwang91/nvim-bqf',
   event = 'FileType qf',
   config = function()
     require('../quickfix') -- Better quickfix

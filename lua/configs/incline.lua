@@ -1,7 +1,8 @@
 -------------
 -- Incline --
 -------------
-return { 'b0o/incline.nvim',
+return {
+  'b0o/incline.nvim',
   dependencies = { 'kyazdani42/nvim-web-devicons' },
   event = 'WinNew',
   config = function()

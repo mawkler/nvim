@@ -1,7 +1,8 @@
 ------------------
 -- Git conflict --
 ------------------
-return { 'akinsho/git-conflict.nvim',
+return {
+  'akinsho/git-conflict.nvim',
   version = '*', -- `main` is unstable
   config = function()
     local map = require('utils').map

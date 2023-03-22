@@ -1,6 +1,7 @@
 --------------
 -- Reloader --
 --------------
-return { 'milkias17/reloader.nvim',
+return {
+  'milkias17/reloader.nvim',
   cmd = { 'Reload' },
 }

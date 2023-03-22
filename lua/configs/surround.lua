@@ -1,7 +1,8 @@
 --------------
 -- Surround --
 --------------
-return { 'kylechui/nvim-surround',
+return {
+  'kylechui/nvim-surround',
   keys = {
     { 's', mode = { 'n', 'x', 'o' } },
     { 'S', mode = 'x' },

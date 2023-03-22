@@ -1,7 +1,8 @@
 --------------
 -- Overseer --
 --------------
-return { 'stevearc/overseer.nvim',
+return {
+  'stevearc/overseer.nvim',
   config = function()
     local overseer = require('overseer')
     local map = require('utils').map

@@ -1,4 +1,8 @@
-return { 'petertriho/nvim-scrollbar',
+--------------------
+-- nvim-scrollbar --
+--------------------
+return {
+  'petertriho/nvim-scrollbar',
   config = function()
     local diagnostics = {
       text = { '─', '═' },

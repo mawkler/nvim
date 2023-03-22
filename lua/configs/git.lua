@@ -3,7 +3,8 @@
 ---------
 vim.opt.fillchars = { diff = ' ' }
 
-return { 'TimUntersberger/neogit',
+return {
+  'TimUntersberger/neogit',
   cmd = 'Neogit',
   keys = {
     '<leader>gC',

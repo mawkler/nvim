@@ -1,7 +1,8 @@
 -----------------
 -- Quick-scope --
 -----------------
-return { 'unblevable/quick-scope',
+return {
+  'unblevable/quick-scope',
   keys = { 'f', 'F', 't', 'T' },
   init = function()
     vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}

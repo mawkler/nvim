@@ -1,7 +1,8 @@
 ---------------
 -- Modicator --
 ---------------
-return { 'mawkler/modicator.nvim',
+return {
+  'mawkler/modicator.nvim',
   -- wants = require('utils.colorscheme').colorscheme_names,
   event = 'ModeChanged',
   config = function()

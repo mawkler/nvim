@@ -1,7 +1,8 @@
 -------------
 -- Tabnine --
 -------------
-return { 'tzachar/cmp-tabnine',
+return {
+  'tzachar/cmp-tabnine',
   dependencies = 'hrsh7th/nvim-cmp',
   event = { 'InsertEnter' },
   build = './install.sh',

@@ -1,7 +1,8 @@
 -----------
 -- Alpha --
 -----------
-return { 'goolord/alpha-nvim',
+return {
+  'goolord/alpha-nvim',
   dependencies = { 'kyazdani42/nvim-web-devicons' },
   event = 'VimEnter',
   config = function()

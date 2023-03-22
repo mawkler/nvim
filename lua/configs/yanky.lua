@@ -1,7 +1,8 @@
 -----------
 -- Yanky --
 -----------
-return { 'gbprod/yanky.nvim',
+return {
+  'gbprod/yanky.nvim',
   keys = {
     { 'y', '<Plug>(YankyYank)', mode = {'n', 'x'} },
     { 'p', '<Plug>(YankyPutAfter)', mode = {'n', 'x'} },

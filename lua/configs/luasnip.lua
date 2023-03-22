@@ -1,7 +1,8 @@
 -------------
 -- LuaSnip --
 -------------
-return { 'L3MON4D3/LuaSnip',
+return {
+  'L3MON4D3/LuaSnip',
   dependencies = 'mawkler/friendly-snippets', -- Snippets collection
   config = function()
     local fn = vim.fn

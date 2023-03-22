@@ -1,7 +1,8 @@
 ----------------
 -- Lightspeed --
 ----------------
-return { 'ggandor/lightspeed.nvim',
+return {
+  'ggandor/lightspeed.nvim',
   keys = {'zj', 'zk', '<CR>', '<S-CR>'},
   config = function()
     local utils = require('utils')

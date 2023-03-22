@@ -1,7 +1,8 @@
 ---------
 -- Cmp --
 ---------
-return { 'hrsh7th/nvim-cmp',
+return {
+  'hrsh7th/nvim-cmp',
   dependencies = {
     'onsails/lspkind-nvim',                -- Completion menu icons
     'saadparwaiz1/cmp_luasnip' ,           -- Snippets

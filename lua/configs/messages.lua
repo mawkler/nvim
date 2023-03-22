@@ -1,7 +1,8 @@
 --------------
 -- Messages --
 --------------
-return { 'AckslD/messages.nvim',
+return {
+  'AckslD/messages.nvim',
   cmd = 'Messages',
   init = function()
     local map = require('utils').map

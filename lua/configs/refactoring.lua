@@ -1,7 +1,8 @@
 ----------------------
 -- Refactoring.nvim --
 ----------------------
-return { 'ThePrimeagen/refactoring.nvim',
+return {
+  'ThePrimeagen/refactoring.nvim',
   keys = {
     { '<leader>R', mode = 'x' },
     { 'gRe',       mode = 'x' },

@@ -1,7 +1,8 @@
 -------------
 -- Trouble --
 -------------
-return { 'folke/trouble.nvim',
+return {
+  'folke/trouble.nvim',
   cmd = 'TroubleToggle',
   keys = {
     { '<leader>E', '<cmd>TroubleToggle<CR>', mode = 'n' }

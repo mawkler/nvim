@@ -1,7 +1,8 @@
 ------------
 -- Eunuch --
 ------------
-return { 'tpope/vim-eunuch',
+return {
+  'tpope/vim-eunuch',
   cmd = {
     'Delete',
     'Unlink',

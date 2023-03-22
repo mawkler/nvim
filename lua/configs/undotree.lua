@@ -1,7 +1,8 @@
 --------------
 -- Undotree --
 --------------
-return { 'mbbill/undotree',
+return {
+  'mbbill/undotree',
   keys = '<leader>u',
   cmd = {'UndoTreeShow', 'UndoTreeToggle'},
   config = function()

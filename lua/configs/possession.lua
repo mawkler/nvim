@@ -9,7 +9,8 @@ local function list_sessions()
   }))
 end
 
-return { 'jedrzejboczar/possession.nvim',
+return {
+  'jedrzejboczar/possession.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
   event = 'VimLeavePre',
   keys = {

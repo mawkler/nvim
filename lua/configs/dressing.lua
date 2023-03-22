@@ -1,7 +1,8 @@
 --------------
 -- Dressing --
 --------------
-return { 'stevearc/dressing.nvim',
+return {
+  'stevearc/dressing.nvim',
   event = 'CursorMoved',
   config = function()
     local utils = require('utils')

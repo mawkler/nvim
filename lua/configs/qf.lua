@@ -24,7 +24,8 @@ local function toggle(list)
   end
 end
 
-return { 'ten3roberts/qf.nvim',
+return {
+  'ten3roberts/qf.nvim',
   event = 'QuickFixCmdPre',
   keys = {
     { ']q',        list_jump('below', 'c'), mode = 'n', desc = 'Next quickfix item' },
