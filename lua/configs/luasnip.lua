@@ -33,6 +33,22 @@ return {
       return sn(nil, i(1, repo))
     end
 
+    local function uuid()
+      local id, _ = vim.fn.system('uuidgen'):gsub('\n', '')
+      return id
+    end
+
+    luasnip.add_snippets('global', {
+      s({
+        trig = 'uuid',
+        name = 'UUID',
+        dscr = 'Generate a unique UUID'
+      }, {
+          d(1, function()
+            return sn(nil, i(1, uuid()))
+          end)
+        })
+    })
     luasnip.add_snippets('markdown', {
       s({
         trig = 'link',
