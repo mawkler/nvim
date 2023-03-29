@@ -19,6 +19,7 @@ return {
   cmd = {
     'SessionSave',
     'SessionLoad',
+    'SessionRename',
     'SessionClose',
     'SessionDelete',
     'SessionShow',
@@ -39,6 +40,7 @@ return {
       commands = {
         save = 'SessionSave',
         load = 'SessionLoad',
+        rename = 'SessionRename',
         close = 'SessionClose',
         delete = 'SessionDelete',
         show = 'SessionShow',
