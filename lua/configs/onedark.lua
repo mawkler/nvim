@@ -148,4 +148,7 @@ return {
       }
     end
   })
+
+  -- Remove underlines from diff add/change/delete lines
+  vim.cmd.highlight({ 'CursorLine', 'guibg=' ..  cursorline_bg .. ' ctermfg=white' })
 end }
