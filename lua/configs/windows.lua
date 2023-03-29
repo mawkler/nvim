@@ -10,8 +10,8 @@ return {
       animation = { enable = false },
       ignore = {
         buftype = { 'quickfix', 'help' },
-        filetype = { 'toggleterm' },
-      }
+        filetype = { '', 'toggleterm', 'neotest-summary' },
+      },
     })
 
     local map = require('utils').map

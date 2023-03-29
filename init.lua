@@ -129,7 +129,8 @@ local plugins = {
   use 'git-worktree',                            -- Manage git worktrees
   use 'tsnode-marker',                           -- Highlight code fence context
   use 'octo',                                    -- GitHub client
-  use 'other'                                    -- Go to alternate file
+  use 'other',                                   -- Go to alternate file
+  use 'neotest',                                 -- Testing framework
 }
 
 require('lazy').setup({
