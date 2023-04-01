@@ -6,9 +6,9 @@ return {
   dependencies = { 'kyazdani42/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
-    local colors = require('utils.colorscheme').colors
+    local get_highlight_fg = require('utils.colorscheme').get_highlight_fg
 
-    require('incline').setup(({
+    require('incline').setup({
       hide = {
         focused_win = true,
         only_win = true,
@@ -17,7 +17,7 @@ return {
         zindex = 1,
         winhighlight = {
           Normal = {
-            guifg = colors.fg_dark,
+            guifg = get_highlight_fg('Comment'),
             guibg = nil,
           },
         },
@@ -32,6 +32,6 @@ return {
           { filename, gui = 'italic' },
         }
       end
-    }))
+    })
   end
 }
