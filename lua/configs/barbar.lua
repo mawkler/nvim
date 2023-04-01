@@ -3,18 +3,6 @@
 ------------
 local map = require('utils').map
 
-vim.g.bufferline = {
-  closable = false,
-  no_name_title = '[No Name]',
-  insert_at_end = true,
-  exclude_name = { '[dap-repl]' },
-  exclude_ft = { 'qf' },
-  maximum_length = 60,
-  hide = {
-    extensions = true,
-  },
-}
-
 return {
   'romgrk/barbar.nvim',
   event = 'BufAdd',
@@ -27,6 +15,16 @@ return {
     map('n', '<leader><M-w>', '<cmd>bdelete!<CR>')
   end,
   config = function()
+    require('barbar').setup({
+      no_name_title = '[No Name]',
+      insert_at_end = true,
+      exclude_name = { '[dap-repl]' },
+      exclude_ft = { 'qf' },
+      maximum_length = 60,
+      hide = { extensions = true, },
+      icons = { button = false, },
+    })
+
     map('n', '<M-w>',           '<cmd>BufferClose<CR>')
     map('n', '<M-W>',           '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
     map('n', '<leader>bC',      '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
@@ -38,6 +36,7 @@ return {
     map('n', '<leader>bD',      '<cmd>BufferOrderByDirectory<CR>')
     map('n', '<leader>bl',      '<cmd>BufferOrderByLanguage<CR>')
     map('n', '<leader>bc',      '<cmd>BufferClose<CR>')
+    map('n', '<leader>br',      '<cmd>BufferRestore<CR>')
     map('n', '<leader>bo',      '<cmd>BufferCloseAllButVisible<CR>')
     -- Move to previous/next
     map('n', '<C-Tab>',         '<cmd>BufferNext<CR>')
