@@ -34,5 +34,11 @@ return {
       ['spinner'] = {'fg', 'Question'},
       ['prompt']  = {'fg', 'Question'},
     },
+    keymap = {
+      fzf = {
+        ['ctrl-p'] = 'previous-history',
+        ['ctrl-n'] = 'next-history',
+      },
+    },
   },
 }
