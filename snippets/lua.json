@@ -12,7 +12,14 @@
   },
   "augroup": {
     "prefix": "augroup",
-    "body": ["vim.api.nvim_create_augroup('${1:Group}', {})"],
+    "body": [
+      "local augroup = vim.api.nvim_create_augroup('${1:Group}', {})",
+      "vim.api.nvim_create_autocmd('${2:Event}', {",
+      "\tpattern = '${3:pattern}',",
+      "\tgroup = augroup,",
+      "\tcallback = function() $4 end,",
+      "})"
+    ],
     "description": "Neovim augroup"
   }
 }
