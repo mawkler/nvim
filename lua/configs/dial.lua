@@ -4,10 +4,10 @@
 return {
   'monaqa/dial.nvim',
   keys = {
-    { '<C-a>',  '<Plug>(dial-increment)', mode = { 'n',  'x' } },
-    { '<C-x>',  '<Plug>(dial-decrement)', mode = { 'n',  'x' } },
-    { 'g<C-a>', '<Plug>(dial-increment)', mode = 'x' },
-    { 'g<C-x>', '<Plug>(dial-decrement)', mode = 'x' },
+    { '<C-a>',  '<Plug>(dial-increment)',  mode = { 'n', 'v' }, remap = true },
+    { '<C-x>',  '<Plug>(dial-decrement)',  mode = { 'n', 'v' }, remap = true },
+    { 'g<C-a>', 'g<Plug>(dial-increment)', mode = { 'n', 'v' }, remap = true },
+    { 'g<C-x>', 'g<Plug>(dial-decrement)', mode = { 'n', 'v' }, remap = true },
   },
   config = function()
     local augend = require('dial.augend')
@@ -36,12 +36,12 @@ return {
         add_constant({'TRUE', 'FALSE'}),
         add_constant({'private', 'public'}),
         add_constant({
-          'one',   'two',   'three', 'four', 'five',   'six',
-          'seven', 'eight', 'nine',  'ten',  'eleven', 'twelve'
+          'zero',  'one',   'two',  'three', 'four',   'five', 'six',
+          'seven', 'eight', 'nine', 'ten',   'eleven', 'twelve'
         }),
         add_constant({
-          'en', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex',
-          'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
+          'noll', 'en',  'ett',  'två', 'tre', 'fyra', 'fem',
+          'sex',  'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
         }),
       }
     }
