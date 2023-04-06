@@ -4,22 +4,20 @@
 return {
   'itchyny/vim-highlighturl',
   config = function()
-    local autocmd = vim.api.nvim_create_autocmd
-    local augroup = vim.api.nvim_create_augroup
-    local colors = require('utils.colorscheme').colors
+    local get_highlight = require('utils.colorscheme').get_highlight
 
-    vim.g.highlighturl_guifg = colors.blue0
+    vim.g.highlighturl_guifg = get_highlight('@text.uri')
 
-    augroup('HighlightURL', {})
-    autocmd('User', {
+    local group = vim.api.nvim_create_augroup('HighlightURL', {})
+    vim.api.nvim_create_autocmd('User', {
       pattern  = 'LightspeedEnter',
       callback = 'highlighturl#disable',
-      group    = 'HighlightURL'
+      group    = group
     })
-    autocmd('User', {
+    vim.api.nvim_create_autocmd('User', {
       pattern  = 'LightspeedLeave',
       callback = 'g:highlighturl#enable',
-      group    = 'HighlightURL'
+      group    = group
     })
   end
 }

@@ -9,11 +9,8 @@ return {
     'kyazdani42/nvim-web-devicons',
   },
   -- event = 'LspAttach', -- Throws error when null-ls attaches for some reason
-  -- Temporary fix for https://github.com/utilyre/barbecue.nvim/issues/61
-  branch = 'fix/E36',
   config = function()
-    local colors = require('utils.colorscheme').colors
-    local get_highlight_fg = require('utils.colorscheme').get_highlight_fg
+    local get_highlight = require('utils.colorscheme').get_highlight
 
     -- Use context highlights based on Treesitter highlights
     local treesitter_contexts = {
@@ -46,7 +43,7 @@ return {
     local function treesitter_context_highlights()
       local highlights = {}
       for _, name in pairs(treesitter_contexts) do
-        local highlight = get_highlight_fg('@' .. name)
+        local highlight = get_highlight('@' .. name)
         highlights['context_' .. name] = { fg = highlight }
       end
       return highlights
@@ -54,13 +51,13 @@ return {
 
     local function custom_context_highlights()
       return vim.tbl_map(function(context)
-        return { fg = get_highlight_fg(context) }
+        return { fg = get_highlight(context) }
       end, custom_contexts)
     end
 
     local options = {
-      normal = { fg = colors.fg_dark },
-      basename = { fg = colors.fg0, bold = false },
+      normal = { fg = get_highlight('Comment') },
+      basename = { fg = get_highlight('Normal'), bold = true },
     }
 
     local theme = vim.tbl_extend(
