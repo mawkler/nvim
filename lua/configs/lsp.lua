@@ -19,6 +19,7 @@ return {
     local path = require('mason-core.path')
     local rust_tools = require('rust-tools')
     local typescript = require('typescript')
+    local get_install_path  = require('utils').get_install_path
 
     local map = function(modes, lhs, rhs, opts)
       if type(opts) == 'string' then
@@ -151,10 +152,28 @@ return {
       cmd = {
         'dotnet',
         path.concat({
-          require('utils').get_install_path('bicep-lsp'),
+          get_install_path('bicep-lsp'),
           'bicepLanguageServer',
           'Bicep.LangServer.dll',
         })
+      }
+    }
+
+    -- Azure pipeline --
+    local azure_pipelines_path = get_install_path('azure-pipelines-language-server')
+    local azure_pipelines_config = {
+      cmd = { azure_pipelines_path .. '/azure-pipelines-language-server', '--stdio'},
+      settings = {
+        yaml = {
+          schemas = {
+            ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json'] = {
+              '/azure-pipeline*.y*l',
+              '/*.azure*',
+              'Azure-Pipelines/**/*.y*l',
+              'Pipelines/*.y*l',
+            }
+          }
+        }
       }
     }
 
@@ -194,6 +213,7 @@ return {
       bicep = setup('bicep', bicep_config),
       ltex = setup('ltex', ltex_config),
       eslint = setup('eslint', eslint_config),
+      azure_pipelines_ls = setup('azure_pipelines_ls', azure_pipelines_config),
       rust_analyzer = function()
         return rust_tools.setup(rust_config)
       end,
