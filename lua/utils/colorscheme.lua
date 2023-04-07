@@ -1,6 +1,5 @@
 local function hex_from_decimal(decimal)
-  local hex = string.format('%x', decimal)
-  return '#' .. hex
+  return string.format('#%x', decimal)
 end
 
 --- Gets the foreground or background color value of `group`.
@@ -10,6 +9,9 @@ end
 local function get_highlight(group, part)
   local _part = part == 'bg' and 'background' or 'foreground'
   local color = vim.api.nvim_get_hl_by_name(group, true)[_part]
+  if not color then
+    error(string.format('Highlight group %s has no %s part', group, _part), 1)
+  end
   return hex_from_decimal(color)
 end
 
@@ -28,63 +30,52 @@ vim.api.nvim_set_hl(0, '@lsp.type.variable', {})
 -- Use different highlights for special keys in cmdline vs other windows
 vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 
-local function get_feline_highlights()
+local function get_default_feline_highlights()
   return {
-    fg = '#c8ccd4',
-    dark_text = '#9ba1b0',
-    -- line_bg = get_highlight('Cursorline', 'bg'), -- TODO: use only in fallback
-    line_bg = '#353b45',
-    bg = get_highlight('NvimTreeNormal', 'bg'),
-    middle_bg = get_highlight('NvimTreeNormal', 'bg'),
+    fg           = '#c8ccd4',
+    dark_text    = '#9ba1b0',
+    -- line_bg   = get_highlight('Cursorline', 'bg'), -- TODO: use only in fallback
+    line_bg      = '#353b45',
+    bg           = get_highlight('NvimTreeNormal', 'bg'),
+    middle_bg    = get_highlight('NvimTreeNormal', 'bg'),
     separator_bg = get_highlight('Normal', 'bg'),
-    snippet = get_highlight('CmpItemKindSnippet'),
-    git_add = get_highlight('GitSignsAdd'),
-    git_change = get_highlight('GitSignsChange'),
-    git_remove = get_highlight('GitSignsDelete'),
-    hint = get_highlight('LspDiagnosticsHint'),
-    warning = get_highlight('LspDiagnosticsWarning'),
-    error = get_highlight('LspDiagnosticsError'),
-    info = get_highlight('LspDiagnosticsInformation'),
-    -- normal_mode = get_mode_color('normal'),
-    -- insert_mode = get_mode_color('insert'),
-    -- command_mode = get_mode_color('command'),
-    -- visual_mode = get_mode_color('visual'),
-    -- replace_mode = get_mode_color('replace'),
-    -- term_mode = get_mode_color('term'),
-    -- select_mode = get_mode_color('select'),
+    snippet      = get_highlight('CmpItemKindSnippet'),
+    git_add      = get_highlight('GitSignsAdd'),
+    git_change   = get_highlight('GitSignsChange'),
+    git_remove   = get_highlight('GitSignsDelete'),
+    hint         = get_highlight('LspDiagnosticsHint'),
+    warning      = get_highlight('LspDiagnosticsWarning'),
+    error        = get_highlight('LspDiagnosticsError'),
+    info         = get_highlight('LspDiagnosticsInformation'),
   }
+end
+
+local function set_feline_theme(theme_name)
+  local feline = require('feline')
+  local theme = require('feline.themes')[theme_name]
+
+  feline.vi_mode_colors = require('statusline').mode_colors()
+
+  if theme then
+    feline.use_theme(theme_name)
+  else
+    feline.use_theme(get_default_feline_highlights())
+  end
 end
 
 local augroup = vim.api.nvim_create_augroup('Colorscheme', {})
 vim.api.nvim_create_autocmd('Colorscheme', {
   group = augroup,
   callback = function(event)
-    local colorscheme = event.match
-    -- TODO: if theme is not recognized, just use a default theme that contains
-    -- links onedark's highlights
-    require('feline').use_theme(get_feline_highlights())
+    local theme_name = event.match
+    set_feline_theme(theme_name)
+
+    vim.g.highlighturl_guifg = get_highlight('@text.uri')
   end,
 })
 
 return {
-  colors = {
-    feline = {
-      middle_bg = get_highlight('NvimTreeNormal', 'bg'),
-      separator_bg = get_highlight('Normal', 'bg'),
-      snippet = get_highlight('CmpItemKindSnippet'),
-      git = {
-        add = get_highlight('GitSignsAdd'),
-        change = get_highlight('GitSignsChange'),
-        delete = get_highlight('GitSignsDelete'),
-      },
-      diagnostics = {
-        hint = get_highlight('LspDiagnosticsHint'),
-        warning = get_highlight('LspDiagnosticsWarning'),
-        error = get_highlight('LspDiagnosticsError'),
-        info = get_highlight('LspDiagnosticsInformation'),
-      },
-    }
-  },
+  get_default_feline_highlights = get_default_feline_highlights,
   get_highlight = get_highlight,
   get_mode_color = get_mode_color,
 }

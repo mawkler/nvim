@@ -81,6 +81,7 @@ local plugins = {
   use 'overseer',                                -- Task runner
   -- { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
   use 'onedark',
+  use 'catppuccin',
   use 'refactoring',
   use 'guess-indent',
   use 'yanky',                                   -- Cycle register history, etc.

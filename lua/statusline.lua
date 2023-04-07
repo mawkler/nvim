@@ -2,6 +2,28 @@ local bo, fn = vim.bo, vim.fn
 local mode_color = require('feline.providers.vi_mode').get_mode_color
 local luasnip = require('luasnip')
 
+local function mode_colors()
+  local get_mode_color = require('utils.colorscheme').get_mode_color
+  return {
+    NORMAL        = get_mode_color('normal'),
+    OP            = get_mode_color('normal'),
+    INSERT        = get_mode_color('insert'),
+    COMMAND       = get_mode_color('command'),
+    VISUAL        = get_mode_color('visual'),
+    LINES         = get_mode_color('visual'),
+    BLOCK         = get_mode_color('visual'),
+    REPLACE       = get_mode_color('replace'),
+    TERM          = get_mode_color('term'),
+    ['V-REPLACE'] = get_mode_color('replace'),
+    SELECT        = get_mode_color('select'),
+    ENTER         = 'skyblue',
+    MORE          = 'skyblue',
+    SHELL         = 'skyblue',
+    NONE          = 'skyblue',
+  }
+end
+
+
 local components = { active = { {}, {}, {} } }
 
 local modes = {
@@ -398,24 +420,6 @@ table.insert(active_right, {
 -- replace_mode: replace mode color
 -- term_mode:    term mode color
 local function setup(config)
-  local mode_colors = {
-    NORMAL        = config.theme.normal_mode,
-    OP            = config.theme.normal_mode,
-    INSERT        = config.theme.insert_mode,
-    COMMAND       = config.theme.command_mode,
-    VISUAL        = config.theme.visual_mode,
-    LINES         = config.theme.visual_mode,
-    BLOCK         = config.theme.visual_mode,
-    REPLACE       = config.theme.replace_mode,
-    TERM          = config.theme.term_mode,
-    ['V-REPLACE'] = config.theme.replace_mode,
-    SELECT        = config.theme.select_mode,
-    ENTER         = 'skyblue',
-    MORE          = 'skyblue',
-    SHELL         = 'skyblue',
-    NONE          = 'skyblue',
-  }
-
   if not config or not config.theme then
     error('Statusline: no theme provided')
   else
@@ -423,10 +427,13 @@ local function setup(config)
     require('feline').setup({
       theme = config.theme,
       components = components,
-      vi_mode_colors = mode_colors,
+      vi_mode_colors = mode_colors(),
       force_inactive = {}
     })
   end
 end
 
-return { setup = setup }
+return {
+  setup = setup,
+  mode_colors = mode_colors
+}
