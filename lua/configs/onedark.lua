@@ -133,7 +133,7 @@ return {
         -- Grammarous
         GrammarousError = { style = style.Undercurl, sp = c.error },
         -- Scrollbar
-        Scrollbar = { fg = c.bg_visual, bg = c.bg_visual },
+        Scrollbar = { fg = c.bg_visual, bg = nil },
         -- Leap
         LeapMatch = { fg = c.orange0, style = string.format('%s,%s', style.Bold, style.Underline) },
         LeapLabelPrimary = { fg = c.green0, style = style.Bold },

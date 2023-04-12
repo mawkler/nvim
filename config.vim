@@ -73,46 +73,6 @@ augroup END
 
 let g:vim_markdown_strikethrough = 1
 
-" -- Scrollbar --
-let g:scrollbar_right_offset = 0
-let g:scrollbar_excluded_filetypes = ['NvimTree']
-let g:scrollbar_highlight = {
-      \ 'head': 'Scrollbar',
-      \ 'body': 'Scrollbar',
-      \ 'tail': 'Scrollbar',
-      \ }
-let g:scrollbar_shape = {
-      \ 'head': '▖',
-      \ 'body': '▌',
-      \ 'tail': '▘',
-      \ }
-
-augroup configure_scrollbar
-  autocmd!
-  autocmd BufEnter                                         * call OnBufEnter()
-  autocmd CursorMoved                                      * call ScrollbarShow()
-  autocmd CursorHold,BufLeave,FocusLost,VimResized,QuitPre * call ScrollbarClear()
-augroup end
-
-function! ScrollbarShow()
-  if !exists('b:previous_first_visible_linenum') | return | endif
-  let first_visible_linenum = line('w0')
-  if first_visible_linenum != b:previous_first_visible_linenum
-    silent! lua require('scrollbar').show()
-  end
-  let b:previous_first_visible_linenum = first_visible_linenum
-endf
-
-function! OnBufEnter()
-  if !exists('b:previous_first_visible_linenum')
-    let b:previous_first_visible_linenum = line('w0')
-  endif
-endf
-
-function! ScrollbarClear() abort
-  silent! lua require('scrollbar').clear()
-endf
-
 " -- Grammarous --
 let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#hooks = {}
