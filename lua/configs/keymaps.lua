@@ -104,7 +104,7 @@ map({'n', 'x'}, 'g)',        'w)ge')
 map({'n', 'x'}, 'g(',        '(ge')
 map('o',        'g)',        ':silent normal vg)h<CR>')
 map('o',        'g(',        ':silent normal vg(oh<CR>')
-map({'n', 'x'}, 'sP',        ':setlocal spell!<CR>')
+map({'n', 'x'}, 'sP',        ':setlocal spell!<CR>', 'Toggle spell check')
 
 -- Adds previous cursor location to jumplist if count is > 5
 local function move_vertically(direction)
