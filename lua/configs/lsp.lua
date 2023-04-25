@@ -58,6 +58,7 @@ return {
         map('n', '<leader>lf', actions.fixAll, 'LSP fix all errors')
         map('n', '<leader>lu', actions.removeUnused, 'LSP remove unused')
         map('n', '<leader>lr', rename_file, 'LSP rename file')
+        map('n', '<leader>lc', function() require('tsc').run() end, 'Type check project')
         map('n', '<leader>ls', spread('{'), {
           remap = true,
           desc = 'Spread object under cursor'
