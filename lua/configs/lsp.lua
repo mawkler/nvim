@@ -4,12 +4,13 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'williamboman/mason.nvim',              -- For installing LSP servers
-    'williamboman/mason-lspconfig.nvim',    -- Integration with nvim-lspconfig
-    'b0o/schemastore.nvim',                 -- YAML/JSON schemas
-    'jose-elias-alvarez/typescript.nvim',   -- TypeScript utilities
-    'folke/neodev.nvim',                    -- Lua signature help and completion
-    'simrat39/rust-tools.nvim',             -- Rust tools
+    'williamboman/mason.nvim',               -- For installing LSP servers
+    'williamboman/mason-lspconfig.nvim',     -- Integration with nvim-lspconfig
+    'b0o/schemastore.nvim',                  -- YAML/JSON schemas
+    'jose-elias-alvarez/typescript.nvim',    -- TypeScript utilities
+    'folke/neodev.nvim',                     -- Lua signature help and completion
+    'simrat39/rust-tools.nvim',              -- Rust tools
+    'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
   config = function()
@@ -30,7 +31,7 @@ return {
     end
 
     -- TypeScript --
-    local typescript_config = {
+    local tsserver_config = {
       on_attach = function()
         local actions = typescript.actions
 
@@ -66,6 +67,31 @@ return {
           desc = 'Spread array under cursor'
         })
       end,
+      handlers = {
+        ['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
+          if result.diagnostics == nil then
+            return
+          end
+
+          -- Ignore some tsserver diagnostics
+          local idx = 1
+          -- TODO: change to using `map()` instead of `while`
+          while idx <= #result.diagnostics do
+            local entry = result.diagnostics[idx]
+
+            local formatter = require('format-ts-errors')[entry.code]
+            entry.message = formatter and formatter(entry.message) or entry.message
+
+            if entry.code == 80001 then
+              table.remove(result.diagnostics, idx)
+            else
+              idx = idx + 1
+            end
+          end
+
+          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+        end,
+      },
     }
 
     local eslint_config = {
@@ -219,7 +245,7 @@ return {
       end,
       tsserver = function ()
         typescript.setup({
-          server = typescript_config
+          server = tsserver_config
         })
       end
     })
