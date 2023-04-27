@@ -5,22 +5,35 @@ return {
   'jose-elias-alvarez/null-ls.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
   config = function()
-    local null_ls = require('null-ls')
-    local builtins = null_ls.builtins
-    local map = require('utils').map
     local b = vim.b
+    local null_ls, builtins = require('null-ls'), require('null-ls').builtins
+    local map = require('utils').map
 
     local sources = {
       builtins.formatting.shfmt,
       builtins.formatting.autopep8,
       builtins.formatting.prettierd,
       builtins.hover.dictionary,
-      -- builtins.diagnostics.eslint_d,
-      -- builtins.code_actions.eslint_d,
+      builtins.diagnostics.cspell,
+      builtins.code_actions.cspell.with({
+        config = {
+          find_json = function()
+            return vim.fn.expand('$HOME') .. '/.cspell.json'
+          end
+        },
+      }),
     }
 
     null_ls.setup({
-      sources = sources,
+      sources = vim.tbl_map(function(source)
+        return source.with({
+          diagnostics_postprocess = function(diagnostic)
+            if diagnostic.source == 'cspell' then
+              diagnostic.severity = vim.diagnostic.severity.HINT
+            end
+          end,
+        })
+      end, sources),
       on_attach = function(client, bufnr)
         require('utils.formatting').format_on_write(client, bufnr)
       end,
