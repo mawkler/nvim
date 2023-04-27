@@ -48,7 +48,7 @@ local plugins = {
   use 'indent-blankline',                        -- Indent markers
   use 'fzf',                                     -- Fuzzy finder
   use 'scrollbar',                               -- Scrollbar
-  use 'web-devicons',                            -- Icons
+  use 'nvim-web-devicons',                       -- File icons
   use 'nvim-tree',                               -- File explorer
   use 'barbar',                                  -- Sexiest buffer tabline
   use 'null-ls',                                 -- Autoformatting, etc.
