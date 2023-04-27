@@ -133,6 +133,7 @@ local plugins = {
   use 'octo',                                    -- GitHub client
   use 'other',                                   -- Go to alternate file
   use 'neotest',                                 -- Testing framework
+  use 'package-info',                            -- Show package.json versions
 }
 
 require('lazy').setup({
