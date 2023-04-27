@@ -10,7 +10,7 @@ return {
     'DiffviewFocusFiles',
     'DiffviewToggleFiles',
     'DiffviewFileHistory',
-    'DiffviewFileRefresh',
+    'DiffviewRefresh',
     'DiffviewLog',
   },
   init = function()
@@ -21,7 +21,7 @@ return {
   config = function()
     local actions = require('diffview.config').actions
 
-    require('diffview').setup(({
+    require('diffview').setup({
       enhanced_diff_hl = false,
       file_panel = {
         win_config = {
@@ -73,6 +73,6 @@ return {
           ['<CR>'] = actions.select_entry
         }
       }
-    }))
+    })
   end
 }

@@ -46,7 +46,6 @@ return {
 
     -- Automatically set up installed DAP adapters
     mason_dap.setup({ automatic_setup = true })
-    mason_dap.setup_handlers()
 
     local function continue()
       -- Loads .vscode/launch.json files if available
@@ -138,7 +137,7 @@ return {
     })
 
     for _, language in ipairs({ 'typescript', 'javascript' }) do
-      require('dap').configurations[language] = {
+      dap.configurations[language] = {
         {
           name = 'Debug Jest Unit Tests (default)',
           type = 'pwa-node',

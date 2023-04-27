@@ -22,7 +22,7 @@ return {
       ensure_installed = 'all',
       highlight = {
         enable = true,
-        disable = { 'latex', 'vim', 'gitcommit' },
+        disable = { 'latex', 'gitcommit' },
       },
       indent = { enable = true },
       textobjects = {

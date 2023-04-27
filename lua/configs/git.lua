@@ -45,13 +45,10 @@ return {
     map('n', '<leader>gd', function() vim.fn.GitDiff() end, 'Git diff current file')
     cmd [[
       function! GitDiff() abort
-        let tmp = g:bufferline.insert_at_end
-        let g:bufferline.insert_at_end = v:false
         tabnew %
         exe 'Gvdiffsplit'
         exe 'BufferMovePrevious'
         windo set wrap
-        let g:bufferline.insert_at_end = tmp
       endf
     ]]
   end

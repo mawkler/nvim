@@ -44,9 +44,7 @@ return {
         name = 'UUID',
         dscr = 'Generate a unique UUID'
       }, {
-          d(1, function()
-            return sn(nil, i(1, uuid()))
-          end)
+          d(1, function() return sn(nil, i(1, uuid())) end)
         })
     })
     luasnip.add_snippets('markdown', {

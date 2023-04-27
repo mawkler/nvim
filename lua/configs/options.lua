@@ -17,7 +17,7 @@ opt.sessionoptions:append('globals') -- Store global variables in sessions
 -- Windows --
 o.termguicolors   = true  -- Use GUI colors in terminal as well
 o.winblend        = 5     -- Transparent floating windows
-o.pumblend        = 5     -- Transparent popup-menu
+o.pumblend        = 10    -- Transparent popup-menu
 o.splitright      = true  -- Open vertical windows to the right instead of left
 if exists('&splitkeep') == 1 then
   opt.splitkeep = exists('g:neovide') == 1 and 'cursor' or 'screen'
