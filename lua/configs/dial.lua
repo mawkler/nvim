@@ -32,6 +32,7 @@ return {
         augend.constant.alias.bool,
         augend.misc.alias.markdown_header,
         add_constant({'and', 'or'}),
+        add_constant({'enable', 'disable'}),
         add_constant({'&&', '||'}),
         add_constant({'TRUE', 'FALSE'}),
         add_constant({'private', 'public'}),
