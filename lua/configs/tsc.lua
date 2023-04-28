@@ -3,6 +3,6 @@
 ---------
 return {
   'dmmulroy/tsc.nvim',
-  lazy = true,
+  cmd = 'TSC',
   config = true
 }
