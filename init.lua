@@ -47,7 +47,7 @@ local plugins = {
   use 'beacon',                                  -- Flash cursor jump
   use 'indent-blankline',                        -- Indent markers
   use 'fzf',                                     -- Fuzzy finder
-  use 'scrollbar',                               -- Scrollbar
+  use 'scrollview',                              -- Scrollbar
   use 'nvim-web-devicons',                       -- File icons
   use 'nvim-tree',                               -- File explorer
   use 'barbar',                                  -- Sexiest buffer tabline
