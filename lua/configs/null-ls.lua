@@ -9,6 +9,8 @@ return {
     local null_ls, builtins = require('null-ls'), require('null-ls').builtins
     local map = require('utils').map
 
+    local cspell_config = vim.fn.expand('$HOME/.config/cspell.json')
+
     local sources = {
       builtins.formatting.shfmt,
       builtins.formatting.autopep8,
@@ -18,8 +20,13 @@ return {
       builtins.code_actions.cspell.with({
         config = {
           find_json = function()
-            return vim.fn.expand('$HOME') .. '/.cspell.json'
-          end
+            return cspell_config
+          end,
+          on_success = function()
+            os.execute( -- Format cspell.json
+              "cat " .. cspell_config .. " | jq | tee " .. cspell_config .. " > /dev/null"
+            )
+          end,
         },
       }),
     }
