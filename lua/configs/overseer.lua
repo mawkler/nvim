@@ -3,23 +3,33 @@
 --------------
 return {
   'stevearc/overseer.nvim',
-  config = function()
-    local overseer = require('overseer')
-    local map = require('utils').map
-
-    overseer.setup(({
-      -- Template modules to load
-      templates = { 'builtin' },
-      task_list = {
-        bindings = {
-          ['{'] = 'DecreaseWidth',
-          ['}'] = 'IncreaseWidth',
-          ['['] = 'PrevTask',
-          [']'] = 'NextTask',
-        },
+  keys = {
+    { '<leader>o', '<cmd>OverseerOpen<CR>', desc = 'Overseer' },
+  },
+  cmd = {
+    'OverseerOpen',
+    'OverseerClose',
+    'OverseerToggle',
+    'OverseerSaveBundle',
+    'OverseerLoadBundle',
+    'OverseerDeleteBundle',
+    'OverseerRunCmd',
+    'OverseerRun',
+    'OverseerInfo',
+    'OverseerBuild',
+    'OverseerQuickAction',
+    'OverseerClearCache',
+  },
+  config = {
+    -- Template modules to load
+    templates = { 'builtin' },
+    task_list = {
+      bindings = {
+        ['{'] = 'DecreaseWidth',
+        ['}'] = 'IncreaseWidth',
+        ['['] = 'PrevTask',
+        [']'] = 'NextTask',
       },
-    }))
-
-    map('n', '<leader>o', overseer.open, 'Overseer')
-  end
+    },
+  }
 }

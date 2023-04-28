@@ -4,6 +4,7 @@
 return {
   'jose-elias-alvarez/null-ls.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
+  event = 'VeryLazy',
   config = function()
     local b = vim.b
     local null_ls, builtins = require('null-ls'), require('null-ls').builtins

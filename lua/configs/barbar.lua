@@ -5,15 +5,7 @@ local map = require('utils').map
 
 return {
   'romgrk/barbar.nvim',
-  event = 'BufAdd',
-  keys = {
-    { '<leader>wn', '<cmd>tab split<CR>' }
-  },
-  cmd = { 'BufferClose' },
-  init = function()
-    -- Fallback if Barbar hasn't been loaded yet
-    map('n', '<leader><M-w>', '<cmd>bdelete!<CR>')
-  end,
+  event = 'VeryLazy',
   config = function()
     require('barbar').setup({
       no_name_title = '[No Name]',

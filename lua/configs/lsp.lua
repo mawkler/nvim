@@ -13,6 +13,7 @@ return {
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
+  event = 'VeryLazy',
   config = function()
     local lsp, diagnostic = vim.lsp, vim.diagnostic
     local lspconfig, util = require('lspconfig'), require('lspconfig.util')

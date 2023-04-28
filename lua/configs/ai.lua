@@ -8,6 +8,7 @@ return {
     'nvim-treesitter/nvim-treesitter'
   },
   version = '*',
+  event = 'VeryLazy',
   config = function()
     local gen_spec = require('mini.ai').gen_spec
     local spec_pair = gen_spec.pair

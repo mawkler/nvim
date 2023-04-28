@@ -4,6 +4,7 @@
 return {
   'lewis6991/gitsigns.nvim',
   dependencies = 'tpope/vim-repeat',
+  event = 'VeryLazy',
   config = function()
     local map, feedkeys = require('utils').map, require('utils').feedkeys
     local gitsigns = require('gitsigns')

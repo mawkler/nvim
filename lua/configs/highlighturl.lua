@@ -3,6 +3,7 @@
 ------------------
 return {
   'itchyny/vim-highlighturl',
+  event = 'VeryLazy',
   config = function()
     local get_highlight = require('utils.colorscheme').get_highlight
 

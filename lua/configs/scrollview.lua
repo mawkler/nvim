@@ -3,6 +3,7 @@
 ----------------
 return {
   'dstein64/nvim-scrollview',
+  event = 'WinScrolled',
   config = function()
     local scrollview = require('scrollview')
 

@@ -3,8 +3,8 @@
 ------------------
 return {
   'vuki656/package-info.nvim',
-  dependencies = 'MunifTanjim/nui.nvim',
-  priority = 1000,
+  dependencies = 'MunifTanjim/nui.nvim', -- UI component library
+  ft = 'json',
   config = function()
     require('package-info').setup({
       icons = {

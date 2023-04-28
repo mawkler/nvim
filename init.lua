@@ -35,12 +35,11 @@ local plugins = {
     keys = '<Plug>(EasyAlign)'
   },
   use 'autolist',                                -- Autocomplete lists
-  { 'wsdjeg/vim-fetch' },                        -- Line and column position when opening file
+  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
   use 'printer',                                 -- Print text-object
   use 'windows',                                 -- Automatic window resizing
   use 'undotree',
   use 'smart-splits',                            -- Better resizing mappings
-  { 'junegunn/vim-peekaboo' },                   -- Register selection window
   use 'cheat',                                   -- cheat.sh
   use 'nvim-colorizer',                          -- Display colour values
   use 'alpha',                                   -- Nicer start screen
@@ -64,15 +63,14 @@ local plugins = {
   use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
   use 'treesitter',
-  { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
   { 'nvim-treesitter/playground',
     cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
   },
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
-  { 'MunifTanjim/nui.nvim' },                    -- UI component library
-  { 'milisims/nvim-luaref' },                    -- Vim :help reference for lua
+  { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
   use 'lastplace',                               -- Restore cursor position
   use 'dial',                                    -- Enhanced increment/decrement
   use 'comment',
@@ -97,7 +95,7 @@ local plugins = {
   use 'vimtex',                                  -- LaTeX utilities
   use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
-  { 'romainl/vim-cool' },                        -- Better search highlighting
+  { 'romainl/vim-cool', event = 'VeryLazy' },    -- Better search highlighting
   { 'plasticboy/vim-markdown', ft = 'markdown' },-- Markdown utilities
   { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
     dependencies = 'kana/vim-textobj-user',
@@ -107,7 +105,6 @@ local plugins = {
   use 'highlighturl',
   use 'messages',                                -- Floating :messages window
   use 'possession',                              -- Session manager
-  { 'rhysd/vim-grammarous' },                    -- LanguageTool grammar checking
   use 'copilot',                                 -- GitHub Copilot
   { 'tvaintrob/bicep.vim', ft = 'bicep' },
   use 'diffview',                                -- Git diff and file history

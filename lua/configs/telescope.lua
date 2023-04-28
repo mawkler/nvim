@@ -16,6 +16,7 @@ return {
     { 'rcarriga/nvim-notify' },
     { 'mfussenegger/nvim-dap' },
   },
+  event = 'VeryLazy',
   config = function()
     local feedkeys = require('utils').feedkeys
     local map = require('utils').map

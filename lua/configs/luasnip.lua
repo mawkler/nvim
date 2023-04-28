@@ -4,6 +4,7 @@
 return {
   'L3MON4D3/LuaSnip',
   dependencies = 'mawkler/friendly-snippets', -- Snippets collection
+  event = 'VeryLazy',
   config = function()
     local fn = vim.fn
     local feedkeys, map = require('utils').feedkeys, require('utils').map

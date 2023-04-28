@@ -11,24 +11,7 @@ return {
     'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
     'williamboman/mason.nvim',          -- Manage DAP adapters
   },
-  -- TODO: fix lazy loading
-  -- keys = {
-  --   '<F10>',
-  --   '<F11>',
-  --   '<S-F11>',
-  --   '<F9>',
-  --   '<leader>s',
-  --   '<leader>di',
-  --   '<leader>do',
-  --   '<leader>db',
-  --   '<leader>dB',
-  --   '<leader>dr',
-  --   '<leader>dl',
-  --   '<leader>de',
-  --   '<leader>dt',
-  --   '<leader>dj',
-  --   '<leader>dJ',
-  -- },
+  event = 'VeryLazy',
   config = function()
     local dap = require('dap')
     local jester = require('jester')

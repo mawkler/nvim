@@ -1,14 +1,20 @@
 ------------------
 -- Git worktree --
 ------------------
+
+local function switch_worktrees()
+  require('telescope').extensions.git_worktree.git_worktrees()
+end
+
+local function create_worktrees()
+  require('telescope').extensions.git_worktree.create_git_worktree()
+end
+
 return {
   'ThePrimeagen/git-worktree.nvim',
   dependencies = 'nvim-telescope/telescope.nvim',
-  config = function()
-    local map = require('utils').map
-    local telescope_worktree = require('telescope').extensions.git_worktree
-
-    map('n', '<leader>gw', telescope_worktree.git_worktrees, 'Switch git worktree')
-    map('n', '<leader>gW', telescope_worktree.create_git_worktree, 'Create git worktree')
-  end
+  keys = {
+    { '<leader>gw', switch_worktrees, 'Switch git worktree' },
+    { '<leader>gW', create_worktrees, 'Create git worktree' },
+  }
 }

@@ -8,7 +8,7 @@ return {
     'SmiteshP/nvim-navic',
     'kyazdani42/nvim-web-devicons',
   },
-  -- event = 'LspAttach', -- Throws error when null-ls attaches for some reason
+  event = 'VeryLazy',
   config = function()
     local get_highlight = require('utils.colorscheme').get_highlight
 
