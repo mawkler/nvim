@@ -19,7 +19,12 @@ return {
     })
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       group = augroup,
-      callback = scrollview.scrollview_disable,
+      callback = function()
+        -- Scrollview throws an error in command-line window for some reason
+        if not vim.fn.win_gettype() == 'command' then
+          scrollview.scrollview_disable()
+        end
+      end,
     })
   end
 }
