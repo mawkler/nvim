@@ -85,7 +85,7 @@ local plugins = {
   use 'guess-indent',
   use 'yanky',                                   -- Cycle register history, etc.
   use 'surround',
-  use 'quick-scope',
+  use 'eyeliner',                                -- Highlight uniques on f/F/t/T
   use 'matchup',                                 -- Adds additional `%` commands
   use 'autopairs',                               -- Auto-close brackets, etc.
   { 'vim-scripts/capslock.vim', event = 'InsertEnter' },

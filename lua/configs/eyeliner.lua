@@ -1,12 +1,17 @@
 --------------
 -- Eyeliner --
 --------------
+local mode = { 'n', 'x', 'o' }
+
 return {
   'jinh0/eyeliner.nvim',
-  -- keys = { 'f', 'F', 't', 'T' },
-  config = function()
-    require'eyeliner'.setup({
-      highlight_on_key = true
-    })
-  end
+  keys = {
+    { 't', mode = mode },
+    { 'T', mode = mode },
+    { 'f', mode = mode },
+    { 'F', mode = mode },
+  },
+  opts = {
+    highlight_on_key = true,
+  }
 }
