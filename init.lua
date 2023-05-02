@@ -111,7 +111,6 @@ local plugins = {
   use 'leap',                                    -- Move cursor anywhere
   use 'winshift',                                -- Improved window movement
   use 'notify',                                  -- Floating notifications popups
-  { 'NarutoXY/dim.lua' },                        -- Dim unused words
   use 'toggleterm',                              -- Toggleable terminal
   use 'term-edit',                               -- Better editing in :terminal
   use 'bqf',                                     -- Better quickfix
