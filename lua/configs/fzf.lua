@@ -6,7 +6,7 @@ return {
   keys = {
     { '<leader><C-p>', function() require('fzf-lua').files({ cwd = '~' }) end },
   },
-  dependencies = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = 'kyazdani42/nvim-web-devicons',
   opts = {
     winopts = {
       width = 0.9,

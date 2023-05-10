@@ -7,7 +7,7 @@ end
 
 return {
   'Wansmer/treesj',
-  requires = { 'nvim-treesitter' },
+  dependencies = 'nvim-treesitter',
   keys = {
     { 'gS', toggle, desc = 'Split text-object into multiple lines' },
   },

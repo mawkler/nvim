@@ -21,7 +21,7 @@ return {
       group = augroup,
       callback = function()
         -- Scrollview throws an error in command-line window for some reason
-        if not vim.fn.win_gettype() == 'command' then
+        if vim.fn.win_gettype() ~= 'command' then
           scrollview.scrollview_disable()
         end
       end,

@@ -3,7 +3,7 @@
 -------------
 return {
   'jose-elias-alvarez/null-ls.nvim',
-  dependencies = 'nvim-lua/plenary.nvim',
+  dependencies = { 'nvim-lua/plenary.nvim', 'davidmh/cspell.nvim' },
   event = 'VeryLazy',
   config = function()
     local b = vim.b
