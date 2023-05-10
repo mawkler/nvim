@@ -24,24 +24,21 @@ return {
     require('diffview').setup({
       enhanced_diff_hl = false,
       file_panel = {
-        win_config = {
-          width = 40
-        }
+        win_config = { width = 40 }
       },
       file_history_panel = {
-        win_config = {
-          height = 15,
-        }
+        ['<C-c>'] = actions.close,
+        win_config = { height = 15 },
       },
       key_bindings = {
         view = {
           ['<C-j>'] = actions.select_next_entry,
           ['<C-k>'] = actions.select_prev_entry,
-          ['<C-s>'] = actions.goto_file_split,
           ['<C-t>'] = actions.goto_file_tab,
           ['~']     = actions.focus_files,
           ['`']     = actions.toggle_files,
           ['gb']    = actions.open_commit_log,
+          ['<C-c>'] = actions.close,
         },
         file_panel = {
           ['<Space>']  = actions.select_entry,
@@ -50,8 +47,7 @@ return {
           ['<C-j>']    = actions.select_next_entry,
           ['<C-k>']    = actions.select_prev_entry,
           ['<C-t>']    = actions.goto_file_tab,
-          ['<Esc>']    = actions.toggle_files,
-          ['`']        = actions.toggle_files,
+          ['<C-c>']    = actions.close,
           ['<space>e'] = false,
           ['<space>b'] = false,
         },
@@ -62,16 +58,17 @@ return {
           ['<C-j>']    = actions.select_next_entry,
           ['<C-k>']    = actions.select_prev_entry,
           ['gf']       = actions.goto_file,
-          ['<C-s>']    = actions.goto_file_split,
           ['<C-t>']    = actions.goto_file_tab,
           ['~']        = actions.focus_files,
           ['`']        = actions.toggle_files,
+          ['<C-c>']    = actions.close,
           ['<space>e'] = false,
-          ['<space>b'] = false
+          ['<space>b'] = false,
         },
         option_panel = {
-          ['<CR>'] = actions.select_entry
-        }
+          ['<CR>']  = actions.select_entry,
+          ['<C-c>'] = actions.close,
+        },
       }
     })
   end
