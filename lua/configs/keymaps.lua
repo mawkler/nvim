@@ -44,6 +44,7 @@ map('i',        '<M-j>',         '<Esc>:m .+1<CR>==gi')
 map('i',        '<M-k>',         '<Esc>:m .-2<CR>==gi')
 map('n',        '<C-w>C',        ':tabclose<CR>')
 map('n',        '<C-c>',         '<Nop>') -- Allow <C-w><C-c>
+map('n',        '<leader>wn',    ':tab split<CR>')
 map('n',        '<leader>wc',    ':tabclose<CR>')
 map('n',        '<leader>wo',    ':tabonly<CR>')
 map('n',        '<leader><Esc>', '<Nop>')
