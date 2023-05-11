@@ -8,7 +8,10 @@ return {
   config = function()
     local map = require('utils').map
 
-    require('rest-nvim').setup()
+    require('rest-nvim').setup({
+      result_split_horizontal = true,
+      result_split_in_place = true,
+    })
 
     vim.api.nvim_create_user_command(
       'Http',
