@@ -69,7 +69,7 @@ return {
         map('n', '<C-j>', quickfix_step('below'), { buffer = true })
         map('n', '<C-k>', quickfix_step('above'), { buffer = true })
 
-        map('n',        '<Space>', '<CR><C-w>p', { buffer = true })
+        map('n',        '<Space>', '<CR><C-w>p', { buffer = true, nowait = true })
         map({'n', 'x'}, '<CR>',    '<CR>',       { buffer = true })
       end,
       group = 'Quickfix'
