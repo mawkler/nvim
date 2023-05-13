@@ -7,29 +7,26 @@ return {
   event = 'VeryLazy',
   config = function()
     local b = vim.b
-    local null_ls, builtins = require('null-ls'), require('null-ls').builtins
     local map = require('utils').map
+    local null_ls, builtins = require('null-ls'), require('null-ls').builtins
+    local cspell = require('cspell')
 
-    local cspell_config = vim.fn.expand('$HOME/.config/cspell.json')
+    local cspell_json = vim.fn.expand('$HOME/.config/cspell.json')
+    local cspell_config = {
+      config = {
+        find_json = function()
+          return cspell_json
+        end,
+      },
+    }
 
     local sources = {
       builtins.formatting.shfmt,
       builtins.formatting.autopep8,
       builtins.formatting.prettierd,
       builtins.hover.dictionary,
-      builtins.diagnostics.cspell,
-      builtins.code_actions.cspell.with({
-        config = {
-          find_json = function()
-            return cspell_config
-          end,
-          on_success = function()
-            os.execute( -- Format cspell.json
-              "cat " .. cspell_config .. " | jq | tee " .. cspell_config .. " > /dev/null"
-            )
-          end,
-        },
-      }),
+      cspell.diagnostics.with(cspell_config),
+      cspell.code_actions.with(cspell_config),
     }
 
     null_ls.setup({
