@@ -27,13 +27,14 @@ end
 return {
   'ten3roberts/qf.nvim',
   event = 'QuickFixCmdPre',
+  ft = 'qf',
   keys = {
     { ']q',        list_jump('below', 'c'), mode = 'n', desc = 'Next quickfix item' },
     { '[q',        list_jump('above', 'c'), mode = 'n', desc = 'Previous quickfix item' },
     { ']l',        list_jump('below', 'l'), mode = 'n', desc = 'Next location list item' },
     { '[l',        list_jump('above', 'l'), mode = 'n', desc = 'Previous location list item' },
-    { ']Q',        '<cmd>cnext<CR>',        mode = 'n', desc = 'Next quickfix item' },
-    { '[Q',        '<cmd>cprev<CR>',        mode = 'n', desc = 'Previous quickfix item' },
+    { ']Q',        '<cmd>silent cnext<CR>', mode = 'n', desc = 'Next quickfix item' },
+    { '[Q',        '<cmd>silent cprev<CR>', mode = 'n', desc = 'Previous quickfix item' },
     { '<leader>Q', toggle('c'),             mode = 'n', desc = 'Toggle quickfix' },
     { '<leader>L', toggle('l'),             mode = 'n', desc = 'Toggle location list' },
   },
@@ -45,6 +46,7 @@ return {
 
     qf.setup({
       pretty = false,
+      silent = true,
       l = {
         wide = true,
         min_height = 3,
