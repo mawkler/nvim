@@ -6,7 +6,7 @@ return {
   dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
   build = ':TSUpdate',
   event = 'VeryLazy',
-  config = function ()
+  config = function()
     local map = require('utils').map
 
     local function include_surrounding_whitespace(selection)
@@ -49,7 +49,8 @@ return {
             [']i'] = '@conditional.outer',
             [']o'] = '@loop.outer',
             [']k'] = '@block.outer',
-            [']R' ] = '@return.outer',
+            [']R'] = '@return.outer',
+            [']m'] = '@method.outer'
           },
           goto_previous_start = {
             ['[f'] = '@function.outer',
@@ -59,6 +60,7 @@ return {
             ['[i'] = '@conditional.outer',
             ['[k'] = '@block.outer',
             ['[R'] = '@return.outer',
+            ['[m'] = '@method.outer'
           },
           goto_next_end = {
             [']F'] = '@function.outer',
@@ -66,6 +68,7 @@ return {
             [']A'] = '@parameter.outer',
             [']I'] = '@conditional.outer',
             [']K'] = '@block.outer',
+            ['[M'] = '@method.outer'
           },
           goto_previous_end = {
             ['[F'] = '@function.outer',
@@ -73,6 +76,7 @@ return {
             ['[A'] = '@parameter.outer',
             ['[I'] = '@conditional.outer',
             ['[K'] = '@block.outer',
+            ['[M'] = '@method.outer'
           }
         },
         swap = {

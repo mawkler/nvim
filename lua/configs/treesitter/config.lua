@@ -10,6 +10,7 @@ config.query_keymaps = {
   o = '@loop',
   k = '@block',
   R = '@return',
+  m = '@method'
 }
 
 config.get_keymaps = function()
