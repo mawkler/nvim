@@ -6,7 +6,7 @@ return {
   opts = {
     char = '▏',
     show_first_indent_level = false,
-    buftype_exclude = { 'fzf', 'help', 'terminal' },
+    buftype_exclude = { 'fzf', 'help', 'terminal', 'nofile' },
     filetype_exclude = {
       'markdown',
       'alpha',
