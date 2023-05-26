@@ -124,6 +124,7 @@ return {
         BufferVisibleTarget  = { fg = c.blue0,        bg = barbar_bg_visible, style = style.Bold  },
         BufferTabpageFill    = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferTabpages       = { fg = c.blue0,        bg = barbar_bg, style = style.Bold },
+        BufferTabPagesSep    = { link = 'BufferTabpages' },
         BufferInactive       = { fg = '#707070',      bg = barbar_bg },
         BufferInactiveSign   = { fg = barbar_fg_gray, bg = barbar_bg },
         BufferInactiveMod    = { fg = c.warning,      bg = barbar_bg },
