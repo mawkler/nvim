@@ -178,12 +178,7 @@ return {
     -- Bicep --
     local bicep_config = {
       cmd = {
-        'dotnet',
-        path.concat({
-          get_install_path('bicep-lsp'),
-          'bicepLanguageServer',
-          'Bicep.LangServer.dll',
-        })
+        path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
       }
     }
 
