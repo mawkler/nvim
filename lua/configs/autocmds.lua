@@ -94,6 +94,6 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Always disable spell check for new buffers
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
-  callback = function() vim.o.spell = 0 end,
+  callback = function() vim.o.spell = false end,
   group = 'Spelling',
 })
