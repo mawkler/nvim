@@ -2,23 +2,31 @@ local function hex_from_decimal(decimal)
   return string.format('#%x', decimal)
 end
 
---- Gets the foreground or background color value of `group`.
---- @param group string
+--- Gets the foreground or background color value of a highlight group. Returns
+--- white if - the group doesn't exist.
+--- @param group_name string
 --- @param part 'fg'|'bg'
 --- @return string
-local function get_highlight(group, part)
-  local _part = part == 'bg' and 'background' or 'foreground'
-  local color = vim.api.nvim_get_hl_by_name(group, true)[_part]
-  if not color then
-    error(string.format('Highlight group %s has no %s part', group, _part), 1)
+local function get_highlight(group_name, part)
+  part = part or 'fg'
+  local hl = vim.api.nvim_get_hl(0, { name = group_name, link = false })
+
+  if vim.tbl_isempty(hl) or not hl[part] then
+    local message = string.format(
+      "Highlight group %s doesn't exist or has no %s part",
+      group_name,
+      part
+    )
+    vim.notify(message, vim.log.levels.WARN)
+    return '#ffffff'
   end
-  return hex_from_decimal(color)
+  return hex_from_decimal(hl[part])
 end
 
 --- Assumes that a highlight group for `mode` exists, e.g. NormalMode,
 --- VisualMode, InsertMode, etc.
 --- @param mode string
---- @return string
+--- @return string|nil
 local function get_mode_color(mode)
   return get_highlight(mode .. 'mode')
 end
@@ -67,8 +75,10 @@ local augroup = vim.api.nvim_create_augroup('Colorscheme', {})
 vim.api.nvim_create_autocmd('Colorscheme', {
   group = augroup,
   callback = function(event)
-    local theme_name = event.match
-    set_feline_theme(theme_name)
+    if pcall(require, 'feline') then
+      local theme_name = event.match
+      set_feline_theme(theme_name)
+    end
 
     vim.g.highlighturl_guifg = get_highlight('@text.uri')
   end,
