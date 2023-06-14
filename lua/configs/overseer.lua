@@ -20,7 +20,7 @@ return {
     'OverseerQuickAction',
     'OverseerClearCache',
   },
-  config = {
+  opts = {
     -- Template modules to load
     templates = { 'builtin' },
     task_list = {
