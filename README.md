@@ -8,13 +8,14 @@
 2. ```sh
    # Clone this repository to ~/.config/nvim/
    git clone https://github.com/mawkler/nvim/ ~/.config/nvim/
-   # Install packer.nvim
-   git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-       ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-   # Install plugins using packer.nvim
-   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-   # Install python module for Neovim (optional)
+   # Clone lazy.nvim
+   git clone --depth 1 --filter=blob:none --branch=stable \
+      https://github.com/folke/lazy.nvim.git \
+      ~/.local/share/nvim/lazy/lazy.nvim
+   # Install python module for Neovim
    pip install --user neovim
+   # Launch Neovim and let lazy.nvim do its thing
+   nvim
    ```
 
 My other dotfiles are available [here](https://github.com/mawkler/dotfiles).
