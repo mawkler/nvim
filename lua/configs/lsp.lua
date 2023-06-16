@@ -15,7 +15,7 @@ return {
   },
   event = 'VeryLazy',
   config = function()
-    local lsp, diagnostic = vim.lsp, vim.diagnostic
+    local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
     local lspconfig, util = require('lspconfig'), require('lspconfig.util')
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
@@ -43,7 +43,7 @@ return {
         end
 
         local function rename_file()
-          local workspace_path = vim.lsp.buf.list_workspace_folders()[1]
+          local workspace_path = lsp.buf.list_workspace_folders()[1]
           local file_path = vim.fn.expand('%:' .. workspace_path .. ':.')
           vim.ui.input({ prompt = 'Rename file', default = file_path },
             function(target)
@@ -69,6 +69,22 @@ return {
           desc = 'Spread array under cursor'
         })
       end,
+      settings = {
+        typescript = {
+          inlayHints = {
+            -- Enabled
+            includeInlayParameterNameHints = 'all',
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+            -- Disabled
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = false,
+            includeInlayVariableTypeHints = false,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+            includeInlayFunctionLikeReturnTypeHints = false,
+          }
+        },
+      },
       handlers = {
         ['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
           if result.diagnostics == nil then
@@ -91,14 +107,14 @@ return {
             end
           end
 
-          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+          lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
         end,
       },
     }
 
     local eslint_config = {
       on_attach = function(_, bufnr)
-        vim.api.nvim_create_autocmd('BufWritePre', {
+        api.nvim_create_autocmd('BufWritePre', {
           buffer = bufnr,
           command = 'EslintFixAll',
         })
@@ -127,6 +143,10 @@ return {
               trailing_table_separator = 'smart',
             },
           },
+          hint = {
+            enable = true,
+            arrayIndex = 'Disable',
+          },
         }
       }
     }
@@ -135,9 +155,8 @@ return {
     local rust_config = {
       tools = {
         inlay_hints = {
-          max_len_align = true,
-          highlight = 'InlineHint',
-        },
+          auto = false
+        }
       },
       server = {
         on_attach = function()
@@ -241,9 +260,7 @@ return {
         return rust_tools.setup(rust_config)
       end,
       tsserver = function ()
-        typescript.setup({
-          server = tsserver_config
-        })
+        typescript.setup({ server = tsserver_config })
       end
     })
 
@@ -285,16 +302,16 @@ return {
 
     local function lsp_references()
       require('utils').clear_lsp_references()
-      vim.lsp.buf.document_highlight()
+      lsp.buf.document_highlight()
       telescope.lsp_references({ include_declaration = false })
     end
 
     local function attach_codelens(bufnr)
-      vim.api.nvim_create_augroup('Lsp', {})
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+      api.nvim_create_augroup('Lsp', {})
+      api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
         group = 'Lsp',
         buffer = bufnr,
-        callback = vim.lsp.codelens.refresh,
+        callback = lsp.codelens.refresh,
       })
     end
 
@@ -325,7 +342,7 @@ return {
       end, 'Diagnostic open float')
 
       map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
-      map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementaiton in window split',  remap = true })
+      map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementation in window split',  remap = true })
       map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
       map('n', '<leader>ll', lsp.start, { desc = 'Start LSP server' })
@@ -336,14 +353,14 @@ return {
     ---------------------------
     -- Default LSP on_attach --
     ---------------------------
-    local augroup = vim.api.nvim_create_augroup('LSP', { clear = true })
-    vim.api.nvim_create_autocmd('LspAttach', {
+    local augroup = api.nvim_create_augroup('LSP', { clear = true })
+    api.nvim_create_autocmd('LspAttach', {
       group = augroup,
       desc = 'Default LSP on_attach',
       callback = function(event)
         local bufnr = event.buf
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+        local client = lsp.get_client_by_id(event.data.client_id)
+        local filetype = api.nvim_get_option_value('filetype', { buf = bufnr })
 
         -- Keymaps
         attach_keymaps()
@@ -356,6 +373,15 @@ return {
         -- Code lens
         if client.server_capabilities.codeLensProvider then
           attach_codelens(bufnr)
+        end
+
+        -- Inlay hints
+        if event.data and event.data.client_id then
+          local inlay_hints = require('lsp-inlayhints')
+
+          inlay_hints.on_attach(client, bufnr)
+
+          map('n', '<leader>lh', inlay_hints.toggle, 'Toggle LSP inlay hints')
         end
       end
     })

@@ -58,6 +58,7 @@ local plugins = {
   use 'gitsigns',                                -- Git status in sign column
   use 'mason',                                   -- LSP/DAP/etc. package manager
   use 'lsp',                                     -- Built-in LSP
+  use 'lsp-inlay-hints',                         -- LSP inlay hints
   use 'tsc',                                     -- TypeScript type checking
   use 'luasnip',                                 -- Snippet engine
   use 'cmp-tabnine',                             -- Tabnine autocompletion
