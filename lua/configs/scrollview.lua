@@ -1,6 +1,13 @@
 ----------------
 -- Scrollview --
 ----------------
+local function scrollview_enabled(state)
+  -- Scrollview throws an error in command-line window for some reason
+  if vim.fn.win_gettype() ~= 'command' then
+    require('scrollview').set_state(state)
+  end
+end
+
 return {
   'dstein64/nvim-scrollview',
   event = 'WinScrolled',
@@ -16,16 +23,11 @@ return {
     local augroup = vim.api.nvim_create_augroup('Scrollview', {})
     vim.api.nvim_create_autocmd({ 'WinScrolled' }, {
       group = augroup,
-      callback = function() scrollview.set_state(true) end,
+      callback = function() scrollview_enabled(true) end,
     })
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       group = augroup,
-      callback = function()
-        -- Scrollview throws an error in command-line window for some reason
-        if vim.fn.win_gettype() ~= 'command' then
-          scrollview.set_state(false)
-        end
-      end,
+      callback = function() scrollview_enabled(false) end,
     })
   end
 }
