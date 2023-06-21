@@ -1,8 +1,6 @@
 ---------
 -- Git --
 ---------
-vim.opt.fillchars = { diff = ' ' }
-
 return {
   'TimUntersberger/neogit',
   cmd = 'Neogit',

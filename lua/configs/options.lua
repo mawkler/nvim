@@ -52,7 +52,7 @@ o.concealcursor  = 'nic'  -- Conceal characters on the cursor line
 o.breakindent    = true   -- Respect indent when line wrapping
 opt.cpoptions:remove('_') -- Makes cw/cW include trailing whitespace
 
--- Indent characters --
+-- Indent/ special characters --
 o.expandtab   = true     -- Use spaces for indentation
 o.shiftwidth  = 2        -- Width of indentation
 o.tabstop     = 4        -- Width of <Tab> characters
@@ -60,3 +60,7 @@ o.shiftround  = true     -- Round indent to multiple of shiftwdith
 opt.cinkeys:remove('0#') -- Indent lines starting with `#`
 o.list        = true
 o.listchars   = 'tab:  ,nbsp:·'
+opt.fillchars = {
+  diff = ' ', -- Cleaner deleted lines in diff
+  eob = ' ',  -- Don't show `~` at end of buffer
+}
