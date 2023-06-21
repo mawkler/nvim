@@ -24,6 +24,7 @@ return {
       builtins.formatting.shfmt,
       builtins.formatting.autopep8,
       builtins.formatting.prettierd,
+      builtins.formatting.latexindent,
       builtins.hover.dictionary,
       cspell.diagnostics.with(cspell_config),
       cspell.code_actions.with(cspell_config),
