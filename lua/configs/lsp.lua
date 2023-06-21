@@ -345,7 +345,8 @@ return {
       map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementation in window split',  remap = true })
       map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
-      map('n', '<leader>ll', lsp.start, { desc = 'Start LSP server' })
+      map('n', '<leader>ls', '<cmd>LspStart<CR>', { desc = 'Start LSP server' })
+      map('n', '<leader>lq', '<cmd>LspStop<CR>', { desc = 'Start LSP server' })
     end
 
     local format_on_write_blacklist = { 'lua' }
