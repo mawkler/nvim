@@ -31,6 +31,15 @@ return {
       return require('utils').map(modes, lhs, rhs, opts)
     end
 
+    local function typescript_organize_imports()
+      local params = {
+        command = "_typescript.organizeImports",
+        arguments = {vim.api.nvim_buf_get_name(0)},
+        title = "Organize imports"
+      }
+      vim.lsp.buf.execute_command(params)
+    end
+
     -- TypeScript --
     local tsserver_config = {
       on_attach = function()
@@ -54,7 +63,7 @@ return {
           )
         end
 
-        map('n', '<leader>lo', actions.organizeImports, 'LSP Organize imports')
+        map('n', '<leader>lo', '<cmd>TypescriptOrganizeAndFixImports<CR>', 'LSP Organize imports')
         map('n', '<leader>li', actions.addMissingImports, 'LSP add missing imports')
         map('n', '<leader>lf', actions.fixAll, 'LSP fix all errors')
         map('n', '<leader>lu', actions.removeUnused, 'LSP remove unused')
@@ -69,6 +78,12 @@ return {
           desc = 'Spread array under cursor'
         })
       end,
+      commands = {
+        TypescriptOrganizeAndFixImports = {
+          typescript_organize_imports,
+          description = "Organize imports",
+        }
+      },
       settings = {
         typescript = {
           inlayHints = {
