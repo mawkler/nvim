@@ -43,6 +43,7 @@ return {
 
     local custom_textobjects = vim.tbl_extend('force', ts_query_keymaps(), {
       b = pair('(', ')'),
+      B = pair('{', '}'),
       r = pair('[', ']'),
       q = pair("'"),
       Q = pair('"'),
