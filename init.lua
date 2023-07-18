@@ -132,7 +132,8 @@ local plugins = {
   use 'other',                                   -- Go to alternate file
   use 'neotest',                                 -- Testing framework
   use 'package-info',                            -- Show package.json versions
-  use 'output-panel'                             -- LSP logs panel
+  use 'output-panel',                            -- LSP logs panel
+  use 'typst',                                   -- Typst highlighting, etc.
 }
 
 require('lazy').setup({
