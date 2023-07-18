@@ -151,6 +151,9 @@ map('n', '<C-->', zoom(-v.count1))
 map('n', '<C-0>', zoom_set(11))
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
+map('n', '<C-w><C-^>', '<C-w>v<C-6>')
+map('n', '<C-w>6',     '<C-w>v<C-6>')
+
 map('s', '<BS>', '<BS>i') -- By default <BS> puts you in normal mode
 map('s', '<C-h>', '<BS>i')
 map({'n', 'i', 'v', 's', 'o', 't'}, '<C-m>', '<CR>', { remap = true })
