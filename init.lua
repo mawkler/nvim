@@ -71,6 +71,7 @@ local plugins = {
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
+  use 'noice',                                   -- Nicer UI features
   { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
   use 'lastplace',                               -- Restore cursor position
   use 'dial',                                    -- Enhanced increment/decrement
