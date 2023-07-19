@@ -33,10 +33,11 @@ return {
           include_surrounding_whitespace = include_surrounding_whitespace,
           keymaps = require('configs.treesitter.config').get_keymaps(),
           selection_modes = {
-            -- Make `aF`, `aC` and `am`line-wise
+            -- Make `aF`, `aC` and `am` line-wise
             ['@function.outer'] = 'V',
             ['@class.outer'] = 'V',
             ['@method.outer'] = 'V',
+            ['@method.inner'] = 'V',
           },
         },
         move = {
