@@ -84,6 +84,7 @@ return {
         -- Eyeliner
         EyelinerPrimary = { fg = c.red0, style = style.Bold },
         EyelinerSecondary = { fg = c.orange1, style = style.Bold },
+        EyelinerDimmed = { fg = c.fg_dark },
         -- NvimTree
         NvimTreeFolderIcon = { fg = '#8094b4' },
         NvimTreeFolderName = { fg = c.blue0 },
