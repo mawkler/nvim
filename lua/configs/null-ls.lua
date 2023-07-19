@@ -9,16 +9,6 @@ return {
     local b = vim.b
     local map = require('utils').map
     local null_ls, builtins = require('null-ls'), require('null-ls').builtins
-    local cspell = require('cspell')
-
-    local cspell_json = vim.fn.expand('$HOME/.config/cspell.json')
-    local cspell_config = {
-      config = {
-        find_json = function()
-          return cspell_json
-        end,
-      },
-    }
 
     local sources = {
       builtins.formatting.shfmt,
@@ -26,8 +16,7 @@ return {
       builtins.formatting.prettierd,
       builtins.formatting.latexindent,
       builtins.hover.dictionary,
-      cspell.diagnostics.with(cspell_config),
-      cspell.code_actions.with(cspell_config),
+      builtins.diagnostics.typos,
     }
 
     null_ls.setup({
