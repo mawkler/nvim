@@ -8,7 +8,8 @@ M.map = function(modes, lhs, rhs, opts)
   if type(opts) == 'string' then
     opts = { desc = opts }
   end
-  vim.keymap.set(modes, lhs, rhs, opts)
+  local options = vim.tbl_extend('keep', opts or {}, { silent = true })
+  vim.keymap.set(modes, lhs, rhs, options)
 end
 
 M.feedkeys = function(keys, mode)
