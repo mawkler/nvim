@@ -283,16 +283,18 @@ return {
     -- Config --
     ------------
 
-    -- Add borders to hover/signature windows
-    lsp.handlers['textDocument/hover'] = lsp.with(
-      lsp.handlers.hover,
-      { border = 'single' }
-    )
+    if not vim.g.noice then
+      -- Add borders to hover/signature windows (noice.nvim has its own)
+      lsp.handlers['textDocument/hover'] = lsp.with(
+        lsp.handlers.hover,
+        { border = 'single' }
+      )
 
-    lsp.handlers['textDocument/signatureHelp'] = lsp.with(
-      lsp.handlers.signature_help,
-      { border = 'single' }
-    )
+      lsp.handlers['textDocument/signatureHelp'] = lsp.with(
+        lsp.handlers.signature_help,
+        { border = 'single' }
+      )
+    end
 
     -- Enable LSP snippets by default
     local capabilities = lsp.protocol.make_client_capabilities()
