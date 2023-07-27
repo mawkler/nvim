@@ -9,13 +9,15 @@ return {
     g.tex_indent_items = 0      -- Disable indent before new `\item`
     g.vimtex_indent_enabled = 0 -- Disable indent before new `\item` by VimTex
     g.tex_comment_nospell = 1
-    g.vimtex_view_method = 'zathura' -- Zathura auto-reloads documents
+    g.vimtex_view_method = 'zathura' -- Sioyek steals window focus on <leader>lv
     g.vimtex_view_general_viewer = 'zathura'
+    g.vimtex_view_automatic = 0
     g.vimtex_complete_bib = { simple = 1 }
     g.vimtex_toc_config = {
       layer_status = { label = 0 },
     }
 
+    g.vimtex_quickfix_enabled = 0
     -- Disable custom warnings based on regexp
     g.vimtex_quickfix_ignore_filters = { 'Underfull \\hbox' }
     -- Disables default mappings that start with `t`
@@ -58,6 +60,5 @@ return {
       end,
       group = 'LaTeX',
     })
-
   end
 }
