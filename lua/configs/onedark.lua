@@ -147,6 +147,8 @@ return {
         -- Treesitter context
         TreesitterContext = { bg = treesitter_context_bg },
         TreesitterContextLineNumber = { fg = c.fg_gutter, bg = treesitter_context_bg },
+        -- Mini indentscope
+        MiniIndentScopeSymbol = { fg = '#39536c', style = style.Bold }
       }
     end
   })

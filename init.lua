@@ -45,6 +45,7 @@ local plugins = {
   use 'alpha',                                   -- Nicer start screen
   use 'beacon',                                  -- Flash cursor jump
   use 'indent-blankline',                        -- Indent markers
+  use 'mini-indentscope',                        -- Indentation scope
   use 'fzf',                                     -- Fuzzy finder
   use 'scrollview',                              -- Scrollbar
   use 'nvim-web-devicons',                       -- File icons
