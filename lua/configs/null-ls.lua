@@ -13,7 +13,7 @@ return {
     local sources = {
       builtins.formatting.shfmt,
       builtins.formatting.autopep8,
-      builtins.formatting.prettierd,
+      builtins.formatting.prettier,
       builtins.formatting.latexindent,
       builtins.hover.dictionary,
       builtins.diagnostics.typos,
