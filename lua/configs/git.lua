@@ -28,6 +28,7 @@ return {
         section = { '', '' },
         item = { '', '' },
       },
+      ignored_settings = { 'NeogitCommitPopup--all' },
       integrations = { diffview = true  },
       disable_builtin_notifications = true,
       disable_commit_confirmation = true,
