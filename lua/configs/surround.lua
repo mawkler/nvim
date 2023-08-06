@@ -71,6 +71,7 @@ return {
   end,
   config = function()
     require('nvim-surround').setup({
+      move_cursor = false,
       keymaps = {
         normal = 's',
         normal_cur = 'ss',
