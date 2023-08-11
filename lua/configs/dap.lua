@@ -119,6 +119,13 @@ return {
       },
     })
 
+    -- Jester
+    jester.setup({
+      dap = {
+        type = 'pwa-node',
+      },
+    })
+
     for _, language in ipairs({ 'typescript', 'javascript' }) do
       dap.configurations[language] = {
         {
