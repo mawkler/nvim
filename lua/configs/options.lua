@@ -22,7 +22,6 @@ o.splitright      = true  -- Open vertical windows to the right instead of left
 if exists('&splitkeep') == 1 then
   opt.splitkeep = exists('g:neovide') == 1 and 'cursor' or 'screen'
 end
-o.lazyredraw    = true
 o.updatetime    = 500
 opt.viewoptions = { 'cursor', 'folds', 'slash', 'unix' }
 
