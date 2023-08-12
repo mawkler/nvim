@@ -15,9 +15,9 @@ if not vim.loop.fs_stat(lazy_path) then
 end
 vim.opt.rtp:prepend(lazy_path)
 
-map('n', '<leader>zz', '<cmd>Lazy<CR>',         'Open lazy UI')
-map('n', '<leader>zi', '<cmd>Lazy install<CR>', 'Lazy install')
-map('n', '<leader>zu', '<cmd>Lazy update<CR>',  'Lazy update')
-map('n', '<leader>zc', '<cmd>Lazy clean<CR>',   'Lazy clean')
-map('n', '<leader>zp', '<cmd>Lazy profile<CR>', 'Lazy profile')
-map('n', '<leader>zs', '<cmd>Lazy sync<CR>',    'Lazy sync')
+map('n', '<leader>Zz', '<cmd>Lazy<CR>',         'Open lazy UI')
+map('n', '<leader>Zi', '<cmd>Lazy install<CR>', 'Lazy install')
+map('n', '<leader>Zu', '<cmd>Lazy update<CR>',  'Lazy update')
+map('n', '<leader>Zc', '<cmd>Lazy clean<CR>',   'Lazy clean')
+map('n', '<leader>Zp', '<cmd>Lazy profile<CR>', 'Lazy profile')
+map('n', '<leader>Zs', '<cmd>Lazy sync<CR>',    'Lazy sync')

@@ -135,6 +135,7 @@ local plugins = {
   use 'package-info',                            -- Show package.json versions
   use 'output-panel',                            -- LSP logs panel
   use 'typst',                                   -- Typst highlighting, etc.
+  use 'telekasten',                              -- Zettlekasten
 }
 
 require('lazy').setup({
