@@ -17,9 +17,8 @@ return {
   },
   config = function()
     local map = require('utils').map
-    local cmd, call = vim.cmd, vim.call
-
     local neogit = require('neogit')
+
     neogit.setup {
       commit_popup = {
         kind = 'vsplit',
@@ -39,16 +38,5 @@ return {
       cwd = vim.fn.expand('%:p:h'),
       kind = 'vsplit',
     }) end, 'Neogit status')
-
-    -- TODO: replace with Neogit or Diffview diff once feature is available
-    map('n', '<leader>gd', function() vim.fn.GitDiff() end, 'Git diff current file')
-    cmd [[
-      function! GitDiff() abort
-        tabnew %
-        exe 'Gvdiffsplit'
-        exe 'BufferMovePrevious'
-        windo set wrap
-      endf
-    ]]
   end
 }

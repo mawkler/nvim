@@ -1,6 +1,13 @@
 --------------
 -- Diffview --
 --------------
+
+-- Opens diff view with the file tree closed
+local function diff_file()
+  vim.cmd.DiffviewOpen()
+  vim.cmd.DiffviewToggleFiles()
+end
+
 return {
   'sindrets/diffview.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
@@ -16,6 +23,7 @@ return {
   init = function()
     local map = require('utils').map
     map('n', '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>')
+    map('n', '<leader>gd', diff_file)
     map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')
   end,
   config = function()
@@ -38,7 +46,7 @@ return {
           ['~']     = actions.focus_files,
           ['`']     = actions.toggle_files,
           ['gb']    = actions.open_commit_log,
-          ['<C-c>'] = actions.close,
+          ['<C-c>'] = vim.cmd.DiffviewClose,
         },
         file_panel = {
           ['<Space>']  = actions.select_entry,
@@ -47,7 +55,7 @@ return {
           ['<C-j>']    = actions.select_next_entry,
           ['<C-k>']    = actions.select_prev_entry,
           ['<C-t>']    = actions.goto_file_tab,
-          ['<C-c>']    = actions.close,
+          ['<C-c>']    = vim.cmd.DiffviewClose,
           ['<space>e'] = false,
           ['<space>b'] = false,
         },
@@ -61,13 +69,13 @@ return {
           ['<C-t>']    = actions.goto_file_tab,
           ['~']        = actions.focus_files,
           ['`']        = actions.toggle_files,
-          ['<C-c>']    = actions.close,
+          ['<C-c>']    = vim.cmd.DiffviewClose,
           ['<space>e'] = false,
           ['<space>b'] = false,
         },
         option_panel = {
           ['<CR>']  = actions.select_entry,
-          ['<C-c>'] = actions.close,
+          ['<C-c>'] = vim.cmd.DiffviewClose,
         },
       }
     })
