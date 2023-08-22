@@ -98,7 +98,7 @@ local plugins = {
   use 'vimtex',                                  -- LaTeX utilities
   use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
-  { 'romainl/vim-cool', event = 'VeryLazy' },    -- Better search highlighting
+  use 'hlsearch',                                -- Auto remove search highlights
   { 'plasticboy/vim-markdown', ft = 'markdown' },-- Markdown utilities
   { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
     dependencies = 'kana/vim-textobj-user',

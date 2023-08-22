@@ -35,17 +35,14 @@ M.visible_buffers = function()
 end
 
 local function lsp_server_has_references()
-  for _, client in pairs(vim.lsp.get_active_clients()) do
-    if client.server_capabilities then
-      return true
-    end
-  end
-  return false
+  vim.tbl_contains(vim.lsp.get_clients(), function(client)
+    return client.server_capabilities
+  end, { predicate = true })
 end
 
 --- Clear all highlighted LSP references in all windows
 M.clear_lsp_references = function()
-  vim.cmd('nohlsearch')
+  vim.cmd.nohlsearch()
   if lsp_server_has_references() then
     vim.lsp.buf.clear_references()
     for _, buffer in pairs(M.visible_buffers()) do
