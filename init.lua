@@ -118,7 +118,7 @@ local plugins = {
   use 'term-edit',                               -- Better editing in :terminal
   use 'bqf',                                     -- Better quickfix
   use 'qf',                                      -- Quickfix utilities
-  use 'git',                                     -- Git wrapper
+  use 'neogit',                                  -- Git wrapper
   use 'blame',                                   -- Git blame file
   use 'reloader',                                -- Hot reload Neovim config
   use 'template-string',                         -- Automatic template string
