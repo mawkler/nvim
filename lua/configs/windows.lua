@@ -10,7 +10,7 @@ return {
       animation = { enable = false },
       ignore = {
         buftype = { 'quickfix', 'help' },
-        filetype = { '', 'toggleterm', 'neotest-summary' },
+        filetype = { '', 'toggleterm', 'neotest-summary', 'blame' },
       },
     })
 

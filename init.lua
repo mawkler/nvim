@@ -119,6 +119,7 @@ local plugins = {
   use 'bqf',                                     -- Better quickfix
   use 'qf',                                      -- Quickfix utilities
   use 'git',                                     -- Git wrapper
+  use 'blame',                                   -- Git blame file
   use 'reloader',                                -- Hot reload Neovim config
   use 'template-string',                         -- Automatic template string
   use 'csv',                                     -- CSV highlighting, etc.
