@@ -70,9 +70,13 @@ return {
         ['@punctuation.special'] = { fg = c.red0 },
         -- Markdown/html
         mkdLink = { fg = c.blue0, style = style.Underline },
+        mkdHeading = { link = 'Title' },
+        markdownTag = { fg = c.purple0, style = style.Bold },
+        markdownUrl = { link = 'mkdLink' },
+        markdownWikiLink = { fg = c.blue0, sylte = style.Bold },
+        ['@punctuation.bracket.markdown_inline'] = { link = 'markdownWikiLink' },
         htmlBold = { fg = c.orange0, style = style.Bold },
         htmlItalic = { fg = c.purple0, style = style.Italic },
-        mkdHeading = { link = 'Title' },
         -- TypeScript
         typescriptParens = { link = 'TSPunctBracket' },
         -- Git commit

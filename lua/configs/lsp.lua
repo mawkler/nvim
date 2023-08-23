@@ -258,6 +258,8 @@ return {
       end
     end
 
+    local disabled = function() end
+
     require('mason-lspconfig').setup_handlers({
       function(server_name)
         -- Fallback setup for any other language
@@ -276,7 +278,8 @@ return {
       end,
       tsserver = function ()
         typescript.setup({ server = tsserver_config })
-      end
+      end,
+      zk = disabled, -- Disabled becuase zk-nvim already sets it up
     })
 
     ------------

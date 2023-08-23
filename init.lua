@@ -99,7 +99,7 @@ local plugins = {
   use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
-  { 'plasticboy/vim-markdown', ft = 'markdown' },-- Markdown utilities
+  use 'markdown',                                -- Markdown utilities
   { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
     dependencies = 'kana/vim-textobj-user',
     ft = 'markdown'
@@ -136,7 +136,7 @@ local plugins = {
   use 'package-info',                            -- Show package.json versions
   use 'output-panel',                            -- LSP logs panel
   use 'typst',                                   -- Typst highlighting, etc.
-  use 'telekasten',                              -- Zettlekasten
+  use 'zk',                                      -- Zettlekasten (note taking)
 }
 
 require('lazy').setup({
