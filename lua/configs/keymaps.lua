@@ -95,7 +95,7 @@ local function char_search(forward, backward)
   end
 end
 
--- ;/, always seach forwards/backwards, respectively
+-- ;/, always search forwards/backwards, respectively
 map({'n', 'x'}, ';', char_search(';', ','))
 map({'n', 'x'}, ',', char_search(',', ';'))
 

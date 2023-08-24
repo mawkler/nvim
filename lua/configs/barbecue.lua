@@ -33,7 +33,7 @@ return {
       context_class = '@type',
       context_enum = '@type',
       context_enum_member = '@type',
-      context_interace = '@type',
+      context_interface = '@type',
       context_object = '@type',
       context_key = '@property',
       context_struct = '@property',
