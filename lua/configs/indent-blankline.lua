@@ -3,6 +3,7 @@
 ----------------------
 return {
   'lukas-reineke/indent-blankline.nvim',
+  event = 'VeryLazy',
   opts = {
     char = '▏',
     show_first_indent_level = false,

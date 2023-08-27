@@ -3,7 +3,8 @@
 ----------------------
 return {
   'echasnovski/mini.indentscope',
-  enabled = vim.g.vscode,
+  enabled = vim.g.vscode == nil,
+  event = 'VeryLazy',
   opts = {
     symbol = '▏',
   },

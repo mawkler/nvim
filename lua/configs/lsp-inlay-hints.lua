@@ -4,6 +4,7 @@
 return {
   'lvimuser/lsp-inlayhints.nvim',
   branch = 'anticonceal',
+  event = 'LspAttach',
   opts = {
     inlay_hints = {
       parameter_hints = {

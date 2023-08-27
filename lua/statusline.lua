@@ -1,6 +1,5 @@
 local bo, fn = vim.bo, vim.fn
 local mode_color = require('feline.providers.vi_mode').get_mode_color
-local luasnip = require('luasnip')
 
 local function mode_colors()
   local get_mode_color = require('utils.colorscheme').get_mode_color
@@ -201,7 +200,7 @@ table.insert(active_left, {
 })
 
 local function lsp_servers()
-  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
   local client_names = vim.tbl_map(function(client)
     return client.name
   end, clients)
@@ -215,7 +214,7 @@ table.insert(active_left, {
   left_sep = ' ',
   riht_sep = ' ',
   hl = { fg = 'dark_text' },
-  enabled = function() return next(vim.lsp.get_active_clients()) ~= nil end,
+  enabled = function() return next(vim.lsp.get_clients()) ~= nil end,
   icon = function() return {
     str = ' ',
     hl = { fg = mode_color() }
@@ -249,11 +248,23 @@ table.insert(active_left, {
 -- Middle section --
 --------------------
 
+local function plugin_is_loaded(plugin_name)
+  return vim.tbl_contains(require('lazy').plugins(), function(plugin)
+    return plugin.name == plugin_name and plugin.loaded
+  end, { predicate = true })
+end
+
 -- Snippet indicator
 table.insert(active_mid, {
   provider = 'snippet',
   hl = { fg = 'dark_text' },
-  enabled = luasnip.in_snippet,
+  enabled = function()
+    if not plugin_is_loaded('LuaSnip') then
+      return false
+    else
+      return require('luasnip').in_snippet()
+    end
+  end,
   icon = {
     str =' ',
     hl = { fg = 'snippet' }
