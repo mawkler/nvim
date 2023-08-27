@@ -19,7 +19,7 @@ local other_routes = {
 return {
   'folke/noice.nvim',
   dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
-  event = 'VimEnter',
+  event = 'VeryLazy',
   opts = {
     routes = vim.list_extend(filter_message_routes, other_routes)
   }
