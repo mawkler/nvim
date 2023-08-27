@@ -8,7 +8,7 @@ return {
   config = function()
     local alpha = require('alpha')
     local dashboard = require('alpha.themes.dashboard')
-    local lazy_plugins = require('lazy').plugins()
+    local lazy = require('lazy')
     local section = dashboard.section
     local fn = vim.fn
 
@@ -47,15 +47,11 @@ return {
       return table.concat(self.items, '  |  ')
     end
 
-    local loaded_plugins_count = #vim.tbl_filter(function(plugin)
-      return plugin._.loaded -- TODO: adapt this to Lazy
-    end, lazy_plugins)
-
-    local total_plugins_count = #vim.tbl_keys(lazy_plugins)
+    local lazy_stats = lazy.stats()
     local loaded_plugins = string.format(
       '%d/%d plugins',
-      loaded_plugins_count,
-      total_plugins_count
+      lazy_stats.loaded,
+      lazy_stats.count
     )
 
     local version = vim.version() or {}
