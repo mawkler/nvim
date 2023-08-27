@@ -46,6 +46,12 @@ return {
               ignored   = '',
             }
           },
+          web_devicons = {
+            folder = {
+              enable = true, -- Special folder devicon icons
+              color = false,
+            },
+          },
           show = {
             folder_arrow = false
           },
