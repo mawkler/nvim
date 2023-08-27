@@ -176,7 +176,6 @@ map('n', '<leader>W', function()
 end, 'Toggle line wrap')
 
 map('n', '<Esc>', function()
-  utils.close_floating_windows()
   if vim.v.hlsearch == 1 then
     vim.cmd.nohlsearch()
   elseif bo.modifiable then
@@ -184,6 +183,8 @@ map('n', '<Esc>', function()
   elseif #vim.api.nvim_list_wins() > 1 then
     return feedkeys('<C-w>c')
   end
+
+  utils.close_floating_windows()
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<C-l>', '<cmd>LuaSnipUnlinkCurrent<CR><C-l>')
