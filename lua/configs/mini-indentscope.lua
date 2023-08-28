@@ -5,29 +5,18 @@ return {
   'echasnovski/mini.indentscope',
   enabled = vim.g.vscode == nil,
   event = 'VeryLazy',
-  opts = {
-    symbol = '▏',
-  },
-  -- config = function()
-  --   local augroup = vim.api.nvim_create_augroup('MiniIndentScope', {})
+  config = function()
+    require('mini.indentscope').setup({
+      symbol = '▏',
+    })
 
-  --   -- TODO: import from indent-blankline
-  --   local filetype_exclude = {
-  --     'markdown',
-  --     'alpha',
-  --     'sagahover',
-  --     'NvimTree',
-  --     'mason',
-  --     'toggleterm',
-  --     'lazy',
-  --   }
-
-  --   -- vim.api.nvim_create_autocmd('FileType', {
-  --   --   pattern = 'FileType',
-  --   --   group = augroup,
-  --   --   callback = function()
-  --   --     vim.b.miniindentscope_disable = true
-  --   --   end,
-  --   -- })
-  -- end
+    local augroup = vim.api.nvim_create_augroup('MiniIndentScope', {})
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = require('configs.indent-blankline.config').disabled_filetypes,
+      group = augroup,
+      callback = function()
+        vim.b.miniindentscope_disable = true
+      end,
+    })
+  end
 }

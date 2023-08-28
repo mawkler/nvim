@@ -8,14 +8,6 @@ return {
     char = '▏',
     show_first_indent_level = false,
     buftype_exclude = { 'fzf', 'help', 'terminal', 'nofile' },
-    filetype_exclude = {
-      'markdown',
-      'alpha',
-      'sagahover',
-      'NvimTree',
-      'mason',
-      'toggleterm',
-      'lazy',
-    }
+    filetype_exclude = require('configs.indent-blankline.config').disabled_filetypes
   }
 }
