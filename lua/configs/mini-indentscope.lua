@@ -8,6 +8,12 @@ return {
   config = function()
     require('mini.indentscope').setup({
       symbol = '▏',
+      mappings = {
+        object_scope = 'iI',
+        object_scope_with_border = 'aI',
+        goto_top = '[I',
+        goto_bottom = ']I',
+      },
     })
 
     local augroup = vim.api.nvim_create_augroup('MiniIndentScope', {})

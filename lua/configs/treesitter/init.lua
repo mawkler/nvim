@@ -69,7 +69,6 @@ return {
             [']F'] = '@function.outer',
             [']['] = '@class.outer',
             [']A'] = '@parameter.outer',
-            [']I'] = '@conditional.outer',
             [']K'] = '@block.outer',
             ['[M'] = '@method.outer'
           },
@@ -77,7 +76,6 @@ return {
             ['[F'] = '@function.outer',
             ['[]'] = '@class.outer',
             ['[A'] = '@parameter.outer',
-            ['[I'] = '@conditional.outer',
             ['[K'] = '@block.outer',
             ['[M'] = '@method.outer'
           }
