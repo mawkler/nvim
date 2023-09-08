@@ -71,6 +71,7 @@ return {
     require('barbecue').setup({
       kinds = require('utils.icons').icons,
       theme = theme,
+      exclude_filetypes = { 'markdown' },
     })
   end
 }
