@@ -12,6 +12,7 @@ end
 return {
   'mickael-menu/zk-nvim',
   requires = 'nvim-lua/plenary.nvim',
+  cmd = { 'ZkIndex', 'ZkNew', 'ZkCd', 'ZkNotes', 'ZkBacklinks', 'ZkLinks', 'ZkTags' },
   keys = {
     { '<leader>zn', new_note, desc = 'New note' },
     { '<leader>zn', '<Cmd>ZkNewFromContentSelection<CR>', mode = 'x', desc = 'New note from selection' },
