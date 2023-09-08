@@ -19,7 +19,6 @@ return {
       map('i', '<CR>',      '<CR><cmd>AutolistNewBullet<CR>',      opts)
       map('n', 'o',         'o<cmd>AutolistNewBullet<CR>',         opts)
       map('n', 'O',         'O<cmd>AutolistNewBulletBefore<CR>',   opts)
-      map('n', '<leader>x', '<cmd>AutolistToggleCheckbox<CR><CR>', opts)
     end
 
     local augroup = vim.api.nvim_create_augroup('Autolist', {})
