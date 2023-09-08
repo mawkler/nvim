@@ -3,6 +3,7 @@
 ------------
 return {
   'freddiehaddad/feline.nvim',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-lua/lsp-status.nvim',
