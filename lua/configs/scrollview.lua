@@ -4,7 +4,8 @@
 local function scrollview_enabled(state)
   -- Scrollview throws an error in command-line window for some reason
   if vim.fn.win_gettype() ~= 'command' then
-    require('scrollview').set_state(state)
+    -- Scrollview sometimes throws some other mysterious error
+    pcall(require('scrollview').set_state, state)
   end
 end
 
