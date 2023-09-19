@@ -54,7 +54,9 @@ end
 --- Close every floating window
 M.close_floating_windows = function()
   for _, win in pairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative == 'win' then
+    -- Sometimes the window doesn't exist anymore for some reason
+    local success, win_config = pcall(vim.api.nvim_win_get_config, win)
+    if success and vim.tbl_contains({'win', 'editor'}, win_config.relative) then
       vim.api.nvim_win_close(win, false)
     end
   end
