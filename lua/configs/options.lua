@@ -45,6 +45,7 @@ o.smartcase  = true -- Except for when searching in CAPS
 o.number         = true
 o.relativenumber = true
 o.cursorline     = true   -- Cursor highlighting
+o.smoothscroll   = true   -- Scroll screen wrapped lines visual line by line
 o.scrolloff      = 10     -- Cursor margin
 o.conceallevel   = 2      -- Hide concealed characters completely
 o.concealcursor  = 'nic'  -- Conceal characters on the cursor line
