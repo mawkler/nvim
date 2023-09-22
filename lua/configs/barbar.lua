@@ -5,7 +5,6 @@ local map = require('utils').map
 
 return {
   'romgrk/barbar.nvim',
-  event = 'VeryLazy',
   config = function()
     require('barbar').setup({
       no_name_title = '[No Name]',
