@@ -3,7 +3,7 @@
 -------------
 return {
   'b0o/incline.nvim',
-  dependencies = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
     local get_highlight = require('utils.colorscheme').get_highlight

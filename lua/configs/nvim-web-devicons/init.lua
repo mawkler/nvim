@@ -2,7 +2,7 @@
 -- Nvim web devicons --
 -----------------------
 return {
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
   event = 'VeryLazy',
   priority = 998,
   config = function()
