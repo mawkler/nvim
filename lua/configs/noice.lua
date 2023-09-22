@@ -9,7 +9,12 @@ local function create_skip_filter(pattern)
   }
 end
 
-local disabled_message_prefixes = {'^[/?].*', 'E486: Pattern not found:'}
+local disabled_message_prefixes = {
+  '^[/?].*',                  -- Search up/down
+  'E486: Pattern not found:', -- Search not found
+  '%d+ changes?;',            -- Undo/redo
+  '"[^"]+" %d+L, %d+B'        -- Save
+}
 
 local filter_message_routes = vim.tbl_map(create_skip_filter, disabled_message_prefixes)
 local other_routes = {
@@ -19,8 +24,24 @@ local other_routes = {
 return {
   'folke/noice.nvim',
   dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
-  event = 'VeryLazy',
-  opts = {
-    routes = vim.list_extend(filter_message_routes, other_routes)
-  }
+  config = function()
+    local noice = require('noice')
+    local map = require('utils').map
+
+    noice.setup({
+      routes = vim.list_extend(filter_message_routes, other_routes),
+      presets = {
+        lsp_doc_border = true,
+      },
+      cmdline = {
+        format = {
+          search_up = { kind = 'search', pattern = '^%?', icon = ' 󰜷', lang = 'regex' },
+          search_down = { kind = 'search', pattern = '^/', icon = ' 󰜮', lang = 'regex' },
+        }
+      }
+    })
+
+    map('n', 'gl', function() noice.cmd('last') end, 'Show last message')
+    map('n', 'gm', '<cmd>messages<CR>', 'Show messages in a floating window')
+  end
 }

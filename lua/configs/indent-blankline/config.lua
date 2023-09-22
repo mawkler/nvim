@@ -8,6 +8,7 @@ return {
     'mason',
     'toggleterm',
     'lazy',
+    'noice',
   },
 }
 
