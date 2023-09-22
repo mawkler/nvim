@@ -50,6 +50,7 @@ local plugins = {
   use 'scrollview',                              -- Scrollbar
   use 'nvim-web-devicons',                       -- File icons
   use 'nvim-tree',                               -- File explorer
+  use 'oil',
   use 'barbar',                                  -- Sexiest buffer tabline
   use 'null-ls',                                 -- Autoformatting, etc.
   use 'neoscroll',                               -- Smooth scrolling animations
