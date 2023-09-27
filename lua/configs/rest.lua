@@ -3,12 +3,14 @@
 ---------------
 return {
   'NTBBloodbath/rest.nvim',
+  dependencies = 'nvim-lua/plenary.nvim',
   cmd = 'Http',
   ft = 'http',
   config = function()
     local map = require('utils').map
+    local rest = require('rest-nvim')
 
-    require('rest-nvim').setup({
+    rest.setup({
       result_split_horizontal = true,
       result_split_in_place = true,
     })
@@ -24,10 +26,6 @@ return {
         vim.cmd.edit('~/.config/nvim/http')
         vim.o.filetype = 'http'
         vim.o.buftype = ''
-
-        map('n', '<Esc>', '<cmd>BufferClose<CR><cmd>wincmd c<CR>', {
-          buffer = true,
-        })
       end,
       { desc = 'Send HTTP request' }
     )
@@ -38,7 +36,10 @@ return {
       callback = function()
         vim.o.wrap = false
 
-        map('n', '<CR>', '<cmd>w<CR><Plug>RestNvim', { buffer = true, silent = true })
+        local opts = { buffer = true }
+        map('n', '<CR>',       rest.run,                opts)
+        map('n', '<leader>lr', rest.last,               opts)
+        map('n', '<leader>ly', '<Plug>RestNvimPreview', opts)
       end,
       group = 'RestNvim'
     })
