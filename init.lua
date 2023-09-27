@@ -139,6 +139,7 @@ local plugins = {
   use 'output-panel',                            -- LSP logs panel
   use 'typst',                                   -- Typst highlighting, etc.
   use 'zk',                                      -- Zettlekasten (note taking)
+  use 'crates',                                  -- Cargo.toml helper
 }
 
 require('lazy').setup({
