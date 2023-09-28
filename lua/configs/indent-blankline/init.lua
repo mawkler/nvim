@@ -4,10 +4,13 @@
 return {
   'lukas-reineke/indent-blankline.nvim',
   event = 'VeryLazy',
+  main = 'ibl',
   opts = {
-    char = '▏',
     show_first_indent_level = false,
-    buftype_exclude = { 'fzf', 'help', 'terminal', 'nofile' },
-    filetype_exclude = require('configs.indent-blankline.config').disabled_filetypes
+    indent = { char = '▏' },
+    exclude = {
+      filetypes = require('configs.indent-blankline.config').disabled_filetypes,
+      buftypes = { 'fzf', 'help', 'terminal', 'nofile' },
+    },
   }
 }
