@@ -10,10 +10,14 @@ local function create_skip_filter(pattern)
 end
 
 local disabled_message_prefixes = {
-  '^[/?].*',                  -- Search up/down
-  'E486: Pattern not found:', -- Search not found
-  '%d+ changes?;',            -- Undo/redo
-  '"[^"]+" %d+L, %d+B'        -- Save
+  '^[/?].*',                  -- Searching up/down
+  'E486: Pattern not found:', -- Searcingh not found
+  '%d+ changes?;',            -- Undoing/redoing
+  '%d+ fewer lines',          -- Deleting multiple lines
+  '%d+ more lines',           -- Undoing deletion of multiple lines
+  '%d+ lines ',               -- Performing some other verb on multiple lines
+  'Already at newest change', -- Redoing
+  '"[^"]+" %d+L, %d+B',       -- Saving
 }
 
 local filter_message_routes = vim.tbl_map(create_skip_filter, disabled_message_prefixes)
