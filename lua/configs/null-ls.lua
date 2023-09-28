@@ -11,12 +11,14 @@ return {
     local null_ls, builtins = require('null-ls'), require('null-ls').builtins
 
     local sources = {
-      builtins.formatting.shfmt,
       builtins.formatting.autopep8,
       builtins.formatting.prettier,
       builtins.formatting.latexindent,
       builtins.hover.dictionary,
       builtins.diagnostics.typos,
+      builtins.formatting.shfmt.with({
+        args = { '-sr' } -- Space after redirects
+      }),
     }
 
     null_ls.setup({
