@@ -6,6 +6,8 @@ return {
   dependencies = 'nvim-lua/plenary.nvim',
   cmd = 'Http',
   ft = 'http',
+  -- Fix for when Neovim gets started with a *.http and leap.nvim overrides the <CR> mapping
+  event = 'BufRead *.http',
   config = function()
     local map = require('utils').map
     local rest = require('rest-nvim')
