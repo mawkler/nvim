@@ -91,7 +91,7 @@ local plugins = {
   use 'surround',
   use 'eyeliner',                                -- Highlight uniques on f/F/t/T
   use 'matchup',                                 -- Adds additional `%` commands
-  use 'autopairs',                               -- Auto-close brackets, etc.
+  use 'ultimate-autopair',                       -- Auto-close brackets, etc.
   { 'vim-scripts/capslock.vim', event = 'InsertEnter' },
   { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' },
   use 'git-conflict',                            -- Git conflict mappings
