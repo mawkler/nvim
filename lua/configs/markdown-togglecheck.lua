@@ -18,10 +18,8 @@ return {
     end
 
     local function create_mappings()
-      map({'n', 'x'}, '<leader>x', toggle_with_repeat, {
-        expr = true,
-        buffer = true,
-      })
+      map('n', '<leader>x', toggle_with_repeat,   { expr = true, buffer = true, desc = 'Toggle checkbox' })
+      map('x', '<leader>x', ":'<,'>norm 1 x<cr>", { buffer = true, desc = 'Toggle checkboxes' })
     end
 
     local augroup = vim.api.nvim_create_augroup('Togglecheck', {})
