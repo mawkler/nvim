@@ -17,6 +17,10 @@ M.feedkeys = function(keys, mode)
   return vim.api.nvim_feedkeys(M.termcodes(keys), mode, true)
 end
 
+M.feedkeys_count = function(keys, mode)
+  return M.feedkeys(vim.v.count1 .. keys, mode)
+end
+
 M.error = function(message)
   vim.api.nvim_echo({{ message, 'Error' }}, false, {})
 end

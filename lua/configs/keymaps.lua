@@ -3,7 +3,8 @@
 -------------
 local bo, o, wo, v, fn = vim.bo, vim.o, vim.wo, vim.v, vim.fn
 local utils = require('utils')
-local map, feedkeys = utils.map, utils.feedkeys
+local map = utils.map
+local feedkeys, feedkeys_count = utils.feedkeys, utils.feedkeys_count
 
 -- Leader --
 vim.g.mapleader = ' '
@@ -77,7 +78,7 @@ local function spell_jump(command)
   return function()
     local spell = wo.spell
     wo.spell = true
-    feedkeys(vim.v.count1 .. command, 'xn')
+    feedkeys_count(command, 'xn')
     wo.spell = spell
   end
 end
@@ -88,9 +89,9 @@ map('n', '[s', spell_jump('[s'), 'Jump to previous spelling error')
 local function char_search(forward, backward)
   return function()
     if fn.getcharsearch().forward == 1 then
-      feedkeys(forward)
+      feedkeys_count(forward)
     else
-      feedkeys(backward)
+      feedkeys_count(backward)
     end
   end
 end

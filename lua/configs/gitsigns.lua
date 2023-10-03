@@ -6,7 +6,8 @@ return {
   dependencies = 'tpope/vim-repeat',
   event = 'VeryLazy',
   config = function()
-    local map, feedkeys = require('utils').map, require('utils').feedkeys
+    local utils = require('utils')
+    local map, feedkeys_count = utils.map, utils.feedkeys_count
     local gitsigns = require('gitsigns')
 
     gitsigns.setup({
@@ -39,7 +40,7 @@ return {
 
         local function next_hunk()
           if vim.o.diff then
-            feedkeys(']c', 'n')
+            feedkeys_count(']c', 'n')
           else
             gitsigns.next_hunk()
           end
@@ -47,7 +48,7 @@ return {
 
         local function prev_hunk()
           if vim.o.diff then
-            feedkeys('[c', 'n')
+            feedkeys_count('[c', 'n')
           else
             gitsigns.prev_hunk()
           end
