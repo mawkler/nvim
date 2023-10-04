@@ -121,8 +121,8 @@ return {
     vim.api.nvim_create_augroup('NvimTreeRefresh', {})
     vim.api.nvim_create_autocmd('BufEnter', {
       pattern = 'NvimTree_1',
-      command = 'NvimTreeRefresh',
-      group   = 'NvimTreeRefresh'
+      group   = 'NvimTreeRefresh',
+      callback = api.tree.reload,
     })
 
     local function remove_highlight(group)
