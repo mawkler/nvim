@@ -286,7 +286,7 @@ return {
     -- Config --
     ------------
 
-    if not vim.g.noice then
+    if not require('utils').noice_is_loaded() then
       -- Add borders to hover/signature windows (noice.nvim has its own)
       lsp.handlers['textDocument/hover'] = lsp.with(
         lsp.handlers.hover,

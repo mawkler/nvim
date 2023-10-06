@@ -83,4 +83,9 @@ M.use = function(module)
   end
 end
 
+M.noice_is_loaded = function()
+  local success, _ = pcall(require, 'noice.config')
+  return success and require('noice.config')._running
+end
+
 return M
