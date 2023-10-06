@@ -14,7 +14,10 @@ return {
       keymap = 'gp',
       formatters = {
         lua = lua_formatter,
-      }
+      },
+      add_to_inside = function(text)
+        return string.format("%s", text)
+      end,
     })
   end
 }
