@@ -100,7 +100,6 @@ local plugins = {
   use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
-  use 'markdown',                                -- Markdown utilities
   use 'markdown-togglecheck',
   { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
     dependencies = 'kana/vim-textobj-user',

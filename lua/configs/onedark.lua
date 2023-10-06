@@ -68,6 +68,8 @@ return {
         ['@text.emphasis'] = { fg = c.purple0, style = style.Italic },
         ['@text.strong'] = { fg = c.orange0, style = style.Bold },
         ['@punctuation.special'] = { fg = c.red0 },
+        ['@text.todo.checked.markdown'] = { fg = c.blue1 },
+        ['@text.todo.unchecked.markdown'] = { link = '@text.todo.checked.markdown' },
         -- Markdown/html
         mkdLink = { fg = c.blue0, style = style.Underline },
         mkdHeading = { link = 'Title' },
