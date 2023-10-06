@@ -155,8 +155,6 @@ return {
         TreesitterContextLineNumber = { fg = c.fg_gutter, bg = treesitter_context_bg },
         -- Mini indentscope
         MiniIndentScopeSymbol = { fg = '#39536c', style = style.Bold },
-        -- Treesitter playground
-        TSPlaygroundFocus = { bg = '#3b5870' },
         -- Nvim-Tree
         NvimTreeIndentMarker = { link = 'IblIndent' },
         -- Crates
