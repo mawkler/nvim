@@ -139,6 +139,7 @@ local plugins = {
   use 'typst',                                   -- Typst highlighting, etc.
   use 'zk',                                      -- Zettlekasten (note taking)
   use 'crates',                                  -- Cargo.toml helper
+  use 'gx',                                      -- Improved link opening with gx
 }
 
 require('lazy').setup({

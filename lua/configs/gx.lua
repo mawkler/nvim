@@ -3,7 +3,7 @@
 -------------
 return {
   'chrishrb/gx.nvim',
-  event = { 'BufEnter' },
+  keys = 'gx',
   dependencies = { 'nvim-lua/plenary.nvim' },
   opts = {
     handlers = { search = false, },
