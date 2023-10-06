@@ -1,6 +1,6 @@
 local map = require('utils').map
 
--- Install lazy if it's missing
+-- Install lazy.nvim if it's missing
 local lazy_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazy_path) then
   vim.notify('Installing lazy.nvim...')
