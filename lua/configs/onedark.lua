@@ -155,8 +155,11 @@ return {
         MiniIndentScopeSymbol = { fg = '#39536c', style = style.Bold },
         -- Treesitter playground
         TSPlaygroundFocus = { bg = '#3b5870' },
-        -- NVIM-Tree
-        NvimTreeIndentMarker = { link = 'IblIndent' }
+        -- Nvim-Tree
+        NvimTreeIndentMarker = { link = 'IblIndent' },
+        -- Crates
+        CratesNvimVersion = { fg = c.fg_dark },
+        CratesNvimLoading = { link = 'CratesNvimVersion' },
       }
     end
   })
