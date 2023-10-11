@@ -10,7 +10,7 @@ return {
     { 'dhruvmanila/telescope-bookmarks.nvim' },
     { 'nvim-telescope/telescope-cheat.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    { 'nvim-telescope/telescope-frecency.nvim', dependencies = 'tami5/sqlite.lua' },
+    { 'nvim-telescope/telescope-frecency.nvim' },
     { 'nvim-telescope/telescope-dap.nvim' },
     { 'Zane-/cder.nvim' },
     { 'rcarriga/nvim-notify' },
