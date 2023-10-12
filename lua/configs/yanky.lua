@@ -34,9 +34,6 @@ return {
     map('s',        '<M-S-p>',   '<C-g>"+pgv<C-g>', remap)
   end,
   config = function()
-    local textobj = require('yanky.textobj')
-    local map = require('utils').map
-
     vim.api.nvim_set_hl(0, 'YankyPut',    { link = 'IncSearch' })
     vim.api.nvim_set_hl(0, 'YankyYanked', { link = 'IncSearch' })
 
@@ -44,9 +41,7 @@ return {
 
     require('yanky').setup({
       highlight = { timer = 150 },
+      update_register_on_cycle = true,
     })
-
-    map({'o', 'x'}, 'iP', textobj.last_put, 'Last put')
-    map({'o', 'x'}, 'aP', textobj.last_put, 'Last put')
   end
 }
