@@ -39,8 +39,9 @@ M.visible_buffers = function()
 end
 
 local function lsp_server_has_references()
-  vim.tbl_contains(vim.lsp.get_clients(), function(client)
-    return client.server_capabilities
+  return vim.tbl_contains(vim.lsp.get_clients(), function(client)
+    local capabilities = client.server_capabilities
+    return capabilities and capabilities.referencesProvider
   end, { predicate = true })
 end
 
