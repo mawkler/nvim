@@ -41,7 +41,7 @@ return {
 
     require('yanky').setup({
       highlight = { timer = 150 },
-      update_register_on_cycle = true,
+      ring = { update_register_on_cycle = true },
     })
   end
 }
