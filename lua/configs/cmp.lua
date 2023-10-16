@@ -12,6 +12,7 @@ return {
     'hrsh7th/cmp-cmdline',                 -- Command-line completion
     'hrsh7th/cmp-nvim-lua',                -- Nvim builtins completion
     'hrsh7th/cmp-nvim-lsp-signature-help', -- Signature
+    'hrsh7th/cmp-emoji',                   -- Emojis
   },
   event = { 'InsertEnter', 'CmdlineEnter' },
   config = function()
@@ -155,6 +156,20 @@ return {
       end,
       group = 'TabNine'
     })
+
+    local enable_cmp_emoji = function()
+      nvim_cmp.setup.buffer({
+        sources = nvim_cmp.config.sources(join({{ name = 'emoji' }}, sources))
+      })
+    end
+
+    vim.api.nvim_create_augroup('CmpEmoji', {})
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'markdown', 'text', 'gitcommit' },
+      group = 'CmpEmoji',
+      callback = enable_cmp_emoji,
+    })
+    enable_cmp_emoji()
 
     -- Use buffer source for `/` (searching)
     nvim_cmp.setup.cmdline('/', {
