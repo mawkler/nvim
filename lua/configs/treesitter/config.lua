@@ -1,25 +1,28 @@
 local config = {}
 
 config.query_keymaps = {
-  F = '@function',
+  f = '@function',
   C = '@class',
-  f = '@call',
+  c = '@call',
   a = '@parameter',
-  c = '@comment',
-  i = '@conditional',
   o = '@loop',
-  k = '@block',
   R = '@return',
-  m = '@method'
+  m = '@method',
+  N = '@number',
+  x = '@regex',
+  [';'] = '@block',
+  ['#'] = '@comment',
+  ['?'] = '@conditional',
+  ['!'] = '@statement',
+  ['='] = '@assignment',
 }
 
 config.get_keymaps = function()
-  local query_keymaps = require('configs.treesitter.config').query_keymaps
   local keymaps = {}
 
-  for map, query in pairs(query_keymaps) do
-    keymaps['a' .. map] = query
-    keymaps['i' .. map] = query
+  for map, query in pairs(config.query_keymaps) do
+    keymaps['a' .. map] = query .. 'outer'
+    keymaps['i' .. map] = query .. 'inner'
   end
 
   return keymaps

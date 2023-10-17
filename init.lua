@@ -97,14 +97,9 @@ local plugins = {
   use 'git-conflict',                            -- Git conflict mappings
   use 'vim-textobj',                             -- Custom text objects
   use 'vimtex',                                  -- LaTeX utilities
-  use 'indent-tools',                            -- Indent text objects
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
   use 'markdown-togglecheck',
-  { 'coachshea/vim-textobj-markdown',            -- Markdown text-objects
-    dependencies = 'kana/vim-textobj-user',
-    ft = 'markdown'
-  },
   use 'substitute',                              -- Replace/exchange operators
   use 'highlighturl',
   use 'messages',                                -- Floating :messages window
@@ -140,6 +135,7 @@ local plugins = {
   use 'zk',                                      -- Zettlekasten (note taking)
   use 'crates',                                  -- Cargo.toml helper
   use 'gx',                                      -- Improved link opening with gx
+  use 'various-textobjs',                        -- Various text-objects
 }
 
 require('lazy').setup({

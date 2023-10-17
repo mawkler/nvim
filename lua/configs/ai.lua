@@ -32,15 +32,6 @@ return {
       end, query_keymaps)
     end
 
-    local function entire_buffer()
-      local from = { line = 1, col = 1 }
-      local to = {
-        line = vim.fn.line('$'),
-        col = math.max(vim.fn.getline('$'):len(), 1)
-      }
-      return { from = from, to = to }
-    end
-
     local custom_textobjects = vim.tbl_extend('force', ts_query_keymaps(), {
       b = pair('(', ')'),
       B = pair('{', '}'),
@@ -49,7 +40,6 @@ return {
       Q = pair('"'),
       A = pair('`'),
       c = gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
-      e = entire_buffer,
     })
 
     require('mini.ai').setup({
