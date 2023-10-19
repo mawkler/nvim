@@ -80,7 +80,6 @@ return {
       { name = 'nvim_lsp' },
       { name = 'luasnip', max_item_count = 5 },
       { name = 'nvim_lua' },
-      { name = 'nvim_lsp_signature_help' },
       { name = 'path', option = { trailing_slash = true } },
       { name = 'buffer',
         max_item_count = 3,
@@ -90,6 +89,10 @@ return {
         },
       }
     }
+    if not noice_is_loaded() then
+      -- Noice has its own signature help
+      table.insert(sources, { name = 'nvim_lsp_signature_help' })
+    end
 
     -- LSPKind
     lspkind.init({
