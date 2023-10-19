@@ -9,7 +9,7 @@ return {
   enabled = not vim.g.vscode,
   config = function()
     local map = require('utils').map
-    local config = require('configs.treesitter.config')
+    local maps = require('configs.treesitter.keymaps')
 
     local function include_surrounding_whitespace(selection)
       local queries = {
@@ -30,7 +30,7 @@ return {
       ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
       ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
     }
-    local keymaps = config.get_textobj_keymaps(special_keymaps)
+    local keymaps = maps.get_textobj_keymaps(special_keymaps)
 
     -- Reset `>>`/`<<` mappings to not be @assignment
     map('n', '>>', '>>')
@@ -38,13 +38,13 @@ return {
 
     local special_goto_next_start = { [']]'] = '@class.outer' }
     local special_goto_prev_start = { ['[['] = '@class.outer' }
-    local goto_next_start = config.get_motion_keymaps(']', special_goto_next_start)
-    local goto_previous_start = config.get_motion_keymaps('[', special_goto_prev_start)
+    local goto_next_start = maps.get_motion_keymaps(']', special_goto_next_start)
+    local goto_previous_start = maps.get_motion_keymaps('[', special_goto_prev_start)
 
     local special_swap_next = { ['>aa'] = '@parameter.inner' }
     local special_swap_prev = { ['<aa'] = '@parameter.inner' }
-    local swap_next = config.get_textobj_swap_keymaps('>', special_swap_next)
-    local swap_previous = config.get_textobj_swap_keymaps('<', special_swap_prev)
+    local swap_next = maps.get_textobj_swap_keymaps('>', special_swap_next)
+    local swap_previous = maps.get_textobj_swap_keymaps('<', special_swap_prev)
 
     require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',
