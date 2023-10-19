@@ -1,31 +1,62 @@
-local config = {}
+local M = {}
 
-config.query_keymaps = {
+M.capture_keymaps = {
   f = '@function',
-  C = '@class',
   c = '@call',
+  C = '@class',
   a = '@parameter',
   o = '@loop',
   R = '@return',
   m = '@method',
   N = '@number',
-  x = '@regex',
-  [';'] = '@block',
-  ['#'] = '@comment',
+  X = '@regex',
+  ['@'] = '@block',
+  ['2'] = '@block',
+  [';'] = '@comment',
   ['?'] = '@conditional',
-  ['!'] = '@statement',
+  ['S'] = '@statement',
   ['='] = '@assignment',
 }
 
-config.get_keymaps = function()
-  local keymaps = {}
-
-  for map, query in pairs(config.query_keymaps) do
-    keymaps['a' .. map] = query .. 'outer'
-    keymaps['i' .. map] = query .. 'inner'
-  end
-
-  return keymaps
+local function merge(t1, t2)
+  return vim.tbl_extend('force', t1, t2)
 end
 
-return config
+--- @param overrides {}
+M.get_textobj_keymaps = function(overrides)
+  local keymaps = {}
+
+  for key, capture in pairs(M.capture_keymaps) do
+    keymaps['a' .. key] = capture .. '.outer'
+    keymaps['i' .. key] = capture .. '.inner'
+  end
+
+  return merge(keymaps, overrides or {})
+end
+
+--- @param direction ']' | '['
+--- @param overrides {}
+M.get_motion_keymaps = function(direction, overrides)
+  local keymaps = {}
+
+  for key, capture in pairs(M.capture_keymaps) do
+    keymaps[direction .. key] = capture .. '.outer'
+  end
+
+  return merge(keymaps, overrides or {})
+end
+
+--- @param direction '>' | '<'
+--- @param overrides {}
+M.get_textobj_swap_keymaps = function(direction, overrides)
+  local keymaps = {}
+
+  for key, capture in pairs(M.get_textobj_keymaps()) do
+    keymaps[direction .. key] = capture
+  end
+
+  return merge(keymaps, overrides or {})
+end
+
+-- TODO: rename file to keymaps.lua
+return M

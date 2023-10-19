@@ -22,14 +22,14 @@ return {
     end
 
     local function ts_query_keymaps()
-      local query_keymaps = require('configs.treesitter.config').query_keymaps
+      local capture_keymaps = require('configs.treesitter.config').capture_keymaps
 
-      return vim.tbl_map(function(query)
+      return vim.tbl_map(function(capture)
         return gen_spec.treesitter({
-          i = query .. '.inner',
-          a = query .. '.outer',
+          i = capture .. '.inner',
+          a = capture .. '.outer',
         })
-      end, query_keymaps)
+      end, capture_keymaps)
     end
 
     local custom_textobjects = vim.tbl_extend('force', ts_query_keymaps(), {

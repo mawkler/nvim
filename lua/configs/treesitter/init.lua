@@ -9,6 +9,7 @@ return {
   enabled = not vim.g.vscode,
   config = function()
     local map = require('utils').map
+    local config = require('configs.treesitter.config')
 
     local function include_surrounding_whitespace(selection)
       local queries = {
@@ -22,11 +23,28 @@ return {
 
     local special_keymaps = {
       -- Keymaps that shouldn't be prefixed with i/a
-      ['<'] = '@assignment.lhs',
-      ['>'] = '@assignment.rhs',
+      ['<']  = '@assignment.lhs',
+      ['>']  = '@assignment.rhs',
+      ['iK'] = '@assignment.lhs',
+      ['iV'] = '@assignment.rhs',
+      ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
+      ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
     }
-    local other_keymaps = require('configs.treesitter.config').get_keymaps()
-    local keymaps = vim.tbl_extend('keep', special_keymaps, other_keymaps)
+    local keymaps = config.get_textobj_keymaps(special_keymaps)
+
+    -- Reset `>>`/`<<` mappings to not be @assignment
+    map('n', '>>', '>>')
+    map('n', '<<', '<<')
+
+    local special_goto_next_start = { [']]'] = '@class.outer' }
+    local special_goto_prev_start = { ['[['] = '@class.outer' }
+    local goto_next_start = config.get_motion_keymaps(']', special_goto_next_start)
+    local goto_previous_start = config.get_motion_keymaps('[', special_goto_prev_start)
+
+    local special_swap_next = { ['>aa'] = '@parameter.inner' }
+    local special_swap_prev = { ['<aa'] = '@parameter.inner' }
+    local swap_next = config.get_textobj_swap_keymaps('>', special_swap_next)
+    local swap_previous = config.get_textobj_swap_keymaps('<', special_swap_prev)
 
     require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',
@@ -60,38 +78,8 @@ return {
         move = {
           enable = true,
           set_jumps = true, -- Add jumps to jumplist
-          goto_next_start = {
-            [']f'] = '@function.outer',
-            [']]'] = '@class.outer',
-            [']a'] = '@parameter.outer',
-            [']o'] = '@loop.outer',
-            [']R'] = '@return.outer',
-            [']m'] = '@method.outer',
-            [']N'] = '@number.outer',
-            [']X'] = '@regex.outer',
-            [']S'] = '@statement.outer',
-            [']#'] = '@comment.outer',
-            ['];'] = '@block.outer',
-            [']?'] = '@conditional.outer',
-            [']!'] = '@statement.outer',
-            [']='] = '@assignment.outer',
-          },
-          goto_previous_start = {
-            ['[f'] = '@function.outer',
-            ['[['] = '@class.outer',
-            ['[a'] = '@parameter.outer',
-            ['[o'] = '@loop.outer',
-            ['[R'] = '@return.outer',
-            ['[m'] = '@method.outer',
-            ['[N'] = '@number.outer',
-            ['[X'] = '@regex.outer',
-            ['[S'] = '@statement.outer',
-            ['[;'] = '@block.outer',
-            ['[#'] = '@comment.outer',
-            ['[?'] = '@conditional.outer',
-            ['[!'] = '@statement.outer',
-            ['[='] = '@assignment.outer',
-          },
+          goto_next_start = goto_next_start,
+          goto_previous_start = goto_previous_start,
           goto_next_end = {
             [']F'] = '@function.outer',
             [']['] = '@class.outer',
@@ -109,17 +97,8 @@ return {
         },
         swap = {
           enable = true,
-          -- TODO: use config.query_keymaps to set these and goto
-          swap_next = {
-            ['>aa'] = '@parameter.inner',
-            ['>af'] = '@function.outer',
-            ['>aC'] = '@class.outer',
-          },
-          swap_previous = {
-            ['<aa'] = '@parameter.inner',
-            ['<af'] = '@function.outer',
-            ['<aC'] = '@class.outer',
-          },
+          swap_next = swap_next,
+          swap_previous = swap_previous,
         },
       },
       context_commentstring = {
