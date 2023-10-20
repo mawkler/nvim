@@ -17,6 +17,7 @@ return {
   event = { 'InsertEnter', 'CmdlineEnter' },
   config = function()
     local visible_buffers = require('utils').visible_buffers
+    local noice_is_loaded = require('utils').noice_is_loaded
 
     local nvim_cmp = require('cmp')
     local luasnip = require('luasnip')
