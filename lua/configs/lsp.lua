@@ -189,7 +189,13 @@ return {
           schemaStore = {
             url = 'https://www.schemastore.org/api/json/catalog.json',
             enable = true
-          }
+          },
+          customTags = {
+            -- AWS CloudFormation tags
+            '!Equals sequence', '!FindInMap sequence', '!GetAtt', '!GetAZs',
+            '!ImportValue', '!Join sequence', '!Ref', '!Select sequence',
+            '!Split sequence', '!Sub', '<!Ref>'
+          },
         }
       }
     }
