@@ -7,8 +7,5 @@ plugin/work.lua
 # rest.nvim
 http
 
-# sumneku-lua
-.luarc.json
-
 # lazy.nvim
 lazy-lock.json

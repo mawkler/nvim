@@ -375,7 +375,8 @@ return {
       map('n', '<leader>lq', '<cmd>LspStop<CR>', { desc = 'Start LSP server' })
     end
 
-    local format_on_write_blacklist = { 'lua' }
+    -- File types to not format on write
+    local format_on_write_blacklist = {}
 
     ---------------------------
     -- Default LSP on_attach --
@@ -388,6 +389,8 @@ return {
         local bufnr = event.buf
         local client = lsp.get_client_by_id(event.data.client_id)
         local filetype = api.nvim_get_option_value('filetype', { buf = bufnr })
+
+        if not client then return end
 
         -- Keymaps
         attach_keymaps()
