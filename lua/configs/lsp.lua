@@ -11,12 +11,13 @@ return {
     'folke/neodev.nvim',                     -- Lua signature help and completion
     'simrat39/rust-tools.nvim',              -- Rust tools
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
+    'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
-  event = 'VeryLazy',
+  event = { 'VeryLazy', 'BufWrite' },
   config = function()
     local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
-    local lspconfig, util = require('lspconfig'), require('lspconfig.util')
+    local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local path = require('mason-core.path')
     local rust_tools = require('rust-tools')
@@ -163,7 +164,7 @@ return {
             arrayIndex = 'Disable',
           },
         }
-      }
+      },
     }
 
     -- Rust --
@@ -255,37 +256,56 @@ return {
       },
     }
 
-    -----------
-    -- Setup --
-    -----------
-    local function setup(server_name, options)
+    -----------------------------
+    -- Set up language servers --
+    -----------------------------
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    local function setup_ls(server_name, options)
       return function()
-        lspconfig[server_name].setup(options or {})
+        local opts_with_capabilities = vim.tbl_deep_extend('force', options, {
+          capabilities = capabilities,
+        })
+        lspconfig[server_name].setup(opts_with_capabilities)
       end
     end
 
-    local disabled = function() end
+    local disable = function() end
 
-    require('mason-lspconfig').setup_handlers({
-      function(server_name)
-        -- Fallback setup for any other language
-        lspconfig[server_name].setup({})
-      end,
-      lua_ls = setup('lua_ls', lua_config),
-      yamlls = setup('yamlls', yaml_config),
-      bashls = setup('bashls', bash_config),
-      jsonls = setup('jsonls', json_config),
-      bicep = setup('bicep', bicep_config),
-      ltex = setup('ltex', ltex_config),
-      eslint = setup('eslint', eslint_config),
-      azure_pipelines_ls = setup('azure_pipelines_ls', azure_pipelines_config),
-      rust_analyzer = function()
-        return rust_tools.setup(rust_config)
-      end,
-      tsserver = function ()
-        typescript.setup({ server = tsserver_config })
-      end,
-      zk = disabled, -- Disabled becuase zk-nvim already sets it up
+    -- TODO: switch to doing similar to kickstart.nvim's `settings = servers[server_name]`
+    require('mason-lspconfig').setup({
+      handlers = {
+        function(server_name)
+          -- Fallback setup for any other language
+          setup_ls(server_name, {})
+        end,
+        lua_ls = setup_ls('lua_ls', lua_config),
+        yamlls = setup_ls('yamlls', yaml_config),
+        bashls = setup_ls('bashls', bash_config),
+        jsonls = setup_ls('jsonls', json_config),
+        bicep = setup_ls('bicep', bicep_config),
+        ltex = setup_ls('ltex', ltex_config),
+        eslint = setup_ls('eslint', eslint_config),
+        rust_analyzer = function()
+          return rust_tools.setup(rust_config)
+        end,
+        tsserver = function ()
+          typescript.setup({ server = tsserver_config })
+        end,
+        zk = disable, -- Disabled becuase zk-nvim already sets it up
+      },
+      ensure_installed = {
+        'lua_ls',
+        'yamlls',
+        'bashls',
+        'jsonls',
+        'bicep',
+        'ltex',
+        'eslint',
+        'rust_analyzer',
+        'tsserver',
+        'zk',
+      }
     })
 
     ------------
@@ -304,13 +324,6 @@ return {
         { border = 'single' }
       )
     end
-
-    -- Enable LSP snippets by default
-    local capabilities = lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    util.default_config = vim.tbl_extend('force', util.default_config, {
-      capabilities = { my_capabilities = capabilities, }
-    })
 
     -------------
     -- Keymaps --
