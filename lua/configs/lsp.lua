@@ -128,45 +128,6 @@ return {
       },
     }
 
-    local eslint_config = {
-      on_attach = function(_, bufnr)
-        api.nvim_create_autocmd('BufWritePre', {
-          buffer = bufnr,
-          command = 'EslintFixAll',
-        })
-      end,
-    }
-
-    -- Lua --
-    require('neodev').setup()
-
-    local lua_config = {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { 'vim' },
-          },
-          completion = {
-            callSnippet = 'Replace',
-            autoRequire = true,
-          },
-          format = {
-            enable = true,
-            defaultConfig = {
-              indent_style = 'space',
-              indent_size = '2',
-              max_line_length = '100',
-              trailing_table_separator = 'smart',
-            },
-          },
-          hint = {
-            enable = true,
-            arrayIndex = 'Disable',
-          },
-        }
-      },
-    }
-
     -- Rust --
     local rust_config = {
       tools = {
@@ -181,46 +142,6 @@ return {
           })
         end,
       },
-    }
-
-    -- YAML --
-    local yaml_config = {
-      settings = {
-        yaml = {
-          schemaStore = {
-            url = 'https://www.schemastore.org/api/json/catalog.json',
-            enable = true
-          },
-          customTags = {
-            -- AWS CloudFormation tags
-            '!Equals sequence', '!FindInMap sequence', '!GetAtt', '!GetAZs',
-            '!ImportValue', '!Join sequence', '!Ref', '!Select sequence',
-            '!Split sequence', '!Sub', '<!Ref>'
-          },
-        }
-      }
-    }
-
-    -- Zsh/Bash --
-    local bash_config = {
-      filetypes = {'sh', 'zsh'}
-    }
-
-    -- Json --
-    local json_config = {
-      settings = {
-        json = {
-          schemas = require('schemastore').json.schemas(),
-          validate = { enable = true },
-        },
-      },
-    }
-
-    -- Bicep --
-    local bicep_config = {
-      cmd = {
-        path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
-      }
     }
 
     -- Azure pipeline --
@@ -241,77 +162,144 @@ return {
       }
     }
 
-    -- LTeX --
-    local ltex_config = {
-      autostart = false,
-      settings = {
-        ltex = {
-          language = 'auto',
-          diagnosticSeverity = 'hint',
-          sentenceCacheSize = 2000,
-          additionalRules = {
-            motherTongue = 'sv',
+    ---------------------------
+    -- Server configurations --
+    ---------------------------
+    local server_configs = {
+      -- Lua --
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            completion = {
+              callSnippet = 'Replace',
+              autoRequire = true,
+            },
+            format = {
+              enable = true,
+              defaultConfig = {
+                indent_style = 'space',
+                indent_size = '2',
+                max_line_length = '100',
+                trailing_table_separator = 'smart',
+              },
+            },
+            hint = {
+              enable = true,
+              arrayIndex = 'Disable',
+            },
+          }
+        },
+      },
+      -- YAML --
+      yamlls = {
+        settings = {
+          yaml = {
+            schemaStore = {
+              url = 'https://www.schemastore.org/api/json/catalog.json',
+              enable = true
+            },
+            customTags = {
+              -- AWS CloudFormation tags
+              '!Equals sequence', '!FindInMap sequence', '!GetAtt', '!GetAZs',
+              '!ImportValue', '!Join sequence', '!Ref', '!Select sequence',
+              '!Split sequence', '!Sub', '!Or sequence'
+            },
+          }
+        }
+      },
+      -- Eslint --
+      eslint = {
+        on_attach = function(_, bufnr)
+          api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll',
+          })
+        end,
+      },
+      -- Bash/Zsh --
+      bashls = {
+        filetypes = {'sh', 'zsh'}
+      },
+      -- Json --
+      jsonls = {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      },
+      -- Bicep --
+      bicep = {
+        cmd = {
+          path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
+        }
+      },
+      -- LTeX --
+      ltex = {
+        autostart = false,
+        settings = {
+          ltex = {
+            language = 'auto',
+            diagnosticSeverity = 'hint',
+            sentenceCacheSize = 2000,
+            additionalRules = {
+              motherTongue = 'sv',
+            },
           },
         },
       },
     }
 
-    -----------------------------
-    -- Set up language servers --
-    -----------------------------
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-    local function setup_ls(server_name, options)
-      return function()
-        local opts_with_capabilities = vim.tbl_deep_extend('force', options, {
-          capabilities = capabilities,
-        })
-        lspconfig[server_name].setup(opts_with_capabilities)
-      end
-    end
-
     local disable = function() end
 
-    -- TODO: switch to doing similar to kickstart.nvim's `settings = servers[server_name]`
+    -- Special server configurations
+    local special_server_configs = {
+      rust_analyzer = function()
+        return rust_tools.setup(rust_config)
+      end,
+      tsserver = function()
+        return typescript.setup({ server = tsserver_config })
+      end,
+      zk = disable, -- Disabled becuase zk-nvim already sets it up
+    }
+
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    --------------------
+    -- Set up servers --
+    --------------------
+    local function setup(server_name)
+      local special_server_setup = special_server_configs[server_name]
+      if special_server_setup then
+        special_server_setup()
+        return
+      end
+
+      local opts = server_configs[server_name] or {}
+      local opts_with_capabilities = vim.tbl_deep_extend('force', opts, {
+        capabilities = capabilities,
+      })
+      lspconfig[server_name].setup(opts_with_capabilities)
+    end
+
+    -- Neovim Lua API completions/documentation
+    require('neodev').setup()
+
     require('mason-lspconfig').setup({
-      handlers = {
-        function(server_name)
-          -- Fallback setup for any other language
-          setup_ls(server_name, {})
-        end,
-        lua_ls = setup_ls('lua_ls', lua_config),
-        yamlls = setup_ls('yamlls', yaml_config),
-        bashls = setup_ls('bashls', bash_config),
-        jsonls = setup_ls('jsonls', json_config),
-        bicep = setup_ls('bicep', bicep_config),
-        ltex = setup_ls('ltex', ltex_config),
-        eslint = setup_ls('eslint', eslint_config),
-        rust_analyzer = function()
-          return rust_tools.setup(rust_config)
-        end,
-        tsserver = function ()
-          typescript.setup({ server = tsserver_config })
-        end,
-        zk = disable, -- Disabled becuase zk-nvim already sets it up
-      },
-      ensure_installed = {
-        'lua_ls',
-        'yamlls',
-        'bashls',
-        'jsonls',
-        'bicep',
-        'ltex',
-        'eslint',
-        'rust_analyzer',
-        'tsserver',
-        'zk',
-      }
+      handlers = { setup },
+      ensure_installed = vim.list_extend(
+        vim.tbl_keys(server_configs),
+        vim.tbl_keys(special_server_configs)
+      )
     })
 
-    ------------
-    -- Config --
-    ------------
-
+    ---------------------
+    -- Handler configs --
+    ---------------------
     if not require('utils').noice_is_loaded() then
       -- Add borders to hover/signature windows (noice.nvim has its own)
       lsp.handlers['textDocument/hover'] = lsp.with(
