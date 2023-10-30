@@ -93,7 +93,7 @@ local plugins = {
   use 'matchup',                                 -- Adds additional `%` commands
   use 'ultimate-autopair',                       -- Auto-close brackets, etc.
   { 'vim-scripts/capslock.vim', event = 'InsertEnter' },
-  { 'vim-scripts/StripWhiteSpaces', event = 'BufWrite' },
+  use 'trim',                                    -- Trim trailing whitespace
   use 'git-conflict',                            -- Git conflict mappings
   use 'vim-textobj',                             -- Custom text objects
   use 'vimtex',                                  -- LaTeX utilities
