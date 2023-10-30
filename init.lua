@@ -92,7 +92,7 @@ local plugins = {
   use 'eyeliner',                                -- Highlight uniques on f/F/t/T
   use 'matchup',                                 -- Adds additional `%` commands
   use 'ultimate-autopair',                       -- Auto-close brackets, etc.
-  { 'vim-scripts/capslock.vim', event = 'InsertEnter' },
+  use 'capslock',                                -- Virtual CapsLock
   use 'trim',                                    -- Trim trailing whitespace
   use 'git-conflict',                            -- Git conflict mappings
   use 'vim-textobj',                             -- Custom text objects
