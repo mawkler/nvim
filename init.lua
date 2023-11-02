@@ -140,8 +140,14 @@ local plugins = {
 
 require('lazy').setup({
   spec = plugins,
+  concurrency = 40,
   install = {
     colorscheme = { 'onedark' },
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = { 'netrwPlugin', 'tutor' },
+    },
   },
 })
 

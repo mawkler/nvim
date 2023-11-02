@@ -4,13 +4,6 @@
 return {
   'kyazdani42/nvim-tree.lua',
   dependencies = 'nvim-tree/nvim-web-devicons',
-  keys = {'<leader>`', '<leader>`', '<leader>~', 'gf'},
-  cmd = {
-    'NvimTreeOpen',
-    'NvimTreeToggle',
-    'NvimTreeFocus',
-    'NvimTreeFindFile',
-  },
   config = function()
     local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
     local node, tree, fs, marks = api.node, api.tree, api.fs, api.marks
