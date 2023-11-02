@@ -1,5 +1,6 @@
 local bo, fn = vim.bo, vim.fn
 local mode_color = require('feline.providers.vi_mode').get_mode_color
+local plugin_is_loaded = require('utils').plugin_is_loaded
 
 local function mode_colors()
   local get_mode_color = require('utils.colorscheme').get_mode_color
@@ -192,6 +193,18 @@ table.insert(active_left, {
   hl = { bg = 'line_bg' },
   left_sep = left_sect.left_sep,
   right_sep = left_sect.right_sep,
+})
+
+-- CapsLock
+table.insert(active_left, {
+  provider = '󰘲 ',
+  left_sep = left_sect.left_sep,
+  right_sep = left_sect.right_sep,
+  hl = function() return { fg = mode_color(), bg = 'line_bg' } end,
+  enabled = function()
+    local is_loaded = plugin_is_loaded('capslock.nvim')
+    return is_loaded and require('capslock').enabled('i')
+  end,
 })
 
 table.insert(active_left, {
