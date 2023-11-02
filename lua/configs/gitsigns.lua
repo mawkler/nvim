@@ -55,8 +55,8 @@ return {
         end
 
         -- Next/previous hunk
-        map('n', ']g', next_hunk, 'Next git hunk')
-        map('n', '[g', prev_hunk, 'Previous git hunk')
+        map({'n', 'x'}, ']g', next_hunk, 'Next git hunk')
+        map({'n', 'x'}, '[g', prev_hunk, 'Previous git hunk')
 
         -- Text objects
         map({'o', 'x'}, 'ih', gitsigns.select_hunk)
