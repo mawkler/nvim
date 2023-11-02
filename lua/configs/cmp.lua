@@ -4,6 +4,7 @@
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
+    'L3MON4D3/LuaSnip',                    -- Snippets
     'onsails/lspkind-nvim',                -- Completion menu icons
     'saadparwaiz1/cmp_luasnip' ,           -- Snippets
     'hrsh7th/cmp-nvim-lsp',                -- LSP completion
