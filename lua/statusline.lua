@@ -261,12 +261,6 @@ table.insert(active_left, {
 -- Middle section --
 --------------------
 
-local function plugin_is_loaded(plugin_name)
-  return vim.tbl_contains(require('lazy').plugins(), function(plugin)
-    return plugin.name == plugin_name and plugin.loaded
-  end, { predicate = true })
-end
-
 -- Snippet indicator
 table.insert(active_mid, {
   provider = 'snippet',

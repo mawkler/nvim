@@ -89,9 +89,10 @@ M.noice_is_loaded = function()
   return success and require('noice.config')._running
 end
 
-M.plugin_is_loaded = function(plugin_)
+M.plugin_is_loaded = function(plugin)
   -- Checking with `require` and `pcall` will cause Lazy to load the plugin
-  return require('lazy.core.config').plugins[plugin_]._.loaded
+  local plugins = require('lazy.core.config').plugins
+  return not not plugins[plugin] and plugins[plugin]._.loaded
 end
 
 return M

@@ -194,7 +194,13 @@ map('n', '<Esc>', function()
   utils.close_floating_windows()
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
-map('n', '<C-l>', '<cmd>LuaSnipUnlinkCurrent<CR><C-l>')
+
+local function clear_screen()
+  require('notify').dismiss() -- Dismiss all notifcatcions on screen
+  require('luasnip').unlink_current() -- Clear LuaSnip indicator from status line
+  feedkeys('<C-l>')
+end
+map('n', '<C-l>', clear_screen)
 
 map({'n', 'x'}, '<C-y>', '5<C-y>')
 map({'n', 'x'}, '<C-e>', '5<C-e>')
