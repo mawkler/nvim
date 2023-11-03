@@ -63,7 +63,7 @@ local plugins = {
   use 'lsp-inlay-hints',                         -- LSP inlay hints
   use 'tsc',                                     -- TypeScript type checking
   use 'luasnip',                                 -- Snippet engine
-  use 'cmp-tabnine',                             -- Tabnine autocompletion
+  -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
   use 'treesitter',
   { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
