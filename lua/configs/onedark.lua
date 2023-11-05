@@ -63,6 +63,7 @@ return {
         ['@text.note'] = { fg = c.info, style = style.Bold },
         ['@text.warning'] = { fg = c.warning, style = style.Bold },
         ['@text.danger'] = { fg = c.error, style = style.Bold },
+        ['@lsp.type.comment'] = {}, -- Use Treesitter's highlight instead, which suports TODO, NOTE, etc.
         -- Markdown (Treesitter)
         ['@text.literal'] = { fg = c.green0 },
         ['@text.emphasis'] = { fg = c.purple0, style = style.Italic },
