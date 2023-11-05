@@ -13,32 +13,12 @@ require('utils.lazy')
 
 local plugins = {
   'folke/lazy.nvim',                             -- Package manager
-  { 'tpope/vim-fugitive',                        -- :Git commands
-    dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
-    cmd = { 'G', 'Git', 'Gvdiffsplit' },
-  },
-  use 'eunuch',
-  { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} },
-  { 'inkarkat/vim-visualrepeat',
-    dependencies = { 'inkarkat/vim-ingo-library', 'tpope/vim-repeat' },
-    event = 'ModeChanged *:[vV]',
-  },
-  { 'milkypostman/vim-togglelist',               -- Toggle quickfix window
-    event = 'QuickFixCmdPre',
-  },
-  { 'kana/vim-niceblock',                        -- Improves visual mode
-    event = 'ModeChanged *:[vV]',
-  },
+  use 'eunuch',                                  -- :Rename, :Delete, etc. file
   use 'treesj',                                  -- Multiline split
-  { 'junegunn/vim-easy-align',                   -- Align characters vertically
-    dependencies = 'tpope/vim-repeat',
-    keys = '<Plug>(EasyAlign)'
-  },
   use 'autolist',                                -- Autocomplete lists
-  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
   use 'printer',                                 -- Print text-object
   use 'windows',                                 -- Automatic window resizing
-  use 'undotree',
+  use 'undotree',                                -- Tree of file histories
   use 'smart-splits',                            -- Better resizing mappings
   use 'cheat',                                   -- cheat.sh
   use 'nvim-colorizer',                          -- Display colour values
@@ -50,7 +30,7 @@ local plugins = {
   use 'scrollview',                              -- Scrollbar
   use 'nvim-web-devicons',                       -- File icons
   use 'nvim-tree',                               -- File explorer
-  use 'oil',
+  use 'oil',                                     -- Single directory file browser
   use 'barbar',                                  -- Sexiest buffer tabline
   use 'null-ls',                                 -- Autoformatting, etc.
   use 'neoscroll',                               -- Smooth scrolling animations
@@ -65,27 +45,25 @@ local plugins = {
   use 'luasnip',                                 -- Snippet engine
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
-  use 'treesitter',
-  { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
+  use 'treesitter',                              -- Abstract syntax tree
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
   use 'noice',                                   -- Nicer UI features
-  { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
   use 'lastplace',                               -- Restore cursor position
   use 'dial',                                    -- Enhanced increment/decrement
-  use 'comment',
+  use 'comment',                                 -- Adds `comment` verb
   use 'rest',                                    -- Sending HTTP requests
   use 'dap',                                     -- Debugger
   use 'dap-ui',                                  -- UI for nvim-dap
   use 'overseer',                                -- Task runner
   -- { 'jbyuki/one-small-step-for-vimkind' }   -- Lua plugin debug adapter
-  use 'onedark',
-  use 'catppuccin',
-  use 'refactoring',
-  use 'guess-indent',
+  use 'onedark',                                 -- Colorscheme
+  use 'catppuccin',                              -- Colorscheme
+  use 'refactoring',                             -- Refactoring tools
+  use 'guess-indent',                            -- Guess file's indent level
   use 'yanky',                                   -- Cycle register history, etc.
-  use 'surround',
+  use 'surround',                                -- Adds `surround` verb
   use 'eyeliner',                                -- Highlight uniques on f/F/t/T
   use 'matchup',                                 -- Adds additional `%` commands
   use 'ultimate-autopair',                       -- Auto-close brackets, etc.
@@ -96,13 +74,12 @@ local plugins = {
   use 'vimtex',                                  -- LaTeX utilities
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
-  use 'markdown-togglecheck',
+  use 'markdown-togglecheck',                    -- Toggle Markdown check marks
   use 'substitute',                              -- Replace/exchange operators
-  use 'highlighturl',
+  use 'highlighturl',                            -- Highlight URLs
   use 'messages',                                -- Floating :messages window
   use 'possession',                              -- Session manager
   use 'copilot',                                 -- GitHub Copilot
-  { 'tvaintrob/bicep.vim', ft = 'bicep' },
   use 'diffview',                                -- Git diff and file history
   use 'leap',                                    -- Move cursor anywhere
   use 'winshift',                                -- Improved window movement
@@ -117,9 +94,6 @@ local plugins = {
   use 'template-string',                         -- Automatic template string
   use 'csv',                                     -- CSV highlighting, etc.
   use 'modicator',                               -- Line number mode indicator
-  { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
-    event = 'CmdlineEnter'
-  },
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
   use 'tsnode-marker',                           -- Highlight code fence context
@@ -133,6 +107,33 @@ local plugins = {
   use 'crates',                                  -- Cargo.toml helper
   use 'gx',                                      -- Improved link opening with gx
   use 'various-textobjs',                        -- Various text-objects
+
+  { 'tpope/vim-fugitive',                        -- :Git commands
+    dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
+    cmd = { 'G', 'Git', 'Gvdiffsplit' },
+  },
+  { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} },
+  { 'inkarkat/vim-visualrepeat',
+    dependencies = { 'inkarkat/vim-ingo-library', 'tpope/vim-repeat' },
+    event = 'ModeChanged *:[vV]',
+  },
+  { 'milkypostman/vim-togglelist',               -- Toggle quickfix window
+    event = 'QuickFixCmdPre',
+  },
+  { 'kana/vim-niceblock',                        -- Improves visual mode
+    event = 'ModeChanged *:[vV]',
+  },
+  { 'junegunn/vim-easy-align',                   -- Align characters vertically
+    dependencies = 'tpope/vim-repeat',
+    keys = '<Plug>(EasyAlign)'
+  },
+  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
+  { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
+  { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
+  { 'tvaintrob/bicep.vim', ft = 'bicep' },
+  { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
+    event = 'CmdlineEnter'
+  },
 }
 
 require('lazy').setup({
