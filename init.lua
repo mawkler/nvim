@@ -67,9 +67,6 @@ local plugins = {
   use 'cmp',                                     -- Autocompletion
   use 'treesitter',
   { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
-  { 'nvim-treesitter/playground',
-    cmd = {'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor'},
-  },
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
