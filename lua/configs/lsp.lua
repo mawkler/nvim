@@ -141,6 +141,14 @@ return {
             desc = 'LSP action (rust-tools)',
           })
         end,
+        settings = {
+          ['rust-analyzer'] = {
+            check = {
+              command = 'clippy', -- Enable clippy diagnostics
+              features = 'all',
+            },
+          },
+        },
       },
     }
 
