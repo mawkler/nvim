@@ -152,24 +152,6 @@ return {
       },
     }
 
-    -- Azure pipeline --
-    local azure_pipelines_path = get_install_path('azure-pipelines-language-server')
-    local azure_pipelines_config = {
-      cmd = { azure_pipelines_path .. '/azure-pipelines-language-server', '--stdio'},
-      settings = {
-        yaml = {
-          schemas = {
-            ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json'] = {
-              '/azure-pipeline*.y*l',
-              '/*.azure*',
-              'Azure-Pipelines/**/*.y*l',
-              'Pipelines/*.y*l',
-            }
-          }
-        }
-      }
-    }
-
     ---------------------------
     -- Server configurations --
     ---------------------------
