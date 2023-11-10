@@ -19,7 +19,7 @@ return {
     local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
-    local path = require('mason-core.path')
+    local mason_path = require('mason-core.path')
     local rust_tools = require('rust-tools')
     local typescript = require('typescript')
     local get_install_path  = require('utils').get_install_path
@@ -152,36 +152,68 @@ return {
       },
     }
 
+    -- Neovim Lua API completions/documentation
+    require('neodev').setup()
+
+    --- @param filenames table<string>
+    --- @param path string?
+    --- @return boolean
+    local function has_file(path, filenames)
+      return vim.tbl_contains(filenames, function(filename)
+        return not not vim.loop.fs_stat(path .. filename)
+      end, { predicate = true })
+    end
+
     ---------------------------
     -- Server configurations --
     ---------------------------
     local server_configs = {
       -- Lua --
       lua_ls = {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            completion = {
-              callSnippet = 'Replace',
-              autoRequire = true,
-            },
-            format = {
-              enable = true,
-              defaultConfig = {
-                indent_style = 'space',
-                indent_size = '2',
-                max_line_length = '100',
-                trailing_table_separator = 'smart',
-              },
-            },
-            hint = {
-              enable = true,
-              arrayIndex = 'Disable',
-            },
-          }
-        },
+        on_init = function(client)
+          local path = client.workspace_folders[1].name
+          if not has_file(path, { '.luarc.json', '.luarc.jsonc' }) then
+            client.config.settings = vim.tbl_deep_extend(
+              'force',
+              client.config.settings,
+              {
+                Lua = {
+                  completion = {
+                    callSnippet = 'Replace',
+                    autoRequire = true,
+                  },
+                  format = {
+                    enable = true,
+                    defaultConfig = {
+                      indent_style = 'space',
+                      indent_size = '2',
+                      max_line_length = '100',
+                      trailing_table_separator = 'smart',
+                    },
+                  },
+                  hint = {
+                    enable = true,
+                    arrayIndex = 'Disable',
+                  },
+                  workspace = {
+                    checkThirdParty = false,
+                  },
+                  telemetry = {
+                    enable = false,
+                  }
+                }
+              }
+            )
+
+            client.notify('workspace/didChangeConfiguration', {
+              settings = client.config.settings,
+            })
+          end
+          return true
+        end,
+        on_attach = function()
+          map('n', '<leader>lt', '<Plug>PlenaryTestFile', "Run file's plenary tests")
+        end
       },
       -- YAML --
       yamlls = {
@@ -225,7 +257,7 @@ return {
       -- Bicep --
       bicep = {
         cmd = {
-          path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
+          mason_path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
         }
       },
       -- LTeX --
@@ -275,9 +307,6 @@ return {
       })
       lspconfig[server_name].setup(opts_with_capabilities)
     end
-
-    -- Neovim Lua API completions/documentation
-    require('neodev').setup()
 
     require('mason-lspconfig').setup({
       handlers = { setup },
