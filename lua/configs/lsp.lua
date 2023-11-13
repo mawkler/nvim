@@ -153,14 +153,19 @@ return {
     }
 
     -- Neovim Lua API completions/documentation
-    require('neodev').setup()
+    require('neodev').setup({
+      override = function(_, library)
+        library.enabled = true
+        library.plugins = true
+      end,
+    })
 
     --- @param filenames table<string>
     --- @param path string?
     --- @return boolean
     local function has_file(path, filenames)
       return vim.tbl_contains(filenames, function(filename)
-        return not not vim.loop.fs_stat(path .. filename)
+        return not not vim.loop.fs_stat((path or '') .. filename)
       end, { predicate = true })
     end
 
@@ -171,7 +176,7 @@ return {
       -- Lua --
       lua_ls = {
         on_init = function(client)
-          local path = client.workspace_folders[1].name
+          local path = client.workspace_folders and client.workspace_folders[1].name
           if not has_file(path, { '.luarc.json', '.luarc.jsonc' }) then
             client.config.settings = vim.tbl_deep_extend(
               'force',
