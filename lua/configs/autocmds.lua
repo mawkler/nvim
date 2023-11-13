@@ -7,7 +7,6 @@ local map = utils.map
 
 vim.api.nvim_create_augroup('GeneralAutocmds', {})
 vim.api.nvim_create_augroup('FileTypeAutocmds', {})
-vim.api.nvim_create_augroup('Spelling', {})
 
 -- TypeScript specific --
 vim.api.nvim_create_autocmd('FileType', {
@@ -90,10 +89,4 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
   callback = function() bo.keywordprg = ':help' end,
   group = 'FileTypeAutocmds',
-})
-
--- Always disable spell check for new buffers
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNew' }, {
-  callback = function() vim.o.spell = false end,
-  group = 'Spelling',
 })
