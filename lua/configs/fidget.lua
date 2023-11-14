@@ -4,13 +4,18 @@
 return {
   'j-hui/fidget.nvim',
   event = 'LspAttach',
-  tag = 'legacy', -- TODO: remove once fidget has been rewritten
-  config = function()
-    require('fidget').setup {
-      text = { spinner = 'dots', done = '' },
+  opts = {
+    progress = {
+      display = {
+        done_icon = '',
+        done_ttl = 2,
+      }
+    },
+    notification = {
       window = {
-        relative = 'editor',
-      },
-    }
-  end
+        max_height = 4,
+        normal_hl = 'FidgetNormal',
+      }
+    },
+  }
 }

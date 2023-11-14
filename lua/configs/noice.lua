@@ -34,6 +34,11 @@ return {
 
     noice.setup({
       routes = vim.list_extend(filter_message_routes, other_routes),
+      lsp = {
+        progress = {
+          enabled = false,
+        },
+      },
       presets = {
         lsp_doc_border = true,
       },

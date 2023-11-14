@@ -161,6 +161,8 @@ return {
         -- Crates
         CratesNvimVersion = { fg = c.fg_dark },
         CratesNvimLoading = { link = 'CratesNvimVersion' },
+        -- Fidget
+        FidgetNormal = { fg = c.fg_dark },
       }
     end
   })
