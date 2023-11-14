@@ -107,6 +107,7 @@ local plugins = {
   use 'crates',                                  -- Cargo.toml helper
   use 'gx',                                      -- Improved link opening with gx
   use 'various-textobjs',                        -- Various text-objects
+  use 'icon-picker',                             -- Emoji, Nerd Font icons, etc.
 
   { 'tpope/vim-fugitive',                        -- :Git commands
     dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
