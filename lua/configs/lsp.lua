@@ -313,12 +313,19 @@ return {
       lspconfig[server_name].setup(opts_with_capabilities)
     end
 
+    -- Ensure that servers mentioned above get installed
+    local ensure_installed = vim.list_extend(
+      vim.tbl_keys(server_configs),
+      vim.tbl_keys(special_server_configs)
+    )
+
     require('mason-lspconfig').setup({
       handlers = { setup },
-      ensure_installed = vim.list_extend(
-        vim.tbl_keys(server_configs),
-        vim.tbl_keys(special_server_configs)
-      )
+      ensure_installed = vim.list_extend(ensure_installed, {
+        'vimls',
+        'pylsp',
+        'lemminx',
+      })
     })
 
     ---------------------

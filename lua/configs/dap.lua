@@ -7,9 +7,9 @@ return {
     'David-Kunz/jester',                -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
+    'williamboman/mason.nvim',          -- Manage DAP adapters
     'jay-babu/mason-nvim-dap.nvim',     -- Automatic DAP configuration
     'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
-    'williamboman/mason.nvim',          -- Manage DAP adapters
   },
   event = 'VeryLazy',
   config = function()
