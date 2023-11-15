@@ -17,6 +17,7 @@ return {
     { 'mfussenegger/nvim-dap' },
   },
   event = 'VeryLazy',
+  commit = 'ff8ed23',
   config = function()
     local feedkeys = require('utils').feedkeys
     local map = require('utils').map
@@ -231,8 +232,8 @@ return {
 
     map('n', '<leader>F',  builtin.live_grep, 'Live grep')
     map('n', '<leader>B',  builtin.buffers, 'Open buffers')
-    map('n', '<leader>m',  builtin.oldfiles, 'Recently used files')
-    map('n', '<leader>th', extensions.frecency.frecency, 'Frecency')
+    map('n', '<leader>to', builtin.oldfiles, 'Recently used files')
+    map('n', '<leader>m',  extensions.frecency.frecency, 'Frecency')
     map('n', '<leader>h',  builtin.help_tags, 'Help tags')
     map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
     map('n', '<leader>tH', builtin.highlights, 'Highlights')

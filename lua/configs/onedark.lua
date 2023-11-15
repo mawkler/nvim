@@ -103,6 +103,7 @@ return {
         -- Telescope
         TelescopeMatching = { fg = c.blue0, style = style.Bold },
         TelescopePromptPrefix = { fg = c.fg0, style = style.Bold },
+        TelescopePathSeparator = { fg = c.fg_dark },
         -- LSP
         LspReferenceText = { link = 'Search' },
         LspReferenceRead = { link = 'Search' },
