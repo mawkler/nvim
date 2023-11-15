@@ -5,7 +5,7 @@
 local function list_sessions()
   local telescope, themes = require('telescope'), require('telescope.themes')
   telescope.extensions.possession.list(themes.get_dropdown({
-    previewer = false,
+    layout_config = { mirror = true },
   }))
 end
 
@@ -49,8 +49,9 @@ return {
       },
       plugins = {
         delete_hidden_buffers = {
-          force = function(buf)
-            local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
+          force = function(bufnr)
+            local buf = { buf = bufnr }
+            local filetype = vim.api.nvim_get_option_value('filetype', buf)
             return vim.tbl_contains(delete_hidden_filetypes, filetype)
           end,
           hooks = {
