@@ -101,10 +101,6 @@ return {
           swap_previous = swap_previous,
         },
       },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
       matchup = {
         enable = true,
         disable_virtual_text = true,

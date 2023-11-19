@@ -46,6 +46,7 @@ local plugins = {
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
   use 'treesitter',                              -- Abstract syntax tree
+  use 'treesitter.context-commentstring',        -- Dynamic comment symbols
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
@@ -129,7 +130,6 @@ local plugins = {
     keys = '<Plug>(EasyAlign)'
   },
   { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
-  { 'JoosepAlviste/nvim-ts-context-commentstring', event = 'VeryLazy' },
   { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
   { 'tvaintrob/bicep.vim', ft = 'bicep' },
   { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
