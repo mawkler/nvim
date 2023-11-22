@@ -15,10 +15,11 @@ opt.spelloptions:append('camel')
 opt.sessionoptions:append('globals') -- Store global variables in sessions
 
 -- Windows --
-o.termguicolors   = true  -- Use GUI colors in terminal as well
-o.winblend        = 5     -- Transparent floating windows
-o.pumblend        = 10    -- Transparent popup-menu
-o.splitright      = true  -- Open vertical windows to the right instead of left
+local opacity = vim.g.neovide and 35 or 18
+o.winblend        = opacity -- Transparent floating windows
+o.pumblend        = opacity -- Transparent popup-menu
+o.termguicolors   = true    -- Use GUI colors in terminal as well
+o.splitright      = true    -- Open vertical windows to the right instead of left
 if exists('&splitkeep') == 1 then
   opt.splitkeep = exists('g:neovide') == 1 and 'cursor' or 'screen'
 end
