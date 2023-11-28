@@ -374,6 +374,8 @@ return {
     end
 
     local function attach_keymaps()
+      local nx = { 'n', 'x' }
+
       map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
       map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
       map('n', 'gi',         telescope.lsp_implementations,           'LSP implementations')
@@ -385,26 +387,26 @@ return {
       map('n',        'gh',        lsp.buf.hover,          'LSP hover')
       map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
       map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
-      map({'n', 'x'}, '<leader>r', lsp.buf.rename,         'LSP rename')
-      map({'n', 'x'}, '<leader>a', lsp.buf.code_action,    'LSP code action')
-      map({'n', 'x'}, '<leader>A', lsp.codelens.run,       'LSP code lens')
+      map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
+      map(nx,         '<leader>a', lsp.buf.code_action,    'LSP code action')
+      map(nx,         '<leader>A', lsp.codelens.run,       'LSP code lens')
 
-      map({'n', 'x'}, ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
-      map({'n', 'x'}, '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
-      map({'n', 'x'}, '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
-      map({'n', 'x'}, ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
-      map({'n', 'x'}, ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
-      map({'n', 'x'}, '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
-      map('n',        '<leader>e', function()
-        diagnostic.open_float({ border = 'single' })
-      end, 'Diagnostic open float')
+      map(nx,  ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
+      map(nx,  '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
+      map(nx,  '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
+      map(nx,  ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
+      map(nx,  ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
+      map(nx,  '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
+      map('n', '<leader>e', function() diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
 
       map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
       map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementation in window split',  remap = true })
       map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
 
       map('n', '<leader>ls', '<cmd>LspStart<CR>', { desc = 'Start LSP server' })
-      map('n', '<leader>lq', '<cmd>LspStop<CR>', { desc = 'Start LSP server' })
+      map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
+
+      -- print('keymaps attached')
     end
 
     -- File types to not format on write
