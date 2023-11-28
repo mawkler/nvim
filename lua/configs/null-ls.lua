@@ -12,7 +12,12 @@ return {
 
     local sources = {
       builtins.formatting.autopep8,
-      builtins.formatting.prettier,
+      builtins.formatting.prettier.with({
+        disabled_filetypes = { 'markdown' }, -- Use mkdformat instead
+      }),
+      builtins.formatting.mdformat.with({
+        args = { '--number', '$FILENAME' }
+      }),
       builtins.formatting.latexindent,
       builtins.hover.dictionary,
       builtins.diagnostics.typos,
