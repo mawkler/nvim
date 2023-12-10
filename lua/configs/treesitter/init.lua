@@ -67,13 +67,6 @@ return {
           lookahead = true, -- Automatically jump forward to textobject
           include_surrounding_whitespace = include_surrounding_whitespace,
           keymaps = keymaps,
-          selection_modes = {
-            -- Make `af`, `aC` and `am` line-wise
-            ['@function.outer'] = 'V',
-            ['@class.outer'] = 'V',
-            ['@method.outer'] = 'V',
-            ['@method.inner'] = 'V',
-          },
         },
         move = {
           enable = true,
