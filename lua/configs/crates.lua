@@ -14,6 +14,9 @@ return {
         enabled = true,
         name = 'crates.nvim',
       },
+      src = {
+        cmp = { enabled = true },
+      },
     })
 
     local function enable_cmp_cargo_completion()
@@ -31,7 +34,6 @@ return {
     enable_cmp_cargo_completion()
 
     -- Keymaps
-    local opts = { silent = true }
     map('n', '<leader>lf', crates.show_features_popup,                'Show crate features')
     map('n', '<leader>lv', crates.show_versions_popup,                'Show crate versions')
     map('n', '<leader>ld', crates.show_dependencies_popup,            'Show crate dependencies')
