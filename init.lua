@@ -109,6 +109,7 @@ local plugins = {
   use 'gx',                                      -- Improved link opening with gx
   use 'various-textobjs',                        -- Various text-objects
   use 'icon-picker',                             -- Emoji, Nerd Font icons, etc.
+  use 'image',                                   -- ASCII art image viewer
 
   { 'tpope/vim-fugitive',                        -- :Git commands
     dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
