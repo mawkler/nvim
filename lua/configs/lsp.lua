@@ -279,6 +279,18 @@ return {
           },
         },
       },
+      typos_lsp = {
+        on_attach = function(client, _)
+          -- Disable for markdown, use ltex instead
+          if vim.bo.filetype == 'markdown' then
+            -- Force-shutdown seems to be necessary for some reason
+            vim.lsp.stop_client(client.id, true)
+          end
+        end,
+        init_options = {
+          diagnosticSeverity = 'hint'
+        }
+      }
     }
 
     local disable = function() end
@@ -291,7 +303,7 @@ return {
       tsserver = function()
         return typescript.setup({ server = tsserver_config })
       end,
-      zk = disable, -- Disabled becuase zk-nvim already sets it up
+      zk = disable, -- Disabled because zk-nvim already sets it up
     }
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
