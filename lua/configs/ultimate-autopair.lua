@@ -8,6 +8,11 @@ return {
   branch = 'v0.6',
   config = function()
     require('ultimate-autopair').setup({
+      extensions = {
+        filetype = {
+          nft = { 'TelescopePrompt', 'DressingInput', 'NoiceCommandline' },
+        },
+      },
       { '**', '**', ft = { 'markdown' }, multiline = false },
       { '*',  '*',  ft = { 'markdown' }, multiline = false },
       { '_',  '_',  ft = { 'markdown' }, multiline = false },
