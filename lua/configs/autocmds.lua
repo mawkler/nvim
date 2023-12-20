@@ -58,10 +58,13 @@ vim.api.nvim_create_autocmd('FileType', {
   group = 'FileTypeAutocmds',
 })
 
--- Adds horizontal line below and enters insert mode below it
+-- Markdown specific --
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
-  callback = function() map('n', '<leader>-', 'o<Esc>0Do<Esc>0C---<CR><CR>') end,
+  callback = function()
+    -- Adds horizontal line below and enters insert mode below it
+    map('n', '<leader>-', 'o<Esc>0"_Do<Esc>0"_C---<CR><CR>')
+  end,
   group = 'FileTypeAutocmds',
 })
 
