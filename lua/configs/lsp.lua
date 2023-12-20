@@ -282,7 +282,14 @@ return {
       typos_lsp = {
         on_attach = function(client, _)
           -- Disable for markdown, use ltex instead
-          if vim.bo.filetype == 'markdown' then
+          local disabled_filetypes = { 'markdown', 'NvimTree' }
+          local has_disabled_filetype = vim.tbl_contains(
+            disabled_filetypes,
+            vim.bo.filetype,
+            { predicate = true }
+          )
+
+          if has_disabled_filetype then
             -- Force-shutdown seems to be necessary for some reason
             vim.lsp.stop_client(client.id, true)
           end
