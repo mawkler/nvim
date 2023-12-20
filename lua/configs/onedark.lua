@@ -164,6 +164,18 @@ return {
         CratesNvimLoading = { link = 'CratesNvimVersion' },
         -- Fidget
         FidgetNormal = { fg = c.fg_dark },
+        -- Neotest
+        NeotestFile = { fg = c.blue0 },
+        NeotestDir = { link = 'NvimTreeFolderIcon' },
+        NeotestAdapterName = { link = 'Title' },
+        NeotestFailed = { fg = c.red0 },
+        NeotestPassed = { fg = c.green0 },
+        NeotestRunning = { fg = c.orange0 },
+        NeotestWatching = { fg = c.orange1 },
+        NeotestSkipped = { fg = c.fg_dark },
+        NeotestUnknown = { link = 'NeotestSkipped' },
+        NeotestMarked = { fg = c.purple0 },
+        NeotestFocused = { style = style.Bold },
       }
     end
   })
