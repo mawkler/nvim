@@ -36,6 +36,7 @@ return {
         add_constant({'&&', '||'}),
         add_constant({'TRUE', 'FALSE'}),
         add_constant({'private', 'public'}),
+        add_constant({'left', 'right'}),
         add_constant({
           'zero',  'one',   'two',  'three', 'four',   'five', 'six',
           'seven', 'eight', 'nine', 'ten',   'eleven', 'twelve'
