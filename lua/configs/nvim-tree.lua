@@ -7,6 +7,7 @@ return {
   config = function()
     local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
     local node, tree, fs, marks = api.node, api.tree, api.fs, api.marks
+    local git_navigate = node.navigate.git
 
     nvim_tree.setup({
       diagnostics = {
