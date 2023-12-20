@@ -17,23 +17,17 @@ return {
     { 'mfussenegger/nvim-dap' },
   },
   event = 'VeryLazy',
-  commit = 'ff8ed23',
   config = function()
     local feedkeys = require('utils').feedkeys
     local map = require('utils').map
     local append = require('utils').append
 
-    local fn, api = vim.fn, vim.api
+    local fn = vim.fn
 
     local telescope = require('telescope')
     local themes = require('telescope.themes')
     local extensions = telescope.extensions
-    local pickers = require('telescope.pickers')
-    local finders = require('telescope.finders')
-    local actions = require('telescope.actions')
     local builtin = require('telescope.builtin')
-    local conf = require('telescope.config').values
-    local action_state = require('telescope.actions.state')
 
     local fd_ignore_file = fn.expand('$HOME/') .. '.rgignore'
     local cder_dir_cmd = {
@@ -161,7 +155,7 @@ return {
     telescope.load_extension('cder')
     telescope.load_extension('git_worktree')
 
-    function _G.telescope_markdowns()
+    local function telescope_markdowns()
       builtin.find_files({
         search_dirs = { '$MARKDOWNS' },
         prompt_title = 'Markdowns',
@@ -171,7 +165,7 @@ return {
       })
     end
 
-    function _G.telescope_config()
+    local function telescope_config()
       builtin.find_files({
         search_dirs = { '$HOME/.config/nvim/' },
         prompt_title = 'Neovim config',
@@ -182,35 +176,6 @@ return {
           return path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
         end,
       })
-    end
-
-    function _G.telescope_cd(dir)
-      if dir == nil then dir = '.' end
-      local opts = {cwd = dir}
-      local ignore_file = fn.expand('$HOME/') .. '.rgignore'
-
-      pickers.new(opts, {
-        prompt_title = 'Change Directory',
-        finder = finders.new_oneshot_job(
-          { 'fd', '-t', 'd', '--hidden', '--ignore-file', ignore_file },
-          opts
-        ),
-        sorter = conf.generic_sorter(opts),
-        attach_mappings = function(prompt_bufnr, attach_map)
-          -- These two mappings fix issue with custom actions
-          attach_map('n', '<CR>', 'select_default')
-          attach_map('i', '<CR>', 'select_default')
-          actions.select_default:replace(function()
-            local selection = action_state.get_selected_entry()
-            if selection ~= nil then
-              actions.close(prompt_bufnr)
-              -- TODO: allow using tcd on <C-t>
-              api.nvim_command('cd ' .. dir .. '/' .. selection[1])
-            end
-          end)
-          return true
-        end,
-      }):find()
     end
 
     local function grep_string()
@@ -266,5 +231,14 @@ return {
     map('n', '<leader>tb', extensions.dap.list_breakpoints)
     map('n', '<leader>tv', extensions.dap.variables)
     map('n', '<leader>tf', extensions.dap.frames)
+
+    -- Temporary workaround for https://github.com/nvim-telescope/telescope.nvim/issues/2766
+    vim.api.nvim_create_autocmd('WinLeave', {
+      callback = function()
+        if vim.bo.ft == 'TelescopePrompt' and vim.fn.mode() == 'i' then
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-c>', true, false, true), 'i', false)
+        end
+      end,
+    })
   end
 }
