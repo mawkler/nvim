@@ -304,6 +304,7 @@ table.insert(active_right, {
 
 -- Git branch
 table.insert(active_right, {
+  use_default_icon = false,
   provider = 'git_branch',
   right_sep = ' ',
   enabled = 'git_info_exists',
