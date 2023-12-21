@@ -160,15 +160,6 @@ return {
       end,
     })
 
-    --- @param filenames table<string>
-    --- @param path string?
-    --- @return boolean
-    local function has_file(path, filenames)
-      return vim.tbl_contains(filenames, function(filename)
-        return not not vim.loop.fs_stat((path or '') .. filename)
-      end, { predicate = true })
-    end
-
     ---------------------------
     -- Server configurations --
     ---------------------------
@@ -283,7 +274,7 @@ return {
         on_attach = function(client, _)
           -- Disable for markdown, use ltex instead
           local disabled_filetypes = { 'markdown', 'NvimTree' }
-          local has_disabled_filetype = vim.tbl_contains(
+          local has_disabled_filetype = vim.list_contains(
             disabled_filetypes,
             vim.bo.filetype,
             { predicate = true }
@@ -311,6 +302,7 @@ return {
         return typescript.setup({ server = tsserver_config })
       end,
       zk = disable, -- Disabled because zk-nvim already sets it up
+      jdtls = disable, -- Set up in in java.lua
     }
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
