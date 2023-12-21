@@ -6,6 +6,7 @@ return {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-refactor',
+    'RRethy/nvim-treesitter-endwise',
   },
   build = ':TSUpdate',
   event = 'VeryLazy',
@@ -114,6 +115,7 @@ return {
           },
         },
       },
+      endwise = { enable = true }
     })
 
     -- Prints the syntax highlighting values under cursor
