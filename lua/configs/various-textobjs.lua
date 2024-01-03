@@ -46,6 +46,8 @@ return {
     map(ox, 'aX', function() return various_textobjs.htmlAttribute('outer') end, 'HTML attribute')
     map(ox, 'i-', function() return various_textobjs.subword('inner') end, 'HTML attribute')
     map(ox, 'a-', function() return various_textobjs.subword('outer') end, 'HTML attribute')
+    map(ox, 'iE', function() return various_textobjs.mdEmphasis('inner') end, 'Markdown emphasis')
+    map(ox, 'aE', function() return various_textobjs.mdEmphasis('outer') end, 'Markdown emphasis')
 
     local markdown_textobjs = function()
       local opts = { buffer = true }
