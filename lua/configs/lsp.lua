@@ -27,6 +27,8 @@ return {
     local map = function(modes, lhs, rhs, opts)
       if type(opts) == 'string' then
         opts = { desc = opts }
+      elseif not opts then
+        opts = {}
       end
       opts = vim.tbl_extend('keep', opts, { buffer = true })
       return require('utils').map(modes, lhs, rhs, opts)
@@ -137,9 +139,7 @@ return {
       },
       server = {
         on_attach = function()
-          map('n', '<Leader>a', rust_tools.code_action_group.code_action_group, {
-            desc = 'LSP action (rust-tools)',
-          })
+          map('n', 'go', '<cmd>RustOpenCargo<CR>', 'Go to cargo.toml')
         end,
         settings = {
           ['rust-analyzer'] = {
@@ -399,7 +399,6 @@ return {
       map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
       map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
       map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
-      map(nx,         '<leader>a', lsp.buf.code_action,    'LSP code action')
       map(nx,         '<leader>A', lsp.codelens.run,       'LSP code lens')
 
       map(nx,  ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
