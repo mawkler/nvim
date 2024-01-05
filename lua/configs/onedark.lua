@@ -36,6 +36,7 @@ return {
         SpecialKey = { fg = c.blue0 },
         SpecialKeyWin = { link = 'Comment' },
         IncSearch = { bg = c.blue0 },
+        CurSearch = { link = 'Search' },
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
         MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
         CursorLine = { bg = cursorline_bg },
