@@ -7,10 +7,11 @@ local function neotest()
 end
 
 local function run_file() neotest().run.run(vim.fn.expand("%")) end
+local function debug_file() neotest().run.run({vim.fn.expand("%"), strategy = "dap"}) end
 local function open() neotest().output.open({ enter = true }) end
 local function watch_file() neotest().watch.toggle(vim.fn.expand("%")) end
-local function jump_to_failed(direction, opts)
-  return neotest().jump[direction](opts)
+local function jump_to_failed(direction)
+  return neotest().jump[direction]({ status = "failed" })
 end
 
 return {
@@ -23,6 +24,7 @@ return {
   keys = {
     { '<leader>Tr', function() neotest().run.run() end,             'Run test' },
     { '<leader>Tc', function() neotest().run.stop() end,            'Cancel running test' },
+    { '<leader>Td', function() debug_file() end,                    'Cancel running test' },
     { '<leader>TR', function() run_file() end,                      'Run tests in file' },
     { '<leader>To', function() open() end,                          'Open test output' },
     { '<leader>Tw', function() neotest().watch.toggle() end,        'Watch tests' },
