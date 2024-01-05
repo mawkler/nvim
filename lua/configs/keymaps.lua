@@ -79,6 +79,8 @@ map({'n', 'x'}, '[v',            '`<', 'First character of latest visual select'
 map({'n', 'x'}, ']v',            '`>', 'Last character of latest visual select')
 map('o',        '}',             'V}')
 map('o',        '{',             'V{')
+map('i',        '<C-;>',         '<Esc>m0A;<Esc>`0a')
+map('i',        '<C-,>',         '<Esc>m0A,<Esc>`0a')
 
 local function spell_jump(command)
   return function()
