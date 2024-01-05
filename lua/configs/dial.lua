@@ -42,8 +42,16 @@ return {
           'seven', 'eight', 'nine', 'ten',   'eleven', 'twelve'
         }),
         add_constant({
+          'Zero',  'One',   'Two',  'Three', 'Four',   'Five', 'Six',
+          'seven', 'Eight', 'Nine', 'Ten',   'Eleven', 'Twelve'
+        }),
+        add_constant({
           'noll', 'en',  'ett',  'två', 'tre', 'fyra', 'fem',
           'sex',  'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'
+        }),
+        add_constant({
+          'noll', 'En',  'Ett',  'Två', 'Tre', 'Fyra', 'Fem',
+          'sex',  'Sju', 'Åtta', 'Nio', 'Tio', 'Elva', 'Tolv'
         }),
       }
     }
