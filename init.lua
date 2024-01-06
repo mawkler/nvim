@@ -41,8 +41,9 @@ local plugins = {
   use 'mason',                                   -- LSP/DAP/etc. package manager
   use 'lsp',                                     -- Built-in LSP
   use 'lsp-inlay-hints',                         -- LSP inlay hints
+  use 'rustaceanvim',                            -- rust-analyzer client
   use 'clear-action',                            -- Predictable LSP code actions
-  use 'java',
+  use 'java',                                    -- JDTLS client
   use 'tsc',                                     -- TypeScript type checking
   use 'luasnip',                                 -- Snippet engine
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion

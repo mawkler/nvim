@@ -9,7 +9,6 @@ return {
     'b0o/schemastore.nvim',                  -- YAML/JSON schemas
     'jose-elias-alvarez/typescript.nvim',    -- TypeScript utilities
     'folke/neodev.nvim',                     -- Lua signature help and completion
-    'simrat39/rust-tools.nvim',              -- Rust tools
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
@@ -20,7 +19,6 @@ return {
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local mason_path = require('mason-core.path')
-    local rust_tools = require('rust-tools')
     local typescript = require('typescript')
     local get_install_path  = require('utils').get_install_path
 
@@ -127,28 +125,6 @@ return {
 
           lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
         end,
-      },
-    }
-
-    -- Rust --
-    local rust_config = {
-      tools = {
-        inlay_hints = {
-          auto = false
-        }
-      },
-      server = {
-        on_attach = function()
-          map('n', 'go', '<cmd>RustOpenCargo<CR>', 'Go to cargo.toml')
-        end,
-        settings = {
-          ['rust-analyzer'] = {
-            check = {
-              command = 'clippy', -- Enable clippy diagnostics
-              features = 'all',
-            },
-          },
-        },
       },
     }
 
@@ -295,13 +271,11 @@ return {
 
     -- Special server configurations
     local special_server_configs = {
-      rust_analyzer = function()
-        return rust_tools.setup(rust_config)
-      end,
       tsserver = function()
         return typescript.setup({ server = tsserver_config })
       end,
       zk = disable, -- Disabled because zk-nvim already sets it up
+      rust_analyzer = disable, -- Set up in rustaceanvim
       jdtls = disable, -- Set up in in java.lua
     }
 
