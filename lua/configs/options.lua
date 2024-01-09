@@ -21,7 +21,7 @@ opt.spelloptions:append('camel')
 opt.sessionoptions:append('globals') -- Store global variables in sessions
 
 -- Windows --
-local opacity = vim.g.neovide and 35 or 18
+local opacity = vim.g.neovide and 40 or 18
 o.winblend        = opacity -- Transparent floating windows
 o.pumblend        = opacity -- Transparent popup-menu
 o.termguicolors   = true    -- Use GUI colors in terminal as well
