@@ -3,6 +3,7 @@
 -------------------------
 return {
   'chrisgrieser/nvim-various-textobjs',
+  event = 'VeryLazy',
   config = function()
     local map = require('utils').map
     local various_textobjs = require('various-textobjs')
@@ -15,7 +16,7 @@ return {
         'ii', -- Just use iI
         'ai', -- Just use aI
         'gG', -- Replaced with ie
-        '|',  -- Replaced with i|
+        '|',  -- Disabled
         'L',  -- Replaced with iu
         'r',  -- I only want this for normal mode
         '=',  -- Use Treesitter's @assignment instead
@@ -38,7 +39,6 @@ return {
     map(ox, 'ie', various_textobjs.entireBuffer, 'Entire buffer')
     map(ox, 'iL', function() return various_textobjs.lineCharacterwise('inner') end, 'Line')
     map(ox, 'aL', function() return various_textobjs.lineCharacterwise('outer') end, 'Line')
-    map(ox, 'i|', various_textobjs.column, 'Column')
     map(ox, 'iu', various_textobjs.url, 'URL')
     map(ox, 'id', various_textobjs.diagnostic, 'Diagnostic')
     map('o', 'r', various_textobjs.restOfParagraph, 'Rest of paragraph')
