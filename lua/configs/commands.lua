@@ -47,7 +47,8 @@ api.nvim_create_user_command(
     vim.cmd('silent !trash ' .. file)
 
     if file == '%' then
-      vim.cmd('BufferClose')
+      vim.cmd.BufferClose()
+      pcall(vim.cmd.wincmd, 'c')
     end
   end,
   {
@@ -58,4 +59,3 @@ api.nvim_create_user_command(
     desc = 'Put current file in trashcan using trash-cli',
   }
 )
-

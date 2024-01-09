@@ -1,7 +1,13 @@
 -------------
 -- Options --
 -------------
-local opt, o, exists = vim.opt, vim.o, vim.fn.exists
+local opt, o, g, exists = vim.opt, vim.o, vim.g, vim.fn.exists
+
+-- Font
+if exists('g:goneovim') or exists('g:neovide') and not exists('g:font_set') then
+  o.guifont = 'FiraCode Nerd Font:h07'
+  g.font_set = true -- Prevents changing zoom level when re-sourcing
+end
 
 -- General --
 o.showmode  = false        -- Don't write out `--INSERT--`, etc.

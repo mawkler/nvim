@@ -14,6 +14,7 @@ require('utils.lazy')
 local plugins = {
   'folke/lazy.nvim',                             -- Package manager
   use 'eunuch',                                  -- :Rename, :Delete, etc. file
+  use 'easy-align',                              -- Align characters vertically
   use 'treesj',                                  -- Multiline split
   use 'autolist',                                -- Autocomplete lists
   use 'printer',                                 -- Print text-object
@@ -129,10 +130,6 @@ local plugins = {
   { 'kana/vim-niceblock',                        -- Improves visual mode
     event = 'ModeChanged *:[vV]',
   },
-  { 'junegunn/vim-easy-align',                   -- Align characters vertically
-    dependencies = 'tpope/vim-repeat',
-    keys = '<Plug>(EasyAlign)'
-  },
   { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
   { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
   { 'tvaintrob/bicep.vim', ft = 'bicep' },
@@ -153,5 +150,3 @@ require('lazy').setup({
     },
   },
 })
-
-vim.cmd.source('~/.config/nvim/config.vim')
