@@ -11,6 +11,7 @@ return {
     'folke/neodev.nvim',                     -- Lua signature help and completion
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
+    'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
     { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
   event = { 'VeryLazy', 'BufWrite' },

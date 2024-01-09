@@ -3,6 +3,7 @@
 ------------------
 return {
   'luckasRanarison/clear-action.nvim',
+  event = 'LspAttach',
   opts = {
     mappings = {
       code_action = '<leader>a',

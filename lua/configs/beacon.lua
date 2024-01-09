@@ -4,6 +4,5 @@
 return {
   'DanilaMihailov/beacon.nvim',
   cond = function() return not vim.g.neovide end,
-  event = 'WinEnter',
+  event = 'VeryLazy',
 }
-
