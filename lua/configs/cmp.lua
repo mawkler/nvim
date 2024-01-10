@@ -20,10 +20,10 @@ return {
     local visible_buffers = require('utils').visible_buffers
     local noice_is_loaded = require('utils').noice_is_loaded
 
-    local nvim_cmp = require('cmp')
+    local cmp = require('cmp')
     local luasnip = require('luasnip')
-    local cmp_disabled = nvim_cmp.config.disable
-    local cmp_insert = { behavior = nvim_cmp.SelectBehavior.Insert }
+    local cmp_disabled = cmp.config.disable
+    local cmp_insert = { behavior = cmp.SelectBehavior.Insert }
     local lspkind = require('lspkind')
 
     vim.opt.completeopt = 'menuone,noselect'
@@ -34,49 +34,36 @@ return {
       else if (type(modes) ~= 'table')
         then modes = {modes} end
       end
-      return nvim_cmp.mapping(rhs, modes)
+      return cmp.mapping(rhs, modes)
     end
 
     local function toggle_complete()
       return function()
-        if nvim_cmp.visible() then
-          nvim_cmp.close()
+        if cmp.visible() then
+          cmp.close()
         else
-          nvim_cmp.complete()
+          cmp.complete()
         end
       end
     end
 
     local function complete()
-      if nvim_cmp.visible() then
-        nvim_cmp.mapping.confirm({select = true})()
+      if cmp.visible() then
+        cmp.mapping.confirm({select = true})()
       elseif luasnip.expandable() then
         luasnip.expand()
       else
-        nvim_cmp.complete()
+        cmp.complete()
       end
     end
 
     local function cmdline_complete()
-      if nvim_cmp.visible() then
-        nvim_cmp.mapping.confirm({select = true})()
+      if cmp.visible() then
+        cmp.mapping.confirm({select = true})()
       else
-        nvim_cmp.complete()
+        cmp.complete()
       end
     end
-
-    local function join(tbl1, tbl2)
-      local tbl3 = {}
-      for _, item in ipairs(tbl1) do
-        table.insert(tbl3, item)
-      end
-      for _, item in ipairs(tbl2) do
-        table.insert(tbl3, item)
-      end
-      return tbl3
-    end
-
-    nvim_cmp.PreselectMode = true
 
     local sources = {
       { name = 'nvim_lsp' },
@@ -115,19 +102,21 @@ return {
       end
     end
 
-    nvim_cmp.setup({
+    cmp.PreselectMode = true
+
+    cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
       },
       mapping = {
-        ['<C-j>'] = cmp_map(nvim_cmp.mapping.select_next_item(cmp_insert)),
-        ['<C-k>'] = cmp_map(nvim_cmp.mapping.select_prev_item(cmp_insert)),
-        ['<C-b>'] = cmp_map(nvim_cmp.mapping.scroll_docs(-4)),
-        ['<C-f>'] = cmp_map(nvim_cmp.mapping.scroll_docs(4)),
+        ['<C-j>'] = cmp_map(cmp.mapping.select_next_item(cmp_insert)),
+        ['<C-k>'] = cmp_map(cmp.mapping.select_prev_item(cmp_insert)),
+        ['<C-b>'] = cmp_map(cmp.mapping.scroll_docs(-4)),
+        ['<C-f>'] = cmp_map(cmp.mapping.scroll_docs(4)),
         ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
-        ['<Tab>'] = nvim_cmp.mapping({
+        ['<Tab>'] = cmp.mapping({
           i = complete,
           c = cmdline_complete,
         }),
@@ -135,7 +124,7 @@ return {
         ['<C-n>'] = cmp_disabled,
         ['<C-p>'] = cmp_disabled,
       },
-      sources = nvim_cmp.config.sources(sources),
+      sources = cmp.config.sources(sources),
       window = {
         completion = {
           col_offset = -2, -- To fit lspkind icon
@@ -151,30 +140,28 @@ return {
       }
     })
 
-    -- vim.api.nvim_create_augroup('TabNine', {})
-    -- vim.api.nvim_create_autocmd('FileType', {
-    --   pattern = { 'markdown', 'text', 'tex', 'gitcommit' },
-    --   callback = function()
-    --     nvim_cmp.setup.buffer({
-    --       sources = nvim_cmp.config.sources(join({{ name = 'cmp_tabnine' }}, sources))
-    --     })
-    --   end,
-    --   group = 'TabNine'
-    -- })
-
     -- Use buffer source for `/` (searching)
-    nvim_cmp.setup.cmdline('/', {
+    cmp.setup.cmdline('/', {
       sources = {
         { name = 'buffer' }
       }
     })
 
     -- Use cmdline & path source for `:`
-    nvim_cmp.setup.cmdline(':', {
-      sources = nvim_cmp.config.sources {
-        { name = 'path' },
-        { name = 'cmdline' }
-      }
+    cmp.setup.cmdline(':', {
+      sources = cmp.config.sources(
+        {
+          { name = 'path' }
+        },
+        {
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            },
+          },
+        }
+      )
     })
   end
 }
