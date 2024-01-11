@@ -333,10 +333,12 @@ return {
     -------------
     -- Keymaps --
     -------------
+    local ERROR = diagnostic.severity.ERROR
     local INFO = diagnostic.severity.INFO
-    local error_opts = {severity = { min = INFO }, float = { border = 'single' }}
-    local info_opts = {severity = { max = INFO }, float = { border = 'single' }}
-    local with_border = {float = { border = 'single' }}
+
+    local error_opts = { severity = { min = ERROR }, float = { border = 'single' } }
+    local info_opts = { severity = { max = INFO }, float = { border = 'single' } }
+    local with_border = { float = { border = 'single' } }
 
     local function diagnostic_goto(direction, opts)
       return function()

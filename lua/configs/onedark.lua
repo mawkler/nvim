@@ -111,7 +111,7 @@ return {
         LspReferenceWrite = { link = 'Search' },
         -- Diagnostics
         DiagnosticUnderlineError = { style = style.Underline, sp = c.error },
-        DiagnosticUnderlineWarning = { style = style.Underline, sp = c.warning },
+        DiagnosticUnderlineWarn = { style = style.Underline, sp = c.warning },
         DiagnosticUnderlineHint = { style = style.Underline, sp = c.hint },
         DiagnosticUnderlineInfo = { style = style.Underline, sp = c.info },
         -- nvim-cmp
