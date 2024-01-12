@@ -11,10 +11,12 @@ return {
         local map = require('utils').local_map(bufnr)
 
         map('n', 'go',         '<cmd>RustLsp openCargo<CR>',        'Go to cargo.toml')
+        map('n', '<C-w>go',    '<C-w>v<cmd>RustLsp openCargo<CR>',  'Go to cargo.toml (in new window)')
         map('n', '<leader>le', '<cmd>RustLsp explainError<CR>',     'Explain error')
         map('n', '<leader>lj', '<cmd>RustLsp moveItem down<CR>',    'Move item down')
         map('n', '<leader>lk', '<cmd>RustLsp moveItem up<CR>',      'Move item up')
         map('n', '<leader>dc', '<cmd>RustLsp debuggables last<CR>', 'Debug')
+        map('n', '<leader>ld', '<cmd>RustLsp renderDiagnostic<CR>', 'Render idiagnostics')
       end,
       settings = {
         ['rust-analyzer'] = {
