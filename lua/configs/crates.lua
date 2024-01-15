@@ -9,9 +9,10 @@ return {
     local crates, cmp = require('crates'),  require('cmp')
 
     crates.setup({
-      null_ls = {
+      lsp = {
         enabled = true,
-        name = 'crates.nvim',
+        actions = true,
+        completion = true,
       },
       src = {
         cmp = { enabled = true },
