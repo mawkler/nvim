@@ -51,6 +51,7 @@ local plugins = {
   use 'cmp',                                     -- Autocompletion
   use 'treesitter',                              -- Abstract syntax tree
   use 'treesitter.context-commentstring',        -- Dynamic comment symbols
+  use 'neogen',                                  -- Generate type annotations
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
   use 'dressing',                                -- Improves `vim.ui` interfaces
