@@ -3,7 +3,7 @@
 ----------
 return {
   'pwntester/octo.nvim',
-  event = 'CmdlineEnter',
+  cmd = 'Octo',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
