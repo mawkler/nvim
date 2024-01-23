@@ -142,7 +142,10 @@ return {
         zoxide = {
           prompt_title = 'Zoxide',
           verbose = false,
-        }
+        },
+        frecency = {
+          db_safe_mode = false, -- Never ask for confirmation clean up DB
+        },
       }
     }
 
