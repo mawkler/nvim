@@ -25,7 +25,6 @@ return {
       renderer = {
         highlight_opened_files = 'all',
         special_files = {},
-        highlight_git = true,
         indent_markers = {
           enable = true,
         },
