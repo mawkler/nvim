@@ -30,6 +30,8 @@ return {
         'aD', -- Use vim-textobj-user's date instead
         'iS', -- Replaced with i-
         'aS', -- Replaced with a-
+        'in', -- Disabled, use treesitter's iN, instead
+        'an', -- Disabled, use treesitter's aN, instead
       },
     })
 
@@ -48,6 +50,8 @@ return {
     map(ox, 'a-', function() return various_textobjs.subword('outer') end, 'HTML attribute')
     map(ox, 'iE', function() return various_textobjs.mdEmphasis('inner') end, 'Markdown emphasis')
     map(ox, 'aE', function() return various_textobjs.mdEmphasis('outer') end, 'Markdown emphasis')
+    map(ox, ']}', function() return various_textobjs.toNextClosingBracket() end, 'To next closing bracket')
+    map(ox, '[{', function() return various_textobjs.toNextClosingBracket() end, 'To previous closing bracket')
 
     local markdown_textobjs = function()
       local opts = { buffer = true }
