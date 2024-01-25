@@ -15,6 +15,7 @@ return {
   require('onedark').setup({
     hide_end_of_buffer = false,
     dev = true,
+    hot_reload = false,
     colors = {
       bg_search = colors.bg_visual,
       hint = colors.dev_icons.gray,
