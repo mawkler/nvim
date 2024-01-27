@@ -103,6 +103,8 @@ return {
 
     map({'i', 's'}, '<M-S-l>', right_or_snip_next,   '<Right> or next snippet')
     map({'i', 's'}, '<M-S-h>', left_or_snip_prev,    '<Left> or previous snippet')
+    map({'i', 's'}, '<M-.>',   right_or_snip_next,   '<Right> or next snippet')
+    map({'i', 's'}, '<M-,>',   left_or_snip_prev,    '<Left> or previous snippet')
     map({'i', 's'}, '<M-t>',   toggle_active_choice, 'Toggle active snippet choice')
   end
 }
