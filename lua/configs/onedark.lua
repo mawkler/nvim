@@ -65,7 +65,7 @@ return {
         ['@text.note'] = { fg = c.info, style = style.Bold },
         ['@text.warning'] = { fg = c.warning, style = style.Bold },
         ['@text.danger'] = { fg = c.error, style = style.Bold },
-        ['@lsp.type.comment'] = {}, -- Use Treesitter's highlight instead, which suports TODO, NOTE, etc.
+        ['@lsp.type.comment'] = {}, -- Use Treesitter's highlight instead, which supports TODO, NOTE, etc.
         -- Markdown (Treesitter)
         ['@text.literal'] = { fg = c.green0 },
         ['@text.emphasis'] = { fg = c.purple0, style = style.Italic },
@@ -178,6 +178,7 @@ return {
         NeotestUnknown = { link = 'NeotestSkipped' },
         NeotestMarked = { fg = c.purple0 },
         NeotestFocused = { style = style.Bold },
+        ['@text.uri'] = { link = '@markup.link.url' }, -- temporary fix for rest.nvim
       }
     end
   })
