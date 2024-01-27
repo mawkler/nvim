@@ -145,43 +145,46 @@ return {
       lua_ls = {
         on_init = function(client)
           local path = client.workspace_folders and client.workspace_folders[1].name
-          if not has_file(path, { '.luarc.json', '.luarc.jsonc' }) then
-            client.config.settings = vim.tbl_deep_extend(
-              'force',
-              client.config.settings,
-              {
-                Lua = {
-                  completion = {
-                    callSnippet = 'Replace',
-                    autoRequire = true,
+          -- if not has_file(path, { '.luarc.json', '.luarc.jsonc' }) then
+          client.config.settings = vim.tbl_deep_extend(
+            'force',
+            client.config.settings,
+            {
+              Lua = {
+                completion = {
+                  callSnippet = 'Replace',
+                  autoRequire = true,
+                },
+                format = {
+                  enable = true,
+                  defaultConfig = {
+                    indent_style = 'space',
+                    indent_size = '2',
+                    max_line_length = '100',
+                    trailing_table_separator = 'smart',
                   },
-                  format = {
-                    enable = true,
-                    defaultConfig = {
-                      indent_style = 'space',
-                      indent_size = '2',
-                      max_line_length = '100',
-                      trailing_table_separator = 'smart',
-                    },
-                  },
-                  hint = {
-                    enable = true,
-                    arrayIndex = 'Disable',
-                  },
-                  workspace = {
-                    checkThirdParty = false,
-                  },
-                  telemetry = {
-                    enable = false,
-                  }
-                }
+                },
+                diagnostics = {
+                  globals = { 'vim', 'it', 'describe', 'before_each', 'are' },
+                },
+                hint = {
+                  enable = true,
+                  arrayIndex = 'Disable',
+                },
+                workspace = {
+                  checkThirdParty = false,
+                },
+                telemetry = {
+                  enable = false,
+                },
               }
-            )
+            }
+          )
 
-            client.notify('workspace/didChangeConfiguration', {
-              settings = client.config.settings,
-            })
-          end
+          client.notify('workspace/didChangeConfiguration', {
+            settings = client.config.settings,
+          })
+          -- end
           return true
         end,
         on_attach = function()
@@ -250,14 +253,8 @@ return {
       typos_lsp = {
         on_attach = function(client, _)
           -- Disable for markdown, use ltex instead
-          local disabled_filetypes = { 'markdown', 'NvimTree' }
-          local has_disabled_filetype = vim.list_contains(
-            disabled_filetypes,
-            vim.bo.filetype,
-            { predicate = true }
-          )
-
-          if has_disabled_filetype then
+          local disabled_filetypes = vim.iter({ 'markdown', 'NvimTree' })
+          if disabled_filetypes:find(vim.bo.filetype) ~= nil then
             -- Force-shutdown seems to be necessary for some reason
             vim.lsp.stop_client(client.id, true)
           end
