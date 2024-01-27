@@ -46,6 +46,7 @@ local plugins = {
   use 'clear-action',                            -- Predictable LSP code actions
   use 'java',                                    -- JDTLS client
   use 'tsc',                                     -- TypeScript type checking
+  use 'ltex',                                    -- LTeX utils
   use 'luasnip',                                 -- Snippet engine
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion

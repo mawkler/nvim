@@ -238,7 +238,6 @@ return {
       },
       -- LTeX --
       ltex = {
-        autostart = false,
         settings = {
           ltex = {
             language = 'auto',
@@ -249,6 +248,19 @@ return {
             },
           },
         },
+        on_attach = function(_, buf)
+          -- Temporary fix until https://github.com/jhofscheier/ltex-utils.nvim/issues/8 gets merged
+          if not vim.env.LTEX_GLOBAL_STORAGE_PATH then
+            vim.env.LTEX_GLOBAL_STORAGE_PATH = vim.fn.stdpath('data') .. '/ltex/'
+          end
+
+          require('ltex-utils').on_attach(buf)
+        end
+      },
+      typst_lsp = {
+        on_attach = function()
+          map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
+        end,
       },
       typos_lsp = {
         on_attach = function(client, _)
