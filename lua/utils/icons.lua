@@ -33,7 +33,7 @@ M.icons = {
   TypeParameter = '',
   Unit          = '塞',
   Value         = '',
-  Variable      = '',
+  Variable      = 'α',
 }
 
 return M
