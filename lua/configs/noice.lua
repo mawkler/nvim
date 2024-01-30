@@ -46,6 +46,11 @@ return {
         format = {
           search_up = { kind = 'search', pattern = '^%?', icon = ' 󰜷', lang = 'regex' },
           search_down = { kind = 'search', pattern = '^/', icon = ' 󰜮', lang = 'regex' },
+          cmdline = {
+            opts = {
+              buf_options = { filetype = 'NoiceCommandline' },
+            },
+          },
         }
       }
     })
