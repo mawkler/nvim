@@ -272,7 +272,8 @@ return {
           end
         end,
         init_options = {
-          diagnosticSeverity = 'hint'
+          diagnosticSeverity = 'hint',
+          config = vim.env.HOME .. '/.typos.toml',
         }
       }
     }
