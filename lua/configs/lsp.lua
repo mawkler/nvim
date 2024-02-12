@@ -330,7 +330,6 @@ return {
       handlers = { setup },
       ensure_installed = vim.list_extend(ensure_installed, {
         'vimls',
-        'pylsp',
         'lemminx',
       })
     })
