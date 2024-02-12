@@ -264,7 +264,7 @@ return {
       },
       typos_lsp = {
         on_attach = function(client, _)
-          -- Disable for markdown, use ltex instead
+          -- Disabled for Markdown, use LTeX instead
           local disabled_filetypes = vim.iter({ 'markdown', 'NvimTree' })
           if disabled_filetypes:find(vim.bo.filetype) ~= nil then
             -- Force-shutdown seems to be necessary for some reason
@@ -275,7 +275,18 @@ return {
           diagnosticSeverity = 'hint',
           config = vim.env.HOME .. '/.typos.toml',
         }
-      }
+      },
+      pylsp = {
+        settings = {
+          pylsp = {
+            plugins = {
+              -- Disable formatting diagnostics (that's what formatters are for)
+              pylint = { enabled = false },
+              pycodestyle = { enabled = false },
+            }
+          }
+        },
+      },
     }
 
     local disable = function() end
