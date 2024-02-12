@@ -13,11 +13,7 @@ local function format(buf)
   vim.lsp.buf.format({
     bufnr = buf,
     filter = function(client)
-      if has_null_ls then
-        return client.name == 'null-ls'
-      else
-        return true
-      end
+      return has_null_ls and client.name == 'null-ls' or true
     end,
   })
 end
