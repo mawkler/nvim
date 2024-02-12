@@ -15,7 +15,7 @@ return {
   cmd = { 'ZkIndex', 'ZkNew', 'ZkCd', 'ZkNotes', 'ZkBacklinks', 'ZkLinks', 'ZkTags' },
   keys = {
     { '<leader>zn', new_note, desc = 'New note' },
-    { '<leader>zn', '<Cmd>ZkNewFromContentSelection<CR>', mode = 'x', desc = 'New note from selection' },
+    { '<leader>zn', ":'<,'>ZkNewFromTitleSelection<CR>", mode = 'x', desc = 'New note from selection' },
     { '<leader>zf', '<Cmd>ZkNotes { sort = { "modified" } }<CR>', desc = 'Find notes' },
     { '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Note tags' },
     { '<leader>zc', '<Cmd>ZkCd<CR>', desc = 'Change to notes directory' },
