@@ -39,7 +39,7 @@ return {
       q = pair("'"),
       Q = pair('"'),
       A = pair('`'),
-      c = gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+      [';'] = gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
     })
 
     require('mini.ai').setup({
