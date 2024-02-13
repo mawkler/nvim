@@ -16,6 +16,7 @@ opt.shortmess:append('A')  -- Ignores swapfiles when opening file
 opt.shortmess:append('s')  -- Disable 'Search hit BOTTOM, continuing at TOP'
 opt.shortmess:append('cS') -- Disable "[1/5]", "Pattern not found", etc.
 opt.shortmess:append('FW') -- Disable message after editing/writing file
+opt.shortmess:append('q')  -- Disable "recording @q" (it's shown in statusline instead)
 opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
 opt.sessionoptions:append('globals') -- Store global variables in sessions
