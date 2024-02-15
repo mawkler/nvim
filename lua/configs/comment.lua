@@ -19,7 +19,6 @@ return {
   dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
   config = function()
     local map = require('utils').map
-    local filetype = require('Comment.ft')
     local ts_context_integration = require(
       'ts_context_commentstring.integrations.comment_nvim'
     )
@@ -43,10 +42,6 @@ return {
       ignore = '^$', -- Ignore empty lines
       pre_hook = ts_context_integration.create_pre_hook(),
     })
-
-    -- Custom comment strings
-    filetype.http = '# %s'
-    filetype.bicep = '// %s'
 
     local comment_api = require('Comment.api')
     local function comment_map(modes, lhs, command, operator_pending)
