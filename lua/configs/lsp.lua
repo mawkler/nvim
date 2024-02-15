@@ -236,27 +236,6 @@ return {
           mason_path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
         }
       },
-      -- LTeX --
-      ltex = {
-        settings = {
-          ltex = {
-            language = 'auto',
-            diagnosticSeverity = 'hint',
-            sentenceCacheSize = 2000,
-            additionalRules = {
-              motherTongue = 'sv',
-            },
-          },
-        },
-        on_attach = function(_, buf)
-          -- Temporary fix until https://github.com/jhofscheier/ltex-utils.nvim/issues/8 gets merged
-          if not vim.env.LTEX_GLOBAL_STORAGE_PATH then
-            vim.env.LTEX_GLOBAL_STORAGE_PATH = vim.fn.stdpath('data') .. '/ltex/'
-          end
-
-          require('ltex-utils').on_attach(buf)
-        end
-      },
       typst_lsp = {
         on_attach = function()
           map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
@@ -296,9 +275,10 @@ return {
       tsserver = function()
         return typescript.setup({ server = tsserver_config })
       end,
-      zk = disable, -- Disabled because zk-nvim already sets it up
-      rust_analyzer = disable, -- Set up in rustaceanvim
-      jdtls = disable, -- Set up in in java.lua
+      zk = disable,            -- Setup in zk.lua
+      rust_analyzer = disable, -- Setup in rustaceanvim.lua
+      jdtls = disable,         -- Setup in in java.lua
+      ltex = disable,          -- setup in ltex.lua
     }
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
