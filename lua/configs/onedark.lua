@@ -179,6 +179,8 @@ return {
         NeotestMarked = { fg = c.purple0 },
         NeotestFocused = { style = style.Bold },
         ['@text.uri'] = { link = '@markup.link.url' }, -- temporary fix for rest.nvim
+        -- Gitsigns
+        GitSignsAddInline = { link = 'DiffText' },
       }
     end
   })
