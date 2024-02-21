@@ -75,6 +75,7 @@ return {
         keyword_length = 2,
         option = {
           get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
+          keyword_pattern = [[\k\+]], -- Support non-ASCII characters
         },
       }
     }
