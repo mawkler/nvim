@@ -252,6 +252,8 @@ return {
         end,
         init_options = {
           diagnosticSeverity = 'hint',
+          -- Fixes issue where config is ignored when opening a file with
+          -- Telescope from some other directory
           config = vim.env.HOME .. '/.typos.toml',
         }
       },
@@ -364,11 +366,13 @@ return {
     end
 
     local function attach_codelens(bufnr)
-      api.nvim_create_augroup('Lsp', {})
-      api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-        group = 'Lsp',
+      local augroup = api.nvim_create_augroup('Lsp', {})
+      api.nvim_create_autocmd({ 'BufReadPost', 'CursorHold', 'InsertLeave' }, {
+        group = augroup,
         buffer = bufnr,
-        callback = lsp.codelens.refresh,
+        callback = function()
+          lsp.codelens.refresh({ bufnr = bufnr })
+        end,
       })
     end
 
@@ -403,8 +407,6 @@ return {
 
       map('n', '<leader>ls', '<cmd>LspStart<CR>', { desc = 'Start LSP server' })
       map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
-
-      -- print('keymaps attached')
     end
 
     -- File types to not format on write
