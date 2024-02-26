@@ -14,10 +14,7 @@ return {
 
     -- Use context highlights based on Treesitter highlights
     local treesitter_contexts = {
-      'namespace',
-      'method',
       'property',
-      'field',
       'constructor',
       'function',
       'variable',
@@ -31,13 +28,16 @@ return {
     -- Contexts that don't exist as Treesitter highlights
     local custom_contexts = {
       context_class = '@type',
-      context_enum = '@type',
-      context_enum_member = '@type',
-      context_interface = '@type',
+      context_enum = '@lsp.type.enumMember',
+      context_enum_member = '@lsp.type.enumMember',
+      context_interface = '@lsp.type.interface',
       context_object = '@type',
       context_key = '@property',
-      context_struct = '@property',
-      context_type_parameter = '@type',
+      context_struct = '@lsp.type.struct',
+      context_type_parameter = '@lsp.type.typeParameter',
+      context_namespace = '@lsp.type.namespace',
+      context_method = '@lsp.type.method',
+      context_field = '@variable.member',
     }
 
     local function treesitter_context_highlights()
