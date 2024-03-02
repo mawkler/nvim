@@ -1,6 +1,25 @@
 -------------------------
 -- Various textobjects --
 -------------------------
+
+local markdown_textobjs = function(event)
+  local function map(lhs, rhs)
+    vim.keymap.set({ 'o', 'x' }, lhs, rhs, { buffer = event.buf })
+  end
+
+  map('ix', function() require('various-textobjs').mdlink('inner') end)
+  map('ax', function() require('various-textobjs').mdlink('outer') end)
+  map('ic', function() require('various-textobjs').mdFencedCodeBlock('inner') end)
+  map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
+end
+
+local augroup = vim.api.nvim_create_augroup('VariousTextobjs', {})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  group = augroup,
+  callback = markdown_textobjs,
+})
+
 return {
   'chrisgrieser/nvim-various-textobjs',
   event = 'VeryLazy',
@@ -32,6 +51,8 @@ return {
         'aS', -- Replaced with a-
         'in', -- Disabled, use treesitter's iN, instead
         'an', -- Disabled, use treesitter's aN, instead
+        'ie', -- Remapped to iE
+        'ae', -- Remapped to aE
       },
     })
 
@@ -52,22 +73,6 @@ return {
     map(ox, 'aE', function() return various_textobjs.mdEmphasis('outer') end, 'Markdown emphasis')
     map(ox, ']}', function() return various_textobjs.toNextClosingBracket() end, 'To next closing bracket')
     map(ox, '[{', function() return various_textobjs.toNextClosingBracket() end, 'To previous closing bracket')
-
-    local markdown_textobjs = function()
-      local opts = { buffer = true }
-      map(ox, 'ix', function() return various_textobjs.mdlink('inner') end, opts)
-      map(ox, 'ax', function() return various_textobjs.mdlink('outer') end, opts)
-      map(ox, 'ic', function() return various_textobjs.mdFencedCodeBlock('inner') end, opts)
-      map(ox, 'ac', function() return various_textobjs.mdFencedCodeBlock('outer') end, opts)
-    end
-
-    local augroup = vim.api.nvim_create_augroup('VariousTextobjs', {})
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'markdown',
-      group = augroup,
-      callback = markdown_textobjs,
-    })
-    markdown_textobjs()
 
     -- Copied from README
     map('n', 'dsi', function()
