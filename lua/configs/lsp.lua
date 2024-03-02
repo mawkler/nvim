@@ -316,17 +316,6 @@ return {
       })
     })
 
-    -- Not available in Mason yet
-    lspconfig.harper_ls.setup({
-      on_attach = function(client, _)
-        -- Disabled for Markdown, use LTeX instead
-        local disabled_filetypes = vim.iter({ 'markdown' })
-        if disabled_filetypes:find(vim.bo.filetype) ~= nil then
-          vim.lsp.stop_client(client.id, true)
-        end
-      end,
-    })
-
     ---------------------
     -- Handler configs --
     ---------------------
