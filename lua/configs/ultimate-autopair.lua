@@ -17,6 +17,23 @@ return {
       { '*',  '*',  ft = { 'markdown' }, multiline = false },
       { '_',  '_',  ft = { 'markdown' }, multiline = false },
       { '$',  '$',  ft = { 'tex' },      multiline = false },
+
+      { '<', '>', fly = true, dosuround = true, multiline = false, space = true, surround = true },
+      config_internal_pairs = {
+        { "'", "'",
+          multiline = false,
+          surround = true,
+          -- Don't autopair apostrophes in Rust lifetimes
+          cond = function(fn)
+            return not fn.in_node({
+              'bounded_type',
+              'reference_type',
+              'type_arguments',
+              'type_parameters',
+            })
+          end,
+        }
+      },
       bs = {
         map = { '<BS>',  '<C-h>' },
         cmap = { '<BS>', '<C-h>' },
