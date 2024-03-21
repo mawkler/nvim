@@ -17,9 +17,11 @@ end
 return {
   'nvim-neotest/neotest',
   dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-neotest/nvim-nio',
+    'nvim-treesitter/nvim-treesitter',
     'haydenmeade/neotest-jest',
     'rouge8/neotest-rust',
-    'nvim-lua/plenary.nvim',
   },
   keys = {
     { '<leader>Tr', function() neotest().run.run() end,             'Run test' },
