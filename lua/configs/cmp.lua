@@ -13,6 +13,7 @@ return {
     'hrsh7th/cmp-cmdline',                 -- Command-line completion
     'hrsh7th/cmp-nvim-lua',                -- Nvim builtins completion
     'hrsh7th/cmp-nvim-lsp-signature-help', -- Signature
+    'zjp-CN/nvim-cmp-lsp-rs',              -- Better rust sorting
     -- 'tzachar/cmp-tabnine'                  -- TabNine
   },
   event = { 'InsertEnter', 'CmdlineEnter' },
@@ -84,10 +85,18 @@ return {
       table.insert(sources, { name = 'nvim_lsp_signature_help' })
     end
 
+    local config_sources = cmp.config.sources(sources)
+
     -- LSPKind
     lspkind.init({
       symbol_map = require('utils.icons').icons
     })
+
+    -- Better Rust sorting
+    local comparators = require('cmp_lsp_rs').comparators
+    for _, source in ipairs(config_sources) do
+      require('cmp_lsp_rs').filter_out.entry_filter(source)
+    end
 
     -- Places icon to the left, with margin
     local function cmp_formatting()
@@ -125,7 +134,7 @@ return {
         ['<C-n>'] = cmp_disabled,
         ['<C-p>'] = cmp_disabled,
       },
-      sources = cmp.config.sources(sources),
+      sources = config_sources,
       window = {
         completion = {
           col_offset = -2, -- To fit lspkind icon
@@ -138,6 +147,12 @@ return {
       },
       completion = {
         completeopt = 'menu,menuone,noinsert',
+      },
+      sorting = {
+        comparators = {
+          comparators.inscope_inherent_import,
+          comparators.sort_by_label_but_underscore_last,
+        }
       }
     })
 
