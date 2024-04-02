@@ -7,7 +7,6 @@ return {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-lua/popup.nvim' },
     { 'jvgrootveld/telescope-zoxide' },
-    { 'dhruvmanila/telescope-bookmarks.nvim' },
     { 'nvim-telescope/telescope-cheat.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim' },
@@ -122,10 +121,6 @@ return {
         spell_suggest             = cursor_picker,
       },
       extensions = {
-        bookmarks = {
-          selected_browser = 'brave',
-          url_open_command = 'xdg-open &>/dev/null',
-        },
         sessions_picker = {
           sessions_dir = vim.fn.stdpath('data') ..'/sessions/'
         },
@@ -152,7 +147,6 @@ return {
 
     telescope.load_extension('zoxide')
     telescope.load_extension('fzf')
-    telescope.load_extension('bookmarks')
     telescope.load_extension('frecency')
     telescope.load_extension('cheat')
     telescope.load_extension('notify')
@@ -225,7 +219,6 @@ return {
       })
     end, 'Change directory (from home directory)')
     map('n', '<M-z>',      extensions.zoxide.list, 'Change directory with zoxide')
-    map('n', '<leader>tB', extensions.bookmarks.bookmarks, 'Bookmarks')
     map('n', '<leader>tC', function() return extensions.cheat.fd({}) end, 'Cheat.sh')
     map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
     map('n', '<leader>n',  telescope_config, 'Neovim config')
