@@ -13,7 +13,7 @@ local markdown_textobjs = function(event)
   map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
 end
 
-local augroup = vim.api.nvim_create_augroup('VariousTextobjs', {})
+local augroup = vim.api.nvim_create_augroup('VariousTextobjsCustom', {})
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   group = augroup,
