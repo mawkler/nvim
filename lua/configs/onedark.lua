@@ -73,6 +73,8 @@ return {
         ['@punctuation.special'] = { fg = c.red0 },
         ['@text.todo.checked.markdown'] = { fg = c.blue1 },
         ['@text.todo.unchecked.markdown'] = { link = '@text.todo.checked.markdown' },
+        ['@markup.italic'] = { fg = c.purple0, style = style.Italic },
+        ['@markup.strong'] = { fg = c.orange0, style = style.Bold },
         -- Markdown/html
         mkdLink = { fg = c.blue0, style = style.Underline },
         mkdHeading = { link = 'Title' },
