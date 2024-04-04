@@ -14,6 +14,7 @@ return {
     { 'Zane-/cder.nvim' },
     { 'rcarriga/nvim-notify' },
     { 'mfussenegger/nvim-dap' },
+    { 'rafi/telescope-thesaurus.nvim' },
   },
   event = 'VeryLazy',
   config = function()
@@ -228,6 +229,8 @@ return {
     map('n', '<leader>tb', extensions.dap.list_breakpoints)
     map('n', '<leader>tv', extensions.dap.variables)
     map('n', '<leader>tf', extensions.dap.frames)
+
+    map('n', '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>', 'Thesaurus')
 
     -- Temporary workaround for https://github.com/nvim-telescope/telescope.nvim/issues/2766
     vim.api.nvim_create_autocmd('WinLeave', {
