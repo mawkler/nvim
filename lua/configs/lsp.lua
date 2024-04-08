@@ -275,12 +275,13 @@ return {
     -- Special server configurations
     local special_server_configs = {
       tsserver = function()
-        return typescript.setup({ server = tsserver_config })
+        typescript.setup({ server = tsserver_config })
       end,
       zk = disable,            -- Setup in zk.lua
       rust_analyzer = disable, -- Setup in rustaceanvim.lua
       jdtls = disable,         -- Setup in in java.lua
-      ltex = disable,          -- setup in ltex.lua
+      ltex = disable,          -- Setup in ltex.lua
+      gopls = disable,         -- Setup in go.lua
     }
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
