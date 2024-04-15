@@ -67,7 +67,7 @@ o.tabstop     = 4        -- Width of <Tab> characters
 o.shiftround  = true     -- Round indent to multiple of shiftwdith
 opt.cinkeys:remove('0#') -- Indent lines starting with `#`
 o.list        = true
-o.listchars   = 'tab:  ,nbsp:·'
+o.listchars   = 'tab:▏ ,nbsp:·'
 opt.fillchars = {
   diff = ' ', -- Cleaner deleted lines in diff
   eob = ' ',  -- Don't show `~` at end of buffer
