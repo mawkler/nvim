@@ -48,6 +48,8 @@ o.cmdheight = 0         -- Don't show command-line by default
 -- Searching --
 o.ignorecase = true -- Case insensitive searching
 o.smartcase  = true -- Except for when searching in CAPS
+-- Disabled until https://github.com/neovide/neovide/issues/1947 gets fixed
+-- o.inccommand = 'split' -- Show preview window when doing :substitute
 
 -- Lines and cursor --
 o.number         = true
