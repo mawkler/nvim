@@ -7,5 +7,8 @@ return {
   opts = {
     auto_open_qflist = false,
     spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
-  },
+    flags = {
+      skipLibCheck = true,
+    },
+  }
 }
