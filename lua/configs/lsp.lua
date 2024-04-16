@@ -33,6 +33,12 @@ return {
       return require('utils').map(modes, lhs, rhs, opts)
     end
 
+    local function map_vsplit(lhs, fn, description)
+      vim.keymap.set('n', lhs, function()
+        require('telescope.builtin')[fn]({ jump_type = 'vsplit' })
+      end, { desc = description })
+    end
+
     local function typescript_organize_imports()
       local params = {
         command = "_typescript.organizeImports",
@@ -391,9 +397,9 @@ return {
       map(nx,  '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
       map('n', '<leader>e', function() diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
 
-      map('n', '<C-w>gd', '<C-w>vgd', { desc = 'LSP definition in window split',      remap = true })
-      map('n', '<C-w>gi', '<C-w>vgi', { desc = 'LSP implementation in window split',  remap = true })
-      map('n', '<C-w>gD', '<C-w>vgD', { desc = 'LSP type definition in window split', remap = true })
+      map_vsplit('<C-w>gd', 'lsp_definitions')
+      map_vsplit('<C-w>gi', 'lsp_implementations')
+      map_vsplit('<C-w>gD', 'lsp_type_definitions')
 
       map('n', '<leader>ls', '<cmd>LspStart<CR>', { desc = 'Start LSP server' })
       map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
