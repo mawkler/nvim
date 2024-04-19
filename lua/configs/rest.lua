@@ -2,9 +2,11 @@
 -- Rest.nvim --
 ---------------
 return {
-  'NTBBloodbath/rest.nvim',
-  dependencies = 'nvim-lua/plenary.nvim',
-  cmd = 'Http',
+  'rest-nvim/rest.nvim',
+  dependencies = {
+    { 'vhyrro/luarocks.nvim', opts = {} },
+  },
+  cmd = { 'Rest', 'Http' },
   ft = 'http',
   -- Fix for when Neovim gets started with a *.http and leap.nvim overrides the <CR> mapping
   event = 'BufRead *.http',
@@ -13,8 +15,16 @@ return {
     local rest = require('rest-nvim')
 
     rest.setup({
-      result_split_horizontal = true,
-      result_split_in_place = true,
+      result = {
+        split = {
+          horizontal = true,
+          in_place = true,
+          stay_in_current_window_after_split = false,
+        }
+      },
+      highlight = {
+        timeout = 150,
+      }
     })
 
     vim.api.nvim_create_user_command(
@@ -25,9 +35,7 @@ return {
         else
           vim.cmd.wincmd('v')
         end
-        vim.cmd.edit('~/.config/nvim/http')
-        vim.o.filetype = 'http'
-        vim.o.buftype = ''
+        vim.cmd.edit('~/.local/share/nvim/rest.http')
       end,
       { desc = 'Send HTTP request' }
     )
@@ -39,9 +47,9 @@ return {
         vim.o.wrap = false
 
         local opts = { buffer = true }
-        map('n', '<CR>',       rest.run,                opts)
-        map('n', '<leader>lr', rest.last,               opts)
-        map('n', '<leader>ly', '<Plug>RestNvimPreview', opts)
+        map('n', '<CR>',       '<cmd>Rest run<CR>',      opts)
+        map('n', '<leader>lr', '<cmd>Rest run last<CR>', opts)
+        map('n', '<leader>ly', '<Plug>RestNvimPreview',  opts)
       end,
       group = 'RestNvim'
     })
