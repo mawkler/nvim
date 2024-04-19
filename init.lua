@@ -51,6 +51,7 @@ local plugins = {
   use 'luasnip',                                 -- Snippet engine
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
+  use 'cmp-lsp-rs',                              -- Better Rust sorting
   use 'treesitter',                              -- Abstract syntax tree
   use 'treesitter.context-commentstring',        -- Dynamic comment symbols
   use 'outline',                                 -- Code outline sidebar
