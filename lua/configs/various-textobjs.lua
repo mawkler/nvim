@@ -2,22 +2,20 @@
 -- Various textobjects --
 -------------------------
 
-local markdown_textobjs = function(event)
-  local function map(lhs, rhs)
-    vim.keymap.set({ 'o', 'x' }, lhs, rhs, { buffer = event.buf })
-  end
-
-  map('ix', function() require('various-textobjs').mdlink('inner') end)
-  map('ax', function() require('various-textobjs').mdlink('outer') end)
-  map('ic', function() require('various-textobjs').mdFencedCodeBlock('inner') end)
-  map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
-end
-
 local augroup = vim.api.nvim_create_augroup('VariousTextobjsCustom', {})
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   group = augroup,
-  callback = markdown_textobjs,
+  callback = function(event)
+    local function map(lhs, rhs)
+      vim.keymap.set({ 'o', 'x' }, lhs, rhs, { buffer = event.buf })
+    end
+
+    map('iX', function() require('various-textobjs').mdlink('inner') end)
+    map('aX', function() require('various-textobjs').mdlink('outer') end)
+    map('ic', function() require('various-textobjs').mdFencedCodeBlock('inner') end)
+    map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
+  end,
 })
 
 return {
@@ -36,7 +34,7 @@ return {
         'ai', -- Just use aI
         'gG', -- Replaced with ie
         '|',  -- Disabled
-        'L',  -- Replaced with iu
+        'L',  -- Replaced with ix
         'r',  -- I only want this for normal mode
         '=',  -- Use Treesitter's @assignment instead
         'il', -- Replaced with iL
@@ -62,7 +60,7 @@ return {
     map(ox, 'ie', various_textobjs.entireBuffer, 'Entire buffer')
     map(ox, 'iL', function() return various_textobjs.lineCharacterwise('inner') end, 'Line')
     map(ox, 'aL', function() return various_textobjs.lineCharacterwise('outer') end, 'Line')
-    map(ox, 'iu', various_textobjs.url, 'URL')
+    map(ox, 'ix', various_textobjs.url, 'URL')
     map(ox, 'id', various_textobjs.diagnostic, 'Diagnostic')
     map('o', 'r', various_textobjs.restOfParagraph, 'Rest of paragraph')
     map(ox, 'iX', function() return various_textobjs.htmlAttribute('inner') end, 'HTML attribute')
