@@ -84,6 +84,7 @@ local plugins = {
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
   use 'markdown-togglecheck',                    -- Toggle Markdown check marks
+  use 'headlines',
   use 'substitute',                              -- Replace/exchange operators
   use 'highlighturl',                            -- Highlight URLs
   use 'messages',                                -- Floating :messages window

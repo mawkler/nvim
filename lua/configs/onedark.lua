@@ -183,6 +183,8 @@ return {
         ['@text.uri'] = { link = '@markup.link.url' }, -- temporary fix for rest.nvim
         -- Gitsigns
         GitSignsAddInline = { link = 'DiffText' },
+        -- Headlines
+        Headline = { fg = c.red0, bg = c.bg_visual },
       }
     end
   })
