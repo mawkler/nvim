@@ -14,5 +14,7 @@ return {
       lsp_cfg = true,
       lsp_inlay_hints = { enable = false }, -- Handled in lsp-inlay-hints.lua
     })
+
+    vim.o.shiftwidth = 0 -- Use tabstop's width
   end
 }
