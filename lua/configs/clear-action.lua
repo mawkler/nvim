@@ -5,6 +5,7 @@ return {
   'luckasRanarison/clear-action.nvim',
   event = 'LspAttach',
   opts = {
+    silent = true, -- solves the issue with multiple language clients?
     mappings = {
       code_action = '<leader>a',
     },
@@ -12,7 +13,7 @@ return {
       icons = {
         quickfix = '襁',
         refactor = '',
-        source = '',
+        source = ' ',
         combined = '',
       },
     },
