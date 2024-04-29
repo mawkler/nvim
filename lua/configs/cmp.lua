@@ -24,7 +24,8 @@ return {
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local cmp_disabled = cmp.config.disable
-    local cmp_insert = { behavior = cmp.SelectBehavior.Insert }
+    -- Workaround for: https://github.com/hrsh7th/nvim-cmp/issues/1269
+    local cmp_insert = { behavior = cmp.SelectBehavior.Select }
     local lspkind = require('lspkind')
 
     vim.opt.completeopt = 'menuone,noselect'
@@ -112,8 +113,6 @@ return {
       end
     end
 
-    cmp.PreselectMode = true
-
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -153,7 +152,7 @@ return {
           comparators.inscope_inherent_import,
           comparators.sort_by_label_but_underscore_last,
         }
-      }
+      },
     })
 
     -- Use buffer source for `/` (searching)
