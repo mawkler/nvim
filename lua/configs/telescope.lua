@@ -15,6 +15,7 @@ return {
     { 'rcarriga/nvim-notify' },
     { 'mfussenegger/nvim-dap' },
     { 'rafi/telescope-thesaurus.nvim' },
+    { 'ThePrimeagen/git-worktree.nvim' },
   },
   event = 'VeryLazy',
   config = function()
