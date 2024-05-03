@@ -3,8 +3,13 @@
 -----------
 return {
   'FabijanZulj/blame.nvim',
-  cmd = { 'ToggleBlame', 'EnableBlame', 'DisableBlame' },
+  cmd = 'BlameToggle',
   keys = {
-    { 'gB', '<cmd>ToggleBlame<CR>', desc = 'Git blame file' },
+    { 'gB', '<cmd>BlameToggle<CR>', desc = 'Git blame file' },
   },
+  opts = {
+    mappings = {
+      commit_info = '<space>',
+    },
+  }
 }
