@@ -4,7 +4,7 @@
 return {
   'kevinhwang91/nvim-bqf',
   ft = 'qf',
-  dependencies = { 'junegunn/fzf', build = vim.fn['fzf#install'] },
+  dependencies = { 'junegunn/fzf', build= "./install --bin" },
   config = function()
     require('../quickfix') -- Better quickfix
     require('bqf').setup {
