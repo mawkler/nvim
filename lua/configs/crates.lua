@@ -14,7 +14,7 @@ return {
         actions = true,
         completion = true,
       },
-      src = {
+      completion = {
         cmp = { enabled = true },
       },
     })
