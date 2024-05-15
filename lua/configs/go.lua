@@ -28,7 +28,8 @@ return {
       lsp_cfg = true,
       lsp_inlay_hints = { enable = false }, -- Handled in lsp-inlay-hints.lua
       lsp_keymaps = false,
-      lsp_on_attach = on_attach
+      lsp_on_attach = on_attach,
+      lsp_codelens = false, -- Temporary fix for https://github.com/ray-x/go.nvim/issues/113
     })
   end
 }
