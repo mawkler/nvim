@@ -64,11 +64,11 @@ local modes = {
 
 local separator_hl = { fg = 'line_bg', bg = 'separator_bg' }
 local left_sect = {
-  left_sep = { str = ' ', hl = separator_hl },
+  left_sep = { str = '', hl = separator_hl },
   right_sep = { str = '', hl = separator_hl },
 }
 local right_sect = {
-  left_sep  = { str = ' ', hl = separator_hl },
+  left_sep  = { str = '', hl = separator_hl },
   right_sep = { str = '',  hl = separator_hl },
 }
 
@@ -208,7 +208,7 @@ table.insert(active_left, {
 })
 
 table.insert(active_left, {
-  provider = ' ',
+  provider = left_sect.left_sep.str,
   hl = { fg = 'middle_bg', bg = 'separator_bg' },
 })
 
@@ -399,7 +399,7 @@ table.insert(active_right, {
     return string.format('%d:%-d', fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
-    return { str = ' ', hl = { fg = mode_color(), bg = 'separator_bg' } }
+    return { str = right_sect.left_sep.str, hl = { fg = mode_color(), bg = 'separator_bg' } }
   end,
   right_sep = function()
     return { str = '█', hl = { fg = mode_color(), bg = 'separator_bg' } }
