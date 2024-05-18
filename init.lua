@@ -147,7 +147,6 @@ local plugins = {
 
 require('lazy').setup({
   spec = plugins,
-  concurrency = 20, -- GitHub seems to not allow too many concurrent fetches
   install = {
     colorscheme = { 'onedark' },
   },
