@@ -19,18 +19,7 @@ return {
     }
 
     null_ls.setup({
-      -- I no longer use cspell but I'll keep this here in case I want to do
-      -- something similar with some other linter
-      --
-      -- sources = vim.tbl_map(function(source)
-      --   return source.with({
-      --     diagnostics_postprocess = function(diagnostic)
-      --       if diagnostic.source == 'cspell' then
-      --         diagnostic.severity = vim.diagnostic.severity.HINT
-      --       end
-      --     end,
-      --   })
-      -- end, sources),
+      sources = sources,
       on_attach = function(client, bufnr)
         require('utils.formatting').format_on_write(client, bufnr)
       end,
