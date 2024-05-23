@@ -342,11 +342,13 @@ return {
     -- Keymaps --
     -------------
     local ERROR = diagnostic.severity.ERROR
+    local WARN = diagnostic.severity.WARN
     local INFO = diagnostic.severity.INFO
 
-    local error_opts = { severity = { min = ERROR }, float = { border = 'single' } }
-    local info_opts = { severity = { max = INFO }, float = { border = 'single' } }
-    local with_border = { float = { border = 'single' } }
+    local error_opts = { severity = ERROR, float = { border = 'single' } }
+    local warn_opts = { severity = WARN, float = { border = 'single' } }
+    local info_opts = { severity = INFO, float = { border = 'single' } }
+    local any_opts = { float = { border = 'single' } }
 
     local function diagnostic_goto(direction, opts)
       return function()
@@ -390,10 +392,12 @@ return {
 
       map(nx,  ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
       map(nx,  '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
+      map(nx,  '[w',        diagnostic_goto('prev', warn_opts), 'Go to previous info')
+      map(nx,  ']w',        diagnostic_goto('next', warn_opts), 'Go to next info')
       map(nx,  '[h',        diagnostic_goto('prev', info_opts), 'Go to previous info')
       map(nx,  ']h',        diagnostic_goto('next', info_opts), 'Go to next info')
-      map(nx,  ']d',        diagnostic_goto('next', with_border), 'Go to next diagnostic')
-      map(nx,  '[d',        diagnostic_goto('prev', with_border), 'Go to previous diagnostic')
+      map(nx,  ']d',        diagnostic_goto('next', any_opts), 'Go to next diagnostic')
+      map(nx,  '[d',        diagnostic_goto('prev', any_opts), 'Go to previous diagnostic')
       map('n', '<leader>e', function() diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
 
       map_vsplit('<C-w>gd', 'lsp_definitions')
