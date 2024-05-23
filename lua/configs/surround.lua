@@ -4,8 +4,9 @@
 return {
   'kylechui/nvim-surround',
   keys = {
-    { 's', mode = { 'n', 'x', 'o' } },
-    { 'S', mode = 'x' },
+    { 's',  mode = { 'n', 'x', 'o' } },
+    { 'S',  mode = 'x' },
+    { 'ds', mode = 'n'  },
   },
   init = function()
     local map = require('utils').map
