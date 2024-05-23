@@ -34,7 +34,9 @@ return {
     vim.api.nvim_create_augroup('Lightspeed', {})
     vim.api.nvim_create_autocmd('User', {
       pattern  = 'LightspeedEnter',
-      callback = utils.close_floating_windows,
+      callback = function()
+        vim.cmd.fclose({ bang = true })
+      end,
       group    = 'Lightspeed'
     })
   end

@@ -67,17 +67,6 @@ function M.clear_lsp_references()
   end
 end
 
---- Close every floating window
-function M.close_floating_windows()
-  for _, win in pairs(vim.api.nvim_list_wins()) do
-    -- Sometimes the window doesn't exist anymore for some reason
-    local success, win_config = pcall(vim.api.nvim_win_get_config, win)
-    if success and vim.tbl_contains({'win', 'editor'}, win_config.relative) then
-      vim.api.nvim_win_close(win, false)
-    end
-  end
-end
-
 --- Get Mason package install path
 function M.get_install_path(package)
   return require('mason-registry').get_package(package):get_install_path()

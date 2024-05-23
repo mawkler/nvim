@@ -42,7 +42,7 @@ return {
       callback = function()
         -- Close any floating windows if current window isn't floating
         if vim.api.nvim_win_get_config(0).relative == '' then
-          utils.close_floating_windows()
+          vim.cmd.fclose({ bang = true })
         end
       end,
       group = 'Leap'

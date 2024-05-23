@@ -192,7 +192,7 @@ map('n', '<Esc>', function()
     return feedkeys('<C-w>c')
   end
 
-  utils.close_floating_windows()
+  vim.cmd.fclose({ bang = true })
 end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
 
