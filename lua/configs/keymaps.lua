@@ -201,7 +201,7 @@ local function clear_screen()
   require('luasnip').unlink_current() -- Clear LuaSnip indicator from status line
   feedkeys('<C-l>')
 end
-map('n', '<C-l>', clear_screen)
+map('n', '<C-l>', clear_screen, { silent = true }) -- LuaSnip sometimes emits "No active Snippet"
 
 map({'n', 'x'}, '<C-y>', '5<C-y>')
 map({'n', 'x'}, '<C-e>', '5<C-e>')
