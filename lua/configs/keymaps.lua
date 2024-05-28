@@ -129,33 +129,26 @@ map('n', 'j', move_vertically('j'), 'j')
 map('n', '-', move_vertically('-'), 'k')
 map('n', '+', move_vertically('+'), 'j')
 
+local float_regex = '\\d\\+\\.\\?\\d*'
+
 -- Sets the font size
 local function zoom_set(font_size)
   return function()
-    if fn.exists('g:goneovim') then
-      o.guifont = fn.substitute(
-        fn.substitute(o.guifont, ':h\\d\\+', ':h' .. font_size, ''),
-        ' ',
-        '\\ ',
-        'g'
-      )
-    else
-      local font = fn.substitute(o.guifont, ':h\\d\\+', ':h' .. font_size, '')
-      vim.cmd('GuiFont! ' .. font)
-    end
+    o.guifont = fn.substitute(o.guifont, ':h'.. float_regex, ':h' .. font_size, '')
   end
 end
 
 -- Increases the font zise with `amount`
 local function zoom(amount)
   return function()
-    zoom_set(fn.matchlist(o.guifont, ':h\\(\\d\\+\\)')[2] + amount)()
+    local old_size = fn.matchlist(o.guifont, ':h\\('.. float_regex .. '\\)')[2]
+    zoom_set(old_size + amount)()
   end
 end
 
-map('n', '<C-=>', zoom(v.count1))
-map('n', '<C-+>', zoom(v.count1))
-map('n', '<C-->', zoom(-v.count1))
+map('n', '<C-=>', zoom(v.count1 * 0.5))
+map('n', '<C-+>', zoom(v.count1 * 0.5))
+map('n', '<C-->', zoom(-v.count1 * 0.5))
 map('n', '<C-0>', zoom_set(11))
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')

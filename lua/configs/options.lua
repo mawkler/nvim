@@ -5,7 +5,7 @@ local opt, o, g, exists = vim.opt, vim.o, vim.g, vim.fn.exists
 
 -- Font
 if exists('g:goneovim') or exists('g:neovide') and not exists('g:font_set') then
-  o.guifont = 'FiraCode Nerd Font:h07'
+  o.guifont = 'FiraCode Nerd Font:w-0.3:h07'
   g.font_set = true -- Prevents changing zoom level when re-sourcing
 end
 
