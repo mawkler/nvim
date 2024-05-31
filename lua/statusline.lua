@@ -146,7 +146,7 @@ table.insert(active_left, {
 
 -- Readonly indicator
 table.insert(active_left, {
-  provider = ' ',
+  provider = '  ',
   hl = { bg = 'line_bg' },
   enabled = function() return bo.readonly and bo.buftype ~= 'help' end,
   truncate_hide = true,
