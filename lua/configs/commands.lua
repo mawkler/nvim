@@ -59,3 +59,11 @@ api.nvim_create_user_command(
     desc = 'Put current file in trashcan using trash-cli',
   }
 )
+
+api.nvim_create_user_command(
+  'WhitespaceToggle',
+  function()
+    vim.o.list = not vim.o.list
+  end,
+  { desc = 'Toggle displaying of whitespace characters' }
+)
