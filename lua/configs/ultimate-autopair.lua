@@ -50,7 +50,7 @@ return {
     -- Add parenthesis on completion confirmation
     cmp.event:on('confirm_done', function(event)
       local ok, ls_name = pcall(ls_name_from_event, event)
-      local server_blacklist = { 'rust-analyzer', 'lua_ls', 'typst_lsp', 'gopls' }
+      local server_blacklist = { 'rust-analyzer', 'lua_ls', 'typst_lsp', 'gopls', 'bicep' }
       if ok and vim.tbl_contains(server_blacklist, ls_name) then
         return
       end
