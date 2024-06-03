@@ -160,7 +160,8 @@ return {
         search_dirs = { '$MARKDOWNS' },
         prompt_title = 'Markdowns',
         path_display = function(_, path)
-          return path:gsub(vim.fn.expand('$MARKDOWNS'), '')
+         local relative_path, _ = path:gsub(vim.fn.expand('$MARKDOWNS'), '')
+          return relative_path
         end,
       })
     end
@@ -172,8 +173,8 @@ return {
         no_ignore = true,
         hidden = true,
         path_display = function(_, path)
-          -- TODO: refactor this truncation function call
-          return path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
+          local relative_path, _ = path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
+          return relative_path
         end,
       })
     end
