@@ -72,6 +72,10 @@ return {
       { name = 'luasnip', max_item_count = 5 },
       { name = 'nvim_lua' },
       { name = 'path', option = { trailing_slash = true } },
+      {
+        name = "lazydev",
+        group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
+      },
       { name = 'buffer',
         max_item_count = 3,
         keyword_length = 2,

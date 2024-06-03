@@ -8,7 +8,6 @@ return {
     'williamboman/mason-lspconfig.nvim',     -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                  -- YAML/JSON schemas
     'jose-elias-alvarez/typescript.nvim',    -- TypeScript utilities
-    'folke/neodev.nvim',                     -- Lua signature help and completion
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
@@ -134,13 +133,6 @@ return {
         end,
       },
     }
-
-    -- Neovim Lua API completions/documentation
-    require('neodev').setup({
-      override = function(_, library)
-        library.enabled = true
-      end,
-    })
 
     ---------------------------
     -- Server configurations --

@@ -52,6 +52,7 @@ local plugins = {
   -- use 'cmp-tabnine',                             -- Tabnine autocompletion
   use 'cmp',                                     -- Autocompletion
   use 'cmp-lsp-rs',                              -- Better Rust sorting
+  use 'lazydev',                                 -- Neovim-aware lua-ls config
   use 'treesitter',                              -- Abstract syntax tree
   use 'treesitter.context-commentstring',        -- Dynamic comment symbols
   use 'outline',                                 -- Code outline sidebar
