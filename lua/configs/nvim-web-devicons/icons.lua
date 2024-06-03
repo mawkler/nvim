@@ -1,6 +1,6 @@
 return {
   md = {
-    icon = '',
+    icon = '',
     color = '#519aba',
     name = 'Markdown'
   },
