@@ -241,7 +241,7 @@ return {
       typos_lsp = {
         on_attach = function(client, _)
           -- Disabled for Markdown, use LTeX instead
-          local disabled_filetypes = vim.iter({ 'markdown', 'NvimTree' })
+          local disabled_filetypes = vim.iter({ 'markdown', 'NvimTree', 'help' })
           if disabled_filetypes:find(vim.bo.filetype) ~= nil then
             -- Force-shutdown seems to be necessary for some reason
             vim.lsp.stop_client(client.id, true)
@@ -265,6 +265,17 @@ return {
           }
         },
       },
+      azure_pipelines_ls = {
+        root_dir = require('lspconfig.util').root_pattern('azure-pipeline*.y*ml'),
+        settings = {
+          yaml = {
+            schemas = {
+              ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json']
+                = 'azure-pipeline*.y*ml' ,
+            },
+          },
+        },
+      }
     }
 
     local disable = function() end
