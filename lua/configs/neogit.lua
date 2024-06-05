@@ -18,19 +18,28 @@ return {
     local map = require('utils').map
     local neogit = require('neogit')
 
-    neogit.setup {
-      commit_popup = {
+    neogit.setup({
+      popup = {
         kind = 'vsplit',
       },
+      ---@diagnostic disable-next-line: missing-fields
+      commit_editor = {
+        staged_diff_split_kind = 'vsplit',
+      },
+      ---@diagnostic disable-next-line: missing-fields
       signs = {
         section = { '', '' },
         item = { '', '' },
       },
       ignored_settings = { 'NeogitCommitPopup--all' },
-      integrations = { diffview = true  },
+      integrations = {
+        telescope = true,
+        diffview = true,
+        fzf_lua = true,
+      },
       disable_builtin_notifications = true,
       disable_commit_confirmation = true,
-    }
+    })
 
     map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Git checkout')
     map('n', '<leader>gs', function() neogit.open({
