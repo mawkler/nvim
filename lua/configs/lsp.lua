@@ -332,7 +332,12 @@ return {
       -- Add borders to hover/signature windows (noice.nvim has its own)
       lsp.handlers['textDocument/hover'] = lsp.with(
         lsp.handlers.hover,
-        { border = 'single' }
+        {
+          border = 'single',
+          -- Disable "no information available" popup which is really annoying
+          -- when using multiple servers
+          silent = true,
+        }
       )
 
       lsp.handlers['textDocument/signatureHelp'] = lsp.with(

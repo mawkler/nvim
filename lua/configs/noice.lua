@@ -38,6 +38,11 @@ return {
         progress = {
           enabled = false,
         },
+        hover = {
+          -- Disable "no information available" popup which is really annoying
+          -- when using multiple servers
+          silent = true,
+        },
       },
       presets = {
         lsp_doc_border = true,
