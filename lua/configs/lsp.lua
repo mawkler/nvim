@@ -203,7 +203,17 @@ return {
               '!Split sequence', '!Sub', '!Or sequence'
             },
           }
-        }
+        },
+        -- Don't attach to Azure Pipeline files (azure_pipelines_ls does that)
+        on_attach = function(client, bufnr)
+          local path = vim.api.nvim_buf_get_name(bufnr)
+          local filename = vim.fn.fnamemodify(path, ':t')
+          local is_pipeline_file = #vim.fn.glob('azure-pipeline*.y*ml', true, filename) > 0
+
+          if is_pipeline_file then
+            lsp.stop_client(client)
+          end
+        end
       },
       -- Eslint --
       eslint = {
