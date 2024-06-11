@@ -12,6 +12,9 @@ return {
   config = function()
     local get_highlight = require('utils.colorscheme').get_highlight
 
+    -- Disable for when using multiple LSP servers per buffer
+    vim.g.navic_silence = true
+
     -- Use context highlights based on Treesitter highlights
     local treesitter_contexts = {
       'property',
