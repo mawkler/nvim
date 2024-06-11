@@ -23,6 +23,7 @@ return {
         { "'", "'",
           multiline = false,
           surround = true,
+          alpha = true,
           cond = function(fn)
             -- Don't autopair apostrophes in Rust lifetimes
             return fn.get_ft() ~= 'rust' or not fn.in_node({
