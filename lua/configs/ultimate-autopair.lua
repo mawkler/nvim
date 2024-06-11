@@ -19,19 +19,20 @@ return {
       { '$',  '$',  ft = { 'tex' },      multiline = false },
 
       { '<', '>', fly = true, dosuround = true, multiline = false, space = true, surround = true },
-      config_internal_pairs = {
+      internal_pairs = {
         { "'", "'",
           multiline = false,
           surround = true,
-          -- Don't autopair apostrophes in Rust lifetimes
           cond = function(fn)
-            return not fn.in_node({
+            -- Don't autopair apostrophes in Rust lifetimes
+            return fn.get_ft() ~= 'rust' or not fn.in_node({
               'bounded_type',
               'reference_type',
               'type_arguments',
               'type_parameters',
             })
           end,
+          nft = { 'tex', 'lisp' } -- Taken from default config
         }
       },
       bs = {
