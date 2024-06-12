@@ -19,7 +19,7 @@ return {
       { '$',  '$',  ft = { 'tex' },      multiline = false },
 
       { '<', '>', fly = true, dosuround = true, multiline = false, space = true, surround = true },
-      internal_pairs = {
+      config_internal_pairs = {
         { "'", "'",
           multiline = false,
           surround = true,
