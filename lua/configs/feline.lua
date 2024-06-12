@@ -7,6 +7,7 @@ return {
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-lua/lsp-status.nvim',
+    'nvim-tree/nvim-web-devicons',
   },
   config = function()
     local colorscheme = require('utils.colorscheme')

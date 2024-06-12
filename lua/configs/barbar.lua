@@ -5,6 +5,7 @@ local map = require('utils').map
 
 return {
   'romgrk/barbar.nvim',
+  dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     require('barbar').setup({
       no_name_title = '[No Name]',
