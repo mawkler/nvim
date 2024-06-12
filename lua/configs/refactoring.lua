@@ -12,7 +12,8 @@ return {
     local map, feedkeys = require('utils').map, require('utils').feedkeys
 
     local refactoring = require('refactoring')
-    refactoring.setup {}
+    ---@diagnostic disable-next-line: missing-fields
+    refactoring.setup({})
 
     map('x', 'gRe', function() return refactoring.refactor('Extract Function') end)
     map('x', 'gRf', function() return refactoring.refactor('Extract Function To File') end)

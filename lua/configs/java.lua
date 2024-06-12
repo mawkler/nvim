@@ -121,6 +121,7 @@ return {
     end
 
     local function enable_debugger(bufnr)
+      ---@diagnostic disable-next-line: missing-fields
       jdtls.setup_dap({hotcodereplace = 'auto'})
       require('jdtls.dap').setup_dap_main_class_configs()
 

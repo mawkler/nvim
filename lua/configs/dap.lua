@@ -28,6 +28,7 @@ return {
     sign_define('DapBreakpointRejected',  { text='', texthl='Error' })
 
     -- Automatically set up installed DAP adapters
+    ---@diagnostic disable-next-line: missing-fields
     mason_dap.setup({ automatic_setup = true })
 
     local function continue()
@@ -108,6 +109,7 @@ return {
 
 
     -- TypeScript/JavaScript --
+    ---@diagnostic disable-next-line: missing-fields
     require('dap-vscode-js').setup({
       debugger_path = get_install_path('js-debug-adapter'),
       debugger_cmd = { 'js-debug-adapter' },

@@ -50,6 +50,7 @@ return {
     local swap_next = maps.get_textobj_swap_keymaps('>', special_swap_next)
     local swap_previous = maps.get_textobj_swap_keymaps('<', special_swap_prev)
 
+    ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',
       highlight = {

@@ -1,6 +1,7 @@
 ---------
 -- Bqf --
 ---------
+---@diagnostic disable: missing-fields
 return {
   'kevinhwang91/nvim-bqf',
   ft = 'qf',

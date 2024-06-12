@@ -1,6 +1,7 @@
 ---------
 -- Cmp --
 ---------
+---@diagnostic disable: missing-fields
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
@@ -23,7 +24,6 @@ return {
 
     local cmp = require('cmp')
     local luasnip = require('luasnip')
-    local cmp_disabled = cmp.config.disable
     -- Workaround for: https://github.com/hrsh7th/nvim-cmp/issues/1269
     local cmp_insert = { behavior = cmp.SelectBehavior.Select }
     local lspkind = require('lspkind')
@@ -133,9 +133,12 @@ return {
           i = complete,
           c = cmdline_complete,
         }),
-        ['<C-y>'] = cmp_disabled,
-        ['<C-n>'] = cmp_disabled,
-        ['<C-p>'] = cmp_disabled,
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        ['<C-y>'] = cmp.config.disable,
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        ['<C-n>'] = cmp.config.disable,
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        ['<C-p>'] = cmp.config.disable,
       },
       sources = config_sources,
       window = {

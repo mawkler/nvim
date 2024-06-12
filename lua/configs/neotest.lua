@@ -2,6 +2,8 @@
 -- Neotest --
 -------------
 
+---@diagnostic disable: missing-fields
+
 local function neotest()
   return require('neotest')
 end

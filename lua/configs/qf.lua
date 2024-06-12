@@ -2,6 +2,8 @@
 -- Quickfix --
 --------------
 
+---@diagnostic disable: missing-fields
+
 -- Sets `bufhidden = delete` if buffer was jumped to
 local function list_jump(command, list)
   return function ()

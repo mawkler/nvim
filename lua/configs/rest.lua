@@ -1,6 +1,7 @@
 ---------------
 -- Rest.nvim --
 ---------------
+---@diagnostic disable: missing-fields
 return {
   'rest-nvim/rest.nvim',
   dependencies = {

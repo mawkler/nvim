@@ -8,6 +8,7 @@ return {
   config = function()
     local map = require('utils').map
 
+    ---@diagnostic disable-next-line: missing-fields
     require('git-conflict').setup({
       default_mappings = false,
       disable_diagnostics = true,

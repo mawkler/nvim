@@ -7,6 +7,7 @@ return {
   config = function()
     local notify = require('notify')
 
+    ---@diagnostic disable-next-line: missing-fields
     notify.setup({ timeout = 2000 })
 
     vim.notify = notify
@@ -17,7 +18,7 @@ return {
       local level = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
 
       notify({ result.message }, level, {
-        title = 'LSP | ' .. client.name,
+        title = 'LSP | ' .. (client and client.name or '?'),
         timeout = 10000,
         keep = function() return level == 'ERROR' or level == 'WARN' end,
       })

@@ -23,7 +23,6 @@ return {
     map('n', '[z', 'zk', 'Jump to previous fold')
   end,
   config = function()
-    local utils = require('utils')
     require('leap').setup({
       case_sensitive = false,
       substitute_chars = {

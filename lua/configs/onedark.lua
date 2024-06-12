@@ -1,6 +1,7 @@
 -------------
 -- Onedark --
 -------------
+---@diagnostic disable: missing-fields
 return {
   'mawkler/onedark.nvim', priority = 999, config = function()
   local colors = require('onedark.colors').setup()

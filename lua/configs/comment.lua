@@ -1,6 +1,7 @@
 ------------------
 -- Comment.nvim --
 ------------------
+---@diagnostic disable: missing-fields
 return {
   'numToStr/Comment.nvim',
   keys = {
