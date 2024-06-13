@@ -28,7 +28,6 @@ local plugins = {
   use 'indent-blankline',                        -- Indent markers
   use 'mini-indentscope',                        -- Indentation scope
   use 'fzf',                                     -- Fuzzy finder
-  use 'scrollview',                              -- Scrollbar
   use 'nvim-web-devicons',                       -- File icons
   use 'nvim-tree',                               -- File explorer
   use 'oil',                                     -- Single directory file browser
