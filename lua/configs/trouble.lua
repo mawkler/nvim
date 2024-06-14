@@ -5,7 +5,7 @@ return {
   'folke/trouble.nvim',
   cmd = 'TroubleToggle',
   keys = {
-    { '<leader>E', '<cmd>TroubleToggle<CR>', mode = 'n' }
+    { '<leader>E', '<cmd>Trouble diagnostics toggle<CR>', mode = 'n' }
   },
   config = function()
     require('trouble').setup({
