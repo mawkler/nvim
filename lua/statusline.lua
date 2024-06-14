@@ -81,10 +81,11 @@ local function has_file_type()
 end
 
 local function get_working_dir(shorten)
+  local path = fn.fnamemodify(fn.getcwd(), ':~')
   if shorten == true then
-    return fn.pathshorten(fn.fnamemodify(fn.getcwd(), ':~'))
+    return fn.pathshorten(path)
   else
-    return fn.fnamemodify(fn.getcwd(), ':p:~')
+    return path
   end
 end
 
