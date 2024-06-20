@@ -10,14 +10,17 @@ return {
     local map, feedkeys_count = utils.map, utils.feedkeys_count
     local gitsigns = require('gitsigns')
 
+    local signs = {
+      add          = { text = '│' },
+      change       = { text = '│' },
+      changedelete = { text = '│' },
+      delete       = { text = '▁' },
+      topdelete    = { text = '▔' },
+    }
+
     gitsigns.setup({
-      signs = {
-        add          = {text = '│'},
-        change       = {text = '│'},
-        changedelete = {text = '│'},
-        delete       = {text = '▁'},
-        topdelete    = {text = '▔'},
-      },
+      signs = signs,
+      signs_staged = signs,
       attach_to_untracked = false,
       trouble = false,
       worktrees = {
