@@ -20,6 +20,10 @@ return {
       },
       attach_to_untracked = false,
       trouble = false,
+      worktrees = {
+        -- .dotfiles/ is a bare git repo
+        { toplevel = vim.env.HOME, gitdir = vim.env.HOME .. '/.dotfiles' }
+      },
       on_attach = function()
 
         local function git_blame()
