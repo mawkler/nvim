@@ -2,7 +2,7 @@
 -- Leap --
 ----------
 
-local mode = {'n', 'x', 'o'}
+local mode = { 'n', 'x', 'o' }
 
 return {
   'ggandor/leap.nvim',

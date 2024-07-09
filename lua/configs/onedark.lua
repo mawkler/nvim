@@ -151,9 +151,7 @@ return {
         Scrollbar = { fg = c.bg_visual, bg = nil },
         -- Leap
         LeapMatch = { fg = c.orange0, style = string.format('%s,%s', style.Bold, style.Underline) },
-        LeapLabelPrimary = { fg = c.green0, style = style.Bold },
-        LeapLabelSecondary = { fg = c.red0 },
-        LeapLabelSelected = { bg = c.bg_visual },
+        LeapLabel = { fg = c.green0, style = style.Bold },
         LeapBackdrop = { fg = c.fg_dark },
         -- Alpha
         AlphaHeader = { fg = c.green0, style = style.Bold },
