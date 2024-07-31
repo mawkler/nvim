@@ -9,21 +9,53 @@ local function list_sessions()
   }))
 end
 
+local function compute_session_name()
+  local active_session_name = require('possession.session').get_session_name()
+  if active_session_name ~= nil then
+    return active_session_name
+  end
+
+  local git_root_dir = vim.fn.finddir('.git', vim.fn.expand('%:p:h') .. ';')
+
+  local root_path
+  if git_root_dir ~= '' then
+    root_path = vim.fn.fnamemodify(git_root_dir, ':p:h:h')
+  else
+    root_path = vim.fn.getcwd()
+  end
+
+  return vim.fn.fnamemodify(root_path, ':t')
+end
+
+local function save_session()
+  local session_name = compute_session_name()
+  local command = string.format('SessionSave! %s', session_name)
+
+  vim.cmd(command)
+  vim.notify(string.format("Saved session '%s'", session_name))
+end
+
 return {
   'jedrzejboczar/possession.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
   event = 'VimLeavePre',
   keys = {
-    { '<leader>s', list_sessions, { desc = 'Open session' } },
+    { '<leader>so', list_sessions,            { desc = 'Open session' } },
+    { '<leader>ss', save_session,             { desc = 'Save session' } },
+    { '<leader>sr', '<cmd>SessionRename<CR>', { desc = 'Rename session' } },
+    { '<leader>sd', '<cmd>SessionDelete<CR>', { desc = 'Delete session' } },
   },
   cmd = {
     'SessionSave',
     'SessionLoad',
+    'SessionSaveCwd',
+    'SessionLoadCwd',
     'SessionRename',
     'SessionClose',
     'SessionDelete',
     'SessionShow',
     'SessionList',
+    'SessionListCwd',
     'SessionMigrate',
   },
   config = function()
@@ -40,11 +72,14 @@ return {
       commands = {
         save = 'SessionSave',
         load = 'SessionLoad',
+        save_cwd = 'SessionSaveCwd',
+        load_cwd = 'SessionLoadCwd',
         rename = 'SessionRename',
         close = 'SessionClose',
         delete = 'SessionDelete',
         show = 'SessionShow',
         list = 'SessionList',
+        list_cwd = 'SessionListCwd',
         migrate = 'SessionMigrate',
       },
       plugins = {
