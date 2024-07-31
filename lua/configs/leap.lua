@@ -15,6 +15,18 @@ return {
     { 'zJ',   '<Plug>(leap-forward-x)',    mode = mode, desc = 'Leap downwards (inclusive)' },
     { 'zK',   '<Plug>(leap-backward-x)',   mode = mode, desc = 'Leap upwards (inclusive)' },
     { '<CR>', '<Plug>(leap-cross-window)', mode = mode, desc = 'Leap to any window' },
+    {
+      'gs',
+      function() require('leap.treesitter').select() end,
+      mode = { 'x', 'o' },
+      desc = 'Leap select treesitter text-object',
+    },
+    {
+      'gS',
+      'V<cmd>lua require("leap.treesitter").select()<cr>',
+      mode = { 'x', 'o' },
+      desc = 'Leap select treesitter text-object (linewise)',
+    }
   },
   init = function()
     local map = require('utils').map
