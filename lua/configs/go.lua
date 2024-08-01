@@ -20,6 +20,7 @@ return {
       map('n', '<leader>lr', '<cmd>GoGenReturn<CR>',       'Go generate return values for function')
       map('n', 'go',         '<cmd>GoAlt<CR>',             'Go alternative file')
       map('n', '<C-w>go',    '<cmd>GoAltV<CR>',            'Go alternative file in vertical split')
+      map('n', '<leader>lt', '<cmd>GoAddTag<CR>',          'Go add tag')
 
       map({'n', 'x'}, '<leader>lj', '<cmd>GoJson2Struct<CR>', 'Go struct from json')
     end
