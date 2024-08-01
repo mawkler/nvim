@@ -43,5 +43,8 @@ return {
         },
       },
     }
-  }
+  },
+  config = function(_, opts)
+    vim.g.rustaceanvim = opts or {}
+  end
 }
