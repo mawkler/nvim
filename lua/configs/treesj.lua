@@ -9,7 +9,7 @@ return {
   'Wansmer/treesj',
   dependencies = 'nvim-treesitter',
   keys = {
-    { 'gs', toggle, desc = 'Split text-object into multiple lines' },
+    { 'gS', toggle, desc = 'Split text-object into multiple lines' },
   },
   config = function()
     require('treesj').setup({
