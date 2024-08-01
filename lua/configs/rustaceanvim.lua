@@ -17,6 +17,8 @@ return {
         map('n', '<leader>lk', '<cmd>RustLsp moveItem up<CR>',      'Move item up')
         map('n', '<leader>dc', '<cmd>RustLsp debuggables last<CR>', 'Debug')
         map('n', '<leader>ld', '<cmd>RustLsp renderDiagnostic<CR>', 'Render idiagnostics')
+        map('n', '<leader>lm', '<cmd>RustLsp expandMacro<CR>',      'Expand macro')
+        map('n', '<leader>lr', '<cmd>RustLsp run<CR>',              'Run')
       end,
       settings = {
         ['rust-analyzer'] = {
@@ -41,8 +43,5 @@ return {
         },
       },
     }
-  },
-  config = function(_, opts)
-    vim.g.rustaceanvim = vim.tbl_deep_extend('force', {}, opts or {})
-  end
+  }
 }
