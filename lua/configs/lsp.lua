@@ -329,10 +329,7 @@ return {
 
     require('mason-lspconfig').setup({
       handlers = { setup },
-      ensure_installed = vim.list_extend(ensure_installed, {
-        'vimls',
-        'lemminx',
-      })
+      ensure_installed = ensure_installed
     })
 
     ---------------------

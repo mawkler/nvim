@@ -39,6 +39,7 @@ local plugins = {
   use 'fidget',                                  -- LSP progress indicator
   use 'gitsigns',                                -- Git status in sign column
   use 'mason',                                   -- LSP/DAP/etc. package manager
+  use 'mason-tool-installer',                    -- Auto-install list of mason binaries
   use 'lsp',                                     -- Built-in LSP
   use 'lsp-inlay-hints',                         -- LSP inlay hints
   use 'rustaceanvim',                            -- rust-analyzer client

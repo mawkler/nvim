@@ -29,7 +29,7 @@ return {
 
     -- Automatically set up installed DAP adapters
     ---@diagnostic disable-next-line: missing-fields
-    mason_dap.setup({ automatic_setup = true })
+    mason_dap.setup({ automatic_installation = true })
 
     local function continue()
       -- Loads .vscode/launch.json files if available
@@ -106,7 +106,6 @@ return {
     }
     dap.configurations.cpp = dap.configurations.rust
     dap.configurations.c = dap.configurations.rust
-
 
     -- TypeScript/JavaScript --
     ---@diagnostic disable-next-line: missing-fields
