@@ -85,8 +85,8 @@ local plugins = {
   use 'vimtex',                                  -- LaTeX utilities
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
+  use 'markview',
   use 'markdown-togglecheck',                    -- Toggle Markdown check marks
-  use 'headlines',
   use 'substitute',                              -- Replace/exchange operators
   use 'highlighturl',                            -- Highlight URLs
   use 'messages',                                -- Floating :messages window
@@ -108,7 +108,6 @@ local plugins = {
   use 'modicator',                               -- Line number mode indicator
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
-  use 'tsnode-marker',                           -- Highlight code fence context
   use 'octo',                                    -- GitHub client
   use 'other',                                   -- Go to alternate file
   use 'neotest',                                 -- Testing framework
