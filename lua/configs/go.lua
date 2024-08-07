@@ -26,7 +26,17 @@ return {
     end
 
     require('go').setup({
-      lsp_cfg = true,
+      lsp_cfg = {
+        settings = {
+          gopls = {
+            analyses = {
+              unusedvariable = false,
+              unusedparams = true,
+            },
+            staticcheck = true,
+          },
+        },
+      },
       lsp_inlay_hints = { enable = false }, -- Handled in lsp-inlay-hints.lua
       lsp_keymaps = false,
       lsp_on_attach = on_attach,
