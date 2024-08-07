@@ -20,10 +20,22 @@ return {
         marker_minus = {
           add_padding = false,
           text = '󰧞',
+          hl = '@punctuation.bracket'
         },
         marker_plus = no_padding,
         marker_star = no_padding,
         marker_dot = no_padding,
+      },
+      checkboxes = {
+        enabled = false,
+        checked = {
+          text = ' ',
+          hl = '@text.todo.checked',
+        },
+        unchecked = {
+          text = " ",
+          hl = '@text.todo.unchecked',
+        },
       }
     }
 
