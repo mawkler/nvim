@@ -7,7 +7,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
-  keys = { 't', 'f', 'T', 'F', ']', '[' },
+  keys = { ';', ',', 't', 'f', 'T', 'F', ']', '[' },
   config = function()
     local demicolon = require('demicolon')
     local map = require('utils').map
@@ -38,5 +38,5 @@ return {
     map(nxo, 'F', eyeliner_jump('F'), opts)
     map(nxo, 't', eyeliner_jump('t'), opts)
     map(nxo, 'T', eyeliner_jump('T'), opts)
-  end,
+  end
 }
