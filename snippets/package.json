@@ -41,6 +41,12 @@
           "rust"
         ],
         "path": "./rust.json"
+      },
+      {
+        "language": [
+          "go"
+        ],
+        "path": "./go.json"
       }
     ]
   }
