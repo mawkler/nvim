@@ -17,12 +17,8 @@ return {
     { '<leader>>', mode = 'x' },
     '<leader>cp',
   },
-  dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
   config = function()
     local map = require('utils').map
-    local ts_context_integration = require(
-      'ts_context_commentstring.integrations.comment_nvim'
-    )
 
     require('Comment').setup({
       mappings = {
@@ -41,7 +37,6 @@ return {
         eol = '<leader>cA'
       },
       ignore = '^$', -- Ignore empty lines
-      pre_hook = ts_context_integration.create_pre_hook(),
     })
 
     local comment_api = require('Comment.api')
