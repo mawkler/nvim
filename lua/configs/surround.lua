@@ -62,7 +62,7 @@ return {
         end
       },
     })
-    filetype_surround({ 'typescript' }, {
+    filetype_surround({ 'typescript', 'javascript' }, {
       s = { -- String interpolation
         add = function()
           return { { '${' }, { '}' } }
