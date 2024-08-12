@@ -106,6 +106,7 @@ local plugins = {
   use 'template-string',                         -- Automatic template string
   use 'csv',                                     -- CSV highlighting, etc.
   use 'modicator',                               -- Line number mode indicator
+  use 'demicolon',                               -- Overloaded `;`/`,` keys
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
   use 'octo',                                    -- GitHub client

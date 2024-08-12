@@ -405,14 +405,6 @@ return {
       map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
       map(nx,         '<leader>A', lsp.codelens.run,       'LSP code lens')
 
-      map(nx,  ']e',        diagnostic_goto('next', error_opts), 'Go to next error')
-      map(nx,  '[e',        diagnostic_goto('prev', error_opts), 'Go to previous error')
-      map(nx,  '[w',        diagnostic_goto('prev', warn_opts), 'Go to previous warning')
-      map(nx,  ']w',        diagnostic_goto('next', warn_opts), 'Go to next warning')
-      map(nx,  '[h',        diagnostic_goto('prev', hint_opts), 'Go to previous hint')
-      map(nx,  ']h',        diagnostic_goto('next', hint_opts), 'Go to next hint')
-      map(nx,  ']d',        diagnostic_goto('next', any_opts), 'Go to next diagnostic')
-      map(nx,  '[d',        diagnostic_goto('prev', any_opts), 'Go to previous diagnostic')
       map('n', '<leader>e', function() diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
 
       map_vsplit('<C-w>gd', 'lsp_definitions')
