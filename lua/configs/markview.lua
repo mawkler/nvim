@@ -15,6 +15,7 @@ return {
     local config = {
       code_blocks = {
         sign = false,
+        pad_amount = 1,
       },
       tables = {
         use_virt_lines = true,
