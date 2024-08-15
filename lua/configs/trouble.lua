@@ -5,31 +5,26 @@ return {
   'folke/trouble.nvim',
   cmd = 'TroubleToggle',
   keys = {
-    { '<leader>E', '<cmd>Trouble diagnostics toggle<CR>', mode = 'n' }
+    { '<leader>E', '<cmd>Trouble diagnostics focus<CR>', mode = 'n' }
   },
   config = function()
     require('trouble').setup({
       auto_preview = false,
       use_diagnostic_signs = true,
       auto_close = true,
-      action_keys = {
-        close = {'<Esc>', '<C-q>', '<C-c>'},
-        refresh = 'R',
-        jump = {'<Space>'},
-        open_split = {'<c-s>'},
-        open_vsplit = {'<c-v>'},
-        open_tab = {'<c-t>'},
-        jump_close = {'<CR>'},
-        toggle_mode = 'm',
-        toggle_preview = 'P',
-        hover = {'gh'},
-        preview = 'p',
-        close_folds = {'h', 'zM', 'zm'},
-        open_folds = {'l', 'zR', 'zr'},
-        toggle_fold = {'zA', 'za'},
-        previous = 'k',
-        next = 'j',
-        cancel = nil,
+      keys = {
+        ['<Esc>']   = 'close',
+        ['<C-q>']   = 'close',
+        ['<C-c>']   = 'close',
+        ['R']       = 'refresh',
+        ['<space>'] = 'preview',
+        ['<cr>']    = 'jump_close',
+        ['l']       = 'fold_open',
+        ['h']       = 'fold_close',
+        [']']       = 'next',
+        ['[']       = 'prev',
+        ['[[']      = false,
+        [']]']      = false,
       },
     })
   end
