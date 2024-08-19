@@ -20,6 +20,7 @@ return {
         map('n', '<leader>ld', '<cmd>RustLsp renderDiagnostic<CR>', 'Render idiagnostics')
         map('n', '<leader>lm', '<cmd>RustLsp expandMacro<CR>',      'Expand macro')
         map('n', '<leader>lr', '<cmd>RustLsp run<CR>',              'Run')
+        map('n', '<leader>lR', '<cmd>RustLsp! run<CR>',             'Rerun latest run')
       end,
       settings = {
         ['rust-analyzer'] = {
