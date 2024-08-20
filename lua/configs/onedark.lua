@@ -184,6 +184,9 @@ return {
         GitSignsAddInline = { link = 'DiffText' },
         -- Headlines
         Headline = { fg = c.red0, bg = c.bg_visual },
+        -- Helpview
+        HelpviewTagLink = { fg = c.blue0 },
+        HelpviewMentionLink = { fg = c.blue0, style = style.Italic },
       }
     end
   })

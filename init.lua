@@ -84,7 +84,8 @@ local plugins = {
   use 'vimtex',                                  -- LaTeX utilities
   use 'ai',                                      -- next/previous text objects
   use 'hlsearch',                                -- Auto remove search highlights
-  use 'markview',
+  use 'markview',                                -- Improved Markdown rendering
+  use 'helpview',                                -- Improved Helpdocs rendering
   use 'markdown-togglecheck',                    -- Toggle Markdown check marks
   use 'substitute',                              -- Replace/exchange operators
   use 'highlighturl',                            -- Highlight URLs
