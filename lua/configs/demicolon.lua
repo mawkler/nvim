@@ -4,21 +4,29 @@
 return {
   'mawkler/demicolon.nvim',
   dependencies = {
+    'jinh0/eyeliner.nvim',
     'nvim-treesitter/nvim-treesitter',
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
-  keys = { ';', ',', 't', 'f', 'T', 'F', ']', '[' },
+  keys = { ';', ',', 't', 'f', 'T', 'F', ']', '[', ']d', '[d' },
   config = function()
-    local demicolon = require('demicolon')
     local map = require('utils').map
 
-    demicolon.setup({
+    require('demicolon').setup({
       keymaps = {
         horizontal_motions = false,
       },
       diagnostic = {
         float = {
           border = 'rounded',
+        },
+      },
+      integrations = {
+        gitsigns = {
+          keymaps = {
+            next = ']g',
+            prev = '[g',
+          },
         },
       },
     })

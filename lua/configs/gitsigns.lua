@@ -6,8 +6,7 @@ return {
   dependencies = 'tpope/vim-repeat',
   event = 'VeryLazy',
   config = function()
-    local utils = require('utils')
-    local map, feedkeys_count = utils.map, utils.feedkeys_count
+    local map = require('utils').map
     local gitsigns = require('gitsigns')
 
     local signs = {
@@ -44,26 +43,6 @@ return {
         map('n', '<leader>ghu', gitsigns.undo_stage_hunk, 'Undo git hunk stage')
         map('n', '<leader>ghp', gitsigns.preview_hunk,    'Preview git hunk')
         map('n', 'gb',          git_blame,                'Git blame line')
-
-        local function next_hunk()
-          if vim.o.diff then
-            feedkeys_count(']c', 'n')
-          else
-            gitsigns.next_hunk()
-          end
-        end
-
-        local function prev_hunk()
-          if vim.o.diff then
-            feedkeys_count('[c', 'n')
-          else
-            gitsigns.prev_hunk()
-          end
-        end
-
-        -- Next/previous hunk
-        map({'n', 'x'}, ']g', next_hunk, 'Next git hunk')
-        map({'n', 'x'}, '[g', prev_hunk, 'Previous git hunk')
 
         -- Text objects
         map({'o', 'x'}, 'ih', gitsigns.select_hunk)
