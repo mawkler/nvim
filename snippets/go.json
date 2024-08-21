@@ -1,12 +1,12 @@
 {
-  "func": {
+  "function": {
     "prefix": "fn",
-    "body": ["func ${1:name}($2) ${3:error} {", "\t$4", "}"],
+    "body": ["func ${1:name}($2) $3 {", "\t$4", "}"],
     "description": "function"
   },
   "method": {
     "prefix": "m",
     "body": ["func (${1:receiver} *${2:type}) ${3:name}($4) $5 {", "\t$6", "}"],
-    "description": "function"
+    "description": "method"
   }
 }
