@@ -182,6 +182,12 @@ return {
               ignore_cmds = { 'Man', '!' }
             },
           },
+        },
+        {
+          {
+            name = "lazydev",
+            group_index = 0, -- Skip loading lua_ls completions
+          }
         }
       )
     })
