@@ -444,9 +444,11 @@ return {
         vim.diagnostic.config({
           signs = false,
           virtual_text = {
-            prefix = function(diagnostic)
-              return require('configs.diagnostics').get_icon(diagnostic.severity)
-            end
+            spacing = 4,
+            prefix = function(diagnostic, _, _)
+              local icon = require('configs.diagnostics').get_icon(diagnostic.severity)
+              return ' ' .. icon
+            end,
           }
         })
       end
