@@ -15,12 +15,12 @@ return {
   },
   event = { 'VeryLazy', 'BufWrite' },
   config = function()
-    local api, lsp, diagnostic = vim.api, vim.lsp, vim.diagnostic
+    local api, lsp = vim.api, vim.lsp
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local mason_path = require('mason-core.path')
     local typescript = require('typescript')
-    local get_install_path  = require('utils').get_install_path
+    local get_install_path = require('utils').get_install_path
 
     local map = function(modes, lhs, rhs, opts)
       if type(opts) == 'string' then
@@ -41,7 +41,7 @@ return {
     local function typescript_organize_imports()
       local params = {
         command = "_typescript.organizeImports",
-        arguments = {vim.api.nvim_buf_get_name(0)},
+        arguments = { vim.api.nvim_buf_get_name(0) },
         title = "Organize imports"
       }
       vim.lsp.buf.execute_command(params)
@@ -129,7 +129,7 @@ return {
             end
           end
 
-          lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+          vim.diagnostic.on_publish_diagnostics(_, result, ctx, config)
         end,
       },
     }
@@ -170,6 +170,7 @@ return {
                 },
                 workspace = {
                   checkThirdParty = false,
+                  library = { vim.env.VIMRUNTIME }, -- Fixes issue with `vim` global missing?
                 },
                 telemetry = {
                   enable = false,
@@ -226,7 +227,7 @@ return {
       },
       -- Bash/Zsh --
       bashls = {
-        filetypes = {'sh', 'zsh'}
+        filetypes = { 'sh', 'zsh' }
       },
       -- Json --
       jsonls = {
@@ -281,7 +282,7 @@ return {
           yaml = {
             schemas = {
               ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json']
-                = 'azure-pipeline*.y*ml' ,
+              = 'azure-pipeline*.y*ml',
             },
           },
         },
@@ -356,21 +357,6 @@ return {
     -------------
     -- Keymaps --
     -------------
-    local ERROR = diagnostic.severity.ERROR
-    local WARN = diagnostic.severity.WARN
-    local HINT = diagnostic.severity.HINT
-
-    local error_opts = { severity = ERROR, float = { border = 'single' } }
-    local warn_opts = { severity = WARN, float = { border = 'single' } }
-    local hint_opts = { severity = HINT, float = { border = 'single' } }
-    local any_opts = { float = { border = 'single' } }
-
-    local function diagnostic_goto(direction, opts)
-      return function()
-        diagnostic['goto_' .. direction](opts)
-      end
-    end
-
     local function lsp_references()
       require('utils').clear_lsp_references()
       lsp.buf.document_highlight()
@@ -405,7 +391,7 @@ return {
       map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
       map(nx,         '<leader>A', lsp.codelens.run,       'LSP code lens')
 
-      map('n', '<leader>e', function() diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
+      map('n', '<leader>e', function() vim.diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
 
       map_vsplit('<C-w>gd', 'lsp_definitions')
       map_vsplit('<C-w>gi', 'lsp_implementations')
@@ -453,6 +439,16 @@ return {
 
           map('n', '<leader>lh', inlay_hints.toggle, 'Toggle LSP inlay hints')
         end
+
+        -- This has to be called from LspAttach event for some reason, not sure why
+        vim.diagnostic.config({
+          signs = false,
+          virtual_text = {
+            prefix = function(diagnostic)
+              return require('configs.diagnostics').get_icon(diagnostic.severity)
+            end
+          }
+        })
       end
     })
   end
