@@ -4,6 +4,11 @@
 return {
   'kyazdani42/nvim-tree.lua',
   dependencies = 'nvim-tree/nvim-web-devicons',
+  lazy = vim.fn.argc() == 0,
+  keys = {
+    { '<leader>`', function() require('nvim-tree.api').tree.toggle() end, mode = 'n', desc = 'Toggle file tree' },
+    { '<leader>~', vim.cmd.NvimTreeFindFile,                              mode = 'n', desc = 'Show current file in file tree', },
+  },
   config = function()
     local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
     local node, tree, fs, marks = api.node, api.tree, api.fs, api.marks
@@ -128,10 +133,6 @@ return {
     remove_highlight('NvimTreeFileRenamed')
     remove_highlight('NvimTreeFileNew')
     remove_highlight('NvimTreeFileDeleted')
-
-    local map = require('utils').map
-    map('n', '<leader>`', api.tree.toggle, 'Toggle file tree')
-    map('n', '<leader>~', vim.cmd.NvimTreeFindFile, 'Show current file in file tree')
 
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       pattern = 'NvimTree*',
