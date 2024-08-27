@@ -1,13 +1,19 @@
 ---------------
 -- Nvim-tree --
 ---------------
+
+local function find_file()
+  local opts = { open = true, focus = true, update_root = true }
+  require('nvim-tree.api').tree.find_file(opts)
+end
+
 return {
   'kyazdani42/nvim-tree.lua',
   dependencies = 'nvim-tree/nvim-web-devicons',
   lazy = vim.fn.argc() == 0,
   keys = {
     { '<leader>`', function() require('nvim-tree.api').tree.toggle() end, mode = 'n', desc = 'Toggle file tree' },
-    { '<leader>~', vim.cmd.NvimTreeFindFile,                              mode = 'n', desc = 'Show current file in file tree', },
+    { '<leader>~', find_file,                                             mode = 'n', desc = 'Show current file in file tree', },
   },
   config = function()
     local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
