@@ -107,6 +107,7 @@ local plugins = {
   use 'csv',                                     -- CSV highlighting, etc.
   use 'modicator',                               -- Line number mode indicator
   use 'demicolon',                               -- Overloaded `;`/`,` keys
+  use 'refjump',                                 -- Jump to next/previous reference
   use 'unception',                               -- Open files in Neovim from terminal
   use 'git-worktree',                            -- Manage git worktrees
   use 'octo',                                    -- GitHub client
