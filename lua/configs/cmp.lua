@@ -12,7 +12,6 @@ return {
     'hrsh7th/cmp-buffer',                  -- Buffer completion
     'hrsh7th/cmp-path',                    -- Path completion
     'hrsh7th/cmp-cmdline',                 -- Command-line completion
-    'hrsh7th/cmp-nvim-lua',                -- Nvim builtins completion
     'hrsh7th/cmp-nvim-lsp-signature-help', -- Signature
     'zjp-CN/nvim-cmp-lsp-rs',              -- Better rust sorting
     -- 'tzachar/cmp-tabnine'                  -- TabNine

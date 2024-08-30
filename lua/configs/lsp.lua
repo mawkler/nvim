@@ -140,51 +140,37 @@ return {
     local server_configs = {
       -- Lua --
       lua_ls = {
-        on_init = function(client)
-          local path = client.workspace_folders and client.workspace_folders[1].name
-          -- if not has_file(path, { '.luarc.json', '.luarc.jsonc' }) then
-          client.config.settings = vim.tbl_deep_extend(
-            'force',
-            client.config.settings,
-            {
-              Lua = {
-                completion = {
-                  callSnippet = 'Replace',
-                  autoRequire = true,
-                },
-                format = {
-                  enable = true,
-                  defaultConfig = {
-                    indent_style = 'space',
-                    indent_size = '2',
-                    max_line_length = '100',
-                    trailing_table_separator = 'smart',
-                  },
-                },
-                diagnostics = {
-                  globals = { 'vim', 'it', 'describe', 'before_each', 'are' },
-                },
-                hint = {
-                  enable = true,
-                  arrayIndex = 'Disable',
-                },
-                workspace = {
-                  checkThirdParty = false,
-                  library = { vim.env.VIMRUNTIME }, -- Fixes issue with `vim` global missing?
-                },
-                telemetry = {
-                  enable = false,
-                },
-              }
-            }
-          )
-
-          client.notify('workspace/didChangeConfiguration', {
-            settings = client.config.settings,
-          })
-          -- end
-          return true
-        end,
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+              autoRequire = true,
+            },
+            format = {
+              enable = true,
+              defaultConfig = {
+                indent_style = 'space',
+                indent_size = '2',
+                max_line_length = '100',
+                trailing_table_separator = 'smart',
+              },
+            },
+            diagnostics = {
+              globals = { 'vim', 'it', 'describe', 'before_each', 'are' },
+            },
+            hint = {
+              enable = true,
+              arrayIndex = 'Disable',
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = { vim.env.VIMRUNTIME }, -- Fixes issue with `vim` global missing?
+            },
+            telemetry = {
+              enable = false,
+            },
+          }
+        },
         on_attach = function()
           map('n', '<leader>lt', '<Plug>PlenaryTestFile', "Run file's plenary tests")
         end
@@ -282,7 +268,7 @@ return {
           yaml = {
             schemas = {
               ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json']
-              = 'azure-pipeline*.y*ml',
+                = 'azure-pipeline*.y*ml',
             },
           },
         },
@@ -303,8 +289,6 @@ return {
       gopls = disable,         -- Setup in go.lua
     }
 
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
     --------------------
     -- Set up servers --
     --------------------
@@ -316,10 +300,9 @@ return {
       end
 
       local opts = server_configs[server_name] or {}
-      local opts_with_capabilities = vim.tbl_deep_extend('force', opts, {
-        capabilities = capabilities,
-      })
-      lspconfig[server_name].setup(opts_with_capabilities)
+      opts.capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      lspconfig[server_name].setup(opts)
     end
 
     -- Ensure that servers mentioned above get installed
