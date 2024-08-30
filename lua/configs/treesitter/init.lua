@@ -5,7 +5,6 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-refactor',
     'RRethy/nvim-treesitter-endwise',
   },
   build = ':TSUpdate',
@@ -103,18 +102,6 @@ return {
         enable = true,
         disable_virtual_text = true,
         include_match_words = true
-      },
-      refactor = {
-        navigation = {
-          enable = true,
-          keymaps = {
-            goto_definition = false,
-            list_definitions = false,
-            list_definitions_toc = false,
-            goto_next_usage = ']r',
-            goto_previous_usage = '[r',
-          },
-        },
       },
       endwise = { enable = true }
     })
