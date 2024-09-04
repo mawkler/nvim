@@ -6,19 +6,22 @@ return {
   event = 'WinScrolled',
   cond = function() return not vim.g.neovide end,
   config = function()
-    local config = require('neoscroll.config')
+    local neoscroll = require('neoscroll')
+    local map = require('utils').map
 
     require('neoscroll').setup({ easing_function = 'cubic' })
 
-    local scroll_speed = 140
-    config.set_mappings({
-      ['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', scroll_speed}},
-      ['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', scroll_speed}},
-      ['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
-      ['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', scroll_speed}},
-      ['zt']    = {'zt', {scroll_speed}, 'sine'},
-      ['zz']    = {'zz', {scroll_speed}, 'sine'},
-      ['zb']    = {'zb', {scroll_speed}, 'sine'},
-    })
+    local scroll_speed = 70
+    local nx = { 'n', 'x' }
+
+    map(nx, '<C-u>', function() neoscroll.ctrl_u({ duration = scroll_speed }) end)
+    map(nx, '<C-d>', function() neoscroll.ctrl_d({ duration = scroll_speed }) end)
+    map(nx, '<C-b>', function() neoscroll.ctrl_b({ duration = scroll_speed }) end)
+    map(nx, '<C-f>', function() neoscroll.ctrl_f({ duration = scroll_speed }) end)
+    map(nx, 'zt',    function() neoscroll.zt({ half_win_duration = scroll_speed, easing = 'sine' }) end)
+    map(nx, 'zz',    function() neoscroll.zz({ half_win_duration = scroll_speed, easing = 'sine' }) end)
+    map(nx, 'zb',    function() neoscroll.zb({ half_win_duration = scroll_speed, easing = 'sine' }) end)
+    map(nx, '<C-y>', function() neoscroll.scroll(-0.1, { move_cursor = false, duration = 100 }) end)
+    map(nx, '<C-e>', function() neoscroll.scroll(0.1,  { move_cursor = false, duration = 100 }) end)
   end
 }
