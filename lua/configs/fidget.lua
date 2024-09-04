@@ -7,7 +7,7 @@ return {
   opts = {
     progress = {
       display = {
-        done_icon = '',
+        done_icon = ' ',
         done_ttl = 2,
       }
     },
