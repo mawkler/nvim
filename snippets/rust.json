@@ -3,5 +3,10 @@
     "prefix": "closure",
     "body": "|$1| {$2}",
     "description": "Closure"
+  },
+  "#derive()": {
+    "prefix": "derive",
+    "body": "#[derive($1)]",
+    "description": "Derive macro"
   }
 }
