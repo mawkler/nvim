@@ -12,23 +12,6 @@ return {
     local markview = require('markview')
     local no_padding = { add_padding = false }
 
-    local custom_hyperlinks = {
-      { match = '[%.]md$', icon = ' ' },
-      { match = '^#', icon = ' ' },
-      { match = '^%./', icon = ' ' },
-      { match = 'https://(.+)$', icon = '󰌷 ' },
-      { match = 'http://(.+)$', icon = '󰌸 ' },
-    }
-
-    local function add_hl_to_hyperlinks(hyperlinks)
-      local hyperlinks_with_hl = {}
-      for i, hyperlink in pairs(hyperlinks) do
-        local hl = { hl = 'MarkviewHyperlink' }
-        hyperlinks_with_hl[i] = vim.tbl_deep_extend('keep', hyperlink, hl)
-      end
-      return hyperlinks_with_hl
-    end
-
     local config = {
       code_blocks = {
         sign = false,
@@ -61,7 +44,13 @@ return {
       links = {
         hyperlinks = {
           icon = ' ',
-          custom = add_hl_to_hyperlinks(custom_hyperlinks)
+          custom = {
+            { match = '[%.]md$', icon = ' ' },
+            { match = '^#', icon = ' ' },
+            { match = '^%./', icon = ' ' },
+            { match = 'https://(.+)$', icon = '󰌷 ' },
+            { match = 'http://(.+)$', icon = '󰌸 ' },
+          }
         },
       }
     }
