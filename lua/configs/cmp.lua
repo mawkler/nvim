@@ -101,6 +101,10 @@ return {
       require('cmp_lsp_rs').filter_out.entry_filter(source)
     end
 
+    local function get_source_name(entry)
+      return entry.source.name and '[' .. entry.source.name .. ']' or ''
+    end
+
     -- Places icon to the left, with margin
     local function cmp_formatting()
       return function(entry, vim_item)
@@ -108,8 +112,18 @@ return {
         local kind = lspkind.cmp_format(format_opts)(entry, vim_item)
         local strings = vim.split(kind.kind, '%s', { trimempty = true })
 
-        kind.kind = strings[1] or ''
-        kind.menu = '  ' .. (strings[2] or '')
+        local show_source_name = false
+        local source_name = show_source_name and get_source_name(entry) or ''
+
+        local entry_kind = strings[1] or ''
+        local entry_type = strings[2] or ''
+
+        kind.kind = entry_kind
+        kind.menu = string.format('  %s  %s', entry_type, source_name)
+
+        if entry.source.name == 'nvim_lsp' then
+          kind.dup = 0
+        end
 
         return kind
       end
