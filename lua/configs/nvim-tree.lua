@@ -27,9 +27,6 @@ return {
       },
       disable_netrw = false,
       update_cwd = true,
-      git = {
-        ignore = false,
-      },
       filesystem_watchers = {
         enable = true,
       },
@@ -60,7 +57,8 @@ return {
             folder_arrow = false
           },
           git_placement = 'signcolumn',
-        }
+        },
+        highlight_git = 'all',
       },
       view = {
         width = 40,
