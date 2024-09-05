@@ -6,7 +6,7 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   event = 'WinNew',
   config = function()
-    local get_highlight = require('utils.colorscheme').get_highlight
+    local get_highlight = require('utils.colors').get_highlight
 
     require('incline').setup({
       hide = {

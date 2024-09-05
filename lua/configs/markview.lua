@@ -55,7 +55,7 @@ return {
       }
     }
 
-    local color_utils = require('utils.colorscheme')
+    local color_utils = require('utils.colors')
     local bg = color_utils.get_highlight('Normal', 'bg')
 
     local function create_highlight(hl_name, color)

@@ -5,7 +5,7 @@ return {
   'itchyny/vim-highlighturl',
   event = 'VeryLazy',
   config = function()
-    local get_highlight = require('utils.colorscheme').get_highlight
+    local get_highlight = require('utils.colors').get_highlight
 
     vim.g.highlighturl_guifg = get_highlight('@text.uri')
 

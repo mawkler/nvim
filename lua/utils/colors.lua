@@ -1,5 +1,32 @@
 local M = {}
 
+---@param decimal number
+---@return string
+local function hex_from_decimal(decimal)
+  return string.format('#%x', decimal)
+end
+
+--- Gets the foreground or background color value of a highlight group. Returns
+--- white if - the group doesn't exist.
+--- @param group_name string
+--- @param part 'fg' | 'bg'
+--- @return string
+function M.get_highlight(group_name, part)
+  part = part or 'fg'
+  local hl = vim.api.nvim_get_hl(0, { name = group_name, link = false })
+
+  if vim.tbl_isempty(hl) or not hl[part] then
+    local message = string.format(
+      "Highlight group %s doesn't exist or has no %s part",
+      group_name,
+      part
+    )
+    vim.notify(message, vim.log.levels.WARN)
+    return '#ffffff'
+  end
+  return hex_from_decimal(hl[part])
+end
+
 ---@param hex string: A string representing a hex color (e.g., '#ff0000')
 ---@return number, number, number: Red, green, and blue values (0-255)
 local function hex_to_rgb(hex)
