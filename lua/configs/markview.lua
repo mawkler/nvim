@@ -6,7 +6,7 @@ return {
   lazy = false, -- Markview handles lazy loading
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
-    'nvim-tree/nvim-web-devicons'
+    'nvim-tree/nvim-web-devicons',
   },
   config = function()
     local markview = require('markview')
@@ -54,6 +54,38 @@ return {
         },
       }
     }
+
+    local color_utils = require('utils.colorscheme')
+    local bg = color_utils.get_highlight('Normal', 'bg')
+
+    local function create_highlight(hl_name, color)
+      local color_mix = require('utils.colors').mix_colors(color, bg, 0.15, 0.5)
+      vim.api.nvim_set_hl(0, hl_name, { fg = color, bg = color_mix, bold = true })
+    end
+
+    -- Position in table is the heading number
+    local highlights = {
+      '@markup.heading',
+      'CursorLineNr',
+      'Keyword',
+      'Type',
+      'Boolean',
+      'Directory',
+      'Cursor',
+      'Statement',
+      'ErrorMsg',
+    }
+
+    for i, hl in ipairs(highlights) do
+      local hl_name = 'MarkviewHeading' .. i
+      local fg = color_utils.get_highlight(hl, 'fg')
+
+      create_highlight(hl_name, fg)
+
+      if i <= 6  then
+        vim.api.nvim_set_hl(0, hl_name .. 'Sign', { fg = fg })
+      end
+    end
 
     markview.configuration = vim.tbl_deep_extend('force', markview.configuration, config)
   end
