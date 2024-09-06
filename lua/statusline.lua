@@ -13,7 +13,7 @@ local function mode_colors()
     LINES         = get_mode_color('visual'),
     BLOCK         = get_mode_color('visual'),
     REPLACE       = get_mode_color('replace'),
-    TERM          = get_mode_color('term'),
+    TERM          = get_mode_color('terminal'),
     ['V-REPLACE'] = get_mode_color('replace'),
     SELECT        = get_mode_color('select'),
     ENTER         = 'skyblue',
