@@ -24,7 +24,6 @@ local plugins = {
   use 'cheat',                                   -- cheat.sh
   use 'nvim-colorizer',                          -- Display colour values
   use 'alpha',                                   -- Nicer start screen
-  use 'beacon',                                  -- Flash cursor jump
   use 'indent-blankline',                        -- Indent markers
   use 'mini-indentscope',                        -- Indentation scope
   use 'fzf',                                     -- Fuzzy finder
