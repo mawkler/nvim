@@ -90,12 +90,22 @@ return {
             return vim.tbl_contains(delete_hidden_filetypes, filetype)
           end,
           hooks = {
-            -- I sometimes get an error with windows.nvim when restoring
-            -- sessions, Hopefully this fixes that.
-            before_load = vim.cmd.WindowsDisableAutowidth,
-            after_load = vim.cmd.WindowsEnableAutowidth,
+            'before_load',
+            not vim.o.sessionoptions:match('buffer') and 'before_save',
           },
         },
+      },
+      hooks = {
+        -- I sometimes get an error with windows.nvim when restoring
+        -- sessions, Hopefully this fixes that.
+        before_load = function()
+          vim.cmd.WindowsDisableAutowidth()
+          return true
+        end,
+        after_load = function()
+          vim.cmd.WindowsEnableAutowidth()
+          return true
+        end,
       },
     })
 
