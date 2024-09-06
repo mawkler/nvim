@@ -30,8 +30,6 @@ return {
       disabledKeymaps = {
         'ig', -- Replaced with iG
         'ag', -- Replaced with aG
-        'ii', -- Just use iI
-        'ai', -- Just use aI
         'gG', -- Replaced with ie
         '|',  -- Disabled
         'L',  -- Replaced with ix
