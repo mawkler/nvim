@@ -45,6 +45,7 @@ local plugins = {
   use 'go',                                      -- gopls client
   use 'fastaction',                              -- Predictable LSP code actions
   use 'java',                                    -- JDTLS client
+  use 'typescript',                              -- TypeScript LSP client wrapper
   use 'tsc',                                     -- TypeScript type checking
   use 'ltex',                                    -- LTeX utils
   use 'luasnip',                                 -- Snippet engine

@@ -7,7 +7,6 @@ return {
     'williamboman/mason.nvim',               -- For installing LSP servers
     'williamboman/mason-lspconfig.nvim',     -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                  -- YAML/JSON schemas
-    'jose-elias-alvarez/typescript.nvim',    -- TypeScript utilities
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
@@ -19,120 +18,9 @@ return {
     local lspconfig = require('lspconfig')
     local telescope = require('telescope.builtin')
     local mason_path = require('mason-core.path')
-    local typescript = require('typescript')
     local get_install_path = require('utils').get_install_path
 
-    local map = function(modes, lhs, rhs, opts)
-      if type(opts) == 'string' then
-        opts = { desc = opts }
-      elseif not opts then
-        opts = {}
-      end
-      opts = vim.tbl_extend('keep', opts, { buffer = true })
-      return require('utils').map(modes, lhs, rhs, opts)
-    end
-
-    local function map_vsplit(lhs, fn, description)
-      vim.keymap.set('n', lhs, function()
-        require('telescope.builtin')[fn]({ jump_type = 'vsplit' })
-      end, { desc = description })
-    end
-
-    local function typescript_organize_imports()
-      local params = {
-        command = "_typescript.organizeImports",
-        arguments = { vim.api.nvim_buf_get_name(0) },
-        title = "Organize imports"
-      }
-      vim.lsp.buf.execute_command(params)
-    end
-
-    -- TypeScript --
-    local tsserver_config = {
-      on_attach = function()
-        local actions = typescript.actions
-
-        local function spread(char)
-          return function()
-            require('utils').feedkeys('siw' .. char .. 'a...<Esc>2%i, ', 'm')
-          end
-        end
-
-        local function rename_file()
-          local workspace_path = lsp.buf.list_workspace_folders()[1]
-          local file_path = vim.fn.expand('%:' .. workspace_path .. ':.')
-          vim.ui.input({ prompt = 'Rename file', default = file_path },
-            function(target)
-              if target ~= nil then
-                typescript.renameFile(file_path, target)
-              end
-            end
-          )
-        end
-
-        map('n', '<leader>lo', '<cmd>TypescriptOrganizeAndFixImports<CR>', 'LSP Organize imports')
-        map('n', '<leader>li', actions.addMissingImports, 'LSP add missing imports')
-        map('n', '<leader>lf', actions.fixAll, 'LSP fix all errors')
-        map('n', '<leader>lu', actions.removeUnused, 'LSP remove unused')
-        map('n', '<leader>lr', rename_file, 'LSP rename file')
-        map('n', '<leader>lc', function() require('tsc').run() end, 'Type check project')
-        map('n', '<leader>ls', spread('{'), {
-          remap = true,
-          desc = 'Spread object under cursor'
-        })
-        map('n', '<leader>lS', spread('['), {
-          remap = true,
-          desc = 'Spread array under cursor'
-        })
-      end,
-      commands = {
-        TypescriptOrganizeAndFixImports = {
-          typescript_organize_imports,
-          description = "Organize imports",
-        }
-      },
-      settings = {
-        typescript = {
-          inlayHints = {
-            -- Enabled
-            includeInlayParameterNameHints = 'all',
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-            -- Disabled
-            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-            includeInlayFunctionParameterTypeHints = false,
-            includeInlayVariableTypeHints = false,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-            includeInlayFunctionLikeReturnTypeHints = false,
-          }
-        },
-      },
-      handlers = {
-        ['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
-          if result.diagnostics == nil then
-            return
-          end
-
-          -- Ignore some tsserver diagnostics
-          local idx = 1
-          -- TODO: change to using `map()` instead of `while`
-          while idx <= #result.diagnostics do
-            local entry = result.diagnostics[idx]
-
-            local formatter = require('format-ts-errors')[entry.code]
-            entry.message = formatter and formatter(entry.message) or entry.message
-
-            if entry.code == 80001 then
-              table.remove(result.diagnostics, idx)
-            else
-              idx = idx + 1
-            end
-          end
-
-          vim.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-        end,
-      },
-    }
+    local map = require('utils').local_map(0)
 
     ---------------------------
     -- Server configurations --
@@ -279,9 +167,7 @@ return {
 
     -- Special server configurations
     local special_server_configs = {
-      tsserver = function()
-        typescript.setup({ server = tsserver_config })
-      end,
+      ts_ls = disable,         -- Setup in typescript.lua
       zk = disable,            -- Setup in zk.lua
       rust_analyzer = disable, -- Setup in rustaceanvim.lua
       jdtls = disable,         -- Setup in in java.lua
@@ -357,6 +243,12 @@ return {
       })
     end
 
+    local function map_vsplit(lhs, fn, description)
+      vim.keymap.set('n', lhs, function()
+        require('telescope.builtin')[fn]({ jump_type = 'vsplit' })
+      end, { desc = description })
+    end
+
     local function attach_keymaps()
       local nx = { 'n', 'x' }
 
@@ -380,7 +272,6 @@ return {
       map_vsplit('<C-w>gi', 'lsp_implementations')
       map_vsplit('<C-w>gD', 'lsp_type_definitions')
 
-      map('n', '<leader>ls', '<cmd>LspStart<CR>', { desc = 'Start LSP server' })
       map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
     end
 
