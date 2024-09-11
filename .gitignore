@@ -4,7 +4,4 @@ packages/
 
 plugin/work.lua
 
-# lazy.nvim
-lazy-lock.json
-
 after/plugin/private.lua
