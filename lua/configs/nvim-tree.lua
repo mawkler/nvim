@@ -58,7 +58,7 @@ return {
           },
           git_placement = 'signcolumn',
         },
-        highlight_git = 'all',
+        highlight_git = 'name',
       },
       view = {
         width = 40,
@@ -131,12 +131,22 @@ return {
       vim.api.nvim_set_hl(0, group, { fg = nil, bg = nil })
     end
 
-    remove_highlight('NvimTreeFileDirty')
-    remove_highlight('NvimTreeFileStaged')
-    remove_highlight('NvimTreeFileMerge')
-    remove_highlight('NvimTreeFileRenamed')
-    remove_highlight('NvimTreeFileNew')
-    remove_highlight('NvimTreeFileDeleted')
+    -- Remove all name highlights except ignores
+    -- `renderer.highlight_git = 'name'` sets these colors
+    remove_highlight('NvimTreeDiagnosticHintFolderHL')
+    remove_highlight('NvimTreeDiagnosticHintFileHL')
+    remove_highlight('NvimTreeGitFolderRenamedHL')
+    remove_highlight('NvimTreeGitFolderDeletedHL')
+    remove_highlight('NvimTreeGitFolderStagedHL')
+    remove_highlight('NvimTreeGitFolderMergeHL')
+    remove_highlight('NvimTreeGitFolderDirtyHL')
+    remove_highlight('NvimTreeGitFileRenamedHL')
+    remove_highlight('NvimTreeGitFileDeletedHL')
+    remove_highlight('NvimTreeGitFileStagedHL')
+    remove_highlight('NvimTreeGitFolderNewHL')
+    remove_highlight('NvimTreeGitFileMergeHL')
+    remove_highlight('NvimTreeGitFileDirtyHL')
+    remove_highlight('NvimTreeGitFileNewHL')
 
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       pattern = 'NvimTree*',
