@@ -10,5 +10,15 @@ return {
   opts = {
     dismiss_keys = { '<C-c>', '<Esc>' },
     keys = 'qwertyuiopasdfghjklzxcvbnm',
-  }
+    priority = {
+      rust = {
+        { pattern = 'fill match arms', key = 'm' },
+        { pattern = 'add `#%[derive%]`', key = 'd' },
+        { pattern = 'consider making this binding mutable:', key = 'm' },
+        { pattern = 'change visibility to pub', key = 'p' },
+        { pattern = 'generate `new`', key = 'n' },
+        { pattern = 'extract into variable', key = 'x' },
+      },
+    },
+  },
 }
