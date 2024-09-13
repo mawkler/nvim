@@ -10,10 +10,6 @@ function M.get_mode_color(mode)
   return colors.get_highlight(mode .. 'mode')
 end
 
---- Disable `@lsp.type.variable` because it overrides Treesitter's highlights
---- for "builtins" such as `vim`
-vim.api.nvim_set_hl(0, '@lsp.type.variable', {})
-
 -- Use different highlights for special keys in cmdline vs other windows
 vim.opt.winhighlight = 'SpecialKey:SpecialKeyWin'
 
