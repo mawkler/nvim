@@ -83,6 +83,7 @@ return {
         migrate = 'SessionMigrate',
       },
       plugins = {
+        delete_buffers = true,
         delete_hidden_buffers = {
           force = function(bufnr)
             local buf = { buf = bufnr }
@@ -94,17 +95,21 @@ return {
             not vim.o.sessionoptions:match('buffer') and 'before_save',
           },
         },
+        close_windows = {
+          match = {
+            buftype = { 'help' },
+          },
+        }
       },
       hooks = {
         -- I sometimes get an error with windows.nvim when restoring
         -- sessions, Hopefully this fixes that.
         before_load = function()
-          vim.cmd.WindowsDisableAutowidth()
+          pcall(vim.cmd.WindowsDisableAutowidth)
           return true
         end,
         after_load = function()
-          vim.cmd.WindowsEnableAutowidth()
-          return true
+          pcall(vim.cmd.WindowsEnableAutowidth)
         end,
       },
     })
