@@ -43,7 +43,7 @@ return {
     { '<leader>so', list_sessions,            { desc = 'Open session' } },
     { '<leader>ss', save_session,             { desc = 'Save session' } },
     { '<leader>sr', '<cmd>SessionRename<CR>', { desc = 'Rename session' } },
-    { '<leader>sd', '<cmd>SessionDelete<CR>', { desc = 'Delete session' } },
+    { '<leader>sd', ':SessionDelete',         { desc = 'Delete session' } },
   },
   cmd = {
     'SessionSave',
