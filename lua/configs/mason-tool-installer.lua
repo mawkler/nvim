@@ -14,6 +14,7 @@ return {
       'js-debug-adapter',
       'go-debug-adapter',
       'bash-debug-adapter',
+      'delve',
     },
   }
 }

@@ -16,7 +16,7 @@ return {
       vim.o.shiftwidth = 0 -- Use tabstop's width
 
       map('n', '<leader>li', '<cmd>GoImports<CR>',         'Fix imports')
-      map('n', '<leader>ld', '<cmd>GoInstallBinaries<CR>', 'Make sure all tools are updated')
+      map('n', '<leader>dd', '<cmd>GoDebug<CR>',           'Go debug')
       map('n', '<leader>lr', '<cmd>GoGenReturn<CR>',       'Go generate return values for function')
       map('n', 'go',         '<cmd>GoAlt<CR>',             'Go alternative file')
       map('n', '<C-w>go',    '<cmd>GoAltV<CR>',            'Go alternative file in vertical split')
@@ -42,6 +42,8 @@ return {
       lsp_on_attach = on_attach,
       lsp_codelens = false, -- Temporary fix for https://github.com/ray-x/go.nvim/issues/113
       luasnip = true,
+      dap_debug_keymap = false, -- Disable default DAP keymaps
+      icons = false, -- Don't set custom DAP icons
     })
   end
 }

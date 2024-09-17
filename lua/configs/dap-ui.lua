@@ -1,9 +1,9 @@
 ------------
 -- Dap UI --
 ------------
-local function eval() return require('dapui').eval() end
-local function toggle() return require('dapui').toggle() end
-local function hover() return require('dap.ui.widgets').hover() end
+local function eval() require('dapui').eval() end
+local function toggle() require('dapui').toggle() end
+local function hover() require('dap.ui.widgets').hover() end
 
 return {
   'rcarriga/nvim-dap-ui',
