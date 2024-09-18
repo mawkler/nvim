@@ -1,23 +1,21 @@
 --------------
 -- Capslock --
 --------------
+
+local function reload_statusline()
+  vim.opt.statusline = vim.opt.statusline
+end
+
+local function toggle_caps_lock()
+  local mode = vim.fn.mode()
+  require('capslock').toggle(mode)
+  reload_statusline()
+end
+
 return {
   'barklan/capslock.nvim',
   keys = {
-    { '<M-c>', mode = 'i' },
+    { '<M-c>', toggle_caps_lock, mode = { 'i', 'c' } },
   },
-  config = function()
-    require('capslock').setup()
-
-    local function reload_statusline()
-      vim.opt.statusline = vim.opt.statusline
-    end
-
-    local function caps_lock()
-      require('capslock').toggle()
-      reload_statusline()
-    end
-
-    vim.keymap.set('i', '<M-c>', caps_lock)
-  end
+  opts = {}
 }
