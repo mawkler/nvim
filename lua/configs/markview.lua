@@ -77,13 +77,15 @@ return {
     }
 
     for i, hl in ipairs(highlights) do
-      local hl_name = 'MarkviewHeading' .. i
+      local markview_hl_name = 'MarkviewHeading' .. i
+      local ts_hl_name = '@markup.heading.' .. i ..'.markdown'
       local fg = color_utils.get_highlight(hl, 'fg')
 
-      create_highlight(hl_name, fg)
+      create_highlight(markview_hl_name, fg)
+      create_highlight(ts_hl_name, fg)
 
       if i <= 6  then
-        vim.api.nvim_set_hl(0, hl_name .. 'Sign', { fg = fg })
+        vim.api.nvim_set_hl(0, markview_hl_name .. 'Sign', { fg = fg })
       end
     end
 
