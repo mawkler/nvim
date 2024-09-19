@@ -53,7 +53,7 @@ return {
           end
         end
 
-        vim.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
       end,
     },
   },
