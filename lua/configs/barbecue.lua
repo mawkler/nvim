@@ -74,7 +74,7 @@ return {
     require('barbecue').setup({
       kinds = require('utils.icons').icons,
       theme = theme,
-      exclude_filetypes = { 'markdown' },
+      exclude_filetypes = { 'markdown', 'toggleterm', 'rest_nvim_result' },
     })
   end
 }
