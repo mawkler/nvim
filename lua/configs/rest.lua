@@ -11,12 +11,25 @@ return {
   -- Fix for when Neovim gets started with a *.http and leap.nvim overrides the <CR> mapping
   event = 'BufRead *.http',
   config = function()
-
     vim.g.rest_nvim = {
       highlight = {
         timeout = 150,
       },
     }
+
+    ---@param command string
+    local function execute(command)
+      return function ()
+        local prefix = ''
+
+        -- Show result below if window is too narrow
+        if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 110 then
+          prefix = 'horizontal rightbelow '
+        end
+
+        vim.cmd(prefix .. command)
+      end
+    end
 
     vim.api.nvim_create_user_command('Http', function()
       if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 80 then
@@ -35,9 +48,9 @@ return {
 
         vim.o.wrap = false
 
-        map('n', '<CR>',       '<cmd>horizontal rightbelow Rest run<CR>',  opts)
-        map('n', '<leader>lr', '<cmd>horizontal rightbelow Rest last<CR>', opts)
-        map('n', '<leader>ly', '<cmd>Rest curl yank<CR>',                  opts)
+        map('n', '<CR>',       execute('Rest run'),       opts)
+        map('n', '<leader>lr', execute('Rest last'),      opts)
+        map('n', '<leader>ly', '<cmd>Rest curl yank<CR>', opts)
       end,
       group = vim.api.nvim_create_augroup('RestNvim', {})
     })
