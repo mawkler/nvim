@@ -101,6 +101,7 @@ return {
         close_windows = {
           match = {
             buftype = { 'help' },
+            filetype = { 'toggleterm', 'undotree', 'rest_nvim_result' },
           },
         }
       },
