@@ -43,13 +43,14 @@ return {
       },
       links = {
         hyperlinks = {
-          icon = ' ',
+          icon = '󰈔 ',
           custom = {
             { match = '[%.]md$', icon = ' ' },
             { match = '^#', icon = ' ' },
             { match = '^%./', icon = ' ' },
             { match = 'https://(.+)$', icon = '󰌷 ' },
             { match = 'http://(.+)$', icon = '󰌸 ' },
+            { match = '[a-zA-Z]+://', icon = ' ' },
           }
         },
       }
