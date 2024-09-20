@@ -60,7 +60,7 @@ return {
   },
   config = function()
     local telescope = require('telescope')
-    local delete_hidden_filetypes = { nil, 'toggleterm', 'undotree' }
+    local delete_hidden_filetypes = { 'toggleterm', 'undotree' }
 
     require('possession').setup({
       silent = true,
@@ -88,10 +88,7 @@ return {
           force = function(bufnr)
             local buf = { buf = bufnr }
             local filetype = vim.api.nvim_get_option_value('filetype', buf)
-            local is_ignored_filetype = vim.tbl_contains(delete_hidden_filetypes, filetype)
-            local buftype = vim.api.nvim_get_option_value('buftype', buf)
-
-            return is_ignored_filetype or buftype == ''
+            return vim.tbl_contains(delete_hidden_filetypes, filetype)
           end,
           hooks = {
             'before_load',
