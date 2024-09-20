@@ -40,6 +40,8 @@ return {
       vim.cmd.edit('~/.local/share/nvim/rest.http')
     end, { desc = 'Send HTTP request' })
 
+    local augroup = vim.api.nvim_create_augroup('RestNvim', {})
+
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'http',
       callback = function()
@@ -52,7 +54,15 @@ return {
         map('n', '<leader>lr', execute('Rest last'),      opts)
         map('n', '<leader>ly', '<cmd>Rest curl yank<CR>', opts)
       end,
-      group = vim.api.nvim_create_augroup('RestNvim', {})
+      group = augroup
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'rest_nvim_result',
+      callback = function()
+        vim.bo.bufhidden = 'unload'
+      end,
+      group = augroup,
     })
   end
 }
