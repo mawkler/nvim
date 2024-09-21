@@ -20,6 +20,7 @@ opt.shortmess:append('q')  -- Disable "recording @q" (it's shown in statusline i
 opt.spelllang = { 'en', 'sv' }
 opt.spelloptions:append('camel')
 opt.sessionoptions:append('globals') -- Store global variables in sessions
+opt.sessionoptions:remove('buffers') -- Don't include hidden buffers in sessions
 
 -- Windows --
 local opacity = vim.g.neovide and 40 or 18

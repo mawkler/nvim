@@ -60,7 +60,6 @@ return {
   },
   config = function()
     local telescope = require('telescope')
-    local delete_hidden_filetypes = { 'toggleterm', 'undotree' }
 
     require('possession').setup({
       silent = true,
@@ -84,23 +83,13 @@ return {
       },
       plugins = {
         delete_buffers = true,
-        delete_hidden_buffers = {
-          force = function(bufnr)
-            local buf = { buf = bufnr }
-            local filetype = vim.api.nvim_get_option_value('filetype', buf)
-            return vim.tbl_contains(delete_hidden_filetypes, filetype)
-          end,
-          hooks = {
-            'before_load',
-            not vim.o.sessionoptions:match('buffer') and 'before_save',
-          },
-        },
+        delete_hidden_buffers = true,
         close_windows = {
           match = {
-            buftype = { 'help' },
+            buftype = { 'help', 'nofile' },
             filetype = { 'toggleterm', 'undotree', 'rest_nvim_result' },
           },
-        }
+        },
       },
       hooks = {
         -- I sometimes get an error with windows.nvim when restoring
