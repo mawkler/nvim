@@ -118,11 +118,13 @@ return {
           mason_path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
         }
       },
+      -- Typst --
       typst_lsp = {
         on_attach = function()
           map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
         end,
       },
+      -- Typos --
       typos_lsp = {
         on_attach = function(client, _)
           -- Disabled for Markdown, use LTeX instead
@@ -139,6 +141,7 @@ return {
           config = vim.env.HOME .. '/.typos.toml',
         }
       },
+      -- Python --
       pylsp = {
         settings = {
           pylsp = {
@@ -150,6 +153,7 @@ return {
           }
         },
       },
+      -- Azure pipelines --
       azure_pipelines_ls = {
         root_dir = require('lspconfig.util').root_pattern('azure-pipeline*.y*ml'),
         settings = {
@@ -160,7 +164,7 @@ return {
             },
           },
         },
-      }
+      },
     }
 
     local disable = function() end
@@ -173,6 +177,7 @@ return {
       jdtls = disable,         -- Setup in in java.lua
       ltex = disable,          -- Setup in ltex.lua
       gopls = disable,         -- Setup in go.lua
+      elixirls = disable,      -- Setup in elixir.lua
     }
 
     --------------------

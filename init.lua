@@ -43,6 +43,7 @@ local plugins = {
   use 'lsp-inlay-hints',                         -- LSP inlay hints
   use 'rustaceanvim',                            -- rust-analyzer client
   use 'go',                                      -- gopls client
+  use 'elixir',                                  -- Elixir LSP setup
   use 'fastaction',                              -- Predictable LSP code actions
   use 'java',                                    -- JDTLS client
   use 'typescript',                              -- TypeScript LSP client wrapper
