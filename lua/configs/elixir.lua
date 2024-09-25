@@ -3,26 +3,18 @@
 -----------------------
 return {
   'elixir-tools/elixir-tools.nvim',
-  dependencies = { 'nvim-lua/plenary.nvim', 'williamboman/mason.nvim' },
+  dependencies = 'nvim-lua/plenary.nvim',
   version = '*',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local elixir = require('elixir')
-    local elixirls = require('elixir.elixirls')
-    local mason_path = require('mason-core.path')
-    local get_install_path = require('utils').get_install_path
-
-    local cmd = mason_path.concat({ get_install_path('elixir-ls'), 'language_server.sh' })
-
-    elixir.setup({
-      nextls = { enable = false },
+    require('elixir').setup({
       elixirls = {
-        cmd = cmd,
-        settings = elixirls.settings {
-          dialyzerEnabled = true,
-          -- fetchDeps = false,
-          -- enableTestLenses = false,
-          -- suggestSpecs = false,
+        settings = require('elixir.elixirls').settings {
+          dialyzerEnabled        = true, -- Run ElixirLS's rapid Dialyzer when code is saved
+          incrementalDialyzer    = true, -- Use OTP incremental dialyzer
+          suggestSpecs           = true, -- Suggest `@spec` annotations inline, using Dialyzer's inferred success typings
+          signatureAfterComplete = true, -- Show signature help after confirming autocomplete.
+          enableTestLenses       = true, -- Show code lenses to run tests in terminal.
         },
         on_attach = function(_, bufnr)
           local function map(mode, lhs, rhs)
@@ -31,11 +23,12 @@ return {
             end
           end
 
-          map('n', '<space>lfp', ':ElixirFromPipe<cr>')
-          map('n', '<space>ltp', ':ElixirToPipe<cr>')
-          map('v', '<space>lm',  ':ElixirExpandMacro<cr>')
+          map('n', '<leader>lP', ':ElixirFromPipe<cr>')
+          map('n', '<leader>lp', ':ElixirToPipe<cr>')
+          map('v', '<leader>lm', ':ElixirExpandMacro<cr>')
         end
-      }
+      },
+      projectionist = { enable = false },
     })
-  end,
+  end
 }
