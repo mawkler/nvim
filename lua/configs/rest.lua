@@ -23,7 +23,7 @@ return {
         local prefix = ''
 
         -- Show result below if window is too narrow
-        if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 110 then
+        if vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()) < 140 then
           prefix = 'horizontal rightbelow '
         end
 
@@ -55,14 +55,6 @@ return {
         map('n', '<leader>ly', '<cmd>Rest curl yank<CR>', opts)
       end,
       group = augroup
-    })
-
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'rest_nvim_result',
-      callback = function()
-        vim.bo.bufhidden = 'unload'
-      end,
-      group = augroup,
     })
   end
 }
