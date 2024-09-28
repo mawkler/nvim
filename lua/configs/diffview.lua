@@ -30,7 +30,7 @@ return {
     local actions = require('diffview.config').actions
 
     require('diffview').setup({
-      enhanced_diff_hl = false,
+      enhanced_diff_hl = true,
       file_panel = {
         win_config = { width = 40 }
       },
