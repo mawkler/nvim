@@ -163,6 +163,11 @@ map('n', '<leader>W', function()
 end, 'Toggle line wrap')
 
 map('n', '<Esc>', function()
+  local exists, refjump_hl = pcall(require, 'refjump.highlight')
+  if exists then
+    refjump_hl.disable()
+  end
+
   if vim.v.hlsearch == 1 then
     vim.cmd.nohlsearch()
   elseif bo.modifiable then
