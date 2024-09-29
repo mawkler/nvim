@@ -20,12 +20,11 @@ return {
     'DiffviewRefresh',
     'DiffviewLog',
   },
-  init = function()
-    local map = require('utils').map
-    map('n', '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>')
-    map('n', '<leader>gd', diff_file)
-    map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<CR>')
-  end,
+  keys = {
+    { '<leader>gD', '<cmd>DiffviewOpen --untracked-files=no<CR>' },
+    { '<leader>gd', diff_file },
+    { '<leader>gH', '<cmd>DiffviewFileHistory %<CR>' },
+  },
   config = function()
     local actions = require('diffview.config').actions
 

@@ -7,7 +7,6 @@ return {
   keys = {
     '<leader>gC',
     '<leader>gs',
-    '<leader>gd',
     { '<leader>gc', '<cmd>Neogit commit<CR>', desc = 'Git commit' },
     { '<leader>gp', '<cmd>Neogit pull<CR>',   desc = 'Git pull' },
     { '<leader>gP', '<cmd>Neogit push<CR>',   desc = 'Git push' },
