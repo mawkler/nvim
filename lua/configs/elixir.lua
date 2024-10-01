@@ -5,7 +5,7 @@ return {
   'elixir-tools/elixir-tools.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
   version = '*',
-  event = { 'BufReadPre', 'BufNewFile' },
+  event = 'FileType elixir',
   config = function()
     require('elixir').setup({
       elixirls = {
