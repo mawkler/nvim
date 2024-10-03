@@ -18,7 +18,12 @@ return {
         { pattern = 'change visibility to pub', key = 'p' },
         { pattern = 'generate `new`', key = 'n' },
         { pattern = 'extract into variable', key = 'x' },
+        { pattern = 'consider', key = 'c' },
+        { pattern = 'remove all the unused imports', key = 'R' },
+        { pattern = 'generate impl for', key = 'i' },
       },
     },
+    -- Fixes error thrown when code action list exceeds a threshold
+    register_ui_select = true,
   },
 }
