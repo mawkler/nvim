@@ -6,7 +6,7 @@ return {
   dependencies = 'nvim-treesitter/nvim-treesitter',
   version = '*',
   keys = { { '<leader>D', '<cmd>Neogen<CR>', desc = 'Generate annotations' } },
-  config = {
+  opts = {
     snippet_engine = 'luasnip',
   }
 }
