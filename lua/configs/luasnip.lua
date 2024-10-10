@@ -3,6 +3,7 @@
 -------------
 return {
   'L3MON4D3/LuaSnip',
+  run = 'make install_jsregexp',
   dependencies = 'mireq/luasnip-snippets', -- Collection of snippets
   event = 'InsertEnter',
   config = function()
@@ -106,5 +107,6 @@ return {
     map({'i', 's'}, '<M-.>',   right_or_snip_next,   '<Right> or next snippet')
     map({'i', 's'}, '<M-,>',   left_or_snip_prev,    '<Left> or previous snippet')
     map({'i', 's'}, '<M-t>',   toggle_active_choice, 'Toggle active snippet choice')
+    map({'i', 's'}, '<C-y>',   luasnip.expand,       'Expand snippet')
   end
 }
