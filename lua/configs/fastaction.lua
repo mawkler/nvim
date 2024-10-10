@@ -21,6 +21,9 @@ return {
         { pattern = 'consider', key = 'c' },
         { pattern = 'remove all the unused imports', key = 'R' },
         { pattern = 'generate impl for', key = 'i' },
+        { pattern = 'implement missing members', key = 'i' },
+        { pattern = 'import `', key = 'i' },
+        { pattern = 'inline ', key = 'i' },
       },
     },
     -- Fixes error thrown when code action list exceeds a threshold
