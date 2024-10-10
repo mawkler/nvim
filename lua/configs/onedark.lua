@@ -83,6 +83,7 @@ return {
         markdownUrl = { link = 'mkdLink' },
         markdownWikiLink = { fg = c.blue0, sylte = style.Bold },
         ['@punctuation.bracket.markdown_inline'] = { link = 'markdownWikiLink' },
+        ['@markup.quote.markdown'] = { fg = c.fg_dark },
         htmlBold = { fg = c.orange0, style = style.Bold },
         htmlItalic = { fg = c.purple0, style = style.Italic },
         -- TypeScript
