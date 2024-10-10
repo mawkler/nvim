@@ -15,6 +15,11 @@ return {
       highlight = {
         timeout = 150,
       },
+      request = {
+        hooks = {
+          encode_url = false, -- Fixes issue with URLs containin `;`
+        },
+      },
     }
 
     ---@param command string
