@@ -25,13 +25,8 @@ return {
           surround = true,
           alpha = true,
           cond = function(fn)
-            -- Don't autopair apostrophes in Rust lifetimes
-            return fn.get_ft() ~= 'rust' or not fn.in_node({
-              'bounded_type',
-              'reference_type',
-              'type_arguments',
-              'type_parameters',
-            })
+            -- Don't autopair apostrophes in Rust (because they're usually used for lifetimes)
+            return fn.get_ft() ~= 'rust'
           end,
           nft = { 'tex', 'lisp' } -- Taken from default config
         }
@@ -52,7 +47,14 @@ return {
     -- Add parenthesis on completion confirmation
     cmp.event:on('confirm_done', function(event)
       local ok, ls_name = pcall(ls_name_from_event, event)
-      local server_blacklist = { 'rust-analyzer', 'lua_ls', 'typst_lsp', 'gopls', 'bicep' }
+      local server_blacklist = {
+        'rust-analyzer',
+        'lua_ls',
+        'typst_lsp',
+        'gopls',
+        'bicep',
+        'ElixirLS',
+      }
       if ok and vim.tbl_contains(server_blacklist, ls_name) then
         return
       end
