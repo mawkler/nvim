@@ -101,7 +101,14 @@ return {
       },
       -- Bash/Zsh --
       bashls = {
-        filetypes = { 'sh', 'zsh' }
+        filetypes = { 'sh', 'zsh' },
+        settings = {
+          bashIde = {
+            shfmt = {
+              spaceRedirects = true, -- Allow space after `>` symbols
+            },
+          },
+        },
       },
       -- Json --
       jsonls = {

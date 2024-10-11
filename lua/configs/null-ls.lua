@@ -13,9 +13,6 @@ return {
     local sources = {
       builtins.formatting.prettier,
       builtins.hover.dictionary,
-      builtins.formatting.shfmt.with({
-        args = { '-sr' } -- Space after redirects
-      }),
     }
 
     null_ls.setup({
