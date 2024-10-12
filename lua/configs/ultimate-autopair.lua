@@ -10,7 +10,7 @@ return {
     require('ultimate-autopair').setup({
       extensions = {
         filetype = {
-          nft = { 'TelescopePrompt', 'DressingInput', 'NoiceCommandline' },
+          nft = { 'TelescopePrompt', 'DressingInput' },
         },
       },
       { '**', '**', ft = { 'markdown' }, multiline = false },
@@ -33,8 +33,9 @@ return {
       },
       bs = {
         map = { '<BS>',  '<C-h>' },
-        cmap = { '<BS>', '<C-h>' },
       },
+      -- Disable in command-line-mode
+      cmap = false,
     })
 
     local cmp = require('cmp')
