@@ -81,18 +81,6 @@ map('o',        '{',             'V{')
 map('i',        '<C-;>',         '<Esc>m0A;<Esc>`0a')
 map('i',        '<C-,>',         '<Esc>m0A,<Esc>`0a')
 
-local function spell_jump(command)
-  return function()
-    local spell = wo.spell
-    wo.spell = true
-    feedkeys_count(command, 'xn')
-    wo.spell = spell
-  end
-end
-
-map('n', ']s', spell_jump(']s'), 'Jump to next spelling error')
-map('n', '[s', spell_jump('[s'), 'Jump to previous spelling error')
-
 map('n', '<leader>K',        ':vertical Man <C-R><C-W><CR>')
 map('x', '<leader>K',        'y:vertical Man <C-R>"<CR>')
 

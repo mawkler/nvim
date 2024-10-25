@@ -28,12 +28,6 @@ return {
       desc = 'Leap select treesitter text-object (linewise)',
     }
   },
-  init = function()
-    local map = require('utils').map
-    -- Move default zj/zk bindings to ]z/[z
-    map('n', ']z', 'zj', 'Jump to next fold')
-    map('n', '[z', 'zk', 'Jump to previous fold')
-  end,
   config = function()
     require('leap').setup({
       case_sensitive = false,
