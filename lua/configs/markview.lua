@@ -67,7 +67,7 @@ return {
     -- Position in table is the heading number
     local highlights = {
       '@markup.heading',
-      'CursorLineNr',
+      'String',
       'Keyword',
       'Type',
       'Boolean',
