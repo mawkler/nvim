@@ -73,4 +73,13 @@ vim.o.listchars = 'tab:󱦰 ,space:·,nbsp:,eol:↵'
 opt.fillchars   = {
   diff = ' ',  -- Cleaner deleted lines in diff
   eob  = ' ',  -- Don't show `~` at end of buffer
+
+  -- Use thicker lines for window separators
+  vert = '┃',
+  horiz = '━',
+  horizup = '┻',
+  horizdown = '┳',
+  vertleft = '┫',
+  vertright = '┣',
+  verthoriz = '╉',
 }
