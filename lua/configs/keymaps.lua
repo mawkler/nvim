@@ -124,6 +124,7 @@ map('n', '<C-=>', zoom(v.count1 * 0.5))
 map('n', '<C-+>', zoom(v.count1 * 0.5))
 map('n', '<C-->', zoom(-v.count1 * 0.5))
 map('n', '<C-0>', zoom_set(11))
+map('n', '<C-)>', zoom_set(11))
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<C-w><C-^>', '<C-w>v<C-6>')
