@@ -55,6 +55,7 @@ return {
         SelectMode   = { fg = c.cyan0,   bg = cursorline_bg, style = style.Bold },
         ReplaceMode  = { fg = c.red2,    bg = cursorline_bg, style = style.Bold },
         TerminalMode = { fg = c.green0,  bg = cursorline_bg, style = style.Bold },
+        TerminalNormalMode = { link = 'NormalMode' },
         -- Custom highlights
         InlineHint = { fg = c.bg_visual },
         LspCodeLens = { link = 'InlineHint' },
@@ -106,6 +107,7 @@ return {
         NvimTreeGitDirty = { fg = c.orange1 },
         NvimTreeGitNew = { fg = c.green0 },
         NvimTreeGitIgnored = { fg = c.fg_dark },
+        NvimTreeRootFolder = { fg = c.fg0, style = style.Bold },
         -- Telescope
         TelescopeMatching = { fg = c.blue0, style = style.Bold },
         TelescopePromptPrefix = { fg = c.fg0, style = style.Bold },
