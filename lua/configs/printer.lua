@@ -29,5 +29,7 @@ return {
         return string.format('%s', text)
       end,
     })
+
+    vim.keymap.set('n', 'gpp', 'gpiL', { remap = true })
   end
 }
