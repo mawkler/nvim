@@ -5,7 +5,7 @@ return {
   'elixir-tools/elixir-tools.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
   version = '*',
-  event = 'FileType elixir',
+  event = 'FileType elixir,heex',
   config = function()
     require('elixir').setup({
       elixirls = {
