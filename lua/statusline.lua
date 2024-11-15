@@ -310,7 +310,7 @@ table.insert(active_right, {
   right_sep = ' ',
   enabled = 'git_info_exists',
   icon = {
-    str = '  ',
+    str = '  ',
     hl = { fg = '#f34f29' },
   },
   truncate_hide = true,
