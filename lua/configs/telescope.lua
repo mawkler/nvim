@@ -23,14 +23,12 @@ return {
     local map = require('utils').map
     local append = require('utils').append
 
-    local fn = vim.fn
-
     local telescope = require('telescope')
     local themes = require('telescope.themes')
     local extensions = telescope.extensions
     local builtin = require('telescope.builtin')
 
-    local fd_ignore_file = fn.expand('$HOME/') .. '.rgignore'
+    local fd_ignore_file = vim.fn.expand('$HOME/') .. '.rgignore'
     local cder_dir_cmd = {
       'fd',
       '-t',
@@ -40,6 +38,14 @@ return {
       fd_ignore_file,
       '.',
     }
+    local cder_preview_cmed = 'exa '
+      .. '--color=always '
+      .. '-T '
+      .. '--level=2 '
+      .. '--icons '
+      .. '--git-ignore '
+      .. '--git '
+      .. '--ignore-glob=.git'
 
     -- Don't show line text, just the file name
     local horizontal_picker = { show_line = false }
@@ -127,15 +133,18 @@ return {
           sessions_dir = vim.fn.stdpath('data') ..'/sessions/'
         },
         cder = {
-          previewer_command = 'exa '
-            .. '--color=always '
-            .. '-T '
-            .. '--level=2 '
-            .. '--icons '
-            .. '--git-ignore '
-            .. '--git '
-            .. '--ignore-glob=.git',
+          previewer_command = cder_preview_cmed,
           dir_command = cder_dir_cmd,
+          mappings = {
+            default = function(directory)
+              vim.fn.system({ 'zoxide', 'add', directory })
+              vim.cmd.cd(directory)
+            end,
+            ['<C-t>'] = function(directory)
+              vim.fn.system({ 'zoxide', 'add', directory })
+              vim.cmd.tcd(directory)
+            end,
+          },
         },
         zoxide = {
           prompt_title = 'Zoxide',
@@ -181,7 +190,7 @@ return {
 
     local function grep_string()
       vim.g.grep_string_mode = true
-      vim.ui.input({ prompt = 'Grep string', default = fn.expand("<cword>") },
+      vim.ui.input({ prompt = 'Grep string', default = vim.fn.expand("<cword>") },
         function(value)
           if value ~= nil then
             require('telescope.builtin').grep_string({ search = value })
