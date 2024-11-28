@@ -382,7 +382,7 @@ table.insert(active_right, {
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
   icon = function() return {
-    str = ' ',
+    str = ' ',
     hl = {
       fg = mode_color(),
       bg = 'line_bg'
