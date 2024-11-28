@@ -125,6 +125,7 @@ local plugins = {
   use 'image',                                   -- ASCII art image viewer
   use 'text-case',                               -- Convert between text cases
 
+  { 'mawkler/hml.nvim', opts = {} },             -- H/M/L line number indicators
   { 'tpope/vim-fugitive',                        -- :Git commands
     dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
     cmd = { 'G', 'Git', 'Gvdiffsplit' },
