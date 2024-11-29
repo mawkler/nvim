@@ -64,5 +64,8 @@ return {
     map('n', '<leader>cp', 'yycmp', {
       remap = true, desc = 'Comment and duplicate line'
     })
+
+    -- Temporary workaround for https://github.com/numToStr/Comment.nvim/issues/497
+    require('Comment.ft').heex = '<%!-- %s --%>'
   end,
 }
