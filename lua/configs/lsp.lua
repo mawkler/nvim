@@ -125,8 +125,7 @@ return {
           mason_path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
         }
       },
-      -- Typst --
-      typst_lsp = {
+      tinymist = {
         on_attach = function()
           map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
         end,

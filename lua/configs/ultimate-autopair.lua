@@ -51,7 +51,7 @@ return {
       local server_blacklist = {
         'rust-analyzer',
         'lua_ls',
-        'typst_lsp',
+        'tinymist',
         'gopls',
         'bicep',
         'ElixirLS',
