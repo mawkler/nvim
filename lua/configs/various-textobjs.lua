@@ -26,29 +26,31 @@ return {
     local various_textobjs = require('various-textobjs')
 
     various_textobjs.setup({
-      useDefaultKeymaps = true,
-      disabledKeymaps = {
-        'ig', -- Replaced with iG
-        'ag', -- Replaced with aG
-        'gG', -- Replaced with ie
-        '|',  -- Disabled
-        'L',  -- Replaced with ix
-        'r',  -- I only want this for normal mode
-        '=',  -- Use Treesitter's @assignment instead
-        'il', -- Replaced with iL
-        'al', -- Replaced with aL
-        'ic', -- Disabled (CSS class)
-        'ac', -- Disabled (CSS class)
-        'ix', -- Replaced with iX
-        'ax', -- Replaced with iX
-        'iD', -- Use vim-textobj-user's date instead
-        'aD', -- Use vim-textobj-user's date instead
-        'iS', -- Replaced with i-
-        'aS', -- Replaced with a-
-        'in', -- Disabled, use treesitter's iN, instead
-        'an', -- Disabled, use treesitter's aN, instead
-        'ie', -- Remapped to iE
-        'ae', -- Remapped to aE
+      keymaps = {
+        useDefaults = true,
+        disabledDefaults = {
+          'ig', -- Replaced with iG
+          'ag', -- Replaced with aG
+          'gG', -- Replaced with ie
+          '|',  -- Disabled
+          'L',  -- Replaced with ix
+          'r',  -- I only want this for normal mode
+          '=',  -- Use Treesitter's @assignment instead
+          'il', -- Replaced with iL
+          'al', -- Replaced with aL
+          'ic', -- Disabled (CSS class)
+          'ac', -- Disabled (CSS class)
+          'ix', -- Replaced with iX
+          'ax', -- Replaced with iX
+          'iD', -- Use vim-textobj-user's date instead
+          'aD', -- Use vim-textobj-user's date instead
+          'iS', -- Replaced with i-
+          'aS', -- Replaced with a-
+          'in', -- Disabled, use treesitter's iN, instead
+          'an', -- Disabled, use treesitter's aN, instead
+          'ie', -- Remapped to iE
+          'ae', -- Remapped to aE
+        },
       },
     })
 
