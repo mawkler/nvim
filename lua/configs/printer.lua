@@ -19,11 +19,16 @@ return {
       return string.format('dbg!(%s%s);', prefix, inside)
     end
 
+    local function elixir_formatter(inside, variable)
+      return string.format("IO.inspect(%s)", inside, variable)
+    end
+
     require('printer').setup({
       keymap = 'gp',
       formatters = {
         lua = lua_formatter,
         rust = rust_formatter,
+        elixir = elixir_formatter
       },
       add_to_inside = function(text)
         return string.format('%s', text)
