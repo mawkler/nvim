@@ -7,6 +7,15 @@ return {
   version = '*',
   event = 'FileType elixir,heex',
   config = function()
+    local augroup = vim.api.nvim_create_augroup('ElixirConfig', {})
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'heex',
+      callback = function()
+        vim.opt_local.iskeyword:append('@-@') -- Don't count `@` as its own word
+      end,
+      group = augroup,
+    })
+
     require('elixir').setup({
       elixirls = {
         settings = require('elixir.elixirls').settings {
