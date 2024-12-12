@@ -239,7 +239,12 @@ return {
     -------------
     local function lsp_references()
       require('utils').clear_lsp_references()
-      lsp.buf.document_highlight()
+
+      local method = 'textDocument/documentHighlight'
+      if #vim.lsp.get_clients({ method = method }) > 0 then
+        lsp.buf.document_highlight()
+      end
+
       telescope.lsp_references({ include_declaration = false })
     end
 
