@@ -25,7 +25,7 @@ return {
     map('x',        'Y',         '"+y',             remap)
     map('n',        'cY',        '"+y$',            remap)
     map('n',        'cp',        '"+p',             remap)
-    map('s',        '<leader>p', '<C-r>+',          remap)
+    map('s',        '<M-S-p>',   '<C-r>+',          remap)
     map('n',        'cP',        '"+P',             remap)
     map('n',        'Y',         'y$',              remap)
     map('!',        '<M-p>',     '<C-r><C-o>"',     remap)
