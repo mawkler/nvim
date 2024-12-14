@@ -61,6 +61,7 @@ return {
           buffer = true,
         })
         map('t', '<C-w>', [[<C-\><C-n><C-w>]], { buffer = true })
+        map('n', '<CR>', '<C-i><CR>',          { buffer = true, remap = true })
       end,
       group = augroup
     })
