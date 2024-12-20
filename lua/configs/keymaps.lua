@@ -80,6 +80,8 @@ map('o',        '}',             'V}')
 map('o',        '{',             'V{')
 map('i',        '<C-;>',         '<Esc>m0A;<Esc>`0a')
 map('i',        '<C-,>',         '<Esc>m0A,<Esc>`0a')
+map('s',        '<C-;>',         '<Esc>A;<Esc>gv<C-g>', { remap = false })
+map('s',        '<C-,>',         '<Esc>A,<Esc>gv<C-g>', { remap = false })
 
 map('n', '<leader>K',        ':vertical Man <C-R><C-W><CR>')
 map('x', '<leader>K',        'y:vertical Man <C-R>"<CR>')
