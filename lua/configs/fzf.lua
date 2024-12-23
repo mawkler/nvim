@@ -11,8 +11,8 @@ return {
     winopts = {
       width = 0.9,
       height = 0.8,
-      hl = { border = 'SpecialKey', },
     },
+    hls = { border = 'SpecialKey' },
     files = {
       prompt = '  > ',
       cmd = 'rg --hidden --files --ignore-file-case-insensitive '
