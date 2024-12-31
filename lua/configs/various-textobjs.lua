@@ -11,8 +11,8 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.keymap.set({ 'o', 'x' }, lhs, rhs, { buffer = event.buf })
     end
 
-    map('iX', function() require('various-textobjs').mdlink('inner') end)
-    map('aX', function() require('various-textobjs').mdlink('outer') end)
+    map('iX', function() require('various-textobjs').mdLink('inner') end)
+    map('aX', function() require('various-textobjs').mdLink('outer') end)
     map('ic', function() require('various-textobjs').mdFencedCodeBlock('inner') end)
     map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
   end,
