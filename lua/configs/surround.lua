@@ -10,6 +10,7 @@ return {
   },
   init = function()
     local map = require('utils').map
+    local get_selections = require('nvim-surround.config').get_selections
     local augroup = 'Surround'
 
     map('n', 'S', 's$', { remap = true, desc = 'Surround until end of line' })
@@ -27,6 +28,37 @@ return {
     end
 
     vim.api.nvim_create_augroup(augroup, {})
+
+    ---@return { add: function, delete: function }
+    local function type(name)
+      return {
+        add = function()
+          return { { name .. '<' }, { '>' } }
+        end,
+        delete = function(char)
+          return get_selections({
+            char = char,
+            pattern = string.format('(%s<)().-(>)()', name),
+          })
+        end,
+      }
+    end
+
+    ---@return { add: function, delete: function }
+    local function function_name(name)
+      return {
+        add = function()
+          return { { name .. '(' }, { ')' } }
+        end,
+        delete = function(char)
+          return get_selections({
+            char = char,
+            pattern = string.format('(%s%()().-(%))()', name),
+          })
+        end,
+      }
+    end
+
 
     filetype_surround('lua', {
       F = { -- Anonymous function
@@ -61,6 +93,22 @@ return {
           }
         end
       },
+      v = { -- vec![]
+        add = function()
+          return { { 'vec![' }, { ']' } }
+        end,
+        delete = function(char)
+          return get_selections({
+            char = char,
+            pattern = "(vec!%[)().-(%])()",
+          })
+        end,
+      },
+      s = function_name('Some'),
+      o = function_name('Ok'),
+      O = type('Option'),
+      R = type('Result'),
+      V = type('Vec'),
     })
     filetype_surround({ 'typescript', 'javascript' }, {
       s = { -- String interpolation
