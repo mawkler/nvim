@@ -122,9 +122,9 @@ local function zoom(amount)
   end
 end
 
-map('n', '<C-=>', zoom(v.count1 * 0.5))
-map('n', '<C-+>', zoom(v.count1 * 0.5))
-map('n', '<C-->', zoom(-v.count1 * 0.5))
+map('n', '<C-=>', zoom(v.count1 * 1))
+map('n', '<C-+>', zoom(v.count1 * 1))
+map('n', '<C-->', zoom(-v.count1 * 1))
 map('n', '<C-0>', zoom_set(11))
 map('n', '<C-)>', zoom_set(11))
 
