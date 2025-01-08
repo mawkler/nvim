@@ -5,7 +5,11 @@ return {
   'pmizio/typescript-tools.nvim',
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
   opts = {
-    on_attach = function(_, bufnr)
+    on_attach = function(client, bufnr)
+      -- Disable formatting (use prettier instead, see `conform.lua`)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+
       local map = require('utils').local_map(bufnr)
 
       local function spread(char)

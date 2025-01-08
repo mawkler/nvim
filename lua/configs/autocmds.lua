@@ -17,16 +17,6 @@ vim.api.nvim_create_autocmd('FileType', {
   group = augroup,
 })
 
--- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
---     ['*.ts,*.tsx'] = function()
---       if b.format_on_write ~= false then
---         vim.cmd 'TSLspOrganize'
---         vim.cmd 'TSLspImportAll'
---       end
---     end
---   }
--- }
-
 -- Check if any file has changed when Neovim is focused
 vim.api.nvim_create_autocmd('FocusGained', {
   command = 'checktime',

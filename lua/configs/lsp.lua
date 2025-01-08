@@ -291,9 +291,6 @@ return {
       map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
     end
 
-    -- File types to not format on write
-    local format_on_write_blacklist = {}
-
     ---------------------------
     -- Default LSP on_attach --
     ---------------------------
@@ -310,11 +307,6 @@ return {
 
         -- Keymaps
         attach_keymaps()
-
-        -- Autoformatting
-        if not vim.tbl_contains(format_on_write_blacklist, filetype) then
-          require('utils.formatting').format_on_write(client, bufnr)
-        end
 
         -- Code lens
         if client.server_capabilities.codeLensProvider then
