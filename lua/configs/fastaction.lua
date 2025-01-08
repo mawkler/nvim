@@ -4,8 +4,7 @@
 return {
   'Chaitanyabsprip/fastaction.nvim',
   keys = {
-    { '<leader>a', function() require('fastaction').code_action() end,       mode = 'n', desc = 'LSP code action' },
-    { '<leader>a', function() require('fastaction').range_code_action() end, mode = 'x', desc = 'LSP code action' },
+    { '<leader>a', function() require('fastaction').code_action() end, mode = { 'n', 'x' }, desc = 'LSP code action' },
   },
   opts = {
     dismiss_keys = { '<C-c>', '<Esc>' },
@@ -18,7 +17,7 @@ return {
         { pattern = 'change visibility to pub', key = 'p' },
         { pattern = 'generate `new`', key = 'n' },
         { pattern = 'extract into variable', key = 'x' },
-        { pattern = 'extract into function', key = 'x' },
+        { pattern = 'extract into function', key = 'f' },
         { pattern = 'consider', key = 'c' },
         { pattern = 'change this to:', key = 'c' },
         { pattern = 'remove all the unused imports', key = 'R' },
