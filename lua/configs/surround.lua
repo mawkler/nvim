@@ -72,7 +72,13 @@ return {
       c = { -- Code block
         add = function()
           return { { '```', ''}, { '', '```' } }
-        end
+        end,
+        delete = function(char)
+          return get_selections({
+            char = char,
+            pattern = '(```[a-zA-Z]*\n)().-(```\n)()',
+          })
+        end,
       },
     })
     filetype_surround('tex', {
@@ -100,7 +106,7 @@ return {
         delete = function(char)
           return get_selections({
             char = char,
-            pattern = "(vec!%[)().-(%])()",
+            pattern = '(vec!%[)().-(%])()',
           })
         end,
       },
@@ -114,7 +120,7 @@ return {
       s = { -- String interpolation
         add = function()
           return { { '${' }, { '}' } }
-        end
+        end,
       },
     })
   end,

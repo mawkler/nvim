@@ -17,7 +17,7 @@ return {
       },
       request = {
         hooks = {
-          encode_url = false, -- Fixes issue with URLs containin `;`
+          encode_url = false, -- Fixes issue with URLs containing `;`
         },
       },
     }
