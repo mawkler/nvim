@@ -28,6 +28,18 @@ return {
             prev = '[g',
           },
         },
+        neotest = {
+          keymaps = {
+            test = {
+              next = ']T',
+              prev = '[T',
+            },
+            failed_test = {
+              next = ']!',
+              prev = ']!',
+            }
+          },
+        },
       },
     })
 

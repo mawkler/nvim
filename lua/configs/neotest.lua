@@ -36,10 +36,6 @@ return {
     { '<leader>TO', function() neotest().output_panel.toggle() end,   desc = 'Open test output panel' },
     { '<leader>Tm', function() neotest().summary.marked() end,        desc = 'Run marked tests' },
     { '<leader>Ts', function() neotest().summary.toggle() end,        desc = 'Toggle teset summary' },
-    { ']T',         function() neotest().jump.next() end,             desc = 'Jump to next test' },
-    { '[T',         function() neotest().jump.prev() end,             desc = 'Jump to previous test' },
-    { ']!',         function() jump_to_failed('next') end,            desc = 'Jump to next failed test' },
-    { '[!',         function() jump_to_failed('prev') end,            desc = 'Jump to next failed test' },
   },
   cmd = { 'Neotest' },
   config = function()
