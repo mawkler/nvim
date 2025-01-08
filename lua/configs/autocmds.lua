@@ -6,7 +6,7 @@ local utils = require('utils')
 local map = utils.map
 
 vim.api.nvim_create_augroup('GeneralAutocmds', {})
-vim.api.nvim_create_augroup('FileTypeAutocmds', {})
+local augroup = vim.api.nvim_create_augroup('FileTypeAutocmds', {})
 
 -- TypeScript specific --
 vim.api.nvim_create_autocmd('FileType', {
@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     opt.matchpairs:append('<:>')
   end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Disabled until TSLspOrganize and/or TSLspImportAll doesn't collide with
@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd('FocusGained', {
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   pattern = '*.dconf',
   callback = function() o.syntax = 'sh' end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Open :help in vertical split instead of horizontal
@@ -48,14 +48,14 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd.wincmd('L')
     vim.cmd 'vertical resize 81'
   end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Don't conceal current line in some file formats
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'latex', 'tex', 'json', 'http' },
   callback = function() wo.concealcursor = '' end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Markdown specific --
@@ -65,14 +65,14 @@ vim.api.nvim_create_autocmd('FileType', {
     -- Adds horizontal line below and enters insert mode below it
     map('n', '<leader>-', 'o<Esc>0"_Do<Esc>0"_C---<CR><CR>')
   end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Filetype specific indent settings
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'css', 'python', 'cs' },
   callback = function() bo.shiftwidth = 4 end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- Start git commits at start of line, and insert mode if message is empty
@@ -84,12 +84,21 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.cmd('startinsert!')
     end
   end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
 })
 
 -- `K` in Lua files opens Vim helpdocs
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
   callback = function() bo.keywordprg = ':help' end,
-  group = 'FileTypeAutocmds',
+  group = augroup,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'json',
+  callback = function()
+    vim.bo.formatexpr = ''
+    vim.bo.formatprg = 'jq'
+  end,
+  group = augroup,
 })
