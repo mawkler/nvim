@@ -23,12 +23,17 @@ return {
       return string.format("IO.inspect(%s)", inside, variable)
     end
 
+    local function heex_formatter(inside, variable)
+      return string.format('<%% IO.inspect(%s, pretty: true) %%>', inside, variable)
+    end
+
     require('printer').setup({
       keymap = 'gp',
       formatters = {
         lua = lua_formatter,
         rust = rust_formatter,
-        elixir = elixir_formatter
+        elixir = elixir_formatter,
+        heex = heex_formatter,
       },
       add_to_inside = function(text)
         return string.format('%s', text)
