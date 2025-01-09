@@ -21,5 +21,14 @@
       "})"
     ],
     "description": "Neovim augroup"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": [
+      "function$1()",
+      "\t$2",
+      "end"
+    ],
+    "description": "Function"
   }
 }
