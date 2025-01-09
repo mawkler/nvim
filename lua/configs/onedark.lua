@@ -40,7 +40,7 @@ return {
         IncSearch = { bg = c.blue0 },
         CurSearch = { link = 'Search' },
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
-        MatchParen = { fg = nil, bg = nil, style = string.format('%s,%s', style.Bold, style.Underline) },
+        MatchParen = { fg = nil, bg = c.bg_search, style = style.Bold },
         CursorLine = { bg = cursorline_bg },
         CursorColumn = { link = 'CursorLine' },
         CursorLineNr = { fg = c.green0, bg = cursorline_bg, style = style.Bold },
