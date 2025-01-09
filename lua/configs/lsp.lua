@@ -208,6 +208,7 @@ return {
       vim.tbl_keys(special_server_configs)
     )
 
+    ---@diagnostic disable-next-line: missing-fields
     require('mason-lspconfig').setup({
       handlers = { setup },
       ensure_installed = ensure_installed
