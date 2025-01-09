@@ -148,6 +148,7 @@ local plugins = {
   { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
     event = 'CmdlineEnter'
   },
+  { 'bogado/file-line' }                         -- Support file path line numbers like `file.lua:123`
 }
 
 require('lazy').setup({
