@@ -4,14 +4,35 @@
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
-    'David-Kunz/jester',                -- Debugging Jest tests
-    'theHamsta/nvim-dap-virtual-text',  -- Show variable values in virtual text
-    'mxsdev/nvim-dap-vscode-js',        -- DAP adapter for vs**de-js-debug
-    'williamboman/mason.nvim',          -- Manage DAP adapters
-    'jay-babu/mason-nvim-dap.nvim',     -- Automatic DAP configuration
-    'ofirgall/goto-breakpoints.nvim',   -- Jump to next/previous breakpoint
+    'David-Kunz/jester',                 -- Debugging Jest tests
+    'theHamsta/nvim-dap-virtual-text',   -- Show variable values in virtual text
+    'mxsdev/nvim-dap-vscode-js',         -- DAP adapter for vs**de-js-debug
+    'williamboman/mason.nvim',           -- Manage DAP adapters
+    'jay-babu/mason-nvim-dap.nvim',      -- Automatic DAP configuration
+    'ofirgall/goto-breakpoints.nvim',    -- Jump to next/previous breakpoint
+    'nvim-telescope/telescope-dap.nvim', -- Telescope integration
   },
-  event = 'VeryLazy',
+  keys = {
+    { '<leader>td', '<cmd>Telescope dap commands<CR>', desc = 'DAP commands' },
+    { '<leader>tb', '<cmd>Telescope dap list_breakpoints<CR>', desc = 'DAP breakpoints'  },
+    { '<leader>tv', '<cmd>Telescope dap variables<CR>', desc = 'DAP variables'  },
+    { '<leader>tf', '<cmd>Telescope dap frames<CR>', desc = 'DAP variables'  },
+  },
+  cmd = {
+    'DapContinue',
+    'DapDisconnect',
+    'DapNew',
+    'DapTerminate',
+    'DapRestartFrame',
+    'DapStepInto',
+    'DapStepOut',
+    'DapStepOver',
+    'DapEval',
+    'DapToggleRepl',
+    'DapClearBreakpoints' ,
+    'DapToggleBreakpoint' ,
+    'DapSetLogLevel' ,
+  },
   config = function()
     local dap = require('dap')
     local jester = require('jester')

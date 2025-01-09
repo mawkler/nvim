@@ -56,16 +56,13 @@ return {
     { 'jvgrootveld/telescope-zoxide' },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim' },
-    { 'nvim-telescope/telescope-dap.nvim' },
     { 'Zane-/cder.nvim' },
     { 'rcarriga/nvim-notify' },
-    { 'mfussenegger/nvim-dap' },
     { 'rafi/telescope-thesaurus.nvim' },
     { 'ThePrimeagen/git-worktree.nvim' },
   },
   cmd = 'Telescope',
   keys = {
-    { '<C-p>',      '<cmd>Telescope find_files<CR>',                desc = 'Find files' },
     { '<leader>tt', '<cmd>Telescope<CR>',                           desc = 'Recently used files' },
     { '<leader>F',  '<cmd>Telescope live_grep<CR>',                 desc = 'Live grep' },
     { '<leader>B',  '<cmd>Telescope buffers<CR>',                   desc = 'Open buffers' },
@@ -83,13 +80,12 @@ return {
     { '<leader>tg', '<cmd>Telescope git_files<CR>',                 desc = 'Find git files' },
     { 'sp',         '<cmd>Telescope spell_suggest<CR>',             desc = 'Spell suggestions' },
 
+    { '<C-p>', function()
+      require('telescope.builtin').find_files({ hidden = true })
+    end, desc = 'Find files' },
+
     { '<leader>M',  telescope_markdowns, desc = 'Filter markdowns' },
     { '<leader>n',  telescope_config, desc = 'Filter Neovim config' },
-
-    { '<leader>td', '<cmd>Telescope dap commands<CR>', desc = 'DAP commands' },
-    { '<leader>tb', '<cmd>Telescope dap list_breakpoints<CR>', desc = 'DAP breakpoints'  },
-    { '<leader>tv', '<cmd>Telescope dap variables<CR>', desc = 'DAP variables'  },
-    { '<leader>tf', '<cmd>Telescope dap frames<CR>', desc = 'DAP variables'  },
 
     { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',  desc = 'Thesaurus' },
     { '<leader>tn', '<cmd>Telescope notify notify<CR>',     desc = 'Notifications' },
