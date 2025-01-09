@@ -10,13 +10,11 @@ return {
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
-    { 'nvim-telescope/telescope.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   },
   event = { 'VeryLazy', 'BufWrite' },
   config = function()
     local api, lsp = vim.api, vim.lsp
     local lspconfig = require('lspconfig')
-    local telescope = require('telescope.builtin')
     local mason_path = require('mason-core.path')
     local get_install_path = require('utils').get_install_path
 
@@ -246,7 +244,7 @@ return {
         lsp.buf.document_highlight()
       end
 
-      telescope.lsp_references({ include_declaration = false })
+      require('telescope.builtin').lsp_references({ include_declaration = false })
     end
 
     local function attach_codelens(bufnr)
@@ -267,6 +265,7 @@ return {
     end
 
     local function attach_keymaps()
+      local telescope = require('telescope.builtin')
       local nx = { 'n', 'x' }
 
       map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
@@ -300,10 +299,7 @@ return {
       group = augroup,
       desc = 'Default LSP on_attach',
       callback = function(event)
-        local bufnr = event.buf
         local client = lsp.get_client_by_id(event.data.client_id)
-        local filetype = api.nvim_get_option_value('filetype', { buf = bufnr })
-
         if not client then return end
 
         -- Keymaps
@@ -311,14 +307,14 @@ return {
 
         -- Code lens
         if client.server_capabilities.codeLensProvider then
-          attach_codelens(bufnr)
+          attach_codelens(event.buf)
         end
 
         -- Inlay hints
         if event.data and event.data.client_id then
           local inlay_hints = require('lsp-inlayhints')
 
-          inlay_hints.on_attach(client, bufnr)
+          inlay_hints.on_attach(client, event.buf)
 
           map('n', '<leader>lh', inlay_hints.toggle, 'Toggle LSP inlay hints')
         end

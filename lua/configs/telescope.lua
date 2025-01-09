@@ -1,13 +1,59 @@
 ---------------
 -- Telescope --
 ---------------
+
+local fd_ignore_file = vim.fn.expand('$HOME/') .. '.rgignore'
+local cder_dir_cmd = {
+  'fd',
+  '-t',
+  'd',
+  '--hidden',
+  '--ignore-file',
+  fd_ignore_file,
+  '.',
+}
+
+local function telescope_markdowns()
+  require('telescope.builtin').find_files({
+    search_dirs = { '$MARKDOWNS' },
+    prompt_title = 'Markdowns',
+    path_display = function(_, path)
+      local relative_path, _ = path:gsub(vim.fn.expand('$MARKDOWNS'), '')
+      return relative_path
+    end,
+  })
+end
+
+local function telescope_config()
+  require('telescope.builtin').find_files({
+    search_dirs = { '$HOME/.config/nvim/' },
+    prompt_title = 'Neovim config',
+    no_ignore = true,
+    hidden = true,
+    path_display = function(_, path)
+      local relative_path, _ = path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
+      return relative_path
+    end,
+  })
+end
+
+local function grep_string()
+  vim.g.grep_string_mode = true
+  vim.ui.input({ prompt = 'Grep string', default = vim.fn.expand("<cword>") },
+    function(value)
+      if value ~= nil then
+        require('telescope.builtin').grep_string({ search = value })
+      end
+      vim.g.grep_string_mode = false
+    end)
+end
+
 return {
   'nvim-telescope/telescope.nvim',
   dependencies =  {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-lua/popup.nvim' },
     { 'jvgrootveld/telescope-zoxide' },
-    { 'nvim-telescope/telescope-cheat.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-telescope/telescope-frecency.nvim' },
     { 'nvim-telescope/telescope-dap.nvim' },
@@ -17,27 +63,56 @@ return {
     { 'rafi/telescope-thesaurus.nvim' },
     { 'ThePrimeagen/git-worktree.nvim' },
   },
-  event = 'VeryLazy',
+  cmd = 'Telescope',
+  keys = {
+    { '<C-p>',      '<cmd>Telescope find_files<CR>',                desc = 'Find files' },
+    { '<leader>tt', '<cmd>Telescope<CR>',                           desc = 'Recently used files' },
+    { '<leader>F',  '<cmd>Telescope live_grep<CR>',                 desc = 'Live grep' },
+    { '<leader>B',  '<cmd>Telescope buffers<CR>',                   desc = 'Open buffers' },
+    { '<leader>to', '<cmd>Telescope oldfiles<CR>',                  desc = 'Recently used files' },
+    { '<leader>h',  '<cmd>Telescope help_tags<CR>',                 desc = 'Help tags' },
+    { '<leader>tH', '<cmd>Telescope highlights<CR>',                desc = 'Highlights' },
+    { '<leader>tc', '<cmd>Telescope commands<CR>',                  desc = 'Commands' },
+    { '<leader>tm', '<cmd>Telescope keymaps<CR>',                   desc = 'Keymaps' },
+    { '<leader>t/', '<cmd>Telescope search_history<CR>',            desc = 'Search history' },
+    { '<leader>tD', '<cmd>Telescope diagnostics<CR>',               desc = 'Diagnostics' },
+    { '<leader>t?', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Fuzzy find in buffer' },
+    { '<leader>tq', '<cmd>Telescope quickfix<CR>',                  desc = 'Quickfix' },
+    { '<leader>tQ', '<cmd>Telescope quickfixhistory<CR>',           desc = 'Quickfix history' },
+    { '<leader>tr', '<cmd>Telescope resume<CR>',                    desc = 'Resume latest telescope session' },
+    { '<leader>tg', '<cmd>Telescope git_files<CR>',                 desc = 'Find git files' },
+    { 'sp',         '<cmd>Telescope spell_suggest<CR>',             desc = 'Spell suggestions' },
+
+    { '<leader>M',  telescope_markdowns, desc = 'Filter markdowns' },
+    { '<leader>n',  telescope_config, desc = 'Filter Neovim config' },
+
+    { '<leader>td', '<cmd>Telescope dap commands<CR>', desc = 'DAP commands' },
+    { '<leader>tb', '<cmd>Telescope dap list_breakpoints<CR>', desc = 'DAP breakpoints'  },
+    { '<leader>tv', '<cmd>Telescope dap variables<CR>', desc = 'DAP variables'  },
+    { '<leader>tf', '<cmd>Telescope dap frames<CR>', desc = 'DAP variables'  },
+
+    { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',  desc = 'Thesaurus' },
+    { '<leader>tn', '<cmd>Telescope notify notify<CR>',     desc = 'Notifications' },
+    { '<leader>m',  '<cmd>Telescope frecency frecency<CR>', desc = 'Frecency' },
+
+    { 'cd', function() require('telescope').extensions.cder.cder() end, desc = 'Change directory' },
+    { 'cD', function()
+      local append = require('utils').append
+      return require('telescope').extensions.cder.cder({
+        dir_command = append(cder_dir_cmd, vim.env.HOME),
+        prompt_title = 'Change Directory',
+      })
+    end, desc = 'Change directory (from home directory)' },
+    { '<M-z>', '<cmd>Telescope zoxide list<CR>' , desc = 'Change directory with zoxide'  },
+
+    { mode = {'n', 'x'}, '<leader>/', grep_string, 'Grep string' },
+  },
   config = function()
     local feedkeys = require('utils').feedkeys
-    local map = require('utils').map
-    local append = require('utils').append
 
     local telescope = require('telescope')
     local themes = require('telescope.themes')
-    local extensions = telescope.extensions
-    local builtin = require('telescope.builtin')
 
-    local fd_ignore_file = vim.fn.expand('$HOME/') .. '.rgignore'
-    local cder_dir_cmd = {
-      'fd',
-      '-t',
-      'd',
-      '--hidden',
-      '--ignore-file',
-      fd_ignore_file,
-      '.',
-    }
     local cder_preview_cmed = 'exa '
       .. '--color=always '
       .. '-T '
@@ -159,89 +234,9 @@ return {
     telescope.load_extension('zoxide')
     telescope.load_extension('fzf')
     telescope.load_extension('frecency')
-    telescope.load_extension('cheat')
     telescope.load_extension('notify')
     telescope.load_extension('cder')
     telescope.load_extension('git_worktree')
-
-    local function telescope_markdowns()
-      builtin.find_files({
-        search_dirs = { '$MARKDOWNS' },
-        prompt_title = 'Markdowns',
-        path_display = function(_, path)
-         local relative_path, _ = path:gsub(vim.fn.expand('$MARKDOWNS'), '')
-          return relative_path
-        end,
-      })
-    end
-
-    local function telescope_config()
-      builtin.find_files({
-        search_dirs = { '$HOME/.config/nvim/' },
-        prompt_title = 'Neovim config',
-        no_ignore = true,
-        hidden = true,
-        path_display = function(_, path)
-          local relative_path, _ = path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
-          return relative_path
-        end,
-      })
-    end
-
-    local function grep_string()
-      vim.g.grep_string_mode = true
-      vim.ui.input({ prompt = 'Grep string', default = vim.fn.expand("<cword>") },
-        function(value)
-          if value ~= nil then
-            require('telescope.builtin').grep_string({ search = value })
-          end
-          vim.g.grep_string_mode = false
-        end)
-    end
-
-    -- TODO: lazy load mappings with lazy.nvim
-    map('n', '<C-p>', function()
-      return builtin.find_files({ hidden = true })
-    end, 'Find files')
-    map({'n', 'x'}, '<leader>/', grep_string, 'Grep string')
-
-    map('n', '<leader>F',  builtin.live_grep, 'Live grep')
-    map('n', '<leader>B',  builtin.buffers, 'Open buffers')
-    map('n', '<leader>to', builtin.oldfiles, 'Recently used files')
-    map('n', '<leader>m',  extensions.frecency.frecency, 'Frecency')
-    map('n', '<leader>h',  builtin.help_tags, 'Help tags')
-    map('n', '<leader>tt', builtin.builtin, 'Builtin telescope commands')
-    map('n', '<leader>tH', builtin.highlights, 'Highlights')
-    map('n', '<leader>tc', builtin.commands, 'Commands')
-    map('n', '<leader>tm', builtin.keymaps, 'Keymaps')
-    map('n', '<leader>t/', builtin.search_history, 'Search history')
-    map('n', '<leader>tD', builtin.diagnostics, 'Diagnostics')
-    map('n', '<leader>t?', builtin.current_buffer_fuzzy_find, 'Fuzzy find in buffer')
-    map('n', '<leader>tq', builtin.quickfix, 'Quickfix')
-    map('n', '<leader>tQ', builtin.quickfixhistory, 'Quickfix history')
-    map('n', '<leader>tr', builtin.resume, 'Resume latest telescope session')
-    map('n', '<leader>tg', builtin.git_files, 'Find git files')
-    map('n', 'sp',         builtin.spell_suggest, 'Spell suggestions')
-
-    map('n', 'cd',         extensions.cder.cder, 'Change directory')
-    map('n', 'cD',         function()
-      return extensions.cder.cder({
-        dir_command = append(cder_dir_cmd, vim.env.HOME),
-        prompt_title = 'Change Directory',
-      })
-    end, 'Change directory (from home directory)')
-    map('n', '<M-z>',      extensions.zoxide.list, 'Change directory with zoxide')
-    map('n', '<leader>tC', function() return extensions.cheat.fd({}) end, 'Cheat.sh')
-    map('n', '<leader>M',  telescope_markdowns, 'Markdowns')
-    map('n', '<leader>n',  telescope_config, 'Neovim config')
-    map('n', '<leader>tn', extensions.notify.notify, 'Notifications')
-
-    map('n', '<leader>td', extensions.dap.commands)
-    map('n', '<leader>tb', extensions.dap.list_breakpoints)
-    map('n', '<leader>tv', extensions.dap.variables)
-    map('n', '<leader>tf', extensions.dap.frames)
-
-    map('n', '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>', 'Thesaurus')
 
     -- Temporary workaround for https://github.com/nvim-telescope/telescope.nvim/issues/2766
     vim.api.nvim_create_autocmd('WinLeave', {

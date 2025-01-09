@@ -59,6 +59,7 @@ local plugins = {
   use 'neogen',                                  -- Generate type annotations
   use 'trouble',                                 -- Nicer list of diagnostics
   use 'telescope',                               -- Fuzzy finder
+  use 'telescope-cheat',
   use 'dressing',                                -- Improves `vim.ui` interfaces
   use 'noice',                                   -- Nicer UI features
   use 'lastplace',                               -- Restore cursor position

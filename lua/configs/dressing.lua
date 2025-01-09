@@ -3,7 +3,7 @@
 --------------
 return {
   'stevearc/dressing.nvim',
-  event = 'VeryLazy',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   config = function()
     local utils = require('utils')
     local map, feedkeys = utils.map, utils.feedkeys

@@ -3,6 +3,7 @@
 -------------
 return {
   'stevearc/conform.nvim',
+  event = 'BufWritePre',
   config = function()
     local b = vim.b
     local javascript = { 'prettierd', 'prettier', stop_after_first = true }
