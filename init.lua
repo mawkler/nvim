@@ -31,7 +31,7 @@ local plugins = {
   use 'nvim-tree',                               -- File explorer
   use 'oil',                                     -- Single directory file browser
   use 'barbar',                                  -- Sexiest buffer tabline
-  use 'null-ls',                                 -- Autoformatting, etc.
+  use 'conform',                                 -- Autoformatting
   use 'neoscroll',                               -- Smooth scrolling animations
   use 'feline',                                  -- Statusline framework
   use 'barbecue',                                -- Treesitter breadcrumbs
