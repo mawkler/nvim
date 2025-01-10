@@ -10,7 +10,6 @@ return {
   },
   init = function()
     local map = require('utils').map
-    local get_selections = require('nvim-surround.config').get_selections
     local augroup = 'Surround'
 
     map('n', 'S', 's$', { remap = true, desc = 'Surround until end of line' })
@@ -31,41 +30,35 @@ return {
 
     ---@return { add: function, delete: function }
     local function type(name)
+      local regex = string.format('(%s<)().-(>)()', name)
       return {
         add = function()
           return { { name .. '<' }, { '>' } }
         end,
-        delete = function(char)
-          return get_selections({
-            char = char,
-            pattern = string.format('(%s<)().-(>)()', name),
-          })
-        end,
+        find = regex,
+        delete = regex,
       }
     end
 
     ---@return { add: function, delete: function }
     local function function_name(name)
+      local regex = '(' .. name .. '%()().-(%))()'
       return {
         add = function()
           return { { name .. '(' }, { ')' } }
         end,
-        delete = function(char)
-          return get_selections({
-            char = char,
-            pattern = string.format('(%s%()().-(%))()', name),
-          })
-        end,
+        find = regex,
+        delete = regex,
       }
     end
-
 
     filetype_surround('lua', {
       F = { -- Anonymous function
         add = function()
           return { { 'function() return ' }, { ' end' } }
         end,
-
+        find = '^(.-function.-%b())().*(end)()$',
+        delete = '^(.-function.-%b())().*(end)()$',
       },
     })
     filetype_surround('markdown', {
@@ -73,12 +66,8 @@ return {
         add = function()
           return { { '```', ''}, { '', '```' } }
         end,
-        delete = function(char)
-          return get_selections({
-            char = char,
-            pattern = '(```[a-zA-Z]*\n)().-(```\n)()',
-          })
-        end,
+        find = '(```[a-zA-Z]*\n)().-(\n```)()',
+        delete = '(```[a-zA-Z]*\n)().-(\n```)()',
       },
     })
     filetype_surround('tex', {
@@ -97,18 +86,16 @@ return {
           return {
             { vim.fn.input({ prompt = 'Type name: ' }) .. '<' }, { '>' }
           }
-        end
+        end,
+        find = '([A-Za-z]+<)().-(>)()',
+        delete = '([A-Za-z]+<)().-(>)()',
       },
       v = { -- vec![]
         add = function()
           return { { 'vec![' }, { ']' } }
         end,
-        delete = function(char)
-          return get_selections({
-            char = char,
-            pattern = '(vec!%[)().-(%])()',
-          })
-        end,
+        find = '(vec!%[)().-(%])()',
+        delete = '(vec!%[)().-(%])()',
       },
       s = function_name('Some'),
       o = function_name('Ok'),
