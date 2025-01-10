@@ -4,7 +4,7 @@
 return {
   'pmizio/typescript-tools.nvim',
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-  ft = { 'typescript', 'typescriptreact' },
+  ft = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
   opts = {
     on_attach = function(client, bufnr)
       -- Disable formatting (use prettier instead, see `conform.lua`)
