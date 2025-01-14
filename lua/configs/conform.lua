@@ -6,20 +6,36 @@ return {
   event = 'BufWritePre',
   config = function()
     local b = vim.b
-    local javascript = { 'prettierd', 'prettier', stop_after_first = true }
+
+    local function prettier_formatters()
+      local prettier_config = { 'prettierd', 'prettier', stop_after_first = true }
+      local prettier_filetypes = {
+        'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
+        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown',
+        'markdown.mdx', 'graphql', 'handlebars', 'svelte', 'astro', 'htmlangular',
+      }
+
+      local prettier = {}
+      for _, filetype in pairs(prettier_filetypes) do
+        prettier[filetype] = prettier_config
+      end
+
+      return prettier
+    end
+
+    local formatters = {
+      ['*'] = { 'trim_whitespace', 'trim_newlines' }
+    }
+
+    local formatters_by_ft = vim.tbl_extend('force', prettier_formatters(), formatters)
 
     require('conform').setup({
-      format_on_save = function()
+      formatters_by_ft = formatters_by_ft,
+      format_after_save = function()
         if vim.b.format_on_write ~= false then
           return { timeout_ms = 500, lsp_format = 'fallback' }
         end
       end,
-      formatters_by_ft = {
-        javascript = javascript,
-        typescript = javascript,
-        typescriptreact =  javascript ,
-        javascriptreact = javascript,
-      }
     })
 
     vim.keymap.set('n', '<F2>', function()
@@ -29,4 +45,3 @@ return {
     end, { desc = 'Toggle autoformatting on write' })
   end
 }
-

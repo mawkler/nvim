@@ -80,7 +80,6 @@ local plugins = {
   use 'matchup',                                 -- Adds additional `%` commands
   use 'ultimate-autopair',                       -- Auto-close brackets, etc.
   use 'capslock',                                -- Virtual CapsLock
-  use 'trim',                                    -- Trim trailing whitespace
   use 'git-conflict',                            -- Git conflict mappings
   use 'vim-textobj',                             -- Custom text objects
   use 'vimtex',                                  -- LaTeX utilities
