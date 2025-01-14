@@ -196,6 +196,11 @@ return {
 
       local opts = server_configs[server_name] or {}
       opts.capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- Enable folding (required by ufo.nvim)
+      opts.capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
 
       lspconfig[server_name].setup(opts)
     end

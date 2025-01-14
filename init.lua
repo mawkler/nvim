@@ -124,8 +124,10 @@ local plugins = {
   use 'icon-picker',                             -- Emoji, Nerd Font icons, etc.
   use 'image',                                   -- ASCII art image viewer
   use 'text-case',                               -- Convert between text cases
+  use 'ufo',                                     -- Improved folds
+  use 'statuscol',
 
-  { 'mawkler/hml.nvim', opts = {} },             -- H/M/L line number indicators
+  -- { 'mawkler/hml.nvim', opts = {} },             -- H/M/L line number indicators
   { 'tpope/vim-fugitive',                        -- :Git commands
     dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
     cmd = { 'G', 'Git', 'Gvdiffsplit' },
