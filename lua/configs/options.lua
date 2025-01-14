@@ -68,11 +68,11 @@ o.shiftwidth  = 2        -- Width of indentation
 o.tabstop     = 4        -- Width of <Tab> characters
 o.shiftround  = true     -- Round indent to multiple of shiftwdith
 opt.cinkeys:remove('0#') -- Indent lines starting with `#`
-o.list          = false  -- Disabled by default
-vim.o.listchars = 'tab:󱦰 ,space:·,nbsp:,eol:↵'
-opt.fillchars   = {
-  diff = ' ',  -- Cleaner deleted lines in diff
-  eob  = ' ',  -- Don't show `~` at end of buffer
+o.list        = false    -- Disabled by default
+o.listchars   = 'tab:󱦰 ,space:·,nbsp:,eol:↵'
+opt.fillchars = {
+  diff = ' ', -- Cleaner deleted lines in diff
+  eob  = ' ', -- Don't show `~` at end of buffer
 
   -- Use thicker lines for window separators
   vert = '┃',
