@@ -11,8 +11,8 @@ return {
       local prettier_config = { 'prettierd', 'prettier', stop_after_first = true }
       local prettier_filetypes = {
         'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
-        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown',
-        'markdown.mdx', 'graphql', 'handlebars', 'svelte', 'astro', 'htmlangular',
+        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown.mdx',
+        'graphql', 'handlebars', 'svelte', 'astro', 'htmlangular',
       }
 
       local prettier = {}
@@ -24,7 +24,8 @@ return {
     end
 
     local formatters = {
-      ['*'] = { 'trim_whitespace', 'trim_newlines' }
+      markdown = { 'prettierd', 'mdsf' },
+      ['*'] = { 'trim_whitespace', 'trim_newlines' },
     }
 
     local formatters_by_ft = vim.tbl_extend('force', prettier_formatters(), formatters)
