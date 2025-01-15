@@ -15,6 +15,7 @@ return {
     require('demicolon').setup({
       keymaps = {
         horizontal_motions = false,
+        fold_motions = false,
       },
       diagnostic = {
         float = {
