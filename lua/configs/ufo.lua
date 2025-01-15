@@ -6,6 +6,7 @@ return {
   dependencies = 'kevinhwang91/promise-async',
   config = function()
     local ufo = require('ufo')
+    local map = require('utils').map
 
     vim.o.foldcolumn = 'auto'
     vim.o.foldlevel = 99
@@ -17,8 +18,15 @@ return {
     vim.opt.fillchars:append({fold = ' '})
     vim.opt.fillchars:append({foldsep = ' '})
 
-    vim.keymap.set('n', 'zR', ufo.openAllFolds)
-    vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+    map('n', 'zR', ufo.openAllFolds, 'Open all folds')
+    map('n', 'zr', ufo.openFoldsExceptKinds, 'Open all folds (except ignored)')
+    map('n', 'zM', ufo.closeAllFolds, 'Close all folds')
+    map('n', 'zm', ufo.closeFoldsWith, 'Close all folds with higher level')
+    map('n', 'gh', function()
+      if not ufo.peekFoldedLinesUnderCursor() then
+        vim.lsp.buf.hover()
+      end
+    end, 'Peek fold/LSP hover')
 
     -- From nvim-ufo's README
     local function handler(virtText, lnum, endLnum, width, truncate)

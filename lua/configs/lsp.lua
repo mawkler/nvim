@@ -281,7 +281,6 @@ return {
       map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
       map('n', 'gr',         lsp_references,                          'LSP references')
 
-      map('n',        'gh',        lsp.buf.hover,          'LSP hover')
       map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
       map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
       map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
