@@ -25,6 +25,7 @@ return {
 
     local formatters = {
       markdown = { 'prettierd', 'mdsf' },
+      rust = { lsp_format = 'first' },
       ['*'] = { 'trim_whitespace', 'trim_newlines' },
     }
 
@@ -34,7 +35,7 @@ return {
       formatters_by_ft = formatters_by_ft,
       format_after_save = function()
         if vim.b.format_on_write ~= false then
-          return { timeout_ms = 500, lsp_format = 'fallback' }
+          return { timeout_ms = 500, lsp_format = 'first' }
         end
       end,
     })
