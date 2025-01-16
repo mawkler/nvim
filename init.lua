@@ -13,7 +13,9 @@ require('utils.lazy')
 
 local plugins = {
   'folke/lazy.nvim',                             -- Package manager
-  use 'eunuch',                                  -- :Rename, :Delete, etc. file
+  use 'eunuch',                                  -- :Rename, :Delete, etc.
+  use 'fugitive',                                -- :Git commands
+  use 'visualrepeat',                            -- Repeat over visual selection
   use 'easy-align',                              -- Align characters vertically
   use 'treesj',                                  -- Multiline split
   use 'autolist',                                -- Autocomplete lists
@@ -127,29 +129,16 @@ local plugins = {
   use 'ufo',                                     -- Improved folds
   use 'statuscol',
 
-  -- { 'mawkler/hml.nvim', opts = {} },             -- H/M/L line number indicators
-  { 'tpope/vim-fugitive',                        -- :Git commands
-    dependencies = 'tpope/vim-dispatch',         -- Asynchronous `:Gpush`, etc.
-    cmd = { 'G', 'Git', 'Gvdiffsplit' },
-  },
-  { 'tpope/vim-abolish', cmd = {'Abolish', 'S'} },
-  { 'inkarkat/vim-visualrepeat',
-    dependencies = { 'inkarkat/vim-ingo-library', 'tpope/vim-repeat' },
-    event = 'ModeChanged *:[vV]',
-  },
-  { 'milkypostman/vim-togglelist',               -- Toggle quickfix window
+  -- { 'mawkler/hml.nvim', opts = {} },                     -- H/M/L line number indicators
+  { 'kana/vim-niceblock', event = 'ModeChanged *:[vV]' },-- Improves visual mode
+  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },            -- Line and column position when opening file
+  { 'milisims/nvim-luaref', event = 'VeryLazy' },        -- Vim :help reference for lua
+  { 'jghauser/mkdir.nvim', event = 'CmdlineEnter' },     -- Create missing folders on :w
+  { 'bogado/file-line' },                                -- Edit file at exact line, e.g. `file.lua:123`
+  { 'milkypostman/vim-togglelist',                       -- Toggle quickfix window
     event = 'QuickFixCmdPre',
   },
-  { 'kana/vim-niceblock',                        -- Improves visual mode
-    event = 'ModeChanged *:[vV]',
-  },
-  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },    -- Line and column position when opening file
-  { 'milisims/nvim-luaref', event = 'VeryLazy' },-- Vim :help reference for lua
-  { 'tvaintrob/bicep.vim', ft = 'bicep' },
-  { 'jghauser/mkdir.nvim',                       -- Create missing folders on :w
-    event = 'CmdlineEnter'
-  },
-  { 'bogado/file-line' }                         -- Support file path line numbers like `file.lua:123`
+  { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
 }
 
 require('lazy').setup({

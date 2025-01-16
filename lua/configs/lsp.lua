@@ -11,7 +11,6 @@ return {
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
     'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
   },
-  event = { 'VeryLazy', 'BufWrite' },
   config = function()
     local api, lsp = vim.api, vim.lsp
     local lspconfig = require('lspconfig')
