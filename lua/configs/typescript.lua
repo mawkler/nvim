@@ -12,10 +12,9 @@ return {
       client.server_capabilities.documentRangeFormattingProvider = false
 
       local map = require('utils').local_map(bufnr)
-
       local function spread(char)
         return function()
-          require('utils').feedkeys('siw' .. char .. 'f' .. char .. 'a...<Esc>2%i, ', 'm')
+          require('utils').feedkeys('siw' .. char .. '%' .. 'i...<Esc>Ea, ', 'm')
         end
       end
 
