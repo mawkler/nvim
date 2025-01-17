@@ -42,8 +42,12 @@ return {
         WinSeparator = { fg = barbar_bg, style = style.Bold  },
         MatchParen = { fg = nil, bg = c.bg_search, style = style.Bold },
         CursorLine = { bg = cursorline_bg },
+        CursorLineFold = { link = 'CursorLine' },
+        CursorLineSign = { link = 'CursorLine' },
         CursorColumn = { link = 'CursorLine' },
         CursorLineNr = { link = 'NormalMode' },
+        -- Fixes issue with the fold symbol background missing
+        UfoCursorFoldedLine = { bg = cursorline_bg },
         MsgArea = { link = 'Normal' },
         SpellBad = { style = style.Undercurl, sp = c.red1 },
         Todo = { link = '@text.warning' },
