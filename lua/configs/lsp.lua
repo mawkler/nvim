@@ -126,6 +126,10 @@ return {
         on_attach = function()
           map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
         end,
+        settings = {
+          formatterMode = 'typstyle',
+          exportPdf = 'onType',
+        }
       },
       -- Typos --
       typos_lsp = {
