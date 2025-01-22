@@ -33,11 +33,11 @@ return {
       checkboxes = {
         enabled = false,
         checked = {
-          text = ' ',
+          text = '󰄲',
           hl = '@text.todo.checked',
         },
         unchecked = {
-          text = ' ',
+          text = '󰄱',
           hl = '@text.todo.unchecked',
         },
       },
