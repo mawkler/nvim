@@ -194,6 +194,9 @@ return {
         -- Helpview
         HelpviewTagLink = { fg = c.blue0 },
         HelpviewMentionLink = { fg = c.blue0, style = style.Italic },
+        -- Markview
+        MarkviewCheckboxUnchecked = { link = 'Normal' }, -- Text after unchecked checkboxes
+        MarkviewCheckboxChecked = { link = 'Normal' },   -- Text after unchecked checkboxes
       }
     end
   })
