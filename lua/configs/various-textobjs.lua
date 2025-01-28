@@ -50,6 +50,7 @@ return {
           'an', -- Disabled, use treesitter's aN, instead
           'ie', -- Remapped to iE
           'ae', -- Remapped to aE
+          'n',  -- Disabled
         },
       },
     })
