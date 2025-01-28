@@ -3,7 +3,7 @@
 -------------
 return {
   'mawkler/refjump.nvim',
-  keys = { ']r', '[r' },
+  event = 'LspAttach',
   opts = {
     verbose = false,
   }
