@@ -132,10 +132,9 @@ local plugins = {
 
   -- { 'mawkler/hml.nvim', opts = {} },                     -- H/M/L line number indicators
   { 'kana/vim-niceblock', event = 'ModeChanged *:[vV]' },-- Improves visual mode
-  { 'wsdjeg/vim-fetch', event = 'VeryLazy' },            -- Line and column position when opening file
+  { 'wsdjeg/vim-fetch' },                                -- Edit file at exact line, e.g. `file.lua:123`
   { 'milisims/nvim-luaref', event = 'VeryLazy' },        -- Vim :help reference for lua
   { 'jghauser/mkdir.nvim', event = 'CmdlineEnter' },     -- Create missing folders on :w
-  { 'bogado/file-line' },                                -- Edit file at exact line, e.g. `file.lua:123`
   { 'milkypostman/vim-togglelist',                       -- Toggle quickfix window
     event = 'QuickFixCmdPre',
   },
