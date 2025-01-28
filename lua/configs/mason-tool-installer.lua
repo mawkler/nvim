@@ -15,6 +15,7 @@ return {
       'go-debug-adapter',
       'bash-debug-adapter',
       'delve',
+      'mdsf',
     },
   }
 }
