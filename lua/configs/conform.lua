@@ -9,9 +9,10 @@ return {
 
     local function prettier_formatters()
       local prettier_config = { 'prettierd', 'prettier', stop_after_first = true }
+      -- JSON is excluded from here since ts_ls does a better job than prettier
       local prettier_filetypes = {
         'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
-        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown.mdx',
+        'css', 'scss', 'less', 'html', 'jsonc', 'yaml', 'markdown.mdx',
         'graphql', 'handlebars', 'svelte', 'astro', 'htmlangular',
       }
 
@@ -26,6 +27,9 @@ return {
     local formatters = {
       markdown = { 'prettierd', 'mdsf' },
       rust = { lsp_format = 'first' },
+      json = { 'prettierd', lsp_format = 'never' },
+      -- Explicitly trim whitespace since this config
+      lua =  { 'trim_whitespace', 'trim_newlines', lsp_format = 'first' },
       ['*'] = { 'trim_whitespace', 'trim_newlines' },
     }
 
@@ -35,9 +39,10 @@ return {
       formatters_by_ft = formatters_by_ft,
       format_after_save = function()
         if vim.b.format_on_write ~= false then
-          return { timeout_ms = 500, lsp_format = 'first' }
+          return { timeout_ms = 500 }
         end
       end,
+      default_format_opts = { lsp_format = 'last' },
     })
 
     vim.keymap.set('n', '<F2>', function()
