@@ -42,7 +42,6 @@ local plugins = {
   use 'mason',                                   -- LSP/DAP/etc. package manager
   use 'mason-tool-installer',                    -- Auto-install list of mason binaries
   use 'lsp',                                     -- Built-in LSP
-  use 'lsp-inlay-hints',                         -- LSP inlay hints
   use 'rustaceanvim',                            -- rust-analyzer client
   use 'go',                                      -- gopls client
   use 'elixir',                                  -- Elixir LSP setup

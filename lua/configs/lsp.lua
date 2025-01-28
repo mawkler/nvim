@@ -9,7 +9,6 @@ return {
     'b0o/schemastore.nvim',                  -- YAML/JSON schemas
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
     'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
-    'lvimuser/lsp-inlayhints.nvim',          -- Inlay hints
   },
   config = function()
     local api, lsp = vim.api, vim.lsp
@@ -318,13 +317,11 @@ return {
         end
 
         -- Inlay hints
-        if event.data and event.data.client_id then
-          local inlay_hints = require('lsp-inlayhints')
+        lsp.inlay_hint.enable()
 
-          inlay_hints.on_attach(client, event.buf)
-
-          map('n', '<leader>lh', inlay_hints.toggle, 'Toggle LSP inlay hints')
-        end
+        map('n', '<leader>lh', function()
+          lsp.inlay_hint.enable(not lsp.inlay_hint.is_enabled())
+        end, 'Toggle LSP inlay hints')
 
         -- This has to be called from LspAttach event for some reason, not sure why
         vim.diagnostic.config({
