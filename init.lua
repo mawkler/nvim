@@ -36,7 +36,7 @@ local plugins = {
   use 'conform',                                 -- Autoformatting
   use 'neoscroll',                               -- Smooth scrolling animations
   use 'feline',                                  -- Statusline framework
-  use 'barbecue',                                -- Treesitter breadcrumbs
+  use 'dropbar',                                 -- Breadcrumbs
   use 'fidget',                                  -- LSP progress indicator
   use 'gitsigns',                                -- Git status in sign column
   use 'mason',                                   -- LSP/DAP/etc. package manager

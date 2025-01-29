@@ -46,6 +46,8 @@ return {
         CursorLineSign = { link = 'CursorLine' },
         CursorColumn = { link = 'CursorLine' },
         CursorLineNr = { link = 'NormalMode' },
+        WinBar = { fg = c.fg_dark, bg = c.bg0 },
+        WinBarNC = { link = 'WinBar' },
         -- Fixes issue with the fold symbol background missing
         UfoCursorFoldedLine = { bg = cursorline_bg },
         MsgArea = { link = 'Normal' },
@@ -197,6 +199,8 @@ return {
         -- Markview
         MarkviewCheckboxUnchecked = { link = 'Normal' }, -- Text after unchecked checkboxes
         MarkviewCheckboxChecked = { link = 'Normal' },   -- Text after unchecked checkboxes
+        -- Dropbar
+        DropBarIconUISeparator = { fg = c.fg_dark },
       }
     end
   })
