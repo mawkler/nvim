@@ -3,10 +3,11 @@
 -----------
 return {
   'gbprod/yanky.nvim',
+  dependencies = 'rachartier/tiny-glimmer.nvim',
   keys = {
-    { 'y',         '<Plug>(YankyYank)',                    mode = {'n',  'x'} },
-    { 'p',         '<Plug>(YankyPutAfter)',                mode = {'n',  'x'} },
-    { 'P',         '<Plug>(YankyPutBefore)',               mode = {'n',  'x'} },
+    { 'y',         '<Plug>(YankyYank)',                    mode = {'n', 'x'} },
+    { 'p',         '<Plug>(YankyPutAfter)',                mode = {'n', 'x'} },
+    { 'P',         '<Plug>(YankyPutBefore)',               mode = {'n', 'x'} },
     { '<M-p>',     '<Plug>(YankyCycleForward)',            mode = 'n' },
     { '<M-P>',     '<Plug>(YankyCycleBackward)',           mode = 'n' },
     { ']p',        '<Plug>(YankyPutIndentAfterLinewise)',  mode = 'n' },
@@ -40,7 +41,10 @@ return {
     require('telescope').load_extension('yank_history')
 
     require('yanky').setup({
-      highlight = { timer = 150 },
+      highlight = {
+        on_put = false,
+        on_yank = false,
+      },
       ring = { update_register_on_cycle = true },
     })
   end
