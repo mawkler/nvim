@@ -201,6 +201,9 @@ return {
         MarkviewCheckboxChecked = { link = 'Normal' },   -- Text after unchecked checkboxes
         -- Dropbar
         DropBarIconUISeparator = { fg = c.fg_dark },
+        -- Tiny Glimmer
+        TinyGlimmerYank = { bg = c.green0 },
+        TinyGlimmerPaste = { link = 'IncSearch' },
       }
     end
   })
