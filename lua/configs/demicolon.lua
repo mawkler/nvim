@@ -9,6 +9,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   keys = { ';', ',', 't', 'f', 'T', 'F', ']', '[', ']d', '[d' },
+  ft = 'tex',
   config = function()
     local map = require('utils').map
 
