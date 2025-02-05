@@ -75,6 +75,7 @@ local plugins = {
   use 'refactoring',          -- Refactoring tools
   use 'guess-indent',         -- Guess file's indent level
   use 'yanky',                -- Cycle register history, etc.
+  use 'tiny-glimmer',         -- Yank/put animations
   use 'surround',             -- Adds `surround` verb
   use 'eyeliner',             -- Highlight uniques on f/F/t/T
   use 'matchup',              -- Adds additional `%` commands
