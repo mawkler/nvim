@@ -127,7 +127,7 @@ local plugins = {
   use 'ufo',                  -- Improved folds
   use 'statuscol',            -- Custom statuscolumn config
   use 'change-function',      -- Change function arguments order
-  use 'tiny-glimmer',         -- Yank/put animations
+  use 'ghostty',              -- Ghostty config tools
 
   -- { 'mawkler/hml.nvim', opts = {} },                     -- H/M/L line number indicators
   { 'kana/vim-niceblock',   event = 'ModeChanged *:[vV]' }, -- Improves visual mode
