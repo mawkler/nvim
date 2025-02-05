@@ -12,8 +12,8 @@ return {
   config = function()
     local map = require('utils').map
 
-    map('i', '<C-l>', 'copilot#Accept("")', { expr = true })
-    map('i', '<C-f>', 'copilot#Accept("")', { expr = true })
+    map('i', '<C-l>', 'copilot#Accept("")',       { expr = true })
+    map('i', '<C-f>', 'copilot#Accept("")',       { expr = true })
     map('i', '<M-.>', '<Plug>(copilot-next)')
     map('i', '<M-,>', '<Plug>(copilot-previous)')
   end

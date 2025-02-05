@@ -6,7 +6,7 @@
 
 -- Sets `bufhidden = delete` if buffer was jumped to
 local function list_jump(command, list)
-  return function ()
+  return function()
     local qf = require('qf')
     if vim.b.buffer_jumped_to then
       vim.bo.bufhidden = 'delete'
@@ -31,8 +31,8 @@ return {
   event = 'QuickFixCmdPre',
   ft = 'qf',
   keys = {
-    { '<leader>Q', toggle('c'),             mode = 'n', desc = 'Toggle quickfix' },
-    { '<leader>L', toggle('l'),             mode = 'n', desc = 'Toggle location list' },
+    { '<leader>Q', toggle('c'), mode = 'n', desc = 'Toggle quickfix' },
+    { '<leader>L', toggle('l'), mode = 'n', desc = 'Toggle location list' },
   },
   config = function()
     local qf = require('qf')
@@ -67,8 +67,8 @@ return {
         map('n', '<C-j>', quickfix_step('below'), { buffer = true })
         map('n', '<C-k>', quickfix_step('above'), { buffer = true })
 
-        map('n',        '<Space>', '<CR><C-w>p', { buffer = true, nowait = true })
-        map({'n', 'x'}, '<CR>',    '<CR>',       { buffer = true })
+        map('n',          '<Space>', '<CR><C-w>p', { buffer = true, nowait = true })
+        map({ 'n', 'x' }, '<CR>',    '<CR>',       { buffer = true })
       end,
       group = 'Quickfix'
     })

@@ -16,4 +16,3 @@ end
 vim.api.nvim_create_user_command('YankMessages', function(opts)
   return yankMessages(opts.reg, opts.count)
 end, { count = 10, register = true })
-

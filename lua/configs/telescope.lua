@@ -39,7 +39,7 @@ end
 
 local function grep_string()
   vim.g.grep_string_mode = true
-  vim.ui.input({ prompt = 'Grep string', default = vim.fn.expand("<cword>") },
+  vim.ui.input({ prompt = 'Grep string', default = vim.fn.expand('<cword>') },
     function(value)
       if value ~= nil then
         require('telescope.builtin').grep_string({ search = value })
@@ -50,7 +50,7 @@ end
 
 return {
   'nvim-telescope/telescope.nvim',
-  dependencies =  {
+  dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-lua/popup.nvim' },
     { 'jvgrootveld/telescope-zoxide' },
@@ -80,28 +80,36 @@ return {
     { '<leader>tg', '<cmd>Telescope git_files<CR>',                 desc = 'Find git files' },
     { 'sp',         '<cmd>Telescope spell_suggest<CR>',             desc = 'Spell suggestions' },
 
-    { '<C-p>', function()
-      require('telescope.builtin').find_files({ hidden = true })
-    end, desc = 'Find files' },
+    {
+      '<C-p>',
+      function()
+        require('telescope.builtin').find_files({ hidden = true })
+      end,
+      desc = 'Find files'
+    },
 
-    { '<leader>M',  telescope_markdowns, desc = 'Filter markdowns' },
-    { '<leader>n',  telescope_config, desc = 'Filter Neovim config' },
+    { '<leader>M',  telescope_markdowns,                                        desc = 'Filter markdowns' },
+    { '<leader>n',  telescope_config,                                           desc = 'Filter Neovim config' },
 
-    { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',  desc = 'Thesaurus' },
-    { '<leader>tn', '<cmd>Telescope notify notify<CR>',     desc = 'Notifications' },
-    { '<leader>m',  '<cmd>Telescope frecency frecency<CR>', desc = 'Frecency' },
+    { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',                      desc = 'Thesaurus' },
+    { '<leader>tn', '<cmd>Telescope notify notify<CR>',                         desc = 'Notifications' },
+    { '<leader>m',  '<cmd>Telescope frecency frecency<CR>',                     desc = 'Frecency' },
 
-    { 'cd', function() require('telescope').extensions.cder.cder() end, desc = 'Change directory' },
-    { 'cD', function()
-      local append = require('utils').append
-      return require('telescope').extensions.cder.cder({
-        dir_command = append(cder_dir_cmd, vim.env.HOME),
-        prompt_title = 'Change Directory',
-      })
-    end, desc = 'Change directory (from home directory)' },
-    { '<M-z>', '<cmd>Telescope zoxide list<CR>' , desc = 'Change directory with zoxide'  },
+    { 'cd',         function() require('telescope').extensions.cder.cder() end, desc = 'Change directory' },
+    {
+      'cD',
+      function()
+        local append = require('utils').append
+        return require('telescope').extensions.cder.cder({
+          dir_command = append(cder_dir_cmd, vim.env.HOME),
+          prompt_title = 'Change Directory',
+        })
+      end,
+      desc = 'Change directory (from home directory)'
+    },
+    { '<M-z>',             '<cmd>Telescope zoxide list<CR>', desc = 'Change directory with zoxide' },
 
-    { mode = {'n', 'x'}, '<leader>/', grep_string, 'Grep string' },
+    { mode = { 'n', 'x' }, '<leader>/',                      grep_string,                          'Grep string' },
   },
   config = function()
     local feedkeys = require('utils').feedkeys
@@ -110,13 +118,13 @@ return {
     local themes = require('telescope.themes')
 
     local cder_preview_cmed = 'exa '
-      .. '--color=always '
-      .. '-T '
-      .. '--level=2 '
-      .. '--icons '
-      .. '--git-ignore '
-      .. '--git '
-      .. '--ignore-glob=.git'
+        .. '--color=always '
+        .. '-T '
+        .. '--level=2 '
+        .. '--icons '
+        .. '--git-ignore '
+        .. '--git '
+        .. '--ignore-glob=.git'
 
     -- Don't show line text, just the file name
     local horizontal_picker = { show_line = false }
@@ -161,7 +169,7 @@ return {
           n = {
             ['<C-q>'] = 'close',
             ['<C-c>'] = 'close',
-            ['<C-s>'] =  'select_horizontal',
+            ['<C-s>'] = 'select_horizontal',
           }
         },
         layout_config = {
@@ -201,7 +209,7 @@ return {
       },
       extensions = {
         sessions_picker = {
-          sessions_dir = vim.fn.stdpath('data') ..'/sessions/'
+          sessions_dir = vim.fn.stdpath('data') .. '/sessions/'
         },
         cder = {
           previewer_command = cder_preview_cmed,

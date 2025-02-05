@@ -7,14 +7,14 @@ return {
   keys = {
     { 'cm',         '<Plug>(comment_toggle_linewise_current)' },
     { '<leader>c',  '<Plug>(comment_toggle_linewise)' },
-    { '<leader>c',  '<Plug>(comment_toggle_linewise_visual)', mode = 'x' },
+    { '<leader>c',  '<Plug>(comment_toggle_linewise_visual)',  mode = 'x' },
     { '<leader>C',  '<Plug>(comment_toggle_linewise)$' },
     { '<leader>cB', '<Plug>(comment_toggle_blockwise)$' },
     { '<leader>cb', '<Plug>(comment_toggle_blockwise)' },
     { '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)', mode = 'x' },
     { '<leader>cc', '<Plug>(comment_toggle_linewise)' },
-    { '<leader><', mode = 'x' },
-    { '<leader>>', mode = 'x' },
+    { '<leader><',  mode = 'x' },
+    { '<leader>>',  mode = 'x' },
     '<leader>cp',
   },
   config = function()
@@ -47,13 +47,13 @@ return {
       end, command)
     end
 
-    comment_map('n', '<leader>c>',   'comment_linewise_op', true)
+    comment_map('n', '<leader>c>',   'comment_linewise_op',          true)
     comment_map('n', '<leader>c>>',  'comment_current_linewise_op')
     comment_map('n', '<leader>cb>>', 'comment_current_blockwise_op')
     comment_map('x', '<leader>>',    'comment_current_linewise_op')
 
-    comment_map('n', '<leader>c<',   'uncomment_linewise_op', true)
-    comment_map('n', '<leader>cu',   'uncomment_linewise_op', true)
+    comment_map('n', '<leader>c<',   'uncomment_linewise_op',          true)
+    comment_map('n', '<leader>cu',   'uncomment_linewise_op',          true)
     comment_map('n', '<leader>c<<',  'uncomment_current_linewise_op')
     comment_map('n', '<leader>cb<<', 'uncomment_current_blockwise_op')
     comment_map('x', '<leader><',    'uncomment_current_linewise_op')

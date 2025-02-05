@@ -166,7 +166,7 @@ return {
           yaml = {
             schemas = {
               ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json']
-                = 'azure-pipeline*.y*ml',
+              = 'azure-pipeline*.y*ml',
             },
           },
         },
@@ -274,6 +274,7 @@ return {
     local function attach_keymaps()
       local telescope = require('telescope.builtin')
       local nx = { 'n', 'x' }
+      local is = { 'i', 's' }
 
       map('n', 'gd',         telescope.lsp_definitions,               'LSP definitions')
       map('n', 'gD',         telescope.lsp_type_definitions,          'LSP type definitions')
@@ -283,18 +284,19 @@ return {
       map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
       map('n', 'gr',         lsp_references,                          'LSP references')
 
-      map('n',        'gs',        lsp.buf.signature_help, 'LSP signature help')
-      map({'i', 's'}, '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
-      map(nx,         '<leader>r', lsp.buf.rename,         'LSP rename')
-      map(nx,         '<leader>A', lsp.codelens.run,       'LSP code lens')
+      map('n', 'gs',        lsp.buf.signature_help, 'LSP signature help')
+      map(is,  '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
+      map(nx,  '<leader>r', lsp.buf.rename,         'LSP rename')
+      map(nx,  '<leader>A', lsp.codelens.run,       'LSP code lens')
 
-      map('n', '<leader>e', function() vim.diagnostic.open_float({ border = 'single' }) end, 'Diagnostic open float')
+      map('n', '<leader>e', function() vim.diagnostic.open_float({ border = 'single' }) end,
+        'Diagnostic open float')
 
       map_vsplit('<C-w>gd', 'lsp_definitions')
       map_vsplit('<C-w>gi', 'lsp_implementations')
       map_vsplit('<C-w>gD', 'lsp_type_definitions')
 
-      map('n', '<leader>lq', '<cmd>LspStop<CR>',  { desc = 'Stop LSP server' })
+      map('n', '<leader>lq', '<cmd>LspStop<CR>', { desc = 'Stop LSP server' })
     end
 
     ---------------------------

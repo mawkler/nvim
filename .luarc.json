@@ -3,6 +3,5 @@
   "Lua.diagnostics.disable": ["missing-parameter", "undefined-field"],
   "Lua.diagnostics.globals": ["use", "packer_plugins", "import", "require"],
   "Lua.workspace.checkThirdParty": false,
-  "workspace.checkThirdParty": false,
-  "format.enable": false
+  "workspace.checkThirdParty": false
 }

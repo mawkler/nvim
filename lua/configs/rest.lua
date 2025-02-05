@@ -24,7 +24,7 @@ return {
 
     ---@param command string
     local function execute(command)
-      return function ()
+      return function()
         local prefix = ''
 
         -- Show result below if window is too narrow

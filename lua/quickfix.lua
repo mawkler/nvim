@@ -4,9 +4,9 @@ function _G.qftf(info)
   local items
   local ret = {}
   if info.quickfix == 1 then
-    items = fn.getqflist({id = info.id, items = 0}).items
+    items = fn.getqflist({ id = info.id, items = 0 }).items
   else
-    items = fn.getloclist(info.winid, {id = info.id, items = 0}).items
+    items = fn.getloclist(info.winid, { id = info.id, items = 0 }).items
   end
   local fname_width_ratio = 0.4
   local win_width = fn.winwidth(0) * fname_width_ratio

@@ -12,7 +12,7 @@ return {
     vim.fn['textobj#user#plugin']('datetime', {
       date = {
         pattern = '\\<\\d\\d\\d\\d-\\d\\d-\\d\\d\\>',
-        select = {'aD', 'iD'},
+        select = { 'aD', 'iD' },
       }
     })
   end

@@ -18,9 +18,11 @@ return {
       { '_',  '_',  ft = { 'markdown' }, multiline = false },
       { '$',  '$',  ft = { 'tex' },      multiline = false },
 
-      { '<', '>', fly = true, dosuround = true, multiline = false, space = true, surround = true },
+      { '<',  '>',  fly = true,          dosuround = true, multiline = false, space = true, surround = true },
       config_internal_pairs = {
-        { "'", "'",
+        {
+          "'",
+          "'",
           multiline = false,
           surround = true,
           alpha = true,
@@ -32,7 +34,7 @@ return {
         }
       },
       bs = {
-        map = { '<BS>',  '<C-h>' },
+        map = { '<BS>', '<C-h>' },
       },
       -- Disable in command-line-mode
       cmap = false,

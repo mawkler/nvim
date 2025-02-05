@@ -5,8 +5,8 @@ return {
   'mrjones2014/smart-splits.nvim',
   keys = {
     '<M-S-h>',
-    '<M-S-j>' ,
-    '<M-S-k>' ,
+    '<M-S-j>',
+    '<M-S-k>',
     '<M-S-l>',
     '<Left>',
     '<Down>',

@@ -36,8 +36,8 @@ return {
       path.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
 
       local jdtls_install = require('mason-registry')
-        .get_package('jdtls')
-        :get_install_path()
+          .get_package('jdtls')
+          :get_install_path()
 
       path.java_agent = jdtls_install .. '/lombok.jar'
       path.launcher_jar = vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar')
@@ -56,8 +56,8 @@ return {
       -- Include java-test bundle if present
       ---
       local java_test_path = require('mason-registry')
-        .get_package('java-test')
-        :get_install_path()
+          .get_package('java-test')
+          :get_install_path()
 
       local java_test_bundle = vim.split(
         vim.fn.glob(java_test_path .. '/extension/server/*.jar'),
@@ -72,8 +72,8 @@ return {
       -- Include java-debug-adapter bundle if present
       ---
       local java_debug_path = require('mason-registry')
-        .get_package('java-debug-adapter')
-        :get_install_path()
+          .get_package('java-debug-adapter')
+          :get_install_path()
 
       local java_debug_bundle = vim.split(
         vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'),
@@ -122,11 +122,11 @@ return {
 
     local function enable_debugger(bufnr)
       ---@diagnostic disable-next-line: missing-fields
-      jdtls.setup_dap({hotcodereplace = 'auto'})
+      jdtls.setup_dap({ hotcodereplace = 'auto' })
       require('jdtls.dap').setup_dap_main_class_configs()
 
       local opts = { buffer = bufnr }
-      vim.keymap.set('n', '<leader>dc', jdtls.test_class, opts)
+      vim.keymap.set('n', '<leader>dc', jdtls.test_class,          opts)
       vim.keymap.set('n', '<leader>dm', jdtls.test_nearest_method, opts)
     end
 
@@ -143,17 +143,17 @@ return {
       -- https://github.com/mfussenegger/nvim-jdtls#usage
 
       local opts = { buffer = bufnr }
-      vim.keymap.set('n', '<leader>lo',  jdtls.organize_imports,                                 opts)
-      vim.keymap.set('n', '<leader>lev', jdtls.extract_variable,                                 opts)
-      vim.keymap.set('x', '<leader>lev', '<cmd>lua require("jdtls").extract_variable(true)<cr>', opts)
-      vim.keymap.set('n', '<leader>lec', jdtls.extract_constant,                                 opts)
-      vim.keymap.set('x', '<leader>lec', '<cmd>lua require("jdtls").extract_constant(true)<cr>', opts)
-      vim.keymap.set('x', '<leader>lem', '<esc><cmd>lua require("jdtls").extract_method(true)<cr>',   opts)
+      vim.keymap.set('n', '<leader>lo',  jdtls.organize_imports,                                    opts)
+      vim.keymap.set('n', '<leader>lev', jdtls.extract_variable,                                    opts)
+      vim.keymap.set('x', '<leader>lev', '<cmd>lua require("jdtls").extract_variable(true)<cr>',    opts)
+      vim.keymap.set('n', '<leader>lec', jdtls.extract_constant,                                    opts)
+      vim.keymap.set('x', '<leader>lec', '<cmd>lua require("jdtls").extract_constant(true)<cr>',    opts)
+      vim.keymap.set('x', '<leader>lem', '<esc><cmd>lua require("jdtls").extract_method(true)<cr>', opts)
     end
 
     local function jdtls_setup(_)
       local path = get_jdtls_paths()
-      local data_dir = path.data_dir .. '/' ..  vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+      local data_dir = path.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
       if cache_vars.capabilities == nil then
         jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -276,7 +276,7 @@ return {
 
     vim.api.nvim_create_autocmd('FileType', {
       group = augroup,
-      pattern = {'java'},
+      pattern = { 'java' },
       desc = 'Setup jdtls',
       callback = jdtls_setup,
     })

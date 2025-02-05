@@ -27,7 +27,6 @@ return {
         { toplevel = vim.env.HOME, gitdir = vim.env.HOME .. '/.dotfiles' }
       },
       on_attach = function()
-
         local function git_blame()
           gitsigns.blame_line({
             full = true,
@@ -35,8 +34,8 @@ return {
           })
         end
 
-        map({'n', 'x'}, '<leader>ghs', gitsigns.stage_hunk, 'Stage git hunk')
-        map({'n', 'x'}, '<leader>ghr', gitsigns.reset_hunk, 'Reset git hunk')
+        map({ 'n', 'x' }, '<leader>ghs', gitsigns.stage_hunk, 'Stage git hunk')
+        map({ 'n', 'x' }, '<leader>ghr', gitsigns.reset_hunk, 'Reset git hunk')
 
         map('n', '<leader>ghS', gitsigns.stage_buffer,    'Stage entire buffer')
         map('n', '<leader>ghR', gitsigns.reset_buffer,    'Reset entire buffer')
@@ -45,8 +44,8 @@ return {
         map('n', 'gb',          git_blame,                'Git blame line')
 
         -- Text objects
-        map({'o', 'x'}, 'ih', gitsigns.select_hunk)
-        map({'o', 'x'}, 'ah', gitsigns.select_hunk)
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+        map({ 'o', 'x' }, 'ah', gitsigns.select_hunk)
       end,
     })
 

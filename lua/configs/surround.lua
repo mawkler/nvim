@@ -6,7 +6,7 @@ return {
   keys = {
     { 's',  mode = { 'n', 'x', 'o' } },
     { 'S',  mode = 'x' },
-    { 'ds', mode = 'n'  },
+    { 'ds', mode = 'n' },
   },
   init = function()
     local map = require('utils').map
@@ -64,7 +64,7 @@ return {
     filetype_surround('markdown', {
       c = { -- Code block
         add = function()
-          return { { '```', ''}, { '', '```' } }
+          return { { '```', '' }, { '', '```' } }
         end,
         find = '(```[a-zA-Z]*\n)().-(\n```)()',
         delete = '(```[a-zA-Z]*\n)().-(\n```)()',

@@ -33,7 +33,7 @@ function M.feedkeys_count(keys, mode)
 end
 
 function M.error(message)
-  vim.api.nvim_echo({{ message, 'Error' }}, false, {})
+  vim.api.nvim_echo({ { message, 'Error' } }, false, {})
 end
 
 --- Returns a new table with `element` appended to `tbl`
@@ -71,7 +71,6 @@ end
 function M.get_install_path(package)
   return require('mason-registry').get_package(package):get_install_path()
 end
-
 
 --- Import plugin config from external module in `lua/configs/`
 function M.use(module)

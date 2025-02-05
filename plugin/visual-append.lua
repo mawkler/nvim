@@ -14,7 +14,7 @@ end
 
 local function visual_append_map(char)
   local desc = 'Visual append ' .. char
-  map({'n', 'x'}, '<leader>' .. char, visual_append(char), desc)
+  map({ 'n', 'x' }, '<leader>' .. char, visual_append(char), desc)
 end
 
 for _, char in pairs(append_chars) do

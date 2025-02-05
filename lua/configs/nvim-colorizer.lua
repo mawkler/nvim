@@ -5,7 +5,7 @@ return {
   'NvChad/nvim-colorizer.lua',
   event = 'VeryLazy',
   opts = {
-    filetypes = { '*', '!lazy'},
+    filetypes = { '*', '!lazy' },
     user_default_options = {
       names = false,
     }

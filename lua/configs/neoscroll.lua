@@ -22,6 +22,6 @@ return {
     map(nx, 'zz',    function() neoscroll.zz({ half_win_duration = scroll_speed, easing = 'sine' }) end)
     map(nx, 'zb',    function() neoscroll.zb({ half_win_duration = scroll_speed, easing = 'sine' }) end)
     map(nx, '<C-y>', function() neoscroll.scroll(-0.1, { move_cursor = false, duration = 100 }) end)
-    map(nx, '<C-e>', function() neoscroll.scroll(0.1,  { move_cursor = false, duration = 100 }) end)
+    map(nx, '<C-e>', function() neoscroll.scroll(0.1, { move_cursor = false, duration = 100 }) end)
   end
 }

@@ -22,7 +22,7 @@ local disabled_message_prefixes = {
 
 local filter_message_routes = vim.tbl_map(create_skip_filter, disabled_message_prefixes)
 local other_routes = {
-  { view = "split", filter = { event = "msg_show", min_height = 20 } },
+  { view = 'split', filter = { event = 'msg_show', min_height = 20 } },
 }
 
 return {
@@ -61,6 +61,6 @@ return {
     })
 
     map('n', 'gl', function() noice.cmd('last') end, 'Show last message')
-    map('n', 'gm', '<cmd>messages<CR>', 'Show messages in a floating window')
+    map('n', 'gm', '<cmd>messages<CR>',              'Show messages in a floating window')
   end
 }

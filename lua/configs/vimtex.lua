@@ -3,7 +3,7 @@
 ------------
 return {
   'lervag/vimtex',
-  ft = {'tex', 'latex'},
+  ft = { 'tex', 'latex' },
   init = function()
     local g = vim.g
     g.tex_indent_items = 0      -- Disable indent before new `\item`
@@ -34,7 +34,7 @@ return {
       hotkeys_enabled = 1,
       hotkeys = 'acdeilmopuvwx',
       show_help = 0,
-      layer_status = { label = 0, todo = 0},
+      layer_status = { label = 0, todo = 0 },
     }
     g.vimtex_syntax_conceal = { sections = 1 }
     g.vimtex_syntax_conceal_cites = {

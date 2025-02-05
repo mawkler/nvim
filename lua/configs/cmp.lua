@@ -7,7 +7,7 @@ return {
   dependencies = {
     'L3MON4D3/LuaSnip',                    -- Snippets
     'onsails/lspkind-nvim',                -- Completion menu icons
-    'saadparwaiz1/cmp_luasnip' ,           -- Snippets
+    'saadparwaiz1/cmp_luasnip',            -- Snippets
     'hrsh7th/cmp-nvim-lsp',                -- LSP completion
     'hrsh7th/cmp-buffer',                  -- Buffer completion
     'hrsh7th/cmp-path',                    -- Path completion
@@ -31,9 +31,9 @@ return {
 
     local function cmp_map(rhs, modes)
       if (modes == nil) then
-        modes = {'i', 'c'}
-      else if (type(modes) ~= 'table')
-        then modes = {modes} end
+        modes = { 'i', 'c' }
+      elseif (type(modes) ~= 'table') then
+        modes = { modes }
       end
       return cmp.mapping(rhs, modes)
     end
@@ -50,7 +50,7 @@ return {
 
     local function complete()
       if cmp.visible() then
-        cmp.mapping.confirm({select = true})()
+        cmp.mapping.confirm({ select = true })()
       elseif luasnip.expandable() then
         luasnip.expand()
       else
@@ -60,7 +60,7 @@ return {
 
     local function cmdline_complete()
       if cmp.visible() then
-        cmp.mapping.confirm({select = true})()
+        cmp.mapping.confirm({ select = true })()
       else
         cmp.complete()
       end
@@ -69,17 +69,18 @@ return {
     local sources = {
       { name = 'nvim_lsp' },
       { name = 'luasnip', max_item_count = 5 },
-      { name = 'path', option = { trailing_slash = true } },
+      { name = 'path',    option = { trailing_slash = true } },
       {
-        name = "lazydev",
+        name = 'lazydev',
         group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
       },
-      { name = 'buffer',
+      {
+        name = 'buffer',
         max_item_count = 3,
         keyword_length = 2,
         option = {
           get_bufnrs = visible_buffers, -- Suggest words from all visible buffers
-          keyword_pattern = [[\k\+]], -- Support non-ASCII characters
+          keyword_pattern = [[\k\+]],   -- Support non-ASCII characters
         },
       }
     }
@@ -141,7 +142,7 @@ return {
         ['<C-k>'] = cmp_map(cmp.mapping.select_prev_item(cmp_insert)),
         ['<C-b>'] = cmp_map(cmp.mapping.scroll_docs(-4)),
         ['<C-f>'] = cmp_map(cmp.mapping.scroll_docs(4)),
-        ['<C-Space>'] = cmp_map(toggle_complete(), {'i', 'c', 's'}),
+        ['<C-Space>'] = cmp_map(toggle_complete(), { 'i', 'c', 's' }),
         ['<Tab>'] = cmp.mapping({
           i = complete,
           c = cmdline_complete,
@@ -156,7 +157,7 @@ return {
       sources = config_sources,
       window = {
         completion = {
-          col_offset = -2, -- To fit lspkind icon
+          col_offset = -2,  -- To fit lspkind icon
           side_padding = 1, -- One character margin
         },
       },
@@ -198,7 +199,7 @@ return {
         },
         {
           {
-            name = "lazydev",
+            name = 'lazydev',
             group_index = 0, -- Skip loading lua_ls completions
           }
         }

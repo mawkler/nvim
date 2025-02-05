@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd('FocusGained', {
 })
 
 -- Custom filetypes
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = '*.dconf',
   callback = function() o.syntax = 'sh' end,
   group = augroup,

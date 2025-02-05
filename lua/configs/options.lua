@@ -24,9 +24,9 @@ opt.sessionoptions:remove('buffers') -- Don't include hidden buffers in sessions
 
 -- Windows --
 local opacity = vim.g.neovide and 40 or 18
-o.winblend        = opacity -- Transparent floating windows
-o.pumblend        = opacity -- Transparent popup-menu
-o.splitright      = true    -- Open vertical windows to the right instead of left
+o.winblend    = opacity -- Transparent floating windows
+o.pumblend    = opacity -- Transparent popup-menu
+o.splitright  = true    -- Open vertical windows to the right instead of left
 if exists('&splitkeep') == 1 then
   opt.splitkeep = exists('g:neovide') == 1 and 'cursor' or 'screen'
 end
@@ -42,7 +42,7 @@ o.shada      = "!,'2000,<50,s10,h"
 -- Command line mode --
 o.wildignorecase = true -- Case insensitive file/directory completion
 opt.path:append('**')   -- Lets `find` search recursively into subfolders
-o.cedit = '<C-y>'       -- Enter Command-line Mode from command-mode
+o.cedit     = '<C-y>'   -- Enter Command-line Mode from command-mode
 o.cmdheight = 0         -- Don't show command-line by default
 
 -- Searching --
@@ -63,10 +63,10 @@ o.breakindent    = true   -- Respect indent when line wrapping
 opt.cpoptions:remove('_') -- Makes cw/cW include trailing whitespace
 
 -- Indent/ special characters --
-o.expandtab   = true     -- Use spaces for indentation
-o.shiftwidth  = 2        -- Width of indentation
-o.tabstop     = 4        -- Width of <Tab> characters
-o.shiftround  = true     -- Round indent to multiple of shiftwdith
+o.expandtab  = true      -- Use spaces for indentation
+o.shiftwidth = 2         -- Width of indentation
+o.tabstop    = 4         -- Width of <Tab> characters
+o.shiftround = true      -- Round indent to multiple of shiftwdith
 opt.cinkeys:remove('0#') -- Indent lines starting with `#`
 o.list        = false    -- Disabled by default
 o.listchars   = 'tab:󱦰 ,space:·,nbsp:,eol:↵'
@@ -75,11 +75,11 @@ opt.fillchars = {
   eob  = ' ', -- Don't show `~` at end of buffer
 
   -- Use thicker lines for window separators
-  vert = '┃',
-  horiz = '━',
-  horizup = '┻',
+  vert      = '┃',
+  horiz     = '━',
+  horizup   = '┻',
   horizdown = '┳',
-  vertleft = '┫',
+  vertleft  = '┫',
   vertright = '┣',
   verthoriz = '╉',
 }

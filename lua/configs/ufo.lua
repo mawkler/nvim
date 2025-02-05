@@ -12,16 +12,16 @@ return {
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
 
-    vim.opt.fillchars:append({foldclose = ''})
-    vim.opt.fillchars:append({foldopen = ''})
-    vim.opt.fillchars:append({foldopen = ' '})
-    vim.opt.fillchars:append({fold = ' '})
-    vim.opt.fillchars:append({foldsep = ' '})
+    vim.opt.fillchars:append({ foldclose = '' })
+    vim.opt.fillchars:append({ foldopen = '' })
+    vim.opt.fillchars:append({ foldopen = ' ' })
+    vim.opt.fillchars:append({ fold = ' ' })
+    vim.opt.fillchars:append({ foldsep = ' ' })
 
-    map('n', 'zR', ufo.openAllFolds, 'Open all folds')
+    map('n', 'zR', ufo.openAllFolds,         'Open all folds')
     map('n', 'zr', ufo.openFoldsExceptKinds, 'Open all folds (except ignored)')
-    map('n', 'zM', ufo.closeAllFolds, 'Close all folds')
-    map('n', 'zm', ufo.closeFoldsWith, 'Close all folds with higher level')
+    map('n', 'zM', ufo.closeAllFolds,        'Close all folds')
+    map('n', 'zm', ufo.closeFoldsWith,       'Close all folds with higher level')
     map('n', 'gh', function()
       if not ufo.peekFoldedLinesUnderCursor() then
         vim.lsp.buf.hover()
@@ -72,7 +72,7 @@ return {
         else
           chunkText = truncate(chunkText, targetWidth - curWidth)
           local hlGroup = chunk[2]
-          table.insert(newVirtText, {chunkText, hlGroup})
+          table.insert(newVirtText, { chunkText, hlGroup })
           chunkWidth = vim.fn.strdisplaywidth(chunkText)
 
           if curWidth + chunkWidth < targetWidth then

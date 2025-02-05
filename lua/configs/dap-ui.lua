@@ -9,9 +9,9 @@ return {
   'rcarriga/nvim-dap-ui',
   dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
   keys = {
-    { '<leader>dt', toggle,                    desc = 'DAP toggle UI' },
-    { '<leader>dh', hover,                     desc = 'DAP hover' },
-    { '<leader>de', eval,   mode = {'n', 'x'}, desc = 'DAP evaluate expression' },
+    { '<leader>dt', toggle, desc = 'DAP toggle UI' },
+    { '<leader>dh', hover,  desc = 'DAP hover' },
+    { '<leader>de', eval,   desc = 'DAP evaluate expression', mode = { 'n', 'x' } },
   },
   config = true
 }

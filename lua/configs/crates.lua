@@ -6,7 +6,7 @@ return {
   dependencies = 'nvim-lua/plenary.nvim',
   event = { 'BufRead Cargo.toml' },
   config = function()
-    local crates, cmp = require('crates'),  require('cmp')
+    local crates, cmp = require('crates'), require('cmp')
 
     crates.setup({
       lsp = {

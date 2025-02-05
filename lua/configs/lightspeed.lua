@@ -3,7 +3,7 @@
 ----------------
 return {
   'ggandor/lightspeed.nvim',
-  keys = {'zj', 'zk', '<CR>', '<S-CR>'},
+  keys = { 'zj', 'zk', '<CR>', '<S-CR>' },
   config = function()
     local utils = require('utils')
     local map = utils.map
@@ -19,13 +19,15 @@ return {
       },
     }
 
-    map({'n', 'x', 'o'}, 'zj',     '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
-    map({'n', 'x', 'o'}, 'zk',     '<Plug>Lightspeed_S',       'Lightspeed jump upwards')
-    map({'n', 'x', 'o'}, '<CR>',   '<Plug>Lightspeed_omni_s',  'Lightspeed jump bidirectionally')
-    map({'n', 'x', 'o'}, '<S-CR>', '<Plug>Lightspeed_omni_gs', 'Lightspeed jump to window bidirectionally')
+    local nxo = { 'n', 'x', 'o' }
 
-    map('o', 'zJ', '<Plug>Lightspeed_x',  'Lightspeed jump downwards (inclusive op)')
-    map('o', 'zK', '<Plug>Lightspeed_X',  'Lightspeed jump upwards (inclusive op)')
+    map(nxo, 'zj',     '<Plug>Lightspeed_s',       'Lightspeed jump downwards')
+    map(nxo, 'zk',     '<Plug>Lightspeed_S',       'Lightspeed jump upwards')
+    map(nxo, '<CR>',   '<Plug>Lightspeed_omni_s',  'Lightspeed jump bidirectionally')
+    map(nxo, '<S-CR>', '<Plug>Lightspeed_omni_gs', 'Lightspeed jump to window bidirectionally')
+
+    map('o', 'zJ', '<Plug>Lightspeed_x', 'Lightspeed jump downwards (inclusive op)')
+    map('o', 'zK', '<Plug>Lightspeed_X', 'Lightspeed jump upwards (inclusive op)')
 
     -- Move default zj/zk bindings to ]z/[z
     map('n', ']z', 'zj', 'Jump to next fold using ]z instead of zj')

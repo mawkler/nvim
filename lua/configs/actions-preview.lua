@@ -13,7 +13,7 @@ return {
         algorithm = 'patience',
         ignore_whitespace = true,
       },
-      telescope = require("telescope.themes").get_dropdown({
+      telescope = require('telescope.themes').get_dropdown({
         layout_config = { mirror = true },
       }),
     })

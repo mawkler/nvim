@@ -16,9 +16,9 @@ return {
     local opts = { buffer = true }
 
     local function set_keymaps()
-      map('i', '<CR>',      '<CR><cmd>AutolistNewBullet<CR>',      opts)
-      map('n', 'o',         'o<cmd>AutolistNewBullet<CR>',         opts)
-      map('n', 'O',         'O<cmd>AutolistNewBulletBefore<CR>',   opts)
+      map('i', '<CR>', '<CR><cmd>AutolistNewBullet<CR>',    opts)
+      map('n', 'o',    'o<cmd>AutolistNewBullet<CR>',       opts)
+      map('n', 'O',    'O<cmd>AutolistNewBulletBefore<CR>', opts)
     end
 
     local augroup = vim.api.nvim_create_augroup('Autolist', {})

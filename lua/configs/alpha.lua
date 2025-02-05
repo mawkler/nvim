@@ -28,10 +28,10 @@ return {
     -- Menu
     section.buttons.val = {
       dashboard.button('<Leader>so', '  Open session'),
-      dashboard.button('<Leader>m',  '  Most recent files'),
-      dashboard.button('<C-p>',      '󰱼  Find file'),
-      dashboard.button('i',          '  New file',           ':enew <BAR> startinsert<CR>'),
-      dashboard.button('<C-q>',      '󰩈  Quit'),
+      dashboard.button('<Leader>m', '  Most recent files'),
+      dashboard.button('<C-p>', '󰱼  Find file'),
+      dashboard.button('i', '  New file', ':enew <BAR> startinsert<CR>'),
+      dashboard.button('<C-q>', '󰩈  Quit'),
     }
 
     -- Footer

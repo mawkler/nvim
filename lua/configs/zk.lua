@@ -9,18 +9,20 @@ local function new_note()
   end
 end
 
+local search_notes = '<Cmd>ZkNotes { sort = { "modified" }, match = { vim.fn.input("Search: ") } }<CR>'
+
 return {
   'mickael-menu/zk-nvim',
   requires = 'nvim-lua/plenary.nvim',
   cmd = { 'ZkIndex', 'ZkNew', 'ZkCd', 'ZkNotes', 'ZkBacklinks', 'ZkLinks', 'ZkTags' },
   keys = {
-    { '<leader>zn', new_note, desc = 'New note' },
-    { '<leader>zn', ":'<,'>ZkNewFromTitleSelection<CR>", mode = 'x', desc = 'New note from selection' },
+    { '<leader>zn', new_note,                                     desc = 'New note' },
+    { '<leader>zn', ":'<,'>ZkNewFromTitleSelection<CR>",          desc = 'New note from selection',  mode = 'x' },
     { '<leader>zf', '<Cmd>ZkNotes { sort = { "modified" } }<CR>', desc = 'Find notes' },
-    { '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Note tags' },
-    { '<leader>zc', '<Cmd>ZkCd<CR>', desc = 'Change to notes directory' },
-    { '<leader>z/', ":'<,'>ZkMatch<CR>", mode = 'x', desc = 'Find in notes' },
-    { '<leader>z/', '<Cmd>ZkNotes { sort = { "modified" }, match = { vim.fn.input("Search: ") } }<CR>', desc = 'Find in notes' },
+    { '<leader>zt', '<Cmd>ZkTags<CR>',                            desc = 'Note tags' },
+    { '<leader>zc', '<Cmd>ZkCd<CR>',                              desc = 'Change to notes directory' },
+    { '<leader>z/', search_notes,                                 desc = 'Find in notes' },
+    { '<leader>z/', ":'<,'>ZkMatch<CR>",                          desc = 'Find in notes',            mode = 'x' },
   },
   config = function()
     require('zk').setup({

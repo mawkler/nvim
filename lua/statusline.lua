@@ -31,16 +31,16 @@ local modes = {
   ['no']   = '  OP  ',
   ['nov']  = '  OP  ',
   ['noV']  = '  OP  ',
-  ['no'] = '  OP  ',
+  ['no']  = '  OP  ',
   ['niI']  = 'NORMAL',
   ['niR']  = 'NORMAL',
   ['niV']  = 'NORMAL',
   ['v']    = 'VISUAL',
   ['V']    = 'LINES ',
-  ['']   = 'BLOCK ',
+  ['']    = 'BLOCK ',
   ['s']    = 'SELECT',
   ['S']    = 'SELECT',
-  ['']   = 'BLOCK ',
+  ['']    = 'BLOCK ',
   ['i']    = 'INSERT',
   ['ic']   = 'INSERT',
   ['ix']   = 'INSERT',
@@ -69,7 +69,7 @@ local left_sect = {
 }
 local right_sect = {
   left_sep  = { str = '', hl = separator_hl },
-  right_sep = { str = '',  hl = separator_hl },
+  right_sep = { str = '', hl = separator_hl },
 }
 
 -- Help functions
@@ -157,10 +157,10 @@ table.insert(active_left, {
 -- Current working directory
 table.insert(active_left, {
   provider = get_working_dir,
-  short_provider = function () return get_working_dir(true) end,
+  short_provider = function() return get_working_dir(true) end,
   hl = function() return { fg = mode_color(), bg = 'line_bg' } end,
   left_sep = '█',
-  right_sep = { str = '',  hl = { fg = 'line_bg', bg = 'separator_bg' } },
+  right_sep = { str = '', hl = { fg = 'line_bg', bg = 'separator_bg' } },
   icon = ' ',
   truncate_hide = true,
   priority = 9
@@ -229,10 +229,11 @@ table.insert(active_left, {
   riht_sep = ' ',
   hl = { fg = 'dark_text' },
   enabled = function() return next(vim.lsp.get_clients()) ~= nil end,
-  icon = function() return {
-    str = ' ',
-    hl = { fg = mode_color() }
-  }
+  icon = function()
+    return {
+      str = ' ',
+      hl = { fg = mode_color() }
+    }
   end,
   truncate_hide = true,
   priority = -1,
@@ -274,7 +275,7 @@ table.insert(active_mid, {
     end
   end,
   icon = {
-    str =' ',
+    str = ' ',
     hl = { fg = 'snippet' }
   },
 })
@@ -381,13 +382,15 @@ table.insert(active_right, {
   hl = { bg = 'line_bg' },
   left_sep = right_sect.left_sep,
   right_sep = right_sect.right_sep,
-  icon = function() return {
-    str = ' ',
-    hl = {
-      fg = mode_color(),
-      bg = 'line_bg'
+  icon = function()
+    return {
+      str = ' ',
+      hl = {
+        fg = mode_color(),
+        bg = 'line_bg'
+      }
     }
-  } end,
+  end,
   truncate_hide = true
 })
 

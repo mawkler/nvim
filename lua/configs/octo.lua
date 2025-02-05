@@ -9,7 +9,7 @@ return {
     'nvim-telescope/telescope.nvim',
     'nvim-tree/nvim-web-devicons',
   },
-  config = function ()
+  config = function()
     require('octo').setup({
       default_remote = { 'upstream', 'origin', 'fork' }
     })

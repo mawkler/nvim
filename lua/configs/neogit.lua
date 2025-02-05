@@ -41,9 +41,11 @@ return {
     })
 
     map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Git checkout')
-    map('n', '<leader>gs', function() neogit.open({
-      cwd = vim.fn.expand('%:p:h'),
-      kind = 'vsplit',
-    }) end, 'Neogit status')
+    map('n', '<leader>gs', function()
+      neogit.open({
+        cwd = vim.fn.expand('%:p:h'),
+        kind = 'vsplit',
+      })
+    end, 'Neogit status')
   end
 }

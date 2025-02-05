@@ -4,11 +4,11 @@
 return {
   'mbbill/undotree',
   keys = '<leader>u',
-  cmd = {'UndoTreeShow', 'UndoTreeToggle'},
+  cmd = { 'UndoTreeShow', 'UndoTreeToggle' },
   config = function()
     local map = require('utils').map
 
-    map('n', '<leader>u', function ()
+    map('n', '<leader>u', function()
       vim.cmd 'UndotreeShow'
       vim.cmd 'UndotreeFocus'
     end, 'Open undo tree')

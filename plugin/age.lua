@@ -23,5 +23,5 @@ local function agE()
   search('\\>\\s', 'bW')
 end
 
-map({'x', 'o'}, 'age', age)
-map({'x', 'o'}, 'agE', agE)
+map({ 'x', 'o' }, 'age', age)
+map({ 'x', 'o' }, 'agE', agE)

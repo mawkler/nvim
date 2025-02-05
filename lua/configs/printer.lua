@@ -20,7 +20,7 @@ return {
     end
 
     local function elixir_formatter(inside, variable)
-      return string.format("IO.inspect(%s)", inside, variable)
+      return string.format('IO.inspect(%s)', inside, variable)
     end
 
     local function heex_formatter(inside, variable)

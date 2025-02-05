@@ -15,6 +15,7 @@ return {
     local default_theme = colorscheme.get_default_feline_highlights()
 
     require('statusline').setup({ theme = default_theme })
+
     require('feline').add_theme('onedark', default_theme)
 
     vim.opt.laststatus = 3 -- Global statusline

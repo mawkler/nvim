@@ -38,7 +38,7 @@ return {
         },
         icons = {
           glyphs = {
-            default = '' ,
+            default = '',
             git = {
               unstaged  = '',
               staged    = '',
@@ -122,8 +122,8 @@ return {
 
     vim.api.nvim_create_augroup('NvimTreeRefresh', {})
     vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = 'NvimTree_1',
-      group   = 'NvimTreeRefresh',
+      pattern  = 'NvimTree_1',
+      group    = 'NvimTreeRefresh',
       callback = api.tree.reload,
     })
 

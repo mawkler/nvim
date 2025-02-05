@@ -39,7 +39,7 @@ return {
       local markdown_hl_name = ('DropBarIconKindMarkdownH%d'):format(i)
       local link_to_hl = ('@markup.heading.%d.markdown'):format(i)
 
-      vim.api.nvim_set_hl(0, marker_hl_name, { link = link_to_hl })
+      vim.api.nvim_set_hl(0, marker_hl_name,   { link = link_to_hl })
       vim.api.nvim_set_hl(0, markdown_hl_name, { link = link_to_hl })
     end
 
@@ -66,8 +66,8 @@ return {
       },
     })
 
-    vim.keymap.set('n', '<Leader>bb', api.pick, { desc = 'Pick symbols in winbar' })
-    vim.keymap.set('n', '<Leader>b]', api.goto_context_start, { desc = 'Go to start of current context' })
+    vim.keymap.set('n', '<Leader>bb', api.pick,                { desc = 'Pick symbols in winbar' })
+    vim.keymap.set('n', '<Leader>b]', api.goto_context_start,  { desc = 'Go to start of current context' })
     vim.keymap.set('n', '<Leader>b[', api.select_next_context, { desc = 'Select next context' })
   end
 }

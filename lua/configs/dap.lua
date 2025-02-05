@@ -13,10 +13,10 @@ return {
     'nvim-telescope/telescope-dap.nvim', -- Telescope integration
   },
   keys = {
-    { '<leader>td', '<cmd>Telescope dap commands<CR>', desc = 'DAP commands' },
-    { '<leader>tb', '<cmd>Telescope dap list_breakpoints<CR>', desc = 'DAP breakpoints'  },
-    { '<leader>tv', '<cmd>Telescope dap variables<CR>', desc = 'DAP variables'  },
-    { '<leader>tf', '<cmd>Telescope dap frames<CR>', desc = 'DAP variables'  },
+    { '<leader>td', '<cmd>Telescope dap commands<CR>',         desc = 'DAP commands' },
+    { '<leader>tb', '<cmd>Telescope dap list_breakpoints<CR>', desc = 'DAP breakpoints' },
+    { '<leader>tv', '<cmd>Telescope dap variables<CR>',        desc = 'DAP variables' },
+    { '<leader>tf', '<cmd>Telescope dap frames<CR>',           desc = 'DAP variables' },
   },
   cmd = {
     'DapContinue',
@@ -29,9 +29,9 @@ return {
     'DapStepOver',
     'DapEval',
     'DapToggleRepl',
-    'DapClearBreakpoints' ,
-    'DapToggleBreakpoint' ,
-    'DapSetLogLevel' ,
+    'DapClearBreakpoints',
+    'DapToggleBreakpoint',
+    'DapSetLogLevel',
   },
   config = function()
     local dap = require('dap')
@@ -42,11 +42,11 @@ return {
     local get_install_path = require('utils').get_install_path
     local breakpoint = require('goto-breakpoints')
 
-    sign_define('DapBreakpoint',          { text='', texthl='Error' })
-    sign_define('DapBreakpointCondition', { text='לּ', texthl='Error' })
-    sign_define('DapLogPoint',            { text='', texthl='Directory' })
-    sign_define('DapStopped',             { text='ﰲ', texthl='TSConstant' })
-    sign_define('DapBreakpointRejected',  { text='', texthl='Error' })
+    sign_define('DapBreakpoint',          { text = '', texthl = 'Error' })
+    sign_define('DapBreakpointCondition', { text = 'לּ', texthl = 'Error' })
+    sign_define('DapLogPoint',            { text = '', texthl = 'Directory' })
+    sign_define('DapStopped',             { text = 'ﰲ', texthl = 'TSConstant' })
+    sign_define('DapBreakpointRejected',  { text = '', texthl = 'Error' })
 
     -- Automatically set up installed DAP adapters
     ---@diagnostic disable-next-line: missing-fields
@@ -98,10 +98,10 @@ return {
     -- Rust/C++/C --
     dap.adapters.codelldb = {
       type = 'server',
-      port = "${port}",
+      port = '${port}',
       executable = {
         command = get_install_path('codelldb') .. '/codelldb',
-        args = {"--port", "${port}"},
+        args = { '--port', '${port}' },
       }
     }
 

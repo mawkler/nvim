@@ -7,13 +7,13 @@ return {
   dependencies = 'mireq/luasnip-snippets', -- Collection of snippets
   event = 'InsertEnter',
   config = function()
-    local fn = vim.fn
+    local fn            = vim.fn
     local feedkeys, map = require('utils').feedkeys, require('utils').map
 
-    local luasnip = require('luasnip')
+    local luasnip             = require('luasnip')
     local snippets_snip_utils = require('luasnip_snippets.common.snip_utils')
-    local s, sn   = luasnip.snippet, luasnip.snippet_node
-    local t, i, d = luasnip.text_node, luasnip.insert_node, luasnip.dynamic_node
+    local s, sn               = luasnip.snippet, luasnip.snippet_node
+    local t, i, d             = luasnip.text_node, luasnip.insert_node, luasnip.dynamic_node
 
     luasnip.config.setup({ history = true })
     snippets_snip_utils.setup()
@@ -23,7 +23,7 @@ return {
       ft_func = snippets_snip_utils.ft_func,
     })
 
-    luasnip.filetype_extend('all', {'global'})
+    luasnip.filetype_extend('all', { 'global' })
     require('luasnip.loaders.from_vscode').load({
       paths = { '~/.config/nvim/snippets' },
     })
@@ -53,8 +53,8 @@ return {
         name = 'UUID',
         dscr = 'Generate a unique UUID'
       }, {
-          d(1, function() return sn(nil, i(1, uuid())) end)
-        })
+        d(1, function() return sn(nil, i(1, uuid())) end)
+      })
     })
     luasnip.add_snippets('markdown', {
       s({
@@ -62,9 +62,9 @@ return {
         name = 'hyperlink',
         dscr = 'Hyperlink with the content in the clipboard'
       }, {
-          t '[', i(1, 'text'), t ']',
-          t '(', d(2, luasnip_clipboard), t ') ',
-        })
+        t '[', i(1, 'text'), t ']',
+        t '(', d(2, luasnip_clipboard), t ') ',
+      })
     })
     luasnip.add_snippets('lua', {
       s({
@@ -72,12 +72,12 @@ return {
         name = 'Add plugin config',
         dscr = 'Add plugin URL from the clipboard'
       }, {
-          t { "return {", "\t'" },
-          d(1, plugin_repo_snippet), t "',",
-          t { '', '\tconfig = function()', '\t\t' },
-          i(2),
-          t { '', '\tend', '}' }
-        })
+        t { 'return {', "\t'" },
+        d(1, plugin_repo_snippet), t "',",
+        t { '', '\tconfig = function()', '\t\t' },
+        i(2),
+        t { '', '\tend', '}' }
+      })
     })
 
     local function right_or_snip_next()
@@ -102,11 +102,13 @@ return {
       end
     end
 
-    map({'i', 's'}, '<M-S-l>', right_or_snip_next,   '<Right> or next snippet')
-    map({'i', 's'}, '<M-S-h>', left_or_snip_prev,    '<Left> or previous snippet')
-    map({'i', 's'}, '<M-.>',   right_or_snip_next,   '<Right> or next snippet')
-    map({'i', 's'}, '<M-,>',   left_or_snip_prev,    '<Left> or previous snippet')
-    map({'i', 's'}, '<M-t>',   toggle_active_choice, 'Toggle active snippet choice')
-    map({'i', 's'}, '<C-y>',   luasnip.expand,       'Expand snippet')
+    local is = { 'i', 's' }
+
+    map(is, '<M-S-l>', right_or_snip_next,   '<Right> or next snippet')
+    map(is, '<M-S-h>', left_or_snip_prev,    '<Left> or previous snippet')
+    map(is, '<M-.>',   right_or_snip_next,   '<Right> or next snippet')
+    map(is, '<M-,>',   left_or_snip_prev,    '<Left> or previous snippet')
+    map(is, '<M-t>',   toggle_active_choice, 'Toggle active snippet choice')
+    map(is, '<C-y>',   luasnip.expand,       'Expand snippet')
   end
 }
