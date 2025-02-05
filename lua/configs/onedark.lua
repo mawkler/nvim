@@ -50,6 +50,7 @@ return {
           CursorLineNr   = { link = 'NormalMode' },
           WinBar         = { fg = c.fg_dark, bg = c.bg0 },
           WinBarNC       = { link = 'WinBar' },
+          Special        = { fg = c.yellow1 },
 
           -- Fixes issue with the fold symbol background missing
           UfoCursorFoldedLine = { bg = cursorline_bg },
