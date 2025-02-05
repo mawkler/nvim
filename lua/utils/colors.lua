@@ -71,4 +71,22 @@ function M.mix_colors(color1, color2, proportion1, proportion2)
   return rgb_to_hex(r, g, b)
 end
 
+--- Darkens `color` by `amount`
+---@param color string: Base color to darken
+---@param amount number: Number between 0 and 1 representing the amount to darken
+---@return string: A hex representing the new color
+function M.darken(color, amount)
+  local background = M.get_highlight('Normal', 'bg')
+  return M.mix_colors(color, background, 1 - amount, 0.3)
+end
+
+--- Brightens `color` by `amount`
+---@param color string: Base color to brighten
+---@param amount number: Number between 0 and 1 representing the amount to brighten
+---@return string: A hex representing the new color
+function M.brighten(color, amount)
+  local background = M.get_highlight('Normal', 'fg')
+  return M.mix_colors(color, background, amount, 0.3)
+end
+
 return M
