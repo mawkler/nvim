@@ -29,10 +29,10 @@ end
 
 local function save_session()
   local session_name = compute_session_name()
-  local command = string.format('SessionSave! %s', session_name)
+  local command = ('SessionSave! %s'):format(session_name)
 
   vim.cmd(command)
-  vim.notify(string.format("Saved session '%s'", session_name))
+  vim.notify(("Saved session '%s'"):format(session_name))
 end
 
 return {

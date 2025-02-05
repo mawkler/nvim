@@ -19,7 +19,7 @@ local function multiopen(prompt_bufnr, method)
     for i, entry in ipairs(multi_selection) do
       -- opinionated use-case
       local cmd = i == 1 and 'edit' or cmd_map[method]
-      vim.cmd(string.format('%s %s', cmd, entry.value))
+      vim.cmd(('%s %s'):format(cmd, entry.value))
     end
   else
     actions['select_' .. method](prompt_bufnr)

@@ -120,7 +120,7 @@ return {
         local entry_type = strings[2] or ''
 
         kind.kind = entry_kind
-        kind.menu = string.format('  %s  %s', entry_type, source_name)
+        kind.menu = ('  %s  %s'):format(entry_type, source_name)
 
         -- Don't create duplicates if (snippet) entry already exists
         if entry.source.name == 'nvim_lsp' then

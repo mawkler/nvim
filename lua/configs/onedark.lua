@@ -183,7 +183,7 @@ return {
           Scrollbar = { fg = c.bg_visual, bg = nil },
 
           -- Leap
-          LeapMatch    = { fg = c.orange0, style = string.format('%s,%s', style.Bold, style.Underline) },
+          LeapMatch    = { fg = c.orange0, style = ('%s,%s'):format(style.Bold, style.Underline) },
           LeapLabel    = { fg = c.green0, style = style.Bold },
           LeapBackdrop = { fg = c.fg_dark },
 

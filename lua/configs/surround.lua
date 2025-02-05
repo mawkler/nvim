@@ -30,7 +30,7 @@ return {
 
     ---@return { add: function, delete: function }
     local function type(name)
-      local regex = string.format('(%s<)().-(>)()', name)
+      local regex = ('(%s<)().-(>)()'):format(name)
       return {
         add = function()
           return { { name .. '<' }, { '>' } }

@@ -172,7 +172,7 @@ table.insert(active_left, {
     if vim.v.hlsearch == 0 then return '' end
     local res = vim.fn.searchcount({ maxcount = 999, timeout = 250 })
     if res.total == 0 then return 'not found' end
-    return string.format('%d/%d', res.current, math.min(res.total, res.maxcount))
+    return ('%d/%d'):format(res.current, math.min(res.total, res.maxcount))
   end,
   icon = {
     str = ' ',
@@ -397,10 +397,10 @@ table.insert(active_right, {
 -- Cursor line and column
 table.insert(active_right, {
   provider = function()
-    return string.format('%2d:%-2d', fn.line('.'), fn.col('.'))
+    return ('%2d:%-2d'):format(fn.line('.'), fn.col('.'))
   end,
   short_provider = function()
-    return string.format('%d:%-d', fn.line('.'), fn.col('.'))
+    return ('%d:%-d'):format(fn.line('.'), fn.col('.'))
   end,
   left_sep = function()
     return { str = right_sect.left_sep.str, hl = { fg = mode_color(), bg = 'separator_bg' } }

@@ -39,7 +39,7 @@ return {
 
     function Footer:add(icon, item, condition)
       if condition == nil or condition then
-        table.insert(self.items, string.format('%s %s', icon, tostring(item)))
+        table.insert(self.items, ('%s %s'):format(icon, tostring(item)))
       end
     end
 
@@ -48,16 +48,14 @@ return {
     end
 
     local lazy_stats = lazy.stats()
-    local loaded_plugins = string.format(
-      '%d/%d plugins',
+    local loaded_plugins = ('%d/%d plugins'):format(
       lazy_stats.loaded,
       lazy_stats.count
     )
 
     local version = vim.version() or {}
     local date = os.date('%d-%m-%Y')
-    local version_string = string.format(
-      'v%s.%d.%d',
+    local version_string = ('v%s.%d.%d'):format(
       version.major,
       version.minor,
       version.patch

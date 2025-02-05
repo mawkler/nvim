@@ -74,11 +74,11 @@ end
 
 --- Import plugin config from external module in `lua/configs/`
 function M.use(module)
-  local ok, m = pcall(require, string.format('configs.%s', module))
+  local ok, m = pcall(require, ('configs.%s'):format(module))
   if ok then
     return m
   else
-    vim.notify(string.format('Failed to import Lazy config module %s: %s', module, m))
+    vim.notify(('Failed to import Lazy config module %s: %s'):format(module, m))
     return {}
   end
 end
