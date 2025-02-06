@@ -1,7 +1,6 @@
 ----------------
 -- Substitute --
 ----------------
-
 return {
   'gbprod/substitute.nvim',
   keys = {
@@ -41,8 +40,13 @@ return {
     map('n', 'sxc',  exchange.cancel,           'Exchange cancel')
 
     substitute.setup({
-      on_substitute = require('yanky.integration').substitute(),
-      highlight_substituted_text = { timer = 150 },
+      on_substitute = function(event)
+        require('tiny-glimmer.support.substitute').substitute_cb(event)
+        require('yanky.integration').substitute()(event)
+      end,
+      highlight_substituted_text = {
+        enabled = false,
+      },
     })
   end
 }
