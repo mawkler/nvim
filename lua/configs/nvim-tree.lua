@@ -7,18 +7,36 @@ local function find_file()
   require('nvim-tree.api').tree.find_file(opts)
 end
 
+local function toggle() require('nvim-tree.api').tree.toggle() end
+
 return {
   'kyazdani42/nvim-tree.lua',
   dependencies = 'nvim-tree/nvim-web-devicons',
   lazy = vim.fn.argc() == 0,
   keys = {
-    { '<leader>`', function() require('nvim-tree.api').tree.toggle() end, mode = 'n', desc = 'Toggle file tree' },
-    { '<leader>~', find_file,                                             mode = 'n', desc = 'Show current file in file tree', },
+    { '<leader>`', toggle,    mode = 'n', desc = 'Toggle file tree' },
+    { '<leader>~', find_file, mode = 'n', desc = 'Show current file in file tree', },
   },
   config = function()
     local nvim_tree, api = require('nvim-tree'), require('nvim-tree.api')
     local node, tree, fs, marks = api.node, api.tree, api.fs, api.marks
     local git_navigate = node.navigate.git
+
+    local function hide_cursor()
+      local hi = vim.api.nvim_get_hl(0, { name = 'Cursor' })
+      vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hi, {
+        blend = 100,
+      }))
+      vim.opt.guicursor:append('a:Cursor/lCursor')
+    end
+
+    local function show_cursor()
+      local hi = vim.api.nvim_get_hl(0, { name = 'Cursor' })
+      vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hi, {
+        blend = 0,
+      }))
+      vim.opt.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
+    end
 
     nvim_tree.setup({
       diagnostics = {
@@ -106,24 +124,31 @@ return {
         map('f',     api.live_filter.start,          'Filter')
         map('m',     marks.toggle,                   'Toggle Bookmark')
         map('bmv',   marks.bulk.move,                'Move Bookmarked')
-        map('a',     fs.create,                      'Create')
-        map('c',     fs.copy.node,                   'Copy')
-        map('gy',    fs.copy.absolute_path,          'Copy Absolute Path')
-        map('p',     fs.paste,                       'Paste')
-        map('r',     fs.rename,                      'Rename')
-        map('x',     fs.cut,                         'Cut')
-        map('y',     fs.copy.filename,               'Copy Name')
-        map('Y',     fs.copy.relative_path,          'Copy Relative Path')
+        -- map('a',     fs.create,                      'Create')
+        map('c',  fs.copy.node,          'Copy')
+        map('gy', fs.copy.absolute_path, 'Copy Absolute Path')
+        map('p',  fs.paste,              'Paste')
+        map('r',  fs.rename,             'Rename')
+        map('x',  fs.cut,                'Cut')
+        map('y',  fs.copy.filename,      'Copy Name')
+        map('Y',  fs.copy.relative_path, 'Copy Relative Path')
 
         map('<2-LeftMouse>',  api.node.open.edit,       'Open')
         map('<2-RightMouse>', tree.change_root_to_node, 'CD')
+
+        map('a', function()
+          -- Restore hidden cursor so that it's visible when we type the
+          -- file/directory name
+          show_cursor()
+          fs.create()
+        end, 'Create file/directory')
       end,
     })
 
-    vim.api.nvim_create_augroup('NvimTreeRefresh', {})
+    local augroup = vim.api.nvim_create_augroup('NvimTreeConfig', {})
     vim.api.nvim_create_autocmd('BufEnter', {
       pattern  = 'NvimTree_1',
-      group    = 'NvimTreeRefresh',
+      group    = augroup,
       callback = api.tree.reload,
     })
 
@@ -148,26 +173,17 @@ return {
     remove_highlight('NvimTreeGitFileDirtyHL')
     remove_highlight('NvimTreeGitFileNewHL')
 
+    -- Hide cursor inside nvim-tree
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-      pattern = 'NvimTree*',
-      callback = function()
-        local hi = vim.api.nvim_get_hl(0, { name = 'Cursor' })
-        vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hi, {
-          blend = 100,
-        }))
-        vim.opt.guicursor:append('a:Cursor/lCursor')
-      end,
+      pattern  = 'NvimTree*',
+      callback = hide_cursor,
+      group    = augroup,
     })
 
     vim.api.nvim_create_autocmd({ 'BufLeave', 'WinClosed', 'WinLeave' }, {
-      pattern = 'NvimTree*',
-      callback = function()
-        local hi = vim.api.nvim_get_hl(0, { name = 'Cursor' })
-        vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hi, {
-          blend = 0,
-        }))
-        vim.opt.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
-      end,
+      pattern  = 'NvimTree*',
+      callback = show_cursor,
+      group    = augroup,
     })
   end
 }
