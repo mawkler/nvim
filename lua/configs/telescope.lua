@@ -241,6 +241,7 @@ return {
     telescope.load_extension('notify')
     telescope.load_extension('cder')
     telescope.load_extension('git_worktree')
+    telescope.load_extension('fidget')
 
     -- Temporary workaround for https://github.com/nvim-telescope/telescope.nvim/issues/2766
     vim.api.nvim_create_autocmd('WinLeave', {
