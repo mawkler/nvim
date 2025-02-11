@@ -51,8 +51,8 @@ local plugins = {
   use 'tsc',                  -- TypeScript type checking
   use 'ltex',                 -- LTeX utils
   use 'luasnip',              -- Snippet engine
-  use 'cmp',                  -- Autocompletion
-  use 'cmp-lsp-rs',           -- Better Rust sorting
+  use 'blink',                -- Autocompletion
+  use 'colorful-menu',        -- Better autocompletion colors
   use 'lazydev',              -- Neovim-aware lua-ls config
   use 'treesitter',           -- Abstract syntax tree
   use 'outline',              -- Code outline sidebar

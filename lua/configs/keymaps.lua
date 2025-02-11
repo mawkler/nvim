@@ -140,13 +140,12 @@ map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<C-w><C-^>', '<C-w>v<C-6>')
 map('n', '<C-w>6',     '<C-w>v<C-6>')
 
-map('s',          '<BS>',   '<BS>i') -- By default <BS> puts you in normal mode
-map('s',          '<C-h>',  '<BS>i')
-map(all_modes,    '<C-m>',  '<CR>',        { remap = true })
-map({ 'i', 'c' }, '<C-i>',  '<Tab>',       { remap = true })
-map('n',          'g<C-a>', 'v<C-a>',      'Increment number under cursor')
-map('n',          'g<C-x>', 'v<C-x>',      'Decrement number under cursor')
-map('s',          '<C-r>',  '<C-g>c<C-r>', 'Insert content of a register')
+map('s',       '<BS>',   '<BS>i')    -- By default <BS> puts you in normal mode
+map('s',       '<C-h>',  '<BS>i')
+map(all_modes, '<C-m>',  '<CR>',        { remap = true })
+map('n',       'g<C-a>', 'v<C-a>',      'Increment number under cursor')
+map('n',       'g<C-x>', 'v<C-x>',      'Decrement number under cursor')
+map('s',       '<C-r>',  '<C-g>c<C-r>', 'Insert content of a register')
 
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete'
