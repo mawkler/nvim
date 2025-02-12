@@ -35,8 +35,15 @@ return {
       nerd_font_variant = 'normal',
       kind_icons = require('utils.icons').icons,
     },
+    snippets = { preset = 'luasnip' },
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+      providers = {
+        lazydev = {
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
+        },
+      },
     },
     signature = {
       enabled = true,

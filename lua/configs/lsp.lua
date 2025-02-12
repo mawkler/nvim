@@ -48,7 +48,6 @@ return {
             },
             workspace = {
               checkThirdParty = false,
-              library = { vim.env.VIMRUNTIME }, -- Fixes issue with `vim` global missing?
             },
             telemetry = {
               enable = false,
