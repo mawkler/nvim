@@ -86,6 +86,15 @@ return {
           require('utils').map('n', lhs, rhs, { buffer = bufnr, desc = desc })
         end
 
+        --- Restore hidden cursor so that it's visible when typing
+        ---@param fn function
+        local function with_visible_cursor(fn)
+          return function()
+            show_cursor()
+            fn()
+          end
+        end
+
         -- Custom mappings
         map('l',     node.open.edit,                    'Open')
         map('h',     node.navigate.parent_close,        'Close')
@@ -105,7 +114,6 @@ return {
         -- Recommended defaults
         map('<C-t>', node.open.tab,                  'Open: New Tab')
         map('<C-v>', node.open.vertical,             'Open: Vertical Split')
-        map('.',     node.run.cmd,                   'Run Command')
         map(']e',    node.navigate.diagnostics.next, 'Next Diagnostic')
         map('[e',    node.navigate.diagnostics.prev, 'Prev Diagnostic')
         map('J',     node.navigate.sibling.last,     'Last Sibling')
@@ -124,24 +132,19 @@ return {
         map('f',     api.live_filter.start,          'Filter')
         map('m',     marks.toggle,                   'Toggle Bookmark')
         map('bmv',   marks.bulk.move,                'Move Bookmarked')
-        -- map('a',     fs.create,                      'Create')
-        map('c',  fs.copy.node,          'Copy')
-        map('gy', fs.copy.absolute_path, 'Copy Absolute Path')
-        map('p',  fs.paste,              'Paste')
-        map('r',  fs.rename,             'Rename')
-        map('x',  fs.cut,                'Cut')
-        map('y',  fs.copy.filename,      'Copy Name')
-        map('Y',  fs.copy.relative_path, 'Copy Relative Path')
+        map('c',     fs.copy.node,                   'Copy')
+        map('gy',    fs.copy.absolute_path,          'Copy Absolute Path')
+        map('p',     fs.paste,                       'Paste')
+        map('x',     fs.cut,                         'Cut')
+        map('y',     fs.copy.filename,               'Copy Name')
+        map('Y',     fs.copy.relative_path,          'Copy Relative Path')
 
         map('<2-LeftMouse>',  api.node.open.edit,       'Open')
         map('<2-RightMouse>', tree.change_root_to_node, 'CD')
 
-        map('a', function()
-          -- Restore hidden cursor so that it's visible when we type the
-          -- file/directory name
-          show_cursor()
-          fs.create()
-        end, 'Create file/directory')
+        map('a', with_visible_cursor(fs.create),    'Create file/directory')
+        map('r', with_visible_cursor(fs.rename),    'Rename')
+        map('.', with_visible_cursor(node.run.cmd), 'Run Command')
       end,
     })
 
