@@ -28,6 +28,7 @@ return {
       ['<M-,>'] = { 'snippet_backward', 'fallback' },
       ['<C-space>'] = { toggle },
       ['<C-/>'] = { show_snippets, 'fallback' },
+      ['<C-y>'] = {}, -- Used to trigger snippets
     },
     appearance = {
       use_nvim_cmp_as_default = true,
