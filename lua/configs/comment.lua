@@ -4,6 +4,7 @@
 ---@diagnostic disable: missing-fields
 return {
   'numToStr/Comment.nvim',
+  dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
   keys = {
     { 'cm',         '<Plug>(comment_toggle_linewise_current)' },
     { '<leader>c',  '<Plug>(comment_toggle_linewise)' },
@@ -19,6 +20,7 @@ return {
   },
   config = function()
     local map = require('utils').map
+    local ts_context_commentstring = require('ts_context_commentstring.integrations.comment_nvim');
 
     require('Comment').setup({
       mappings = {
@@ -37,6 +39,7 @@ return {
         eol = '<leader>cA'
       },
       ignore = '^$', -- Ignore empty lines
+      pre_hook = ts_context_commentstring.create_pre_hook(),
     })
 
     local comment_api = require('Comment.api')

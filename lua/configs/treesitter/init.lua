@@ -100,7 +100,22 @@ return {
         disable_virtual_text = true,
         include_match_words = true
       },
-      endwise = { enable = true }
+      endwise = { enable = true },
+      context_commentstring = {
+        config = {
+          javascript = {
+            __default = '// %s',
+            jsx_element = '{/* %s */}',
+            jsx_fragment = '{/* %s */}',
+            jsx_attribute = '// %s',
+            comment = '// %s',
+          },
+          typescript = {
+            __default = '// %s',
+            __multiline = '/* %s */',
+          },
+        },
+      },
     })
 
     -- Prints the syntax highlighting values under cursor
