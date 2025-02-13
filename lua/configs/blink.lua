@@ -17,6 +17,7 @@ return {
   'saghen/blink.cmp',
   dependencies = { 'L3MON4D3/LuaSnip', 'xzbdmw/colorful-menu.nvim' },
   version = '*',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   ---@type blink.cmp.Config
   opts = {
     keymap = {
