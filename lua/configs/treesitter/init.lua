@@ -10,6 +10,7 @@ return {
   config = function()
     local map = require('utils').map
     local maps = require('configs.treesitter.keymaps')
+    local utils = require('configs.treesitter.utils')
 
     local function include_surrounding_whitespace(selection)
       local queries = {
@@ -116,6 +117,14 @@ return {
           },
         },
       },
+    })
+
+    utils.filetype_keymaps('rust', {
+      t = { node = 'class', name = 'type' },
+    })
+
+    utils.filetype_excluding_keymaps({ 'markdown', 'txt', 'tex', 'html' }, {
+      s = { node = 'statement' },
     })
 
     -- Prints the syntax highlighting values under cursor

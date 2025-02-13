@@ -4,7 +4,6 @@ M.capture_keymaps = {
   f = '@function',
   c = '@call',
   C = '@class',
-  t = '@class', -- `t` for "type"
   a = '@parameter',
   o = '@loop',
   R = '@return',
