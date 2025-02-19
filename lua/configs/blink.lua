@@ -15,7 +15,11 @@ end
 
 return {
   'saghen/blink.cmp',
-  dependencies = { 'L3MON4D3/LuaSnip', 'xzbdmw/colorful-menu.nvim' },
+  dependencies = {
+    'L3MON4D3/LuaSnip',
+    'xzbdmw/colorful-menu.nvim',
+    { 'Kaiser-Yang/blink-cmp-git', dependencies = { 'nvim-lua/plenary.nvim' } },
+  },
   version = '*',
   event = { 'InsertEnter', 'CmdlineEnter' },
   ---@type blink.cmp.Config
@@ -38,11 +42,16 @@ return {
     },
     snippets = { preset = 'luasnip' },
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+      default = { 'lsp', 'git', 'path', 'snippets', 'buffer', 'lazydev' },
       providers = {
         lazydev = {
           name = 'LazyDev',
           module = 'lazydev.integrations.blink',
+        },
+        git = {
+          module = 'blink-cmp-git',
+          name = 'Git',
+          opts = {},
         },
       },
     },
