@@ -6,7 +6,7 @@ return {
   dependencies = 'nvim-lua/plenary.nvim',
   event = { 'BufRead Cargo.toml' },
   config = function()
-    local crates, cmp = require('crates'), require('cmp')
+    local crates = require('crates')
 
     crates.setup({
       lsp = {
@@ -14,25 +14,13 @@ return {
         actions = true,
         completion = true,
       },
-      completion = {
-        cmp = { enabled = true },
-      },
     })
 
-    local function enable_cmp_cargo_completion()
-      local cmp_config = cmp.get_config()
-      table.insert(cmp_config.sources, { name = 'crates' })
-      cmp.setup(cmp_config)
-    end
-
-    -- Crate version completion with nvim-cmp
     vim.api.nvim_create_autocmd('BufRead', {
-      group = vim.api.nvim_create_augroup('CmpSourceCargo', { clear = true }),
+      group = vim.api.nvim_create_augroup('CargoMappings', { clear = true }),
       pattern = 'Cargo.toml',
       callback = function(event)
         local map = require('utils').local_map(event.buf)
-
-        enable_cmp_cargo_completion()
 
         -- Keymaps
         map('n', '<leader>lf', crates.show_features_popup,                'Show crate features')
@@ -49,6 +37,5 @@ return {
         map('n', '<leader>lC', crates.open_crates_io,                     'Open crate on crates.io')
       end,
     })
-    enable_cmp_cargo_completion()
   end
 }
