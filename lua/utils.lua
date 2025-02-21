@@ -4,12 +4,16 @@ function M.termcodes(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function M.map(modes, lhs, rhs, opts)
+---@param mode string | string[]
+---@param lhs string
+---@param rhs string | function
+---@param opts? string | vim.keymap.set.Opts
+function M.map(mode, lhs, rhs, opts)
   if type(opts) == 'string' then
     opts = { desc = opts }
   end
   local options = vim.tbl_extend('keep', opts or {}, { silent = true })
-  vim.keymap.set(modes, lhs, rhs, options)
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 function M.local_map(buffer)
