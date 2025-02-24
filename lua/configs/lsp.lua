@@ -60,11 +60,29 @@ return {
       },
       -- YAML --
       yamlls = {
+        capabilities = {
+          textDocument = {
+            -- Recommended by https://www.lazyvim.org/extras/lang/yaml
+            foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
+          },
+        },
+        -- Lazy-load schemastore when needed
+        on_new_config = function(config)
+          config.settings.yaml.schemas = vim.tbl_deep_extend(
+            'force',
+            config.settings.yaml.schemas or {},
+            require('schemastore').yaml.schemas()
+          )
+        end,
         settings = {
+          redhat = {
+            telemetry = { enabled = false },
+          },
           yaml = {
             schemaStore = {
-              url = 'https://www.schemastore.org/api/json/catalog.json',
-              enable = true
+              -- Disable built-in schemaStore to use schemas from SchemaStore.nvim
+              enable = false,
+              url = '',
             },
             customTags = {
               -- AWS CloudFormation tags
