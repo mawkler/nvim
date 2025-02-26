@@ -46,7 +46,7 @@ local plugins = {
   use 'go',                   -- gopls client
   use 'elixir',               -- Elixir LSP setup
   use 'fastaction',           -- Predictable LSP code actions
-  use 'java',                 -- JDTLS client
+  use 'java',                 -- Java LSP setup
   use 'typescript',           -- TypeScript LSP client wrapper
   use 'tsc',                  -- TypeScript type checking
   use 'ltex',                 -- LTeX utils

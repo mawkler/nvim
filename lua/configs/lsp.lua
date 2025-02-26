@@ -8,7 +8,6 @@ return {
     'williamboman/mason-lspconfig.nvim',     -- Integration with nvim-lspconfig
     'b0o/schemastore.nvim',                  -- YAML/JSON schemas
     'davidosomething/format-ts-errors.nvim', -- Prettier TypeScript errors
-    'hrsh7th/cmp-nvim-lsp',                  -- Improved LSP capabilities
   },
   config = function()
     local api, lsp = vim.api, vim.lsp
@@ -197,7 +196,6 @@ return {
       ts_ls = disable,         -- Setup in typescript.lua
       zk = disable,            -- Setup in zk.lua
       rust_analyzer = disable, -- Setup in rustaceanvim.lua
-      jdtls = disable,         -- Setup in in java.lua
       ltex = disable,          -- Setup in ltex.lua
       gopls = disable,         -- Setup in go.lua
       elixirls = disable,      -- Setup in elixir.lua
@@ -213,14 +211,14 @@ return {
         return
       end
 
-      local opts = server_configs[server_name] or {}
-      opts.capabilities = require('cmp_nvim_lsp').default_capabilities()
       -- Enable folding (required by ufo.nvim)
-      opts.capabilities.textDocument.foldingRange = {
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
-        lineFoldingOnly = true,
+        lineFoldingOnly = true
       }
 
+      local opts = server_configs[server_name] or {}
       lspconfig[server_name].setup(opts)
     end
 
