@@ -8,7 +8,11 @@ return {
     local notify = require('notify')
 
     ---@diagnostic disable-next-line: missing-fields
-    notify.setup({ timeout = 2000 })
+    notify.setup({
+      timeout = 2000,
+      -- Fixes "Highlight group 'NotifyBackground' has no background" error
+      background_colour = '#000000',
+    })
 
     vim.notify = notify
 
