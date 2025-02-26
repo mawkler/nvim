@@ -129,6 +129,7 @@ return {
           NvimTreeGitNew           = { fg = c.green0 },
           NvimTreeGitIgnored       = { fg = c.fg_dark },
           NvimTreeRootFolder       = { fg = c.fg0, style = style.Bold },
+          NvimTreeExecFile         = { link = 'String' },
 
           -- Telescope
           TelescopeMatching      = { fg = c.blue0, style = style.Bold },
