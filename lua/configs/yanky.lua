@@ -6,6 +6,8 @@ return {
   dependencies = 'rachartier/tiny-glimmer.nvim',
   keys = {
     { 'y',         '<Plug>(YankyYank)',                    mode = { 'n', 'x' } },
+    { 'p',         '<Plug>(YankyPutAfter)',                mode = { 'n', 'x' } },
+    { 'P',         '<Plug>(YankyPutBefore)',               mode = { 'n', 'x' } },
     { '<M-p>',     '<Plug>(YankyCycleForward)',            mode = 'n' },
     { '<M-P>',     '<Plug>(YankyCycleBackward)',           mode = 'n' },
     { ']p',        '<Plug>(YankyPutIndentAfterLinewise)',  mode = 'n' },
