@@ -9,7 +9,7 @@ end
 --- Gets the foreground or background color value of a highlight group. Returns
 --- white if - the group doesn't exist.
 --- @param group_name string
---- @param part 'fg' | 'bg'
+--- @param part? 'fg' | 'bg'
 --- @return string
 function M.get_highlight(group_name, part)
   part = part or 'fg'
