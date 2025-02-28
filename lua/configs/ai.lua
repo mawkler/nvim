@@ -45,6 +45,7 @@ return {
     require('mini.ai').setup({
       verbose = false,
       custom_textobjects = custom_textobjects,
+      n_lines = 500, -- Number of lines where textobject is searched for
     })
   end,
 }
