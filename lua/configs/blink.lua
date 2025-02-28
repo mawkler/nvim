@@ -51,7 +51,10 @@ return {
           git = {
             module = 'blink-cmp-git',
             name = 'Git',
-            opts = {},
+            enabled = function()
+              local whitelist = { 'gitcommit', 'markdown', 'octo' }
+              return vim.tbl_contains(whitelist, vim.bo.filetype)
+            end,
           },
         },
       },
