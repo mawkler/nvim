@@ -11,7 +11,7 @@ return {
     notify.setup({
       timeout = 2000,
       -- Fixes "Highlight group 'NotifyBackground' has no background" error
-      background_colour = '#000000',
+      background_colour = 'Normal',
     })
 
     vim.notify = notify
