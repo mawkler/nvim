@@ -94,6 +94,15 @@ return {
         default = { 'imports', 'comment' },
       },
       fold_virt_text_handler = handler,
+      provider_selector = function(_, ft, _)
+        local lsp_fold_unsupported = {
+          'markdown', 'zsh', 'css', 'html', 'python', 'json'
+        }
+
+        return vim.tbl_contains(lsp_fold_unsupported, ft)
+            and { 'treesitter', 'indent' }
+            or { 'lsp', 'indent' }
+      end,
     })
   end
 }
