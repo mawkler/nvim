@@ -2,7 +2,7 @@
 -- Feline --
 ------------
 return {
-  'freddiehaddad/feline.nvim',
+  'second2050/feline.nvim',
   event = 'VeryLazy',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
