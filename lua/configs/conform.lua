@@ -43,6 +43,11 @@ return {
         end
       end,
       default_format_opts = { lsp_format = 'last' },
+      formatters = {
+        mdsf = {
+          args = { 'format', '--cache', '$FILENAME' },
+        }
+      }
     })
 
     vim.keymap.set('n', '<F2>', function()
