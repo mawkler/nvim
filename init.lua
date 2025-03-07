@@ -28,6 +28,7 @@ local plugins = {
   use 'alpha',                -- Nicer start screen
   use 'indent-blankline',     -- Indent markers
   use 'mini-indentscope',     -- Indentation scope
+  use 'indent-tools',         -- Indent-based navigation
   use 'fzf',                  -- Fuzzy finder
   use 'nvim-web-devicons',    -- File icons
   use 'nvim-tree',            -- File explorer

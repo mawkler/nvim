@@ -1,22 +1,20 @@
 ------------------
 -- Indent Tools --
 ------------------
+local mode = { 'n', 'x' }
 return {
   'arsham/indent-tools.nvim',
   dependencies = 'arsham/arshlib.nvim',
   keys = {
-    { 'iI', mode = { 'x', 'o' } },
-    { 'aI', mode = { 'x', 'o' } },
+    { '[I', mode = mode },
+    { ']I', mode = mode },
   },
   config = function()
     require('indent-tools').config({
-      textobj = {
-        ii = 'iI',
-        ai = 'aI',
-      },
+      textobj = false, -- Handled by various-textobjs
       normal = {
-        up = false,
-        down = false,
+        up   = '[I',
+        down = ']I',
       },
     })
   end,
