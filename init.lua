@@ -49,6 +49,7 @@ local plugins = {
   use 'java',                 -- Java LSP setup
   use 'typescript',           -- TypeScript LSP client wrapper
   use 'tsc',                  -- TypeScript type checking
+  use 'namu',                 -- LSP symbol navigator
   use 'ltex',                 -- LTeX utils
   use 'luasnip',              -- Snippet engine
   use 'blink',                -- Autocompletion
