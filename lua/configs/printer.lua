@@ -27,6 +27,10 @@ return {
       return ('<%% IO.inspect(%s, pretty: true) %%>'):format(inside, variable)
     end
 
+    local function javascriptreact_formatter(inside, variable)
+      return string.format('console.log("%s = ", %s)', inside, variable)
+    end
+
     require('printer').setup({
       keymap = 'gp',
       formatters = {
@@ -34,6 +38,8 @@ return {
         rust = rust_formatter,
         elixir = elixir_formatter,
         heex = heex_formatter,
+        javascriptreact = javascriptreact_formatter,
+        typescriptreact = javascriptreact_formatter,
       },
       add_to_inside = function(text)
         return ('%s'):format(text)
