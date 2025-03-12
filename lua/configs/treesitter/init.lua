@@ -127,6 +127,11 @@ return {
       s = { node = 'statement' },
     })
 
+    local jsx_filetypes = { 'typescriptreact', 'javascript', 'javascriptreact' }
+    utils.filetype_keymaps(jsx_filetypes, {
+      t = { node = 'jsx_element' },
+    })
+
     -- Prints the syntax highlighting values under cursor
     map('n', '<leader>H', '<cmd>Inspect<CR>')
 
