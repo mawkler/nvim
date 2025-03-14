@@ -239,6 +239,9 @@ return {
 
           -- Dropbar
           DropBarIconUISeparator = { fg = c.fg_dark },
+
+          -- Rust
+          ['@keyword.modifier.rust'] = { fg = c.purple0 },
         }
       end
     })
