@@ -22,7 +22,7 @@ local function merge(t1, t2)
   return vim.tbl_extend('force', t1, t2)
 end
 
---- @param overrides {}
+--- @param overrides? table<string, string>
 M.get_textobj_keymaps = function(overrides)
   local keymaps = {}
 

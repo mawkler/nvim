@@ -80,15 +80,15 @@ return {
             [']['] = '@class.outer',
             [']A'] = '@parameter.outer',
             [']K'] = '@block.outer',
-            ['[M'] = '@method.outer'
+            ['[M'] = '@method.outer',
           },
           goto_previous_end = {
             ['[F'] = '@function.outer',
             ['[]'] = '@class.outer',
             ['[A'] = '@parameter.outer',
             ['[K'] = '@block.outer',
-            ['[M'] = '@method.outer'
-          }
+            ['[M'] = '@method.outer',
+          },
         },
         swap = {
           enable = true,
@@ -99,7 +99,7 @@ return {
       matchup = {
         enable = true,
         disable_virtual_text = true,
-        include_match_words = true
+        include_match_words = true,
       },
       endwise = { enable = true },
       context_commentstring = {
@@ -127,15 +127,10 @@ return {
       s = { node = 'statement' },
     })
 
-    local jsx_filetypes = { 'typescriptreact', 'javascript', 'javascriptreact' }
-    utils.filetype_keymaps(jsx_filetypes, {
-      t = { node = 'jsx_element' },
-    })
-
     -- Prints the syntax highlighting values under cursor
     map('n', '<leader>H', '<cmd>Inspect<CR>')
 
     -- Disable treesitter from highlighting errors (LSP does that anyway)
     vim.api.nvim_set_hl(0, 'TSError', { link = 'Normal' })
-  end
+  end,
 }
