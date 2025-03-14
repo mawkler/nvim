@@ -18,9 +18,7 @@ return {
         end
       end
 
-      local organize_imports = '<cmd>TSToolsRemoveUnusedImports<CR><cmd>TSToolsOrganizeImports<CR>'
-
-      map('n', '<leader>lo', organize_imports,                    'LSP Organize imports')
+      map('n', '<leader>lo', '<cmd>TSToolsOrganizeImports<CR>',   'LSP Organize imports')
       map('n', '<leader>li', '<cmd>TSToolsAddMissingImports<CR>', 'LSP add missing imports')
       map('n', '<leader>lf', '<cmd>TSToolsFixAll<CR>',            'LSP fix all errors')
       map('n', '<leader>lu', '<cmd>TSToolsRemoveUnused<CR>',      'LSP remove unused')
