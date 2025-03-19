@@ -2,7 +2,7 @@ local map = vim.keymap.set
 
 local M = {}
 
-local augroup = vim.api.nvim_create_augroup('TreesitterTextobjects', {})
+local augroup = vim.api.nvim_create_augroup('TreesitterTextobjectsConfig', {})
 
 ---@param preposition 'inner' | 'outer'
 ---@param node 'string'
