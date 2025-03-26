@@ -26,6 +26,11 @@ return {
     local various_textobjs = require('various-textobjs')
 
     various_textobjs.setup({
+      textobjs = {
+        subword = {
+          noCamelToPascalCase = false,
+        },
+      },
       keymaps = {
         useDefaults = true,
         disabledDefaults = {
@@ -72,6 +77,25 @@ return {
     map(ox,  'aE', function() return various_textobjs.mdEmphasis('outer') end,        'Markdown emphasis')
     map(ox,  ']}', function() return various_textobjs.toNextClosingBracket() end,     'To next closing bracket')
     map(ox,  '[{', function() return various_textobjs.toNextClosingBracket() end,     'To previous closing bracket')
+
+    ---@param preposition 'inner' | 'outer'
+    local function subword(preposition)
+      return function()
+        ---@diagnostic disable-next-line: missing-fields
+        various_textobjs.setup({
+          textobjs = {
+            subword = {
+              noCamelToPascalCase = preposition == 'outer',
+            },
+          },
+        })
+
+        various_textobjs.subword(preposition)
+      end
+    end
+
+    map({ 'o', 'x' }, 'i-', subword('inner'), 'Inside subword')
+    map({ 'o', 'x' }, 'a-', subword('outer'), 'Around subword')
 
     -- Copied from README
     map('n', 'dsi', function()
