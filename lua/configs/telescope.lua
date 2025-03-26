@@ -13,17 +13,6 @@ local cder_dir_cmd = {
   '.',
 }
 
-local function telescope_markdowns()
-  require('telescope.builtin').find_files({
-    search_dirs = { '$MARKDOWNS' },
-    prompt_title = 'Markdowns',
-    path_display = function(_, path)
-      local relative_path, _ = path:gsub(vim.fn.expand('$MARKDOWNS'), '')
-      return relative_path
-    end,
-  })
-end
-
 local function telescope_config()
   require('telescope.builtin').find_files({
     search_dirs = { '$HOME/.config/nvim/' },
@@ -46,6 +35,16 @@ local function grep_string()
       end
       vim.g.grep_string_mode = false
     end)
+end
+
+
+local function frecency_cwd()
+  return require('telescope').extensions.frecency.frecency({
+    workspace = 'CWD',
+    prompt_title = 'Find files (frecency)',
+    show_filter_column = false,                                -- Don't include the cwd name in the file paths
+    sorter = require('telescope.config').values.file_sorter(), -- Allows filtering with fzf syntax (like `^` and `$`)
+  })
 end
 
 return {
@@ -79,23 +78,19 @@ return {
     { '<leader>tr', '<cmd>Telescope resume<CR>',                    desc = 'Resume latest telescope session' },
     { '<leader>tg', '<cmd>Telescope git_files<CR>',                 desc = 'Find git files' },
     { 'sp',         '<cmd>Telescope spell_suggest<CR>',             desc = 'Spell suggestions' },
+    { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',          desc = 'Thesaurus' },
+    { '<leader>tn', '<cmd>Telescope notify notify<CR>',             desc = 'Notifications' },
+    { '<leader>m',  '<cmd>Telescope frecency<CR>',                  desc = 'Frecency' },
+    { '<C-p>',      frecency_cwd,                                   desc = 'Find files (frecency)' },
+    { '<leader>n',  telescope_config,                               desc = 'Filter Neovim config' },
 
     {
-      '<C-p>',
+      'cd',
       function()
-        require('telescope.builtin').find_files({ hidden = true })
+        require('telescope').extensions.cder.cder()
       end,
-      desc = 'Find files'
+      desc = 'Change directory'
     },
-
-    { '<leader>M',  telescope_markdowns,                                        desc = 'Filter markdowns' },
-    { '<leader>n',  telescope_config,                                           desc = 'Filter Neovim config' },
-
-    { '<leader>tT', '<cmd>Telescope thesaurus lookup<CR>',                      desc = 'Thesaurus' },
-    { '<leader>tn', '<cmd>Telescope notify notify<CR>',                         desc = 'Notifications' },
-    { '<leader>m',  '<cmd>Telescope frecency frecency<CR>',                     desc = 'Frecency' },
-
-    { 'cd',         function() require('telescope').extensions.cder.cder() end, desc = 'Change directory' },
     {
       'cD',
       function()
@@ -231,6 +226,7 @@ return {
         },
         frecency = {
           db_safe_mode = false, -- Never ask for confirmation clean up DB
+          show_filter_column = false,
         },
       }
     }
