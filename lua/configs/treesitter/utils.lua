@@ -7,7 +7,7 @@ local augroup = vim.api.nvim_create_augroup('TreesitterTextobjectsConfig', {})
 ---@param preposition 'inner' | 'outer'
 ---@param node 'string'
 ---@return string
-local function select_textobject_cmd(preposition, node)
+local function select_textobject_cmd(node, preposition)
   return ('<cmd>TSTextobjectSelect @%s.%s<CR>'):format(node, preposition)
 end
 
@@ -26,8 +26,8 @@ function M.textobject_map(event, keys)
     local opts = { desc = 'Select ' .. name .. ' textobject', buffer = event.buf }
     local xo = { 'x', 'o' }
 
-    map(xo,  'i' .. key, select_textobject_cmd('inner', mapping.node),  opts)
-    map(xo,  'a' .. key, select_textobject_cmd('outer', mapping.node),  opts)
+    map(xo,  'i' .. key, select_textobject_cmd(mapping.node, 'inner'),  opts)
+    map(xo,  'a' .. key, select_textobject_cmd(mapping.node, 'outer'),  opts)
     map('n', ']' .. key, goto_textobject_cmd('Next', mapping.node),     opts)
     map('n', '[' .. key, goto_textobject_cmd('Previous', mapping.node), opts)
   end

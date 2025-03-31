@@ -127,6 +127,19 @@ return {
       s = { node = 'statement' },
     })
 
+    vim.api.nvim_create_autocmd('FileType', {
+      group = vim.api.nvim_create_augroup('TreesitterTextobjectsStatement', {}),
+      callback = function(event)
+        if not vim.tbl_contains({ 'markdown', 'txt', 'tex', 'html' }, event.match) then
+          local xo = { 'x', 'o' }
+
+          -- `@statement.inner` doesn't exist
+          map(xo, 'is', '<cmd>TSTextobjectSelect @statement.outer<CR>')
+          map(xo, 'as', 'V<cmd>TSTextobjectSelect @statement.outer<CR>')
+        end
+      end,
+    })
+
     -- Prints the syntax highlighting values under cursor
     map('n', '<leader>H', '<cmd>Inspect<CR>')
 
