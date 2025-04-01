@@ -20,6 +20,7 @@ return {
         { pattern = 'extract into function',                 key = 'f' },
         { pattern = 'consider',                              key = 'c' },
         { pattern = 'change this to:',                       key = 'c' },
+        { pattern = 'convert to manual `',                   key = 'c' },
         { pattern = 'remove all the unused imports',         key = 'R' },
         { pattern = 'generate impl for',                     key = 'i' },
         { pattern = 'generate trait impl for',               key = 't' },
