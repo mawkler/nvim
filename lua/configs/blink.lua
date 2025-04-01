@@ -29,8 +29,6 @@ return {
         ['<C-j>'] = { 'select_next', 'fallback' },
         ['<C-k>'] = { 'select_prev', 'fallback' },
         ['<C-i>'] = { 'accept', 'fallback' },
-        ['<M-.>'] = { 'snippet_forward', 'fallback' },
-        ['<M-,>'] = { 'snippet_backward', 'fallback' },
         ['<C-space>'] = { toggle },
         ['<C-/>'] = { show_snippets, 'fallback' },
         ['<C-y>'] = {}, -- Used to trigger snippets
