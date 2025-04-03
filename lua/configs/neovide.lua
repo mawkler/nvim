@@ -6,5 +6,5 @@ if vim.fn.exists('g:neovide') == 1 then
   g.neovide_cursor_trail_size = 0.7
   g.neovide_scroll_animation_length = 0.06
   g.neovide_cursor_animate_command_line = true
-  g.neovide_transparency = 0.96
+  g.neovide_opacity = 0.96
 end
