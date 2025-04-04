@@ -132,6 +132,7 @@ local plugins = {
   use 'statuscol',            -- Custom statuscolumn config
   use 'change-function',      -- Change function arguments order
   use 'ghostty',              -- Ghostty config tools
+  use 'minty',                -- Color picker
   use 'rustowl',              -- Rust lifetime visualization
 
   -- { 'mawkler/hml.nvim', opts = {} },                     -- H/M/L line number indicators
