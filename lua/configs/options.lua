@@ -83,3 +83,13 @@ opt.fillchars = {
   vertright = '┣',
   verthoriz = '╉',
 }
+
+-- Other
+vim.filetype.add({
+  -- Treat zsh files as sh
+  extension = { zsh = 'sh', },
+  filename = {
+    ['.zshrc'] = 'sh',
+    ['.zshenv'] = 'sh',
+  },
+})

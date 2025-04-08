@@ -107,7 +107,6 @@ return {
       },
       -- Bash/Zsh --
       bashls = {
-        filetypes = { 'sh', 'zsh' },
         settings = {
           bashIde = {
             shfmt = {
