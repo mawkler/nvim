@@ -3,10 +3,19 @@
 ----------------------
 return {
   'pmizio/typescript-tools.nvim',
-  dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'neovim/nvim-lspconfig',
+    -- Prettier TypeScript errors (in diagnostics)
+    'davidosomething/format-ts-errors.nvim',
+    -- Prettier TypeScript errors (in its own windows)
+    { 'youyoumu/pretty-ts-errors.nvim', opts = { auto_open = false } },
+  },
   ft = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
   opts = {
     on_attach = function(client, bufnr)
+      local pretty_errors = require('pretty-ts-errors')
+
       -- Disable formatting (use prettier instead, see `conform.lua`)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
@@ -32,9 +41,13 @@ return {
         remap = true,
         desc = 'Spread array under cursor'
       })
+
+      -- Pretty errors
+      map('n', '<leader>E',  '<cmd>fclose!<CR><cmd>PrettyTsError<CR>', 'Show TS error')
+      map('n', '<leader>le', pretty_errors.open_all_errors,            'Show all TS errors')
     end,
     handlers = {
-      ['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
+      ['textDocument/publishDiagnostics'] = function(_, result, ctx)
         if result.diagnostics == nil then
           return
         end
@@ -55,7 +68,7 @@ return {
           end
         end
 
-        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
       end,
     },
   },
