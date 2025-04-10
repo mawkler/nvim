@@ -22,7 +22,7 @@ return {
     end
 
     local function ts_query_keymaps()
-      local keymaps = require('configs.treesitter.keymaps').capture_keymaps
+      local keymaps = require('configs.treesitter.keymaps').keymaps
 
       return vim.tbl_map(function(capture)
         return gen_spec.treesitter({

@@ -1,6 +1,6 @@
 local M = {}
 
-M.capture_keymaps = {
+M.keymaps = {
   f = '@function',
   c = '@call',
   C = '@class',
@@ -18,44 +18,57 @@ M.capture_keymaps = {
   ['='] = '@assignment',
 }
 
+M.special_keymaps = {
+  -- Keymaps that shouldn't be prefixed with i/a
+  ['<']  = '@assignment.lhs',
+  ['>']  = '@assignment.rhs',
+  ['iK'] = '@assignment.lhs',
+  ['iV'] = '@assignment.rhs',
+  ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
+  ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
+}
+
 local function merge(t1, t2)
   return vim.tbl_extend('force', t1, t2)
 end
 
---- @param overrides? table<string, string>
-M.get_textobj_keymaps = function(overrides)
-  local keymaps = {}
+M.get = function()
+  return merge(M.keymaps, M.special_keymaps or {})
+end
 
-  for key, capture in pairs(M.capture_keymaps) do
-    keymaps['a' .. key] = capture .. '.outer'
-    keymaps['i' .. key] = capture .. '.inner'
+M.get_with_prepositions = function()
+  local maps = {}
+
+  for key, capture in pairs(M.keymaps) do
+    maps['a' .. key] = capture .. '.outer'
+    maps['i' .. key] = capture .. '.inner'
   end
 
-  return merge(keymaps, overrides or {})
+  return merge(maps, M.special_keymaps or {})
 end
 
 --- @param direction ']' | '['
 --- @param overrides {}
 M.get_motion_keymaps = function(direction, overrides)
-  local keymaps = {}
+  local maps = {}
 
-  for key, capture in pairs(M.capture_keymaps) do
-    keymaps[direction .. key] = capture .. '.outer'
+  for key, capture in pairs(M.keymaps) do
+    maps[direction .. key] = capture .. '.outer'
   end
 
-  return merge(keymaps, overrides or {})
+  return merge(maps, overrides or {})
 end
 
 --- @param direction '>' | '<'
 --- @param overrides {}
 M.get_textobj_swap_keymaps = function(direction, overrides)
-  local keymaps = {}
+  local maps = {}
 
-  for key, capture in pairs(M.get_textobj_keymaps()) do
-    keymaps[direction .. key] = capture
+  for key, capture in pairs(M.get_with_prepositions()) do
+    maps[direction .. key] = capture
   end
 
-  return merge(keymaps, overrides or {})
+  return merge(maps, overrides or {})
 end
 
 -- TODO: rename file to keymaps.lua

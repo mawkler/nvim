@@ -56,27 +56,28 @@ return {
           'ie', -- Remapped to iE
           'ae', -- Remapped to aE
           'n',  -- Disabled
+          'iz', -- Remapped to iZ
+          'az', -- Remapped to aZ
         },
       },
     })
 
     local ox = { 'o', 'x' }
-    map(ox,  'iG', function() various_textobjs.greedyOuterIndentation('inner') end,   'Greedy outer indentation')
-    map(ox,  'aG', function() various_textobjs.greedyOuterIndentation('outer') end,   'Greedy outer indentation')
-    map(ox,  'ie', various_textobjs.entireBuffer,                                     'Entire buffer')
-    map(ox,  'iL', function() return various_textobjs.lineCharacterwise('inner') end, 'Line')
-    map(ox,  'aL', function() return various_textobjs.lineCharacterwise('outer') end, 'Line')
-    map(ox,  'ix', various_textobjs.url,                                              'URL')
-    map(ox,  'id', various_textobjs.diagnostic,                                       'Diagnostic')
-    map('o', 'r',  various_textobjs.restOfParagraph,                                  'Rest of paragraph')
-    map(ox,  'iX', function() return various_textobjs.htmlAttribute('inner') end,     'HTML attribute')
-    map(ox,  'aX', function() return various_textobjs.htmlAttribute('outer') end,     'HTML attribute')
-    map(ox,  'i-', function() return various_textobjs.subword('inner') end,           'Inside subword')
-    map(ox,  'a-', function() return various_textobjs.subword('outer') end,           'Aroun subword')
-    map(ox,  'iE', function() return various_textobjs.mdEmphasis('inner') end,        'Markdown emphasis')
-    map(ox,  'aE', function() return various_textobjs.mdEmphasis('outer') end,        'Markdown emphasis')
-    map(ox,  ']}', function() return various_textobjs.toNextClosingBracket() end,     'To next closing bracket')
-    map(ox,  '[{', function() return various_textobjs.toNextClosingBracket() end,     'To previous closing bracket')
+    map(ox, 'iG', function() various_textobjs.greedyOuterIndentation('inner') end,   'Inside greedy indentation')
+    map(ox, 'aG', function() various_textobjs.greedyOuterIndentation('outer') end,   'Around greedy indentation')
+    map(ox, 'ie', various_textobjs.entireBuffer,                                     'Entire buffer')
+    map(ox, 'iL', function() return various_textobjs.lineCharacterwise('inner') end, 'Line')
+    map(ox, 'aL', function() return various_textobjs.lineCharacterwise('outer') end, 'Line')
+    map(ox, 'ix', various_textobjs.url,                                              'URL')
+    map(ox, 'id', various_textobjs.diagnostic,                                       'Diagnostic')
+    map(ox, 'iX', function() return various_textobjs.htmlAttribute('inner') end,     'HTML attribute')
+    map(ox, 'aX', function() return various_textobjs.htmlAttribute('outer') end,     'HTML attribute')
+    map(ox, 'i-', function() return various_textobjs.subword('inner') end,           'Inside subword')
+    map(ox, 'a-', function() return various_textobjs.subword('outer') end,           'Aroun subword')
+    map(ox, 'iE', function() return various_textobjs.mdEmphasis('inner') end,        'Markdown emphasis')
+    map(ox, 'aE', function() return various_textobjs.mdEmphasis('outer') end,        'Markdown emphasis')
+    map(ox, ']}', function() return various_textobjs.toNextClosingBracket() end,     'To next closing bracket')
+    map(ox, '[{', function() return various_textobjs.toNextClosingBracket() end,     'To previous closing bracket')
 
     ---@param preposition 'inner' | 'outer'
     local function subword(preposition)

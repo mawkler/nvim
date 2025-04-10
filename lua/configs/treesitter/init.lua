@@ -9,8 +9,8 @@ return {
   enabled = not vim.g.vscode,
   config = function()
     local map = require('utils').map
-    local maps = require('configs.treesitter.keymaps')
     local utils = require('configs.treesitter.utils')
+    local keymaps = require('configs.treesitter.keymaps')
 
     local function include_surrounding_whitespace(selection)
       local queries = {
@@ -22,30 +22,19 @@ return {
       return vim.tbl_contains(queries, selection.query_string)
     end
 
-    local special_keymaps = {
-      -- Keymaps that shouldn't be prefixed with i/a
-      ['<']  = '@assignment.lhs',
-      ['>']  = '@assignment.rhs',
-      ['iK'] = '@assignment.lhs',
-      ['iV'] = '@assignment.rhs',
-      ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
-      ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
-    }
-    local keymaps = maps.get_textobj_keymaps(special_keymaps)
-
     -- Reset `>>`/`<<` mappings to not be @assignment
     map('n', '>>', '>>')
     map('n', '<<', '<<')
 
     local special_goto_next_start = { [']]'] = '@class.outer' }
     local special_goto_prev_start = { ['[['] = '@class.outer' }
-    local goto_next_start = maps.get_motion_keymaps(']', special_goto_next_start)
-    local goto_previous_start = maps.get_motion_keymaps('[', special_goto_prev_start)
+    local goto_next_start = keymaps.get_motion_keymaps(']', special_goto_next_start)
+    local goto_previous_start = keymaps.get_motion_keymaps('[', special_goto_prev_start)
 
     local special_swap_next = { ['>aa'] = '@parameter.inner' }
     local special_swap_prev = { ['<aa'] = '@parameter.inner' }
-    local swap_next = maps.get_textobj_swap_keymaps('>', special_swap_next)
-    local swap_previous = maps.get_textobj_swap_keymaps('<', special_swap_prev)
+    local swap_next = keymaps.get_textobj_swap_keymaps('>', special_swap_next)
+    local swap_previous = keymaps.get_textobj_swap_keymaps('<', special_swap_prev)
 
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
@@ -68,7 +57,7 @@ return {
           enable = true,
           lookahead = true, -- Automatically jump forward to textobject
           include_surrounding_whitespace = include_surrounding_whitespace,
-          keymaps = keymaps,
+          keymaps = keymaps.get_with_prepositions(),
         },
         move = {
           enable = true,
