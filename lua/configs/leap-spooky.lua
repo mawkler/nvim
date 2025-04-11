@@ -12,6 +12,7 @@ return {
     })
 
     ---@param key string Key, not including i/a, for example `f` to create spooky `if`/`af`
+    ---@param name? string
     local function create_spooky_textobject(key, name)
       for _, preposition in pairs({ 'i', 'a' }) do
         local lhs = preposition .. 'z' .. key
@@ -27,7 +28,7 @@ return {
             target_windows = { vim.fn.win_getid() },
             action = action,
           }
-        end, { desc = ('Spooky %s %s'):format(preposition_full, name) })
+        end, { desc = ('Spooky %s %s'):format(preposition_full, name or '') })
       end
     end
 
