@@ -32,10 +32,6 @@ return {
     local swap_next = keymaps.get_textobj_swap_keymaps('>', special_swap_next)
     local swap_previous = keymaps.get_textobj_swap_keymaps('<', special_swap_prev)
 
-    -- Reset `>>`/`<<` mappings to not be @assignment
-    swap_next['>>'] = nil
-    swap_previous['<<'] = nil
-
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',

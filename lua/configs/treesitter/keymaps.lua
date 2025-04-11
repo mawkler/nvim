@@ -20,10 +20,8 @@ M.keymaps = {
 
 M.special_keymaps = {
   -- Keymaps that shouldn't be prefixed with i/a
-  ['<']  = '@assignment.lhs',
-  ['>']  = '@assignment.rhs',
-  ['iK'] = '@assignment.lhs',
-  ['iV'] = '@assignment.rhs',
+  ['ik'] = '@assignment.lhs',
+  ['iv'] = '@assignment.rhs',
   ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
   ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
 }
