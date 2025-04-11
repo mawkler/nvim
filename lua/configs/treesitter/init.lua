@@ -22,10 +22,6 @@ return {
       return vim.tbl_contains(queries, selection.query_string)
     end
 
-    -- Reset `>>`/`<<` mappings to not be @assignment
-    map('n', '>>', '>>')
-    map('n', '<<', '<<')
-
     local special_goto_next_start = { [']]'] = '@class.outer' }
     local special_goto_prev_start = { ['[['] = '@class.outer' }
     local goto_next_start = keymaps.get_motion_keymaps(']', special_goto_next_start)
@@ -35,6 +31,10 @@ return {
     local special_swap_prev = { ['<aa'] = '@parameter.inner' }
     local swap_next = keymaps.get_textobj_swap_keymaps('>', special_swap_next)
     local swap_previous = keymaps.get_textobj_swap_keymaps('<', special_swap_prev)
+
+    -- Reset `>>`/`<<` mappings to not be @assignment
+    swap_next['>>'] = nil
+    swap_previous['<<'] = nil
 
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
