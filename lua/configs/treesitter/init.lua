@@ -104,10 +104,6 @@ return {
       },
     })
 
-    utils.filetype_keymaps('rust', {
-      t = { node = 'class', name = 'type' },
-    })
-
     utils.filetype_excluding_keymaps({ 'markdown', 'txt', 'tex', 'html' }, {
       s = { node = 'statement' },
     })

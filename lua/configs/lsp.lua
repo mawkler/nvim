@@ -299,6 +299,29 @@ return {
       map('n', '<leader>e', function() vim.diagnostic.open_float({ border = 'single' }) end,
         'Diagnostic open float')
 
+      local function diagnostic_jump(count, severity)
+        local float = { border = 'rounded' }
+        return function()
+          vim.diagnostic.jump({ count = count, severity = severity, float = float })
+        end
+      end
+
+      local nxo = { 'n', 'x', 'o' }
+      local severity = vim.diagnostic.severity
+      local error, warn, info, hint = severity.ERROR, severity.WARN, severity.INFO, severity.HINT
+
+      map(nxo, ']e', diagnostic_jump(1, error),  { desc = 'Next error' })
+      map(nxo, '[e', diagnostic_jump(-1, error), { desc = 'Previous error' })
+
+      map(nxo, ']w', diagnostic_jump(1, warn),  { desc = 'Next warning' })
+      map(nxo, '[w', diagnostic_jump(-1, warn), { desc = 'Previous warning' })
+
+      map(nxo, ']i', diagnostic_jump(1, info), { desc = 'Next info' })
+      map(nxo, '[i', diagnostic_jump(1, info), { desc = 'Previous info' })
+
+      map(nxo, ']h', diagnostic_jump(1, hint),  { desc = 'Next hint' })
+      map(nxo, '[h', diagnostic_jump(-1, hint), { desc = 'Previous hint' })
+
       map_vsplit('<C-w>gd', 'lsp_definitions')
       map_vsplit('<C-w>gi', 'lsp_implementations')
       map_vsplit('<C-w>gD', 'lsp_type_definitions')

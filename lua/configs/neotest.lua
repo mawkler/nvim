@@ -12,9 +12,14 @@ local function run_file() neotest().run.run(vim.fn.expand('%')) end
 local function debug_file() neotest().run.run({ vim.fn.expand('%'), strategy = 'dap' }) end
 local function open() neotest().output.open({ enter = true }) end
 local function watch_file() neotest().watch.toggle(vim.fn.expand('%')) end
-local function jump_to_failed(direction)
-  return neotest().jump[direction]({ status = 'failed' })
+
+local function neotest_jump(direction, status)
+  return function()
+    require('neotest').jump[direction]({ status = status })
+  end
 end
+
+local nxo = { 'n', 'x', 'o' }
 
 return {
   'nvim-neotest/neotest',
@@ -35,7 +40,11 @@ return {
     { '<leader>TW', function() watch_file() end,                    desc = 'Watch tests in file' },
     { '<leader>TO', function() neotest().output_panel.toggle() end, desc = 'Open test output panel' },
     { '<leader>Tm', function() neotest().summary.marked() end,      desc = 'Run marked tests' },
-    { '<leader>Ts', function() neotest().summary.toggle() end,      desc = 'Toggle teset summary' },
+    { '<leader>TT', function() neotest().summary.toggle() end,      desc = 'Toggle tests summary' },
+    { ']t',         neotest_jump('next'),                           desc = 'Next test',             mode = nxo },
+    { '[t',         neotest_jump('prev'),                           desc = 'Previous test',         mode = nxo },
+    { ']T',         neotest_jump('next', 'failed'),                 desc = 'Next failed test',      mode = nxo },
+    { '[T',         neotest_jump('prev', 'failed'),                 desc = 'Previous failed test',  mode = nxo },
   },
   cmd = { 'Neotest' },
   config = function()
