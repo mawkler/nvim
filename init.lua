@@ -102,7 +102,7 @@ local plugins = {
   use 'winshift',             -- Improved window movement
   use 'notify',               -- Floating notifications popups
   use 'toggleterm',           -- Toggleable terminal
-  use 'term-edit',            -- Better editing in :terminal
+  use 'editable-term',        -- Better editing in :terminal
   use 'bqf',                  -- Better quickfix
   use 'qf',                   -- Quickfix utilities
   use 'neogit',               -- Git wrapper
