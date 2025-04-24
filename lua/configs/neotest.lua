@@ -29,6 +29,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'haydenmeade/neotest-jest',
     'rouge8/neotest-rust',
+    'nvim-neotest/neotest-go',
   },
   keys = {
     { '<leader>Tr', function() neotest().run.run() end,             desc = 'Run test' },
@@ -80,6 +81,7 @@ return {
           jestCommand = 'npm test --',
         }),
         require('neotest-rust'),
+        require('neotest-go'),
       },
     })
   end

@@ -4,6 +4,11 @@
     "body": ["func ${1:name}($2) $3 {", "\t$4", "}"],
     "description": "function"
   },
+  "go func": {
+    "prefix": "gofunc",
+    "body": ["go func () {", "\t$6", "}"],
+    "description": "go func"
+  },
   "method": {
     "prefix": "m",
     "body": ["func (${1:receiver} *${2:type}) ${3:name}($4) $5 {", "\t$6", "}"],
