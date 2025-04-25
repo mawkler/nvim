@@ -28,33 +28,10 @@ return {
       end
     end, 'Peek fold/LSP hover')
 
-    local function next_closed_fold(opts)
-      return function()
-        require('demicolon.jump').repeatably_do(function(o)
-          if o.forward then
-            ufo.goNextClosedFold()
-          else
-            ufo.goPreviousClosedFold()
-          end
-          ufo.peekFoldedLinesUnderCursor()
-        end, opts)
-      end
-    end
-
-    local function next_fold(opts)
-      return function()
-        require('demicolon.jump').repeatably_do(function(o)
-          local direction = o.forward and 'j' or 'k'
-          require('utils').feedkeys('z' .. direction)
-          ufo.peekFoldedLinesUnderCursor()
-        end, opts)
-      end
-    end
-
-    map('n', ']z', next_closed_fold({ forward = true }))
-    map('n', '[z', next_closed_fold({ forward = false }))
-    map('n', ']Z', next_fold({ forward = true }))
-    map('n', '[Z', next_fold({ forward = false }))
+    map('n', ']z', ufo.goNextClosedFold,     'Next closed fold')
+    map('n', '[z', ufo.goPreviousClosedFold, 'Previous closed fold')
+    map('n', ']Z', 'zj',                     { remap = false, desc = 'Next fold' })
+    map('n', '[Z', 'zk',                     { remap = false, desc = 'Previous fold' })
 
     -- From nvim-ufo's README
     local function handler(virtText, lnum, endLnum, width, truncate)
