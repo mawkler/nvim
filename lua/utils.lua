@@ -71,11 +71,6 @@ function M.clear_lsp_references()
   end
 end
 
---- Get Mason package install path
-function M.get_install_path(package)
-  return require('mason-registry').get_package(package):get_install_path()
-end
-
 --- Import plugin config from external module in `lua/configs/`
 function M.use(module)
   local ok, m = pcall(require, ('configs.%s'):format(module))

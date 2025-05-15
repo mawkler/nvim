@@ -11,8 +11,6 @@ return {
   config = function()
     local api, lsp = vim.api, vim.lsp
     local lspconfig = require('lspconfig')
-    local mason_path = require('mason-core.path')
-    local get_install_path = require('utils').get_install_path
 
     local map = require('utils').local_map(0)
 
@@ -125,9 +123,7 @@ return {
       },
       -- Bicep --
       bicep = {
-        cmd = {
-          mason_path.concat({ get_install_path('bicep-lsp'), 'bicep-lsp' })
-        }
+        cmd = { 'bicep-lsp' }
       },
       tinymist = {
         on_attach = function()

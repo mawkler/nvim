@@ -38,8 +38,7 @@ return {
     local jester = require('jester')
     local mason_dap = require('mason-nvim-dap')
     local map = require('utils').map
-    local fn, sign_define = vim.fn, vim.fn.sign_define
-    local get_install_path = require('utils').get_install_path
+    local sign_define = vim.fn.sign_define
     local breakpoint = require('goto-breakpoints')
 
     sign_define('DapBreakpoint',          { text = '', texthl = 'Error' })
@@ -131,7 +130,6 @@ return {
     -- TypeScript/JavaScript --
     ---@diagnostic disable-next-line: missing-fields
     require('dap-vscode-js').setup({
-      debugger_path = get_install_path('js-debug-adapter'),
       debugger_cmd = { 'js-debug-adapter' },
       adapters = {
         'pwa-node',
