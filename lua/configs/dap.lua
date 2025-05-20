@@ -92,14 +92,15 @@ return {
     map('n', '[b', breakpoint.prev, 'Go to previous breakpoint')
 
     -- DAP virtual text --
-    require('nvim-dap-virtual-text').setup()
+    ---@diagnostic disable-next-line: missing-fields
+    require('nvim-dap-virtual-text').setup({})
 
     -- Rust/C++/C --
     dap.adapters.codelldb = {
       type = 'server',
       port = '${port}',
       executable = {
-        command = get_install_path('codelldb') .. '/codelldb',
+        command = 'codelldb',
         args = { '--port', '${port}' },
       }
     }
