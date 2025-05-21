@@ -1,6 +1,12 @@
 -------------
 -- LuaSnip --
 -------------
+vim.filetype.add({
+  filename = {
+    ['Cargo.toml'] = 'toml.cargo-toml'
+  }
+})
+
 return {
   'L3MON4D3/LuaSnip',
   run = 'make install_jsregexp',

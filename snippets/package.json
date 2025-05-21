@@ -50,9 +50,9 @@
       },
       {
         "language": [
-          "toml"
+          "cargo-toml"
         ],
-        "path": "./toml.json"
+        "path": "./cargo-toml.json"
       }
     ]
   }
