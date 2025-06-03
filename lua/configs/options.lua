@@ -32,6 +32,7 @@ if exists('&splitkeep') == 1 then
 end
 o.updatetime    = 500
 opt.viewoptions = { 'cursor', 'folds', 'slash', 'unix' }
+o.winborder     = 'rounded' -- Floating window borders
 
 -- File options --
 o.undofile   = true

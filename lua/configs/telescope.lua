@@ -186,7 +186,7 @@ return {
           '%.py[c]', '%.sw.?', '~$', '%.tags', '%.gemtags', '%.tmp',
           '%.plist$', '%.pdf$', '%.jpg$', '%.JPG$', '%.jpeg$', '%.png$',
           '%.class$', '%.pdb$', '%.dll$'
-        }
+        },
       },
       pickers = {
         find_files                = { mappings = multi_open_mappings },
@@ -239,12 +239,17 @@ return {
     telescope.load_extension('git_worktree')
     telescope.load_extension('fidget')
 
-    -- Temporary workaround for https://github.com/nvim-telescope/telescope.nvim/issues/2766
-    vim.api.nvim_create_autocmd('WinLeave', {
+    -- Workaround for https://github.com/nvim-lua/plenary.nvim/pull/649
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'TelescopeFindPre',
       callback = function()
-        if vim.bo.ft == 'TelescopePrompt' and vim.fn.mode() == 'i' then
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-c>', true, false, true), 'i', false)
-        end
+        vim.opt_local.winborder = 'none'
+        vim.api.nvim_create_autocmd('WinLeave', {
+          once = true,
+          callback = function()
+            vim.opt_local.winborder = 'rounded'
+          end,
+        })
       end,
     })
   end

@@ -74,6 +74,7 @@ return {
       completion = {
         menu = {
           max_height = 50,
+          border = 'none',
           draw = {
             columns = { { 'kind_icon' }, { 'label', gap = 1 } },
             components = {
