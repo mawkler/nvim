@@ -15,7 +15,8 @@
    # Install python module for Neovim
    pip install --user neovim
    # Launch Neovim and let lazy.nvim do its thing
-   nvim
+   nvim +'lua require("lazy").sync({wait=true}); vim.cmd("qa!")'
+
    ```
 
 My other dotfiles are available [here](https://github.com/mawkler/dotfiles).
