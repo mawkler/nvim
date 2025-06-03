@@ -3,7 +3,7 @@
 ----------------
 return {
   'nvim-treesitter/nvim-treesitter',
-  dependencies = 'brianhuster/nvim-treesitter-endwise',
+  dependencies = 'RRethy/nvim-treesitter-endwise',
   build = ':TSUpdate',
   lazy = false,
   enabled = not vim.g.vscode,
