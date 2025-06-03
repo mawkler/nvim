@@ -16,6 +16,8 @@ return {
       'bash-debug-adapter',
       'delve',
       'mdsf',
+      'nil',
+      'nixfmt',
     },
   }
 }
