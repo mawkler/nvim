@@ -10,7 +10,7 @@ return {
 
     vim.o.foldcolumn = 'auto'
     vim.o.foldlevel = 99
-    vim.o.foldlevelstart = 99
+    vim.o.foldlevelstart = -1
 
     vim.opt.fillchars:append({ foldclose = '' })
     vim.opt.fillchars:append({ foldopen = '' })
@@ -73,7 +73,8 @@ return {
       fold_virt_text_handler = handler,
       provider_selector = function(_, ft, _)
         local lsp_fold_unsupported = {
-          'markdown', 'zsh', 'css', 'html', 'python', 'json'
+          'markdown', 'zsh', 'css', 'html', 'python', 'json',
+          -- 'go' -- https://github.com/kevinhwang91/nvim-ufo/issues/30
         }
 
         return vim.tbl_contains(lsp_fold_unsupported, ft)
