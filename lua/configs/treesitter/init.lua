@@ -5,7 +5,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = 'brianhuster/nvim-treesitter-endwise',
   build = ':TSUpdate',
-  event = 'VeryLazy',
+  lazy = false,
   enabled = not vim.g.vscode,
   config = function()
     local map = require('utils').map

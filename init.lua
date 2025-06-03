@@ -145,7 +145,7 @@ local plugins = {
     'milkypostman/vim-togglelist', -- Toggle quickfix window
     event = 'QuickFixCmdPre',
   },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
 }
 
 require('lazy').setup({
