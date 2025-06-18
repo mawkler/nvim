@@ -10,8 +10,6 @@ return {
   },
   config = function()
     local api, lsp = vim.api, vim.lsp
-    local lspconfig = require('lspconfig')
-
     local map = require('utils').local_map(0)
 
     ---------------------------
@@ -177,71 +175,35 @@ return {
       },
     }
 
-    local disable = function() end
+    -- These have their own plugins that enable them
+    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'ltex', 'gopls' }
 
-    -- Special server configurations
-    local special_server_configs = {
-      ts_ls = disable,         -- Setup in typescript.lua
-      zk = disable,            -- Setup in zk.lua
-      rust_analyzer = disable, -- Setup in rustaceanvim.lua
-      ltex = disable,          -- Setup in ltex.lua
-      gopls = disable,         -- Setup in go.lua
-      elixirls = disable,      -- Setup in elixir.lua
-    }
-
-    --------------------
-    -- Set up servers --
-    --------------------
-    local function setup(server_name)
-      local special_server_setup = special_server_configs[server_name]
-      if special_server_setup then
-        special_server_setup()
-        return
-      end
-
+    -----------------------
+    -- Configure servers --
+    -----------------------
+    for server_name, config in ipairs(server_configs) do
       -- Enable folding (required by ufo.nvim)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true
       }
+      config.capabilities = vim.tbl_deep_extend('keep', config.capabilities, capabilities)
 
-      local opts = server_configs[server_name] or {}
-      lspconfig[server_name].setup(opts)
+      vim.lsp.config(server_name, config)
     end
 
-    -- Ensure that servers mentioned above get installed
     local ensure_installed = vim.list_extend(
       vim.tbl_keys(server_configs),
-      vim.tbl_keys(special_server_configs)
+      special_server_configs
     )
 
-    ---@diagnostic disable-next-line: missing-fields
     require('mason-lspconfig').setup({
-      handlers = { setup },
-      ensure_installed = ensure_installed
+      ensure_installed = ensure_installed,
+      automatic_enable = {
+        exclude = special_server_configs,
+      },
     })
-
-    ---------------------
-    -- Handler configs --
-    ---------------------
-    if not require('utils').noice_is_loaded() then
-      -- Add borders to hover/signature windows (noice.nvim has its own)
-      lsp.handlers['textDocument/hover'] = lsp.with(
-        lsp.handlers.hover,
-        {
-          border = 'single',
-          -- Disable "no information available" popup which is really annoying
-          -- when using multiple servers
-          silent = true,
-        }
-      )
-
-      lsp.handlers['textDocument/signatureHelp'] = lsp.with(
-        lsp.handlers.signature_help,
-        { border = 'single' }
-      )
-    end
 
     -------------
     -- Keymaps --
@@ -305,6 +267,9 @@ return {
       local nxo = { 'n', 'x', 'o' }
       local severity = vim.diagnostic.severity
       local error, warn, info, hint = severity.ERROR, severity.WARN, severity.INFO, severity.HINT
+
+      map(nxo, ']d', diagnostic_jump(1),  { desc = 'Next diagnostic' })
+      map(nxo, '[d', diagnostic_jump(-1), { desc = 'Previous diagnostic' })
 
       map(nxo, ']e', diagnostic_jump(1, error),  { desc = 'Next error' })
       map(nxo, '[e', diagnostic_jump(-1, error), { desc = 'Previous error' })

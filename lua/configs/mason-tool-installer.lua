@@ -7,7 +7,6 @@ return {
     ensure_installed = {
       'prettier',
       'vacuum',
-      'zk',
       'codelldb', -- Used by rustaceanvim
       'vimls',
       'lemminx',
@@ -16,8 +15,6 @@ return {
       'bash-debug-adapter',
       'delve',
       'mdsf',
-      'nil',
-      'nixfmt',
     },
   }
 }
