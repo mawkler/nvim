@@ -12,6 +12,18 @@ return {
     local api, lsp = vim.api, vim.lsp
     local map = require('utils').local_map(0)
 
+    -- TODO: switch all other configs to vim.lsp.[enable, config] as well
+    vim.lsp.config.nil_ls = {
+      settings = {
+        ['nil'] = {
+          formatting = {
+            command = { 'nixfmt' },
+          },
+        },
+      },
+    }
+    vim.lsp.enable({'nixd', 'nil_ls'})
+
     ---------------------------
     -- Server configurations --
     ---------------------------
