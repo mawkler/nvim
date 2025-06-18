@@ -54,6 +54,15 @@ return {
               return vim.tbl_contains(whitelist, vim.bo.filetype)
             end,
           },
+          buffer = {
+            max_items = 5,
+            min_keyword_length = 3,
+            async = true,
+          },
+          snippets = {
+            max_items = 5,
+            async = true,
+          },
         },
       },
       signature = {
