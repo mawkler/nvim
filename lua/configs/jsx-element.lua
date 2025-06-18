@@ -2,7 +2,7 @@
 -- jsx-element.nvm --
 ---------------------
 return {
-  dir = '~/code/jsx-element.nvim',
+  'mawkler/jsx-element.nvim',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-treesitter/nvim-treesitter-textobjects',

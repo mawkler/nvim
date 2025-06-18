@@ -3,9 +3,6 @@
 ---------------
 return {
   'rest-nvim/rest.nvim',
-  dependencies = {
-    { 'vhyrro/luarocks.nvim', opts = {} },
-  },
   cmd = { 'Rest', 'Http' },
   ft = 'http',
   -- Fix for when Neovim gets started with a *.http and leap.nvim overrides the <CR> mapping
