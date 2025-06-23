@@ -4,22 +4,6 @@
 
 ---@diagnostic disable: missing-fields
 
--- Sets `bufhidden = delete` if buffer was jumped to
-local function list_jump(command, list)
-  return function()
-    local qf = require('qf')
-    if vim.b.buffer_jumped_to then
-      vim.bo.bufhidden = 'delete'
-    end
-
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local successful, _ = pcall(qf[command], list, false)
-    if successful then
-      vim.b.buffer_jumped_to = true
-    end
-  end
-end
-
 local function toggle(list)
   return function()
     require('qf').toggle(list, false)

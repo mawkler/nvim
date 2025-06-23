@@ -17,7 +17,13 @@ return {
     })
 
     require('elixir').setup({
+      nextls = {
+        enable = true,
+        cmd = 'nextls',
+        spitfire = true,
+      },
       elixirls = {
+        enable = false,
         settings = require('elixir.elixirls').settings {
           dialyzerEnabled        = true, -- Run ElixirLS's rapid Dialyzer when code is saved
           incrementalDialyzer    = true, -- Use OTP incremental dialyzer

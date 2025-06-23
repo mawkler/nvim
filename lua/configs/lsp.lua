@@ -22,7 +22,7 @@ return {
         },
       },
     }
-    vim.lsp.enable({'nixd', 'nil_ls'})
+    vim.lsp.enable({ 'nixd', 'nil_ls' })
 
     ---------------------------
     -- Server configurations --
@@ -200,7 +200,7 @@ return {
     }
 
     -- These have their own plugins that enable them
-    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls' }
+    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
 
     -----------------------
     -- Configure servers --
