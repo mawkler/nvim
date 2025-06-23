@@ -185,10 +185,22 @@ return {
           },
         },
       },
+      ltex = {
+        settings = {
+          ltex = {
+            language = 'auto',
+            diagnosticSeverity = 'hint',
+            sentenceCacheSize = 2000,
+            additionalRules = {
+              motherTongue = 'sv',
+            },
+          },
+        },
+      }
     }
 
     -- These have their own plugins that enable them
-    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'ltex', 'gopls' }
+    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls' }
 
     -----------------------
     -- Configure servers --

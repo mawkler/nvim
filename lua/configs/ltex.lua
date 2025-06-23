@@ -5,21 +5,8 @@ return {
   'barreiroleo/ltex_extra.nvim',
   ft = { 'markdown', 'tex', 'text', },
   dependencies = 'neovim/nvim-lspconfig',
+  branch = 'dev', -- This plugin is being rewritten, so this is the maintained branch
   opts = {
-    -- ltex_extra options
-    {
-      load_langs = { 'en-US', 'sv' }
-    },
-    -- ltex-ls options
-    server_opts = {
-      settings = {
-        ltex = {
-          language = 'auto',
-          diagnosticSeverity = 'hint',
-          sentenceCacheSize = 2000,
-          additionalRules = { motherTongue = 'sv' },
-        },
-      },
-    },
+    load_langs = { 'en-US', 'sv' },
   }
 }
