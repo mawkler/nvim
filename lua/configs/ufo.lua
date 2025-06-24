@@ -13,7 +13,6 @@ return {
     vim.o.foldlevelstart = -1
 
     vim.opt.fillchars:append({ foldclose = '' })
-    vim.opt.fillchars:append({ foldopen = '' })
     vim.opt.fillchars:append({ foldopen = ' ' })
     vim.opt.fillchars:append({ fold = ' ' })
     vim.opt.fillchars:append({ foldsep = ' ' })
