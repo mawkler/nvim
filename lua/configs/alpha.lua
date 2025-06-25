@@ -62,7 +62,7 @@ return {
     )
 
     Footer:add('', loaded_plugins)
-    Footer:add('', version_string)
+    Footer:add('', version_string)
     Footer:add('', date)
 
     section.footer.val = Footer:create()
