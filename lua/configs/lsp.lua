@@ -12,18 +12,6 @@ return {
     local api, lsp = vim.api, vim.lsp
     local map = require('utils').local_map(0)
 
-    -- TODO: switch all other configs to vim.lsp.[enable, config] as well
-    vim.lsp.config.nil_ls = {
-      settings = {
-        ['nil'] = {
-          formatting = {
-            command = { 'nixfmt' },
-          },
-        },
-      },
-    }
-    vim.lsp.enable({ 'nixd', 'nil_ls' })
-
     ---------------------------
     -- Server configurations --
     ---------------------------
@@ -198,6 +186,18 @@ return {
         },
       }
     }
+
+    -- Assumed to be installed system-wide (i.e. not by Mason)
+    vim.lsp.config.nil_ls = {
+      settings = {
+        ['nil'] = {
+          formatting = {
+            command = { 'nixfmt' },
+          },
+        },
+      },
+    }
+    vim.lsp.enable({ 'nil_ls' })
 
     -- These have their own plugins that enable them
     local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
