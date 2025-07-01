@@ -6,6 +6,7 @@ return {
   version = '*',
   build = 'cd rustowl && cargo install --path . --locked',
   lazy = false,
+  enabled = not require('utils').is_nixos(), -- Rustowl isn't available in nixpkgs yet
   opts = {
     idle_time = 300,
     client = {

@@ -4,7 +4,7 @@
 return {
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   opts = {
-    ensure_installed = {
+    ensure_installed = require('utils').is_nixos() and {} or {
       'prettier',
       'vacuum',
       'codelldb', -- Used by rustaceanvim

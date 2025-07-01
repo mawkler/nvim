@@ -10,7 +10,8 @@ return {
   },
   config = function()
     local api, lsp = vim.api, vim.lsp
-    local map = require('utils').local_map(0)
+    local utils = require('utils')
+    local map = utils.local_map(0)
 
     local eslint_on_attach = vim.lsp.config.eslint.on_attach
     ---------------------------
@@ -232,17 +233,25 @@ return {
     )
 
     require('mason-lspconfig').setup({
-      ensure_installed = ensure_installed,
+      ensure_installed = not utils.is_nixos() and ensure_installed or {},
+      -- TODO: perhaps this can be removed to only use the chunk below
       automatic_enable = {
         exclude = special_server_configs,
       },
     })
 
+    -- If we're on NixOS masons `automatic_enable` doesn't work
+    if utils.is_nixos() then
+      for server, _ in pairs(server_configs) do
+        vim.lsp.enable(server)
+      end
+    end
+
     -------------
     -- Keymaps --
     -------------
     local function lsp_references()
-      require('utils').clear_lsp_references()
+      utils.clear_lsp_references()
 
       local method = 'textDocument/documentHighlight'
       if #vim.lsp.get_clients({ method = method }) > 0 then

@@ -93,4 +93,15 @@ function M.plugin_is_loaded(plugin)
   return not not plugins[plugin] and plugins[plugin]._.loaded
 end
 
+local has_nixos_file
+
+function M.is_nixos()
+  if has_nixos_file == nil then
+    -- A small optimization to avoid reading the file more than once
+    has_nixos_file = vim.fn.filereadable('/etc/NIXOS') == 1
+  end
+
+  return has_nixos_file
+end
+
 return M
