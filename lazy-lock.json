@@ -144,7 +144,7 @@
   "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
   "template-string.nvim": { "branch": "main", "commit": "da5f326b65fb74fd068aa1d8b55461b64c8fb23b" },
   "text-case.nvim": { "branch": "main", "commit": "e898cfd46fa6cde0e83abb624a16e67d2ffc6457" },
-  "tiny-code-action.nvim": { "branch": "main", "commit": "7de27367ad260db80b2999da029e84dbd9666854" },
+  "tiny-code-action.nvim": { "branch": "main", "commit": "7bf60899131fdd90ed2fae54f2a3d40e71af440a" },
   "tiny-glimmer.nvim": { "branch": "main", "commit": "60a632536e0741c9cecb892f89fbe65a270dc7c7" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "tree-sitter-ghostty": { "branch": "main", "commit": "1d5238fc0da5fd5a59130b95c3e1c4948a3f96c1" },

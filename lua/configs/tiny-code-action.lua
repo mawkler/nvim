@@ -22,12 +22,26 @@ return {
           winborder = 'rounded',
         },
       },
+      backend = 'delta',
+      backend_opts = {
+        delta = {
+          header_lines_to_remove = 7,
+          args = { '--features=no-line-numbers' },
+        }
+      },
     })
 
+    local augroup = vim.api.nvim_create_augroup('TinyCodeActionCustom', {})
+
     vim.api.nvim_create_autocmd('User', {
-      pattern = 'TinyCodeActionWindowEnterMain',
-      callback = function()
+      pattern = {
+        'TinyCodeActionWindowEnterMain',
+        'TinyCodeActionWindowEnterPreview',
+      },
+      group = augroup,
+      callback = function(event)
         vim.o.concealcursor = 'nvic'
+        vim.keymap.set('n', '<Esc>', 'q', { remap = true, buffer = event.buf })
       end,
     })
   end
