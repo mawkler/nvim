@@ -12,6 +12,7 @@ return {
     local api, lsp = vim.api, vim.lsp
     local map = require('utils').local_map(0)
 
+    local eslint_on_attach = vim.lsp.config.eslint.on_attach
     ---------------------------
     -- Server configurations --
     ---------------------------
@@ -93,10 +94,14 @@ return {
       },
       -- Eslint --
       eslint = {
-        on_attach = function(_, bufnr)
+        on_attach = function(client, bufnr)
+          if not eslint_on_attach then return end
+
+          eslint_on_attach(client, bufnr)
+
           api.nvim_create_autocmd('BufWritePre', {
             buffer = bufnr,
-            command = 'EslintFixAll',
+            command = 'LspEslintFixAll',
           })
         end,
       },
