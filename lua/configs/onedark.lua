@@ -242,6 +242,9 @@ return {
 
           -- Rust
           ['@keyword.modifier.rust'] = { fg = c.purple0 },
+
+          -- Tiny Code Action
+          ['@markup.link.label.markdown_inline'] = { fg = c.blue0, style = style.Bold },
         }
       end
     })
