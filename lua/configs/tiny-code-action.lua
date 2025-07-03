@@ -20,6 +20,23 @@ return {
           hotkeys = true,
           hotkeys_mode = 'text_diff_based',
           winborder = 'rounded',
+          conceallevel = 2,
+          keymaps = {
+            preview = 'K',
+            close = '<Esc>',
+          },
+          custom_keys = {
+            { pattern = 'Add `#%[derive%]`',                     key = 'd' },
+            { pattern = 'Change visibility to pub',              key = 'p' },
+            { pattern = 'Consider making this binding mutable:', key = 'm' },
+            { pattern = 'Extract into function',                 key = 'xf' },
+            { pattern = 'Extract into variable',                 key = 'xv' },
+            { pattern = 'Fill match arms',                       key = 'm' },
+            { pattern = 'Generate `new`',                        key = 'n' },
+            { pattern = 'Generate impl for',                     key = 'i' },
+            { pattern = 'Generate trait impl for',               key = 't' },
+            { pattern = 'Remove all the unused imports',         key = 'R' },
+          },
         },
       },
       backend = 'delta',
@@ -32,16 +49,13 @@ return {
     })
 
     local augroup = vim.api.nvim_create_augroup('TinyCodeActionCustom', {})
-
     vim.api.nvim_create_autocmd('User', {
-      pattern = {
-        'TinyCodeActionWindowEnterMain',
-        'TinyCodeActionWindowEnterPreview',
-      },
       group = augroup,
+      pattern = 'TinyCodeActionWindowEnterMain',
       callback = function(event)
         vim.o.concealcursor = 'nvic'
-        vim.keymap.set('n', '<Esc>', 'q', { remap = true, buffer = event.buf })
+        vim.o.cursorline = true
+        vim.keymap.set('n', '<Space>', '<CR>', { remap = true, buffer = event.buf, nowait = true })
       end,
     })
   end
