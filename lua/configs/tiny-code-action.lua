@@ -19,10 +19,10 @@ return {
         opts = {
           hotkeys = true,
           hotkeys_mode = 'text_diff_based',
+          position = 'cursor',
           winborder = 'rounded',
           conceallevel = 2,
           keymaps = {
-            preview = 'K',
             close = '<Esc>',
           },
           custom_keys = {
