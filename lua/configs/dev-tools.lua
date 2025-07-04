@@ -9,5 +9,9 @@ return {
     'neovim/nvim-lspconfig',
     'ThePrimeagen/refactoring.nvim',
   },
-  opts = {}
+  opts = {
+    builtin_actions = {
+      exclude = { 'Specs', 'Todo', 'Debugging' },
+    },
+  }
 }
