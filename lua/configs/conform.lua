@@ -29,7 +29,7 @@ return {
       rust = { lsp_format = 'first' },
       json = { 'prettierd', lsp_format = 'never' },
       -- Explicitly trim whitespace since this config
-      lua = { 'trim_whitespace', 'trim_newlines', lsp_format = 'first' },
+      lua = { 'trim_whitespace', 'trim_newlines', 'keep-sorted', lsp_format = 'first' },
       ['*'] = { 'trim_whitespace', 'trim_newlines' },
     }
 
