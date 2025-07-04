@@ -27,14 +27,13 @@ return {
       end
     end
 
-    map('n', '<M-S-h>', resize('left'),                 'Resize left')
-    map('n', '<M-S-j>', resize('down'),                 'Resize down')
-    map('n', '<M-S-k>', resize('up'),                   'Resize up')
-    map('n', '<M-S-l>', resize('right'),                'Resize right')
-    map('n', '<Left>',  resize('left'),                 'Resize left')
-    map('n', '<Down>',  resize('down'),                 'Resize down')
-    map('n', '<Up>',    resize('up'),                   'Resize up')
-    map('n', '<Right>', resize('right'),                'Resize right')
-    map('n', '<C-w>z',  smart_splits.start_resize_mode, 'Enter resize mode')
+    map('n', '<M-S-h>', resize('left'),  'Resize left')
+    map('n', '<M-S-j>', resize('down'),  'Resize down')
+    map('n', '<M-S-k>', resize('up'),    'Resize up')
+    map('n', '<M-S-l>', resize('right'), 'Resize right')
+    map('n', '<Left>',  resize('left'),  'Resize left')
+    map('n', '<Down>',  resize('down'),  'Resize down')
+    map('n', '<Up>',    resize('up'),    'Resize up')
+    map('n', '<Right>', resize('right'), 'Resize right')
   end,
 }
