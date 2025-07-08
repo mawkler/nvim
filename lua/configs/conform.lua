@@ -26,11 +26,9 @@ return {
 
     local formatters = {
       markdown = { 'prettierd', 'mdsf' },
-      rust = { lsp_format = 'first' },
       json = { 'prettierd', lsp_format = 'never' },
-      -- Explicitly trim whitespace since this config
-      lua = { 'trim_whitespace', 'trim_newlines', 'keep-sorted', lsp_format = 'first' },
-      ['*'] = { 'trim_whitespace', 'trim_newlines' },
+      ['_'] = { lsp_format = 'first' },
+      ['*'] = { 'trim_whitespace', 'trim_newlines', 'keep-sorted' },
     }
 
     local formatters_by_ft = vim.tbl_extend('force', prettier_formatters(), formatters)
