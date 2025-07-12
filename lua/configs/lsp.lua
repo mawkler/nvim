@@ -190,20 +190,21 @@ return {
             },
           },
         },
-      }
+      },
+      hyprls = {},
     }
 
-    -- Assumed to be installed system-wide (i.e. not by Mason)
-    vim.lsp.config.nil_ls = {
+    -- Doesn't exist in Mason yet
+    vim.lsp.config.nixd = {
       settings = {
-        ['nil'] = {
+        nixd = {
           formatting = {
             command = { 'nixfmt' },
           },
         },
       },
     }
-    vim.lsp.enable({ 'nil_ls' })
+    vim.lsp.enable({ 'nixd' })
 
     -- These have their own plugins that enable them
     local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
@@ -243,6 +244,7 @@ return {
     -- If we're on NixOS masons `automatic_enable` doesn't work
     if utils.is_nixos() then
       for server, _ in pairs(server_configs) do
+        assert(type(server) == 'string')
         vim.lsp.enable(server)
       end
     end
