@@ -204,7 +204,29 @@ return {
         },
       },
     }
-    vim.lsp.enable({ 'nixd' })
+    vim.lsp.config.nil_ls = {
+      on_attach = function(client, _)
+        -- These are already covered by nixd
+        local disabled_capabilities = {
+          'definitionProvider',
+          'referencesProvider',
+          'implementationProvider',
+          'diagnosticProvider',
+          'completionProvider',
+          'hoverProvider',
+        }
+        for _, capability in ipairs(disabled_capabilities) do
+          client.server_capabilities[capability] = false
+        end
+
+        -- Diagnostics have to be disabled on the client side
+        client.handlers['textDocument/publishDiagnostics'] = function(...)
+          local result = select(2, ...)
+          result.diagnostics = {}
+        end
+      end
+    }
+    vim.lsp.enable({ 'nixd', 'nil_ls' })
 
     -- These have their own plugins that enable them
     local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
