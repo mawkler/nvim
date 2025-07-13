@@ -245,6 +245,9 @@ return {
 
           -- Tiny Code Action
           ['@markup.link.label.markdown_inline'] = { fg = c.blue0, style = style.Bold },
+
+          -- Nix
+          ['@lsp.typemod.property.withAttribute.nix'] = { link = '@variable' }, -- Match LSP highlighting
         }
       end
     })
