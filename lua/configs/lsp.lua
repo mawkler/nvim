@@ -4,9 +4,9 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'williamboman/mason.nvim',           -- For installing LSP servers
-    'williamboman/mason-lspconfig.nvim', -- Integration with nvim-lspconfig
-    'b0o/schemastore.nvim',              -- YAML/JSON schemas
+    'mason-org/mason.nvim',           -- For installing LSP servers
+    'mason-org/mason-lspconfig.nvim', -- Integration with nvim-lspconfig
+    'b0o/schemastore.nvim',           -- YAML/JSON schemas
   },
   config = function()
     local api, lsp = vim.api, vim.lsp

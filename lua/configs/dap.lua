@@ -7,7 +7,7 @@ return {
     'David-Kunz/jester',                 -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',   -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',         -- DAP adapter for vs**de-js-debug
-    'williamboman/mason.nvim',           -- Manage DAP adapters
+    'mason-org/mason.nvim',              -- Manage DAP adapters
     'jay-babu/mason-nvim-dap.nvim',      -- Automatic DAP configuration
     'ofirgall/goto-breakpoints.nvim',    -- Jump to next/previous breakpoint
     'nvim-telescope/telescope-dap.nvim', -- Telescope integration
