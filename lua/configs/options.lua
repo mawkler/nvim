@@ -85,10 +85,14 @@ opt.fillchars = {
   verthoriz = '╉',
 }
 
--- Other
+-- Custom filetypes
 vim.filetype.add({
-  -- Treat zsh files as sh
-  extension = { zsh = 'sh', },
+  extension = {
+    -- Treat zsh files as sh
+    zsh = 'sh',
+    -- Rofi theme
+    rasinc = 'rasi',
+  },
   filename = {
     ['.zshrc'] = 'sh',
     ['.zshenv'] = 'sh',
