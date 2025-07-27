@@ -216,13 +216,22 @@ return {
             end,
             ['<C-t>'] = function(directory)
               vim.fn.system({ 'zoxide', 'add', directory })
+              vim.cmd('tab split')
               vim.cmd.tcd(directory)
             end,
           },
         },
         zoxide = {
           prompt_title = 'Zoxide',
-          verbose = false,
+          mappings = {
+            ['<C-t>'] = {
+              -- Open directory in new tab
+              action = function(selection)
+                vim.cmd('tab split')
+                vim.cmd.tcd(selection.path)
+              end,
+            },
+          },
         },
         frecency = {
           db_safe_mode = false, -- Never ask for confirmation clean up DB
