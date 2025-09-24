@@ -97,4 +97,8 @@ vim.filetype.add({
     ['.zshrc'] = 'sh',
     ['.zshenv'] = 'sh',
   },
+  pattern = {
+    -- GitHub Actions Workflow
+    ['.*/%.github[%w/]+workflows[%w/]+.*%.ya?ml'] = 'yaml.github',
+  },
 })
