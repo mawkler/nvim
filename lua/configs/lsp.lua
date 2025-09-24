@@ -227,7 +227,6 @@ return {
         end
       end
     }
-    vim.lsp.enable({ 'nixd', 'nil_ls' })
 
     -- These have their own plugins that enable them
     local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
@@ -270,6 +269,8 @@ return {
         assert(type(server) == 'string')
         vim.lsp.enable(server)
       end
+
+      vim.lsp.enable({ 'nixd', 'nil_ls' })
     end
 
     -------------
