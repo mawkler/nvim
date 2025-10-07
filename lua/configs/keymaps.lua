@@ -140,7 +140,7 @@ map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
 map('n', '<C-w><C-^>', '<C-w>v<C-6>')
 map('n', '<C-w>6',     '<C-w>v<C-6>')
 
-map('s',       '<BS>',   '<BS>i')    -- By default <BS> puts you in normal mode
+map('s',       '<BS>',   '<BS>i') -- By default <BS> puts you in normal mode
 map('s',       '<C-h>',  '<BS>i')
 map(all_modes, '<C-m>',  '<CR>',        { remap = true })
 map('n',       'g<C-a>', 'v<C-a>',      'Increment number under cursor')
@@ -179,11 +179,16 @@ end, 'Close window if not modifiable, otherwise clear LSP references')
 map('t', '<Esc>', '<C-\\><C-n>')
 
 local function clear_screen()
-  require('notify').dismiss()         -- Dismiss all notifcatcions on screen
-  require('luasnip').unlink_current() -- Clear LuaSnip indicator from status line
+  -- Dismiss all notifcatcions on screen
+  require('notify').dismiss({ pending = true, silent = true })
+
+  -- Clear LuaSnip indicator from status line
+  if require('luasnip').in_snippet() then
+    require('luasnip').unlink_current()
+  end
   feedkeys('<C-l>')
 end
-map('n', '<C-l>', clear_screen, { silent = true }) -- LuaSnip sometimes emits "No active Snippet"
+map('n', '<C-l>', clear_screen, { silent = true })
 
 map(nx, '<C-y>', '5<C-y>')
 map(nx, '<C-e>', '5<C-e>')
