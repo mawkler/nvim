@@ -35,6 +35,9 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
       ensure_installed = 'all',
+      ignore_install = {
+        'ipkg', -- Seems to have been removed
+      },
       highlight = {
         enable = true,
         disable = { 'latex', 'gitcommit' },
