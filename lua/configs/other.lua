@@ -34,6 +34,11 @@ return {
           pattern = '/lua/configs/.*.lua$',
           target = '/init.lua',
         },
+        -- `default.nix` from module in the same directory
+        {
+          pattern = '(.*)/.*.nix',
+          target = '%1/default.nix',
+        },
       },
     })
   end
