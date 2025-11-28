@@ -215,6 +215,7 @@ return {
           'completionProvider',
           'hoverProvider',
           'documentFormattingProvider',
+          'renameProvider',
         }
         for _, capability in ipairs(disabled_capabilities) do
           client.server_capabilities[capability] = false
