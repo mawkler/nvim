@@ -30,7 +30,6 @@ return {
   },
   config = function()
     require('leap').setup({
-      case_sensitive = false,
       substitute_chars = {
         ['\r'] = '¬', -- This one doesn't seem to work
         [' '] = '·',
