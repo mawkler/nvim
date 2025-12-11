@@ -192,6 +192,7 @@ return {
         },
       },
       hyprls = {},
+      roc_ls = {},
     }
 
     -- Doesn't exist in Mason yet
