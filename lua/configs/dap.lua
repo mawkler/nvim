@@ -74,7 +74,7 @@ return {
     map('n', '<leader>do', dap.step_out,          'DAP step out')
     map('n', '<leader>db', dap.toggle_breakpoint, 'DAP toggle breakpoint')
     map('n', '<leader>dB', dap.clear_breakpoints, 'DAP remove breakpoints')
-    map('n', '<leader>dr', dap.repl.open,         'DAP open REPL')
+    map('n', '<leader>dR', dap.repl.open,         'DAP open REPL')
     map('n', '<leader>dl', dap.run_last,          'DAP run last session')
     map('n', '<leader>dr', dap.restart,           'DAP restart session')
     map('n', '<leader>dq', dap.terminate,         'DAP terminate session')
