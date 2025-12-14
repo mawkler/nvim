@@ -12,8 +12,8 @@ return {
       -- JSON is excluded from here since ts_ls does a better job than prettier
       local prettier_filetypes = {
         'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
-        'css', 'scss', 'less', 'html', 'jsonc', 'yaml', 'markdown.mdx',
-        'graphql', 'handlebars', 'svelte', 'astro', 'htmlangular',
+        'css', 'scss', 'less', 'html', 'jsonc', 'yaml', 'graphql',
+        'handlebars', 'svelte', 'astro', 'htmlangular',
       }
 
       local prettier = {}
@@ -25,7 +25,7 @@ return {
     end
 
     local formatters = {
-      markdown = { 'prettierd', 'mdsf' },
+      markdown = { 'rumdl_fmt', 'mdsf' },
       json = { 'prettierd', lsp_format = 'never' },
       ['_'] = { lsp_format = 'first' },
       ['*'] = { 'trim_whitespace', 'trim_newlines', 'keep-sorted' },
@@ -44,7 +44,12 @@ return {
       formatters = {
         mdsf = {
           args = { 'format', '--cache', '$FILENAME' },
-        }
+        },
+        rumdl_fmt = {
+          command = 'rumdl',
+          args = { 'fmt', '-', '--quiet' },
+          stdin = true,
+        },
       }
     })
 
