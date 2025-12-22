@@ -14,7 +14,7 @@ M.keymaps = {
   ['2'] = '@block',
   [';'] = '@comment',
   ['?'] = '@conditional',
-  ['S'] = '@statement',
+  ['s'] = '@statement',
   ['='] = '@assignment',
 }
 
@@ -23,51 +23,64 @@ M.special_keymaps = {
   ['ik'] = '@assignment.lhs',
   ['iv'] = '@assignment.rhs',
   ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
-  ['iS'] = '@statement.outer', -- @statement.inner isn't implemented yet
+  ['is'] = '@statement.outer', -- @statement.inner isn't implemented
 }
 
-local function merge(t1, t2)
-  return vim.tbl_extend('force', t1, t2)
+function M.get_all()
+  return vim.tbl_extend('force', M.keymaps, M.special_keymaps)
 end
 
-M.get = function()
-  return merge(M.keymaps, M.special_keymaps or {})
+---@param key string
+---@param query string
+---@param map 'next_start' | 'next_end' | 'previous_start' | 'previous_end'
+local function set_textobject_motion_mapping(key, query, map)
+  local ts_move = require('nvim-treesitter-textobjects.move')
+  vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+    ts_move['goto_' .. map](query .. '.outer', 'textobjects')
+  end)
 end
 
-M.get_with_prepositions = function()
-  local maps = {}
+---@param key string
+---@param query string
+function M.set_textobject_select_mapping(key, query)
+  local ts_select = require('nvim-treesitter-textobjects.select')
+  vim.keymap.set({ 'x', 'o' }, key, function()
+    ts_select.select_textobject(query, 'textobjects')
+  end)
+end
 
-  for key, capture in pairs(M.keymaps) do
-    maps['a' .. key] = capture .. '.outer'
-    maps['i' .. key] = capture .. '.inner'
+---@param key string
+---@param query string
+---@param direction 'next' | 'previous'
+local function set_textobject_swap_mapping(key, query, direction)
+  vim.keymap.set('n', key, function()
+    require('nvim-treesitter-textobjects.swap')['swap_' .. direction](query)
+  end)
+end
+
+---@param textobject string
+---@param query string
+function M.create_keymaps(textobject, query)
+  local maps = {
+    [']' .. textobject] = 'next_start',
+    ['[' .. textobject] = 'previous_start',
+    [']' .. textobject:upper()] = 'next_end',
+    ['[' .. textobject:upper()] = 'previous_end',
+  }
+
+  for key, direction in pairs({ ['>'] = 'next', ['<'] = 'previous' }) do
+    set_textobject_swap_mapping(key .. 'a' .. textobject, query .. '.outer', direction)
   end
 
-  return merge(maps, M.special_keymaps or {})
-end
-
---- @param direction ']' | '['
---- @param overrides {}
-M.get_motion_keymaps = function(direction, overrides)
-  local maps = {}
-
-  for key, capture in pairs(M.keymaps) do
-    maps[direction .. key] = capture .. '.outer'
+  for key, preposition in pairs({ a = 'outer', i = 'inner' }) do
+    local select_key = key .. textobject
+    local select_query = query .. '.' .. preposition
+    M.set_textobject_select_mapping(select_key, select_query)
   end
 
-  return merge(maps, overrides or {})
-end
-
---- @param direction '>' | '<'
---- @param overrides {}
-M.get_textobj_swap_keymaps = function(direction, overrides)
-  local maps = {}
-
-  for key, capture in pairs(M.get_with_prepositions()) do
-    maps[direction .. key] = capture
+  for key, map in pairs(maps) do
+    set_textobject_motion_mapping(key, query, map)
   end
-
-  return merge(maps, overrides or {})
 end
 
--- TODO: rename file to keymaps.lua
 return M

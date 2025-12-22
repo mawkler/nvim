@@ -32,7 +32,7 @@ return {
       end
     end
 
-    local ts_keymaps = require('configs.treesitter.keymaps').get()
+    local ts_keymaps = require('configs.treesitter.keymaps').get_all()
     for lhs, textobject in pairs(ts_keymaps) do
       create_spooky_textobject(lhs, textobject)
     end

@@ -4,7 +4,7 @@
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
-    'David-Kunz/jester',                 -- Debugging Jest tests
+    -- 'David-Kunz/jester',                 -- Debugging Jest tests
     'theHamsta/nvim-dap-virtual-text',   -- Show variable values in virtual text
     'mxsdev/nvim-dap-vscode-js',         -- DAP adapter for vs**de-js-debug
     'mason-org/mason.nvim',              -- Manage DAP adapters
@@ -35,7 +35,7 @@ return {
   },
   config = function()
     local dap = require('dap')
-    local jester = require('jester')
+    -- local jester = require('jester')
     local mason_dap = require('mason-nvim-dap')
     local map = require('utils').map
     local sign_define = vim.fn.sign_define
@@ -79,13 +79,13 @@ return {
     map('n', '<leader>dr', dap.restart,           'DAP restart session')
     map('n', '<leader>dq', dap.terminate,         'DAP terminate session')
 
-    -- Jester
-    map('n', '<leader>djt', jester.debug,      'DAP Jester debug test')
-    map('n', '<leader>djf', jester.debug_file, 'DAP Jester debug file')
-    map('n', '<leader>djr', jester.debug_last, 'DAP Jester rerun debug')
-    map('n', '<leader>djT', jester.run,        'DAP Jester run test')
-    map('n', '<leader>djF', jester.run_file,   'DAP Jester run file')
-    map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
+    -- -- Jester
+    -- map('n', '<leader>djt', jester.debug,      'DAP Jester debug test')
+    -- map('n', '<leader>djf', jester.debug_file, 'DAP Jester debug file')
+    -- map('n', '<leader>djr', jester.debug_last, 'DAP Jester rerun debug')
+    -- map('n', '<leader>djT', jester.run,        'DAP Jester run test')
+    -- map('n', '<leader>djF', jester.run_file,   'DAP Jester run file')
+    -- map('n', '<leader>djR', jester.run_last,   'DAP Jester rerun test')
 
     -- Go to breakpoints
     map('n', ']b', breakpoint.next, 'Go to next breakpoint')
@@ -142,11 +142,12 @@ return {
     })
 
     -- Jester
-    jester.setup({
-      dap = {
-        type = 'pwa-node',
-      },
-    })
+    -- Doesn't seem to have been updated to the new nvim-treesitter API
+    -- jester.setup({
+    --   dap = {
+    --     type = 'pwa-node',
+    --   },
+    -- })
 
     for _, language in ipairs({ 'typescript', 'javascript' }) do
       dap.configurations[language] = {
