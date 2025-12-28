@@ -28,5 +28,12 @@
       "</details>"
     ],
     "description": "Conceal text inside a <details> tag"
+  },
+  "checkbox": {
+    "prefix": "ch",
+    "body": [
+      "- [ ] "
+    ],
+    "description": "Checkbox"
   }
 }

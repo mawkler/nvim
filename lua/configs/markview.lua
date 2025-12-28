@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-fields
+
 --------------
 -- Markview --
 --------------
@@ -115,6 +117,16 @@ return {
           },
         },
       },
+    })
+
+    require('markview.extras.checkboxes').setup({
+      default = ' ',
+      states = { { ' ', 'x' } }
+    })
+
+    -- `:Checkbox toggle` doesn't seem to work if you typed in the checkbox yourself
+    vim.keymap.set({ 'x', 'n' }, '<leader>x', '<cmd>Checkbox change 1<CR>', {
+      desc = 'Toggle checkbox',
     })
   end
 }
