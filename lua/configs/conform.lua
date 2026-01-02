@@ -25,7 +25,7 @@ return {
     end
 
     local formatters = {
-      markdown = { 'rumdl_fmt', 'mdsf' },
+      markdown = { 'rumdl', 'mdsf' },
       json = { 'prettierd', lsp_format = 'never' },
       ['_'] = { lsp_format = 'first' },
       ['*'] = { 'trim_whitespace', 'trim_newlines', 'keep-sorted' },
@@ -45,12 +45,7 @@ return {
         mdsf = {
           args = { 'format', '--cache', '$FILENAME' },
         },
-        rumdl_fmt = {
-          command = 'rumdl',
-          args = { 'fmt', '-', '--quiet' },
-          stdin = true,
-        },
-      }
+      },
     })
 
     vim.keymap.set('n', '<F2>', function()

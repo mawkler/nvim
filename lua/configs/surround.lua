@@ -103,7 +103,7 @@ return {
       R = type('Result'),
       V = type('Vec'),
     })
-    filetype_surround({ 'typescript', 'javascript' }, {
+    filetype_surround({ 'typescript', 'javascript', 'nix' }, {
       s = { -- String interpolation
         add = function()
           return { { '${' }, { '}' } }
