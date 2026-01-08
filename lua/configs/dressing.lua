@@ -33,6 +33,7 @@ return {
         map({ 'i', 's' }, '<C-k>', input.history_prev, { buffer = true })
         map({ 's', 'n' }, '<C-c>', input.close,        { buffer = true })
         map('s',          '<CR>',  input.confirm,      { buffer = true })
+        map('s',          '<C-m>', input.confirm,      { buffer = true })
       end,
       group = 'Dressing'
     })
