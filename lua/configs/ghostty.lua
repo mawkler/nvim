@@ -1,7 +1,9 @@
 -------------
 -- Ghostty --
 -------------
-local ghostty_config_path = os.getenv('HOME') .. '/.config/ghostty/config'
+
+-- My config source file isn't in `~/.config/`, so this is good enough
+local ghostty_config_path = '*/ghostty/config'
 
 return {
   'isak102/ghostty.nvim',
