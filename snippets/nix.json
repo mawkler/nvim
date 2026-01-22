@@ -1,0 +1,7 @@
+{
+  "function": {
+    "prefix": "fn",
+    "body": "$1: {$2};",
+    "description": "function"
+  }
+}

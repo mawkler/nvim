@@ -53,6 +53,12 @@
           "cargo-toml"
         ],
         "path": "./cargo-toml.json"
+      },
+      {
+        "language": [
+          "nix"
+        ],
+        "path": "./nix.json"
       }
     ]
   }
