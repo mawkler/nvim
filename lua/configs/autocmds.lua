@@ -65,11 +65,10 @@ vim.api.nvim_create_autocmd('FileType', {
   group = augroup,
 })
 
--- Start git commits at start of line, and insert mode if message is empty
+-- Start git/jj commits at start of line, and insert mode if message is empty
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'gitcommit',
+  pattern = { 'gitcommit', 'jjdescription' },
   callback = function()
-    wo.spell = true
     if fn.getline(1) == '' then
       vim.cmd('startinsert!')
     end
