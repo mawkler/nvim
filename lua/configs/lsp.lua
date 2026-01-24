@@ -193,6 +193,16 @@ return {
       },
       hyprls = {},
       roc_ls = {},
+      fish_lsp = {},
+      harper_ls = {
+        filetypes = { 'markdown', 'typst' },
+        settings = {
+          ['harper-ls'] = {
+            linters = { UseTitleCase = false },
+            isolateEnglish = true,
+          },
+        },
+      },
     }
 
     -- Doesn't exist in Mason yet
