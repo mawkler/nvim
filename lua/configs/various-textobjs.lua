@@ -58,6 +58,8 @@ return {
           'n',  -- Disabled
           'iz', -- Remapped to iZ
           'az', -- Remapped to aZ
+          'iN', -- Disabled
+          'aN', -- Disabled
         },
       },
     })

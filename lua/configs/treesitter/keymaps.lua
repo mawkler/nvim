@@ -3,7 +3,7 @@ local M = {}
 M.keymaps = {
   f = '@function',
   c = '@call',
-  C = '@class',
+  t = '@class', -- Type
   a = '@parameter',
   o = '@loop',
   R = '@return',
@@ -24,6 +24,7 @@ M.special_keymaps = {
   ['iv'] = '@assignment.rhs',
   ['i;'] = '@comment.outer',   -- @comment.inner isn't implemented yet
   ['is'] = '@statement.outer', -- @statement.inner isn't implemented
+  ['aN'] = '@number.inner',    -- @number.outer isn't implemented
 }
 
 function M.get_all()
@@ -64,9 +65,16 @@ function M.create_keymaps(textobject, query)
   local maps = {
     [']' .. textobject] = 'next_start',
     ['[' .. textobject] = 'previous_start',
-    [']' .. textobject:upper()] = 'next_end',
-    ['[' .. textobject:upper()] = 'previous_end',
   }
+
+  -- Don't create uppercase mapping if `textobject` is already uppercase
+  if textobject ~= textobject:upper() then
+    local uppercase_maps = {
+      [']' .. textobject:upper()] = 'next_end',
+      ['[' .. textobject:upper()] = 'previous_end',
+    }
+    maps = vim.tbl_extend('force', maps, uppercase_maps)
+  end
 
   for key, direction in pairs({ ['>'] = 'next', ['<'] = 'previous' }) do
     set_textobject_swap_mapping(key .. 'a' .. textobject, query .. '.outer', direction)
