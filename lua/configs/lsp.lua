@@ -194,6 +194,7 @@ return {
       hyprls = {},
       roc_ls = {},
       fish_lsp = {},
+      just = {},
     }
 
     -- Doesn't exist in Mason yet
