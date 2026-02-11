@@ -96,7 +96,7 @@ local plugins = {
   use 'messages',               -- Floating :messages window
   use 'possession',             -- Session manager
   use 'copilot',                -- GitHub Copilot
-  use 'diffview',               -- Git diff and file history
+  use 'codediff',               -- Git diff and file history
   use 'leap',                   -- Move cursor anywhere
   use 'leap-spooky',            -- Target text-objects with leap
   use 'winshift',               -- Improved window movement

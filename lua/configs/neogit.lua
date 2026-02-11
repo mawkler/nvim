@@ -5,13 +5,13 @@ return {
   'NeogitOrg/neogit',
   cmd = 'Neogit',
   keys = {
-    '<leader>gC',
-    '<leader>gs',
-    { '<leader>gc', '<cmd>Neogit commit<CR>', desc = 'Git commit' },
-    { '<leader>gp', '<cmd>Neogit pull<CR>',   desc = 'Git pull' },
-    { '<leader>gP', '<cmd>Neogit push<CR>',   desc = 'Git push' },
-    { '<leader>gr', '<cmd>Neogit rebase<CR>', desc = 'Git rebase' },
-    { '<leader>gl', '<cmd>Neogit log<CR>',    desc = 'Git log' },
+    '<leader>GC',
+    '<leader>Gs',
+    { '<leader>Gc', '<cmd>Neogit commit<CR>', desc = 'Git commit' },
+    { '<leader>Gp', '<cmd>Neogit pull<CR>',   desc = 'Git pull' },
+    { '<leader>GP', '<cmd>Neogit push<CR>',   desc = 'Git push' },
+    { '<leader>Gr', '<cmd>Neogit rebase<CR>', desc = 'Git rebase' },
+    { '<leader>Gl', '<cmd>Neogit log<CR>',    desc = 'Git log' },
   },
   config = function()
     local map = require('utils').map
@@ -40,8 +40,8 @@ return {
       disable_commit_confirmation = true,
     })
 
-    map('n', '<leader>gC', require('telescope.builtin').git_branches, 'Git checkout')
-    map('n', '<leader>gs', function()
+    map('n', '<leader>GC', require('telescope.builtin').git_branches, 'Git checkout')
+    map('n', '<leader>Gs', function()
       neogit.open({
         cwd = vim.fn.expand('%:p:h'),
         kind = 'vsplit',

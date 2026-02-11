@@ -51,16 +51,6 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     mason_dap.setup({ automatic_installation = true })
 
-    local function continue()
-      -- Loads .vscode/launch.json files if available
-      require('dap.ext.vscode').load_launchjs(nil, {
-        ['pwa-node'] = { 'typescript' },
-        ['node'] = { 'typescript' },
-      })
-
-      dap.continue()
-    end
-
     -- Mappings --
     -- TODO: use stackmap.nvim to add ]s as "next step", or something similar
     map('n', '<leader>dB', function()
@@ -68,7 +58,7 @@ return {
         dap.set_breakpoint(condition)
       end)
     end, 'DAP set conditional breakpoint')
-    map('n', '<leader>dc', continue,              'DAP continue')
+    map('n', '<leader>dc', dap.continue,          'DAP continue')
     map('n', '<leader>ds', dap.step_over,         'DAP step over')
     map('n', '<leader>di', dap.step_into,         'DAP step into')
     map('n', '<leader>do', dap.step_out,          'DAP step out')
@@ -172,11 +162,5 @@ return {
         }
       }
     end
-
-    -- Loads .vscode/launch.json files if available
-    require('dap.ext.vscode').load_launchjs(nil, {
-      ['pwa-node'] = { 'typescript' },
-      ['node'] = { 'typescript' },
-    })
   end,
 }

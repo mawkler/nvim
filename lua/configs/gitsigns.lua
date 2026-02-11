@@ -34,13 +34,8 @@ return {
           })
         end
 
-        map({ 'n', 'x' }, '<leader>ghs', gitsigns.stage_hunk, 'Stage git hunk')
-        map({ 'n', 'x' }, '<leader>ghr', gitsigns.reset_hunk, 'Reset git hunk')
-
-        map('n', '<leader>ghS', gitsigns.stage_buffer, 'Stage entire buffer')
-        map('n', '<leader>ghR', gitsigns.reset_buffer, 'Reset entire buffer')
-        map('n', '<leader>ghp', gitsigns.preview_hunk, 'Preview git hunk')
-        map('n', 'gb',          git_blame,             'Git blame line')
+        map('n', '<leader>gp', gitsigns.preview_hunk, 'Preview git hunk')
+        map('n', 'gb',         git_blame,             'Git blame line')
 
         -- Text objects
         map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
@@ -64,9 +59,14 @@ return {
       end
     end
 
+    local nx = { 'n', 'x' }
+
+    map(nx,  '<leader>ghr', gitsigns.reset_hunk,   'Reset git hunk')
+    map('n', '<leader>ghR', gitsigns.reset_buffer, 'Reset entire buffer')
+
     -- Next/previous hunk
-    map({ 'n', 'x' }, ']g', next_hunk, 'Next git hunk')
-    map({ 'n', 'x' }, '[g', prev_hunk, 'Previous git hunk')
+    map(nx, ']g', next_hunk, 'Next git hunk')
+    map(nx, '[g', prev_hunk, 'Previous git hunk')
 
     -- Workaround for bug where change highlight switches for some reason
     vim.api.nvim_set_hl(0, 'GitGutterChange', { link = 'DiffChange' })
