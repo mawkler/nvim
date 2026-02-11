@@ -5,7 +5,7 @@
 local mode = { 'n', 'x', 'o' }
 
 return {
-  'ggandor/leap.nvim',
+  url = 'https://codeberg.org/andyg/leap.nvim',
   dependencies = 'tpope/vim-repeat',
   keys = {
     { 'zj',   '<Plug>(leap-forward)',     mode = mode, desc = 'Leap downwards' },
