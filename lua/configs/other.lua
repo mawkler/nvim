@@ -10,7 +10,21 @@ return {
   cmd = { 'Other', 'OtherSplit', 'OtherVSplit' },
   config = function()
     require('other-nvim').setup({
+      style = {
+        border = 'rounded',
+      },
       mappings = {
+        -- Bundled with other.nvim
+        'livewire',
+        'angular',
+        'laravel',
+        'rails',
+        'golang',
+        'python',
+        'react',
+        'rust',
+        'elixir',
+        'clojure',
         -- TypeScript Azure functions
         {
           pattern = '/(.*)/index.ts$',
@@ -38,6 +52,11 @@ return {
         {
           pattern = '(.*)/.*.nix',
           target = '%1/default.nix',
+        },
+        {
+          context = 'mod.rs',
+          pattern = '(.*)/.*.rs',
+          target = '%1/mod.rs',
         },
       },
     })
