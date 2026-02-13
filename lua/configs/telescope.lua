@@ -17,7 +17,6 @@ local function telescope_config()
   require('telescope.builtin').find_files({
     search_dirs = { '$HOME/.config/nvim/' },
     prompt_title = 'Neovim config',
-    no_ignore = true,
     hidden = true,
     path_display = function(_, path)
       local relative_path, _ = path:gsub(vim.fn.expand('$HOME/.config/nvim/'), '')
