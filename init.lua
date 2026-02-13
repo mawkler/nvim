@@ -85,6 +85,7 @@ local plugins = {
   use 'ultimate-autopair',      -- Auto-close brackets, etc.
   use 'capslock',               -- Virtual CapsLock
   use 'git-conflict',           -- Git conflict mappings
+  use 'jj-diffconflicts',       -- JJ conflicts tool
   use 'vim-textobj',            -- Custom text objects
   use 'vimtex',                 -- LaTeX utilities
   use 'ai',                     -- next/previous text objects
