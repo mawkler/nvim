@@ -16,6 +16,23 @@ return {
       assist = {
         preferSelf = true,
       },
+      completion = {
+        snippets = {
+          custom = {
+            ['thread spawn'] = {
+              prefix = { 'spawn' },
+              body = {
+                'thread::spawn(move || {',
+                '\t$0',
+                '});',
+              },
+              description = 'Insert a thread::spawn call',
+              requires = 'std::thread',
+              scope = 'expr',
+            },
+          },
+        },
+      },
     }
 
     -- Nice to have when not in a huge workspace

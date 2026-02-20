@@ -1,6 +1,6 @@
 {
   "closure": {
-    "prefix": "closure",
+    "prefix": "cl",
     "body": "|$1| {$2}",
     "description": "Closure"
   },
@@ -8,5 +8,32 @@
     "prefix": "derive",
     "body": "#[derive($1)]",
     "description": "Derive macro"
+  },
+  "pfn": {
+    "prefix": "pfn",
+    "body": [
+      "pub fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
+      "    ${5:todo!();}",
+      "}"
+    ],
+    "description": "pub fn …(…) { … }"
+  },
+  "pafn": {
+    "prefix": "pafn",
+    "body": [
+      "pub async fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
+      "    ${5:todo!();}",
+      "}"
+    ],
+    "description": "pub async fn …(…) { … }"
+  },
+  "afn": {
+    "prefix": "afn",
+    "body": [
+      "async fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
+      "    ${5:todo!();}",
+      "}"
+    ],
+    "description": "async fn …(…) { … }"
   }
 }

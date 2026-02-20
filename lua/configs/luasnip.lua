@@ -10,27 +10,19 @@ vim.filetype.add({
 return {
   'L3MON4D3/LuaSnip',
   run = 'make install_jsregexp',
-  dependencies = 'mireq/luasnip-snippets', -- Collection of snippets
   event = 'InsertEnter',
   config = function()
     local fn            = vim.fn
     local feedkeys, map = require('utils').feedkeys, require('utils').map
 
-    local luasnip             = require('luasnip')
-    local snippets_snip_utils = require('luasnip_snippets.common.snip_utils')
-    local s, sn               = luasnip.snippet, luasnip.snippet_node
-    local t, i, d             = luasnip.text_node, luasnip.insert_node, luasnip.dynamic_node
+    local luasnip = require('luasnip')
+    local s, sn   = luasnip.snippet, luasnip.snippet_node
+    local t, i, d = luasnip.text_node, luasnip.insert_node, luasnip.dynamic_node
 
     luasnip.config.setup({ history = true })
-    snippets_snip_utils.setup()
-
-    luasnip.setup({
-      load_ft_func = snippets_snip_utils.load_ft_func,
-      ft_func = snippets_snip_utils.ft_func,
-    })
 
     luasnip.filetype_extend('all', { 'global' })
-    require('luasnip.loaders.from_vscode').load({
+    require('luasnip.loaders.from_vscode').lazy_load({
       paths = { '~/.config/nvim/snippets' },
     })
 
