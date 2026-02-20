@@ -281,15 +281,19 @@ return {
     -------------
     -- Keymaps --
     -------------
-    local function lsp_references()
-      utils.clear_lsp_references()
+    ---@param jump_type? "tab" | "tab drop" | "split" | "vsplit" | "never"
+    local function lsp_references(jump_type)
+      return function()
+        utils.clear_lsp_references()
 
-      local method = 'textDocument/documentHighlight'
-      if #vim.lsp.get_clients({ method = method }) > 0 then
-        lsp.buf.document_highlight()
+        local method = 'textDocument/documentHighlight'
+        if #vim.lsp.get_clients({ method = method }) > 0 then
+          lsp.buf.document_highlight()
+        end
+
+        local opts = { include_declaration = false, jump_type = jump_type }
+        require('telescope.builtin').lsp_references(opts)
       end
-
-      require('telescope.builtin').lsp_references({ include_declaration = false })
     end
 
     local function attach_codelens(bufnr)
@@ -320,7 +324,9 @@ return {
       map('n', '<leader>ts', telescope.lsp_document_symbols,          'LSP document symbols')
       map('n', '<leader>tS', telescope.lsp_workspace_symbols,         'LSP workspace symbols')
       map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
-      map('n', 'gr',         lsp_references,                          'LSP references')
+
+      map('n', 'gr',      lsp_references(),         'LSP references')
+      map('n', '<C-w>gr', lsp_references('vsplit'), 'LSP references (in new window if only one match)')
 
       map('n', 'gs',        lsp.buf.signature_help, 'LSP signature help')
       map(is,  '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
