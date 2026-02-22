@@ -35,5 +35,24 @@
       "}"
     ],
     "description": "async fn …(…) { … }"
+  },
+  "new": {
+    "prefix": "new",
+    "body": [
+      "new() -> Self {",
+      "    ${5:todo!();}",
+      "}"
+    ],
+    "description": "New function"
+  },
+  "println": {
+      "prefix": "print",
+      "body": ["println!(\"${1}\")"],
+      "description": "println!(…)"
+  },
+  "format": {
+      "prefix": "fmt",
+      "body": ["format!(\"${1}\")"],
+      "description": "format!(…)"
   }
 }
