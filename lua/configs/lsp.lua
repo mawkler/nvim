@@ -195,6 +195,7 @@ return {
       roc_ls = {},
       fish_lsp = {},
       just = {},
+      taplo = {},
     }
 
     -- Doesn't exist in Mason yet

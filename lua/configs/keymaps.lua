@@ -137,8 +137,8 @@ map('n', '<C-0>', zoom_set(11))
 map('n', '<C-)>', zoom_set(11))
 
 map('n', '<C-w><C-n>', '<cmd>vnew<CR>')
-map('n', '<C-w><C-^>', '<C-w>v<C-6>')
-map('n', '<C-w>6',     '<C-w>v<C-6>')
+map('n', '<C-w><C-^>', '<cmd>vert wincmd ^<CR>')
+map('n', '<C-w>6',     '<cmd>vert wincmd ^<CR>')
 
 map('s',       '<BS>',   '<BS>i') -- By default <BS> puts you in normal mode
 map('s',       '<C-h>',  '<BS>i')
