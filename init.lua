@@ -103,6 +103,7 @@ local plugins = {
   use 'winshift',               -- Improved window movement
   use 'notify',                 -- Floating notifications popups
   use 'toggleterm',             -- Toggleable terminal
+  use 'flatten',                -- Open files in Neovim from terminal
   use 'editable-term',          -- Better editing in :terminal
   use 'bqf',                    -- Better quickfix
   use 'qf',                     -- Quickfix utilities
@@ -115,7 +116,6 @@ local plugins = {
   use 'demicolon',              -- Overloaded `;`/`,` keys
   use 'refjump',                -- Jump to next/previous reference
   use 'jsx-element',            -- JSX/TSX text-objects and motions
-  use 'unception',              -- Open files in Neovim from terminal
   use 'git-worktree',           -- Manage git worktrees
   use 'octo',                   -- GitHub client
   use 'other',                  -- Go to alternate file
