@@ -98,6 +98,7 @@ local plugins = {
   use 'possession',             -- Session manager
   use 'copilot',                -- GitHub Copilot
   use 'codediff',               -- Git diff and file history
+  use 'hunk',                   -- For splitting jj changes
   use 'leap',                   -- Move cursor anywhere
   use 'leap-spooky',            -- Target text-objects with leap
   use 'winshift',               -- Improved window movement
