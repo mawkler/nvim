@@ -7,13 +7,12 @@ return {
     { 's',  mode = { 'n', 'x', 'o' } },
     { 'S',  mode = 'x' },
     { 'ds', mode = 'n' },
+    { 'S',  's$',                                mode = 'n', desc = 'Surround to end of line', remap = true },
+    { 's',  '<Plug>(nvim-surround-visual)',      mode = 'x', desc = 'Surround selection' },
+    { 's',  '<Plug>(nvim-surround-normal)',      mode = 'n', desc = 'Surround' },
+    { 'S',  '<Plug>(nvim-surround-visual-line)', mode = 'x', desc = 'Surround selected line' },
   },
   init = function()
-    local map = require('utils').map
-    local augroup = 'Surround'
-
-    map('n', 'S', 's$', { remap = true, desc = 'Surround until end of line' })
-
     local function filetype_surround(filetype, surrounds)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetype,
@@ -22,11 +21,9 @@ return {
             surrounds = surrounds
           })
         end,
-        group = augroup,
+        group = vim.api.nvim_create_augroup('Surround', {}),
       })
     end
-
-    vim.api.nvim_create_augroup(augroup, {})
 
     ---@return { add: function, delete: function }
     local function type(name)
@@ -114,12 +111,6 @@ return {
   config = function()
     require('nvim-surround').setup({
       move_cursor = false,
-      keymaps = {
-        normal = 's',
-        normal_cur = 'ss',
-        visual = 's',
-        visual_line = 'S',
-      },
       aliases = {
         q = "'",
         Q = '"',
