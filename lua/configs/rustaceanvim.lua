@@ -10,9 +10,6 @@ return {
       check = {
         ignore = { 'dead_code', 'unused_variables' },
       },
-      procMacro = {
-        enable = false,
-      },
       assist = {
         preferSelf = true,
       },
@@ -45,9 +42,6 @@ return {
         cargo = {
           features = 'all',
         },
-        procMacro = {
-          enable = true, -- The default
-        },
       }
 
       settings = vim.tbl_deep_extend('force', settings, less_performant_settings)
@@ -58,8 +52,6 @@ return {
         on_attach = function(_, bufnr)
           local map = require('utils').local_map(bufnr)
 
-          map('n', '<leader>lc', '<cmd>RustLsp openCargo<CR>',        'Go to Cargo.toml')
-          map('n', '<leader>lC', '<C-w>v<cmd>RustLsp openCargo<CR>',  'Go to Cargo.toml (in new window)')
           map('n', '<leader>le', '<cmd>RustLsp explainError<CR>',     'Explain error')
           map('n', '<leader>lj', '<cmd>RustLsp moveItem down<CR>',    'Move item down')
           map('n', '<leader>lk', '<cmd>RustLsp moveItem up<CR>',      'Move item up')
@@ -70,6 +62,10 @@ return {
           map('n', '<leader>lm', '<cmd>RustLsp expandMacro<CR>',      'Expand macro')
           map('n', '<leader>lr', '<cmd>RustLsp run<CR>',              'Run')
           map('n', '<leader>lR', '<cmd>RustLsp! run<CR>',             'Rerun latest run')
+
+          map('n', '<leader>lc',      '<cmd>RustLsp openCargo<CR>',       'Go to Cargo.toml')
+          map('n', '<C-w><leader>lc', '<C-w>v<cmd>RustLsp openCargo<CR>', 'Go to Cargo.toml (new window)')
+          map('n', '<leader>lC',      '<cmd>edit Cargo.toml<CR>',         'Go to Cargo.toml (workspace root)')
         end,
         settings = {
           ['rust-analyzer'] = settings,
