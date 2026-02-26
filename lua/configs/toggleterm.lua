@@ -35,15 +35,10 @@ return {
       end,
     })
 
-    local function go_to_file(command)
-      return function()
-        local cursor = api.nvim_win_get_cursor(0)
-        local bufnr = api.nvim_get_current_buf()
-        toggleterm.toggle(0)
-        api.nvim_win_set_buf(0, bufnr)
-        api.nvim_win_set_cursor(0, cursor)
-        vim.cmd('norm! ' .. command)
-      end
+    ---@param cmd string
+    ---@return string
+    local function in_normal_mode(cmd)
+      return ([[<C-\><C-n>%s]]):format(cmd)
     end
 
     local augroup = api.nvim_create_augroup('ToggleTerm', {})
@@ -52,16 +47,14 @@ return {
       callback = function()
         vim.o.cursorline = false
 
-        map('n', 'gf', go_to_file('gf'), {
-          desc = 'Close toggleterm and go to file',
-          buffer = true,
-        })
-        map('n', 'gF', go_to_file('gF'), {
-          desc = 'Close toggleterm and go to file (and line number)',
-          buffer = true,
-        })
-        map('t', '<C-w>', [[<C-\><C-n><C-w>]], { buffer = true })
-        map('n', '<CR>',  '<C-i><CR>',         { buffer = true, remap = true })
+        map('n', 'gf',      go_to_file)
+        map('n', 'gF',      go_to_file)
+        map('t', '<C-w>',   in_normal_mode('<C-w>'))
+        map('t', '<M-p>',   in_normal_mode('pa'))
+        map('t', '<M-S-p>', in_normal_mode('"+pa'))
+        map('n', '<CR>',    'A<CR>')
+
+        map('n', '<Esc>', '', { buffer = true }) -- Don't close the window on `Esc`
       end,
       group = augroup
     })
