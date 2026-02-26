@@ -13,6 +13,8 @@ return {
     { 'S',  '<Plug>(nvim-surround-visual-line)', mode = 'x', desc = 'Surround selected line' },
   },
   init = function()
+    local group = vim.api.nvim_create_augroup('Surround', {})
+
     local function filetype_surround(filetype, surrounds)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetype,
@@ -21,7 +23,7 @@ return {
             surrounds = surrounds
           })
         end,
-        group = vim.api.nvim_create_augroup('Surround', {}),
+        group = group,
       })
     end
 
@@ -96,6 +98,7 @@ return {
       },
       s = function_name('Some'),
       o = function_name('Ok'),
+      e = function_name('Err'),
       O = type('Option'),
       R = type('Result'),
       V = type('Vec'),
