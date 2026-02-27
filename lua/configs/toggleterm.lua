@@ -13,7 +13,6 @@ return {
   },
   config = function()
     local toggleterm, utils = require('toggleterm'), require('utils')
-    local map = utils.map
     local api = vim.api
 
     toggleterm.setup({
@@ -41,10 +40,39 @@ return {
       return ([[<C-\><C-n>%s]]):format(cmd)
     end
 
+    -- Opens the file under the cursor in the previous window
+    local function go_to_file()
+      local filepath = vim.fn.expand('<cfile>')
+      local line_text = vim.api.nvim_get_current_line()
+
+      -- Start and end columns for `filepath`
+      local start_col, end_col = string.find(line_text, filepath, 1, true)
+      if not start_col then
+        return
+      end
+
+      -- `<cfile>` doesn't include colon suffixed lines or columns
+      local rest_of_line = line_text:sub(end_col + 1)
+      local line_nr, col_nr = string.match(rest_of_line, '^:(%d+):?(%d*)')
+
+      line_nr = (line_nr and line_nr ~= '') and (':%s'):format(line_nr) or ''
+      col_nr  = (col_nr and col_nr ~= '') and (':%s'):format(col_nr) or ''
+
+      local path = filepath .. line_nr .. col_nr
+      if #api.nvim_tabpage_list_wins(0) == 1 then
+        vim.cmd('leftabove vsplit ' .. vim.fn.fnameescape(path))
+      else
+        vim.cmd.wincmd('p')
+        vim.cmd.edit(path)
+      end
+    end
+
     local augroup = api.nvim_create_augroup('ToggleTerm', {})
     api.nvim_create_autocmd('TermOpen', {
       pattern = 'term://*toggleterm#*',
-      callback = function()
+      callback = function(event)
+        local map = require('utils').local_map(event.buf)
+
         vim.o.cursorline = false
 
         map('n', 'gf',      go_to_file)

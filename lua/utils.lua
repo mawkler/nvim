@@ -21,7 +21,7 @@ function M.local_map(buffer)
     if type(opts) == 'string' then
       opts = { desc = opts, buffer = buffer }
     end
-    local options = vim.tbl_extend('keep', opts or {}, { silent = true })
+    local options = vim.tbl_extend('keep', opts or {}, { silent = true, buffer = true })
 
     vim.keymap.set(modes, lhs, rhs, options)
   end
