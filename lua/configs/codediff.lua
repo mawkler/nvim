@@ -19,6 +19,11 @@ return {
     { '<leader>gfH', '<cmd>CodeDiff history %<CR>' },
   },
   opts = {
+    diff = {
+      disable_inlay_hints = false,
+      hide_merge_artifacts = true,
+      jump_to_first_change = false,
+    },
     explorer = {
       initial_focus = 'modified',
       icons = {

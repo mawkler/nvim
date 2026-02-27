@@ -33,6 +33,11 @@ return {
         toggle_focus = { '<Tab>' },
       },
     },
+    ui = {
+      tree = {
+        mode = 'flat',
+      },
+    },
     hooks = {
       on_diff_mount = function()
         vim.keymap.set('n', '<Esc>', '', { buffer = true })
