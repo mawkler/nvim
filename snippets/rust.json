@@ -54,5 +54,10 @@
       "prefix": "fmt",
       "body": ["format!(\"${1}\")"],
       "description": "format!(…)"
+  },
+  "todo": {
+      "prefix": "td",
+      "body": ["todo!()"],
+      "description": "todo!()"
   }
 }

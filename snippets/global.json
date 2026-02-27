@@ -3,5 +3,10 @@
     "prefix": "todo",
     "body": ["$LINE_COMMENT TODO${2:: }${1}"],
     "description": "TODO"
+  },
+  "fixme": {
+    "prefix": "fixme",
+    "body": ["$LINE_COMMENT FIXME${2:: }${1}"],
+    "description": "TODO"
   }
 }
