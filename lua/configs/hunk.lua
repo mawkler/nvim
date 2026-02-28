@@ -11,21 +11,19 @@ return {
   opts = {
     keys = {
       global = {
-        quit = { 'q' },
-        accept = { '<S-CR>' },
+        quit = { 'q', '<C-c>' },
+        accept = { '<C-s>' },
         focus_tree = { '`' },
       },
       tree = {
         expand_node = { 'l', },
         collapse_node = { 'h', },
-        open_file = { 'l' },
+        open_file = { '<CR>' },
         toggle_file = { 'a', '<space>' },
       },
       diff = {
-        toggle_hunk = { '<S-space>' },
-        -- This is like toggle_line but it will also toggle the line on the other
-        -- 'side' of the diff.
-        toggle_line_pair = { '<space>' },
+        toggle_hunk = { 'A', '<S-space>' },
+        toggle_line_pair = { 'a', '<space>' },
         toggle_line = { '<C-space>' },
 
         prev_hunk = { '[' },
@@ -35,5 +33,15 @@ return {
         toggle_focus = { '<Tab>' },
       },
     },
+    hooks = {
+      on_diff_mount = function()
+        vim.keymap.set('n', '<Esc>', '', { buffer = true })
+        pcall(vim.cmd.WindowsDisableAutowidth)
+      end,
+      on_tree_mount = function()
+        vim.keymap.set('n', '<Esc>', '', { buffer = true })
+        pcall(vim.cmd.WindowsDisableAutowidth)
+      end,
+    }
   }
 }

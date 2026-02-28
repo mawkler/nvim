@@ -7,7 +7,7 @@ return {
   dependencies = 'anuvyklack/middleclass',
   config = function()
     require('windows').setup({
-      animation = { enable = false },
+      animation = { enable = true },
       ignore = {
         buftype = { 'quickfix', 'help' },
         filetype = { '', 'toggleterm', 'neotest-summary', 'blame' },
