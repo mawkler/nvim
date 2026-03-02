@@ -91,17 +91,6 @@ return {
           },
         },
       },
-      hooks = {
-        -- I sometimes get an error with windows.nvim when restoring
-        -- sessions, Hopefully this fixes that.
-        before_load = function()
-          pcall(vim.cmd.WindowsDisableAutowidth)
-          return true
-        end,
-        after_load = function()
-          pcall(vim.cmd.WindowsEnableAutowidth)
-        end,
-      },
     })
 
     telescope.load_extension('possession')

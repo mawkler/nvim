@@ -20,7 +20,6 @@ local plugins = {
   use 'treesj',                 -- Multiline split
   use 'autolist',               -- Autocomplete lists
   use 'printer',                -- Print text-object
-  use 'windows',                -- Automatic window resizing
   use 'undotree',               -- Tree of file histories
   use 'smart-splits',           -- Better resizing mappings
   use 'cheat',                  -- cheat.sh

@@ -16,7 +16,7 @@ return {
         focus_tree = { '`' },
       },
       tree = {
-        expand_node = { 'l', },
+        expand_node = { 'l', '<Tab>', },
         collapse_node = { 'h', },
         open_file = { '<CR>' },
         toggle_file = { 'a', '<space>' },
@@ -36,11 +36,9 @@ return {
     hooks = {
       on_diff_mount = function()
         vim.keymap.set('n', '<Esc>', '', { buffer = true })
-        pcall(vim.cmd.WindowsDisableAutowidth)
       end,
       on_tree_mount = function()
         vim.keymap.set('n', '<Esc>', '', { buffer = true })
-        pcall(vim.cmd.WindowsDisableAutowidth)
       end,
     }
   }
