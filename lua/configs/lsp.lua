@@ -239,13 +239,14 @@ return {
     -----------------------
     -- Configure servers --
     -----------------------
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- Enable folding (required by ufo.nvim)
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+    }
+
     for server_name, config in pairs(server_configs) do
-      -- Enable folding (required by ufo.nvim)
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
-      }
       config.capabilities = vim.tbl_deep_extend(
         'keep',
         config.capabilities or {},

@@ -5,7 +5,6 @@ return {
   'nvim-treesitter/nvim-treesitter-textobjects',
   branch = 'main',
   dependencies = 'nvim-treesitter/nvim-treesitter',
-  lazy = false,
   enabled = not vim.g.vscode,
   config = function()
     local keymaps = require('configs.treesitter.keymaps')
