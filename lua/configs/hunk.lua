@@ -12,7 +12,7 @@ return {
     keys = {
       global = {
         quit = { 'q', '<C-c>' },
-        accept = { '<C-s>' },
+        accept = { 'c', '<C-s>' },
         focus_tree = { '`' },
       },
       tree = {
