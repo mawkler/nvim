@@ -35,5 +35,14 @@
       "- [ ] "
     ],
     "description": "Checkbox"
+  },
+  "codeblock": {
+    "prefix": "cbl",
+    "body": [
+      "```$1",
+      "$2",
+      "```"
+    ],
+    "description": "Codeblock"
   }
 }
