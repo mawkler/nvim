@@ -69,8 +69,16 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'gitcommit', 'jjdescription' },
   callback = function()
-    if fn.getline(1) == '' then
-      vim.cmd('startinsert!')
+    local first_line_content = fn.getline(1)
+
+    if first_line_content == '' then
+      return vim.cmd('startinsert!')
+    end
+
+    -- Result of `jj split`
+    if first_line_content == 'JJ: Enter a description for the selected changes.' then
+      vim.cmd.normal('dd')
+      return vim.cmd('startinsert!')
     end
   end,
   group = augroup,
