@@ -1,20 +1,12 @@
 {
   "mvh": {
     "prefix": "mvh",
-    "body": [
-      "${1:Mvh}${2:,}",
-      "",
-      "Melker${3: Ulander}$0"
-    ],
+    "body": ["${1:Mvh}${2:,}", "", "Melker${3: Ulander}$0"],
     "description": "Med vänliga hälsningar"
   },
   "br": {
     "prefix": ["br"],
-    "body": [
-      "${1:BR}$2 ",
-      "",
-      "Melker${3: Ulander}$0"
-    ],
+    "body": ["${1:BR}$2 ", "", "Melker${3: Ulander}$0"],
     "description": "Best regards"
   },
   "conceal": {
@@ -31,18 +23,22 @@
   },
   "checkbox": {
     "prefix": "ch",
-    "body": [
-      "- [ ] "
-    ],
+    "body": ["- [ ] "],
     "description": "Checkbox"
   },
   "codeblock": {
     "prefix": "cbl",
-    "body": [
-      "```$1",
-      "$2",
-      "```"
-    ],
+    "body": ["```$1", "$2", "```"],
     "description": "Codeblock"
+  },
+  "table": {
+    "prefix": "table",
+    "body": [
+      "| ${1:Column1} | ${2:Column2} | ${3:Column3} |",
+      "| ------- | ------- | ------- |",
+      "| ${4:Item1}   | ${5:Item2}   | ${6:Item3}   |",
+      "${0}"
+    ],
+    "description": "3x2 table"
   }
 }
