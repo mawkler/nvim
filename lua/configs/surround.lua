@@ -10,6 +10,7 @@ return {
     { 'S',  's$',                                mode = 'n', desc = 'Surround to end of line', remap = true },
     { 's',  '<Plug>(nvim-surround-visual)',      mode = 'x', desc = 'Surround selection' },
     { 's',  '<Plug>(nvim-surround-normal)',      mode = 'n', desc = 'Surround' },
+    { 'ss', '<Plug>(nvim-surround-normal-cur)',  mode = 'n', desc = 'Surround entire line' },
     { 'S',  '<Plug>(nvim-surround-visual-line)', mode = 'x', desc = 'Surround selected line' },
   },
   init = function()
