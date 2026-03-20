@@ -8,5 +8,10 @@
     "prefix": "fixme",
     "body": ["$LINE_COMMENT FIXME${2:: }${1}"],
     "description": "TODO"
+  },
+  "today": {
+    "prefix": "today",
+    "body": ["${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"],
+    "description": "Today's date in `year-month-day` format"
   }
 }
