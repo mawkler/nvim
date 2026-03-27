@@ -59,6 +59,17 @@
           "nix"
         ],
         "path": "./nix.json"
+      },
+      {
+        "language": [
+          "shellscript",
+          "shell",
+          "sh",
+          "zsh",
+          "bash",
+          "fish"
+        ],
+        "path": "./shell.json"
       }
     ]
   }
