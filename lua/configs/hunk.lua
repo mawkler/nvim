@@ -19,12 +19,12 @@ return {
         expand_node = { 'l', '<Tab>', },
         collapse_node = { 'h', },
         open_file = { '<CR>' },
-        toggle_file = { 'a', '<space>' },
+        toggle_file = { '<space>' },
       },
       diff = {
-        toggle_hunk = { 'A', '<S-space>' },
-        toggle_line_pair = { 'a', '<space>' },
-        toggle_line = { '<C-space>' },
+        toggle_hunk = { 'a' },
+        toggle_line_pair = { '<space>' },
+        toggle_line = { '<M-space>' },
 
         prev_hunk = { '[' },
         next_hunk = { ']' },
