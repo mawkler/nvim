@@ -10,7 +10,7 @@ return {
   opts = {
     keymaps = {
       horizontal_motions = false,
-      disabled_keys = { 'p', 'I', 'A', 'i' },
+      disabled_keys = { 'p' },
     },
   },
 }
