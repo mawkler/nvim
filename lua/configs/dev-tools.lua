@@ -9,7 +9,7 @@ return {
     'neovim/nvim-lspconfig',
     'ThePrimeagen/refactoring.nvim',
   },
-  keys = '<leader>a',
+  cmd = 'LspAttach',
   opts = {
     builtin_actions = {
       exclude = { 'Specs', 'Todo', 'Debugging' },
