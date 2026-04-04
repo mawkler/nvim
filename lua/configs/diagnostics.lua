@@ -4,12 +4,6 @@
 
 local M = {}
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-  }
-)
-
 ---@param severity vim.diagnostic.Severity
 ---@return string
 function M.get_icon(severity)
