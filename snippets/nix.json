@@ -3,5 +3,10 @@
     "prefix": "fn",
     "body": "$1: {$2};",
     "description": "function"
+  },
+  "let ...; in": {
+    "prefix": "let",
+    "body": "let ${1:_} = ${2:_}; in",
+    "description": "let ...; in"
   }
 }
