@@ -303,7 +303,7 @@ return {
         group = augroup,
         buffer = bufnr,
         callback = function()
-          lsp.codelens.refresh({ bufnr = bufnr })
+          lsp.codelens.enable(true, { bufnr = bufnr })
         end,
       })
     end
