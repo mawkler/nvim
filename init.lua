@@ -45,6 +45,8 @@ local plugins = {
   use 'go',                     -- gopls client
   use 'elixir',                 -- Elixir LSP setup
   use 'tiny-code-action',       -- Predictable LSP code actions
+  use 'tiny-cmdline',           -- Floating cmdline
+  use 'tiny-glimmer',           -- Yank/put animations
   use 'java',                   -- Java LSP setup
   use 'typescript',             -- TypeScript LSP client wrapper
   use 'tsc',                    -- TypeScript type checking
@@ -63,7 +65,6 @@ local plugins = {
   use 'telescope',              -- Fuzzy finder
   use 'telescope-cheat',        -- Search cheat.sh with Telescope
   use 'dressing',               -- Improves `vim.ui` interfaces
-  use 'noice',                  -- Nicer UI features
   use 'lastplace',              -- Restore cursor position
   use 'dial',                   -- Enhanced increment/decrement
   use 'comment',                -- Adds `comment` verb
@@ -76,7 +77,6 @@ local plugins = {
   use 'refactoring',            -- Refactoring tools
   use 'guess-indent',           -- Guess file's indent level
   use 'yanky',                  -- Cycle register history, etc.
-  use 'tiny-glimmer',           -- Yank/put animations
   use 'surround',               -- Adds `surround` verb
   use 'eyeliner',               -- Highlight uniques on f/F/t/T
   use 'matchup',                -- Adds additional `%` commands
