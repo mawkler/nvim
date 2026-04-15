@@ -86,6 +86,7 @@ map('i', '<C-,>', '<Esc>m0A,<Esc>`0a')
 map('s', '<C-;>', '<Esc>A;<Esc>gv<C-g>', { remap = false })
 map('s', '<C-,>', '<Esc>A,<Esc>gv<C-g>', { remap = false })
 
+map('n', 'K',         '<cmd>help!<CR>',               'Help')
 map('n', '<leader>K', ':vertical Man <C-R><C-W><CR>')
 map('x', '<leader>K', 'y:vertical Man <C-R>"<CR>')
 
@@ -146,10 +147,6 @@ map('n',       'g<C-a>', 'v<C-a>',      'Increment number under cursor')
 map('n',       'g<C-x>', 'v<C-x>',      'Decrement number under cursor')
 map('s',       '<C-r>',  '<C-g>c<C-r>', 'Insert content of a register')
 
--- Incremental treesitter node selection
-map('x', '+', 'an')
-map('x', '-', 'in')
-
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete'
   feedkeys('<C-t>')
@@ -183,11 +180,15 @@ map('t', '<Esc>', '<C-\\><C-n>')
 
 local function clear_screen()
   -- Dismiss all notifcatcions on screen
-  require('notify').dismiss({ pending = true, silent = true })
+  local n_ok, notify = pcall(require, 'notify')
+  if n_ok then
+    notify.dismiss({ pending = true, silent = true })
+  end
 
   -- Clear LuaSnip indicator from status line
-  if require('luasnip').in_snippet() then
-    require('luasnip').unlink_current()
+  local l_ok, luasnip = pcall(require, 'luasnip')
+  if l_ok and luasnip.in_snippet() then
+    luasnip.unlink_current()
   end
   feedkeys('<C-l>')
 end
