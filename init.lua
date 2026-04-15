@@ -22,7 +22,6 @@ local plugins = {
   use 'printer',                -- Print text-object
   use 'smart-splits',           -- Better resizing mappings
   use 'cheat',                  -- cheat.sh
-  use 'nvim-colorizer',         -- Display colour values
   use 'alpha',                  -- Nicer start screen
   use 'indent-blankline',       -- Indent markers
   use 'mini-indentscope',       -- Indentation scope

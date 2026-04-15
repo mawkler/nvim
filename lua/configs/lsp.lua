@@ -396,6 +396,9 @@ return {
           lsp.inlay_hint.enable(not lsp.inlay_hint.is_enabled())
         end, 'Toggle LSP inlay hints')
 
+        -- Use virtual color highlighting instead of highlighting the entire hex string
+        vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+
         -- This has to be called from LspAttach event for some reason, not sure why
         vim.diagnostic.config({
           signs = false,
