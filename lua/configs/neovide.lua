@@ -7,4 +7,10 @@ if vim.fn.exists('g:neovide') == 1 then
   g.neovide_scroll_animation_length = 0.06
   g.neovide_cursor_animate_command_line = true
   g.neovide_opacity = 0.96
+
+  -- Progress bar
+  g.neovide_progress_bar_enabled = true
+  g.neovide_progress_bar_height = 2.0
+  g.neovide_progress_bar_animation_speed = 150.0
+  g.neovide_progress_bar_hide_delay = 1.0
 end

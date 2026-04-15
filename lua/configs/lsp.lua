@@ -13,7 +13,7 @@ return {
     local utils = require('utils')
     local map = utils.local_map(0)
 
-    local eslint_on_attach = vim.lsp.config.eslint.on_attach
+    local eslint_on_attach = lsp.config.eslint.on_attach
     ---------------------------
     -- Server configurations --
     ---------------------------
@@ -199,7 +199,7 @@ return {
     }
 
     -- Doesn't exist in Mason yet
-    vim.lsp.config.nixd = {
+    lsp.config.nixd = {
       settings = {
         nixd = {
           formatting = {
@@ -208,7 +208,7 @@ return {
         },
       },
     }
-    vim.lsp.config.nil_ls = {
+    lsp.config.nil_ls = {
       on_attach = function(client, _)
         -- These are already covered by nixd
         local disabled_capabilities = {
@@ -239,7 +239,7 @@ return {
     -----------------------
     -- Configure servers --
     -----------------------
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = lsp.protocol.make_client_capabilities()
     -- Enable folding (required by ufo.nvim)
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
@@ -253,7 +253,7 @@ return {
         capabilities
       )
 
-      vim.lsp.config(server_name, config)
+      lsp.config(server_name, config)
     end
 
     local ensure_installed = vim.list_extend(
@@ -273,10 +273,10 @@ return {
     if utils.is_nixos() then
       for server, _ in pairs(server_configs) do
         assert(type(server) == 'string')
-        vim.lsp.enable(server)
+        lsp.enable(server)
       end
 
-      vim.lsp.enable({ 'nixd', 'nil_ls' })
+      lsp.enable({ 'nixd', 'nil_ls' })
     end
 
     -------------
@@ -288,7 +288,7 @@ return {
         utils.clear_lsp_references()
 
         local method = 'textDocument/documentHighlight'
-        if #vim.lsp.get_clients({ method = method }) > 0 then
+        if #lsp.get_clients({ method = method }) > 0 then
           lsp.buf.document_highlight()
         end
 
@@ -397,7 +397,7 @@ return {
         end, 'Toggle LSP inlay hints')
 
         -- Use virtual color highlighting instead of highlighting the entire hex string
-        vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+        lsp.document_color.enable(true, nil, { style = 'virtual' })
 
         -- This has to be called from LspAttach event for some reason, not sure why
         vim.diagnostic.config({
@@ -411,6 +411,21 @@ return {
           }
         })
       end
+    })
+
+    -- Progress indicator
+    vim.api.nvim_create_autocmd('LspProgress', {
+      callback = function(event)
+        local value = event.data.params.value
+        vim.api.nvim_echo({ { value.message or 'done' } }, false, {
+          id = 'lsp.' .. event.data.params.token,
+          kind = 'progress',
+          source = 'vim.lsp',
+          title = value.title,
+          status = value.kind ~= 'end' and 'running' or 'success',
+          percent = value.percentage,
+        })
+      end,
     })
   end
 }
