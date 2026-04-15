@@ -89,7 +89,6 @@ local plugins = {
   use 'helpview',               -- Improved Helpdocs rendering
   use 'substitute',             -- Replace/exchange operators
   use 'highlighturl',           -- Highlight URLs
-  use 'messages',               -- Floating :messages window
   use 'possession',             -- Session manager
   use 'copilot',                -- GitHub Copilot
   use 'codediff',               -- Git diff and file history

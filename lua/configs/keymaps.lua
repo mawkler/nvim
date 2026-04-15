@@ -192,7 +192,8 @@ local function clear_screen()
   end
   feedkeys('<C-l>')
 end
-map('n', '<C-l>', clear_screen, { silent = true })
+map('n', '<C-l>', clear_screen,       { silent = true })
+map('n', 'gm',    '<cmd>message<CR>')
 
 map(nx, '<C-y>', '5<C-y>')
 map(nx, '<C-e>', '5<C-e>')
