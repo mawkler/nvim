@@ -3,8 +3,7 @@
 -------------
 local bo, o, wo, v, fn = vim.bo, vim.o, vim.wo, vim.v, vim.fn
 local utils = require('utils')
-local map = utils.map
-local feedkeys, feedkeys_count = utils.feedkeys, utils.feedkeys_count
+local map, feedkeys = utils.map, utils.feedkeys
 local nx = { 'n', 'x' }
 
 -- Leader --
@@ -19,9 +18,9 @@ map('i',          '<C-j>',  '<C-o>o')
 map('i',          '<C-k>',  '<C-o>O')
 map('n',          'g<C-k>', 'DO<Esc>P_')
 map('n',          'gK',     'kjddkPJ<C-y>')
-map('n',          '<C-s>',  ':w<CR>',        { silent = true })
-map({ 'i', 's' }, '<C-s>',  '<Esc>:w<CR>',   { silent = true })
-map('x',          '<C-s>',  '<Esc>:w<CR>gv', { silent = true })
+map('n',          '<C-s>',  ':silent w<CR>')
+map({ 'i', 's' }, '<C-s>',  '<Esc>:silent w<CR>')
+map('x',          '<C-s>',  '<Esc>:silent w<CR>gv')
 
 map('x',          'v',      '$h')
 map('n',          '<BS>',   'X')
