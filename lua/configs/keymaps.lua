@@ -57,7 +57,7 @@ map('n', '<leader>Z',     ':edit ~/.zshrc<CR>')
 
 map('n', 'gX',         ':exec "silent !brave \'%:p\' &"<CR>')
 map('x', '//',         'omsy/<C-R>"<CR>`s')
-map('n', '/',          'ms/',                                         { silent = false })
+map('n', '/',          'ms/',                                 { silent = false })
 map('n', '*',          'ms*')
 map('n', 'g*',         'msg*`s')
 map('n', '<leader>*',  'ms*`s')
@@ -65,7 +65,6 @@ map('n', '<leader>g*', 'msg*`s')
 map('n', '#',          'ms#')
 map('n', 'g#',         'msg#`s')
 map('n', 'g/',         '/\\<\\><Left><Left>')
-map('n', '<leader>R',  ':%s/<C-R><C-W>//gci<Left><Left><Left><Left>')
 map(nx,  '<leader>q',  'qqqqq')
 map(nx,  'Q',          '@@')
 map('n', 'cg*',        '*Ncgn')
@@ -95,6 +94,8 @@ map(nx,  'g(', '(ge')
 map('o', 'g)', ':silent normal vg)h<CR>')
 map('o', 'g(', ':silent normal vg(oh<CR>')
 map(nx,  'sP', ':setlocal spell!<CR>',     'Toggle spell check')
+
+map('n', '<leader>R', '<cmd>restart<CR>', 'Restart')
 
 -- Adds previous cursor location to jumplist if count is > 5
 local function move_vertically(direction)
@@ -144,6 +145,10 @@ map(all_modes, '<C-m>',  '<CR>',        { remap = true })
 map('n',       'g<C-a>', 'v<C-a>',      'Increment number under cursor')
 map('n',       'g<C-x>', 'v<C-x>',      'Decrement number under cursor')
 map('s',       '<C-r>',  '<C-g>c<C-r>', 'Insert content of a register')
+
+-- Incremental treesitter node selection
+map('x', '+', 'an')
+map('x', '-', 'in')
 
 map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete'
