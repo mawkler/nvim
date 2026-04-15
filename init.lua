@@ -20,7 +20,6 @@ local plugins = {
   use 'treesj',                 -- Multiline split
   use 'autolist',               -- Autocomplete lists
   use 'printer',                -- Print text-object
-  use 'undotree',               -- Tree of file histories
   use 'smart-splits',           -- Better resizing mappings
   use 'cheat',                  -- cheat.sh
   use 'nvim-colorizer',         -- Display colour values
@@ -159,3 +158,6 @@ require('lazy').setup({
     },
   },
 })
+
+-- Native plugins
+require('configs.native-plugins')
