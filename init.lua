@@ -68,7 +68,6 @@ local plugins = {
   use 'lastplace',              -- Restore cursor position
   use 'dial',                   -- Enhanced increment/decrement
   use 'comment',                -- Adds `comment` verb
-  use 'rest',                   -- Sending HTTP requests
   use 'dap',                    -- Debugger
   use 'dap-ui',                 -- UI for nvim-dap
   use 'overseer',               -- Task runner
