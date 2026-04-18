@@ -22,6 +22,10 @@ opt.spelloptions:append('camel')
 opt.sessionoptions:append('globals') -- Store global variables in sessions
 opt.sessionoptions:remove('buffers') -- Don't include hidden buffers in sessions
 
+-- Don't echo progess messages (leave that to fidget.nvim)
+vim.opt.messagesopt:remove { 'progress:c' }
+vim.opt.messagesopt:append { 'progress:' }
+
 -- Windows --
 local opacity = vim.g.neovide and 40 or 18
 o.winblend    = opacity -- Transparent floating windows
