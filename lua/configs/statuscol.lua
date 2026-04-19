@@ -3,6 +3,7 @@
 ---------------
 return {
   'luukvbaal/statuscol.nvim',
+  event = 'LspAttach',
   config = function()
     local builtin = require('statuscol.builtin')
     require('statuscol').setup({

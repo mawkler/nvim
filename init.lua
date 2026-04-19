@@ -50,7 +50,6 @@ local plugins = {
   use 'tsc',                    -- TypeScript type checking
   use 'namu',                   -- LSP symbol navigator
   use 'ltex',                   -- LTeX utils
-  use 'dev-tools',              -- Various LSP code actions
   use 'luasnip',                -- Snippet engine
   use 'blink',                  -- Autocompletion
   use 'colorful-menu',          -- Better autocompletion colors
