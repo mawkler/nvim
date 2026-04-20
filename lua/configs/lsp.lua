@@ -89,7 +89,7 @@ return {
           local is_pipeline_file = #vim.fn.glob('azure-pipeline*.y*ml', true, filename) > 0
 
           if is_pipeline_file then
-            lsp.stop_client(client)
+            client:stop()
           end
         end
       },
@@ -145,7 +145,7 @@ return {
           local disabled_filetypes = vim.iter({ 'markdown', 'NvimTree', 'help' })
           if disabled_filetypes:find(vim.bo.filetype) ~= nil then
             -- Force-shutdown seems to be necessary for some reason
-            vim.lsp.stop_client(client.id, true)
+            client:stop(true)
           end
         end,
         init_options = {
