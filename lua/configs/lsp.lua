@@ -82,16 +82,6 @@ return {
             },
           }
         },
-        -- Don't attach to Azure Pipeline files (azure_pipelines_ls does that)
-        on_attach = function(client, bufnr)
-          local path = vim.api.nvim_buf_get_name(bufnr)
-          local filename = vim.fn.fnamemodify(path, ':t')
-          local is_pipeline_file = #vim.fn.glob('azure-pipeline*.y*ml', true, filename) > 0
-
-          if is_pipeline_file then
-            client:stop()
-          end
-        end
       },
       -- Eslint --
       eslint = {
@@ -165,18 +155,6 @@ return {
               pycodestyle = { enabled = false },
             }
           }
-        },
-      },
-      -- Azure pipelines --
-      azure_pipelines_ls = {
-        root_dir = require('lspconfig.util').root_pattern('azure-pipeline*.y*ml'),
-        settings = {
-          yaml = {
-            schemas = {
-              ['https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json']
-              = 'azure-pipeline*.y*ml',
-            },
-          },
         },
       },
       ltex_plus = {
