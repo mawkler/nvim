@@ -96,6 +96,9 @@ vim.filetype.add({
     zsh = 'sh',
     -- Rofi theme
     rasinc = 'rasi',
+    -- I think JSONC used to work as expected, but recently (today is
+    -- 2026-04-21) the treesitter jsonc parser was removed
+    jsonc = 'json',
   },
   filename = {
     ['.zshrc'] = 'sh',
