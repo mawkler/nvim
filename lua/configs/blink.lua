@@ -18,6 +18,7 @@ return {
   dependencies = {
     'L3MON4D3/LuaSnip',
     'xzbdmw/colorful-menu.nvim',
+    'folke/lazydev.nvim',
     { 'Kaiser-Yang/blink-cmp-git', dependencies = { 'nvim-lua/plenary.nvim' } },
   },
   version = '*',

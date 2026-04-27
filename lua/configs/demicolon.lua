@@ -7,6 +7,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
+  event = 'VeryLazy',
   opts = {
     keymaps = {
       horizontal_motions = false,

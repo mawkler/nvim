@@ -3,7 +3,10 @@
 -----------
 return {
   'gbprod/yanky.nvim',
-  dependencies = 'rachartier/tiny-glimmer.nvim',
+  dependencies = {
+    'rachartier/tiny-glimmer.nvim',
+    'nvim-telescope/telescope.nvim',
+  },
   keys = {
     { 'y',         '<Plug>(YankyYank)',                          mode = { 'n', 'x' } },
     { 'p',         '<Plug>(YankyPutAfter)',                      mode = { 'n', 'x' } },
