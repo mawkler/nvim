@@ -275,17 +275,6 @@ return {
       end
     end
 
-    local function attach_codelens(bufnr)
-      local augroup = api.nvim_create_augroup('Lsp', {})
-      api.nvim_create_autocmd({ 'BufReadPost', 'CursorHold', 'InsertLeave' }, {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          lsp.codelens.enable(true, { bufnr = bufnr })
-        end,
-      })
-    end
-
     local function map_vsplit(lhs, fn, description)
       vim.keymap.set('n', lhs, function()
         require('telescope.builtin')[fn]({ jump_type = 'vsplit' })
@@ -362,17 +351,17 @@ return {
         -- Keymaps
         attach_keymaps()
 
-        -- Code lens
-        if client.server_capabilities.codeLensProvider then
-          attach_codelens(event.buf)
-        end
-
-        -- Inlay hints
-        lsp.inlay_hint.enable()
-
         map('n', '<leader>lh', function()
-          lsp.inlay_hint.enable(not lsp.inlay_hint.is_enabled())
-        end, 'Toggle LSP inlay hints')
+          local all_enabled = lsp.inlay_hint.is_enabled() and lsp.codelens.is_enabled()
+
+          if client.server_capabilities.inlayHintProvider then
+            lsp.inlay_hint.enable(not all_enabled)
+          end
+
+          if client.server_capabilities.codeLensProvider then
+            lsp.codelens.enable(not all_enabled)
+          end
+        end, 'Toggle LSP inlay hints and codelens')
 
         -- Use virtual color highlighting instead of highlighting the entire hex string
         lsp.document_color.enable(true, nil, { style = 'virtual' })
