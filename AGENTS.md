@@ -34,6 +34,19 @@ The `use()` function in `lua/utils.lua`, which does `require('configs.' .. modul
 
 If `vim.g.minimal_config` is set only the most important plugins will get loaded for a faster startup time.
 
+### Plugin config files
+
+When adding a new config, please follow the pattern of plugin configs in `./lua/configs/`.
+
+If a plugin only has one dependency, just use a string instaed of a table with one string:
+
+```lua
+return {
+  dependencies = 'tpope/vim-repeat',
+  -- ...
+}
+```
+
 ## Lazy loading
 
 I try to lazy load as many plugins as possible. See `nvim -c 'help lazy.nvim.txt'` for more info on lazy.nvim and lazy loading.
@@ -42,6 +55,10 @@ I try to lazy load as many plugins as possible. See `nvim -c 'help lazy.nvim.txt
 
 - Custom textobjects in `lua/configs/treesitter/textobjects.lua`
 - List of treesitter parsers in `lua/configs/treesitter/parsers.lua`
+
+## Formatting
+
+Please auto-format any modified lua file with [EmmyLuaCodeStyle](https://luals.github.io/wiki/formatter/).
 
 ## References
 
