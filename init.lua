@@ -92,7 +92,6 @@ local extra_plugins = {
   use 'dap-ui',               -- UI for nvim-dap
   use 'overseer',             -- Task runner
   use 'catppuccin',           -- Colorscheme
-  use 'refactoring',          -- Refactoring tools
   use 'capslock',             -- Virtual CapsLock
   use 'jj-diffconflicts',     -- JJ conflicts tool
   use 'vim-textobj',          -- Custom text objects

@@ -1,6 +1,8 @@
 ----------------------
 -- Refactoring.nvim --
 ----------------------
+
+-- Disabled because async dependency clashes with nvim-ufo's async library
 return {
   'ThePrimeagen/refactoring.nvim',
   keys = {
@@ -8,20 +10,9 @@ return {
     { 'gRe',       mode = 'x' },
     { 'gRf',       mode = 'x' },
   },
+  dependencies = 'lewis6991/async.nvim',
+  lazy = false,
   config = function()
-    local map, feedkeys = require('utils').map, require('utils').feedkeys
-
-    local refactoring = require('refactoring')
-    ---@diagnostic disable-next-line: missing-fields
-    refactoring.setup({})
-
-    map('x', 'gRe', function() return refactoring.refactor('Extract Function') end)
-    map('x', 'gRf', function() return refactoring.refactor('Extract Function To File') end)
-    map('x', '<leader>R', function()
-      feedkeys('<Esc>', 'n')
-      require('telescope').extensions.refactoring.refactors()
-    end, 'Select refactor')
-
-    require('telescope').load_extension('refactoring')
+    vim.keymap.set('x', '<leader>R', '<cmd>Refactor<CR>', { desc = 'Select refactor' })
   end
 }
