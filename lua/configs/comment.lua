@@ -39,7 +39,10 @@ return {
         eol = '<leader>cA'
       },
       ignore = '^$', -- Ignore empty lines
-      pre_hook = ts_context_commentstring.create_pre_hook(),
+      pre_hook = function(ctx)
+        local ts_commentstring = ts_context_commentstring.create_pre_hook()(ctx)
+        return ts_commentstring or vim.o.commentstring
+      end,
     })
 
     local comment_api = require('Comment.api')
@@ -67,10 +70,5 @@ return {
     map('n', '<leader>cp', 'yycmp', {
       remap = true, desc = 'Comment and duplicate line'
     })
-
-    -- Custom filetypes
-    require('Comment.ft').json = '// %s'
-    -- Temporary workaround for https://github.com/numToStr/Comment.nvim/issues/497
-    require('Comment.ft').heex = '<%!-- %s --%>'
   end,
 }
