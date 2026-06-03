@@ -3,8 +3,8 @@
 ------------------
 return {
   'mrcjkb/rustaceanvim',
-  dependencies = 'neovim/nvim-lspconfig',
-  ft = { 'rust' },
+  lazy = false, -- rustaceanvim already does lazy loading
+  version = '*',
   config = function()
     local settings = {
       check = {
