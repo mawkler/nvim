@@ -59,7 +59,7 @@
 
             # Debugger adapters
             delve
-            lldb
+            vscode-extensions.vadimcn.vscode-lldb.adapter # codelldb (for rustaceanvim)
             vscode-extensions.golang.go
             vscode-js-debug
             # bash-debug-adapter # Doesn't exist
