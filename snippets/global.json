@@ -13,5 +13,13 @@
     "prefix": "today",
     "body": ["${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"],
     "description": "Today's date in `year-month-day` format"
+  },
+  "keep-sorted": {
+    "prefix": "keep-sorted",
+    "body": [
+      "$LINE_COMMENT keep-sorted start",
+      "$LINE_COMMENT keep-sorted end"
+    ],
+    "description": "Create a keep-sorted block"
   }
 }
