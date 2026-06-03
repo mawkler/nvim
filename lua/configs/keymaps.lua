@@ -54,6 +54,7 @@ map('n', '<leader>wo',    ':tabonly<CR>')
 map('n', '<leader><Esc>', '<Nop>')
 map('n', '<leader>I',     ':edit ~/.config/nvim/init.lua<CR>')
 map('n', '<leader>Z',     ':edit ~/.zshrc<CR>')
+map('n', '<leader>lF',    ':edit flake.nix<CR>')
 
 map('n', 'gX',         ':exec "silent !brave \'%:p\' &"<CR>')
 map('x', '//',         'omsy/<C-R>"<CR>`s')
@@ -120,7 +121,7 @@ local function zoom_set(font_size)
   end
 end
 
--- Increases the font zise with `amount`
+-- Increases the font size with `amount`
 local function zoom(amount)
   return function()
     local old_size = fn.matchlist(o.guifont, ':h\\(' .. float_regex .. '\\)')[2]
