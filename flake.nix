@@ -36,7 +36,6 @@
             vscode-json-languageserver
             python312Packages.python-lsp-server
             rust-analyzer
-            stable.next-ls
             taplo
             tinymist
             typescript-language-server
