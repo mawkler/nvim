@@ -10,6 +10,7 @@ return {
 
     vim.g.tiny_cmdline = {
       on_reposition = require('tiny-cmdline').adapters.blink,
+      menu_col_offset = 0,
       native_types = {}, -- Also use this plugin when searching
     }
   end,

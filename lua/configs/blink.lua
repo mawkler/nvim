@@ -83,7 +83,7 @@ return {
       },
       completion = {
         menu = {
-          -- max_height = 50,
+          max_height = 25,
           border = 'none',
           draw = {
             columns = { { 'kind_icon' }, { 'label', gap = 1 } },
