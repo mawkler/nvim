@@ -24,9 +24,7 @@ local nxo = { 'n', 'x', 'o' }
 return {
   'nvim-neotest/neotest',
   dependencies = {
-    'nvim-lua/plenary.nvim',
     'nvim-neotest/nvim-nio',
-    'nvim-treesitter/nvim-treesitter',
     'haydenmeade/neotest-jest',
     'rouge8/neotest-rust',
     'nvim-neotest/neotest-go',
