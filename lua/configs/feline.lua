@@ -1,9 +1,12 @@
 ------------
 -- Feline --
 ------------
+
+-- Disable statusline until feline has been loaded (reduces Firenvim flickering)
+vim.o.laststatus = 0
+
 return {
   'second2050/feline.nvim',
-  event = 'VeryLazy',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-lua/lsp-status.nvim',
@@ -18,6 +21,9 @@ return {
 
     require('feline').add_theme('onedark', default_theme)
 
-    vim.opt.laststatus = 3 -- Global statusline
+    -- Global statusline (disabled for Firenvim)
+    if not vim.g.started_by_firenvim then
+      vim.opt.laststatus = 3
+    end
   end
 }

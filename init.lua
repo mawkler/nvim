@@ -45,6 +45,7 @@ local plugins = {
   use 'demicolon',              -- Overloaded `;`/`,` keys
   use 'various-textobjs',       -- Various text-objects
   use 'ufo',                    -- Improved folds
+  use 'firenvim',               -- Neovim in web browser text areas
 }
 
 -- Extra plugins
@@ -146,8 +147,8 @@ local extra_plugins = {
 
 -- If `vim.g.minimal_config` is set, only load the minimal plugins (faster
 -- startup time). Useful for CLI tools that invoke `$EDITOR` to do very basic
--- things.
-if not vim.g.minimal_config then
+-- things. And for Firenvim.
+if not (vim.g.minimal_config or vim.g.started_by_firenvim) then
   vim.list_extend(plugins, extra_plugins)
 end
 

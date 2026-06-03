@@ -27,6 +27,7 @@
   "eyeliner.nvim": { "branch": "main", "commit": "8f197eb30cecdf4c2cc9988a5eecc6bc34c0c7d6" },
   "feline.nvim": { "branch": "main", "commit": "cb23cfbe3df5e9e5f1b5423de395138761ef54f5" },
   "fidget.nvim": { "branch": "main", "commit": "82404b196e73a00b1727a91903beef5ddc319d22" },
+  "firenvim": { "branch": "master", "commit": "af775c4a1cef5a1e833ae5c6d81afe229ceb639e" },
   "flatten.nvim": { "branch": "main", "commit": "d92ca41e9c330f45c1b854a80c89c8488a9d730c" },
   "format-ts-errors.nvim": { "branch": "main", "commit": "4b7418d6689bc0fd3c1db0500c67133422522384" },
   "fzf": { "branch": "master", "commit": "3c9965a61a842ef54e976c7195b985ee43a3e776" },
