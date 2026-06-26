@@ -19,6 +19,7 @@
   "csv.vim": { "branch": "master", "commit": "ab776a6266593e9e0d8643cdb7e577f81c0eab7d" },
   "demicolon.nvim": { "branch": "main", "commit": "a9ca137474b3a02e1d6ac48bfdb1985172e2ec9a" },
   "dial.nvim": { "branch": "master", "commit": "f2634758455cfa52a8acea6f142dcd6271a1bf57" },
+  "direnv.nvim": { "branch": "main", "commit": "b41d16d88de2753059827e030d4dabcdb8deeec2" },
   "dressing.nvim": { "branch": "master", "commit": "2d7c2db2507fa3c4956142ee607431ddb2828639" },
   "dropbar.nvim": { "branch": "master", "commit": "f0a42bd92aa647e44221397723453403f5e20f16" },
   "editable-term.nvim": { "branch": "master", "commit": "16ac164615d465fedbbb4918a4182731e1beb53b" },

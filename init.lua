@@ -90,6 +90,7 @@ local extra_plugins = {
   use 'lastplace',            -- Restore cursor position
   use 'dap',                  -- Debugger
   use 'dap-ui',               -- UI for nvim-dap
+  use 'direnv',               -- Automatic .envrc loading
   use 'overseer',             -- Task runner
   use 'catppuccin',           -- Colorscheme
   use 'capslock',             -- Virtual CapsLock
