@@ -166,11 +166,20 @@ map('n', '<Esc>', function()
     refjump_hl.disable()
   end
 
+  local function codediff_is_active()
+    local ok, lifecycle = pcall(require, 'codediff.ui.lifecycle')
+    if not ok then
+      return false
+    end
+
+    return lifecycle.get_session(vim.api.nvim_get_current_tabpage()) ~= nil
+  end
+
   if vim.v.hlsearch == 1 then
     vim.cmd.nohlsearch()
   elseif bo.modifiable then
     utils.clear_lsp_references()
-  elseif #vim.api.nvim_list_wins() > 1 then
+  elseif #vim.api.nvim_list_wins() > 1 and not codediff_is_active() then
     return feedkeys('<C-w>c')
   end
 

@@ -59,5 +59,5 @@ return {
         diffget_current = '3do',
       },
     },
-  }
+  },
 }
