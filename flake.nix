@@ -35,7 +35,7 @@
             nixd
             vscode-json-languageserver
             python312Packages.python-lsp-server
-            rust-analyzer
+            # rust-analyzer # having this installed seems to cause an issue with the devShell's rust-analyzer
             taplo
             tinymist
             typescript-language-server
