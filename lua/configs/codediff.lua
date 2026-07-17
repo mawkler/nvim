@@ -23,6 +23,7 @@ return {
       disable_inlay_hints = false,
       hide_merge_artifacts = true,
       jump_to_first_change = false,
+      compact = true,
     },
     explorer = {
       initial_focus = 'modified',
