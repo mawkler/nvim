@@ -208,6 +208,24 @@ table.insert(active_left, {
   end,
 })
 
+-- Direnv status
+table.insert(active_left, {
+  provider = function()
+    local ok, direnv = pcall(require, 'direnv')
+    if not ok then return '' end
+    return direnv.statusline()
+  end,
+  hl = function() return { fg = mode_color(), bg = 'line_bg' } end,
+  left_sep = left_sect.left_sep,
+  right_sep = left_sect.right_sep,
+  enabled = function()
+    local ok, direnv = pcall(require, 'direnv')
+    if not ok then return false end
+    return direnv.statusline() ~= ''
+  end,
+  truncate_hide = true,
+})
+
 table.insert(active_left, {
   provider = left_sect.left_sep.str,
   hl = { fg = 'middle_bg', bg = 'separator_bg' },
