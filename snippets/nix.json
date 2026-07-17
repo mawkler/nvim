@@ -4,6 +4,16 @@
     "body": "$1: {$2};",
     "description": "function"
   },
+  "module": {
+    "prefix": "mod",
+    "body": [
+      "{ ${1:pkgs, }... }:",
+      "{",
+      "\t$2",
+      "}"
+    ],
+    "description": "module"
+  },
   "let ...; in": {
     "prefix": "let",
     "body": "let ${1:_} = ${2:_}; in",
