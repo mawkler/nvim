@@ -30,6 +30,11 @@ local function resize_window_when_line_added()
   })
 end
 
+local function submit()
+  vim.cmd('w')
+  vim.fn['firenvim#press_keys']('<CR>')
+end
+
 vim.g.firenvim_config = {
   localSettings = {
     ['.*'] = {
@@ -45,7 +50,9 @@ return {
   init = firenvim_config(function()
     resize_window_when_line_added()
 
-    vim.keymap.set({ 'n', 'i' }, '<C-CR>', '<cmd>x<CR>',   { desc = 'Save and quit' })
-    vim.keymap.set('n',          '<C-c>',  '<cmd>qa!<CR>', { desc = 'Quit without saving' })
+    local ni = { 'n', 'i' }
+    vim.keymap.set('n', '<C-c>',  '<cmd>qa!<CR>', { desc = 'Quit without saving' })
+    vim.keymap.set(ni,  '<C-CR>', '<cmd>x<CR>',   { desc = 'Save and quit' })
+    vim.keymap.set(ni,  '<M-CR>', submit,         { desc = 'Submit' })
   end)
 }
