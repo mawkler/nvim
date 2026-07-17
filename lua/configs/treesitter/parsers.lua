@@ -61,6 +61,7 @@ return {
   'json',
   'json5',
   'jsonnet',
+  'jsx',
   'julia',
   'just',
   'kconfig',
@@ -119,7 +120,6 @@ return {
   'sway',
   'templ',
   'terraform',
-  'tmux',
   'todotxt',
   'toml',
   'tsv',
@@ -136,7 +136,6 @@ return {
   'xml',
   'xresources',
   'yaml',
-  'zathurarc',
   'zig',
   -- keep-sorted end
 }
