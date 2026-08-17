@@ -34,7 +34,7 @@
             nil
             nixd
             vscode-json-languageserver
-            python312Packages.python-lsp-server
+            # python312Packages.python-lsp-server # NOTE 2026-10-05: tests fail on installation
             # rust-analyzer # having this installed seems to cause an issue with the devShell's rust-analyzer
             taplo
             tinymist
