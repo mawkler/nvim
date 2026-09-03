@@ -58,6 +58,7 @@ return {
     { 'rcarriga/nvim-notify' },
     { 'rafi/telescope-thesaurus.nvim' },
     { 'ThePrimeagen/git-worktree.nvim' },
+    { 'scottmckendry/pick-resession.nvim' },
   },
   cmd = 'Telescope',
   keys = {
@@ -202,8 +203,9 @@ return {
         spell_suggest             = cursor_picker,
       },
       extensions = {
-        sessions_picker = {
-          sessions_dir = vim.fn.stdpath('data') .. '/sessions/'
+        resession = {
+          prompt_title = 'Find Session',
+          dir = 'session',
         },
         cder = {
           previewer_command = cder_preview_cmed,
@@ -239,13 +241,21 @@ return {
       }
     }
 
-    telescope.load_extension('zoxide')
-    telescope.load_extension('fzf')
-    telescope.load_extension('frecency')
-    telescope.load_extension('notify')
-    telescope.load_extension('cder')
-    telescope.load_extension('git_worktree')
-    telescope.load_extension('fidget')
+    local function try_load(name)
+      local ok, err = pcall(telescope.load_extension, name)
+      if not ok then
+        vim.notify('Failed to load telescope extension ' .. name .. ': ' .. tostring(err), vim.log.levels.ERROR)
+      end
+    end
+
+    try_load('zoxide')
+    try_load('fzf')
+    try_load('frecency')
+    try_load('notify')
+    try_load('cder')
+    try_load('git_worktree')
+    try_load('fidget')
+    try_load('resession')
 
     -- Workaround for https://github.com/nvim-lua/plenary.nvim/pull/649
     vim.api.nvim_create_autocmd('User', {

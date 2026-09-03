@@ -101,7 +101,7 @@ local extra_plugins = {
   use 'markview',             -- Improved Markdown rendering
   use 'helpview',             -- Improved Helpdocs rendering
   use 'highlighturl',         -- Highlight URLs
-  use 'possession',           -- Session manager
+  use 'resession',            -- Session manager
   use 'copilot',              -- GitHub Copilot
   use 'leap-spooky',          -- Target text-objects with leap
   use 'winshift',             -- Improved window movement
