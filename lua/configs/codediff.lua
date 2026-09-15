@@ -37,6 +37,7 @@ return {
       view = {
         quit = '<C-c>',
         toggle_explorer = '`',
+        focus_explorer = '~',
         next_hunk = ']g',
         prev_hunk = '[g',
         next_file = '<c-j>',
