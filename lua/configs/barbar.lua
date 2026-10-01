@@ -14,8 +14,27 @@ return {
       exclude_ft = { 'qf', 'rest_nvim_result' },
       maximum_length = 60,
       hide = { extensions = true },
-      icons = { button = false },
+      icons = {
+        button = false,
+        pinned = { filename = true, button = '' },
+      },
     })
+
+    vim.api.nvim_create_user_command('BufferCloseAllButVisibleOrPinned', function()
+      local bdelete = require('barbar.bbye').bdelete
+      local buffer = require('barbar.buffer')
+      local render = require('barbar.ui.render')
+      local state = require('barbar.state')
+
+      local visible = buffer.activities.Visible
+      for _, buffer_number in ipairs(state.buffers) do
+        if not state.is_pinned(buffer_number) and buffer.get_activity(buffer_number) < visible then
+          bdelete(false, buffer_number)
+        end
+      end
+
+      render.update()
+    end, { desc = 'Close every buffer except those in visible windows or pinned' })
 
     map('n', '<M-w>',         '<cmd>BufferClose<CR>')
     map('n', '<M-W>',         '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
@@ -29,7 +48,8 @@ return {
     map('n', '<leader>bl', '<cmd>BufferOrderByLanguage<CR>')
     map('n', '<leader>bc', '<cmd>BufferClose<CR>')
     map('n', '<leader>br', '<cmd>BufferRestore<CR>')
-    map('n', '<leader>bo', '<cmd>BufferCloseAllButVisible<CR>')
+    map('n', '<leader>bo', '<cmd>BufferCloseAllButVisibleOrPinned<CR>')
+    map('n', '<leader>bp', '<cmd>BufferPin<CR>')
     -- Move to previous/next
     map('n', '<C-Tab>',         '<cmd>BufferNext<CR>')
     map('n', '<C-S-Tab>',       '<cmd>BufferPrevious<CR>')
