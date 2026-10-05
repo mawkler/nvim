@@ -169,7 +169,6 @@ return {
           },
         },
       },
-      hyprls = {},
       roc_ls = {},
       fish_lsp = {},
       just = {},
