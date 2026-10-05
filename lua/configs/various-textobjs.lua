@@ -7,14 +7,17 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   group = augroup,
   callback = function(event)
-    local function map(lhs, rhs)
-      vim.keymap.set({ 'o', 'x' }, lhs, rhs, { buffer = event.buf })
+    -- Queries are defined in `queries/markdown{,_inline}/textobjects.scm`
+    local function map(lhs, query)
+      vim.keymap.set({ 'o', 'x' }, lhs, function()
+        require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
+      end, { buffer = event.buf })
     end
 
-    map('iX', function() require('various-textobjs').mdLink('inner') end)
-    map('aX', function() require('various-textobjs').mdLink('outer') end)
-    map('ic', function() require('various-textobjs').mdFencedCodeBlock('inner') end)
-    map('ac', function() require('various-textobjs').mdFencedCodeBlock('outer') end)
+    map('iX', '@mdlink.inner')
+    map('aX', '@mdlink.outer')
+    map('ic', '@codeblock.inner')
+    map('ac', '@codeblock.outer')
   end,
 })
 
@@ -24,6 +27,7 @@ return {
   config = function()
     local map = require('utils').map
     local various_textobjs = require('various-textobjs')
+    local ts_select = require('nvim-treesitter-textobjects.select')
 
     various_textobjs.setup({
       textobjs = {
@@ -53,8 +57,8 @@ return {
           'aS', -- Replaced with a-
           'in', -- Disabled, use treesitter's iN, instead
           'an', -- Disabled, use treesitter's aN, instead
-          'ie', -- Remapped to iE
-          'ae', -- Remapped to aE
+          'ie', -- Disabled (deprecated)
+          'ae', -- Disabled (deprecated)
           'n',  -- Disabled
           'iz', -- Remapped to iZ
           'az', -- Remapped to aZ
@@ -72,12 +76,10 @@ return {
     map(ox, 'aL', function() return various_textobjs.lineCharacterwise('outer') end, 'Line')
     map(ox, 'ix', various_textobjs.url,                                              'URL')
     map(ox, 'id', various_textobjs.diagnostic,                                       'Diagnostic')
-    map(ox, 'iX', function() return various_textobjs.htmlAttribute('inner') end,     'HTML attribute')
-    map(ox, 'aX', function() return various_textobjs.htmlAttribute('outer') end,     'HTML attribute')
+    map(ox, 'iX', function() ts_select.select_textobject('@attribute.inner', 'textobjects') end, 'HTML attribute')
+    map(ox, 'aX', function() ts_select.select_textobject('@attribute.outer', 'textobjects') end, 'HTML attribute')
     map(ox, 'i-', function() return various_textobjs.subword('inner') end,           'Inside subword')
     map(ox, 'a-', function() return various_textobjs.subword('outer') end,           'Aroun subword')
-    map(ox, 'iE', function() return various_textobjs.mdEmphasis('inner') end,        'Markdown emphasis')
-    map(ox, 'aE', function() return various_textobjs.mdEmphasis('outer') end,        'Markdown emphasis')
     map(ox, ']}', function() return various_textobjs.toNextClosingBracket() end,     'To next closing bracket')
     map(ox, '[{', function() return various_textobjs.toNextClosingBracket() end,     'To previous closing bracket')
 
