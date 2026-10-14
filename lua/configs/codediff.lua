@@ -3,17 +3,8 @@
 --------------
 return {
   'esmuellert/codediff.nvim',
-  dependencies = 'MunifTanjim/nui.nvim',
   cmd = 'CodeDiff',
   keys = {
-    'gc<',
-    'gc>',
-    'gcb',
-    'gcx',
-    ']x',
-    '[x',
-    '2do',
-    '3do',
     { '<leader>gd',  '<cmd>CodeDiff<CR>' },
     { '<leader>gH',  '<cmd>CodeDiff history<CR>' },
     { '<leader>gfH', '<cmd>CodeDiff history %<CR>' },
@@ -21,7 +12,7 @@ return {
   opts = {
     diff = {
       disable_inlay_hints = false,
-      hide_merge_artifacts = true,
+      hide_merge_artifacts = false,
       jump_to_first_change = false,
       compact = true,
     },
@@ -51,14 +42,14 @@ return {
         select = '<space>',
       },
       conflict = {
-        accept_incoming = 'gc<', -- Accept incoming (theirs/left) change
-        accept_current = 'gc>',  -- Accept current (ours/right) change
-        accept_both = 'gcb',
-        discard = 'gcx',
-        next_conflict = ']x',
-        prev_conflict = '[x',
-        diffget_incoming = '2do',
-        diffget_current = '3do',
+        accept_incoming = '<', -- Accept incoming (theirs/left) change
+        accept_current = '>',  -- Accept current (ours/right) change
+        diffget_incoming = '<',
+        diffget_current = '>',
+        accept_both = 'b',
+        discard = 'x',
+        next_conflict = ']',
+        prev_conflict = '[',
       },
     },
   },
