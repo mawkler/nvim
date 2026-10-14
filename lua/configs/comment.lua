@@ -9,7 +9,6 @@ return {
     { 'cm',         '<Plug>(comment_toggle_linewise_current)' },
     { '<leader>c',  '<Plug>(comment_toggle_linewise)' },
     { '<leader>c',  '<Plug>(comment_toggle_linewise_visual)',  mode = 'x' },
-    { '<leader>C',  '<Plug>(comment_toggle_linewise)$' },
     { '<leader>cB', '<Plug>(comment_toggle_blockwise)$' },
     { '<leader>cb', '<Plug>(comment_toggle_blockwise)' },
     { '<leader>b',  '<Plug>(comment_toggle_blockwise_visual)', mode = 'x' },

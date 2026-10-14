@@ -103,6 +103,7 @@ local extra_plugins = {
   use 'highlighturl',         -- Highlight URLs
   use 'resession',            -- Session manager
   use 'copilot',              -- GitHub Copilot
+  use 'claudecode',           -- Claude Code IDE integration
   use 'leap-spooky',          -- Target text-objects with leap
   use 'winshift',             -- Improved window movement
   use 'notify',               -- Floating notifications popups
