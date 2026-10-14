@@ -80,8 +80,7 @@ return {
     resession.setup({
       autosave = {
         enabled = true,
-        interval = 60,
-        notify = true,
+        notify = false,
       },
       buf_filter = function(bufnr)
         local filetype = vim.bo[bufnr].filetype
