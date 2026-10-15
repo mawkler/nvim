@@ -8,6 +8,7 @@
   "blame.nvim": { "branch": "main", "commit": "179da7aaacce7c52874af636255ede72dd6fe796" },
   "blink-cmp-git": { "branch": "master", "commit": "d3f2a9067ab028e779d08e61bf0b054939011316" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
+  "brygga.nvim": { "branch": "main", "commit": "7392fd4fe113d0c86a85d93b487f6df7e714e491" },
   "capslock.nvim": { "branch": "main", "commit": "c921f67475748d786819bc1fbe002f0fd67b80e2" },
   "catppuccin": { "branch": "main", "commit": "edefef779ab08ce1a4a404713e3012b0d202bd35" },
   "cder.nvim": { "branch": "main", "commit": "0a071389bb52544ac9cf9557378aa1212dff6982" },
