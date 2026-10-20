@@ -6,7 +6,7 @@ return {
   version = '*',
   event = 'VeryLazy',
   keys = {
-    { '<leader>C', '<cmd>Brygga send<CR>', mode = 'x', { desc = 'Send selection to Claude' } },
+    { '<leader>C', ':Brygga send<CR>', mode = { 'n', 'x' }, { desc = 'Send selection to Claude' } },
   },
   opts = {},
 }
