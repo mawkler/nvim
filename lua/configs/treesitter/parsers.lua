@@ -1,4 +1,6 @@
 return {
+  -- `csv` and `tsv` are handled by `../csv.lua`
+
   -- keep-sorted start
   'awk',
   'bash',
@@ -12,7 +14,6 @@ return {
   'commonlisp',
   'cpp',
   'css',
-  'csv',
   'desktop',
   'diff',
   'dockerfile',
@@ -122,7 +123,6 @@ return {
   'terraform',
   'todotxt',
   'toml',
-  'tsv',
   'tsx',
   'typescript',
   'typst',

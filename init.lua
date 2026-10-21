@@ -66,7 +66,7 @@ local extra_plugins = {
   use 'nvim-tree',            -- File explorer
   use 'neoscroll',            -- Smooth scrolling animations
   use 'feline',               -- Statusline framework
-  use 'dropbar',              -- Breadcrumbs
+  use 'dropbar',              -- Breadcrumbs at the top of the screen
   use 'fidget',               -- LSP progress indicator
   use 'mason',                -- LSP/DAP/etc. package manager
   use 'mason-tool-installer', -- Auto-install list of mason binaries
@@ -115,7 +115,7 @@ local extra_plugins = {
   use 'neogit',               -- Git wrapper
   use 'blame',                -- Git blame file
   use 'template-string',      -- Automatic template string
-  use 'csv',                  -- CSV highlighting, etc.
+  use 'csv',                  -- Improved CSV file viewing/editing
   use 'refjump',              -- Jump to next/previous reference
   use 'jsx-element',          -- JSX/TSX text-objects and motions
   use 'octo',                 -- GitHub client

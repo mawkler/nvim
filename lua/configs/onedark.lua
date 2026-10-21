@@ -240,6 +240,10 @@ return {
           -- Dropbar
           DropBarIconUISeparator = { fg = c.fg_dark },
 
+          -- Csvview
+          CsvViewDelimiter             = { link = 'Comment' },
+          CsvViewStickyHeaderSeparator = { link = 'Comment' },
+
           -- Rust
           ['@keyword.modifier.rust'] = { fg = c.purple0 },
 

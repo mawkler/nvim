@@ -1,15 +1,37 @@
 ---------
 -- CSV --
 ---------
-return {
-  'chrisbra/csv.vim',
-  ft = 'csv',
-  init = function()
-    vim.g.csv_default_delim = '\t'
-    local disabled_mappings = { 'e', 'l', 'h' }
+local filetypes = { 'csv', 'tsv' }
 
-    for _, map in pairs(disabled_mappings) do
-      vim.g['csv_nomap_' .. map] = 1
-    end
+return {
+  'hat0uma/csvview.nvim',
+  ft = filetypes,
+  cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
+  config = function()
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = filetypes,
+      callback = function()
+        vim.cmd.CsvViewEnable()
+      end,
+    })
+
+    local ox, nx = { 'o', 'x' }, { 'n', 'x' }
+
+    require('csvview').setup({
+      parser = {
+        comments = { '#', '//' },
+      },
+      view = {
+        display_mode = 'border',
+      },
+      keymaps = {
+        textobject_field_inner = { 'ic', mode = ox },
+        textobject_field_outer = { 'ac', mode = ox },
+        jump_next_field_end = { '}', mode = nx },
+        jump_prev_field_end = { '{', mode = nx },
+      }
+    })
+
+    vim.keymap.set('n', '<leader>lm', '<cmd>CsvViewToggle<CR>')
   end
 }
