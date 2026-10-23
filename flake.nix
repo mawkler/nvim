@@ -21,7 +21,6 @@
 
             # Language servers
             bash-language-server
-            bicep-lsp
             fish-lsp
             gopls
             just-lsp

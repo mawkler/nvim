@@ -115,10 +115,6 @@ return {
           },
         },
       },
-      -- Bicep --
-      bicep = {
-        cmd = { 'bicep-lsp' }
-      },
       tinymist = {
         on_attach = function()
           map('n', '<leader>lw', '<cmd>TypstWatch<CR>', 'Watch file')
