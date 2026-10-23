@@ -11,7 +11,7 @@ return {
   opts = {
     keys = {
       global = {
-        quit = { 'q', '<C-c>' },
+        quit = { '<C-c>' },
         accept = { 'c', '<C-s>' },
         focus_tree = { '`' },
       },
