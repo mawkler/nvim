@@ -13,6 +13,13 @@ return {
       assist = {
         preferSelf = true,
       },
+      workspace = {
+        symbol = {
+          search = {
+            excludeImports = true,
+          },
+        },
+      },
       completion = {
         snippets = {
           custom = {
