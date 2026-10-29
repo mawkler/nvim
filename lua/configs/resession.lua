@@ -66,6 +66,7 @@ end
 
 return {
   'stevearc/resession.nvim',
+  dependencies = 'romgrk/barbar.nvim', -- Provides the `barbar` extension
   lazy = true,
   event = 'VimLeavePre',
   keys = {
@@ -97,6 +98,7 @@ return {
       end,
       extensions = {
         quickfix = {},
+        barbar = {}, -- Buffer order and pinned buffers
       },
     })
 
