@@ -293,8 +293,9 @@ return {
       map('n', '<leader>tS', telescope.lsp_workspace_symbols,         'LSP workspace symbols')
       map('n', '<leader>tw', telescope.lsp_dynamic_workspace_symbols, 'LSP dynamic workspace symbols')
 
-      map('n', 'gr',      lsp_references(),         'LSP references')
-      map('n', '<C-w>gr', lsp_references('vsplit'), 'LSP references (in new window if only one match)')
+      map('n', 'gr',      lsp_references(),             'LSP references')
+      map('n', '<C-w>gr', lsp_references('vsplit'),     'LSP references (in new window if only one match)')
+      map('n', 'gR',      telescope.lsp_incoming_calls, 'LSP incoming calls')
 
       map('n', 'gs',        lsp.buf.signature_help, 'LSP signature help')
       map(is,  '<M-s>',     lsp.buf.signature_help, 'LSP signature help')
