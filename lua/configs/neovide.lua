@@ -8,6 +8,10 @@ if vim.fn.exists('g:neovide') == 1 then
   g.neovide_cursor_animate_command_line = true
   g.neovide_opacity = 0.96
 
+  -- Show the current working directory as the window title
+  vim.o.title = true
+  vim.o.titlestring = "%{fnamemodify(getcwd(), ':~')}"
+
   -- Progress bar
   g.neovide_progress_bar_enabled = true
   g.neovide_progress_bar_height = 2.0
