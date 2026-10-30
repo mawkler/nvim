@@ -171,6 +171,7 @@ table.insert(active_left, {
   provider = function()
     if vim.v.hlsearch == 0 then return '' end
     local res = vim.fn.searchcount({ maxcount = 999, timeout = 250 })
+    if vim.tbl_isempty(res) then return '' end -- No previous search pattern
     if res.total == 0 then return 'not found' end
     return ('%d/%d'):format(res.current, math.min(res.total, res.maxcount))
   end,
