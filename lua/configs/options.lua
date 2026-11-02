@@ -45,16 +45,24 @@ o.encoding   = 'utf-8'
 o.shada      = "!,'2000,<50,s10,h"
 
 -- Command line mode --
-o.wildignorecase = true -- Case insensitive file/directory completion
-opt.path:append('**')   -- Lets `find` search recursively into subfolders
-o.cedit     = '<C-y>'   -- Enter Command-line Mode from command-mode
-o.cmdheight = 0         -- Don't show command-line by default
+o.wildignorecase = true    -- Case insensitive file/directory completion
+o.cedit          = '<C-y>' -- Enter Command-line Mode from command-mode
+o.cmdheight      = 0       -- Don't show command-line by default
 
 -- Searching --
 o.ignorecase = true -- Case insensitive searching
 o.smartcase  = true -- Except for when searching in CAPS
 -- Disabled until https://github.com/neovide/neovide/issues/1947 gets fixed
 -- o.inccommand = 'split' -- Show preview window when doing :substitute
+
+-- Search recursively with `find` using `fd` instead of adding `**` to 'path',
+-- since that makes `gf` on non-existent files really slow
+function _G.fd_find(cmdarg, _)
+  local files = vim.fn.systemlist({ 'fd', '--type', 'file', '--hidden', '--exclude', '.git' })
+  return cmdarg == '' and files or vim.fn.matchfuzzy(files, cmdarg)
+end
+
+o.findfunc = 'v:lua.fd_find'
 
 -- Lines and cursor --
 o.number         = true
