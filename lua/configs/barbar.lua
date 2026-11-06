@@ -36,9 +36,18 @@ return {
       render.update()
     end, { desc = 'Close every buffer except those in visible windows or pinned' })
 
+    -- Close the window, and also the buffer unless it's displayed in another window
+    local function close_buffer_and_window()
+      if #vim.fn.win_findbuf(vim.api.nvim_get_current_buf()) <= 1 then
+        vim.cmd.BufferClose()
+      end
+      -- Fails with E444 if this is the last window
+      pcall(vim.cmd.wincmd, 'c')
+    end
+
     map('n', '<M-w>',         '<cmd>BufferClose<CR>')
-    map('n', '<M-W>',         '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
-    map('n', '<leader>bC',    '<cmd>BufferClose<CR><cmd>wincmd c<CR>')
+    map('n', '<M-W>',         close_buffer_and_window)
+    map('n', '<leader>bC',    close_buffer_and_window)
     map('n', '<leader><M-w>', '<cmd>BufferClose!<CR>')
     -- Buffer-picking mode
     map('n', '<C-Space>',  '<cmd>BufferPick<CR>')
