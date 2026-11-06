@@ -261,13 +261,13 @@ return {
       return function()
         utils.clear_lsp_references()
 
-        local method = 'textDocument/documentHighlight'
-        if #lsp.get_clients({ method = method }) > 0 then
-          lsp.buf.document_highlight()
-        end
-
         local opts = { include_declaration = false, jump_type = jump_type }
         require('telescope.builtin')['lsp_' .. picker](opts)
+
+        local document_highlight = 'textDocument/documentHighlight'
+        if #lsp.get_clients({ method = document_highlight }) > 0 then
+          lsp.buf.document_highlight()
+        end
       end
     end
 
