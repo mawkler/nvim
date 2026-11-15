@@ -36,7 +36,7 @@
             # rust-analyzer # having this installed seems to cause an issue with the devShell's rust-analyzer
             taplo
             tinymist
-            typescript-language-server
+            typescript
             typos-lsp
             vim-language-server
             vscode-extensions.dbaeumer.vscode-eslint

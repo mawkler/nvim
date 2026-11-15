@@ -96,6 +96,60 @@ return {
           })
         end,
       },
+      -- TypeScript (TypeScript 7's built-in language server) --
+      tsc = {
+        on_attach = function(client, bufnr)
+          local buf_map = utils.local_map(bufnr)
+
+          -- Disable formatting (use prettier instead, see `conform.lua`)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+
+          ---@param kind string
+          local function source_action(kind)
+            return function()
+              lsp.buf.code_action({
+                apply = true,
+                context = { only = { kind }, diagnostics = {} },
+                filter = function(_, client_id) return client_id == client.id end,
+              })
+            end
+          end
+
+          local function spread(char)
+            return function()
+              utils.feedkeys('siw' .. char .. '%' .. 'i...<Esc>Ea, ', 'm')
+            end
+          end
+
+          local organize_imports = source_action('source.organizeImports')
+          local fix_all = source_action('source.fixAll')
+          local remove_unused_imports = source_action('source.removeUnusedImports')
+
+          -- TypeScript 7 has no "add missing imports" action, but its "fix all" adds them
+          buf_map('n', '<leader>lo', organize_imports,                    'LSP Organize imports')
+          buf_map('n', '<leader>li', fix_all,                             'LSP add missing imports')
+          buf_map('n', '<leader>lf', fix_all,                             'LSP fix all errors')
+          buf_map('n', '<leader>lu', remove_unused_imports,               'LSP remove unused imports')
+          buf_map('n', '<leader>lc', function() require('tsc').run() end, 'Type check project')
+          buf_map('n', '<leader>ls', spread('{'), {
+            remap = true,
+            buffer = bufnr,
+            desc = 'Spread object under cursor'
+          })
+          buf_map('n', '<leader>lS', spread('['), {
+            remap = true,
+            buffer = bufnr,
+            desc = 'Spread array under cursor'
+          })
+
+          -- Pretty errors
+          buf_map('n', '<leader>E', '<cmd>fclose!<CR><cmd>PrettyTsError<CR>', 'Show TS error')
+          buf_map('n', '<leader>le', function()
+            require('pretty-ts-errors').open_all_errors()
+          end, 'Show all TS errors')
+        end,
+      },
       -- Bash/Zsh --
       bashls = {
         settings = {
@@ -207,7 +261,7 @@ return {
     }
 
     -- These have their own plugins that enable them
-    local special_server_configs = { 'ts_ls', 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
+    local special_server_configs = { 'zk', 'rust_analyzer', 'gopls', 'nextls', 'elixirls' }
 
     -----------------------
     -- Configure servers --
@@ -238,7 +292,9 @@ return {
       ensure_installed = not utils.is_nixos() and ensure_installed or {},
       -- TODO: perhaps this can be removed to only use the chunk below
       automatic_enable = {
-        exclude = special_server_configs,
+        -- Mason may still have `ts_ls` installed from when typescript-tools.nvim
+        -- needed it, but `tsc` replaces it
+        exclude = vim.list_extend({ 'ts_ls' }, special_server_configs),
       },
     })
 

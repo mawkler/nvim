@@ -76,7 +76,7 @@ local extra_plugins = {
   use 'elixir',               -- Elixir LSP setup
   use 'tiny-code-action',     -- Predictable LSP code actions
   use 'java',                 -- Java LSP setup
-  use 'typescript',           -- TypeScript LSP client wrapper
+  use 'typescript',           -- TypeScript error formatting
   use 'tsc',                  -- TypeScript type checking
   use 'namu',                 -- LSP symbol navigator
   use 'ltex',                 -- LTeX utils
