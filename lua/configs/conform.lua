@@ -8,7 +8,13 @@ return {
     local b = vim.b
 
     local function prettier_formatters()
-      local prettier_config = { 'prettierd', 'prettier', stop_after_first = true }
+      -- `stop_after_first` would also stop the formatters in `['*']` from running
+      local function prettier_config(bufnr)
+        if require('conform').get_formatter_info('prettierd', bufnr).available then
+          return { 'prettierd' }
+        end
+        return { 'prettier' }
+      end
       -- JSON is excluded from here since ts_ls does a better job than prettier
       local prettier_filetypes = {
         'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue',
