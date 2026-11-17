@@ -13,6 +13,20 @@ local show_snippets = function(cmp)
   cmp.show({ providers = { 'snippets' } })
 end
 
+local menu_max_height = 25
+
+-- tiny-cmdline anchors the menu to the bottom border of its popup, so anchor
+-- it to the top border (0-indexed) instead when the menu opens above
+local function cmdline_anchor()
+  local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed bottom border, set by tiny-cmdline
+  if vim.api.nvim_get_mode().mode ~= 'c' or pos == nil then return end
+  local top = vim.api.nvim_win_get_config(require('vim._core.ui2').wins.cmd).row
+  local below = math.min(vim.o.lines - pos[1], menu_max_height)
+  local above = math.min(top, menu_max_height)
+  if below >= above then return 's', { pos[1] - 1, pos[2] } end
+  return 'n', { top, pos[2] }
+end
+
 return {
   'saghen/blink.cmp',
   dependencies = {
@@ -83,8 +97,20 @@ return {
       },
       completion = {
         menu = {
-          max_height = 25,
+          max_height = menu_max_height,
           border = 'none',
+          -- LuaLS misparses blink.cmp's `fun(): ("n" | "s")[]` annotation
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          direction_priority = function()
+            local direction = cmdline_anchor()
+            return direction and { direction } or { 's', 'n' }
+          end,
+          cmdline_position = function()
+            local _, anchor = cmdline_anchor()
+            if anchor then return anchor end
+            local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+            return { vim.o.lines - height, 0 }
+          end,
           draw = {
             columns = { { 'kind_icon' }, { 'label', gap = 1 } },
             components = {
