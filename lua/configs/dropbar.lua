@@ -4,6 +4,7 @@ return {
   config = function()
     local api = require('dropbar.api')
     local dropbar_icons = require('dropbar.configs').opts.icons.kinds
+    local default_enable = require('dropbar.configs').opts.bar.enable
 
     local function hl_exists(name)
       local hl = vim.api.nvim_get_hl(0, { name = name })
@@ -50,6 +51,13 @@ return {
     end
 
     require('dropbar').setup({
+      bar = {
+        -- Adding a winbar to a window that scrolls in sync with others shifts
+        -- its rows out of line with theirs (e.g. on save in CodeDiff)
+        enable = function(buf, win, info)
+          return not vim.wo[win].scrollbind and default_enable(buf, win, info)
+        end,
+      },
       icons = {
         kinds = {
           dir_icon = function(_)
