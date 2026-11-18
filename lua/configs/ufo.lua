@@ -2,7 +2,9 @@
 -- nvim-ufo --
 --------------
 return {
-  'kevinhwang91/nvim-ufo',
+  -- Until https://github.com/kevinhwang91/nvim-ufo/pull/327 has been merged
+  'mawkler/nvim-ufo',
+  branch = 'fix-close-fold-kinds-multiple-windows',
   dependencies = 'kevinhwang91/promise-async',
   config = function()
     local ufo = require('ufo')
