@@ -74,11 +74,8 @@ return {
       -- Neovide doesn't support Kitty graphics yet
       connector_renderer = vim.fn.exists('g:neovide') == 1 and 'cells' or nil,
       theme = {
-        -- Use the colorscheme's `DiffAdd`/`DiffDelete` even if they're subtle
+        -- Use the colorscheme's diff colors even if they're subtle
         min_background_delta = 0,
-        colors = {
-          change = '#253344', -- diffbandit's own gray-blue
-        },
       },
     }
   },

@@ -73,6 +73,9 @@ return {
           LspCodeLens          = { link = 'InlineHint' },
           LspCodeLensSeparator = { link = 'LspCodeLens' },
 
+          -- Diff
+          DiffChange = { bg = '#253344' }, -- Gray-blue (diffbandit's default)
+
           -- Quickfix
           qfLineNr = { fg = c.fg_gutter },
 
