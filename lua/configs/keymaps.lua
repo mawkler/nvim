@@ -183,11 +183,17 @@ map('n', '<Esc>', function()
     return lifecycle.get_session(vim.api.nvim_get_current_tabpage()) ~= nil
   end
 
+  local function diffbandit_is_active()
+    -- `package.loaded` instead of `require` to not trigger lazy loading
+    local diffbandit = package.loaded['diffbandit']
+    return diffbandit ~= nil and diffbandit.is_running({ panel = true })
+  end
+
   if vim.v.hlsearch == 1 then
     vim.cmd.nohlsearch()
   elseif bo.modifiable then
     utils.clear_lsp_references()
-  elseif #vim.api.nvim_list_wins() > 1 and not codediff_is_active() then
+  elseif #vim.api.nvim_list_wins() > 1 and not codediff_is_active() and not diffbandit_is_active() then
     return feedkeys('<C-w>c')
   end
 

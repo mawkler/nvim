@@ -38,7 +38,7 @@ local plugins = {
   use 'ai',                     -- next/previous text objects
   use 'hlsearch',               -- Auto remove search highlights
   use 'substitute',             -- Replace/exchange operators
-  use 'codediff',               -- Git diff and file history
+  use 'diffbandit',             -- Git diff and file history
   use 'hunk',                   -- For splitting jj changes
   use 'leap',                   -- Move cursor anywhere
   use 'modicator',              -- Line number mode indicator
