@@ -4,11 +4,11 @@
 return {
   'esmuellert/codediff.nvim',
   cmd = 'CodeDiff',
-  keys = {
-    { '<leader>gd',  '<cmd>CodeDiff<CR>' },
-    { '<leader>gH',  '<cmd>CodeDiff history<CR>' },
-    { '<leader>gfH', '<cmd>CodeDiff history %<CR>' },
-  },
+  -- keys = {
+  --   { '<leader>gd',  '<cmd>CodeDiff<CR>' },
+  --   { '<leader>gH',  '<cmd>CodeDiff history<CR>' },
+  --   { '<leader>gfH', '<cmd>CodeDiff history %<CR>' },
+  -- },
   opts = {
     diff = {
       disable_inlay_hints = false,
@@ -48,8 +48,8 @@ return {
         diffget_current = '>',
         accept_both = 'b',
         discard = 'x',
-        next_conflict = ']c',
-        prev_conflict = '[c',
+        next_conflict = ']x',
+        prev_conflict = '[x',
       },
     },
   },
