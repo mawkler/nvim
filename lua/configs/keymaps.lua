@@ -153,6 +153,12 @@ map('n', '<leader><C-t>', function()
   bo.bufhidden = 'delete'
   feedkeys('<C-t>')
 end, 'Delete buffer and pop jump stack')
+map('n', '<M-t>', function()
+  if #fn.win_findbuf(fn.bufnr()) == 1 then bo.bufhidden = 'delete' end
+  if fn.winnr('$') == 1 then return feedkeys('<C-t>') end
+  -- The window we split from is still at the tag's origin, no need to jump
+  vim.cmd.close()
+end, 'Close window, delete buffer and pop tag stack')
 map('n', '<leader>N', function()
   o.relativenumber = not o.relativenumber
   vim.notify('Relative line numbers ' .. (o.relativenumber and 'enabled' or 'disabled'))
