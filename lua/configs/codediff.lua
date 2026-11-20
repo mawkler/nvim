@@ -53,4 +53,22 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require('codediff').setup(opts)
+
+    -- Write all buffers with <C-s> while resolving conflicts
+    local conflict = require('codediff.ui.conflict')
+    local lifecycle = require('codediff.ui.lifecycle')
+    local setup_keymaps = conflict.setup_keymaps
+    conflict.setup_keymaps = function(tabpage)
+      setup_keymaps(tabpage)
+      local session = lifecycle.get_session(tabpage)
+      if not session then return end
+      lifecycle.begin_keymap_scope(tabpage, 'wall')
+      for _, bufnr in ipairs { session.original_bufnr, session.modified_bufnr, session.result_bufnr } do
+        lifecycle.set_buf_keymap(tabpage, bufnr, 'n', '<C-s>', '<Cmd>silent wall<CR>', { desc = 'Write all buffers' })
+      end
+      lifecycle.end_keymap_scope(tabpage, 'wall')
+    end
+  end,
 }
