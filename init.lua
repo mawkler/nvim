@@ -134,7 +134,6 @@ local extra_plugins = {
   use 'change-function',      -- Change function arguments order
   use 'ghostty',              -- Ghostty config tools
   use 'minty',                -- Color picker
-  use 'rustowl',              -- Rust lifetime visualization
 
   -- Oneliner installs
   { 'kana/vim-niceblock',  event = 'ModeChanged *:[vV]' }, -- Improves visual mode
