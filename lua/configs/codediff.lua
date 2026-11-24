@@ -56,6 +56,12 @@ return {
   config = function(_, opts)
     require('codediff').setup(opts)
 
+    -- Hide virtual codediff:// buffers from the buffer list (and thus barbar)
+    vim.api.nvim_create_autocmd('BufWinEnter', {
+      pattern = 'codediff://*',
+      callback = function(args) vim.bo[args.buf].buflisted = false end,
+    })
+
     -- Write all buffers with <C-s> while resolving conflicts
     local conflict = require('codediff.ui.conflict')
     local lifecycle = require('codediff.ui.lifecycle')
