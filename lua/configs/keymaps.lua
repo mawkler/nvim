@@ -224,7 +224,6 @@ map(nx, '<C-e>', '5<C-e>')
 vim.api.nvim_create_augroup('CmdWinMaps', {})
 vim.api.nvim_create_autocmd('CmdwinEnter', {
   callback = function()
-    map('n', '<CR>',  '<CR>',   { buffer = true })
     map('n', '<Esc>', '<C-w>c', { buffer = true })
   end,
   group = 'CmdWinMaps'

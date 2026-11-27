@@ -19,7 +19,10 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Check if any file has changed when Neovim is focused
 vim.api.nvim_create_autocmd('FocusGained', {
-  command = 'checktime',
+  callback = function()
+    -- `:checktime` is not allowed in the command-line window (E11)
+    if fn.getcmdwintype() == '' then vim.cmd.checktime() end
+  end,
   group = 'GeneralAutocmds'
 })
 
